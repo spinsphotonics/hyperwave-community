@@ -270,8 +270,8 @@ def quick_view_monitors(results: Dict[str, Any], component: str = 'Hz', cmap: st
         print("Matplotlib not available for visualization")
         return
 
-    for name, idx in results['monitor_names'].items():
-        monitor_data = results['monitor_data'][idx]
+    for name in results['monitor_data'].keys():
+        monitor_data = results['monitor_data'][name]
 
         # Extract first frequency
         if component in ['Ex', 'Ey', 'Ez', 'Hx', 'Hy', 'Hz']:
