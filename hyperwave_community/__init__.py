@@ -52,7 +52,6 @@ __version__ = "0.1.0"
 from .structure import (
     density,
     create_structure,
-    view_density,
     view_structure,
     Layer,
     Structure,
@@ -117,7 +116,6 @@ __all__ = [
     # Structure
     "density",
     "create_structure",
-    "view_density",
     "view_structure",
     "Layer",
     "Structure",
