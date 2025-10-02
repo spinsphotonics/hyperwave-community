@@ -27,13 +27,14 @@ pip install -e .
 
 ## Quick Start
 
-### 1. Configure API Access
+### 1. Get Your API Key
 
 ```python
 import hyperwave_community as hwc
 
-# API access configuration will be added here
-# Get your API key at: https://spinsphotonics.com/dashboard (coming soon)
+# Get your API key at: https://spinsphotonics.com/dashboard
+# You'll pass the API key directly to the simulate() function
+api_key = "your-api-key-here"
 ```
 
 ### 2. Create Theta (Design Pattern)
@@ -171,7 +172,8 @@ results = hwc.simulate(
     source_ramp_periods=5.0,
     add_absorption=True,
     absorption_widths=(70, 35, 17),
-    absorption_coeff=4.89e-3
+    absorption_coeff=4.89e-3,
+    api_key=api_key  # Pass your API key here
 )
 
 print(f"GPU time: {results['sim_time']:.2f}s")
@@ -260,10 +262,9 @@ Coming soon:
 - `gds_to_theta(gds_filepath, ...)` - Import GDS file to theta array
 - `component_to_theta(component, ...)` - Convert gdsfactory component to theta
 
-### API
-- `configure_api(api_key, api_url)` - Set API credentials
-- `simulate(structure, source_field, ...)` - Run FDTD simulation
-- `generate_gaussian_source(structure_shape, ...)` - Generate Gaussian source
+### Simulation
+- `simulate(structure, source_field, ..., api_key=None)` - Run FDTD simulation on GPU via API
+- `generate_gaussian_source(structure_shape, ..., api_key=None)` - Generate Gaussian source via API
 
 ## Requirements
 
