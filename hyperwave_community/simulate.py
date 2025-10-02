@@ -12,7 +12,238 @@ import jax.numpy as jnp
 import requests
 from typing import Dict, Any, Tuple, Optional
 
-from .api_client import _get_api_config, encode_array, decode_array
+from .api_client import encode_array, decode_array
+
+
+def simulate(
+    structure,
+    source_field: jnp.ndarray,
+    source_offset: Tuple[int, int, int],
+    freq_band: Tuple[float, float, int],
+    monitors,
+    mode_info: Optional[Dict] = None,
+    max_steps: int = 10000,
+    check_every_n: int = 1000,
+    source_ramp_periods: float = 5.0,
+    add_absorption: bool = True,
+    absorption_widths: Tuple[int, int, int] = (70, 35, 17),
+    absorption_coeff: float = 4.89e-3,
+    gpu_type: str = "H100",
+    api_key: Optional[str] = None,
+) -> Dict[str, Any]:
+    """Run FDTD simulation on GPU via API.
+
+    Submits structure, source, and monitors to remote GPU server for FDTD simulation.
+    Returns field data at monitor locations, convergence information, and power analysis.
+
+    Args:
+        structure: Structure object with permittivity and conductivity.
+        source_field: Source field array, shape (num_freqs, 6, x, y, z).
+        source_offset: Corner position (x, y, z) for source placement.
+        freq_band: Frequency specification as (min, max, num_points).
+        monitors: MonitorSet object containing field monitors.
+        mode_info: Optional dictionary with mode information (beta, field, error).
+        max_steps: Maximum FDTD time steps.
+        check_every_n: Convergence check interval (in time steps).
+        source_ramp_periods: Number of periods for source turn-on.
+        add_absorption: If True, add PML absorption boundaries on GPU.
+        absorption_widths: PML widths as (x_width, y_width, z_width) in pixels.
+        absorption_coeff: PML absorption coefficient.
+        gpu_type: GPU type to use (H100, A100, A10G, L4).
+        api_key: API key (overrides configured key).
+
+    Returns:
+        Dictionary containing:
+            - monitor_data: Dict mapping monitor names to field arrays
+            - monitor_names: Dict mapping names to indices
+            - convergence: Tuple of (steps, errors)
+            - performance: Grid-points × steps per second
+            - powers: Dict of power values per monitor
+            - transmissions: Dict of transmission values
+            - sim_time: GPU simulation time in seconds
+            - gpu_type: GPU type used
+
+    Raises:
+        RuntimeError: If API call fails.
+        ConnectionError: If cannot connect to API endpoint.
+
+    Note:
+        Typical execution time:
+        - Cold start (first request): ~60-70 seconds (includes container startup)
+        - Warm (subsequent): ~25-30 seconds (GPU compute only)
+        - Large structures may take longer
+
+    Example:
+        >>> import hyperwave_community as hwc
+        >>> # Setup
+        >>> structure = hwc.create_structure(layers=[...])
+        >>> source, offset, _ = hwc.create_mode_source(...)
+        >>> monitors = hwc.MonitorSet()
+        >>> monitors.add_monitors_at_position(structure, axis='x', position=100)
+        >>>
+        >>> # Run simulation
+        >>> results = hwc.simulate(
+        ...     structure=structure,
+        ...     source_field=source,
+        ...     source_offset=offset,
+        ...     freq_band=(2*jnp.pi/1.6, 2*jnp.pi/1.5, 2),
+        ...     monitors=monitors
+        ... )
+        >>> print(f"Transmission: {results['transmissions']['transmission']}")
+    """
+    # Check for API key
+    if not api_key:
+        print("API key required to proceed.")
+        print("Sign up for free at spinsphotonics.com to get your API key.")
+        return None
+
+    API_URL = "https://hyperwave-cloud.onrender.com"
+
+    # Extract structure recipe
+    structure_recipe = structure.extract_recipe()
+
+    # Encode source field
+    source_field_b64 = encode_array(np.array(source_field))
+
+    # Serialize monitors
+    monitors_serialized = {}
+    monitor_tuple = monitors.to_tuple()
+    for i, (name, monitor) in enumerate(zip(monitors.list_monitors(), monitor_tuple[0])):
+        monitors_serialized[name] = {
+            'shape': list(monitor.shape),
+            'offset': list(monitor.offset),
+            'index': i
+        }
+
+    # Prepare mode_info
+    mode_info_serialized = None
+    if mode_info is not None:
+        mode_info_serialized = {
+            k: v.tolist() if isinstance(v, (np.ndarray, jnp.ndarray)) else v
+            for k, v in mode_info.items()
+        }
+
+    # Prepare request
+    request_data = {
+        "structure_recipe": structure_recipe,
+        "source_field_b64": source_field_b64,
+        "source_field_shape": list(source_field.shape),
+        "source_offset": list(source_offset),
+        "freq_band": list(freq_band),
+        "monitors": monitors_serialized,
+        "mode_info": mode_info_serialized,
+        "max_steps": max_steps,
+        "check_every_n": check_every_n,
+        "source_ramp_periods": source_ramp_periods,
+        "add_absorption": add_absorption,
+        "absorption_widths": list(absorption_widths),
+        "absorption_coeff": absorption_coeff,
+        "gpu_type": gpu_type
+    }
+
+    headers = {
+        "X-API-Key": api_key,
+        "Content-Type": "application/json"
+    }
+
+    # Send request
+    try:
+        response = requests.post(
+            f"{API_URL}/simulate",
+            json=request_data,
+            headers=headers,
+            timeout=600  # 10 minute timeout
+        )
+
+        response.raise_for_status()  # raises HTTPError if status != 200
+
+        results = response.json()
+
+        # Decode monitor data
+        monitor_data = {}
+        for name, b64_str in results['monitor_data_b64'].items():
+            monitor_data[name] = decode_array(b64_str)
+
+        # Decode powers and transmissions
+        powers = {name: decode_array(b64_str) for name, b64_str in results['powers'].items()}
+        transmissions = {name: decode_array(b64_str) for name, b64_str in results['transmissions'].items()}
+
+        # Decode convergence
+        conv_steps = decode_array(results['convergence_steps'])
+        conv_errors = {k: decode_array(v) for k, v in results['convergence_errors'].items()}
+
+        return {
+            'monitor_data': monitor_data,
+            'monitor_names': results['monitor_names'],
+            'convergence': (conv_steps, list(conv_errors.values())),
+            'performance': results['performance'],
+            'powers': powers,
+            'transmissions': transmissions,
+            'sim_time': results['sim_time'],
+            'gpu_type': results['gpu_type']
+        }
+
+    except requests.exceptions.HTTPError as e:
+        # Access the response from the exception object
+        if e.response is not None:
+            status_code = e.response.status_code
+            response_text = e.response.text
+
+            if status_code == 401:
+                print("No API key detected in request.")
+                print("Sign up for free at spinsphotonics.com to get your API key.")
+                return None
+            elif status_code == 403:
+                print("Provided API key is invalid.")
+                print("Please verify your API key in your dashboard at spinsphotonics.com/dashboard")
+                return None
+            elif status_code == 402:
+                # Try to extract current balance from response if available
+                try:
+                    error_data = e.response.json()
+                    current_balance = error_data.get("current_balance", 0)
+                    balance_msg = f"Current balance: {current_balance:.4f} credits"
+                except:
+                    balance_msg = ""
+
+                print("Insufficient credits for simulation.")
+                print("Minimum required: 0.01 credits")
+                if balance_msg:
+                    print(balance_msg)
+                print("Add credits to your account at spinsphotonics.com/billing")
+                return None
+            elif status_code == 502:
+                print("Service temporarily unavailable.")
+                print("Our servers are experiencing high load. Please retry in a few moments.")
+                return None
+            else:
+                print(f"Unexpected error (Code: {status_code})")
+                print("Please try again or contact support if the issue persists.")
+                return None
+        else:
+            print("Communication error.")
+            print("Unable to process your request at this time. Please try again later.")
+            return None
+
+    except requests.exceptions.Timeout:
+        print("Request timeout.")
+        print("The simulation server is taking longer than expected. Please try again.")
+        return None
+
+    except requests.exceptions.ConnectionError as e:
+        print("Connection failed.")
+        print("Unable to reach simulation servers. Please check your network connection and try again.")
+        return None
+
+    except requests.exceptions.RequestException as e:
+        print("Communication error.")
+        print("Unable to process your request at this time. Please try again later.")
+        return None
+
+    except ValueError as e:
+        print("Invalid server response.")
+        print("Received malformed data from server. Our team has been notified.")
+        return None
 
 
 def quick_view_monitors(results: Dict[str, Any], component: str = 'Hz', cmap: str = 'inferno'):
@@ -106,171 +337,4 @@ def quick_view_monitors(results: Dict[str, Any], component: str = 'Hz', cmap: st
         plt.show()
 
 
-def simulate(
-    structure,
-    source_field: jnp.ndarray,
-    source_offset: Tuple[int, int, int],
-    freq_band: Tuple[float, float, int],
-    monitors,
-    mode_info: Optional[Dict] = None,
-    max_steps: int = 10000,
-    check_every_n: int = 1000,
-    source_ramp_periods: float = 5.0,
-    add_absorption: bool = True,
-    absorption_widths: Tuple[int, int, int] = (70, 35, 17),
-    absorption_coeff: float = 4.89e-3,
-    gpu_type: str = "H100",
-    api_key: Optional[str] = None,
-    api_url: Optional[str] = None,
-) -> Dict[str, Any]:
-    """Run FDTD simulation on GPU via API.
 
-    Submits structure, source, and monitors to remote GPU server for FDTD simulation.
-    Returns field data at monitor locations, convergence information, and power analysis.
-
-    Args:
-        structure: Structure object with permittivity and conductivity.
-        source_field: Source field array, shape (num_freqs, 6, x, y, z).
-        source_offset: Corner position (x, y, z) for source placement.
-        freq_band: Frequency specification as (min, max, num_points).
-        monitors: MonitorSet object containing field monitors.
-        mode_info: Optional dictionary with mode information (beta, field, error).
-        max_steps: Maximum FDTD time steps.
-        check_every_n: Convergence check interval (in time steps).
-        source_ramp_periods: Number of periods for source turn-on.
-        add_absorption: If True, add adiabatic absorbing boundaries on GPU.
-        absorption_widths: Absorption widths as (x_width, y_width, z_width) in pixels.
-        absorption_coeff: Absorption coefficient.
-        gpu_type: GPU type to use (H100, A100, A10G, L4).
-        api_key: API key (overrides configured key).
-        api_url: API URL (overrides configured URL).
-
-    Returns:
-        Dictionary containing:
-            - monitor_data: Dict mapping monitor names to field arrays
-            - monitor_names: Dict mapping names to indices
-            - convergence: Tuple of (steps, errors)
-            - performance: Grid-points × steps per second
-            - powers: Dict of power values per monitor
-            - transmissions: Dict of transmission values
-            - sim_time: GPU simulation time in seconds
-            - gpu_type: GPU type used
-
-    Raises:
-        RuntimeError: If API call fails.
-        ConnectionError: If cannot connect to API endpoint.
-
-    Example:
-        >>> import hyperwave_community as hwc
-        >>> # Setup
-        >>> structure = hwc.create_structure(layers=[...])
-        >>> source, offset, _ = hwc.create_mode_source(...)
-        >>> monitors = hwc.MonitorSet()
-        >>> monitors.add_monitors_at_position(structure, axis='x', position=100)
-        >>>
-        >>> # Run simulation
-        >>> results = hwc.simulate(
-        ...     structure=structure,
-        ...     source_field=source,
-        ...     source_offset=offset,
-        ...     freq_band=(2*jnp.pi/1.6, 2*jnp.pi/1.5, 2),
-        ...     monitors=monitors
-        ... )
-        >>> print(f"Transmission: {results['transmissions']['transmission']}")
-    """
-    # Get API configuration
-    config = _get_api_config()
-    if api_key is not None:
-        config['api_key'] = api_key
-    if api_url is not None:
-        config['api_url'] = api_url
-
-    # Extract structure recipe
-    structure_recipe = structure.extract_recipe()
-
-    # Encode source field
-    source_field_b64 = encode_array(np.array(source_field))
-
-    # Serialize monitors
-    monitors_serialized = {}
-    monitor_tuple = monitors.to_tuple()
-    for i, (name, monitor) in enumerate(zip(monitors.list_monitors(), monitor_tuple[0])):
-        monitors_serialized[name] = {
-            'shape': list(monitor.shape),
-            'offset': list(monitor.offset),
-            'index': i
-        }
-
-    # Prepare mode_info
-    mode_info_serialized = None
-    if mode_info is not None:
-        mode_info_serialized = {
-            k: v.tolist() if isinstance(v, (np.ndarray, jnp.ndarray)) else v
-            for k, v in mode_info.items()
-        }
-
-    # Prepare request
-    request_data = {
-        "structure_recipe": structure_recipe,
-        "source_field_b64": source_field_b64,
-        "source_field_shape": list(source_field.shape),
-        "source_offset": list(source_offset),
-        "freq_band": list(freq_band),
-        "monitors": monitors_serialized,
-        "mode_info": mode_info_serialized,
-        "max_steps": max_steps,
-        "check_every_n": check_every_n,
-        "source_ramp_periods": source_ramp_periods,
-        "add_absorption": add_absorption,
-        "absorption_widths": list(absorption_widths),
-        "absorption_coeff": absorption_coeff,
-        "gpu_type": gpu_type
-    }
-
-    # Send request
-    try:
-        response = requests.post(
-            f"{config['api_url']}/simulate",
-            json=request_data,
-            headers={"Authorization": f"Bearer {config['api_key']}"},
-            timeout=600  # 10 minute timeout
-        )
-
-        if response.status_code != 200:
-            raise RuntimeError(
-                f"API request failed with status {response.status_code}: {response.text}"
-            )
-
-        results = response.json()
-
-        # Decode monitor data
-        monitor_data = {}
-        for name, b64_str in results['monitor_data_b64'].items():
-            monitor_data[name] = decode_array(b64_str)
-
-        # Decode powers and transmissions
-        powers = {name: decode_array(b64_str) for name, b64_str in results['powers'].items()}
-        transmissions = {name: decode_array(b64_str) for name, b64_str in results['transmissions'].items()}
-
-        # Decode convergence
-        conv_steps = decode_array(results['convergence_steps'])
-        conv_errors = {k: decode_array(v) for k, v in results['convergence_errors'].items()}
-
-        return {
-            'monitor_data': monitor_data,
-            'monitor_names': results['monitor_names'],
-            'convergence': (conv_steps, list(conv_errors.values())),
-            'performance': results['performance'],
-            'powers': powers,
-            'transmissions': transmissions,
-            'sim_time': results['sim_time'],
-            'gpu_type': results['gpu_type']
-        }
-
-    except requests.exceptions.ConnectionError:
-        raise ConnectionError(
-            f"Could not connect to API at {config['api_url']}. "
-            "Check your network connection and API URL."
-        )
-    except Exception as e:
-        raise RuntimeError(f"API request failed: {str(e)}")
