@@ -6,7 +6,7 @@ Open-source photonics simulation toolkit with GPU-accelerated FDTD via cloud API
 
 - **Local Structure Design**: Create photonic structures with density filtering and layer stacking
 - **Modal Source Generation**: Fast eigenvalue-based waveguide mode solver (runs locally)
-- **GPU-Accelerated Simulation**: Run FDTD simulations on H100 GPUs via API
+- **GPU-Accelerated Simulation**: Run FDTD simulations on cloud-based GPUs via API
 - **Unidirectional Gaussian Sources**: Generate reflection-free Gaussian beams via API
 - **Power Analysis**: Poynting flux calculations and transmission spectra
 - **Visualization**: Built-in plotting for structures, fields, and convergence
@@ -158,7 +158,7 @@ print(f"Configured monitors: {monitors.list_monitors()}")
 ### 6. Run Simulation via API
 
 ```python
-# Run FDTD simulation on H100 GPU
+# Run FDTD simulation on cloud GPU
 results = hwc.simulate(
     structure=structure,
     source_field=source_field,
