@@ -1,0 +1,729 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hyperwave_community.api_client &#8212; Hyperwave Community</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/hyperwave_community/api_client';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/spins_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../../_static/spins_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">SPINS Photonics</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/spinsphotonics/hyperwave-community" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://spinsphotonics.com" title="SPINS Photonics" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">SPINS Photonics</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/spinsphotonics/hyperwave-community" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://spinsphotonics.com" title="SPINS Photonics" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">SPINS Photonics</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">hyperwave_community.api_client</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for hyperwave_community.api_client</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;API client configuration and utilities for Hyperwave GPU services.</span>
+
+<span class="sd">This module provides API configuration and helper functions for encoding/decoding</span>
+<span class="sd">data transmitted to/from the Hyperwave API.</span>
+
+<span class="sd">Main functions:</span>
+<span class="sd">    configure_api: Set API credentials and endpoint</span>
+<span class="sd">    encode_array: Encode numpy arrays for API transmission</span>
+<span class="sd">    decode_array: Decode arrays from API responses</span>
+
+<span class="sd">Environment Variables:</span>
+<span class="sd">    HYPERWAVE_API_KEY: API authentication key</span>
+<span class="sd">    HYPERWAVE_API_URL: API endpoint URL (optional, defaults to production)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">base64</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+
+<span class="c1"># Global API configuration</span>
+<span class="n">_API_CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s1">&#39;api_url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://hyperwave-cloud.onrender.com&#39;</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="configure_api">
+<a class="viewcode-back" href="../../api/api_client.html#hyperwave_community.api_client.configure_api">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">configure_api</span><span class="p">(</span><span class="n">api_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">api_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configure API credentials and endpoint.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        api_key: API authentication key. If None, uses HYPERWAVE_API_KEY environment variable.</span>
+<span class="sd">        api_url: API endpoint URL. If None, uses HYPERWAVE_API_URL environment variable</span>
+<span class="sd">            or defaults to production endpoint.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If no API key is provided and HYPERWAVE_API_KEY is not set.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; import hyperwave_community as hwc</span>
+<span class="sd">        &gt;&gt;&gt; hwc.configure_api(api_key=&#39;your-key-here&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Or use environment variable</span>
+<span class="sd">        &gt;&gt;&gt; import os</span>
+<span class="sd">        &gt;&gt;&gt; os.environ[&#39;HYPERWAVE_API_KEY&#39;] = &#39;your-key-here&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">_API_CONFIG</span>
+
+    <span class="k">if</span> <span class="n">api_key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_API_CONFIG</span><span class="p">[</span><span class="s1">&#39;api_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">api_key</span>
+    <span class="k">elif</span> <span class="s1">&#39;HYPERWAVE_API_KEY&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+        <span class="n">_API_CONFIG</span><span class="p">[</span><span class="s1">&#39;api_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;HYPERWAVE_API_KEY&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">api_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_API_CONFIG</span><span class="p">[</span><span class="s1">&#39;api_url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">api_url</span>
+    <span class="k">elif</span> <span class="s1">&#39;HYPERWAVE_API_URL&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+        <span class="n">_API_CONFIG</span><span class="p">[</span><span class="s1">&#39;api_url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;HYPERWAVE_API_URL&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">_API_CONFIG</span><span class="p">[</span><span class="s1">&#39;api_key&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;API key not provided. Set HYPERWAVE_API_KEY environment variable &quot;</span>
+            <span class="s2">&quot;or call configure_api(api_key=&#39;your-key&#39;) first.&quot;</span>
+        <span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_api_config</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get current API configuration.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary with &#39;api_key&#39; and &#39;api_url&#39; keys.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        RuntimeError: If API is not configured.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">_API_CONFIG</span><span class="p">[</span><span class="s1">&#39;api_key&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Try to load from environment</span>
+        <span class="k">if</span> <span class="s1">&#39;HYPERWAVE_API_KEY&#39;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+            <span class="n">_API_CONFIG</span><span class="p">[</span><span class="s1">&#39;api_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;HYPERWAVE_API_KEY&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;API not configured. Call configure_api() or set HYPERWAVE_API_KEY &quot;</span>
+                <span class="s2">&quot;environment variable first.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_API_CONFIG</span>
+
+
+<div class="viewcode-block" id="encode_array">
+<a class="viewcode-back" href="../../api/api_client.html#hyperwave_community.api_client.encode_array">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">encode_array</span><span class="p">(</span><span class="n">arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode numpy array to base64 string for API transmission.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        arr: Numpy array to encode.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Base64-encoded string representation of array.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">buffer</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">arr</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">buffer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="decode_array">
+<a class="viewcode-back" href="../../api/api_client.html#hyperwave_community.api_client.decode_array">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">decode_array</span><span class="p">(</span><span class="n">b64_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decode base64 string to numpy array.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        b64_str: Base64-encoded string.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Decoded numpy array.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">buffer</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">b64_str</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="generate_gaussian_source">
+<a class="viewcode-back" href="../../api/api_client.html#hyperwave_community.api_client.generate_gaussian_source">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_gaussian_source</span><span class="p">(</span>
+    <span class="n">structure_shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">conductivity_boundary</span><span class="p">:</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">freq_band</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">source_z_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">polarization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span>
+    <span class="n">max_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5000</span><span class="p">,</span>
+    <span class="n">check_every_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="n">gpu_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;H100&quot;</span><span class="p">,</span>
+    <span class="n">api_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate unidirectional Gaussian source on GPU via API.</span>
+
+<span class="sd">    Creates a truly unidirectional Gaussian beam using the wave equation error</span>
+<span class="sd">    method on remote GPU. This prevents reflection artifacts.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        structure_shape: Simulation domain shape as (3, Lx, Ly, Lz).</span>
+<span class="sd">        conductivity_boundary: Absorption boundary array, shape (Lx, Ly, Lz).</span>
+<span class="sd">        freq_band: Frequency specification as (min, max, num_points).</span>
+<span class="sd">        source_z_pos: Z-position for source injection (in pixels).</span>
+<span class="sd">        polarization: Polarization direction, &#39;x&#39; or &#39;y&#39;.</span>
+<span class="sd">        max_steps: Maximum FDTD steps for source generation.</span>
+<span class="sd">        check_every_n: Convergence check interval.</span>
+<span class="sd">        gpu_type: GPU type to use (H100, A100, A10G, L4).</span>
+<span class="sd">        api_key: API key (overrides configured key).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary containing:</span>
+<span class="sd">            - source_field: Generated source field array</span>
+<span class="sd">            - source_field_shape: Shape of source field</span>
+<span class="sd">            - source_power: Power per frequency</span>
+<span class="sd">            - source_position: Source offset position</span>
+<span class="sd">            - total_time: Total generation time</span>
+<span class="sd">            - fdtd_time: FDTD simulation time</span>
+<span class="sd">            - gpu_type: GPU type used</span>
+<span class="sd">            - simulation_id: Unique ID for this simulation</span>
+<span class="sd">            - execution_time_seconds: Total execution time</span>
+<span class="sd">            - computation_time_seconds: GPU computation time</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        RuntimeError: If API call fails.</span>
+<span class="sd">        ConnectionError: If cannot connect to API endpoint.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Generation takes approximately 20-30 seconds on H100 GPU.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; import hyperwave_community as hwc</span>
+<span class="sd">        &gt;&gt;&gt; # Create absorption mask</span>
+<span class="sd">        &gt;&gt;&gt; abs_mask = hwc.create_absorption_mask(</span>
+<span class="sd">        ...     shape=(500, 500, 200),</span>
+<span class="sd">        ...     absorption_widths=(90, 90, 90)</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Generate source</span>
+<span class="sd">        &gt;&gt;&gt; result = hwc.generate_gaussian_source(</span>
+<span class="sd">        ...     structure_shape=(3, 500, 500, 200),</span>
+<span class="sd">        ...     conductivity_boundary=abs_mask,</span>
+<span class="sd">        ...     freq_band=(2*jnp.pi/0.55, 2*jnp.pi/0.55, 1),</span>
+<span class="sd">        ...     source_z_pos=60,</span>
+<span class="sd">        ...     polarization=&#39;x&#39;,</span>
+<span class="sd">        ...     api_key=&#39;your-api-key&#39;</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; source_field = result[&#39;source_field&#39;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check for API key</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">api_key</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;API key required to proceed.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sign up for free at spinsphotonics.com to get your API key.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">API_URL</span> <span class="o">=</span> <span class="s2">&quot;https://hyperwave-cloud.onrender.com&quot;</span>
+
+    <span class="c1"># Encode conductivity boundary</span>
+    <span class="n">conductivity_b64</span> <span class="o">=</span> <span class="n">encode_array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">conductivity_boundary</span><span class="p">))</span>
+
+    <span class="c1"># Prepare request</span>
+    <span class="n">request_data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;structure_shape&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">structure_shape</span><span class="p">),</span>
+        <span class="s2">&quot;conductivity_boundary_b64&quot;</span><span class="p">:</span> <span class="n">conductivity_b64</span><span class="p">,</span>
+        <span class="s2">&quot;freq_band&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">freq_band</span><span class="p">),</span>
+        <span class="s2">&quot;source_z_pos&quot;</span><span class="p">:</span> <span class="n">source_z_pos</span><span class="p">,</span>
+        <span class="s2">&quot;polarization&quot;</span><span class="p">:</span> <span class="n">polarization</span><span class="p">,</span>
+        <span class="s2">&quot;max_steps&quot;</span><span class="p">:</span> <span class="n">max_steps</span><span class="p">,</span>
+        <span class="s2">&quot;check_every_n&quot;</span><span class="p">:</span> <span class="n">check_every_n</span><span class="p">,</span>
+        <span class="s2">&quot;gpu_type&quot;</span><span class="p">:</span> <span class="n">gpu_type</span>
+    <span class="p">}</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;X-API-Key&quot;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+        <span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Send request</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">API_URL</span><span class="si">}</span><span class="s2">/generate_gaussian_source&quot;</span><span class="p">,</span>
+            <span class="n">json</span><span class="o">=</span><span class="n">request_data</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">600</span>  <span class="c1"># 10 minute timeout</span>
+        <span class="p">)</span>
+
+        <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>  <span class="c1"># raises HTTPError if status != 200</span>
+
+        <span class="n">results</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+        <span class="c1"># Decode source field</span>
+        <span class="n">source_field</span> <span class="o">=</span> <span class="n">decode_array</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;source_field_b64&#39;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;source_field&#39;</span><span class="p">:</span> <span class="n">source_field</span><span class="p">,</span>
+            <span class="s1">&#39;source_field_shape&#39;</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;source_field_shape&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;source_power&#39;</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;source_power&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;source_position&#39;</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;source_position&#39;</span><span class="p">]),</span>
+            <span class="s1">&#39;total_time&#39;</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;total_time&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;fdtd_time&#39;</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;fdtd_time&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;gpu_type&#39;</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;gpu_type&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;simulation_id&#39;</span><span class="p">:</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;simulation_id&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;execution_time_seconds&#39;</span><span class="p">:</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;execution_time_seconds&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;computation_time_seconds&#39;</span><span class="p">:</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;computation_time_seconds&#39;</span><span class="p">)</span>
+        <span class="p">}</span>
+
+    <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="c1"># Access the response from the exception object</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">status_code</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span>
+            <span class="n">response_text</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">text</span>
+
+            <span class="k">if</span> <span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No API key detected in request.&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sign up for free at spinsphotonics.com to get your API key.&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">elif</span> <span class="n">status_code</span> <span class="o">==</span> <span class="mi">403</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Provided API key is invalid.&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please verify your API key in your dashboard at spinsphotonics.com/dashboard&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">elif</span> <span class="n">status_code</span> <span class="o">==</span> <span class="mi">402</span><span class="p">:</span>
+                <span class="c1"># Try to extract current balance from response if available</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">error_data</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                    <span class="n">current_balance</span> <span class="o">=</span> <span class="n">error_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;current_balance&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="n">balance_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Current balance: </span><span class="si">{</span><span class="n">current_balance</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> credits&quot;</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="n">balance_msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Insufficient credits for Gaussian source generation.&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Minimum required: 0.1 credits&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">balance_msg</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">balance_msg</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Add credits to your account at spinsphotonics.com/billing&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">elif</span> <span class="n">status_code</span> <span class="o">==</span> <span class="mi">502</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Service temporarily unavailable.&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Our servers are experiencing high load. Please retry in a few moments.&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected error (Code: </span><span class="si">{</span><span class="n">status_code</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please try again or contact support if the issue persists.&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Communication error.&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to process your request at this time. Please try again later.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">Timeout</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Request timeout.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The source generation server is taking longer than expected. Please try again.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ConnectionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Connection failed.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to reach source generation servers. Please check your network connection and try again.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Communication error.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unable to process your request at this time. Please try again later.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid server response.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Received malformed data from server. Our team has been notified.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, SPINS Photonics.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

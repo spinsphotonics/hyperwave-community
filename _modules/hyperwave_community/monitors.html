@@ -1,0 +1,1739 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hyperwave_community.monitors &#8212; Hyperwave Community</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/hyperwave_community/monitors';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/spins_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../../_static/spins_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">SPINS Photonics</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/spinsphotonics/hyperwave-community" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://spinsphotonics.com" title="SPINS Photonics" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">SPINS Photonics</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/spinsphotonics/hyperwave-community" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://spinsphotonics.com" title="SPINS Photonics" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">SPINS Photonics</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">hyperwave_community.monitors</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for hyperwave_community.monitors</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Field monitoring utilities for electromagnetic FDTD simulations.</span>
+
+<span class="sd">This module provides functions for extracting and analyzing field data from</span>
+<span class="sd">full FDTD simulation results, including power flow calculations, field slicing,</span>
+<span class="sd">monitor visualization, and automatic waveguide detection for optimal monitor placement.</span>
+
+<span class="sd">Field data format: (N_freq, 6, Nx, Ny, Nz) where the 6 components are:</span>
+<span class="sd">[Ex, Ey, Ez, Hx, Hy, Hz]</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+
+
+<div class="viewcode-block" id="Monitor">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.Monitor">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Monitor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Monitor configuration for field extraction during FDTD simulation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        shape: Monitor volume dimensions (xx, yy, zz). All values must be positive.</span>
+<span class="sd">        offset: Monitor volume position offset (x, y, z). Can be negative.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">offset</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    
+<div class="viewcode-block" id="Monitor.__post_init__">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.Monitor.__post_init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate monitor parameters.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;shape must have 3 dimensions, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;offset must have 3 dimensions, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">s</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All shape dimensions must be positive, got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All shape dimensions must be integers, got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All offset dimensions must be integers, got </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">recipe</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return serializable recipe for reconstructing this monitor.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary containing shape and offset that can be used to reconstruct</span>
+<span class="sd">            the monitor configuration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+            <span class="s1">&#39;offset&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">offset</span>
+        <span class="p">}</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="S_from_slice">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.S_from_slice">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">S_from_slice</span><span class="p">(</span><span class="n">field_slice</span><span class="p">:</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate Poynting vector from a field slice.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        field_slice: Field data with shape (N_freq, 6, Ny, Nx) where 6 components </span>
+<span class="sd">                    are [Ex, Ey, Ez, Hx, Hy, Hz].</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Poynting vector S with shape (N_freq, 3, Ny, Nx) representing the </span>
+<span class="sd">        time-averaged power flow density in x, y, z directions.</span>
+<span class="sd">        </span>
+<span class="sd">    Note:</span>
+<span class="sd">        Poynting vector: S = 0.5 * Re(E × H*)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">N_freq</span> <span class="o">=</span> <span class="n">field_slice</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">Ny</span><span class="p">,</span> <span class="n">Nx</span> <span class="o">=</span> <span class="n">field_slice</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">field_slice</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_freq</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">Nx</span><span class="p">))</span>
+
+    <span class="c1"># Extract field components</span>
+    <span class="n">Ex</span><span class="p">,</span> <span class="n">Ey</span><span class="p">,</span> <span class="n">Ez</span> <span class="o">=</span> <span class="n">field_slice</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">field_slice</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">field_slice</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+    <span class="n">Hx_c</span><span class="p">,</span> <span class="n">Hy_c</span><span class="p">,</span> <span class="n">Hz_c</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">field_slice</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]),</span> <span class="n">jnp</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">field_slice</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]),</span> <span class="n">jnp</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">field_slice</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:])</span>
+
+    <span class="c1"># Calculate Poynting vector components: S = 0.5 * Re(E × H*)</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">at</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">real</span><span class="p">((</span><span class="n">Ey</span> <span class="o">*</span> <span class="n">Hz_c</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">Ez</span> <span class="o">*</span> <span class="n">Hy_c</span><span class="p">)))</span>  <span class="c1"># Sx</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">at</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">real</span><span class="p">((</span><span class="n">Ez</span> <span class="o">*</span> <span class="n">Hx_c</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">Ex</span> <span class="o">*</span> <span class="n">Hz_c</span><span class="p">)))</span>  <span class="c1"># Sy</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">at</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">real</span><span class="p">((</span><span class="n">Ex</span> <span class="o">*</span> <span class="n">Hy_c</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">Ey</span> <span class="o">*</span> <span class="n">Hx_c</span><span class="p">)))</span>  <span class="c1"># Sz</span>
+
+    <span class="k">return</span> <span class="n">S</span></div>
+
+
+
+<div class="viewcode-block" id="power_from_a_box">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.power_from_a_box">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">power_from_a_box</span><span class="p">(</span>
+    <span class="n">field</span><span class="p">:</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> 
+    <span class="n">Lx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+    <span class="n">Ly</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+    <span class="n">Lz</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+    <span class="n">Lx_total</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+    <span class="n">Ly_total</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> 
+    <span class="n">Lz_total</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate net power flowing out of a box monitor.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        field: Full field data with shape (N_freq, 6, Lx_total, Ly_total, Lz_total).</span>
+<span class="sd">        Lx, Ly, Lz: Dimensions of the box monitor.</span>
+<span class="sd">        Lx_total, Ly_total, Lz_total: Total simulation domain dimensions.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Net power flowing out of the box for each frequency (N_freq,).</span>
+<span class="sd">        </span>
+<span class="sd">    Note:</span>
+<span class="sd">        Box is centered in the simulation domain. Power is calculated by </span>
+<span class="sd">        integrating Poynting vector over all six faces of the box.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Calculate center of simulation domain</span>
+    <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">cz</span> <span class="o">=</span> <span class="n">Lx_total</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Ly_total</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Lz_total</span> <span class="o">//</span> <span class="mi">2</span>
+
+    <span class="c1"># Extract field slices for each face of the box</span>
+    <span class="n">S_xneg</span> <span class="o">=</span> <span class="n">S_from_slice</span><span class="p">(</span><span class="n">field</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">cx</span> <span class="o">-</span> <span class="n">Lx</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:])</span>  <span class="c1"># Left face</span>
+    <span class="n">S_xpos</span> <span class="o">=</span> <span class="n">S_from_slice</span><span class="p">(</span><span class="n">field</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">cx</span> <span class="o">+</span> <span class="n">Lx</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:])</span>  <span class="c1"># Right face</span>
+    <span class="n">S_yneg</span> <span class="o">=</span> <span class="n">S_from_slice</span><span class="p">(</span><span class="n">field</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">cy</span> <span class="o">-</span> <span class="n">Ly</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="p">:])</span>  <span class="c1"># Front face  </span>
+    <span class="n">S_ypos</span> <span class="o">=</span> <span class="n">S_from_slice</span><span class="p">(</span><span class="n">field</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">cy</span> <span class="o">+</span> <span class="n">Ly</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="p">:])</span>  <span class="c1"># Back face</span>
+    <span class="n">S_zneg</span> <span class="o">=</span> <span class="n">S_from_slice</span><span class="p">(</span><span class="n">field</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">cz</span> <span class="o">-</span> <span class="n">Lz</span><span class="o">//</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># Bottom face</span>
+    <span class="n">S_zpos</span> <span class="o">=</span> <span class="n">S_from_slice</span><span class="p">(</span><span class="n">field</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">cz</span> <span class="o">+</span> <span class="n">Lz</span><span class="o">//</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># Top face</span>
+
+    <span class="c1"># Calculate net power flow through each pair of faces</span>
+    <span class="c1"># Positive direction is outward from the box</span>
+    <span class="n">P_net_x</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">S_xpos</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">S_xneg</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">P_net_y</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">S_ypos</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">S_yneg</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">P_net_z</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">S_zpos</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">-</span> <span class="n">S_zneg</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+    <span class="c1"># Total power is sum of all three directions</span>
+    <span class="n">P_total</span> <span class="o">=</span> <span class="n">P_net_x</span> <span class="o">+</span> <span class="n">P_net_y</span> <span class="o">+</span> <span class="n">P_net_z</span>
+
+    <span class="k">return</span> <span class="n">P_total</span></div>
+
+
+
+<div class="viewcode-block" id="get_field_slice">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.get_field_slice">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_field_slice</span><span class="p">(</span>
+    <span class="n">field</span><span class="p">:</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> 
+    <span class="n">axis</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">position</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract a 2D slice from the full 3D field data.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        field: Full field data with shape (N_freq, 6, Nx, Ny, Nz).</span>
+<span class="sd">        axis: Axis to slice along (&#39;x&#39;, &#39;y&#39;, or &#39;z&#39;).</span>
+<span class="sd">        position: Index position along the specified axis.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        2D field slice with shape (N_freq, 6, dim1, dim2).</span>
+<span class="sd">        </span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # Get xy-plane slice at z=10</span>
+<span class="sd">        &gt;&gt;&gt; xy_slice = get_field_slice(field, &#39;z&#39;, 10)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">field</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">position</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+    <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">field</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">position</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">field</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="n">position</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;axis must be &#39;x&#39;, &#39;y&#39;, or &#39;z&#39;, got </span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_power_through_plane">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.get_power_through_plane">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_power_through_plane</span><span class="p">(</span>
+    <span class="n">field</span><span class="p">:</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> 
+    <span class="n">axis</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">position</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate power flow through a plane.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        field: Full field data with shape (N_freq, 6, Nx, Ny, Nz).</span>
+<span class="sd">        axis: Normal axis of the plane (&#39;x&#39;, &#39;y&#39;, or &#39;z&#39;).</span>
+<span class="sd">        position: Index position of the plane along the specified axis.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Power flow through the plane for each frequency (N_freq,).</span>
+<span class="sd">        </span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # Calculate power flow through a plane at x=50</span>
+<span class="sd">        &gt;&gt;&gt; power = get_power_through_plane(field, &#39;x&#39;, 50)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">field_slice</span> <span class="o">=</span> <span class="n">get_field_slice</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">S_from_slice</span><span class="p">(</span><span class="n">field_slice</span><span class="p">)</span>
+    
+    <span class="c1"># Sum power flow normal to the plane</span>
+    <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">S</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># Sx component</span>
+    <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">S</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># Sy component</span>
+    <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">S</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># Sz component</span></div>
+
+
+
+<div class="viewcode-block" id="get_field_intensity">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.get_field_intensity">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_field_intensity</span><span class="p">(</span><span class="n">field</span><span class="p">:</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate electromagnetic field intensity |E|^2 + |H|^2.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        field: Field data with shape (N_freq, 6, ...).</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Field intensity with shape (N_freq, ...).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">E_intensity</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">field</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># |E|^2</span>
+    <span class="n">H_intensity</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">field</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># |H|^2</span>
+    <span class="k">return</span> <span class="n">E_intensity</span> <span class="o">+</span> <span class="n">H_intensity</span></div>
+
+
+
+<div class="viewcode-block" id="get_electric_field_intensity">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.get_electric_field_intensity">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_electric_field_intensity</span><span class="p">(</span><span class="n">field</span><span class="p">:</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate electric field intensity |E|^2.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        field: Field data with shape (N_freq, 6, ...).</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Electric field intensity with shape (N_freq, ...).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">field</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_magnetic_field_intensity">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.get_magnetic_field_intensity">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_magnetic_field_intensity</span><span class="p">(</span><span class="n">field</span><span class="p">:</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate magnetic field intensity |H|^2.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        field: Field data with shape (N_freq, 6, ...).</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Magnetic field intensity with shape (N_freq, ...).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">field</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="view_monitors">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.view_monitors">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">view_monitors</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="n">monitors</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="s1">&#39;MonitorSet&#39;</span><span class="p">],</span> <span class="n">monitor_mapping</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">axis</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">show_structure</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                 <span class="n">alpha_structure</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha_monitors</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span>
+                 <span class="n">source_position</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">absorber_boundary</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Visualize monitor positions overlaid on structure cross-sections.</span>
+
+<span class="sd">    This function creates a visualization showing where monitors are positioned</span>
+<span class="sd">    relative to the photonic structure. It displays monitor outlines only where</span>
+<span class="sd">    they are actually intersected by the viewing plane, avoiding visual clutter</span>
+<span class="sd">    from monitors that lie entirely within the plane.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        structure: Structure object containing permittivity distribution.</span>
+<span class="sd">            Must have a `permittivity` attribute with shape (components, nx, ny, nz).</span>
+<span class="sd">        monitors: Either a MonitorSet object or a List of Monitor objects.</span>
+<span class="sd">            If MonitorSet, the mapping is extracted automatically.</span>
+<span class="sd">            If List, uses monitor_mapping parameter for names.</span>
+<span class="sd">        monitor_mapping: Optional dictionary mapping monitor names to indices.</span>
+<span class="sd">            Only used when monitors is a List. Ignored when monitors is a MonitorSet.</span>
+<span class="sd">        axis: Viewing axis for the cross-section slice (&#39;x&#39;, &#39;y&#39;, or &#39;z&#39;).</span>
+<span class="sd">            - &#39;x&#39;: Shows YZ plane (Y horizontal, Z vertical)</span>
+<span class="sd">            - &#39;y&#39;: Shows XZ plane (X horizontal, Z vertical)  </span>
+<span class="sd">            - &#39;z&#39;: Shows XY plane (X horizontal, Y vertical)</span>
+<span class="sd">        position: Position along the specified axis for the slice. If None,</span>
+<span class="sd">            uses the middle position along that axis.</span>
+<span class="sd">        figsize: Figure size as (width, height) tuple.</span>
+<span class="sd">        show_structure: Whether to display the structure permittivity as background.</span>
+<span class="sd">        alpha_structure: Transparency level for structure display (0.0-1.0).</span>
+<span class="sd">        alpha_monitors: Transparency level for monitor outlines (0.0-1.0).</span>
+<span class="sd">        source_position: Optional X-position of the source plane to visualize.</span>
+<span class="sd">        absorber_boundary: Optional absorption mask from hyperwave.absorption.create_absorption_mask </span>
+<span class="sd">            with shape (3, xx, yy, zz) representing Ex, Ey, Ez absorption coefficients.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        None. Displays the plot using matplotlib.</span>
+<span class="sd">        </span>
+<span class="sd">    Note:</span>
+<span class="sd">        - Only monitors that extend in the viewing direction are shown</span>
+<span class="sd">        - Monitors with thickness=1 in the viewing direction are not displayed</span>
+<span class="sd">        - Z axis is always oriented vertically with 0 at top</span>
+<span class="sd">        - Monitor coordinates assume hyperwave coordinate system conventions</span>
+<span class="sd">        </span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from hyperwave.structure import create_structure</span>
+<span class="sd">        &gt;&gt;&gt; from hyperwave.monitors import Monitor, create_waveguide_monitors</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Create structure</span>
+<span class="sd">        &gt;&gt;&gt; structure = create_structure(layers)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Method 1: Using MonitorSet (recommended)</span>
+<span class="sd">        &gt;&gt;&gt; monitor_set = create_waveguide_monitors(structure, monitor_type=&#39;both&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; view_monitors(structure, monitor_set, axis=&quot;z&quot;, position=100)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Method 2: Using separate list and mapping (legacy)</span>
+<span class="sd">        &gt;&gt;&gt; monitors = [</span>
+<span class="sd">        ...     Monitor(shape=(20, 20, 5), offset=(10, 10, 50)),</span>
+<span class="sd">        ...     Monitor(shape=(20, 20, 5), offset=(10, 10, 150))</span>
+<span class="sd">        ... ]</span>
+<span class="sd">        &gt;&gt;&gt; monitor_mapping = {&#39;reflection&#39;: 0, &#39;transmission&#39;: 1}</span>
+<span class="sd">        &gt;&gt;&gt; view_monitors(structure, monitors, monitor_mapping, axis=&quot;z&quot;, position=100)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Handle MonitorSet input</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">monitors</span><span class="p">,</span> <span class="n">MonitorSet</span><span class="p">):</span>
+        <span class="n">monitor_list</span> <span class="o">=</span> <span class="n">monitors</span><span class="o">.</span><span class="n">monitors</span>
+        <span class="n">monitor_mapping</span> <span class="o">=</span> <span class="n">monitors</span><span class="o">.</span><span class="n">mapping</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">monitor_list</span> <span class="o">=</span> <span class="n">monitors</span>
+        <span class="c1"># Use provided mapping or default to None</span>
+
+    <span class="n">structure_shape</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">permittivity</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>  <span class="c1"># Skip components dimension</span>
+    <span class="n">Lx</span><span class="p">,</span> <span class="n">Ly</span><span class="p">,</span> <span class="n">Lz</span> <span class="o">=</span> <span class="n">structure_shape</span>
+    
+    <span class="k">if</span> <span class="n">position</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+            <span class="n">position</span> <span class="o">=</span> <span class="n">Lx</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+            <span class="n">position</span> <span class="o">=</span> <span class="n">Ly</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>
+            <span class="n">position</span> <span class="o">=</span> <span class="n">Lz</span> <span class="o">//</span> <span class="mi">2</span>
+    
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">show_structure</span><span class="p">:</span>
+        <span class="n">eps_array</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">permittivity</span>
+        <span class="n">eps_real</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">eps_array</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        
+        <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+            <span class="n">structure_slice</span> <span class="o">=</span> <span class="n">eps_real</span><span class="p">[</span><span class="n">position</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+            <span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">Ly</span><span class="p">,</span> <span class="n">Lz</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Y (cells)&#39;</span><span class="p">,</span> <span class="s1">&#39;Z (cells)&#39;</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+            <span class="n">structure_slice</span> <span class="o">=</span> <span class="n">eps_real</span><span class="p">[:,</span> <span class="n">position</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">Lx</span><span class="p">,</span> <span class="n">Lz</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;X (cells)&#39;</span><span class="p">,</span> <span class="s1">&#39;Z (cells)&#39;</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>
+            <span class="n">structure_slice</span> <span class="o">=</span> <span class="n">eps_real</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">position</span><span class="p">]</span>
+            <span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">Lx</span><span class="p">,</span> <span class="n">Ly</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;X (cells)&#39;</span><span class="p">,</span> <span class="s1">&#39;Y (cells)&#39;</span>
+        
+        <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">structure_slice</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">,</span>
+                      <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;PuOr&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha_structure</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;upper&#39;</span><span class="p">)</span>
+    
+    <span class="n">monitor_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;brown&#39;</span><span class="p">,</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">monitor</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">monitor_list</span><span class="p">):</span>
+        <span class="n">monitor_shape</span> <span class="o">=</span> <span class="n">monitor</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">monitor_offset</span> <span class="o">=</span> <span class="n">monitor</span><span class="o">.</span><span class="n">offset</span>
+
+        <span class="n">monitor_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">monitor_mapping</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">monitor_mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+                    <span class="n">monitor_name</span> <span class="o">=</span> <span class="n">name</span>
+                    <span class="k">break</span>
+        
+        <span class="k">if</span> <span class="n">monitor_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">monitor_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Monitor </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+        
+        <span class="c1"># Convert monitor coordinates to absolute positions</span>
+        <span class="c1"># Offsets are corner-based (direct array indices) to match solve._get</span>
+        <span class="n">mx_start</span> <span class="o">=</span> <span class="n">monitor_offset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">my_start</span> <span class="o">=</span> <span class="n">monitor_offset</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">mz_start</span> <span class="o">=</span> <span class="n">monitor_offset</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">mx_end</span> <span class="o">=</span> <span class="n">mx_start</span> <span class="o">+</span> <span class="n">monitor_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">my_end</span> <span class="o">=</span> <span class="n">my_start</span> <span class="o">+</span> <span class="n">monitor_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">mz_end</span> <span class="o">=</span> <span class="n">mz_start</span> <span class="o">+</span> <span class="n">monitor_shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        
+        <span class="c1"># Only show monitors that are actually cut by the viewing plane</span>
+        <span class="c1"># Skip monitors that have thickness=1 in the viewing direction</span>
+        <span class="n">intersects</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">rect_params</span> <span class="o">=</span> <span class="kc">None</span>
+        
+        <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">monitor_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">mx_start</span> <span class="o">&lt;=</span> <span class="n">position</span> <span class="o">&lt;=</span> <span class="n">mx_end</span><span class="p">:</span>
+                <span class="n">intersects</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">rect_params</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;xy&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">my_start</span><span class="p">,</span> <span class="n">mz_start</span><span class="p">),</span>
+                    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">my_end</span> <span class="o">-</span> <span class="n">my_start</span><span class="p">,</span>
+                    <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">mz_end</span> <span class="o">-</span> <span class="n">mz_start</span>
+                <span class="p">}</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">monitor_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">my_start</span> <span class="o">&lt;=</span> <span class="n">position</span> <span class="o">&lt;=</span> <span class="n">my_end</span><span class="p">:</span>
+                <span class="n">intersects</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">rect_params</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;xy&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">mx_start</span><span class="p">,</span> <span class="n">mz_start</span><span class="p">),</span>
+                    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">mx_end</span> <span class="o">-</span> <span class="n">mx_start</span><span class="p">,</span>
+                    <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">mz_end</span> <span class="o">-</span> <span class="n">mz_start</span>
+                <span class="p">}</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mz_start</span> <span class="o">&lt;=</span> <span class="n">position</span> <span class="o">&lt;</span> <span class="n">mz_start</span> <span class="o">+</span> <span class="n">monitor_shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+                <span class="n">intersects</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">rect_params</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;xy&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">mx_start</span><span class="p">,</span> <span class="n">my_start</span><span class="p">),</span>
+                    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">mx_end</span> <span class="o">-</span> <span class="n">mx_start</span><span class="p">,</span>
+                    <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">my_end</span> <span class="o">-</span> <span class="n">my_start</span>
+                <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="n">intersects</span> <span class="ow">and</span> <span class="n">rect_params</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">monitor_colors</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">monitor_colors</span><span class="p">)]</span>
+            
+            <span class="c1"># Create label with shape and offset info</span>
+            <span class="n">label_text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">monitor_name</span><span class="si">}</span><span class="s2"> | Shape: </span><span class="si">{</span><span class="n">monitor_shape</span><span class="si">}</span><span class="s2"> | Offset: </span><span class="si">{</span><span class="n">monitor_offset</span><span class="si">}</span><span class="s2">&quot;</span>
+            
+            <span class="n">rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+                <span class="n">rect_params</span><span class="p">[</span><span class="s1">&#39;xy&#39;</span><span class="p">],</span> 
+                <span class="n">rect_params</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">],</span> 
+                <span class="n">rect_params</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">],</span>
+                <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+                <span class="n">edgecolor</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> 
+                <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">label_text</span>
+            <span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+            
+            <span class="c1"># Add label on plot</span>
+            <span class="n">text_x</span> <span class="o">=</span> <span class="n">rect_params</span><span class="p">[</span><span class="s1">&#39;xy&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">rect_params</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">5</span>
+            <span class="n">text_y</span> <span class="o">=</span> <span class="n">rect_params</span><span class="p">[</span><span class="s1">&#39;xy&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">rect_params</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+                
+            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">text_x</span><span class="p">,</span> <span class="n">text_y</span><span class="p">,</span> <span class="n">monitor_name</span><span class="p">,</span> 
+                   <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
+                   <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+    
+    <span class="c1"># Add source plane visualization if provided</span>
+    <span class="k">if</span> <span class="n">source_position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">source_color</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span>
+        <span class="n">source_linewidth</span> <span class="o">=</span> <span class="mi">4</span>
+        
+        <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span> <span class="ow">and</span> <span class="n">source_position</span> <span class="o">==</span> <span class="n">position</span><span class="p">:</span>
+            <span class="c1"># Source plane is at the current X slice - show as full YZ plane outline</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">source_color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">source_linewidth</span><span class="p">,</span> 
+                      <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Source Plane&#39;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">Lz</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">source_color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">source_linewidth</span><span class="p">,</span> 
+                      <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">source_color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">source_linewidth</span><span class="p">,</span> 
+                      <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">Ly</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">source_color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">source_linewidth</span><span class="p">,</span> 
+                      <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+            <span class="c1"># Show source plane as vertical line at X position</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">source_position</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">source_color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">source_linewidth</span><span class="p">,</span>
+                      <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Source Plane (X=</span><span class="si">{</span><span class="n">source_position</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>
+            <span class="c1"># Show source plane as vertical line at X position</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">source_position</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">source_color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">source_linewidth</span><span class="p">,</span>
+                      <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Source Plane (X=</span><span class="si">{</span><span class="n">source_position</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Add absorber boundary visualization if provided</span>
+    <span class="k">if</span> <span class="n">absorber_boundary</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Expect absorption mask shape (3, xx, yy, zz) from create_absorption_mask</span>
+        <span class="k">if</span> <span class="n">absorber_boundary</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">4</span> <span class="ow">or</span> <span class="n">absorber_boundary</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;absorber_boundary must have shape (3, xx, yy, zz), got </span><span class="si">{</span><span class="n">absorber_boundary</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Use first component (Ex) for visualization</span>
+        <span class="n">absorber_3d</span> <span class="o">=</span> <span class="n">absorber_boundary</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Shape: (xx, yy, zz)</span>
+        <span class="n">absorber_slice</span> <span class="o">=</span> <span class="kc">None</span>
+        
+        <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">position</span> <span class="o">&lt;</span> <span class="n">absorber_3d</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">absorber_slice</span> <span class="o">=</span> <span class="n">absorber_3d</span><span class="p">[</span><span class="n">position</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">position</span> <span class="o">&lt;</span> <span class="n">absorber_3d</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">absorber_slice</span> <span class="o">=</span> <span class="n">absorber_3d</span><span class="p">[:,</span> <span class="n">position</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">position</span> <span class="o">&lt;</span> <span class="n">absorber_3d</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+                <span class="n">absorber_slice</span> <span class="o">=</span> <span class="n">absorber_3d</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">position</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">absorber_slice</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Create absorber overlay - show regions where absorption &gt; threshold</span>
+            <span class="n">absorber_threshold</span> <span class="o">=</span> <span class="mf">1e-6</span>
+            <span class="n">absorber_mask</span> <span class="o">=</span> <span class="n">absorber_slice</span> <span class="o">&gt;</span> <span class="n">absorber_threshold</span>
+            
+            <span class="k">if</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">absorber_mask</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Only show if there are absorbing regions</span>
+                <span class="c1"># Use square root scaling for better visualization (like the absorption module)</span>
+                <span class="n">absorber_overlay</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">absorber_slice</span><span class="p">)</span>
+                <span class="n">absorber_overlay</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">absorber_mask</span><span class="p">,</span> <span class="n">absorber_overlay</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+                
+                <span class="c1"># Overlay absorber regions in red with transparency</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">absorber_overlay</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span>
+                         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">jnp</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">absorber_overlay</span><span class="p">),</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;upper&#39;</span><span class="p">)</span>
+                
+                <span class="c1"># Add legend entry for absorbers</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
+                       <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Absorber Regions&#39;</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Monitor Positions (</span><span class="si">{</span><span class="n">axis</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s1"> slice at </span><span class="si">{</span><span class="n">position</span><span class="si">}</span><span class="s1">) | Structure: </span><span class="si">{</span><span class="n">Lx</span><span class="si">}</span><span class="s1">×</span><span class="si">{</span><span class="n">Ly</span><span class="si">}</span><span class="s1">×</span><span class="si">{</span><span class="n">Lz</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="reconstruct_monitorset_from_recipe">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.reconstruct_monitorset_from_recipe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">reconstruct_monitorset_from_recipe</span><span class="p">(</span><span class="n">recipe</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s1">&#39;MonitorSet&#39;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reconstruct a MonitorSet from a recipe.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        recipe: List of monitor configurations from MonitorSet.recipe</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Reconstructed MonitorSet object with all monitors and names.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">monitor_set</span> <span class="o">=</span> <span class="n">MonitorSet</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">recipe</span><span class="p">:</span>
+        <span class="n">monitor</span> <span class="o">=</span> <span class="n">Monitor</span><span class="p">(</span>
+            <span class="n">shape</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;shape&#39;</span><span class="p">]),</span>
+            <span class="n">offset</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;offset&#39;</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="n">monitor_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">monitor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">monitor_set</span></div>
+
+
+
+<div class="viewcode-block" id="MonitorSet">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.MonitorSet">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MonitorSet</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for managing multiple monitors with add/remove/replace operations.</span>
+
+<span class="sd">    This class provides a clean interface for managing monitors in FDTD simulations,</span>
+<span class="sd">    with support for named monitors and automatic indexing.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        monitors: List of Monitor objects</span>
+<span class="sd">        mapping: Dictionary mapping names to monitor indices</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="MonitorSet.__init__">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.MonitorSet.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">monitors</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Monitor</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">mapping</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize MonitorSet with optional existing monitors.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            monitors: Initial list of Monitor objects.</span>
+<span class="sd">            mapping: Initial dictionary mapping names to indices.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">monitors</span> <span class="o">=</span> <span class="n">monitors</span> <span class="k">if</span> <span class="n">monitors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span> <span class="o">=</span> <span class="n">mapping</span> <span class="k">if</span> <span class="n">mapping</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_consistency</span><span class="p">()</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_consistency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ensure mapping indices match actual monitor list indices.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid mapping: &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; points to index </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2"> &quot;</span>
+                               <span class="sa">f</span><span class="s2">&quot;but only </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">)</span><span class="si">}</span><span class="s2"> monitors exist&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MonitorSet.add">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.MonitorSet.add">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">monitor</span><span class="p">:</span> <span class="n">Monitor</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a new monitor to the set.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            monitor: Monitor object to add.</span>
+<span class="sd">            name: Optional name for the monitor. If None, uses &#39;monitor_N&#39;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Index of the added monitor.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the name already exists in the mapping.</span>
+<span class="sd">            TypeError: If monitor is not a Monitor instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">monitor</span><span class="p">,</span> <span class="n">Monitor</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected Monitor instance, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">monitor</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Generate automatic name</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;monitor_</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="c1"># Ensure uniqueness</span>
+            <span class="k">while</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;monitor_</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">)</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monitor with name &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; already exists.&quot;</span><span class="p">)</span>
+
+        <span class="n">idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">monitor</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">idx</span>
+
+        <span class="k">return</span> <span class="n">idx</span></div>
+
+
+<div class="viewcode-block" id="MonitorSet.remove">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.MonitorSet.remove">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Monitor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Monitor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove a monitor from the set.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            identifier: Can be:</span>
+<span class="sd">                - str: Name of the monitor to remove</span>
+<span class="sd">                - int: Index of the monitor to remove</span>
+<span class="sd">                - Monitor: The monitor object to remove</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The removed Monitor object.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If monitor not found or invalid identifier.</span>
+<span class="sd">            TypeError: If identifier type is not supported.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Removing a monitor will update all indices in the mapping</span>
+<span class="sd">            to maintain consistency.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Determine index to remove</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">identifier</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monitor with name &#39;</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">)</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span>
+            <span class="n">name_to_remove</span> <span class="o">=</span> <span class="n">identifier</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">identifier</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">identifier</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monitor index </span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2"> out of range &quot;</span>
+                               <span class="sa">f</span><span class="s2">&quot;[0, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">identifier</span>
+            <span class="c1"># Find the name(s) that map to this index</span>
+            <span class="n">name_to_remove</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">mapped_idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">mapped_idx</span> <span class="o">==</span> <span class="n">idx</span><span class="p">:</span>
+                    <span class="n">name_to_remove</span> <span class="o">=</span> <span class="n">name</span>
+                    <span class="k">break</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">Monitor</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Monitor object not found in the set&quot;</span><span class="p">)</span>
+            <span class="c1"># Find the name(s) that map to this index</span>
+            <span class="n">name_to_remove</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">mapped_idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">mapped_idx</span> <span class="o">==</span> <span class="n">idx</span><span class="p">:</span>
+                    <span class="n">name_to_remove</span> <span class="o">=</span> <span class="n">name</span>
+                    <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid identifier type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">. &quot;</span>
+                          <span class="sa">f</span><span class="s2">&quot;Expected str, int, or Monitor&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Remove the monitor</span>
+        <span class="n">removed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+
+        <span class="c1"># Remove from mapping if it has a name</span>
+        <span class="k">if</span> <span class="n">name_to_remove</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">[</span><span class="n">name_to_remove</span><span class="p">]</span>
+
+        <span class="c1"># Update all indices in mapping that were after the removed one</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">mapped_idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">mapped_idx</span> <span class="o">&gt;</span> <span class="n">idx</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapped_idx</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">removed</span></div>
+
+
+<div class="viewcode-block" id="MonitorSet.clear">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.MonitorSet.clear">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove all monitors from the set.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">monitors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span> <span class="o">=</span> <span class="p">{}</span></div>
+
+
+<div class="viewcode-block" id="MonitorSet.get">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.MonitorSet.get">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Monitor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a monitor by name or index.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            identifier: Name (str) or index (int) of the monitor.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The requested Monitor object.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If monitor not found.</span>
+<span class="sd">            TypeError: If identifier type is not supported.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">identifier</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monitor with name &#39;</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">[</span><span class="n">identifier</span><span class="p">]]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">identifier</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">identifier</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Monitor index </span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2"> out of range &quot;</span>
+                               <span class="sa">f</span><span class="s2">&quot;[0, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid identifier type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">. &quot;</span>
+                          <span class="sa">f</span><span class="s2">&quot;Expected str or int&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MonitorSet.list_monitors">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.MonitorSet.list_monitors">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_monitors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get list of all monitor names.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of monitor names (keys only).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="MonitorSet.__len__">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.MonitorSet.__len__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return number of monitors.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MonitorSet.__getitem__">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.MonitorSet.__getitem__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Monitor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Allow dict-like and list-like access to monitors.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MonitorSet.__repr__">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.MonitorSet.__repr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;String representation of MonitorSet.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;MonitorSet(</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">)</span><span class="si">}</span><span class="s2"> monitors, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">)</span><span class="si">}</span><span class="s2"> named)&quot;</span></div>
+
+
+<div class="viewcode-block" id="MonitorSet.to_tuple">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.MonitorSet.to_tuple">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Monitor</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert to tuple format for backward compatibility.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple of (monitors_list, monitor_mapping) for legacy code.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span></div>
+
+
+<div class="viewcode-block" id="MonitorSet.view">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.MonitorSet.view">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">structure</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;z&quot;</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+             <span class="n">figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">show_structure</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+             <span class="n">alpha_structure</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha_monitors</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span>
+             <span class="n">source_position</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">absorber_boundary</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Visualize monitors in this set overlaid on structure cross-sections.</span>
+
+<span class="sd">        This is a convenience method that calls view_monitors() with this MonitorSet.</span>
+<span class="sd">        See view_monitors() for full documentation of visualization options.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            structure: Structure object containing permittivity distribution.</span>
+<span class="sd">            axis: Viewing axis for the cross-section slice (&#39;x&#39;, &#39;y&#39;, or &#39;z&#39;).</span>
+<span class="sd">            position: Position along the specified axis for the slice.</span>
+<span class="sd">            figsize: Figure size as (width, height) tuple.</span>
+<span class="sd">            show_structure: Whether to display the structure permittivity.</span>
+<span class="sd">            alpha_structure: Transparency level for structure display (0.0-1.0).</span>
+<span class="sd">            alpha_monitors: Transparency level for monitor outlines (0.0-1.0).</span>
+<span class="sd">            source_position: Optional X-position of the source plane.</span>
+<span class="sd">            absorber_boundary: Optional absorption mask from hyperwave.absorption.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This method provides a convenient object-oriented interface:</span>
+<span class="sd">            &gt;&gt;&gt; monitor_set = MonitorSet()</span>
+<span class="sd">            &gt;&gt;&gt; monitor_set.view(structure, axis=&#39;z&#39;, position=100)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">view_monitors</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">figsize</span><span class="p">,</span>
+                     <span class="n">show_structure</span><span class="p">,</span> <span class="n">alpha_structure</span><span class="p">,</span> <span class="n">alpha_monitors</span><span class="p">,</span>
+                     <span class="n">source_position</span><span class="p">,</span> <span class="n">absorber_boundary</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MonitorSet.add_monitors_at_position">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.MonitorSet.add_monitors_at_position">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_monitors_at_position</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">structure</span><span class="p">,</span>
+        <span class="n">axis</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">position</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">monitor_thickness</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="n">width_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">,</span>
+        <span class="n">height_factor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">min_width_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add monitors automatically along a specific axis at a specific position.</span>
+
+<span class="sd">        Detects waveguides or other high-permittivity features along the specified</span>
+<span class="sd">        axis at the given position and automatically creates appropriately sized</span>
+<span class="sd">        monitors for each detected feature. Monitors are added to this MonitorSet</span>
+<span class="sd">        with automatic naming based on feature count.</span>
+
+<span class="sd">        WARNING: This function is designed for structures with waveguides or other</span>
+<span class="sd">        high-permittivity features. It will not work correctly for freespace regions</span>
+<span class="sd">        or uniform permittivity regions as it relies on permittivity contrast to detect</span>
+<span class="sd">        features. For such cases, use the add() method directly to place monitors manually.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            structure: Structure object with permittivity attribute.</span>
+<span class="sd">            axis: Axis perpendicular to the monitors (&#39;x&#39;, &#39;y&#39;, or &#39;z&#39;).</span>
+<span class="sd">                - &#39;x&#39;: Creates YZ plane monitors at specified X position</span>
+<span class="sd">                - &#39;y&#39;: Creates XZ plane monitors at specified Y position</span>
+<span class="sd">                - &#39;z&#39;: Creates XY plane monitors at specified Z position</span>
+<span class="sd">            position: Position along the axis where monitors should be placed (in pixels).</span>
+<span class="sd">            monitor_thickness: Thickness of monitors in the direction of the axis (in pixels).</span>
+<span class="sd">                Default is 5 pixels. This is absolute, not relative.</span>
+<span class="sd">            width_factor: Multiplier for waveguide width to determine monitor lateral extent.</span>
+<span class="sd">                Default is 2.5 (monitor will be 2.5x the waveguide width).</span>
+<span class="sd">            height_factor: Multiplier for monitor height (Z dimension). If None, uses the</span>
+<span class="sd">                same value as width_factor. For Z axis monitors, this parameter is ignored.</span>
+<span class="sd">                Default is None (same as width_factor).</span>
+<span class="sd">            min_width_factor: Minimum multiplier for waveguide width.</span>
+<span class="sd">                Default is 1.5. Ensures monitors are at least 1.5x waveguide width.</span>
+<span class="sd">            label: Label for monitor names. If None, uses &#39;mon_axisXXX&#39; format</span>
+<span class="sd">                where XXX is the position value. If provided, smart suffixes are added:</span>
+<span class="sd">                - Single monitor: uses label as-is (e.g., &#39;input&#39;)</span>
+<span class="sd">                - Two monitors: adds &#39;_top&#39;/&#39;_bottom&#39; or &#39;_left&#39;/&#39;_right&#39; (e.g., &#39;input_top&#39;)</span>
+<span class="sd">                - Multiple monitors: adds index (e.g., &#39;input_0&#39;, &#39;input_1&#39;)</span>
+<span class="sd">            verbose: Whether to print detection information. Default is False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of names of the added monitors.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If axis is not &#39;x&#39;, &#39;y&#39;, or &#39;z&#39;.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - Monitor naming follows these conventions:</span>
+<span class="sd">              * Single waveguide: Uses prefix directly (e.g., &#39;input&#39;)</span>
+<span class="sd">              * Two waveguides: Adds &#39;_top&#39;/&#39;_bottom&#39; for X axis, &#39;_left&#39;/&#39;_right&#39; for Y</span>
+<span class="sd">              * Multiple waveguides: Adds index suffix (e.g., &#39;coupling_0&#39;, &#39;coupling_1&#39;)</span>
+<span class="sd">            - This function is not intended for freespace or uniform permittivity regions.</span>
+<span class="sd">              Use the add() method instead for those use cases.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; # Add monitors using method syntax</span>
+<span class="sd">            &gt;&gt;&gt; monitor_set = MonitorSet()</span>
+<span class="sd">            &gt;&gt;&gt; names = monitor_set.add_monitors_at_position(</span>
+<span class="sd">            ...     structure, axis=&#39;x&#39;, position=100, height_factor=2.0</span>
+<span class="sd">            ... )</span>
+<span class="sd">            &gt;&gt;&gt; print(f&quot;Added {len(names)} monitors: {names}&quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Call the module-level function with this MonitorSet</span>
+        <span class="k">return</span> <span class="n">add_monitors_at_position</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">structure</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span>
+            <span class="n">monitor_thickness</span><span class="p">,</span> <span class="n">width_factor</span><span class="p">,</span> <span class="n">height_factor</span><span class="p">,</span> <span class="n">min_width_factor</span><span class="p">,</span>
+            <span class="n">label</span><span class="p">,</span> <span class="n">verbose</span>
+        <span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">recipe</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return serializable recipe for reconstructing this MonitorSet.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of dictionaries, each containing:</span>
+<span class="sd">                - name: Monitor name/label</span>
+<span class="sd">                - shape: Monitor shape tuple</span>
+<span class="sd">                - offset: Monitor offset tuple</span>
+<span class="sd">            Can be used to reconstruct the MonitorSet configuration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">recipe_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">monitor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">monitors</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+            <span class="n">recipe_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="n">monitor</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                <span class="s1">&#39;offset&#39;</span><span class="p">:</span> <span class="n">monitor</span><span class="o">.</span><span class="n">offset</span>
+            <span class="p">})</span>
+        <span class="k">return</span> <span class="n">recipe_list</span></div>
+
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># Automatic Waveguide Detection and Monitor Placement</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_detect_waveguides</span><span class="p">(</span>
+    <span class="n">structure</span><span class="p">,</span>
+    <span class="n">x_position</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">y_position</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">z_position</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">axis</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span>
+    <span class="n">threshold_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect waveguide positions and dimensions by analyzing permittivity.</span>
+
+<span class="sd">    Analyzes a cross-section of the structure to identify high-permittivity</span>
+<span class="sd">    regions (waveguides) along the specified axis. Uses thresholding to</span>
+<span class="sd">    distinguish waveguide material from background.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        structure: Structure object with permittivity attribute.</span>
+<span class="sd">        x_position: X position for YZ slice analysis for detecting Y waveguides</span>
+<span class="sd">            (in pixels). If None, uses middle of X dimension.</span>
+<span class="sd">        y_position: Y position for XZ slice analysis for detecting X waveguides</span>
+<span class="sd">            (in pixels). If None, uses middle of Y dimension.</span>
+<span class="sd">        z_position: Z position for XY slice analysis (in pixels). If None, uses</span>
+<span class="sd">            middle of Z dimension.</span>
+<span class="sd">        axis: Which axis to scan along (&#39;x&#39; or &#39;y&#39;). Default is &#39;y&#39;.</span>
+<span class="sd">        threshold_method: Method for determining waveguide boundaries. Options:</span>
+<span class="sd">            - &#39;auto&#39;: Midpoint between min and max permittivity (default)</span>
+<span class="sd">            - &#39;otsu&#39;: Otsu&#39;s automatic thresholding algorithm</span>
+<span class="sd">            - float: Manual threshold value for permittivity</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of dictionaries containing waveguide information. Each dictionary</span>
+<span class="sd">        contains:</span>
+<span class="sd">            - &#39;center&#39;: Center position along the specified axis (int)</span>
+<span class="sd">            - &#39;start&#39;: Start position of waveguide (int)</span>
+<span class="sd">            - &#39;end&#39;: End position of waveguide (int)</span>
+<span class="sd">            - &#39;width&#39;: Width of the waveguide in pixels (int)</span>
+<span class="sd">            - &#39;axis&#39;: The axis along which waveguide was detected (str)</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If axis is not &#39;x&#39; or &#39;y&#39;.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Only detects waveguides with width &gt;= 3 pixels to filter out noise.</span>
+<span class="sd">        Results are sorted by center position along the detection axis.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get permittivity array (remove frequency dimension if present)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">permittivity</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">eps_array</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">permittivity</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">eps_array</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">permittivity</span>
+
+    <span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">,</span> <span class="n">z_dim</span> <span class="o">=</span> <span class="n">eps_array</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="c1"># Set default positions to middle if not specified</span>
+    <span class="k">if</span> <span class="n">x_position</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">x_position</span> <span class="o">=</span> <span class="n">x_dim</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">y_position</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">y_position</span> <span class="o">=</span> <span class="n">y_dim</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">z_position</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">z_position</span> <span class="o">=</span> <span class="n">z_dim</span> <span class="o">//</span> <span class="mi">2</span>
+
+    <span class="c1"># Get the appropriate slice based on axis</span>
+    <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+        <span class="c1"># Detect waveguides along Y axis using XZ slice at x_position</span>
+        <span class="n">slice_1d</span> <span class="o">=</span> <span class="n">eps_array</span><span class="p">[</span><span class="n">x_position</span><span class="p">,</span> <span class="p">:,</span> <span class="n">z_position</span><span class="p">]</span>  <span class="c1"># Y variation</span>
+    <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+        <span class="c1"># Detect waveguides along X axis using YZ slice at y_position</span>
+        <span class="n">slice_1d</span> <span class="o">=</span> <span class="n">eps_array</span><span class="p">[:,</span> <span class="n">y_position</span><span class="p">,</span> <span class="n">z_position</span><span class="p">]</span>  <span class="c1"># X variation</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;axis must be &#39;x&#39; or &#39;y&#39;, got </span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Convert to numpy for processing</span>
+    <span class="n">slice_1d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">slice_1d</span><span class="p">)</span><span class="o">.</span><span class="n">real</span>
+
+    <span class="c1"># Determine threshold</span>
+    <span class="k">if</span> <span class="n">threshold_method</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+        <span class="c1"># Simple midpoint between min and max</span>
+        <span class="n">threshold</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">slice_1d</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">slice_1d</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">elif</span> <span class="n">threshold_method</span> <span class="o">==</span> <span class="s1">&#39;otsu&#39;</span><span class="p">:</span>
+        <span class="c1"># Otsu&#39;s method for automatic thresholding</span>
+        <span class="n">hist</span><span class="p">,</span> <span class="n">bin_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">slice_1d</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+        <span class="n">bin_centers</span> <span class="o">=</span> <span class="p">(</span><span class="n">bin_edges</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">bin_edges</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="c1"># Calculate probabilities</span>
+        <span class="n">weight1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
+        <span class="n">weight2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">hist</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Calculate means</span>
+        <span class="n">mean1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">hist</span> <span class="o">*</span> <span class="n">bin_centers</span><span class="p">)</span> <span class="o">/</span> <span class="n">weight1</span>
+        <span class="n">mean2</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">((</span><span class="n">hist</span> <span class="o">*</span> <span class="n">bin_centers</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">weight2</span>
+
+        <span class="c1"># Calculate variance</span>
+        <span class="n">variance</span> <span class="o">=</span> <span class="n">weight1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">weight2</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">*</span> <span class="p">(</span><span class="n">mean1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean2</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="o">**</span> <span class="mi">2</span>
+
+        <span class="c1"># Find maximum variance</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
+        <span class="n">threshold</span> <span class="o">=</span> <span class="n">bin_centers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Use provided threshold value</span>
+        <span class="n">threshold</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">threshold_method</span><span class="p">)</span>
+
+    <span class="c1"># Find high permittivity regions</span>
+    <span class="n">high_eps_mask</span> <span class="o">=</span> <span class="n">slice_1d</span> <span class="o">&gt;</span> <span class="n">threshold</span>
+
+    <span class="c1"># Find connected regions (waveguides)</span>
+    <span class="n">waveguide_info</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">in_waveguide</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">wg_start</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">high_eps_mask</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">high_eps_mask</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">in_waveguide</span><span class="p">:</span>
+            <span class="c1"># Start of waveguide</span>
+            <span class="n">wg_start</span> <span class="o">=</span> <span class="n">pos</span>
+            <span class="n">in_waveguide</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">high_eps_mask</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="ow">and</span> <span class="n">in_waveguide</span><span class="p">:</span>
+            <span class="c1"># End of waveguide</span>
+            <span class="n">wg_end</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">wg_center</span> <span class="o">=</span> <span class="p">(</span><span class="n">wg_start</span> <span class="o">+</span> <span class="n">wg_end</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="n">wg_width</span> <span class="o">=</span> <span class="n">wg_end</span> <span class="o">-</span> <span class="n">wg_start</span> <span class="o">+</span> <span class="mi">1</span>
+
+            <span class="c1"># Only include if width is reasonable (filter out noise)</span>
+            <span class="k">if</span> <span class="n">wg_width</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># At least 3 pixels wide</span>
+                <span class="n">waveguide_info</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">wg_center</span><span class="p">),</span>
+                    <span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">wg_start</span><span class="p">),</span>
+                    <span class="s1">&#39;end&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">wg_end</span><span class="p">),</span>
+                    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">wg_width</span><span class="p">),</span>
+                    <span class="s1">&#39;axis&#39;</span><span class="p">:</span> <span class="n">axis</span>
+                <span class="p">})</span>
+            <span class="n">in_waveguide</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># Handle case where waveguide extends to edge</span>
+    <span class="k">if</span> <span class="n">in_waveguide</span><span class="p">:</span>
+        <span class="n">wg_end</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">high_eps_mask</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">wg_center</span> <span class="o">=</span> <span class="p">(</span><span class="n">wg_start</span> <span class="o">+</span> <span class="n">wg_end</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">wg_width</span> <span class="o">=</span> <span class="n">wg_end</span> <span class="o">-</span> <span class="n">wg_start</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">wg_width</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">waveguide_info</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">wg_center</span><span class="p">),</span>
+                <span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">wg_start</span><span class="p">),</span>
+                <span class="s1">&#39;end&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">wg_end</span><span class="p">),</span>
+                <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">wg_width</span><span class="p">),</span>
+                <span class="s1">&#39;axis&#39;</span><span class="p">:</span> <span class="n">axis</span>
+            <span class="p">})</span>
+
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">waveguide_info</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;center&#39;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="add_monitors_at_position">
+<a class="viewcode-back" href="../../api/monitors.html#hyperwave_community.monitors.add_monitors_at_position">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_monitors_at_position</span><span class="p">(</span>
+    <span class="n">monitor_set</span><span class="p">:</span> <span class="n">MonitorSet</span><span class="p">,</span>
+    <span class="n">structure</span><span class="p">,</span>
+    <span class="n">axis</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">position</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">monitor_thickness</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="n">width_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">,</span>
+    <span class="n">height_factor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">min_width_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add monitors automatically along a specific axis at a specific position.</span>
+
+<span class="sd">    Detects waveguides or other high-permittivity features along the specified</span>
+<span class="sd">    axis at the given position and automatically creates appropriately sized</span>
+<span class="sd">    monitors for each detected feature. Monitors are added to the provided</span>
+<span class="sd">    MonitorSet with automatic naming based on feature count.</span>
+
+<span class="sd">    WARNING: This function is designed for structures with waveguides or other</span>
+<span class="sd">    high-permittivity features. It will not work correctly for freespace regions</span>
+<span class="sd">    or uniform permittivity regions as it relies on permittivity contrast to detect</span>
+<span class="sd">    features. For such cases, use the MonitorSet.add() method directly to place</span>
+<span class="sd">    monitors manually.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        monitor_set: MonitorSet to add monitors to.</span>
+<span class="sd">        structure: Structure object with permittivity attribute and get_shape() method.</span>
+<span class="sd">        axis: Axis perpendicular to the monitors (&#39;x&#39;, &#39;y&#39;, or &#39;z&#39;).</span>
+<span class="sd">            - &#39;x&#39;: Creates YZ plane monitors at specified X position</span>
+<span class="sd">            - &#39;y&#39;: Creates XZ plane monitors at specified Y position</span>
+<span class="sd">            - &#39;z&#39;: Creates XY plane monitors at specified Z position</span>
+<span class="sd">        position: Position along the axis where monitors should be placed (in pixels).</span>
+<span class="sd">        monitor_thickness: Thickness of monitors in the direction of the axis (in pixels).</span>
+<span class="sd">            Default is 5 pixels. This is absolute, not relative.</span>
+<span class="sd">        width_factor: Multiplier for waveguide width to determine monitor lateral extent.</span>
+<span class="sd">            Default is 2.5 (monitor will be 2.5x the waveguide width).</span>
+<span class="sd">        height_factor: Multiplier for monitor height (Z dimension). If None, uses the</span>
+<span class="sd">            same value as width_factor. For Z axis monitors, this parameter is ignored.</span>
+<span class="sd">            Default is None (same as width_factor).</span>
+<span class="sd">        min_width_factor: Minimum multiplier for waveguide width.</span>
+<span class="sd">            Default is 1.5. Ensures monitors are at least 1.5x waveguide width.</span>
+<span class="sd">        label: Prefix for monitor names. If None, uses &#39;mon_axisXXX&#39; format</span>
+<span class="sd">            where XXX is the position value. If provided, smart suffixes are added:</span>
+<span class="sd">                - Single monitor: uses label as-is (e.g., &#39;input&#39;)</span>
+<span class="sd">                - Two monitors: adds &#39;_top&#39;/&#39;_bottom&#39; or &#39;_left&#39;/&#39;_right&#39; (e.g., &#39;input_top&#39;)</span>
+<span class="sd">                - Multiple monitors: adds index (e.g., &#39;input_0&#39;, &#39;input_1&#39;)</span>
+<span class="sd">        verbose: Whether to print detection information. Default is False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of names of the added monitors.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If axis is not &#39;x&#39;, &#39;y&#39;, or &#39;z&#39;.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        - Monitor naming follows these conventions:</span>
+<span class="sd">          * Single waveguide: Uses prefix directly (e.g., &#39;input&#39;)</span>
+<span class="sd">          * Two waveguides: Adds &#39;_top&#39;/&#39;_bottom&#39; for X axis, &#39;_left&#39;/&#39;_right&#39; for Y</span>
+<span class="sd">          * Multiple waveguides: Adds index suffix (e.g., &#39;coupling_0&#39;, &#39;coupling_1&#39;)</span>
+<span class="sd">        - This function is not intended for freespace or uniform permittivity regions.</span>
+<span class="sd">          Use the MonitorSet.add() method instead for those use cases.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # Add monitors across waveguides at X=100</span>
+<span class="sd">        &gt;&gt;&gt; monitor_set = MonitorSet()</span>
+<span class="sd">        &gt;&gt;&gt; names = add_monitors_at_position(</span>
+<span class="sd">        ...     monitor_set, structure, axis=&#39;x&#39;, position=100, height_factor=2.0</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Added {len(names)} monitors: {names}&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get structure dimensions</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">permittivity</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">,</span> <span class="n">z_dim</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">permittivity</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">,</span> <span class="n">z_dim</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">permittivity</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="n">added_names</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Default name prefix based on axis and position</span>
+    <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;mon_</span><span class="si">{</span><span class="n">axis</span><span class="si">}{</span><span class="n">position</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># Detect features based on axis</span>
+    <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+        <span class="c1"># YZ plane monitors at X position - detect along Y</span>
+        <span class="n">waveguides</span> <span class="o">=</span> <span class="n">_detect_waveguides</span><span class="p">(</span>
+            <span class="n">structure</span><span class="p">,</span>
+            <span class="n">x_position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
+            <span class="n">z_position</span><span class="o">=</span><span class="n">z_dim</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">waveguides</span><span class="p">)</span><span class="si">}</span><span class="s2"> features along Y at X=</span><span class="si">{</span><span class="n">position</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">wg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">waveguides</span><span class="p">):</span>
+            <span class="c1"># Calculate monitor extent based on waveguide width</span>
+            <span class="c1"># Use the larger of width_factor or min_width_factor</span>
+            <span class="n">effective_factor</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">width_factor</span><span class="p">,</span> <span class="n">min_width_factor</span><span class="p">)</span>
+            <span class="n">desired_half_extent</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">wg</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">effective_factor</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+
+            <span class="c1"># Calculate monitor position centered on waveguide</span>
+            <span class="c1"># Clamp each edge independently to domain boundaries</span>
+            <span class="n">y_center</span> <span class="o">=</span> <span class="n">wg</span><span class="p">[</span><span class="s1">&#39;center&#39;</span><span class="p">]</span>
+            <span class="n">y_start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_center</span> <span class="o">-</span> <span class="n">desired_half_extent</span><span class="p">)</span>
+            <span class="n">y_end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">y_dim</span><span class="p">,</span> <span class="n">y_center</span> <span class="o">+</span> <span class="n">desired_half_extent</span><span class="p">)</span>
+            <span class="n">y_height</span> <span class="o">=</span> <span class="n">y_end</span> <span class="o">-</span> <span class="n">y_start</span>
+
+            <span class="c1"># Calculate Z dimension based on height_factor</span>
+            <span class="c1"># If not specified, use the same factor as width</span>
+            <span class="n">effective_height_factor</span> <span class="o">=</span> <span class="n">height_factor</span> <span class="k">if</span> <span class="n">height_factor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">width_factor</span>
+            <span class="n">desired_z_half_extent</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">wg</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">effective_height_factor</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+
+            <span class="c1"># Center in Z, clamp each edge independently</span>
+            <span class="n">z_center</span> <span class="o">=</span> <span class="n">z_dim</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="n">z_start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_center</span> <span class="o">-</span> <span class="n">desired_z_half_extent</span><span class="p">)</span>
+            <span class="n">z_end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">z_dim</span><span class="p">,</span> <span class="n">z_center</span> <span class="o">+</span> <span class="n">desired_z_half_extent</span><span class="p">)</span>
+            <span class="n">z_height</span> <span class="o">=</span> <span class="n">z_end</span> <span class="o">-</span> <span class="n">z_start</span>
+
+            <span class="n">monitor</span> <span class="o">=</span> <span class="n">Monitor</span><span class="p">(</span>
+                <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">monitor_thickness</span><span class="p">,</span> <span class="n">y_height</span><span class="p">,</span> <span class="n">z_height</span><span class="p">),</span>
+                <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">y_start</span><span class="p">,</span> <span class="n">z_start</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Generate name</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">waveguides</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">label</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">waveguides</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="s1">&#39;top&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;bottom&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+
+            <span class="n">monitor_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">monitor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">added_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Added &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;: Y=[</span><span class="si">{</span><span class="n">y_start</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">y_start</span><span class="o">+</span><span class="n">y_height</span><span class="si">}</span><span class="s2">], width=</span><span class="si">{</span><span class="n">wg</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">px&quot;</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+        <span class="c1"># XZ plane monitors at Y position - detect along X</span>
+        <span class="n">waveguides</span> <span class="o">=</span> <span class="n">_detect_waveguides</span><span class="p">(</span>
+            <span class="n">structure</span><span class="p">,</span>
+            <span class="n">y_position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
+            <span class="n">z_position</span><span class="o">=</span><span class="n">z_dim</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">waveguides</span><span class="p">)</span><span class="si">}</span><span class="s2"> features along X at Y=</span><span class="si">{</span><span class="n">position</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">wg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">waveguides</span><span class="p">):</span>
+            <span class="c1"># Calculate monitor extent based on waveguide width</span>
+            <span class="c1"># Use the larger of width_factor or min_width_factor</span>
+            <span class="n">effective_factor</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">width_factor</span><span class="p">,</span> <span class="n">min_width_factor</span><span class="p">)</span>
+            <span class="n">desired_half_extent</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">wg</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">effective_factor</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+
+            <span class="c1"># Calculate monitor position centered on waveguide</span>
+            <span class="c1"># Clamp each edge independently to domain boundaries</span>
+            <span class="n">x_center</span> <span class="o">=</span> <span class="n">wg</span><span class="p">[</span><span class="s1">&#39;center&#39;</span><span class="p">]</span>
+            <span class="n">x_start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_center</span> <span class="o">-</span> <span class="n">desired_half_extent</span><span class="p">)</span>
+            <span class="n">x_end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x_dim</span><span class="p">,</span> <span class="n">x_center</span> <span class="o">+</span> <span class="n">desired_half_extent</span><span class="p">)</span>
+            <span class="n">x_width</span> <span class="o">=</span> <span class="n">x_end</span> <span class="o">-</span> <span class="n">x_start</span>
+
+            <span class="c1"># Calculate Z dimension based on height_factor</span>
+            <span class="c1"># If not specified, use the same factor as width</span>
+            <span class="n">effective_height_factor</span> <span class="o">=</span> <span class="n">height_factor</span> <span class="k">if</span> <span class="n">height_factor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">width_factor</span>
+            <span class="n">desired_z_half_extent</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">wg</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">effective_height_factor</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+
+            <span class="c1"># Center in Z, clamp each edge independently</span>
+            <span class="n">z_center</span> <span class="o">=</span> <span class="n">z_dim</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="n">z_start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_center</span> <span class="o">-</span> <span class="n">desired_z_half_extent</span><span class="p">)</span>
+            <span class="n">z_end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">z_dim</span><span class="p">,</span> <span class="n">z_center</span> <span class="o">+</span> <span class="n">desired_z_half_extent</span><span class="p">)</span>
+            <span class="n">z_height</span> <span class="o">=</span> <span class="n">z_end</span> <span class="o">-</span> <span class="n">z_start</span>
+
+            <span class="n">monitor</span> <span class="o">=</span> <span class="n">Monitor</span><span class="p">(</span>
+                <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">x_width</span><span class="p">,</span> <span class="n">monitor_thickness</span><span class="p">,</span> <span class="n">z_height</span><span class="p">),</span>
+                <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="n">x_start</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">z_start</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Generate name</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">waveguides</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">label</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">waveguides</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="s1">&#39;left&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;right&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+
+            <span class="n">monitor_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">monitor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">added_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Added &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;: X=[</span><span class="si">{</span><span class="n">x_start</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">x_start</span><span class="o">+</span><span class="n">x_width</span><span class="si">}</span><span class="s2">], width=</span><span class="si">{</span><span class="n">wg</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">px&quot;</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>
+        <span class="c1"># XY plane monitors at Z position - detect along Y (most common)</span>
+        <span class="c1"># Note: height_factor is ignored for Z-axis monitors since they are XY planes</span>
+        <span class="n">waveguides</span> <span class="o">=</span> <span class="n">_detect_waveguides</span><span class="p">(</span>
+            <span class="n">structure</span><span class="p">,</span>
+            <span class="n">x_position</span><span class="o">=</span><span class="n">x_dim</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">z_position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Detected </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">waveguides</span><span class="p">)</span><span class="si">}</span><span class="s2"> features along Y at Z=</span><span class="si">{</span><span class="n">position</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">wg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">waveguides</span><span class="p">):</span>
+            <span class="c1"># For Z-plane monitors, typically want full X extent</span>
+            <span class="n">monitor</span> <span class="o">=</span> <span class="n">Monitor</span><span class="p">(</span>
+                <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">x_dim</span><span class="p">,</span> <span class="n">wg</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">],</span> <span class="n">monitor_thickness</span><span class="p">),</span>
+                <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">wg</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">],</span> <span class="n">position</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Generate name</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">waveguides</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">label</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
+
+            <span class="n">monitor_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">monitor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">added_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Added &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;: Y=[</span><span class="si">{</span><span class="n">wg</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">wg</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;axis must be &#39;x&#39;, &#39;y&#39;, or &#39;z&#39;, got </span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Handle case where no waveguides detected</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">waveguides</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Warning: No features detected, adding fallback monitor&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Calculate Z dimension based on height_factor for X and Y axis monitors</span>
+        <span class="k">if</span> <span class="n">axis</span> <span class="o">!=</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span>
+            <span class="c1"># If not specified, use the same factor as width</span>
+            <span class="n">effective_height_factor</span> <span class="o">=</span> <span class="n">height_factor</span> <span class="k">if</span> <span class="n">height_factor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">width_factor</span>
+            <span class="c1"># Use a reasonable default size for fallback (quarter of dimension)</span>
+            <span class="n">fallback_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_dim</span> <span class="o">//</span> <span class="mi">4</span> <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span> <span class="k">else</span> <span class="n">x_dim</span> <span class="o">//</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="n">desired_z_half_extent</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fallback_width</span> <span class="o">*</span> <span class="n">effective_height_factor</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+
+            <span class="c1"># Center in Z, clamp each edge independently</span>
+            <span class="n">z_center</span> <span class="o">=</span> <span class="n">z_dim</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="n">z_start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_center</span> <span class="o">-</span> <span class="n">desired_z_half_extent</span><span class="p">)</span>
+            <span class="n">z_end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">z_dim</span><span class="p">,</span> <span class="n">z_center</span> <span class="o">+</span> <span class="n">desired_z_half_extent</span><span class="p">)</span>
+            <span class="n">z_height</span> <span class="o">=</span> <span class="n">z_end</span> <span class="o">-</span> <span class="n">z_start</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">z_start</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">z_height</span> <span class="o">=</span> <span class="n">z_dim</span>
+
+        <span class="c1"># Add a single fallback monitor</span>
+        <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+            <span class="n">monitor</span> <span class="o">=</span> <span class="n">Monitor</span><span class="p">(</span>
+                <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">monitor_thickness</span><span class="p">,</span> <span class="n">y_dim</span> <span class="o">//</span> <span class="mi">4</span><span class="p">,</span> <span class="n">z_height</span><span class="p">),</span>
+                <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">y_dim</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">y_dim</span> <span class="o">//</span> <span class="mi">8</span><span class="p">,</span> <span class="n">z_start</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+            <span class="n">monitor</span> <span class="o">=</span> <span class="n">Monitor</span><span class="p">(</span>
+                <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">x_dim</span> <span class="o">//</span> <span class="mi">4</span><span class="p">,</span> <span class="n">monitor_thickness</span><span class="p">,</span> <span class="n">z_height</span><span class="p">),</span>
+                <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="n">x_dim</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">x_dim</span> <span class="o">//</span> <span class="mi">8</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">z_start</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># z</span>
+            <span class="n">monitor</span> <span class="o">=</span> <span class="n">Monitor</span><span class="p">(</span>
+                <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">,</span> <span class="n">monitor_thickness</span><span class="p">),</span>
+                <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">_fallback&quot;</span>
+        <span class="n">monitor_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">monitor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">added_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">added_names</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, SPINS Photonics.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

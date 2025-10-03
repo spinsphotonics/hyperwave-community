@@ -1,0 +1,669 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Hyperwave Community Documentation &#8212; Hyperwave Community</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/spins_logo.png" class="logo__image only-light" alt=""/>
+    <img src="_static/spins_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">SPINS Photonics</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/spinsphotonics/hyperwave-community" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://spinsphotonics.com" title="SPINS Photonics" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">SPINS Photonics</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/spinsphotonics/hyperwave-community" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://spinsphotonics.com" title="SPINS Photonics" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">SPINS Photonics</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="hyperwave-community-documentation">
+<h1>Hyperwave Community Documentation<a class="headerlink" href="#hyperwave-community-documentation" title="Link to this heading">#</a></h1>
+<p>Welcome to the Hyperwave Community documentation. This package provides an open-source photonics simulation toolkit with GPU-accelerated FDTD via cloud API.</p>
+<p><strong>Get started today at</strong> <a class="reference external" href="https://spinsphotonics.com">spinsphotonics.com</a> <strong>- Sign up for free GPU credits!</strong></p>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Local Structure Design</strong>: Create photonic structures with density filtering and layer stacking</p></li>
+<li><p><strong>Modal Source Generation</strong>: Fast eigenvalue-based waveguide mode solver (runs locally)</p></li>
+<li><p><strong>GPU-Accelerated Simulation</strong>: Run FDTD simulations on cloud-based GPUs via API</p></li>
+<li><p><strong>Unidirectional Gaussian Sources</strong>: Generate reflection-free Gaussian beams via API</p></li>
+<li><p><strong>Power Analysis</strong>: Poynting flux calculations and transmission spectra</p></li>
+<li><p><strong>Visualization</strong>: Built-in plotting for structures, fields, and convergence</p></li>
+</ul>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>hyperwave-community
+</pre></div>
+</div>
+<p>Or install from source:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/spinsphotonics/hyperwave-community.git
+<span class="nb">cd</span><span class="w"> </span>hyperwave-community
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
+<section id="get-your-api-key">
+<h3>1. Get Your API Key<a class="headerlink" href="#get-your-api-key" title="Link to this heading">#</a></h3>
+<p>Sign up for free at <a class="reference external" href="https://spinsphotonics.com">spinsphotonics.com</a> to get your API key and free GPU credits.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">hyperwave_community</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">hwc</span>
+
+<span class="c1"># Get your API key from your dashboard at: https://spinsphotonics.com/dashboard</span>
+<span class="n">api_key</span> <span class="o">=</span> <span class="s2">&quot;your-api-key-here&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="create-theta-design-pattern">
+<h3>2. Create Theta (Design Pattern)<a class="headerlink" href="#create-theta-design-pattern" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Create design pattern (theta) - binary pattern for waveguide</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
+<span class="n">center_y</span> <span class="o">=</span> <span class="n">theta</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="n">waveguide_width</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">strip_start</span> <span class="o">=</span> <span class="n">center_y</span> <span class="o">-</span> <span class="n">waveguide_width</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="n">strip_end</span> <span class="o">=</span> <span class="n">center_y</span> <span class="o">+</span> <span class="n">waveguide_width</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">theta</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">strip_start</span><span class="p">:</span><span class="n">strip_end</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="c1"># Visualize theta pattern</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+
+<span class="c1"># Apply density filtering for smooth edges</span>
+<span class="n">waveguide_density</span> <span class="o">=</span> <span class="n">hwc</span><span class="o">.</span><span class="n">density</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="n">theta</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Create blank density pattern for cladding layers (all SiO2)</span>
+<span class="n">cladding_density</span> <span class="o">=</span> <span class="n">hwc</span><span class="o">.</span><span class="n">density</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="n">jnp</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Visualize density pattern</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">waveguide_density</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="build-structure-and-visualize">
+<h3>3. Build Structure and Visualize<a class="headerlink" href="#build-structure-and-visualize" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define materials (Silicon on SiO2)</span>
+<span class="n">n_Si</span><span class="p">,</span> <span class="n">n_SiO2</span> <span class="o">=</span> <span class="mf">3.4</span><span class="p">,</span> <span class="mf">1.45</span>
+<span class="n">eps_Si</span><span class="p">,</span> <span class="n">eps_SiO2</span> <span class="o">=</span> <span class="n">n_Si</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_SiO2</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="c1"># Define layer stack: SiO2 / Si / SiO2</span>
+<span class="n">waveguide_layer</span> <span class="o">=</span> <span class="n">hwc</span><span class="o">.</span><span class="n">Layer</span><span class="p">(</span>
+    <span class="n">density_pattern</span><span class="o">=</span><span class="n">waveguide_density</span><span class="p">,</span>
+    <span class="n">permittivity_values</span><span class="o">=</span><span class="p">(</span><span class="n">eps_SiO2</span><span class="p">,</span> <span class="n">eps_Si</span><span class="p">),</span>
+    <span class="n">layer_thickness</span><span class="o">=</span><span class="mi">20</span>
+<span class="p">)</span>
+
+<span class="n">cladding_layer</span> <span class="o">=</span> <span class="n">hwc</span><span class="o">.</span><span class="n">Layer</span><span class="p">(</span>
+    <span class="n">density_pattern</span><span class="o">=</span><span class="n">cladding_density</span><span class="p">,</span>
+    <span class="n">permittivity_values</span><span class="o">=</span><span class="n">eps_SiO2</span><span class="p">,</span>
+    <span class="n">layer_thickness</span><span class="o">=</span><span class="mi">40</span>
+<span class="p">)</span>
+
+<span class="c1"># Build 3D structure with vertical blurring</span>
+<span class="n">structure</span> <span class="o">=</span> <span class="n">hwc</span><span class="o">.</span><span class="n">create_structure</span><span class="p">(</span>
+    <span class="n">layers</span><span class="o">=</span><span class="p">[</span><span class="n">cladding_layer</span><span class="p">,</span> <span class="n">waveguide_layer</span><span class="p">,</span> <span class="n">cladding_layer</span><span class="p">],</span>
+    <span class="n">vertical_radius</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="c1"># Add adiabatic absorbing boundaries</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">Lx</span><span class="p">,</span> <span class="n">Ly</span><span class="p">,</span> <span class="n">Lz</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">permittivity</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">abs_width</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="n">abs_coeff</span> <span class="o">=</span> <span class="mf">4.89e-3</span>
+<span class="n">abs_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">abs_width</span><span class="p">,</span> <span class="n">abs_width</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">abs_width</span><span class="o">//</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="n">absorption_boundary</span> <span class="o">=</span> <span class="n">hwc</span><span class="o">.</span><span class="n">create_absorption_mask</span><span class="p">(</span>
+    <span class="n">grid_shape</span><span class="o">=</span><span class="p">(</span><span class="n">Lx</span><span class="p">,</span> <span class="n">Ly</span><span class="p">,</span> <span class="n">Lz</span><span class="p">),</span>
+    <span class="n">absorption_widths</span><span class="o">=</span><span class="n">abs_shape</span><span class="p">,</span>
+    <span class="n">absorption_coeff</span><span class="o">=</span><span class="n">abs_coeff</span>
+<span class="p">)</span>
+
+<span class="n">structure</span><span class="o">.</span><span class="n">conductivity</span> <span class="o">=</span> <span class="n">structure</span><span class="o">.</span><span class="n">conductivity</span> <span class="o">+</span> <span class="n">absorption_boundary</span>
+
+<span class="c1"># Visualize structure</span>
+<span class="n">hwc</span><span class="o">.</span><span class="n">view_structure</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="n">show_permittivity</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_conductivity</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="create-mode-source-and-visualize">
+<h3>4. Create Mode Source and Visualize<a class="headerlink" href="#create-mode-source-and-visualize" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define frequency band (telecom wavelengths)</span>
+<span class="n">freq_band</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">jnp</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">32</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">jnp</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">30</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># λ=30-32 pixels, 2 frequencies</span>
+
+<span class="c1"># Generate mode source (after absorber region)</span>
+<span class="n">source_position</span> <span class="o">=</span> <span class="n">abs_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">10</span>  <span class="c1"># 80 pixels (70 + 10)</span>
+<span class="n">source_field</span><span class="p">,</span> <span class="n">source_offset</span><span class="p">,</span> <span class="n">mode_info</span> <span class="o">=</span> <span class="n">hwc</span><span class="o">.</span><span class="n">create_mode_source</span><span class="p">(</span>
+    <span class="n">structure</span><span class="o">=</span><span class="n">structure</span><span class="p">,</span>
+    <span class="n">freq_band</span><span class="o">=</span><span class="n">freq_band</span><span class="p">,</span>
+    <span class="n">mode_num</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># Fundamental mode</span>
+    <span class="n">propagation_axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span>
+    <span class="n">source_position</span><span class="o">=</span><span class="n">source_position</span><span class="p">,</span>
+    <span class="n">perpendicular_bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">structure</span><span class="o">.</span><span class="n">permittivity</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+    <span class="n">visualize</span><span class="o">=</span><span class="kc">True</span>  <span class="c1"># Shows mode profile</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mode propagation constant β: </span><span class="si">{</span><span class="n">mode_info</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mode solver error: </span><span class="si">{</span><span class="n">mode_info</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="setup-monitors-and-visualize-placement">
+<h3>5. Setup Monitors and Visualize Placement<a class="headerlink" href="#setup-monitors-and-visualize-placement" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create monitor set</span>
+<span class="n">monitors</span> <span class="o">=</span> <span class="n">hwc</span><span class="o">.</span><span class="n">MonitorSet</span><span class="p">()</span>
+
+<span class="c1"># Add monitors with automatic waveguide detection</span>
+<span class="n">monitors</span><span class="o">.</span><span class="n">add_monitors_at_position</span><span class="p">(</span>
+    <span class="n">structure</span><span class="o">=</span><span class="n">structure</span><span class="p">,</span>
+    <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span>
+    <span class="n">position</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Input&#39;</span>
+<span class="p">)</span>
+
+<span class="n">monitors</span><span class="o">.</span><span class="n">add_monitors_at_position</span><span class="p">(</span>
+    <span class="n">structure</span><span class="o">=</span><span class="n">structure</span><span class="p">,</span>
+    <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span>
+    <span class="n">position</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Output&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># Visualize monitor positions on structure</span>
+<span class="n">hwc</span><span class="o">.</span><span class="n">view_monitors</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="n">monitors</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Configured monitors: </span><span class="si">{</span><span class="n">monitors</span><span class="o">.</span><span class="n">list_monitors</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="run-simulation-via-api">
+<h3>6. Run Simulation via API<a class="headerlink" href="#run-simulation-via-api" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run FDTD simulation on cloud GPU</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">hwc</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span>
+    <span class="n">structure</span><span class="o">=</span><span class="n">structure</span><span class="p">,</span>
+    <span class="n">source_field</span><span class="o">=</span><span class="n">source_field</span><span class="p">,</span>
+    <span class="n">source_offset</span><span class="o">=</span><span class="n">source_offset</span><span class="p">,</span>
+    <span class="n">freq_band</span><span class="o">=</span><span class="n">freq_band</span><span class="p">,</span>
+    <span class="n">monitors</span><span class="o">=</span><span class="n">monitors</span><span class="p">,</span>
+    <span class="n">mode_info</span><span class="o">=</span><span class="n">mode_info</span><span class="p">,</span>
+    <span class="n">max_steps</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+    <span class="n">check_every_n</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">source_ramp_periods</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">add_absorption</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">absorption_widths</span><span class="o">=</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span>
+    <span class="n">absorption_coeff</span><span class="o">=</span><span class="mf">4.89e-3</span><span class="p">,</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span>  <span class="c1"># Pass your API key here</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;GPU time: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;sim_time&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Performance: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> grid-points×steps/s&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="analyze-results">
+<h3>7. Analyze Results<a class="headerlink" href="#analyze-results" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Quick visualization of all monitors</span>
+<span class="n">hwc</span><span class="o">.</span><span class="n">quick_view_monitors</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">component</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>  <span class="c1"># Total field intensity</span>
+<span class="n">hwc</span><span class="o">.</span><span class="n">quick_view_monitors</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">component</span><span class="o">=</span><span class="s1">&#39;Hz&#39;</span><span class="p">)</span>   <span class="c1"># Hz component</span>
+
+<span class="c1"># Power analysis (already computed by API)</span>
+<span class="n">input_power</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;powers&#39;</span><span class="p">][</span><span class="s1">&#39;Input&#39;</span><span class="p">]</span>
+<span class="n">output_power</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;powers&#39;</span><span class="p">][</span><span class="s1">&#39;Output&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Input power: </span><span class="si">{</span><span class="n">jnp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">input_power</span><span class="p">)</span><span class="si">:</span><span class="s2">.4e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Output power: </span><span class="si">{</span><span class="n">jnp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">output_power</span><span class="p">)</span><span class="si">:</span><span class="s2">.4e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Transmission analysis</span>
+<span class="n">transmission</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;transmissions&#39;</span><span class="p">][</span><span class="s1">&#39;transmission&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Transmission per frequency: </span><span class="si">{</span><span class="n">transmission</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average transmission: </span><span class="si">{</span><span class="n">jnp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">transmission</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Transmission in dB: </span><span class="si">{</span><span class="mi">10</span><span class="o">*</span><span class="n">jnp</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">transmission</span><span class="p">))</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> dB&quot;</span><span class="p">)</span>
+
+<span class="c1"># Loss calculation</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">jnp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">transmission</span><span class="p">)</span>
+<span class="n">loss_dB</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="o">*</span><span class="n">jnp</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">transmission</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">loss_dB</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> dB)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/structure.html">Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/sources.html">Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/monitors.html">Monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/absorption.html">Absorption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/simulate.html">Simulate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/api_client.html">API Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/data_io.html">Data I/O</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/metasurface.html">Metasurface</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="api.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Hyperwave Community Documentation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-your-api-key">1. Get Your API Key</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-theta-design-pattern">2. Create Theta (Design Pattern)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-structure-and-visualize">3. Build Structure and Visualize</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-mode-source-and-visualize">4. Create Mode Source and Visualize</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-monitors-and-visualize-placement">5. Setup Monitors and Visualize Placement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-simulation-via-api">6. Run Simulation via API</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-results">7. Analyze Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, SPINS Photonics.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

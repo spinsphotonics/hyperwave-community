@@ -1,0 +1,1244 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hyperwave_community.data_io &#8212; Hyperwave Community</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/hyperwave_community/data_io';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/spins_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../../_static/spins_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">SPINS Photonics</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/spinsphotonics/hyperwave-community" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://spinsphotonics.com" title="SPINS Photonics" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">SPINS Photonics</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/spinsphotonics/hyperwave-community" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://spinsphotonics.com" title="SPINS Photonics" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">SPINS Photonics</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">hyperwave_community.data_io</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for hyperwave_community.data_io</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;GDS export and visualization utilities for photonic device fabrication.</span>
+
+<span class="sd">This module provides functions for converting density arrays from topology</span>
+<span class="sd">optimization into GDS II format files suitable for semiconductor fabrication.</span>
+<span class="sd">It handles complex polygons with holes using hierarchical containment analysis</span>
+<span class="sd">and includes utilities for visualizing results.</span>
+
+<span class="sd">Main functions:</span>
+<span class="sd">    generate_gds_from_density: Convert 2D density array to GDS file</span>
+<span class="sd">    view_gds: Visualize GDS file contents</span>
+<span class="sd">    gds_to_theta: Convert GDS file to theta array</span>
+<span class="sd">    component_to_theta: Convert gdsfactory component to theta array</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gdstk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">measure</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># Private Helper Functions for GDS Processing</span>
+<span class="c1"># =============================================================================</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_winding_number</span><span class="p">(</span><span class="n">polygon</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate winding number for point-in-polygon test.</span>
+
+<span class="sd">    The winding number algorithm determines if a point is inside a polygon</span>
+<span class="sd">    by counting how many times the polygon winds around the point.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        polygon: Array of (x,y) coordinates defining the polygon.</span>
+<span class="sd">        point: (x,y) coordinate to test.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Integer winding number. 0 means point is outside, non-zero means inside.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">wn</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">polygon</span><span class="p">)):</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">polygon</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">p2</span> <span class="o">=</span> <span class="n">polygon</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">polygon</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="c1"># Use 2D cross product calculation</span>
+            <span class="n">cross_product</span> <span class="o">=</span> <span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">cross_product</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">wn</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">cross_product</span> <span class="o">=</span> <span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">cross_product</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">wn</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">wn</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_clockwise</span><span class="p">(</span><span class="n">polygon</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Determine if polygon vertices are in clockwise order.</span>
+
+<span class="sd">    Uses the shoelace formula to calculate signed area. In GDS context,</span>
+<span class="sd">    clockwise polygons represent material regions while counter-clockwise</span>
+<span class="sd">    represent holes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        polygon: Array of (x,y) coordinates defining the polygon.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if vertices are in clockwise order, False otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">polygon</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">polygon</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">polygon</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">polygon</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_build_containment_hierarchy</span><span class="p">(</span><span class="n">polygons</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build containment hierarchy for nested polygons.</span>
+
+<span class="sd">    Determines which polygons are contained within others, essential for</span>
+<span class="sd">    correctly handling nested structures with holes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        polygons: List of polygon coordinate arrays.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple of (roots, hierarchy) where:</span>
+<span class="sd">        - roots: List of indices of top-level (non-contained) polygons</span>
+<span class="sd">        - hierarchy: Dict mapping polygon index to list of contained indices</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hierarchy</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">polygons</span><span class="p">))}</span>
+    <span class="n">is_contained</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">polygons</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">polygons</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">polygons</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Use winding number for robust point-in-polygon test</span>
+            <span class="k">if</span> <span class="n">_winding_number</span><span class="p">(</span><span class="n">polygons</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">polygons</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># Check if j is the smallest polygon that contains i</span>
+                <span class="n">is_smallest_container</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">hierarchy</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">_winding_number</span><span class="p">(</span><span class="n">polygons</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">polygons</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">is_smallest_container</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="k">break</span>
+
+                <span class="k">if</span> <span class="n">is_smallest_container</span><span class="p">:</span>
+                    <span class="n">hierarchy</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="n">is_contained</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">roots</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">contained</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">is_contained</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">contained</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">roots</span><span class="p">,</span> <span class="n">hierarchy</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_split_contours_at_artifacts_aggressive</span><span class="p">(</span><span class="n">contours</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Aggressively remove artifacts from contours for cleaner rectangles.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        contours: List of contour arrays from skimage.measure.find_contours.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of cleaned contours with artifacts removed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">clean_contours</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">contour</span> <span class="ow">in</span> <span class="n">contours</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">clean_contours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="n">segments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">contour</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">lengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">segments</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lengths</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">clean_contours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="n">median_length</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">lengths</span><span class="p">)</span>
+        <span class="n">max_length</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">lengths</span><span class="p">)</span>
+
+        <span class="c1"># Flag if max is more than 2x the median</span>
+        <span class="k">if</span> <span class="n">max_length</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">median_length</span> <span class="ow">and</span> <span class="n">max_length</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">artifact_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">lengths</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">artifact_idx</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">lengths</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">clean_contour</span> <span class="o">=</span> <span class="n">contour</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">clean_contour</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span>
+                    <span class="n">contour</span><span class="p">[:</span><span class="n">artifact_idx</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="n">contour</span><span class="p">[</span><span class="n">artifact_idx</span><span class="o">+</span><span class="mi">2</span><span class="p">:]</span> <span class="k">if</span> <span class="n">artifact_idx</span><span class="o">+</span><span class="mi">2</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span> <span class="k">else</span> <span class="p">[]</span>
+                <span class="p">])</span>
+
+            <span class="c1"># Ensure closure</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">clean_contour</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">clean_contour</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">clean_contour</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">clean_contour</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">clean_contour</span><span class="p">,</span> <span class="n">clean_contour</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]])</span>
+
+            <span class="n">clean_contours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clean_contour</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">clean_contours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">clean_contours</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_split_contours_at_artifacts</span><span class="p">(</span><span class="n">contours</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove artifact connections from contours.</span>
+
+<span class="sd">    Removes artifact segments and closes gaps to form proper polygons.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        contours: List of contour arrays from skimage.measure.find_contours.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of clean, closed contours.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">clean_contours</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">total_artifacts_removed</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">contour_idx</span><span class="p">,</span> <span class="n">contour</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">contours</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Calculate segment lengths to identify artifacts</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">contour</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">segment_lengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">segments</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">segment_lengths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Find abnormally long segments (likely artifacts)</span>
+        <span class="n">median_length</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">segment_lengths</span><span class="p">)</span>
+        <span class="n">artifact_threshold</span> <span class="o">=</span> <span class="n">median_length</span> <span class="o">*</span> <span class="mi">3</span>  <span class="c1"># More aggressive threshold</span>
+
+        <span class="c1"># Find artifact segments</span>
+        <span class="n">artifact_indices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">length</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">segment_lengths</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="n">artifact_threshold</span><span class="p">:</span>
+                <span class="n">artifact_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">artifact_indices</span><span class="p">:</span>
+            <span class="c1"># No artifacts found, keep the contour as-is</span>
+            <span class="n">clean_contours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Remove artifact segments and create clean closed contours</span>
+            <span class="c1"># Create a list of valid point indices (excluding artifact endpoints)</span>
+            <span class="n">valid_points</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">contour</span><span class="p">)):</span>
+                <span class="c1"># Skip points that are endpoints of artifact segments</span>
+                <span class="n">is_artifact_endpoint</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">artifact_idx</span> <span class="ow">in</span> <span class="n">artifact_indices</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">artifact_idx</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="p">(</span><span class="n">artifact_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">contour</span><span class="p">):</span>
+                        <span class="n">is_artifact_endpoint</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">break</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_artifact_endpoint</span><span class="p">:</span>
+                    <span class="n">valid_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contour</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+            <span class="c1"># If we have enough valid points, create a closed contour</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid_points</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="c1"># Convert to numpy array and ensure it&#39;s closed</span>
+                <span class="n">clean_contour</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">valid_points</span><span class="p">)</span>
+
+                <span class="c1"># Close the contour if needed (connect last point to first)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">clean_contour</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">clean_contour</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+                    <span class="n">clean_contour</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">clean_contour</span><span class="p">,</span> <span class="n">clean_contour</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]])</span>
+
+                <span class="n">clean_contours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clean_contour</span><span class="p">)</span>
+                <span class="n">total_artifacts_removed</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">artifact_indices</span><span class="p">)</span>
+
+    <span class="c1"># Single summary print at the end</span>
+    <span class="k">if</span> <span class="n">total_artifacts_removed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processed </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">contours</span><span class="p">)</span><span class="si">}</span><span class="s2"> contours: removed </span><span class="si">{</span><span class="n">total_artifacts_removed</span><span class="si">}</span><span class="s2"> artifacts&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">clean_contours</span>
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># Main GDS Generation Function</span>
+<span class="c1"># =============================================================================</span>
+
+<div class="viewcode-block" id="generate_gds_from_density">
+<a class="viewcode-back" href="../../api/data_io.html#hyperwave_community.data_io.generate_gds_from_density">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_gds_from_density</span><span class="p">(</span>
+    <span class="n">density_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">level</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">output_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;output.gds&quot;</span><span class="p">,</span>
+    <span class="n">add_border</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert 2D density array to GDS II format file.</span>
+
+<span class="sd">    This function converts topology optimization results into fabrication-ready</span>
+<span class="sd">    GDS files. It extracts contours, handles nested polygons with holes, and</span>
+<span class="sd">    performs boolean operations to create the final geometry.</span>
+
+<span class="sd">    The process includes:</span>
+<span class="sd">        1. Extracting contours at specified threshold level</span>
+<span class="sd">        2. Cleaning artifacts from contour extraction</span>
+<span class="sd">        3. Building hierarchy for nested polygons</span>
+<span class="sd">        4. Applying boolean operations for holes</span>
+<span class="sd">        5. Writing to GDS II format with proper scaling</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        density_array: 2D array of density values (0-1) from optimization.</span>
+<span class="sd">            Values above &#39;level&#39; are considered material. Note: density arrays</span>
+<span class="sd">            are typically at 2x the resolution of the structure.</span>
+<span class="sd">        level: Contour threshold (default 0.5). Material is density &gt; level.</span>
+<span class="sd">        output_filename: Name for output GDS file.</span>
+<span class="sd">        add_border: If True, adds zero padding for closed contour extraction.</span>
+<span class="sd">        resolution: Structure grid resolution in micrometers per pixel (default 0.05).</span>
+<span class="sd">            This is the resolution of your STRUCTURE, not the density array.</span>
+<span class="sd">            The function automatically applies 2x downsampling since density</span>
+<span class="sd">            arrays are at 2x finer resolution than the structure.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Absolute path to the generated GDS file.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        The density array maintains its original orientation. Both numpy</span>
+<span class="sd">        and GDS coordinate systems are treated consistently. Since density</span>
+<span class="sd">        arrays are at 2x the resolution of the structure, the function</span>
+<span class="sd">        internally uses resolution/2 for scaling to get correct physical dimensions.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # If your structure has 0.05 um/pixel resolution</span>
+<span class="sd">        &gt;&gt;&gt; # Your density array will have 0.025 um/pixel resolution (2x finer)</span>
+<span class="sd">        &gt;&gt;&gt; gds_path = generate_gds_from_density(</span>
+<span class="sd">        ...     density_array=density,</span>
+<span class="sd">        ...     resolution=0.05,  # Pass structure resolution, not density resolution</span>
+<span class="sd">        ...     output_filename=&quot;device.gds&quot;</span>
+<span class="sd">        ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Since density arrays are at 2x the resolution of the structure,</span>
+    <span class="c1"># we need to use half the resolution for correct physical scaling</span>
+    <span class="n">density_resolution</span> <span class="o">=</span> <span class="n">resolution</span> <span class="o">/</span> <span class="mf">2.0</span>
+
+    <span class="c1"># Add a 1-pixel border of zeros to ensure proper contour extraction</span>
+    <span class="c1"># This is purely algorithmic, not decorative</span>
+    <span class="k">if</span> <span class="n">add_border</span><span class="p">:</span>
+        <span class="n">density_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">density_array</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">constant_values</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Find contours at the specified level using marching squares algorithm</span>
+    <span class="c1"># Note: We don&#39;t flip vertically - both numpy and GDS use the same coordinate system</span>
+    <span class="n">raw_contours</span> <span class="o">=</span> <span class="n">measure</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">density_array</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
+
+    <span class="c1"># Try to detect if we have simple rectangles and clean them</span>
+    <span class="n">processed_contours</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">contour</span> <span class="ow">in</span> <span class="n">raw_contours</span><span class="p">:</span>
+        <span class="c1"># Get the bounding box</span>
+        <span class="n">min_row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">contour</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">max_row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">contour</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">min_col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">contour</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">max_col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">contour</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># Check if this looks like a rectangle (most points are on the edges)</span>
+        <span class="n">on_edges</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">tolerance</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">contour</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_row</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tolerance</span> <span class="ow">or</span>
+                <span class="nb">abs</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">max_row</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tolerance</span> <span class="ow">or</span>
+                <span class="nb">abs</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">min_col</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tolerance</span> <span class="ow">or</span>
+                <span class="nb">abs</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">max_col</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tolerance</span><span class="p">):</span>
+                <span class="n">on_edges</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">edge_ratio</span> <span class="o">=</span> <span class="n">on_edges</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+
+        <span class="c1"># If most points are on edges, just create a clean rectangle</span>
+        <span class="k">if</span> <span class="n">edge_ratio</span> <span class="o">&gt;</span> <span class="mf">0.9</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="c1"># Create a clean rectangle from the bounding box</span>
+            <span class="n">rect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                <span class="p">[</span><span class="n">min_row</span><span class="p">,</span> <span class="n">min_col</span><span class="p">],</span>
+                <span class="p">[</span><span class="n">min_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">],</span>
+                <span class="p">[</span><span class="n">max_row</span><span class="p">,</span> <span class="n">max_col</span><span class="p">],</span>
+                <span class="p">[</span><span class="n">max_row</span><span class="p">,</span> <span class="n">min_col</span><span class="p">],</span>
+                <span class="p">[</span><span class="n">min_row</span><span class="p">,</span> <span class="n">min_col</span><span class="p">]</span>  <span class="c1"># Close the rectangle</span>
+            <span class="p">])</span>
+            <span class="n">processed_contours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Not a rectangle, try artifact removal</span>
+            <span class="n">processed</span> <span class="o">=</span> <span class="n">_split_contours_at_artifacts_aggressive</span><span class="p">([</span><span class="n">contour</span><span class="p">])</span>
+            <span class="n">processed_contours</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">processed</span><span class="p">)</span>
+
+    <span class="c1"># If no processing was done, use original contours</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">processed_contours</span><span class="p">:</span>
+        <span class="n">processed_contours</span> <span class="o">=</span> <span class="n">raw_contours</span>
+
+    <span class="c1"># Convert processed contours to gdstk.Polygon objects</span>
+    <span class="c1"># Note: c[:, ::-1] swaps x and y coordinates to match GDS convention</span>
+    <span class="c1"># If we added a border, we need to subtract 1 from coordinates to compensate</span>
+    <span class="c1"># Apply density_resolution scaling to convert pixel coordinates to physical dimensions</span>
+    <span class="c1"># GDS uses micrometers, and our density_resolution is already in micrometers</span>
+    <span class="k">if</span> <span class="n">add_border</span><span class="p">:</span>
+        <span class="n">gds_polygons</span> <span class="o">=</span> <span class="p">[</span><span class="n">gdstk</span><span class="o">.</span><span class="n">Polygon</span><span class="p">((</span><span class="n">c</span><span class="p">[:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">density_resolution</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">processed_contours</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">gds_polygons</span> <span class="o">=</span> <span class="p">[</span><span class="n">gdstk</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span><span class="n">c</span><span class="p">[:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">density_resolution</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">processed_contours</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">gds_polygons</span><span class="p">:</span>
+        <span class="c1"># Create an empty library and cell and write it to GDS</span>
+        <span class="n">lib</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Library</span><span class="p">()</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">new_cell</span><span class="p">(</span><span class="s2">&quot;EMPTY&quot;</span><span class="p">)</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">write_gds</span><span class="p">(</span><span class="n">output_filename</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">output_filename</span><span class="p">)</span>
+
+    <span class="c1"># Build containment hierarchy to understand polygon nesting</span>
+    <span class="n">roots</span><span class="p">,</span> <span class="n">hierarchy</span> <span class="o">=</span> <span class="n">_build_containment_hierarchy</span><span class="p">(</span><span class="n">processed_contours</span><span class="p">)</span>
+
+    <span class="n">final_polygons</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Process each root polygon and its children</span>
+    <span class="k">for</span> <span class="n">root_idx</span> <span class="ow">in</span> <span class="n">roots</span><span class="p">:</span>
+        <span class="c1"># Start with the root polygon as material</span>
+        <span class="n">result_poly</span> <span class="o">=</span> <span class="p">[</span><span class="n">gds_polygons</span><span class="p">[</span><span class="n">root_idx</span><span class="p">]]</span>
+
+        <span class="c1"># Process children recursively using boolean operations</span>
+        <span class="n">children_to_process</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">hierarchy</span><span class="p">[</span><span class="n">root_idx</span><span class="p">])</span>
+        <span class="k">while</span> <span class="n">children_to_process</span><span class="p">:</span>
+            <span class="n">child_idx</span> <span class="o">=</span> <span class="n">children_to_process</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="c1"># Determine operation based on winding order:</span>
+            <span class="c1"># - Counter-clockwise children are holes (subtract with &#39;not&#39;)</span>
+            <span class="c1"># - Clockwise children are material islands (add with &#39;or&#39;)</span>
+            <span class="n">op</span> <span class="o">=</span> <span class="s1">&#39;not&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_clockwise</span><span class="p">(</span><span class="n">processed_contours</span><span class="p">[</span><span class="n">child_idx</span><span class="p">])</span> <span class="k">else</span> <span class="s1">&#39;or&#39;</span>
+
+            <span class="c1"># Perform boolean operation to add or subtract the child polygon</span>
+            <span class="n">result_poly</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">boolean</span><span class="p">(</span><span class="n">result_poly</span><span class="p">,</span> <span class="n">gds_polygons</span><span class="p">[</span><span class="n">child_idx</span><span class="p">],</span> <span class="n">op</span><span class="p">)</span>
+
+            <span class="c1"># Add grandchildren to the processing list for recursive handling</span>
+            <span class="n">children_to_process</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">hierarchy</span><span class="p">[</span><span class="n">child_idx</span><span class="p">])</span>
+
+        <span class="n">final_polygons</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">result_poly</span><span class="p">)</span>
+
+    <span class="c1"># Create GDS library and cell structure</span>
+    <span class="n">lib</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">Library</span><span class="p">()</span>
+    <span class="n">cell</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">new_cell</span><span class="p">(</span><span class="s2">&quot;TOP&quot;</span><span class="p">)</span>  <span class="c1"># &quot;TOP&quot; is the standard name for the main cell</span>
+
+    <span class="c1"># Add all final polygons to the cell</span>
+    <span class="k">for</span> <span class="n">poly</span> <span class="ow">in</span> <span class="n">final_polygons</span><span class="p">:</span>
+        <span class="n">cell</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
+
+    <span class="c1"># Save the GDS file</span>
+    <span class="n">lib</span><span class="o">.</span><span class="n">write_gds</span><span class="p">(</span><span class="n">output_filename</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">output_filename</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># Visualization Function</span>
+<span class="c1"># =============================================================================</span>
+
+<div class="viewcode-block" id="view_gds">
+<a class="viewcode-back" href="../../api/data_io.html#hyperwave_community.data_io.view_gds">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">view_gds</span><span class="p">(</span><span class="n">gds_filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">density_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">figsize</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Visualize GDS file contents with optional density comparison.</span>
+
+<span class="sd">    Reads a GDS file and plots the polygons it contains. If the original</span>
+<span class="sd">    density array is provided, displays both side-by-side for comparison.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        gds_filepath: Path to the GDS file to visualize.</span>
+<span class="sd">        density_array: Optional original density array for comparison.</span>
+<span class="sd">        figsize: Figure size as (width, height) tuple.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Matplotlib figure object containing the visualization.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Polygons are displayed with semi-transparent blue fill and no edge</span>
+<span class="sd">        outline. GDS coordinates are shown in micrometers. The density array</span>
+<span class="sd">        is displayed in pixels with PuOr colormap for better contrast.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Read the GDS file</span>
+    <span class="n">lib_verify</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">read_gds</span><span class="p">(</span><span class="n">gds_filepath</span><span class="p">)</span>
+    <span class="n">cell_verify</span> <span class="o">=</span> <span class="n">lib_verify</span><span class="o">.</span><span class="n">top_level</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Get polygons from the cell</span>
+    <span class="n">polygons</span> <span class="o">=</span> <span class="n">cell_verify</span><span class="o">.</span><span class="n">get_polygons</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;GDS file: </span><span class="si">{</span><span class="n">gds_filepath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of polygons in GDS: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">polygons</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Create figure with subplots if density is provided</span>
+    <span class="k">if</span> <span class="n">density_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+
+        <span class="c1"># Plot original density array in pixels (no colorbar)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">density_array</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;PuOr&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;upper&#39;</span><span class="p">,</span>
+                   <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">density_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="n">density_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Original Density (</span><span class="si">{</span><span class="n">density_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">×</span><span class="si">{</span><span class="n">density_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1"> pixels)&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X (pixels)&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y (pixels)&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">ax2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">figsize</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="c1"># Plot the GDS polygons</span>
+    <span class="k">for</span> <span class="n">poly</span> <span class="ow">in</span> <span class="n">polygons</span><span class="p">:</span>
+        <span class="c1"># gdstk.Polygon objects have a .points attribute</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">points</span>
+        <span class="n">poly_patch</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+                                 <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">poly_patch</span><span class="p">)</span>
+
+    <span class="c1"># Set axis limits to show GDS polygons (which are already in micrometers)</span>
+    <span class="c1"># Always use polygon bounds to scale properly</span>
+    <span class="k">if</span> <span class="n">polygons</span><span class="p">:</span>
+        <span class="n">all_x</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">all_y</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">poly</span> <span class="ow">in</span> <span class="n">polygons</span><span class="p">:</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">points</span>
+            <span class="n">all_x</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="n">all_y</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># Use actual polygon bounds with small margin in micrometers</span>
+        <span class="k">if</span> <span class="n">all_x</span> <span class="ow">and</span> <span class="n">all_y</span><span class="p">:</span>
+            <span class="n">margin</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># 1 micrometer margin</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">all_x</span><span class="p">)</span> <span class="o">-</span> <span class="n">margin</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">all_x</span><span class="p">)</span> <span class="o">+</span> <span class="n">margin</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">all_y</span><span class="p">)</span> <span class="o">-</span> <span class="n">margin</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">all_y</span><span class="p">)</span> <span class="o">+</span> <span class="n">margin</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Default view if no valid coordinates</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Default view if no polygons</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X (μm)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y (μm)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;GDS Polygons (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">polygons</span><span class="p">)</span><span class="si">}</span><span class="s1"> polygons)&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">fig</span></div>
+
+
+
+<span class="c1"># =============================================================================</span>
+<span class="c1"># GDS to Theta Array Conversion</span>
+<span class="c1"># =============================================================================</span>
+
+<div class="viewcode-block" id="gds_to_theta">
+<a class="viewcode-back" href="../../api/data_io.html#hyperwave_community.data_io.gds_to_theta">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">gds_to_theta</span><span class="p">(</span>
+    <span class="n">gds_filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">layer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">waveguide_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">background_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert GDS file to theta array for photonic simulations.</span>
+
+<span class="sd">    Reads a GDS II format file and converts it to a 2D density array suitable</span>
+<span class="sd">    for use in photonic simulations. The function rasterizes polygons from the</span>
+<span class="sd">    GDS file into a pixelated array at the specified resolution.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        gds_filepath: Path to the GDS file to convert.</span>
+<span class="sd">        resolution: Grid resolution in micrometers per pixel. Default 0.05 (50nm).</span>
+<span class="sd">            Smaller values give higher resolution but larger arrays.</span>
+<span class="sd">        layer: Specific layer to extract. If None, uses most common layer.</span>
+<span class="sd">            Can be integer or tuple (layer, datatype).</span>
+<span class="sd">        waveguide_value: Value for waveguide regions. Default 1.0.</span>
+<span class="sd">        background_value: Value for background regions. Default 0.0.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple of (theta, info) where:</span>
+<span class="sd">        - theta: JAX array with shape (ny, nx) containing waveguide and</span>
+<span class="sd">            background values.</span>
+<span class="sd">        - info: Dictionary with metadata including &#39;gds_file&#39;, &#39;cell_name&#39;,</span>
+<span class="sd">            &#39;shape&#39;, &#39;resolution&#39;, &#39;physical_size_um&#39; (width, height),</span>
+<span class="sd">            &#39;bounding_box_um&#39; (x_min, y_min, x_max, y_max), &#39;layer&#39;,</span>
+<span class="sd">            &#39;num_polygons&#39;, &#39;waveguide_value&#39;, &#39;background_value&#39;.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If no top-level cells or polygons found in GDS file.</span>
+<span class="sd">        ValueError: If specified layer not found in GDS file.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        For large GDS files or fine resolution, this can be memory intensive.</span>
+<span class="sd">        The rasterization uses matplotlib.path for polygon filling which is</span>
+<span class="sd">        accurate but can be slow for complex polygons.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+    <span class="c1"># Convert resolution from nm to μm for internal calculations</span>
+    <span class="c1"># Resolution is already in micrometers</span>
+    <span class="n">resolution_um</span> <span class="o">=</span> <span class="n">resolution</span>
+
+    <span class="c1"># Read the GDS file</span>
+    <span class="n">library</span> <span class="o">=</span> <span class="n">gdstk</span><span class="o">.</span><span class="n">read_gds</span><span class="p">(</span><span class="n">gds_filepath</span><span class="p">)</span>
+
+    <span class="c1"># Get the top cell (usually there&#39;s only one main cell)</span>
+    <span class="n">top_cells</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">top_level</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">top_cells</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No top-level cells found in </span><span class="si">{</span><span class="n">gds_filepath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">cell</span> <span class="o">=</span> <span class="n">top_cells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Use the first top-level cell</span>
+
+    <span class="c1"># Get all polygons from the cell</span>
+    <span class="c1"># gdstk.Cell.get_polygons() returns just a list of polygons</span>
+    <span class="n">polygons</span> <span class="o">=</span> <span class="n">cell</span><span class="o">.</span><span class="n">get_polygons</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">polygons</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No polygons found in </span><span class="si">{</span><span class="n">gds_filepath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># If we want layer information, we need to check each polygon&#39;s layer</span>
+    <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Filter polygons by layer</span>
+        <span class="n">filtered_polygons</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">poly</span> <span class="ow">in</span> <span class="n">polygons</span><span class="p">:</span>
+            <span class="c1"># In gdstk, polygons have a layer attribute</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="s1">&#39;layer&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">poly</span><span class="o">.</span><span class="n">layer</span> <span class="o">==</span> <span class="n">layer</span><span class="p">:</span>
+                <span class="n">filtered_polygons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filtered_polygons</span><span class="p">:</span>
+            <span class="c1"># Get all unique layers for error message</span>
+            <span class="n">layers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">poly</span> <span class="ow">in</span> <span class="n">polygons</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="s1">&#39;layer&#39;</span><span class="p">):</span>
+                    <span class="n">layers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">layer</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Layer </span><span class="si">{</span><span class="n">layer</span><span class="si">}</span><span class="s2"> not found. Available layers: </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">polygons</span> <span class="o">=</span> <span class="n">filtered_polygons</span>
+        <span class="n">used_layer</span> <span class="o">=</span> <span class="n">layer</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Get the most common layer</span>
+        <span class="n">layer_counts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">poly</span> <span class="ow">in</span> <span class="n">polygons</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="s1">&#39;layer&#39;</span><span class="p">):</span>
+                <span class="n">layer_counts</span><span class="p">[</span><span class="n">poly</span><span class="o">.</span><span class="n">layer</span><span class="p">]</span> <span class="o">=</span> <span class="n">layer_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">layer</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">layer_counts</span><span class="p">:</span>
+            <span class="n">used_layer</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">layer_counts</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">layer_counts</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">used_layer</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Get bounding box from all polygons</span>
+    <span class="n">all_points</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">poly</span> <span class="ow">in</span> <span class="n">polygons</span><span class="p">:</span>
+        <span class="n">all_points</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">all_points</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No valid polygons found&quot;</span><span class="p">)</span>
+
+    <span class="n">all_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">all_points</span><span class="p">)</span>
+    <span class="n">x_min</span><span class="p">,</span> <span class="n">y_min</span> <span class="o">=</span> <span class="n">all_points</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">all_points</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Calculate grid dimensions</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">x_max</span> <span class="o">-</span> <span class="n">x_min</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">y_max</span> <span class="o">-</span> <span class="n">y_min</span>
+    <span class="n">nx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="n">resolution_um</span><span class="p">))</span>
+    <span class="n">ny</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">height</span> <span class="o">/</span> <span class="n">resolution_um</span><span class="p">))</span>
+
+    <span class="c1"># Initialize theta array with background value</span>
+    <span class="n">theta_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">),</span> <span class="n">background_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="c1"># Rasterize each polygon</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">poly</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">polygons</span><span class="p">):</span>
+
+        <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Shift to origin and convert to pixels</span>
+        <span class="n">points_shifted</span> <span class="o">=</span> <span class="n">points</span> <span class="o">-</span> <span class="p">[</span><span class="n">x_min</span><span class="p">,</span> <span class="n">y_min</span><span class="p">]</span>
+        <span class="n">points_pixels</span> <span class="o">=</span> <span class="n">points_shifted</span> <span class="o">/</span> <span class="n">resolution_um</span>
+
+        <span class="c1"># Create path for point-in-polygon test</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">points_pixels</span><span class="p">)</span>
+
+        <span class="c1"># Get bounding box in pixels for this polygon</span>
+        <span class="n">x_min_px</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">points_pixels</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())))</span>
+        <span class="n">x_max_px</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">points_pixels</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())))</span>
+        <span class="n">y_min_px</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">points_pixels</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())))</span>
+        <span class="n">y_max_px</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">points_pixels</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())))</span>
+
+        <span class="c1"># Create a grid of points to test</span>
+        <span class="n">x_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min_px</span><span class="p">,</span> <span class="n">x_max_px</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span>
+        <span class="n">y_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_min_px</span><span class="p">,</span> <span class="n">y_max_px</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span>
+        <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x_coords</span><span class="p">,</span> <span class="n">y_coords</span><span class="p">)</span>
+        <span class="n">points_to_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+
+        <span class="c1"># Test all points at once</span>
+        <span class="n">inside</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">contains_points</span><span class="p">(</span><span class="n">points_to_test</span><span class="p">)</span>
+        <span class="n">inside_mask</span> <span class="o">=</span> <span class="n">inside</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_coords</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_coords</span><span class="p">))</span>
+
+        <span class="c1"># Update theta array</span>
+        <span class="n">theta_array</span><span class="p">[</span><span class="n">y_min_px</span><span class="p">:</span><span class="n">y_max_px</span><span class="p">,</span> <span class="n">x_min_px</span><span class="p">:</span><span class="n">x_max_px</span><span class="p">][</span><span class="n">inside_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">waveguide_value</span>
+
+    <span class="c1"># Convert to JAX array</span>
+    <span class="n">theta_jax</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">theta_array</span><span class="p">)</span>
+
+    <span class="c1"># Print summary</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extracted </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">polygons</span><span class="p">)</span><span class="si">}</span><span class="s2"> polygons from GDS file&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Prepare metadata</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;gds_file&#39;</span><span class="p">:</span> <span class="n">gds_filepath</span><span class="p">,</span>
+        <span class="s1">&#39;cell_name&#39;</span><span class="p">:</span> <span class="n">cell</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="n">theta_jax</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+        <span class="s1">&#39;resolution&#39;</span><span class="p">:</span> <span class="n">resolution</span><span class="p">,</span>
+        <span class="s1">&#39;physical_size_um&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span>
+        <span class="s1">&#39;bounding_box_um&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">),</span>
+        <span class="s1">&#39;layer&#39;</span><span class="p">:</span> <span class="n">used_layer</span><span class="p">,</span>
+        <span class="s1">&#39;num_polygons&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">polygons</span><span class="p">),</span>
+        <span class="s1">&#39;waveguide_value&#39;</span><span class="p">:</span> <span class="n">waveguide_value</span><span class="p">,</span>
+        <span class="s1">&#39;background_value&#39;</span><span class="p">:</span> <span class="n">background_value</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">theta_jax</span><span class="p">,</span> <span class="n">info</span></div>
+
+
+
+<div class="viewcode-block" id="component_to_theta">
+<a class="viewcode-back" href="../../api/data_io.html#hyperwave_community.data_io.component_to_theta">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">component_to_theta</span><span class="p">(</span>
+    <span class="n">component</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">layer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">waveguide_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">background_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">jnp</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert gdsfactory component to theta array for hyperwave simulations.</span>
+
+<span class="sd">    This function takes a gdsfactory component and converts it to a 2D theta array</span>
+<span class="sd">    suitable for use in hyperwave simulations. It rasterizes the component geometry</span>
+<span class="sd">    at the specified resolution.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        component: A gf.Component instance to convert.</span>
+<span class="sd">        resolution: Grid resolution in micrometers per pixel in the final STRUCTURE.</span>
+<span class="sd">            Default is 0.05 (50nm). Note: theta array will be generated at 2x this</span>
+<span class="sd">            resolution since theta is downsampled by 2 during structure creation.</span>
+<span class="sd">        layer: Specific layer to extract. If None, uses first available layer.</span>
+<span class="sd">            Can be an integer or tuple (layer, datatype).</span>
+<span class="sd">        waveguide_value: Value to assign to waveguide regions (default 1.0).</span>
+<span class="sd">        background_value: Value to assign to background regions (default 0.0).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        theta: 2D JAX array with shape (ny, nx) containing the theta values.</span>
+<span class="sd">            Values are waveguide_value where component exists, background_value elsewhere.</span>
+<span class="sd">            Note: This array will be at 2x finer resolution than the final structure.</span>
+<span class="sd">        info: Dictionary containing metadata:</span>
+<span class="sd">            - &#39;component_name&#39;: Name of the component</span>
+<span class="sd">            - &#39;shape&#39;: Shape of the theta array</span>
+<span class="sd">            - &#39;theta_resolution_um&#39;: Resolution of theta array in micrometers per pixel</span>
+<span class="sd">            - &#39;structure_resolution_um&#39;: Resolution of final structure after downsampling</span>
+<span class="sd">            - &#39;physical_size_um&#39;: Physical size (width, height) in micrometers</span>
+<span class="sd">            - &#39;bounding_box_um&#39;: Bounding box coordinates in micrometers</span>
+<span class="sd">            - &#39;layer&#39;: Layer that was extracted</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import gdsfactory as gf</span>
+<span class="sd">        &gt;&gt;&gt; from hyperwave.data_io import component_to_theta</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Create component first</span>
+<span class="sd">        &gt;&gt;&gt; coupler = gf.components.coupler(gap=0.236, length=20.0)</span>
+<span class="sd">        &gt;&gt;&gt; theta, info = component_to_theta(coupler, resolution=0.05)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # Or with a ring resonator</span>
+<span class="sd">        &gt;&gt;&gt; ring = gf.components.ring(radius=10.0)</span>
+<span class="sd">        &gt;&gt;&gt; theta, info = component_to_theta(ring, resolution=0.1)</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Requires gdsfactory to be installed: pip install gdsfactory</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">gdsfactory</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gf</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;gdsfactory is required for component_to_theta. Install with: pip install gdsfactory&quot;</span><span class="p">)</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+    <span class="c1"># Use the component directly</span>
+    <span class="n">comp</span> <span class="o">=</span> <span class="n">component</span>
+    <span class="n">comp_name</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">comp</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;component&#39;</span>
+
+    <span class="c1"># Get polygons from component</span>
+    <span class="n">all_polygons</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">get_polygons</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">all_polygons</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No polygons found in component&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Select layer</span>
+    <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">all_polygons</span><span class="p">:</span>
+            <span class="n">polygons</span> <span class="o">=</span> <span class="n">all_polygons</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+            <span class="n">used_layer</span> <span class="o">=</span> <span class="n">layer</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">available_layers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">all_polygons</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Layer </span><span class="si">{</span><span class="n">layer</span><span class="si">}</span><span class="s2"> not found. Available layers: </span><span class="si">{</span><span class="n">available_layers</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Use first available layer</span>
+        <span class="n">used_layer</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">all_polygons</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">polygons</span> <span class="o">=</span> <span class="n">all_polygons</span><span class="p">[</span><span class="n">used_layer</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_polygons</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Multiple layers found: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">all_polygons</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">. Using layer </span><span class="si">{</span><span class="n">used_layer</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Get bounding box</span>
+    <span class="n">bbox</span> <span class="o">=</span> <span class="n">comp</span><span class="o">.</span><span class="n">bbox</span><span class="p">()</span>
+    <span class="n">x_min</span><span class="p">,</span> <span class="n">y_min</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">bottom</span>
+    <span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">right</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">top</span>
+
+    <span class="c1"># Calculate grid dimensions</span>
+    <span class="c1"># Use half the resolution for theta since it gets downsampled by 2 in structure creation</span>
+    <span class="n">theta_resolution</span> <span class="o">=</span> <span class="n">resolution</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">x_max</span> <span class="o">-</span> <span class="n">x_min</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">y_max</span> <span class="o">-</span> <span class="n">y_min</span>
+    <span class="n">nx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="n">theta_resolution</span><span class="p">))</span>
+    <span class="n">ny</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">height</span> <span class="o">/</span> <span class="n">theta_resolution</span><span class="p">))</span>
+
+    <span class="c1"># Initialize theta array with background value</span>
+    <span class="n">theta_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">ny</span><span class="p">,</span> <span class="n">nx</span><span class="p">),</span> <span class="n">background_value</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="c1"># Rasterize each polygon</span>
+    <span class="k">for</span> <span class="n">polygon_obj</span> <span class="ow">in</span> <span class="n">polygons</span><span class="p">:</span>
+        <span class="c1"># Extract points from polygon</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">polygon_obj</span><span class="o">.</span><span class="n">each_point_hull</span><span class="p">():</span>
+            <span class="c1"># Convert from database units (nm) to micrometers</span>
+            <span class="n">x_um</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="n">x</span> <span class="o">/</span> <span class="mf">1000.0</span>
+            <span class="n">y_um</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="n">y</span> <span class="o">/</span> <span class="mf">1000.0</span>
+            <span class="n">points</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x_um</span><span class="p">,</span> <span class="n">y_um</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+
+        <span class="c1"># Convert to pixel coordinates</span>
+        <span class="n">points_shifted</span> <span class="o">=</span> <span class="n">points</span> <span class="o">-</span> <span class="p">[</span><span class="n">x_min</span><span class="p">,</span> <span class="n">y_min</span><span class="p">]</span>
+        <span class="n">points_pixels</span> <span class="o">=</span> <span class="n">points_shifted</span> <span class="o">/</span> <span class="n">theta_resolution</span>
+
+        <span class="c1"># Create path for point-in-polygon testing</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">points_pixels</span><span class="p">)</span>
+
+        <span class="c1"># Get bounding box in pixel coordinates</span>
+        <span class="n">x_min_px</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">points_pixels</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())))</span>
+        <span class="n">x_max_px</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">points_pixels</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())))</span>
+        <span class="n">y_min_px</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">points_pixels</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())))</span>
+        <span class="n">y_max_px</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">points_pixels</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())))</span>
+
+        <span class="c1"># Fill pixels inside polygon</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_min_px</span><span class="p">,</span> <span class="n">y_max_px</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x_min_px</span><span class="p">,</span> <span class="n">x_max_px</span><span class="p">):</span>
+                <span class="c1"># Check if pixel center is inside polygon</span>
+                <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">contains_point</span><span class="p">([</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">]):</span>
+                    <span class="n">theta_array</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">waveguide_value</span>
+
+    <span class="c1"># Convert to JAX array</span>
+    <span class="n">theta_jax</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">theta_array</span><span class="p">)</span>
+
+    <span class="c1"># Create info dictionary</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;component_name&#39;</span><span class="p">:</span> <span class="n">comp_name</span><span class="p">,</span>
+        <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="n">theta_jax</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+        <span class="s1">&#39;theta_resolution_um&#39;</span><span class="p">:</span> <span class="n">theta_resolution</span><span class="p">,</span>
+        <span class="s1">&#39;structure_resolution_um&#39;</span><span class="p">:</span> <span class="n">resolution</span><span class="p">,</span>
+        <span class="s1">&#39;physical_size_um&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span>
+        <span class="s1">&#39;bounding_box_um&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">),</span>
+        <span class="s1">&#39;layer&#39;</span><span class="p">:</span> <span class="n">used_layer</span><span class="p">,</span>
+        <span class="s1">&#39;waveguide_value&#39;</span><span class="p">:</span> <span class="n">waveguide_value</span><span class="p">,</span>
+        <span class="s1">&#39;background_value&#39;</span><span class="p">:</span> <span class="n">background_value</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">theta_jax</span><span class="p">,</span> <span class="n">info</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, SPINS Photonics.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

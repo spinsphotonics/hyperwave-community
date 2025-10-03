@@ -1,0 +1,805 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hyperwave_community.absorption &#8212; Hyperwave Community</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/hyperwave_community/absorption';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/spins_logo.png" class="logo__image only-light" alt=""/>
+    <img src="../../_static/spins_logo.png" class="logo__image only-dark pst-js-only" alt=""/>
+  
+  
+    <p class="title logo__title">SPINS Photonics</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/spinsphotonics/hyperwave-community" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://spinsphotonics.com" title="SPINS Photonics" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">SPINS Photonics</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/spinsphotonics/hyperwave-community" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://spinsphotonics.com" title="SPINS Photonics" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">SPINS Photonics</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">hyperwave_community.absorption</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for hyperwave_community.absorption</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Adiabatic absorber utilities for electromagnetic FDTD simulations.</span>
+
+<span class="sd">This module provides functions for creating adiabatic absorbers that gradually</span>
+<span class="sd">absorb electromagnetic waves at simulation boundaries while preserving device</span>
+<span class="sd">physics in the center region. The absorbers use quadratic profiles to ensure</span>
+<span class="sd">smooth, reflection-free transitions in 3D.</span>
+
+<span class="sd">Key features:</span>
+<span class="sd">- Zero absorption in center region (preserves device physics)</span>
+<span class="sd">- Quadratic absorption profiles at boundaries (prevents reflections)</span>
+<span class="sd">- Proper handling of FDTD Yee grid offsets for Ex, Ey, Ez field components</span>
+<span class="sd">- 3D absorption that works in all three spatial dimensions</span>
+<span class="sd">- Inward padding: absorption occurs at boundaries of the original grid</span>
+
+<span class="sd">The new inward padding approach:</span>
+<span class="sd">- Input permittivity: (3, xx, yy, zz)</span>
+<span class="sd">- Output absorption mask: (3, xx, yy, zz) - same shape as input</span>
+<span class="sd">- Center region: absorption-free zone where device physics is preserved</span>
+<span class="sd">- Boundary regions: quadratic absorption profiles at grid edges</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_absorption_profiles</span><span class="p">(</span><span class="n">numcells</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">smoothness</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jax</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create 1D quadratic absorption profiles for adiabatic boundary conditions.</span>
+<span class="sd">    </span>
+<span class="sd">    This function creates the fundamental building block of adiabatic absorbers:</span>
+<span class="sd">    a 1D profile that&#39;s zero in the center and increases quadratically toward edges.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        numcells: Number of grid cells along this dimension.</span>
+<span class="sd">        width: Distance from center where absorption starts (absorption-free zone).</span>
+<span class="sd">        smoothness: Absorption coefficient (controls absorption strength).</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        (2, numcells) array: Two offset profiles for staggered grid (FDTD Yee cell).</span>
+<span class="sd">        </span>
+<span class="sd">    Physics:</span>
+<span class="sd">        - Center region (|pos| &lt; width): Zero absorption to preserve device physics</span>
+<span class="sd">        - Edge regions (|pos| &gt; width): Quadratic increase σ ∝ (distance)²</span>
+<span class="sd">        - Smooth transition prevents electromagnetic reflections</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">numcells</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;numcells must be positive, got </span><span class="si">{</span><span class="n">numcells</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">width</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;width must be non-negative, got </span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">smoothness</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;smoothness must be non-negative, got </span><span class="si">{</span><span class="n">smoothness</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Find the center of the grid</span>
+    <span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">numcells</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    
+    <span class="c1"># Create two offset arrays for staggered FDTD grid (Yee cell)</span>
+    <span class="c1"># offset[0] = [0] for cell centers, offset[1] = [0.5] for cell edges</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">]])</span>
+    
+    <span class="c1"># Generate position arrays: pos[0] = [0,1,2,...], pos[1] = [0.5,1.5,2.5,...]</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">numcells</span><span class="p">)</span> <span class="o">+</span> <span class="n">offset</span>
+    
+    <span class="c1"># Calculate distance from center, then subtract the absorption-free width</span>
+    <span class="c1"># This creates a &quot;dead zone&quot; of width 2*width where absorption is zero</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="n">center</span><span class="p">)</span> <span class="o">-</span> <span class="n">center</span> <span class="o">+</span> <span class="n">width</span>
+    
+    <span class="c1"># Clip negative values to zero (no absorption in the center region)</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">a_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">a_max</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    
+    <span class="c1"># Apply quadratic profile: σ(r) = smoothness × r²</span>
+    <span class="c1"># Quadratic ensures smooth, reflection-free absorption</span>
+    <span class="k">return</span> <span class="n">smoothness</span> <span class="o">*</span> <span class="n">jnp</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_cross_profiles_3d</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">jax</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">jax</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="n">jax</span><span class="o">.</span><span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jax</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Combine three 1D absorption profiles into a 3D profile using maximum operation.</span>
+<span class="sd">    </span>
+<span class="sd">    Takes the element-wise maximum of three 1D profiles to create a 3D absorption</span>
+<span class="sd">    pattern. This ensures absorption occurs near ANY boundary (x OR y OR z direction).</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        x: (numcells_x,) array of x-direction absorption values.</span>
+<span class="sd">        y: (numcells_y,) array of y-direction absorption values.</span>
+<span class="sd">        z: (numcells_z,) array of z-direction absorption values.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        (1, numcells_x, numcells_y, numcells_z) array: 3D absorption pattern.</span>
+<span class="sd">        </span>
+<span class="sd">    Physics:</span>
+<span class="sd">        Using maximum ensures that points near ANY edge get absorbed.</span>
+<span class="sd">        This creates a 3D &quot;box frame&quot; absorption pattern around all edges.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">y</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">z</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;x, y, and z must be 1D arrays&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Create 3D meshgrid and take element-wise maximum</span>
+    <span class="c1"># meshgrid creates: X[i,j,k] = x[i], Y[i,j,k] = y[j], Z[i,j,k] = z[k]</span>
+    <span class="c1"># maximum takes max at each (i,j,k) point -&gt; absorb if near any edge</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s1">&#39;ij&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">),</span> <span class="n">Z</span><span class="p">)[</span><span class="kc">None</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_absorption_mask_3d_custom</span><span class="p">(</span><span class="n">xx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">yy</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">zz</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">width_x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">width_y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">width_z</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">smoothness</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jax</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create 3D absorption pattern with custom absorption width for each direction.</span>
+<span class="sd">    </span>
+<span class="sd">    FDTD uses a staggered &quot;Yee grid&quot; where different field components (Ex, Ey, Ez)</span>
+<span class="sd">    are located at different positions within each cell. This function creates</span>
+<span class="sd">    absorption patterns for all three field components with proper 3D offsets</span>
+<span class="sd">    and custom absorption width for each direction.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        xx: Number of grid cells in x direction.</span>
+<span class="sd">        yy: Number of grid cells in y direction.</span>
+<span class="sd">        zz: Number of grid cells in z direction.</span>
+<span class="sd">        width_x: Absorption width in x direction (cells from each boundary).</span>
+<span class="sd">        width_y: Absorption width in y direction (cells from each boundary).</span>
+<span class="sd">        width_z: Absorption width in z direction (cells from each boundary).</span>
+<span class="sd">        smoothness: Absorption coefficient strength.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        (3, xx, yy, zz) array: Absorption for [Ex, Ey, Ez] field components.</span>
+<span class="sd">        </span>
+<span class="sd">    Grid Layout (Yee cell):</span>
+<span class="sd">        Ex: Located at (i+0.5, j+0, k+0) - x-edge centered</span>
+<span class="sd">        Ey: Located at (i+0, j+0.5, k+0) - y-edge centered  </span>
+<span class="sd">        Ez: Located at (i+0, j+0, k+0.5) - z-edge centered</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">xx</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">yy</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">zz</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Grid dimensions must be positive, got xx=</span><span class="si">{</span><span class="n">xx</span><span class="si">}</span><span class="s2">, yy=</span><span class="si">{</span><span class="n">yy</span><span class="si">}</span><span class="s2">, zz=</span><span class="si">{</span><span class="n">zz</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">width_x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">width_y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">width_z</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Absorption widths must be non-negative, got width_x=</span><span class="si">{</span><span class="n">width_x</span><span class="si">}</span><span class="s2">, width_y=</span><span class="si">{</span><span class="n">width_y</span><span class="si">}</span><span class="s2">, width_z=</span><span class="si">{</span><span class="n">width_z</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">smoothness</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;smoothness must be non-negative, got </span><span class="si">{</span><span class="n">smoothness</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Generate 1D profiles for x, y, and z directions with proper offsets</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">_absorption_profiles</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">width_x</span><span class="p">,</span> <span class="n">smoothness</span><span class="p">)</span>  <span class="c1"># Shape: (2, xx)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">_absorption_profiles</span><span class="p">(</span><span class="n">yy</span><span class="p">,</span> <span class="n">width_y</span><span class="p">,</span> <span class="n">smoothness</span><span class="p">)</span>  <span class="c1"># Shape: (2, yy)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">_absorption_profiles</span><span class="p">(</span><span class="n">zz</span><span class="p">,</span> <span class="n">width_z</span><span class="p">,</span> <span class="n">smoothness</span><span class="p">)</span>  <span class="c1"># Shape: (2, zz)</span>
+    
+    <span class="c1"># Combine profiles for each field component with appropriate offsets:</span>
+    <span class="c1"># Ex component: x-offset=0.5, y-offset=0, z-offset=0 -&gt; x[0], y[1], z[1]</span>
+    <span class="c1"># Ey component: x-offset=0, y-offset=0.5, z-offset=0 -&gt; x[1], y[0], z[1]  </span>
+    <span class="c1"># Ez component: x-offset=0, y-offset=0, z-offset=0.5 -&gt; x[1], y[1], z[0]</span>
+    <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span>
+        <span class="n">_cross_profiles_3d</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>  <span class="c1"># Ex absorption</span>
+        <span class="n">_cross_profiles_3d</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>  <span class="c1"># Ey absorption</span>
+        <span class="n">_cross_profiles_3d</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>   <span class="c1"># Ez absorption</span>
+    <span class="p">])</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_absorption_mask_3d</span><span class="p">(</span><span class="n">xx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">yy</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">zz</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">smoothness</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jax</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create 3D absorption pattern with proper FDTD grid offsets for all field components.</span>
+<span class="sd">    </span>
+<span class="sd">    FDTD uses a staggered &quot;Yee grid&quot; where different field components (Ex, Ey, Ez)</span>
+<span class="sd">    are located at different positions within each cell. This function creates</span>
+<span class="sd">    absorption patterns for all three field components with proper 3D offsets.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        xx: Number of grid cells in x direction.</span>
+<span class="sd">        yy: Number of grid cells in y direction.</span>
+<span class="sd">        zz: Number of grid cells in z direction.</span>
+<span class="sd">        width: Absorption width from each boundary.</span>
+<span class="sd">        smoothness: Absorption coefficient strength.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        (3, xx, yy, zz) array: Absorption for [Ex, Ey, Ez] field components.</span>
+<span class="sd">        </span>
+<span class="sd">    Grid Layout (Yee cell):</span>
+<span class="sd">        Ex: Located at (i+0.5, j+0, k+0) - x-edge centered</span>
+<span class="sd">        Ey: Located at (i+0, j+0.5, k+0) - y-edge centered  </span>
+<span class="sd">        Ez: Located at (i+0, j+0, k+0.5) - z-edge centered</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">xx</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">yy</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">zz</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Grid dimensions must be positive, got xx=</span><span class="si">{</span><span class="n">xx</span><span class="si">}</span><span class="s2">, yy=</span><span class="si">{</span><span class="n">yy</span><span class="si">}</span><span class="s2">, zz=</span><span class="si">{</span><span class="n">zz</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">width</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;width must be non-negative, got </span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">smoothness</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;smoothness must be non-negative, got </span><span class="si">{</span><span class="n">smoothness</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Generate 1D profiles for x, y, and z directions with proper offsets</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">_absorption_profiles</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">smoothness</span><span class="p">)</span>  <span class="c1"># Shape: (2, xx)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">_absorption_profiles</span><span class="p">(</span><span class="n">yy</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">smoothness</span><span class="p">)</span>  <span class="c1"># Shape: (2, yy)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">_absorption_profiles</span><span class="p">(</span><span class="n">zz</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">smoothness</span><span class="p">)</span>  <span class="c1"># Shape: (2, zz)</span>
+    
+    <span class="c1"># Combine profiles for each field component with appropriate offsets:</span>
+    <span class="c1"># Ex component: x-offset=0.5, y-offset=0, z-offset=0 -&gt; x[0], y[1], z[1]</span>
+    <span class="c1"># Ey component: x-offset=0, y-offset=0.5, z-offset=0 -&gt; x[1], y[0], z[1]  </span>
+    <span class="c1"># Ez component: x-offset=0, y-offset=0, z-offset=0.5 -&gt; x[1], y[1], z[0]</span>
+    <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span>
+        <span class="n">_cross_profiles_3d</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>  <span class="c1"># Ex absorption</span>
+        <span class="n">_cross_profiles_3d</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>  <span class="c1"># Ey absorption</span>
+        <span class="n">_cross_profiles_3d</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>   <span class="c1"># Ez absorption</span>
+    <span class="p">])</span>
+
+
+<div class="viewcode-block" id="create_absorption_mask">
+<a class="viewcode-back" href="../../api/absorption.html#hyperwave_community.absorption.create_absorption_mask">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_absorption_mask</span><span class="p">(</span>
+    <span class="n">grid_shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">absorption_widths</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">absorption_coeff</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">show_plots</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">jax</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create 3D adiabatic absorption mask with inward padding logic.</span>
+<span class="sd">    </span>
+<span class="sd">    This function creates a 3D absorption mask that:</span>
+<span class="sd">    1. Uses inward padding: absorption occurs at grid boundaries</span>
+<span class="sd">    2. Creates zero absorption in the center region (preserves device physics)</span>
+<span class="sd">    3. Increases quadratically toward all boundaries (prevents reflections)</span>
+<span class="sd">    4. Handles all three field components (Ex, Ey, Ez) with proper Yee grid offsets</span>
+<span class="sd">    5. Optionally visualizes the absorption mask when show_plots=True</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        grid_shape: Tuple of (xx, yy, zz) grid dimensions.</span>
+<span class="sd">        absorption_widths: Tuple of (x_pad, y_pad, z_pad) absorption widths from each boundary.</span>
+<span class="sd">        absorption_coeff: Maximum absorption strength at boundaries.</span>
+<span class="sd">        show_plots: Whether to display absorption mask visualization (default: True).</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        absorption_mask: (3, xx, yy, zz) absorption array</span>
+<span class="sd">        </span>
+<span class="sd">    Physics:</span>
+<span class="sd">        - Center region stays at zero absorption (perfect device simulation)</span>
+<span class="sd">        - Boundary regions gradually absorb waves (no artificial reflections)</span>
+<span class="sd">        - Quadratic profile ensures adiabatic (slowly-varying) transitions</span>
+<span class="sd">        - Works in full 3D with proper field component offsets</span>
+<span class="sd">        </span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; import jax.numpy as jnp</span>
+<span class="sd">        &gt;&gt;&gt; from hyperwave.absorption import create_absorption_mask</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Create absorption mask with inward padding and visualization</span>
+<span class="sd">        &gt;&gt;&gt; grid_shape = (100, 80, 60)  # (xx, yy, zz)</span>
+<span class="sd">        &gt;&gt;&gt; absorption_widths = (10, 8, 6)  # (x_pad, y_pad, z_pad)</span>
+<span class="sd">        &gt;&gt;&gt; absorption_coeff = 1e-1</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; mask = create_absorption_mask(grid_shape, absorption_widths, absorption_coeff)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Grid shape: {grid_shape}&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Absorption mask shape: {mask.shape}&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; print(f&quot;Center region size: {grid_shape[0] - 2*absorption_widths[0]} x {grid_shape[1] - 2*absorption_widths[1]} x {grid_shape[2] - 2*absorption_widths[2]}&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; </span>
+<span class="sd">        &gt;&gt;&gt; # Create without visualization</span>
+<span class="sd">        &gt;&gt;&gt; mask = create_absorption_mask(grid_shape, absorption_widths, absorption_coeff, show_plots=False)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Input validation</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">grid_shape</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid_shape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;grid_shape must be a tuple of length 3&quot;</span><span class="p">)</span>
+    
+    <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span> <span class="o">=</span> <span class="n">grid_shape</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">grid_shape</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;grid_shape must contain positive integers&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">absorption_widths</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">absorption_widths</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;absorption_widths must be a tuple of length 3&quot;</span><span class="p">)</span>
+    
+    <span class="n">x_pad</span><span class="p">,</span> <span class="n">y_pad</span><span class="p">,</span> <span class="n">z_pad</span> <span class="o">=</span> <span class="n">absorption_widths</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">w</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">absorption_widths</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;absorption_widths must contain non-negative integers&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">absorption_coeff</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="ow">or</span> <span class="n">absorption_coeff</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;absorption_coeff must be a non-negative number&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Validate that absorption widths don&#39;t exceed half the grid dimensions</span>
+    <span class="n">max_x_width</span> <span class="o">=</span> <span class="n">xx</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">max_y_width</span> <span class="o">=</span> <span class="n">yy</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">max_z_width</span> <span class="o">=</span> <span class="n">zz</span> <span class="o">//</span> <span class="mi">2</span>
+    
+    <span class="k">if</span> <span class="n">x_pad</span> <span class="o">&gt;</span> <span class="n">max_x_width</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;x_pad (</span><span class="si">{</span><span class="n">x_pad</span><span class="si">}</span><span class="s2">) cannot exceed half the x dimension (</span><span class="si">{</span><span class="n">max_x_width</span><span class="si">}</span><span class="s2">). &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Grid dimensions: </span><span class="si">{</span><span class="n">xx</span><span class="si">}</span><span class="s2"> x </span><span class="si">{</span><span class="n">yy</span><span class="si">}</span><span class="s2"> x </span><span class="si">{</span><span class="n">zz</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">y_pad</span> <span class="o">&gt;</span> <span class="n">max_y_width</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;y_pad (</span><span class="si">{</span><span class="n">y_pad</span><span class="si">}</span><span class="s2">) cannot exceed half the y dimension (</span><span class="si">{</span><span class="n">max_y_width</span><span class="si">}</span><span class="s2">). &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Grid dimensions: </span><span class="si">{</span><span class="n">xx</span><span class="si">}</span><span class="s2"> x </span><span class="si">{</span><span class="n">yy</span><span class="si">}</span><span class="s2"> x </span><span class="si">{</span><span class="n">zz</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">z_pad</span> <span class="o">&gt;</span> <span class="n">max_z_width</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;z_pad (</span><span class="si">{</span><span class="n">z_pad</span><span class="si">}</span><span class="s2">) cannot exceed half the z dimension (</span><span class="si">{</span><span class="n">max_z_width</span><span class="si">}</span><span class="s2">). &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Grid dimensions: </span><span class="si">{</span><span class="n">xx</span><span class="si">}</span><span class="s2"> x </span><span class="si">{</span><span class="n">yy</span><span class="si">}</span><span class="s2"> x </span><span class="si">{</span><span class="n">zz</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    
+    <span class="c1"># Create 3D absorption mask with inward padding</span>
+    <span class="n">absorption_mask</span> <span class="o">=</span> <span class="n">_absorption_mask_3d_custom</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span><span class="p">,</span> <span class="n">x_pad</span><span class="p">,</span> <span class="n">y_pad</span><span class="p">,</span> <span class="n">z_pad</span><span class="p">,</span> <span class="n">absorption_coeff</span><span class="p">)</span>
+    
+    <span class="c1"># Final validation</span>
+    <span class="k">if</span> <span class="n">jnp</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">absorption_mask</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Generated absorption mask contains NaN values&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">jnp</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">absorption_mask</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Generated absorption mask contains infinite values&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Visualize if requested</span>
+    <span class="k">if</span> <span class="n">show_plots</span><span class="p">:</span>
+        <span class="n">_view_absorption_mask_internal</span><span class="p">(</span><span class="n">absorption_mask</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">absorption_mask</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_view_absorption_mask_internal</span><span class="p">(</span>
+    <span class="n">absorption_mask</span><span class="p">:</span> <span class="n">jax</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
+    <span class="n">slice_positions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="n">cmap</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;grey_r&#39;</span><span class="p">,</span>
+    <span class="n">save_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">show_plot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Visualize the 3D absorption mask for the &#39;absorbers&#39; component (Ex).</span>
+
+<span class="sd">    Plots three slices (XY, XZ, YZ) of the first field component,</span>
+<span class="sd">    labeled as &#39;absorbers&#39;.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        absorption_mask: (3, xx, yy, zz) absorption array. Only index 0 is used.</span>
+<span class="sd">        slice_positions: (x_frac, y_frac, z_frac) fractional positions (0–1).</span>
+<span class="sd">                         Defaults to center slices.</span>
+<span class="sd">        figsize: Figure size (width, height) in inches.</span>
+<span class="sd">        cmap: Colormap name.</span>
+<span class="sd">        save_path: Optional path to save the figure.</span>
+<span class="sd">        show_plot: Whether to display the plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.gridspec</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gridspec</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+    <span class="c1"># Validate input shape</span>
+    <span class="k">if</span> <span class="n">absorption_mask</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">4</span> <span class="ow">or</span> <span class="n">absorption_mask</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;absorption_mask must be at least 4D with first dimension ≥1, got </span><span class="si">{</span><span class="n">absorption_mask</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Default to center slices</span>
+    <span class="k">if</span> <span class="n">slice_positions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">slice_positions</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">x_frac</span><span class="p">,</span> <span class="n">y_frac</span><span class="p">,</span> <span class="n">z_frac</span> <span class="o">=</span> <span class="n">slice_positions</span>
+
+    <span class="n">_</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">zz</span> <span class="o">=</span> <span class="n">absorption_mask</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">x_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x_frac</span> <span class="o">*</span> <span class="p">(</span><span class="n">xx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">y_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y_frac</span> <span class="o">*</span> <span class="p">(</span><span class="n">yy</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">z_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">z_frac</span> <span class="o">*</span> <span class="p">(</span><span class="n">zz</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># Use only the first component and apply square-root scaling</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">absorption_mask</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="c1"># Set up a 1×3 grid</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+    <span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+    <span class="c1"># Descriptions for each slice</span>
+    <span class="n">slice_info</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;XY&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">z_idx</span><span class="p">],</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xx</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">yy</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;X index&#39;</span><span class="p">,</span> <span class="s1">&#39;Y index&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;XZ&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">y_idx</span><span class="p">,</span> <span class="p">:],</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xx</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">zz</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;X index&#39;</span><span class="p">,</span> <span class="s1">&#39;Z index&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;YZ&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">x_idx</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">yy</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">zz</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;Y index&#39;</span><span class="p">,</span> <span class="s1">&#39;Z index&#39;</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">slice_data</span><span class="p">,</span> <span class="n">extent</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slice_info</span><span class="p">):</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+            <span class="n">slice_data</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+            <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;upper&#39;</span><span class="p">,</span>
+            <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
+            <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span>
+            <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span>
+            <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">,</span>
+            <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;absorbers: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> slice&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
+
+        <span class="c1"># Colorbar with α label in a larger font</span>
+        <span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+        <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\sqrt{\alpha}$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+        <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s1">&#39;3D Absorbers Mask slices at </span><span class="si">{</span><span class="n">slice_positions</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">save_path</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved plot to: </span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">show_plot</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, SPINS Photonics.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
