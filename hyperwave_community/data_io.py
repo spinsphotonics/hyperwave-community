@@ -256,21 +256,38 @@ def generate_gds_from_density(
 
     Args:
         density_array: 2D array of density values (0-1) from optimization.
-            Values above 'level' are considered material.
+            Values above 'level' are considered material. Note: density arrays
+            are typically at 2x the resolution of the structure.
         level: Contour threshold (default 0.5). Material is density > level.
         output_filename: Name for output GDS file.
         add_border: If True, adds zero padding for closed contour extraction.
-        resolution: Grid resolution in micrometers per pixel (default 0.05).
-            Same as gds_to_theta - each pixel represents this many micrometers.
+        resolution: Structure grid resolution in micrometers per pixel (default 0.05).
+            This is the resolution of your STRUCTURE, not the density array.
+            The function automatically applies 2x downsampling since density
+            arrays are at 2x finer resolution than the structure.
 
     Returns:
         Absolute path to the generated GDS file.
 
     Note:
         The density array maintains its original orientation. Both numpy
-        and GDS coordinate systems are treated consistently. The resolution
-        parameter scales pixel coordinates to physical dimensions.
+        and GDS coordinate systems are treated consistently. Since density
+        arrays are at 2x the resolution of the structure, the function
+        internally uses resolution/2 for scaling to get correct physical dimensions.
+
+    Example:
+        >>> # If your structure has 0.05 um/pixel resolution
+        >>> # Your density array will have 0.025 um/pixel resolution (2x finer)
+        >>> gds_path = generate_gds_from_density(
+        ...     density_array=density,
+        ...     resolution=0.05,  # Pass structure resolution, not density resolution
+        ...     output_filename="device.gds"
+        ... )
     """
+    # Since density arrays are at 2x the resolution of the structure,
+    # we need to use half the resolution for correct physical scaling
+    density_resolution = resolution / 2.0
+
     # Add a 1-pixel border of zeros to ensure proper contour extraction
     # This is purely algorithmic, not decorative
     if add_border:
@@ -324,12 +341,12 @@ def generate_gds_from_density(
     # Convert processed contours to gdstk.Polygon objects
     # Note: c[:, ::-1] swaps x and y coordinates to match GDS convention
     # If we added a border, we need to subtract 1 from coordinates to compensate
-    # Apply resolution scaling to convert pixel coordinates to physical dimensions
-    # GDS uses micrometers, and our resolution is already in micrometers
+    # Apply density_resolution scaling to convert pixel coordinates to physical dimensions
+    # GDS uses micrometers, and our density_resolution is already in micrometers
     if add_border:
-        gds_polygons = [gdstk.Polygon((c[:, ::-1] - 1) * resolution) for c in processed_contours]
+        gds_polygons = [gdstk.Polygon((c[:, ::-1] - 1) * density_resolution) for c in processed_contours]
     else:
-        gds_polygons = [gdstk.Polygon(c[:, ::-1] * resolution) for c in processed_contours]
+        gds_polygons = [gdstk.Polygon(c[:, ::-1] * density_resolution) for c in processed_contours]
 
     if not gds_polygons:
         # Create an empty library and cell and write it to GDS
