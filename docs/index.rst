@@ -3,6 +3,8 @@ Hyperwave Community Documentation
 
 Welcome to the Hyperwave Community documentation. This package provides an open-source photonics simulation toolkit with GPU-accelerated FDTD via cloud API.
 
+**Get started today at** `spinsphotonics.com <https://spinsphotonics.com>`_ **- Sign up for free GPU credits!**
+
 Features
 --------
 
@@ -34,12 +36,13 @@ Quick Start
 1. Get Your API Key
 ~~~~~~~~~~~~~~~~~~~
 
+Sign up for free at `spinsphotonics.com <https://spinsphotonics.com>`_ to get your API key and free GPU credits.
+
 .. code-block:: python
 
    import hyperwave_community as hwc
 
-   # Get your API key at: https://spinsphotonics.com/dashboard
-   # You'll pass the API key directly to the simulate() function
+   # Get your API key from your dashboard at: https://spinsphotonics.com/dashboard
    api_key = "your-api-key-here"
 
 2. Create Theta (Design Pattern)
