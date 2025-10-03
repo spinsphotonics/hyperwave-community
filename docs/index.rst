@@ -3,8 +3,6 @@ Hyperwave Community Documentation
 
 Welcome to the Hyperwave Community documentation. This package provides an open-source photonics simulation toolkit with GPU-accelerated FDTD via cloud API.
 
-**Get started today at** `spinsphotonics.com <https://spinsphotonics.com>`_ **- Sign up for free GPU credits!**
-
 Features
 --------
 
@@ -36,7 +34,7 @@ Quick Start
 1. Get Your API Key
 ~~~~~~~~~~~~~~~~~~~
 
-Sign up for free at `spinsphotonics.com <https://spinsphotonics.com>`_ to get your API key and free GPU credits.
+Sign up at `spinsphotonics.com <https://spinsphotonics.com>`_ to get your API key.
 
 .. code-block:: python
 
