@@ -31,15 +31,16 @@ Or install from source:
 Quick Start
 -----------
 
-1. Configure API Access
-~~~~~~~~~~~~~~~~~~~~~~~
+1. Get Your API Key
+~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
    import hyperwave_community as hwc
 
-   # API access configuration will be added here
-   # Get your API key at: https://spinsphotonics.com/dashboard (coming soon)
+   # Get your API key at: https://spinsphotonics.com/dashboard
+   # You'll pass the API key directly to the simulate() function
+   api_key = "your-api-key-here"
 
 2. Create Theta (Design Pattern)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -182,7 +183,8 @@ Quick Start
        source_ramp_periods=5.0,
        add_absorption=True,
        absorption_widths=(70, 35, 17),
-       absorption_coeff=4.89e-3
+       absorption_coeff=4.89e-3,
+       api_key=api_key  # Pass your API key here
    )
 
    print(f"GPU time: {results['sim_time']:.2f}s")
