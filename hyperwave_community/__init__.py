@@ -80,6 +80,7 @@ from .monitors import (
 from .sources import (
     mode,
     create_mode_source,
+    create_gaussian_source,
     generate_gaussian_source,
 )
 
@@ -138,6 +139,7 @@ __all__ = [
     # Sources
     "mode",
     "create_mode_source",
+    "create_gaussian_source",
     "generate_gaussian_source",
 
     # Metasurface

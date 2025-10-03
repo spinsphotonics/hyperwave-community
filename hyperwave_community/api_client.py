@@ -26,7 +26,7 @@ import requests
 # Global API configuration
 _API_CONFIG = {
     'api_key': None,
-    'api_url': 'https://api.hyperwave.com'  # Update with production URL
+    'api_url': 'https://hyperwave-cloud.onrender.com'
 }
 
 
@@ -126,7 +126,6 @@ def generate_gaussian_source(
     check_every_n: int = 1000,
     gpu_type: str = "H100",
     api_key: Optional[str] = None,
-    api_url: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Generate unidirectional Gaussian source on GPU via API.
 
@@ -143,7 +142,6 @@ def generate_gaussian_source(
         check_every_n: Convergence check interval.
         gpu_type: GPU type to use (H100, A100, A10G, L4).
         api_key: API key (overrides configured key).
-        api_url: API URL (overrides configured URL).
 
     Returns:
         Dictionary containing:
@@ -154,6 +152,9 @@ def generate_gaussian_source(
             - total_time: Total generation time
             - fdtd_time: FDTD simulation time
             - gpu_type: GPU type used
+            - simulation_id: Unique ID for this simulation
+            - execution_time_seconds: Total execution time
+            - computation_time_seconds: GPU computation time
 
     Raises:
         RuntimeError: If API call fails.
@@ -176,16 +177,18 @@ def generate_gaussian_source(
         ...     conductivity_boundary=abs_mask,
         ...     freq_band=(2*jnp.pi/0.55, 2*jnp.pi/0.55, 1),
         ...     source_z_pos=60,
-        ...     polarization='x'
+        ...     polarization='x',
+        ...     api_key='your-api-key'
         ... )
         >>> source_field = result['source_field']
     """
-    # Get API configuration
-    config = _get_api_config()
-    if api_key is not None:
-        config['api_key'] = api_key
-    if api_url is not None:
-        config['api_url'] = api_url
+    # Check for API key
+    if not api_key:
+        print("API key required to proceed.")
+        print("Sign up for free at spinsphotonics.com to get your API key.")
+        return None
+
+    API_URL = "https://hyperwave-cloud.onrender.com"
 
     # Encode conductivity boundary
     conductivity_b64 = encode_array(np.array(conductivity_boundary))
@@ -202,19 +205,21 @@ def generate_gaussian_source(
         "gpu_type": gpu_type
     }
 
+    headers = {
+        "X-API-Key": api_key,
+        "Content-Type": "application/json"
+    }
+
     # Send request
     try:
         response = requests.post(
-            f"{config['api_url']}/generate_gaussian_source",
+            f"{API_URL}/generate_gaussian_source",
             json=request_data,
-            headers={"Authorization": f"Bearer {config['api_key']}"},
+            headers=headers,
             timeout=600  # 10 minute timeout
         )
 
-        if response.status_code != 200:
-            raise RuntimeError(
-                f"API request failed with status {response.status_code}: {response.text}"
-            )
+        response.raise_for_status()  # raises HTTPError if status != 200
 
         results = response.json()
 
@@ -228,13 +233,70 @@ def generate_gaussian_source(
             'source_position': tuple(results['source_position']),
             'total_time': results['total_time'],
             'fdtd_time': results['fdtd_time'],
-            'gpu_type': results['gpu_type']
+            'gpu_type': results['gpu_type'],
+            'simulation_id': results.get('simulation_id'),
+            'execution_time_seconds': results.get('execution_time_seconds'),
+            'computation_time_seconds': results.get('computation_time_seconds')
         }
 
-    except requests.exceptions.ConnectionError:
-        raise ConnectionError(
-            f"Could not connect to API at {config['api_url']}. "
-            "Check your network connection and API URL."
-        )
-    except Exception as e:
-        raise RuntimeError(f"API request failed: {str(e)}")
+    except requests.exceptions.HTTPError as e:
+        # Access the response from the exception object
+        if e.response is not None:
+            status_code = e.response.status_code
+            response_text = e.response.text
+
+            if status_code == 401:
+                print("No API key detected in request.")
+                print("Sign up for free at spinsphotonics.com to get your API key.")
+                return None
+            elif status_code == 403:
+                print("Provided API key is invalid.")
+                print("Please verify your API key in your dashboard at spinsphotonics.com/dashboard")
+                return None
+            elif status_code == 402:
+                # Try to extract current balance from response if available
+                try:
+                    error_data = e.response.json()
+                    current_balance = error_data.get("current_balance", 0)
+                    balance_msg = f"Current balance: {current_balance:.4f} credits"
+                except:
+                    balance_msg = ""
+
+                print("Insufficient credits for Gaussian source generation.")
+                print("Minimum required: 0.1 credits")
+                if balance_msg:
+                    print(balance_msg)
+                print("Add credits to your account at spinsphotonics.com/billing")
+                return None
+            elif status_code == 502:
+                print("Service temporarily unavailable.")
+                print("Our servers are experiencing high load. Please retry in a few moments.")
+                return None
+            else:
+                print(f"Unexpected error (Code: {status_code})")
+                print("Please try again or contact support if the issue persists.")
+                return None
+        else:
+            print("Communication error.")
+            print("Unable to process your request at this time. Please try again later.")
+            return None
+
+    except requests.exceptions.Timeout:
+        print("Request timeout.")
+        print("The source generation server is taking longer than expected. Please try again.")
+        return None
+
+    except requests.exceptions.ConnectionError as e:
+        print("Connection failed.")
+        print("Unable to reach source generation servers. Please check your network connection and try again.")
+        return None
+
+    except requests.exceptions.RequestException as e:
+        print("Communication error.")
+        print("Unable to process your request at this time. Please try again later.")
+        return None
+
+    except ValueError as e:
+        print("Invalid server response.")
+        print("Received malformed data from server. Our team has been notified.")
+        return None
