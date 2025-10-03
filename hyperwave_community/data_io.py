@@ -401,16 +401,18 @@ def generate_gds_from_density(
 # Visualization Function
 # =============================================================================
 
-def view_gds(gds_filepath: str, density_array: np.ndarray = None, figsize: tuple = (12, 6)):
+def view_gds(gds_filepath: str, density_array: np.ndarray = None, resolution: float = 0.05, figsize: tuple = (12, 6)):
     """Visualize GDS file contents with optional density comparison.
 
     Reads a GDS file and plots the polygons it contains. If the original
     density array is provided, displays both side-by-side for comparison.
-    The visualization shows the full domain including cladding regions.
+    The visualization shows physical dimensions in micrometers.
 
     Args:
         gds_filepath: Path to the GDS file to visualize.
         density_array: Optional original density array for comparison.
+        resolution: Structure resolution in micrometers per pixel (default 0.05).
+            Only used when density_array is provided to show density in micrometers.
         figsize: Figure size as (width, height) tuple.
 
     Returns:
@@ -418,8 +420,8 @@ def view_gds(gds_filepath: str, density_array: np.ndarray = None, figsize: tuple
 
     Note:
         Polygons are displayed with semi-transparent blue fill and no edge
-        outline. The full domain is shown including cladding regions when
-        density array is provided. The density array uses grayscale colormap.
+        outline. GDS coordinates are shown in micrometers. The density array
+        uses PuOr colormap (purple-orange diverging) for better contrast.
     """
     # Read the GDS file
     lib_verify = gdstk.read_gds(gds_filepath)
@@ -435,12 +437,18 @@ def view_gds(gds_filepath: str, density_array: np.ndarray = None, figsize: tuple
     if density_array is not None:
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=figsize)
 
-        # Plot original density array
-        im = ax1.imshow(density_array, cmap='gray', origin='upper',
-                        extent=[0, density_array.shape[1], 0, density_array.shape[0]])
+        # Calculate physical extent of density array
+        # Density is at 2x finer resolution than structure
+        density_resolution = resolution / 2.0
+        width_um = density_array.shape[1] * density_resolution
+        height_um = density_array.shape[0] * density_resolution
+
+        # Plot original density array with physical units
+        im = ax1.imshow(density_array, cmap='PuOr', origin='upper',
+                        extent=[0, width_um, 0, height_um])
         ax1.set_title(f'Original Density ({density_array.shape[0]}×{density_array.shape[1]} pixels)')
-        ax1.set_xlabel('X (pixels)')
-        ax1.set_ylabel('Y (pixels)')
+        ax1.set_xlabel('X (μm)')
+        ax1.set_ylabel('Y (μm)')
         ax1.grid(True, alpha=0.3)
         plt.colorbar(im, ax=ax1, label='Density')
 
@@ -456,14 +464,16 @@ def view_gds(gds_filepath: str, density_array: np.ndarray = None, figsize: tuple
                                  facecolor='blue', linewidth=0)
         ax.add_patch(poly_patch)
 
-    # Set axis limits to show full domain
-    # Always use density array dimensions if provided to show full domain including cladding
+    # Set axis limits based on GDS polygons (which are already in micrometers)
     if density_array is not None:
-        # Show the full domain extent
-        ax.set_xlim(0, density_array.shape[1])
-        ax.set_ylim(0, density_array.shape[0])
+        # When density is provided, match its physical extent
+        density_resolution = resolution / 2.0
+        width_um = density_array.shape[1] * density_resolution
+        height_um = density_array.shape[0] * density_resolution
+        ax.set_xlim(0, width_um)
+        ax.set_ylim(0, height_um)
     else:
-        # If no density array, try to infer reasonable bounds from polygons
+        # If no density array, use polygon bounds
         if polygons:
             all_x = []
             all_y = []
@@ -472,10 +482,9 @@ def view_gds(gds_filepath: str, density_array: np.ndarray = None, figsize: tuple
                 all_x.extend(points[:, 0])
                 all_y.extend(points[:, 1])
 
-            # Use actual polygon bounds with 1-pixel margin
+            # Use actual polygon bounds with small margin in micrometers
             if all_x and all_y:
-                # Fixed 1-pixel margin, not percentage-based
-                margin = 1
+                margin = 1.0  # 1 micrometer margin
                 ax.set_xlim(min(all_x) - margin, max(all_x) + margin)
                 ax.set_ylim(min(all_y) - margin, max(all_y) + margin)
         else:
@@ -484,8 +493,8 @@ def view_gds(gds_filepath: str, density_array: np.ndarray = None, figsize: tuple
             ax.set_ylim(0, 100)
 
     ax.set_aspect('equal')
-    ax.set_xlabel('X (GDS units)')
-    ax.set_ylabel('Y (GDS units)')
+    ax.set_xlabel('X (μm)')
+    ax.set_ylabel('Y (μm)')
     ax.set_title(f'GDS Polygons ({len(polygons)} polygons)')
     ax.grid(True, alpha=0.3)
 
