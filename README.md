@@ -168,18 +168,28 @@ results = hwc.simulate(
     freq_band=freq_band,
     monitors=monitors,
     mode_info=mode_info,
-    max_steps=10000,
+    max_steps=20000,
     check_every_n=1000,
     source_ramp_periods=5.0,
     add_absorption=True,
     absorption_widths=(70, 35, 17),
     absorption_coeff=4.89e-3,
-    api_key=api_key  # Pass your API key here
+    api_key=api_key,
+    gpu_type="H100"  # Options: "H100", "A100", "A10G", "T4", "L4", "L40S", "B200"
 )
 
 print(f"GPU time: {results['sim_time']:.2f}s")
 print(f"Performance: {results['performance']:.2e} grid-points×steps/s")
 ```
+
+**Available GPU types:**
+- `B200` - NVIDIA Blackwell B200 (highest performance, multi-GPU not yet supported)
+- `H100` - NVIDIA H100 (recommended for large simulations)
+- `A100` - NVIDIA A100 (high performance)
+- `L40S` - NVIDIA L40S (balanced performance)
+- `L4` - NVIDIA L4 (cost-effective)
+- `A10G` - NVIDIA A10G (good performance)
+- `T4` - NVIDIA T4 (entry-level)
 
 ### 7. Analyze Results
 
