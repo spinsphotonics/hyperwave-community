@@ -360,9 +360,11 @@ def create_gaussian_source(
     freq_band: Tuple[float, float, int],
     source_z_pos: int,
     polarization: str = 'x',
+    max_steps: int = 5000,
+    check_every_n: int = 1000,
+    gpu_type: str = "H100",
     api_key: Optional[str] = None,
-    api_url: str = 'http://localhost:8000',
-) -> Tuple[jax.Array, Tuple[int, int, int]]:
+) -> Tuple[jax.Array, Tuple[int, int, int], Dict]:
     """Create unidirectional Gaussian beam source via API.
 
     Generates a truly unidirectional Gaussian beam using the wave equation error
@@ -379,14 +381,17 @@ def create_gaussian_source(
             Values are angular frequencies in rad/s.
         source_z_pos: Z-position for Gaussian source injection (in pixels).
         polarization: Polarization direction, either 'x' or 'y'.
+        max_steps: Maximum FDTD steps for source generation.
+        check_every_n: Convergence check interval.
+        gpu_type: GPU type to use (H100, A100, A10G, L4).
         api_key: API authentication key. If None, reads from HYPERWAVE_API_KEY
             environment variable.
-        api_url: API endpoint URL. Defaults to localhost for development.
 
     Returns:
-        Tuple of (source_field, source_offset) where:
+        Tuple of (source_field, source_offset, source_info) where:
             - source_field: Complex field array, shape (num_freqs, 6, x, y, z)
             - source_offset: Corner position (x, y, z) for source placement
+            - source_info: Dict with 'power', 'total_time', 'fdtd_time', 'gpu_type'
 
     Raises:
         RuntimeError: If API call fails or authentication is invalid.
@@ -402,7 +407,7 @@ def create_gaussian_source(
         >>> import os
         >>>
         >>> # Set API key
-        >>> os.environ['HYPERWAVE_API_KEY'] = 'your-key-here'
+        >>> api_key = 'your-key-here'
         >>>
         >>> # Create absorption boundaries
         >>> abs_mask = hwc.create_absorption_mask(
@@ -411,12 +416,13 @@ def create_gaussian_source(
         ... )
         >>>
         >>> # Generate Gaussian source
-        >>> source, offset = hwc.create_gaussian_source(
+        >>> source, offset, info = hwc.create_gaussian_source(
         ...     structure_shape=(3, 500, 500, 200),
         ...     conductivity_boundary=abs_mask,
         ...     freq_band=(2*jnp.pi/0.55, 2*jnp.pi/0.55, 1),
         ...     source_z_pos=60,
-        ...     polarization='x'
+        ...     polarization='x',
+        ...     api_key=api_key
         ... )
     """
     from . import api_client
@@ -427,11 +433,20 @@ def create_gaussian_source(
         freq_band=freq_band,
         source_z_pos=source_z_pos,
         polarization=polarization,
-        api_key=api_key,
-        api_url=api_url
+        max_steps=max_steps,
+        check_every_n=check_every_n,
+        gpu_type=gpu_type,
+        api_key=api_key
     )
 
-    return result['source_field'], result['source_position']
+    source_info = {
+        'power': result['source_power'],
+        'total_time': result['total_time'],
+        'fdtd_time': result['fdtd_time'],
+        'gpu_type': result['gpu_type']
+    }
+
+    return result['source_field'], result['source_position'], source_info
 
 
 # =============================================================================
@@ -512,129 +527,3 @@ def _spatial_diff(field: jax.Array, axis: int, is_forward: bool) -> jax.Array:
     return field - jnp.roll(field, shift=+1, axis=axis)
 
 
-# Import for API-based Gaussian source
-import numpy as np
-import requests
-from typing import Dict, Any, Tuple, Optional
-from .api_client import _get_api_config, encode_array, decode_array
-
-
-def generate_gaussian_source(
-    structure_shape: Tuple[int, int, int, int],
-    conductivity_boundary: jax.Array,
-    freq_band: Tuple[float, float, int],
-    source_z_pos: int,
-    polarization: str = 'x',
-    max_steps: int = 5000,
-    check_every_n: int = 1000,
-    gpu_type: str = "H100",
-    api_key: Optional[str] = None,
-    api_url: Optional[str] = None,
-) -> Dict[str, Any]:
-    """Generate unidirectional Gaussian source on GPU via API.
-
-    Creates a truly unidirectional Gaussian beam using the wave equation error
-    method on remote GPU. This prevents reflection artifacts.
-
-    Args:
-        structure_shape: Simulation domain shape as (3, Lx, Ly, Lz).
-        conductivity_boundary: Absorption boundary array, shape (Lx, Ly, Lz).
-        freq_band: Frequency specification as (min, max, num_points).
-        source_z_pos: Z-position for source injection (in pixels).
-        polarization: Polarization direction, 'x' or 'y'.
-        max_steps: Maximum FDTD steps for source generation.
-        check_every_n: Convergence check interval.
-        gpu_type: GPU type to use (H100, A100, A10G, L4).
-        api_key: API key (overrides configured key).
-        api_url: API URL (overrides configured URL).
-
-    Returns:
-        Dictionary containing:
-            - source_field: Generated source field array
-            - source_field_shape: Shape of source field
-            - source_power: Power per frequency
-            - source_position: Source offset position
-            - total_time: Total generation time
-            - fdtd_time: FDTD simulation time
-            - gpu_type: GPU type used
-
-    Raises:
-        RuntimeError: If API call fails.
-        ConnectionError: If cannot connect to API endpoint.
-
-    Example:
-        >>> import hyperwave_community as hwc
-        >>> # Create absorption mask
-        >>> abs_mask = hwc.create_absorption_mask(
-        ...     shape=(500, 500, 200),
-        ...     absorption_widths=(90, 90, 90)
-        ... )
-        >>>
-        >>> # Generate source
-        >>> result = hwc.generate_gaussian_source(
-        ...     structure_shape=(3, 500, 500, 200),
-        ...     conductivity_boundary=abs_mask,
-        ...     freq_band=(2*jnp.pi/0.55, 2*jnp.pi/0.55, 1),
-        ...     source_z_pos=60,
-        ...     polarization='x'
-        ... )
-        >>> source_field = result['source_field']
-    """
-    # Get API configuration
-    config = _get_api_config()
-    if api_key is not None:
-        config['api_key'] = api_key
-    if api_url is not None:
-        config['api_url'] = api_url
-
-    # Encode conductivity boundary
-    conductivity_b64 = encode_array(np.array(conductivity_boundary))
-
-    # Prepare request
-    request_data = {
-        "structure_shape": list(structure_shape),
-        "conductivity_boundary_b64": conductivity_b64,
-        "freq_band": list(freq_band),
-        "source_z_pos": source_z_pos,
-        "polarization": polarization,
-        "max_steps": max_steps,
-        "check_every_n": check_every_n,
-        "gpu_type": gpu_type
-    }
-
-    # Send request
-    try:
-        response = requests.post(
-            f"{config['api_url']}/generate_gaussian_source",
-            json=request_data,
-            headers={"Authorization": f"Bearer {config['api_key']}"},
-            timeout=600  # 10 minute timeout
-        )
-
-        if response.status_code != 200:
-            raise RuntimeError(
-                f"API request failed with status {response.status_code}: {response.text}"
-            )
-
-        results = response.json()
-
-        # Decode source field
-        source_field = decode_array(results['source_field_b64'])
-
-        return {
-            'source_field': source_field,
-            'source_field_shape': results['source_field_shape'],
-            'source_power': results['source_power'],
-            'source_position': tuple(results['source_position']),
-            'total_time': results['total_time'],
-            'fdtd_time': results['fdtd_time'],
-            'gpu_type': results['gpu_type']
-        }
-
-    except requests.exceptions.ConnectionError:
-        raise ConnectionError(
-            f"Could not connect to API at {config['api_url']}. "
-            "Check your network connection and API URL."
-        )
-    except Exception as e:
-        raise RuntimeError(f"API request failed: {str(e)}")
