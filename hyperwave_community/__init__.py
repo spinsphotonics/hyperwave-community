@@ -81,6 +81,11 @@ from .sources import (
     mode,
     create_mode_source,
     create_gaussian_source,
+)
+
+# Import API client functions
+from .api_client import (
+    configure_api,
     generate_gaussian_source,
 )
 
@@ -98,10 +103,6 @@ from .data_io import (
     component_to_theta,
 )
 
-# Import API client
-from .api_client import (
-    configure_api,
-)
 
 # Import simulation utilities
 from .simulate import (
