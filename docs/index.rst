@@ -195,8 +195,8 @@ Sign up at `spinsphotonics.com <https://spinsphotonics.com>`_ to get your API ke
 **Available GPU types:**
 
 - ``B200`` - NVIDIA Blackwell B200 (highest performance)
-- ``H200`` - NVIDIA H200 (excellent performance)
-- ``H100`` - NVIDIA H100 (recommended for large simulations)
+- ``H200`` - NVIDIA H200 (recommended for large simulations)
+- ``H100`` - NVIDIA H100 (excellent performance)
 - ``A100`` - NVIDIA A100 (high performance)
 - ``L40S`` - NVIDIA L40S (balanced performance)
 - ``L4`` - NVIDIA L4 (cost-effective)
