@@ -122,7 +122,7 @@ def generate_gaussian_source(
     freq_band: Tuple[float, float, int],
     source_z_pos: int,
     polarization: str = 'x',
-    max_steps: int = 5000,
+    simulation_steps: int = 5000,
     check_every_n: int = 1000,
     gpu_type: str = "H100",
     api_key: Optional[str] = None,
@@ -138,7 +138,8 @@ def generate_gaussian_source(
         freq_band: Frequency specification as (min, max, num_points).
         source_z_pos: Z-position for source injection (in pixels).
         polarization: Polarization direction, 'x' or 'y'.
-        max_steps: Maximum FDTD steps for source generation.
+        simulation_steps: Number of FDTD time steps for source generation.
+            The simulation will converge to a relatively low error at around this step count.
         check_every_n: Convergence check interval.
         gpu_type: GPU type to use (H100, A100, A10G, L4).
         api_key: API key (overrides configured key).
@@ -200,7 +201,7 @@ def generate_gaussian_source(
         "freq_band": list(freq_band),
         "source_z_pos": source_z_pos,
         "polarization": polarization,
-        "max_steps": max_steps,
+        "simulation_steps": simulation_steps,
         "check_every_n": check_every_n,
         "gpu_type": gpu_type
     }

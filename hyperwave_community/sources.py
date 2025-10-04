@@ -360,7 +360,7 @@ def create_gaussian_source(
     freq_band: Tuple[float, float, int],
     source_z_pos: int,
     polarization: str = 'x',
-    max_steps: int = 5000,
+    simulation_steps: int = 5000,
     check_every_n: int = 1000,
     gpu_type: str = "H100",
     api_key: Optional[str] = None,
@@ -381,7 +381,8 @@ def create_gaussian_source(
             Values are angular frequencies in rad/s.
         source_z_pos: Z-position for Gaussian source injection (in pixels).
         polarization: Polarization direction, either 'x' or 'y'.
-        max_steps: Maximum FDTD steps for source generation.
+        simulation_steps: Number of FDTD time steps for source generation.
+            The simulation will converge to a relatively low error at around this step count.
         check_every_n: Convergence check interval.
         gpu_type: GPU type to use (H100, A100, A10G, L4).
         api_key: API authentication key. If None, reads from HYPERWAVE_API_KEY
@@ -433,7 +434,7 @@ def create_gaussian_source(
         freq_band=freq_band,
         source_z_pos=source_z_pos,
         polarization=polarization,
-        max_steps=max_steps,
+        simulation_steps=simulation_steps,
         check_every_n=check_every_n,
         gpu_type=gpu_type,
         api_key=api_key
