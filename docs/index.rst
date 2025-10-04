@@ -179,7 +179,7 @@ Sign up at `spinsphotonics.com <https://spinsphotonics.com>`_ to get your API ke
        freq_band=freq_band,
        monitors=monitors,
        mode_info=mode_info,
-       max_steps=20000,
+       simulation_steps=20000,
        check_every_n=1000,
        source_ramp_periods=5.0,
        add_absorption=True,

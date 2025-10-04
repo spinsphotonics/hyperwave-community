@@ -22,7 +22,7 @@ def simulate(
     freq_band: Tuple[float, float, int],
     monitors,
     mode_info: Optional[Dict] = None,
-    max_steps: int = 10000,
+    simulation_steps: int = 10000,
     check_every_n: int = 1000,
     source_ramp_periods: float = 5.0,
     add_absorption: bool = True,
@@ -43,7 +43,8 @@ def simulate(
         freq_band: Frequency specification as (min, max, num_points).
         monitors: MonitorSet object containing field monitors.
         mode_info: Optional dictionary with mode information (beta, field, error).
-        max_steps: Maximum FDTD time steps.
+        simulation_steps: Number of FDTD time steps to run. The simulation will
+            converge to a relatively low error at around this step count.
         check_every_n: Convergence check interval (in time steps).
         source_ramp_periods: Number of periods for source turn-on.
         add_absorption: If True, add PML absorption boundaries on GPU.
@@ -132,7 +133,7 @@ def simulate(
         "freq_band": list(freq_band),
         "monitors": monitors_serialized,
         "mode_info": mode_info_serialized,
-        "max_steps": max_steps,
+        "simulation_steps": simulation_steps,
         "check_every_n": check_every_n,
         "source_ramp_periods": source_ramp_periods,
         "add_absorption": add_absorption,
