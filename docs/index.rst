@@ -186,22 +186,11 @@ Sign up at `spinsphotonics.com <https://spinsphotonics.com>`_ to get your API ke
        absorption_widths=(70, 35, 17),
        absorption_coeff=4.89e-3,
        api_key=api_key,
-       gpu_type="H100"  # Options: "B200", "H200", "H100", "A100", "L40S", "L4", "A10G", "T4"
+       gpu_type="H100"  # Options: "B200", "H200", "H100", "A100-80GB", "A100-40GB", "L40S", "L4", "A10G", "T4"
    )
 
    print(f"GPU time: {results['sim_time']:.2f}s")
    print(f"Performance: {results['performance']:.2e} grid-points×steps/s")
-
-**Available GPU types:**
-
-- ``B200`` - NVIDIA Blackwell B200 (highest performance)
-- ``H200`` - NVIDIA H200 (recommended for large simulations)
-- ``H100`` - NVIDIA H100 (excellent performance)
-- ``A100`` - NVIDIA A100 (high performance)
-- ``L40S`` - NVIDIA L40S (balanced performance)
-- ``L4`` - NVIDIA L4 (cost-effective)
-- ``A10G`` - NVIDIA A10G (good performance)
-- ``T4`` - NVIDIA T4 (entry-level)
 
 7. Analyze Results
 ~~~~~~~~~~~~~~~~~~
