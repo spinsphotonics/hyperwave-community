@@ -27,8 +27,10 @@ class Layer:
             the X and Y dimensions. Will be transposed to (ny, nx) internally.
             Values should be in [0, 1].
         permittivity_values: Either a tuple (low, high) for interpolation or a single float value.
-        layer_thickness: Physical thickness of the layer.
-        conductivity_values: Either a tuple (low, high) for interpolation or a single float value. 
+        layer_thickness: Physical thickness of the layer in grid points. Can be either an integer
+            or a float. Float values enable precise control over layer dimensions with subpixel
+            averaging (rendered by the epsilon function).
+        conductivity_values: Either a tuple (low, high) for interpolation or a single float value.
             Defaults to 0.0 (no conductivity).
         
     Notes:
@@ -48,7 +50,7 @@ class Layer:
         ...     permittivity_values=(1.0, 12.0),  # Air to silicon
         ...     layer_thickness=10
         ... )
-        >>> 
+        >>>
         >>> # Create a layer with custom conductivity
         >>> layer_with_conductivity = Layer(
         ...     density_pattern=density_pattern,
@@ -56,10 +58,17 @@ class Layer:
         ...     layer_thickness=10,
         ...     conductivity_values=(0.0, 0.1),   # Low to medium conductivity
         ... )
+        >>>
+        >>> # Create a layer with float thickness for precise control
+        >>> layer_with_float = Layer(
+        ...     density_pattern=density_pattern,
+        ...     permittivity_values=(1.0, 12.0),
+        ...     layer_thickness=10.5  # Uses subpixel averaging
+        ... )
     """
     density_pattern: jnp.ndarray
     permittivity_values: Union[Tuple[float, float], float]
-    layer_thickness: int
+    layer_thickness: float
     conductivity_values: Union[Tuple[float, float], float] = 0.0
     
     def __post_init__(self):
@@ -86,12 +95,8 @@ class Layer:
             self.density_pattern = jnp.clip(self.density_pattern, 0, 1)
         
         # Validate layer_thickness
-        if not isinstance(self.layer_thickness, int):
-            if isinstance(self.layer_thickness, float) and self.layer_thickness.is_integer():
-                # Convert float to int if it's a whole number
-                self.layer_thickness = int(self.layer_thickness)
-            else:
-                raise TypeError(f"layer_thickness must be an integer (grid points), got {type(self.layer_thickness).__name__}: {self.layer_thickness}")
+        if not isinstance(self.layer_thickness, (int, float)):
+            raise TypeError(f"layer_thickness must be a number (grid points), got {type(self.layer_thickness).__name__}: {self.layer_thickness}")
         if self.layer_thickness <= 0:
             raise ValueError(f"layer_thickness must be positive, got {self.layer_thickness}")
         
@@ -578,20 +583,24 @@ def _is_uniform_layers(layers: List[Layer]) -> bool:
 
 def create_structure(layers: List[Layer], vertical_radius: float = 5.0) -> Structure:
     """Create enhanced structure with permittivity/conductivity arrays and construction metadata.
-    
+
     This function takes a list of Layer objects and converts them into layered permittivity
-    and conductivity structures suitable for FDTD simulations, while preserving all 
+    and conductivity structures suitable for FDTD simulations, while preserving all
     construction metadata for efficient Modal serialization.
-    
+
+    Supports float layer thicknesses with subpixel averaging. When the sum of layer thicknesses
+    is close to an integer (within 1e-6), it snaps to that integer. Otherwise, it uses ceil()
+    to ensure sufficient grid points. The epsilon() function handles the subpixel averaging.
+
     Args:
-        layers: List of Layer objects defining the structure.
+        layers: List of Layer objects defining the structure. Layer thicknesses can be int or float.
         vertical_radius: Radius for vertical blur filtering. If > 0, applies a vertical
             blur filter to smooth transitions between layers. Default: 5.0.
-        
+
     Returns:
         Structure object containing:
         - permittivity: (components, nx, ny, nz) permittivity distribution
-        - conductivity: (components, nx, ny, nz) conductivity distribution  
+        - conductivity: (components, nx, ny, nz) conductivity distribution
         - layers_info: Original Layer objects for reconstruction
         - construction_params: Parameters used in construction
         - metadata: Additional reconstruction information
@@ -600,7 +609,7 @@ def create_structure(layers: List[Layer], vertical_radius: float = 5.0) -> Struc
         >>> import jax.numpy as jnp
         >>> from hyperwave.structure import Layer, create_structure
         >>> 
-        >>> # Create layers
+        >>> # Create layers with integer thickness
         >>> layer1 = Layer(
         ...     density_pattern=jnp.ones((20, 20)),
         ...     permittivity_values=(1.0, 12.0),
@@ -613,14 +622,21 @@ def create_structure(layers: List[Layer], vertical_radius: float = 5.0) -> Struc
         ...     conductivity_values=(0.1, 0.0),
         ...     layer_thickness=5
         ... )
-        >>> 
+        >>>
+        >>> # Create layers with float thickness for precise control
+        >>> layer3 = Layer(
+        ...     density_pattern=jnp.ones((20, 20)),
+        ...     permittivity_values=(1.0, 12.0),
+        ...     layer_thickness=10.5  # Float thickness uses subpixel averaging
+        ... )
+        >>>
         >>> # Create enhanced structure with metadata
         >>> structure = create_structure([layer1, layer2])  # Uses default vertical_radius=5.0
-        >>> 
+        >>>
         >>> # Traditional access (backward compatible)
         >>> eps, cond = structure  # Tuple unpacking still works
         >>> print(f"Permittivity shape: {structure.permittivity.shape}")
-        >>> 
+        >>>
         >>> # New Modal workflow
         >>> recipe = structure.extract_recipe()
         >>> # recipe can now be sent to Modal for lightweight reconstruction
@@ -666,7 +682,14 @@ def create_structure(layers: List[Layer], vertical_radius: float = 5.0) -> Struc
     # plane in the process, in order to account for the offset in the cells when
     # using the Yee grid (because of FDTD simulation).
     interface_positions = jnp.cumsum(jnp.array(layer_thicknesses[:-1])) if len(layer_thicknesses) > 1 else jnp.array([])
-    total_thickness = int(sum(layer_thicknesses))  # Ensure integer for grid points
+
+    # Calculate total thickness with float support and 1e-6 tolerance
+    sum_thickness = sum(layer_thicknesses)
+    if abs(sum_thickness - round(sum_thickness)) < 1e-6:
+        total_thickness = round(sum_thickness)  # Snap to nearest integer
+    else:
+        total_thickness = math.ceil(sum_thickness)  # Round up
+    total_thickness = int(total_thickness)  # Ensure integer for grid points
     
     # Auto-detect if we should use simple averaging to avoid subpixel artifacts
     # This fixes the issue where uniform materials in multiple layers get
