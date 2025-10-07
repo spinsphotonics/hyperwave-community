@@ -232,6 +232,17 @@ def generate_gaussian_source(
         "Content-Type": "application/json"
     }
 
+    # Debug: Print request details (without sensitive data)
+    print(f"\n=== API Request Debug Info ===")
+    print(f"Endpoint: {API_URL}/generate_gaussian_source")
+    print(f"Parameters:")
+    for key, value in request_data.items():
+        if key == "conductivity_boundary_b64":
+            print(f"  {key}: <base64 data, {len(value)} chars>")
+        else:
+            print(f"  {key}: {value}")
+    print(f"===============================\n")
+
     # Send request
     try:
         response = requests.post(
@@ -266,6 +277,12 @@ def generate_gaussian_source(
         if e.response is not None:
             status_code = e.response.status_code
             response_text = e.response.text
+
+            # Debug: Print response details
+            print(f"\n=== API Error Debug Info ===")
+            print(f"Status Code: {status_code}")
+            print(f"Response: {response_text}")
+            print(f"===========================\n")
 
             if status_code == 401:
                 print("No API key detected in request.")
