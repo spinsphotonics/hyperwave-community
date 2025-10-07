@@ -196,14 +196,15 @@ def generate_gaussian_source(
     conductivity_b64 = encode_array(np.array(conductivity_boundary))
 
     # Prepare request - add the '3' back for API compatibility
+    # Convert all values to native Python types for JSON serialization (handles JAX arrays)
     request_data = {
-        "structure_shape": [3] + list(structure_shape),  # API expects (3, Lx, Ly, Lz)
+        "structure_shape": [3] + [int(x) for x in structure_shape],  # API expects (3, Lx, Ly, Lz)
         "conductivity_boundary_b64": conductivity_b64,
-        "freq_band": list(freq_band),
-        "source_z_pos": source_z_pos,
+        "freq_band": [float(x) for x in freq_band],
+        "source_z_pos": int(source_z_pos),
         "polarization": polarization,
-        "simulation_steps": simulation_steps,
-        "check_every_n": check_every_n,
+        "simulation_steps": int(simulation_steps),
+        "check_every_n": int(check_every_n),
         "gpu_type": gpu_type
     }
 
