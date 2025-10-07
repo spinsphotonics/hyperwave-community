@@ -118,12 +118,13 @@ def decode_array(b64_str: str) -> np.ndarray:
 
 def generate_gaussian_source(
     structure_shape: Tuple[int, int, int],
-    conductivity_boundary: jnp.ndarray,
     freq_band: Tuple[float, float, int],
     source_pos: Tuple[int, int, int],
     waist_radius: float,
     x_span: float,
     y_span: float,
+    absorption_widths: Tuple[int, int, int] = (70, 35, 17),
+    absorption_coeff: float = 1e-4,
     theta: float = 0.0,
     phi: float = 0.0,
     polarization: str = 'x',
@@ -135,16 +136,21 @@ def generate_gaussian_source(
     """Generate unidirectional Gaussian source on GPU via API.
 
     Creates a truly unidirectional Gaussian beam using the wave equation error
-    method on remote GPU. This prevents reflection artifacts.
+    method on remote GPU. Absorption boundaries are created on backend.
 
     Args:
         structure_shape: Simulation domain shape as (Lx, Ly, Lz).
-        conductivity_boundary: Absorption boundary array, shape (Lx, Ly, Lz).
         freq_band: Frequency specification as (min, max, num_points).
         source_pos: Full 3D source position (x, y, z) in pixels.
         waist_radius: Beam waist radius in pixels (controls beam size).
         x_span: Source extent in X direction in pixels.
         y_span: Source extent in Y direction in pixels.
+        absorption_widths: Absorption boundary widths (x, y, z) in pixels.
+            Backend creates conductivity boundary from these dimensions.
+            Default: (70, 35, 17).
+        absorption_coeff: PML absorption coefficient (conductivity strength).
+            Higher values increase absorption but may cause reflections.
+            Default: 1e-4.
         theta: Tilt angle in degrees for beam steering. Default: 0.0 (normal incidence).
         phi: Azimuthal angle in degrees for beam steering. Default: 0.0.
         polarization: Polarization direction, 'x' or 'y'.
@@ -177,17 +183,12 @@ def generate_gaussian_source(
 
     Example:
         >>> import hyperwave_community as hwc
-        >>> # Create absorption mask
-        >>> abs_mask = hwc.create_absorption_mask(
-        ...     shape=(500, 500, 200),
-        ...     absorption_widths=(90, 90, 90)
-        ... )
+        >>> import jax.numpy as jnp
         >>>
         >>> # Generate Gaussian source with custom parameters
-        >>> result = hwc.generate_gaussian_source(
+        >>> result = hwc.api_client.generate_gaussian_source(
         ...     structure_shape=(500, 500, 200),
-        ...     conductivity_boundary=abs_mask,
-        ...     freq_band=(2*jnp.pi/0.55, 2*jnp.pi/0.55, 1),
+        ...     freq_band=(2*jnp.pi*0.3/0.6, 2*jnp.pi*0.3/0.5, 10),
         ...     source_pos=(250, 250, 60),
         ...     waist_radius=10.0,
         ...     x_span=100,
@@ -206,19 +207,18 @@ def generate_gaussian_source(
 
     API_URL = "https://hyperwave-cloud.onrender.com"
 
-    # Encode conductivity boundary
-    conductivity_b64 = encode_array(np.array(conductivity_boundary))
-
     # Prepare request - add the '3' back for API compatibility
     # Convert all values to native Python types for JSON serialization (handles JAX arrays)
+    # NOTE: Send only absorption dimensions, not full array - backend creates it
     request_data = {
         "structure_shape": [3] + [int(x) for x in structure_shape],  # API expects (3, Lx, Ly, Lz)
-        "conductivity_boundary_b64": conductivity_b64,
         "freq_band": [float(x) for x in freq_band],
         "source_pos": [int(x) for x in source_pos],
         "waist_radius": float(waist_radius),
         "x_span": float(x_span),
         "y_span": float(y_span),
+        "absorption_widths": [int(x) for x in absorption_widths],
+        "absorption_coeff": float(absorption_coeff),
         "theta": float(theta),
         "phi": float(phi),
         "polarization": polarization,
@@ -231,6 +231,17 @@ def generate_gaussian_source(
         "X-API-Key": api_key,
         "Content-Type": "application/json"
     }
+
+    # Debug: Print request details (without sensitive data)
+    print(f"\n=== API Request Debug Info ===")
+    print(f"Endpoint: {API_URL}/generate_gaussian_source")
+    print(f"Parameters:")
+    for key, value in request_data.items():
+        if key == "conductivity_boundary_b64":
+            print(f"  {key}: <base64 data, {len(value)} chars>")
+        else:
+            print(f"  {key}: {value}")
+    print(f"===============================\n")
 
     # Send request
     try:
@@ -266,6 +277,12 @@ def generate_gaussian_source(
         if e.response is not None:
             status_code = e.response.status_code
             response_text = e.response.text
+
+            # Debug: Print response details
+            print(f"\n=== API Error Debug Info ===")
+            print(f"Status Code: {status_code}")
+            print(f"Response: {response_text}")
+            print(f"===========================\n")
 
             if status_code == 401:
                 print("No API key detected in request.")
