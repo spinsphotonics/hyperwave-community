@@ -356,12 +356,12 @@ def create_mode_source(
 
 def create_gaussian_source(
     structure_shape: Tuple[int, int, int],
-    conductivity_boundary: jax.Array,
     freq_band: Tuple[float, float, int],
     source_pos: Tuple[int, int, int],
     waist_radius: float,
     x_span: float,
     y_span: float,
+    absorption_widths: Tuple[int, int, int] = (70, 35, 17),
     theta: float = 0.0,
     phi: float = 0.0,
     polarization: str = 'x',
@@ -375,20 +375,22 @@ def create_gaussian_source(
     Generates a truly unidirectional Gaussian beam using the wave equation error
     method. This prevents backward propagation artifacts that occur with standard
     analytical Gaussian sources. Supports full control over beam size, position,
-    and steering angles.
+    and steering angles. Absorption boundaries are created automatically on backend.
 
     **Note**: This function requires network access and API credentials. It submits
     a job to GPU servers for computation (~20-30 seconds).
 
     Args:
         structure_shape: Shape of simulation domain as (Lx, Ly, Lz).
-        conductivity_boundary: Absorption boundary mask, shape (Lx, Ly, Lz).
         freq_band: Frequency specification as (min, max, num_points).
             Values are angular frequencies in rad/s.
         source_pos: Full 3D source position (x, y, z) in pixels.
         waist_radius: Beam waist radius in pixels (controls beam size/FWHM).
         x_span: Source extent in X direction in pixels.
         y_span: Source extent in Y direction in pixels.
+        absorption_widths: Absorption boundary widths (x, y, z) in pixels.
+            Backend creates conductivity boundary from these dimensions.
+            Default: (70, 35, 17).
         theta: Tilt angle in degrees for beam steering. Default: 0.0 (normal incidence).
         phi: Azimuthal angle in degrees for beam steering. Default: 0.0.
         polarization: Polarization direction, either 'x' or 'y'.
@@ -422,22 +424,16 @@ def create_gaussian_source(
         >>> # Set API key
         >>> api_key = 'your-key-here'
         >>>
-        >>> # Create absorption boundaries
-        >>> abs_mask = hwc.create_absorption_mask(
-        ...     shape=(500, 500, 200),
-        ...     absorption_widths=(90, 90, 90)
-        ... )
-        >>>
         >>> # Generate Gaussian source for grating coupler
         >>> c_0 = 0.3  # Speed of light in µm/fs
         >>> source, offset, info = hwc.create_gaussian_source(
         ...     structure_shape=(500, 500, 200),
-        ...     conductivity_boundary=abs_mask,
         ...     freq_band=(2*jnp.pi*c_0/0.6, 2*jnp.pi*c_0/0.5, 10),
         ...     source_pos=(250, 250, 60),
         ...     waist_radius=10.0,  # Beam waist
         ...     x_span=100,
         ...     y_span=100,
+        ...     absorption_widths=(90, 90, 90),
         ...     theta=8.0,  # 8° tilt for grating coupler
         ...     polarization='x',
         ...     api_key=api_key
@@ -447,12 +443,12 @@ def create_gaussian_source(
 
     result = api_client.generate_gaussian_source(
         structure_shape=structure_shape,
-        conductivity_boundary=conductivity_boundary,
         freq_band=freq_band,
         source_pos=source_pos,
         waist_radius=waist_radius,
         x_span=x_span,
         y_span=y_span,
+        absorption_widths=absorption_widths,
         theta=theta,
         phi=phi,
         polarization=polarization,
