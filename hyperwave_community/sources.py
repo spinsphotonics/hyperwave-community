@@ -462,6 +462,12 @@ def create_gaussian_source(
         api_key=api_key
     )
 
+    # Check if API call failed
+    if result is None:
+        raise RuntimeError(
+            "Gaussian source generation failed. Check error messages above for details."
+        )
+
     source_info = {
         'power': result['source_power'],
         'total_time': result['total_time'],
