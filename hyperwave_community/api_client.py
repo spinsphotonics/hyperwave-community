@@ -117,7 +117,7 @@ def decode_array(b64_str: str) -> np.ndarray:
 
 
 def generate_gaussian_source(
-    structure_shape: Tuple[int, int, int, int],
+    structure_shape: Tuple[int, int, int],
     conductivity_boundary: jnp.ndarray,
     freq_band: Tuple[float, float, int],
     source_z_pos: int,
@@ -133,7 +133,7 @@ def generate_gaussian_source(
     method on remote GPU. This prevents reflection artifacts.
 
     Args:
-        structure_shape: Simulation domain shape as (3, Lx, Ly, Lz).
+        structure_shape: Simulation domain shape as (Lx, Ly, Lz).
         conductivity_boundary: Absorption boundary array, shape (Lx, Ly, Lz).
         freq_band: Frequency specification as (min, max, num_points).
         source_z_pos: Z-position for source injection (in pixels).
@@ -141,7 +141,8 @@ def generate_gaussian_source(
         simulation_steps: Number of FDTD time steps for source generation.
             The simulation will converge to a relatively low error at around this step count.
         check_every_n: Convergence check interval.
-        gpu_type: GPU type to use (H100, A100, A10G, L4).
+        gpu_type: GPU type to use. Options: B200, H200, H100, A100-80GB, A100-40GB, L40S, L4, A10G, T4.
+            Default: H100.
         api_key: API key (overrides configured key).
 
     Returns:
@@ -174,7 +175,7 @@ def generate_gaussian_source(
         >>>
         >>> # Generate source
         >>> result = hwc.generate_gaussian_source(
-        ...     structure_shape=(3, 500, 500, 200),
+        ...     structure_shape=(500, 500, 200),
         ...     conductivity_boundary=abs_mask,
         ...     freq_band=(2*jnp.pi/0.55, 2*jnp.pi/0.55, 1),
         ...     source_z_pos=60,
@@ -194,9 +195,9 @@ def generate_gaussian_source(
     # Encode conductivity boundary
     conductivity_b64 = encode_array(np.array(conductivity_boundary))
 
-    # Prepare request
+    # Prepare request - add the '3' back for API compatibility
     request_data = {
-        "structure_shape": list(structure_shape),
+        "structure_shape": [3] + list(structure_shape),  # API expects (3, Lx, Ly, Lz)
         "conductivity_boundary_b64": conductivity_b64,
         "freq_band": list(freq_band),
         "source_z_pos": source_z_pos,
