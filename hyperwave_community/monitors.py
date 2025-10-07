@@ -1122,8 +1122,8 @@ def add_monitors_at_position(
             effective_height_factor = height_factor if height_factor is not None else width_factor
             desired_z_half_extent = int(wg['width'] * effective_height_factor) // 2
 
-            # Center in Z, clamp each edge independently
-            z_center = z_dim // 2
+            # Center in Z on the detected waveguide core, clamp each edge independently
+            z_center = wg.get('z_core', z_dim // 2)  # Use detected core, fallback to middle
             z_start = max(0, z_center - desired_z_half_extent)
             z_end = min(z_dim, z_center + desired_z_half_extent)
             z_height = z_end - z_start
@@ -1180,8 +1180,8 @@ def add_monitors_at_position(
             effective_height_factor = height_factor if height_factor is not None else width_factor
             desired_z_half_extent = int(wg['width'] * effective_height_factor) // 2
 
-            # Center in Z, clamp each edge independently
-            z_center = z_dim // 2
+            # Center in Z on the detected waveguide core, clamp each edge independently
+            z_center = wg.get('z_core', z_dim // 2)  # Use detected core, fallback to middle
             z_start = max(0, z_center - desired_z_half_extent)
             z_end = min(z_dim, z_center + desired_z_half_extent)
             z_height = z_end - z_start
