@@ -124,6 +124,7 @@ def generate_gaussian_source(
     x_span: float,
     y_span: float,
     absorption_widths: Tuple[int, int, int] = (70, 35, 17),
+    absorption_coeff: float = 1e-4,
     theta: float = 0.0,
     phi: float = 0.0,
     polarization: str = 'x',
@@ -147,6 +148,9 @@ def generate_gaussian_source(
         absorption_widths: Absorption boundary widths (x, y, z) in pixels.
             Backend creates conductivity boundary from these dimensions.
             Default: (70, 35, 17).
+        absorption_coeff: PML absorption coefficient (conductivity strength).
+            Higher values increase absorption but may cause reflections.
+            Default: 1e-4.
         theta: Tilt angle in degrees for beam steering. Default: 0.0 (normal incidence).
         phi: Azimuthal angle in degrees for beam steering. Default: 0.0.
         polarization: Polarization direction, 'x' or 'y'.
@@ -214,6 +218,7 @@ def generate_gaussian_source(
         "x_span": float(x_span),
         "y_span": float(y_span),
         "absorption_widths": [int(x) for x in absorption_widths],
+        "absorption_coeff": float(absorption_coeff),
         "theta": float(theta),
         "phi": float(phi),
         "polarization": polarization,
