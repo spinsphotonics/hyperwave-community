@@ -355,7 +355,7 @@ def create_mode_source(
 
 
 def create_gaussian_source(
-    structure_shape: Tuple[int, int, int, int],
+    structure_shape: Tuple[int, int, int],
     conductivity_boundary: jax.Array,
     freq_band: Tuple[float, float, int],
     source_z_pos: int,
@@ -375,7 +375,7 @@ def create_gaussian_source(
     a job to GPU servers for computation (~20-30 seconds).
 
     Args:
-        structure_shape: Shape of simulation domain as (3, Lx, Ly, Lz).
+        structure_shape: Shape of simulation domain as (Lx, Ly, Lz).
         conductivity_boundary: Absorption boundary mask, shape (Lx, Ly, Lz).
         freq_band: Frequency specification as (min, max, num_points).
             Values are angular frequencies in rad/s.
@@ -419,7 +419,7 @@ def create_gaussian_source(
         >>>
         >>> # Generate Gaussian source
         >>> source, offset, info = hwc.create_gaussian_source(
-        ...     structure_shape=(3, 500, 500, 200),
+        ...     structure_shape=(500, 500, 200),
         ...     conductivity_boundary=abs_mask,
         ...     freq_band=(2*jnp.pi/0.55, 2*jnp.pi/0.55, 1),
         ...     source_z_pos=60,
