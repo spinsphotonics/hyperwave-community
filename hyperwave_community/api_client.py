@@ -120,7 +120,12 @@ def generate_gaussian_source(
     structure_shape: Tuple[int, int, int],
     conductivity_boundary: jnp.ndarray,
     freq_band: Tuple[float, float, int],
-    source_z_pos: int,
+    source_pos: Tuple[int, int, int],
+    waist_radius: float,
+    x_span: float,
+    y_span: float,
+    theta: float = 0.0,
+    phi: float = 0.0,
     polarization: str = 'x',
     simulation_steps: int = 5000,
     check_every_n: int = 1000,
@@ -136,7 +141,12 @@ def generate_gaussian_source(
         structure_shape: Simulation domain shape as (Lx, Ly, Lz).
         conductivity_boundary: Absorption boundary array, shape (Lx, Ly, Lz).
         freq_band: Frequency specification as (min, max, num_points).
-        source_z_pos: Z-position for source injection (in pixels).
+        source_pos: Full 3D source position (x, y, z) in pixels.
+        waist_radius: Beam waist radius in pixels (controls beam size).
+        x_span: Source extent in X direction in pixels.
+        y_span: Source extent in Y direction in pixels.
+        theta: Tilt angle in degrees for beam steering. Default: 0.0 (normal incidence).
+        phi: Azimuthal angle in degrees for beam steering. Default: 0.0.
         polarization: Polarization direction, 'x' or 'y'.
         simulation_steps: Number of FDTD time steps for source generation.
             The simulation will converge to a relatively low error at around this step count.
@@ -173,12 +183,16 @@ def generate_gaussian_source(
         ...     absorption_widths=(90, 90, 90)
         ... )
         >>>
-        >>> # Generate source
+        >>> # Generate Gaussian source with custom parameters
         >>> result = hwc.generate_gaussian_source(
         ...     structure_shape=(500, 500, 200),
         ...     conductivity_boundary=abs_mask,
         ...     freq_band=(2*jnp.pi/0.55, 2*jnp.pi/0.55, 1),
-        ...     source_z_pos=60,
+        ...     source_pos=(250, 250, 60),
+        ...     waist_radius=10.0,
+        ...     x_span=100,
+        ...     y_span=100,
+        ...     theta=8.0,  # 8 degree tilt for grating coupler
         ...     polarization='x',
         ...     api_key='your-api-key'
         ... )
@@ -201,9 +215,14 @@ def generate_gaussian_source(
         "structure_shape": [3] + [int(x) for x in structure_shape],  # API expects (3, Lx, Ly, Lz)
         "conductivity_boundary_b64": conductivity_b64,
         "freq_band": [float(x) for x in freq_band],
-        "source_z_pos": int(source_z_pos),
+        "source_pos": [int(x) for x in source_pos],
+        "waist_radius": float(waist_radius),
+        "x_span": float(x_span),
+        "y_span": float(y_span),
+        "theta": float(theta),
+        "phi": float(phi),
         "polarization": polarization,
-        "simulation_steps": int(simulation_steps),
+        "max_steps": int(simulation_steps),
         "check_every_n": int(check_every_n),
         "gpu_type": gpu_type
     }
