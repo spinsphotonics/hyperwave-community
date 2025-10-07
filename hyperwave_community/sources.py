@@ -384,7 +384,8 @@ def create_gaussian_source(
         simulation_steps: Number of FDTD time steps for source generation.
             The simulation will converge to a relatively low error at around this step count.
         check_every_n: Convergence check interval.
-        gpu_type: GPU type to use (H100, A100, A10G, L4).
+        gpu_type: GPU type to use. Options: B200, H200, H100, A100-80GB, A100-40GB, L40S, L4, A10G, T4.
+            Default: H100.
         api_key: API authentication key. If None, reads from HYPERWAVE_API_KEY
             environment variable.
 
