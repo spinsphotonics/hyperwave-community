@@ -81,6 +81,7 @@ from .sources import (
     mode,
     create_mode_source,
     create_gaussian_source,
+    visualize_gaussian_source,
 )
 
 # Import API client functions
@@ -141,6 +142,7 @@ __all__ = [
     "mode",
     "create_mode_source",
     "create_gaussian_source",
+    "visualize_gaussian_source",
     "generate_gaussian_source",
 
     # Metasurface
