@@ -541,6 +541,106 @@ def _wg_operator(omega: float, permittivity: jax.Array, axis: int):
     return op
 
 
+def visualize_gaussian_source(
+    source_field: jax.Array,
+    source_offset: Tuple[int, int, int],
+    freq_idx: int = 0,
+    z_offset: int = -1,
+    figsize: Tuple[int, int] = (14, 10)
+):
+    """Visualize Gaussian source field cross-sections.
+
+    Shows XY and XZ slices of the source field, displaying both real part
+    and magnitude of the Ex component.
+
+    Args:
+        source_field: Source field array with shape (num_freqs, 6, x, y, z).
+        source_offset: Source position offset (x, y, z).
+        freq_idx: Frequency index to visualize. Default: 0.
+        z_offset: Z slice offset relative to source. Default: -1 (one voxel below source).
+        figsize: Figure size in inches.
+
+    Raises:
+        ImportError: If matplotlib is not available.
+
+    Example:
+        >>> import hyperwave_community as hwc
+        >>> source, offset, info = hwc.create_gaussian_source(...)
+        >>> hwc.visualize_gaussian_source(source, offset)
+    """
+    if not MATPLOTLIB_AVAILABLE:
+        raise ImportError("matplotlib is required for visualization. Install with: pip install matplotlib")
+
+    # Extract Ex field component (index 0)
+    Ex = source_field[freq_idx, 0, :, :, :]
+
+    # Find source Z position
+    z_profile = jnp.sum(jnp.abs(Ex), axis=(0, 1))
+    source_z = jnp.argmax(z_profile)
+    slice_z = source_z + z_offset
+
+    # Get center Y for XZ slice
+    center_y = Ex.shape[1] // 2
+
+    # Create figure with 2x2 grid
+    fig, axes = plt.subplots(2, 2, figsize=figsize)
+
+    # Top-left: Real(Ex) XY slice
+    ax = axes[0, 0]
+    im = ax.imshow(
+        jnp.real(Ex[:, :, slice_z]).T,
+        cmap='RdBu_r',
+        origin='lower',
+        aspect='auto'
+    )
+    ax.set_title(f'Real(Ex) - XY Slice (z = {z_offset} voxel below source)')
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    plt.colorbar(im, ax=ax)
+
+    # Top-right: |Ex| XY slice
+    ax = axes[0, 1]
+    im = ax.imshow(
+        jnp.abs(Ex[:, :, slice_z]).T,
+        cmap='hot',
+        origin='lower',
+        aspect='auto'
+    )
+    ax.set_title(f'|Ex| - XY Slice (z = {z_offset} voxel below source)')
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    plt.colorbar(im, ax=ax)
+
+    # Bottom-left: Real(Ex) XZ slice
+    ax = axes[1, 0]
+    im = ax.imshow(
+        jnp.real(Ex[:, center_y, :]).T,
+        cmap='RdBu_r',
+        origin='lower',
+        aspect='auto'
+    )
+    ax.set_title(f'Real(Ex) - XZ Slice (y = center of y grid)')
+    ax.set_xlabel('X')
+    ax.set_ylabel('Z')
+    plt.colorbar(im, ax=ax)
+
+    # Bottom-right: |Ex| XZ slice
+    ax = axes[1, 1]
+    im = ax.imshow(
+        jnp.abs(Ex[:, center_y, :]).T,
+        cmap='hot',
+        origin='lower',
+        aspect='auto'
+    )
+    ax.set_title(f'|Ex| - XZ Slice (y = center of y grid)')
+    ax.set_xlabel('X')
+    ax.set_ylabel('Z')
+    plt.colorbar(im, ax=ax)
+
+    plt.tight_layout()
+    plt.show()
+
+
 def _spatial_diff(field: jax.Array, axis: int, is_forward: bool) -> jax.Array:
     """Compute spatial difference along specified axis.
 
