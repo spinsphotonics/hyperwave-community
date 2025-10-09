@@ -546,12 +546,12 @@ def visualize_gaussian_source(
     source_offset: Tuple[int, int, int],
     freq_idx: int = 0,
     z_offset: int = -1,
-    figsize: Tuple[int, int] = (14, 10)
+    figsize: Tuple[int, int] = (16, 12)
 ):
     """Visualize Gaussian source field cross-sections.
 
-    Shows XY and XZ slices of the source field, displaying both real part
-    and magnitude of the Ex component.
+    Shows XY and XZ slices of all E-field components (Ex, Ey, Ez),
+    displaying both real part and magnitude.
 
     Args:
         source_field: Source field array with shape (num_freqs, 6, x, y, z).
@@ -571,71 +571,81 @@ def visualize_gaussian_source(
     if not MATPLOTLIB_AVAILABLE:
         raise ImportError("matplotlib is required for visualization. Install with: pip install matplotlib")
 
-    # Extract Ex field component (index 0)
+    # Extract E-field components (indices 0, 1, 2)
     Ex = source_field[freq_idx, 0, :, :, :]
+    Ey = source_field[freq_idx, 1, :, :, :]
+    Ez = source_field[freq_idx, 2, :, :, :]
 
-    # Find source Z position
-    z_profile = jnp.sum(jnp.abs(Ex), axis=(0, 1))
+    # Find source Z position from total field
+    E_total = jnp.sqrt(jnp.abs(Ex)**2 + jnp.abs(Ey)**2 + jnp.abs(Ez)**2)
+    z_profile = jnp.sum(E_total, axis=(0, 1))
     source_z = jnp.argmax(z_profile)
     slice_z = source_z + z_offset
 
     # Get center Y for XZ slice
     center_y = Ex.shape[1] // 2
 
-    # Create figure with 2x2 grid
-    fig, axes = plt.subplots(2, 2, figsize=figsize)
+    # Create figure with 3 rows (Ex, Ey, Ez) and 4 columns (Real XY, |·| XY, Real XZ, |·| XZ)
+    fig, axes = plt.subplots(3, 4, figsize=figsize)
 
-    # Top-left: Real(Ex) XY slice
-    ax = axes[0, 0]
-    im = ax.imshow(
-        jnp.real(Ex[:, :, slice_z]).T,
-        cmap='RdBu_r',
-        origin='lower',
-        aspect='auto'
-    )
-    ax.set_title(f'Real(Ex) - XY Slice (z = {z_offset} voxel below source)')
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    plt.colorbar(im, ax=ax)
+    components = [
+        ('Ex', Ex),
+        ('Ey', Ey),
+        ('Ez', Ez)
+    ]
 
-    # Top-right: |Ex| XY slice
-    ax = axes[0, 1]
-    im = ax.imshow(
-        jnp.abs(Ex[:, :, slice_z]).T,
-        cmap='hot',
-        origin='lower',
-        aspect='auto'
-    )
-    ax.set_title(f'|Ex| - XY Slice (z = {z_offset} voxel below source)')
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    plt.colorbar(im, ax=ax)
+    for row_idx, (name, field) in enumerate(components):
+        # Column 0: Real part, XY slice
+        ax = axes[row_idx, 0]
+        im = ax.imshow(
+            jnp.real(field[:, :, slice_z]).T,
+            cmap='RdBu_r',
+            origin='lower',
+            aspect='auto'
+        )
+        ax.set_title(f'Real({name}) - XY Slice (z = {z_offset} voxel below source)')
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+        plt.colorbar(im, ax=ax, fraction=0.046)
 
-    # Bottom-left: Real(Ex) XZ slice
-    ax = axes[1, 0]
-    im = ax.imshow(
-        jnp.real(Ex[:, center_y, :]).T,
-        cmap='RdBu_r',
-        origin='lower',
-        aspect='auto'
-    )
-    ax.set_title(f'Real(Ex) - XZ Slice (y = center of y grid)')
-    ax.set_xlabel('X')
-    ax.set_ylabel('Z')
-    plt.colorbar(im, ax=ax)
+        # Column 1: Magnitude, XY slice
+        ax = axes[row_idx, 1]
+        im = ax.imshow(
+            jnp.abs(field[:, :, slice_z]).T,
+            cmap='hot',
+            origin='lower',
+            aspect='auto'
+        )
+        ax.set_title(f'|{name}| - XY Slice (z = {z_offset} voxel below source)')
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+        plt.colorbar(im, ax=ax, fraction=0.046)
 
-    # Bottom-right: |Ex| XZ slice
-    ax = axes[1, 1]
-    im = ax.imshow(
-        jnp.abs(Ex[:, center_y, :]).T,
-        cmap='hot',
-        origin='lower',
-        aspect='auto'
-    )
-    ax.set_title(f'|Ex| - XZ Slice (y = center of y grid)')
-    ax.set_xlabel('X')
-    ax.set_ylabel('Z')
-    plt.colorbar(im, ax=ax)
+        # Column 2: Real part, XZ slice
+        ax = axes[row_idx, 2]
+        im = ax.imshow(
+            jnp.real(field[:, center_y, :]).T,
+            cmap='RdBu_r',
+            origin='lower',
+            aspect='auto'
+        )
+        ax.set_title(f'Real({name}) - XZ Slice (y = center of y grid)')
+        ax.set_xlabel('X')
+        ax.set_ylabel('Z')
+        plt.colorbar(im, ax=ax, fraction=0.046)
+
+        # Column 3: Magnitude, XZ slice
+        ax = axes[row_idx, 3]
+        im = ax.imshow(
+            jnp.abs(field[:, center_y, :]).T,
+            cmap='hot',
+            origin='lower',
+            aspect='auto'
+        )
+        ax.set_title(f'|{name}| - XZ Slice (y = center of y grid)')
+        ax.set_xlabel('X')
+        ax.set_ylabel('Z')
+        plt.colorbar(im, ax=ax, fraction=0.046)
 
     plt.tight_layout()
     plt.show()
