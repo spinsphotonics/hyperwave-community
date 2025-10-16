@@ -256,12 +256,12 @@ def generate_gaussian_source(
 
         results = response.json()
 
-        # Decode source field
-        source_field = decode_array(results['source_field_b64'])
+        # Decode source field - API returns error_source_plane_b64, not source_field_b64
+        source_field = decode_array(results['error_source_plane_b64'])
 
         return {
             'source_field': source_field,
-            'source_field_shape': results['source_field_shape'],
+            'source_field_shape': results['error_source_plane_shape'],
             'source_power': results['source_power'],
             'source_position': tuple(results['source_position']),
             'total_time': results['total_time'],
