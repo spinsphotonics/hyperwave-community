@@ -116,6 +116,48 @@ def decode_array(b64_str: str) -> np.ndarray:
     return np.load(buffer)
 
 
+def prepare_structure_recipe(structure_recipe: Dict[str, Any]) -> Dict[str, Any]:
+    """Convert large density patterns to base64 before sending to API.
+
+    This reduces request size and prevents memory issues on the server.
+    Arrays larger than 100x100 are converted to base64 encoding.
+
+    Args:
+        structure_recipe: Dictionary from structure.extract_recipe()
+
+    Returns:
+        Modified recipe with large density patterns encoded as base64
+    """
+    import copy
+
+    # Make a deep copy to avoid modifying original
+    recipe = copy.deepcopy(structure_recipe)
+
+    if 'layers_info' in recipe:
+        for i, layer in enumerate(recipe['layers_info']):
+            if 'density_pattern' in layer and isinstance(layer['density_pattern'], (list, np.ndarray)):
+                arr = np.array(layer['density_pattern'], dtype=np.float32)
+
+                # Convert large arrays to base64 (>100x100 = 10,000 elements)
+                if arr.size > 10000:
+                    buffer = io.BytesIO()
+                    np.save(buffer, arr)
+                    b64_str = base64.b64encode(buffer.getvalue()).decode('utf-8')
+
+                    # Add base64 version and shape
+                    layer['density_pattern_b64'] = b64_str
+                    layer['density_pattern_shape'] = list(arr.shape)
+
+                    # Remove the raw array to save memory
+                    del layer['density_pattern']
+
+                    # Log the conversion
+                    size_mb = len(b64_str) / (1024**2)
+                    print(f"  Encoded layer {i} density: {arr.shape} → base64 ({size_mb:.2f} MB)")
+
+    return recipe
+
+
 def generate_gaussian_source(
     structure_shape: Tuple[int, int, int],
     freq_band: Tuple[float, float, int],

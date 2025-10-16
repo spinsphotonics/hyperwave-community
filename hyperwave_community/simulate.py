@@ -100,8 +100,13 @@ def simulate(
 
     API_URL = "https://hyperwave-cloud.onrender.com"
 
-    # Extract structure recipe
+    # Import the prepare function
+    from .api_client import prepare_structure_recipe
+
+    # Extract structure recipe and encode large density patterns
     structure_recipe = structure.extract_recipe()
+    print("Preparing structure recipe for transmission...")
+    structure_recipe = prepare_structure_recipe(structure_recipe)
 
     # Encode source field
     source_field_b64 = encode_array(np.array(source_field))
