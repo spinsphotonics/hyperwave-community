@@ -836,9 +836,10 @@ def _detect_waveguides(
 ) -> List[Dict]:
     """Detect waveguide positions and dimensions by analyzing permittivity.
 
-    Analyzes a cross-section of the structure to identify high-permittivity
-    regions (waveguides) along the specified axis. Uses thresholding to
-    distinguish waveguide material from background.
+    Analyzes a 2D cross-section of the structure to identify high-permittivity
+    regions (waveguides) along the specified axis. Automatically finds the optimal
+    Z position by locating where the permittivity is highest (waveguide core).
+    Uses thresholding to distinguish waveguide material from background.
 
     Args:
         structure: Structure object with permittivity attribute.
@@ -846,8 +847,8 @@ def _detect_waveguides(
             (in pixels). If None, uses middle of X dimension.
         y_position: Y position for XZ slice analysis for detecting X waveguides
             (in pixels). If None, uses middle of Y dimension.
-        z_position: Z position for XY slice analysis (in pixels). If None, uses
-            middle of Z dimension.
+        z_position: Z position for XY slice analysis (in pixels). If None,
+            automatically finds the Z position with highest permittivity (waveguide core).
         axis: Which axis to scan along ('x' or 'y'). Default is 'y'.
         threshold_method: Method for determining waveguide boundaries. Options:
             - 'auto': Midpoint between min and max permittivity (default)
@@ -862,6 +863,7 @@ def _detect_waveguides(
             - 'end': End position of waveguide (int)
             - 'width': Width of the waveguide in pixels (int)
             - 'axis': The axis along which waveguide was detected (str)
+            - 'z_core': Z position of waveguide core (int, only if z_position was auto-detected)
 
     Raises:
         ValueError: If axis is not 'x' or 'y'.
@@ -869,6 +871,7 @@ def _detect_waveguides(
     Note:
         Only detects waveguides with width >= 3 pixels to filter out noise.
         Results are sorted by center position along the detection axis.
+        Uses 2D cross-section analysis to automatically find waveguide core at any Z height.
     """
     # Get permittivity array (remove frequency dimension if present)
     if len(structure.permittivity.shape) == 4:
@@ -883,16 +886,36 @@ def _detect_waveguides(
         x_position = x_dim // 2
     if y_position is None:
         y_position = y_dim // 2
-    if z_position is None:
-        z_position = z_dim // 2
 
-    # Get the appropriate slice based on axis
+    # Get the appropriate 2D cross-section based on axis
+    auto_detect_z = z_position is None
+
     if axis == 'y':
-        # Detect waveguides along Y axis using XZ slice at x_position
-        slice_1d = eps_array[x_position, :, z_position]  # Y variation
+        # Detect waveguides along Y axis using full YZ slice at x_position
+        slice_2d = eps_array[x_position, :, :]  # Shape: (y_dim, z_dim)
+
+        # Find optimal Z position (where waveguide core is)
+        if auto_detect_z:
+            # Find Z with highest permittivity (waveguide core location)
+            max_eps_per_z = jnp.max(slice_2d, axis=0)  # Max along Y for each Z
+            z_position = int(jnp.argmax(max_eps_per_z))
+
+        # Extract 1D slice along Y at optimal Z
+        slice_1d = slice_2d[:, z_position]  # Y variation at core Z
+
     elif axis == 'x':
-        # Detect waveguides along X axis using YZ slice at y_position
-        slice_1d = eps_array[:, y_position, z_position]  # X variation
+        # Detect waveguides along X axis using full XZ slice at y_position
+        slice_2d = eps_array[:, y_position, :]  # Shape: (x_dim, z_dim)
+
+        # Find optimal Z position (where waveguide core is)
+        if auto_detect_z:
+            # Find Z with highest permittivity (waveguide core location)
+            max_eps_per_z = jnp.max(slice_2d, axis=0)  # Max along X for each Z
+            z_position = int(jnp.argmax(max_eps_per_z))
+
+        # Extract 1D slice along X at optimal Z
+        slice_1d = slice_2d[:, z_position]  # X variation at core Z
+
     else:
         raise ValueError(f"axis must be 'x' or 'y', got {axis}")
 
@@ -947,13 +970,17 @@ def _detect_waveguides(
 
             # Only include if width is reasonable (filter out noise)
             if wg_width >= 3:  # At least 3 pixels wide
-                waveguide_info.append({
+                wg_dict = {
                     'center': int(wg_center),
                     'start': int(wg_start),
                     'end': int(wg_end),
                     'width': int(wg_width),
                     'axis': axis
-                })
+                }
+                # Include z_core if it was auto-detected
+                if auto_detect_z:
+                    wg_dict['z_core'] = int(z_position)
+                waveguide_info.append(wg_dict)
             in_waveguide = False
 
     # Handle case where waveguide extends to edge
@@ -963,13 +990,17 @@ def _detect_waveguides(
         wg_width = wg_end - wg_start + 1
 
         if wg_width >= 3:
-            waveguide_info.append({
+            wg_dict = {
                 'center': int(wg_center),
                 'start': int(wg_start),
                 'end': int(wg_end),
                 'width': int(wg_width),
                 'axis': axis
-            })
+            }
+            # Include z_core if it was auto-detected
+            if auto_detect_z:
+                wg_dict['z_core'] = int(z_position)
+            waveguide_info.append(wg_dict)
 
     return sorted(waveguide_info, key=lambda x: x['center'])
 
@@ -1060,15 +1091,18 @@ def add_monitors_at_position(
     # Detect features based on axis
     if axis == 'x':
         # YZ plane monitors at X position - detect along Y
+        # z_position=None enables automatic Z detection (finds waveguide core)
         waveguides = _detect_waveguides(
             structure,
             x_position=position,
-            z_position=z_dim // 2,
+            z_position=None,  # Auto-detect Z where waveguide core is
             axis='y'
         )
 
         if verbose:
             print(f"Detected {len(waveguides)} features along Y at X={position}")
+            if waveguides and 'z_core' in waveguides[0]:
+                print(f"  Auto-detected waveguide core at Z={waveguides[0]['z_core']}")
 
         for i, wg in enumerate(waveguides):
             # Calculate monitor extent based on waveguide width
@@ -1088,8 +1122,8 @@ def add_monitors_at_position(
             effective_height_factor = height_factor if height_factor is not None else width_factor
             desired_z_half_extent = int(wg['width'] * effective_height_factor) // 2
 
-            # Center in Z, clamp each edge independently
-            z_center = z_dim // 2
+            # Center in Z on the detected waveguide core, clamp each edge independently
+            z_center = wg.get('z_core', z_dim // 2)  # Use detected core, fallback to middle
             z_start = max(0, z_center - desired_z_half_extent)
             z_end = min(z_dim, z_center + desired_z_half_extent)
             z_height = z_end - z_start
@@ -1115,15 +1149,18 @@ def add_monitors_at_position(
 
     elif axis == 'y':
         # XZ plane monitors at Y position - detect along X
+        # z_position=None enables automatic Z detection (finds waveguide core)
         waveguides = _detect_waveguides(
             structure,
             y_position=position,
-            z_position=z_dim // 2,
+            z_position=None,  # Auto-detect Z where waveguide core is
             axis='x'
         )
 
         if verbose:
             print(f"Detected {len(waveguides)} features along X at Y={position}")
+            if waveguides and 'z_core' in waveguides[0]:
+                print(f"  Auto-detected waveguide core at Z={waveguides[0]['z_core']}")
 
         for i, wg in enumerate(waveguides):
             # Calculate monitor extent based on waveguide width
@@ -1143,8 +1180,8 @@ def add_monitors_at_position(
             effective_height_factor = height_factor if height_factor is not None else width_factor
             desired_z_half_extent = int(wg['width'] * effective_height_factor) // 2
 
-            # Center in Z, clamp each edge independently
-            z_center = z_dim // 2
+            # Center in Z on the detected waveguide core, clamp each edge independently
+            z_center = wg.get('z_core', z_dim // 2)  # Use detected core, fallback to middle
             z_start = max(0, z_center - desired_z_half_extent)
             z_end = min(z_dim, z_center + desired_z_half_extent)
             z_height = z_end - z_start

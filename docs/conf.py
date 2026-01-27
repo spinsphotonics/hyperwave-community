@@ -60,6 +60,9 @@ html_theme_options = {
 # Don't show version in title
 html_title = "Hyperwave Community"
 
+# Favicon (browser tab icon)
+html_favicon = '_static/spins_logo.png'
+
 # Custom CSS files
 html_css_files = [
     'custom.css',

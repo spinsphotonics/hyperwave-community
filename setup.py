@@ -37,5 +37,9 @@ setup(
     ],
     extras_require={
         "gdsfactory": ["gdsfactory>=7.0.0"],
+        "docs": [
+            "sphinx>=8.0",
+            "pydata-sphinx-theme",
+        ],
     },
 )
