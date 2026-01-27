@@ -173,12 +173,18 @@ def _handle_api_error(e: requests.exceptions.HTTPError, operation: str) -> None:
 # ACCOUNT INFO
 # =============================================================================
 
-def get_account_info() -> Optional[Dict[str, Any]]:
+def get_account_info(quiet: bool = False) -> Optional[Dict[str, Any]]:
     """Verify API key and get account information including credit balance.
+
+    Args:
+        quiet: If True, don't print the greeting message.
 
     Returns:
         Dictionary with:
             - valid: Whether the API key is valid
+            - name: User's name
+            - email: User's email
+            - api_key_prefix: First 8 characters of API key
             - credits_balance: Current credit balance
             - credits_balance_usd: Credit balance in USD ($10 = 1 credit)
         Returns None if request fails.
@@ -186,10 +192,10 @@ def get_account_info() -> Optional[Dict[str, Any]]:
     Example:
         >>> import hyperwave_community as hwc
         >>> hwc.configure_api(api_key='your-key-here')
-        >>> info = hwc.get_account_info()
-        >>> if info:
-        ...     print(f"API key valid: {info['valid']}")
-        ...     print(f"Credits: {info['credits_balance']:.4f} (${info['credits_balance_usd']:.2f})")
+        >>> hwc.get_account_info()
+        Hello David! (dq4443@gmail.com)
+        API Key: 2c8cae99...
+        Credits: 429.2156 ($4,292.16)
     """
     config = _get_api_config()
     API_URL = config['api_url']
@@ -202,7 +208,23 @@ def get_account_info() -> Optional[Dict[str, Any]]:
             timeout=30
         )
         response.raise_for_status()
-        return response.json()
+        info = response.json()
+
+        if not quiet:
+            name = info.get('name', 'User')
+            email = info.get('email', '')
+            prefix = info.get('api_key_prefix', '')
+            balance = info.get('credits_balance', 0)
+
+            print()
+            print(f"  Welcome back, {name}!")
+            print(f"  {email}")
+            print()
+            print(f"  API Key:  {prefix}...")
+            print(f"  Credits:  {balance:.2f}")
+            print()
+
+        return info
 
     except requests.exceptions.HTTPError as e:
         if e.response is not None and e.response.status_code == 403:
