@@ -190,7 +190,7 @@ def estimate_cost(
         simulation_type: Type of simulation (fdtd_simulation, gaussian_source).
 
     Returns:
-        Dictionary with estimated_seconds, estimated_credits, gpu_type, grid_points, note.
+        Dictionary with estimated_seconds, estimated_credits, estimated_cost_usd, gpu_type, grid_points, note.
         Returns None if request fails.
 
     Example:
@@ -199,7 +199,7 @@ def estimate_cost(
         ...     max_steps=20000,
         ...     gpu_type="H100"
         ... )
-        >>> print(f"Estimated cost: {estimate['estimated_credits']:.4f} credits")
+        >>> print(f"Estimated cost: ${estimate['estimated_cost_usd']:.2f} ({estimate['estimated_credits']:.4f} credits)")
     """
     API_URL = _API_CONFIG['api_url']
 
