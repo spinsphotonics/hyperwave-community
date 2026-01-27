@@ -401,18 +401,15 @@ def generate_gds_from_density(
 # Visualization Function
 # =============================================================================
 
-def view_gds(gds_filepath: str, density_array: np.ndarray = None, resolution: float = 0.05, figsize: tuple = (12, 6)):
+def view_gds(gds_filepath: str, density_array: np.ndarray = None, figsize: tuple = (12, 6)):
     """Visualize GDS file contents with optional density comparison.
 
     Reads a GDS file and plots the polygons it contains. If the original
     density array is provided, displays both side-by-side for comparison.
-    The visualization shows physical dimensions in micrometers.
 
     Args:
         gds_filepath: Path to the GDS file to visualize.
         density_array: Optional original density array for comparison.
-        resolution: Structure resolution in micrometers per pixel (default 0.05).
-            Only used when density_array is provided to show density in micrometers.
         figsize: Figure size as (width, height) tuple.
 
     Returns:
@@ -421,7 +418,7 @@ def view_gds(gds_filepath: str, density_array: np.ndarray = None, resolution: fl
     Note:
         Polygons are displayed with semi-transparent blue fill and no edge
         outline. GDS coordinates are shown in micrometers. The density array
-        uses PuOr colormap (purple-orange diverging) for better contrast.
+        is displayed in pixels with PuOr colormap for better contrast.
     """
     # Read the GDS file
     lib_verify = gdstk.read_gds(gds_filepath)
@@ -437,20 +434,13 @@ def view_gds(gds_filepath: str, density_array: np.ndarray = None, resolution: fl
     if density_array is not None:
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=figsize)
 
-        # Calculate physical extent of density array
-        # Density is at 2x finer resolution than structure
-        density_resolution = resolution / 2.0
-        width_um = density_array.shape[1] * density_resolution
-        height_um = density_array.shape[0] * density_resolution
-
-        # Plot original density array with physical units
-        im = ax1.imshow(density_array, cmap='PuOr', origin='upper',
-                        extent=[0, width_um, 0, height_um])
+        # Plot original density array in pixels (no colorbar)
+        ax1.imshow(density_array, cmap='PuOr', origin='upper',
+                   extent=[0, density_array.shape[1], 0, density_array.shape[0]])
         ax1.set_title(f'Original Density ({density_array.shape[0]}×{density_array.shape[1]} pixels)')
-        ax1.set_xlabel('X (μm)')
-        ax1.set_ylabel('Y (μm)')
+        ax1.set_xlabel('X (pixels)')
+        ax1.set_ylabel('Y (pixels)')
         ax1.grid(True, alpha=0.3)
-        plt.colorbar(im, ax=ax1, label='Density')
 
         ax = ax2
     else:
@@ -464,33 +454,29 @@ def view_gds(gds_filepath: str, density_array: np.ndarray = None, resolution: fl
                                  facecolor='blue', linewidth=0)
         ax.add_patch(poly_patch)
 
-    # Set axis limits based on GDS polygons (which are already in micrometers)
-    if density_array is not None:
-        # When density is provided, match its physical extent
-        density_resolution = resolution / 2.0
-        width_um = density_array.shape[1] * density_resolution
-        height_um = density_array.shape[0] * density_resolution
-        ax.set_xlim(0, width_um)
-        ax.set_ylim(0, height_um)
-    else:
-        # If no density array, use polygon bounds
-        if polygons:
-            all_x = []
-            all_y = []
-            for poly in polygons:
-                points = poly.points
-                all_x.extend(points[:, 0])
-                all_y.extend(points[:, 1])
+    # Set axis limits to show GDS polygons (which are already in micrometers)
+    # Always use polygon bounds to scale properly
+    if polygons:
+        all_x = []
+        all_y = []
+        for poly in polygons:
+            points = poly.points
+            all_x.extend(points[:, 0])
+            all_y.extend(points[:, 1])
 
-            # Use actual polygon bounds with small margin in micrometers
-            if all_x and all_y:
-                margin = 1.0  # 1 micrometer margin
-                ax.set_xlim(min(all_x) - margin, max(all_x) + margin)
-                ax.set_ylim(min(all_y) - margin, max(all_y) + margin)
+        # Use actual polygon bounds with small margin in micrometers
+        if all_x and all_y:
+            margin = 1.0  # 1 micrometer margin
+            ax.set_xlim(min(all_x) - margin, max(all_x) + margin)
+            ax.set_ylim(min(all_y) - margin, max(all_y) + margin)
         else:
-            # Default view if no reference
+            # Default view if no valid coordinates
             ax.set_xlim(0, 100)
             ax.set_ylim(0, 100)
+    else:
+        # Default view if no polygons
+        ax.set_xlim(0, 100)
+        ax.set_ylim(0, 100)
 
     ax.set_aspect('equal')
     ax.set_xlabel('X (μm)')

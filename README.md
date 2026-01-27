@@ -2,8 +2,6 @@
 
 Open-source photonics simulation toolkit with GPU-accelerated FDTD via cloud API.
 
-**Get started today at [spinsphotonics.com](https://spinsphotonics.com) - Sign up for free GPU credits!**
-
 ## Features
 
 - **Local Structure Design**: Create photonic structures with density filtering and layer stacking
@@ -31,7 +29,7 @@ pip install -e .
 
 ### 1. Get Your API Key
 
-Sign up for free at [spinsphotonics.com](https://spinsphotonics.com) to get your API key and free GPU credits.
+Sign up at [spinsphotonics.com](https://spinsphotonics.com) to get your API key.
 
 ```python
 import hyperwave_community as hwc
@@ -170,13 +168,14 @@ results = hwc.simulate(
     freq_band=freq_band,
     monitors=monitors,
     mode_info=mode_info,
-    max_steps=10000,
+    simulation_steps=20000,
     check_every_n=1000,
     source_ramp_periods=5.0,
     add_absorption=True,
     absorption_widths=(70, 35, 17),
     absorption_coeff=4.89e-3,
-    api_key=api_key  # Pass your API key here
+    api_key=api_key,
+    gpu_type="H100"  # Options: "B200", "H200", "H100", "A100-80GB", "A100-40GB", "L40S", "L4", "A10G", "T4"
 )
 
 print(f"GPU time: {results['sim_time']:.2f}s")
