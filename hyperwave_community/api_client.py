@@ -351,10 +351,14 @@ def early_stopping_simulate(
         ... )
         >>> print(f"Converged at step {results['convergence_step']}")
     """
+    # Use configured API key if not explicitly provided
     if not api_key:
-        print("API key required to proceed.")
-        print("Sign up for free at spinsphotonics.com to get your API key.")
-        return None
+        try:
+            config = _get_api_config()
+            api_key = config['api_key']
+        except RuntimeError:
+            print("API key required. Call configure_api() or pass api_key parameter.")
+            return None
 
     API_URL = _API_CONFIG['api_url']
 
@@ -491,10 +495,14 @@ def generate_gaussian_source(
     Returns:
         Dictionary containing source_field, source_power, source_position, etc.
     """
+    # Use configured API key if not explicitly provided
     if not api_key:
-        print("API key required to proceed.")
-        print("Sign up for free at spinsphotonics.com to get your API key.")
-        return None
+        try:
+            config = _get_api_config()
+            api_key = config['api_key']
+        except RuntimeError:
+            print("API key required. Call configure_api() or pass api_key parameter.")
+            return None
 
     API_URL = _API_CONFIG['api_url']
 
@@ -606,13 +614,17 @@ def build_recipe(
         >>> result = hwc.build_recipe(
         ...     component_name="mmi2x2",
         ...     resolution_nm=30,
-        ...     api_key='your-key'
         ... )
         >>> print(f"Dimensions: {result['dimensions']}")
     """
+    # Use configured API key if not explicitly provided
     if not api_key:
-        print("API key required to proceed.")
-        return None
+        try:
+            config = _get_api_config()
+            api_key = config['api_key']
+        except RuntimeError:
+            print("API key required. Call configure_api() or pass api_key parameter.")
+            return None
 
     API_URL = _API_CONFIG['api_url']
 
@@ -696,9 +708,14 @@ def build_monitors(
         Dictionary containing monitors, monitor_names, source_port_name,
         source_position, mode_bounds.
     """
+    # Use configured API key if not explicitly provided
     if not api_key:
-        print("API key required to proceed.")
-        return None
+        try:
+            config = _get_api_config()
+            api_key = config['api_key']
+        except RuntimeError:
+            print("API key required. Call configure_api() or pass api_key parameter.")
+            return None
 
     API_URL = _API_CONFIG['api_url']
 
@@ -769,9 +786,14 @@ def solve_mode_source(
     Returns:
         Dictionary containing source_field, source_offset, mode_info, freq_band.
     """
+    # Use configured API key if not explicitly provided
     if not api_key:
-        print("API key required to proceed.")
-        return None
+        try:
+            config = _get_api_config()
+            api_key = config['api_key']
+        except RuntimeError:
+            print("API key required. Call configure_api() or pass api_key parameter.")
+            return None
 
     API_URL = _API_CONFIG['api_url']
 
@@ -851,9 +873,14 @@ def compute_freq_band(
         ... )
         >>> print(f"Freq band: {result['freq_band']}")
     """
+    # Use configured API key if not explicitly provided
     if not api_key:
-        print("API key required to proceed.")
-        return None
+        try:
+            config = _get_api_config()
+            api_key = config['api_key']
+        except RuntimeError:
+            print("API key required. Call configure_api() or pass api_key parameter.")
+            return None
 
     API_URL = _API_CONFIG['api_url']
 
@@ -911,9 +938,14 @@ def get_default_absorber_params(
     Returns:
         Dictionary containing absorption_widths, absorption_coeff, add_absorption.
     """
+    # Use configured API key if not explicitly provided
     if not api_key:
-        print("API key required to proceed.")
-        return None
+        try:
+            config = _get_api_config()
+            api_key = config['api_key']
+        except RuntimeError:
+            print("API key required. Call configure_api() or pass api_key parameter.")
+            return None
 
     API_URL = _API_CONFIG['api_url']
 
@@ -1023,9 +1055,14 @@ def prepare_simulation_inputs(
         ... )
         >>> # Then use inputs directly with simulate()
     """
+    # Use configured API key if not explicitly provided
     if not api_key:
-        print("API key required to proceed.")
-        return None
+        try:
+            config = _get_api_config()
+            api_key = config['api_key']
+        except RuntimeError:
+            print("API key required. Call configure_api() or pass api_key parameter.")
+            return None
 
     API_URL = _API_CONFIG['api_url']
 
