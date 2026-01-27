@@ -86,7 +86,15 @@ from .sources import (
 # Import API client functions
 from .api_client import (
     configure_api,
+    estimate_cost,
+    early_stopping_simulate,
     generate_gaussian_source,
+    build_recipe,
+    build_monitors,
+    solve_mode_source,
+    compute_freq_band,
+    get_default_absorber_params,
+    prepare_simulation_inputs,
 )
 
 # Import metasurface utilities
@@ -155,6 +163,15 @@ __all__ = [
 
     # API
     "configure_api",
+    "estimate_cost",
+    "early_stopping_simulate",
+    "generate_gaussian_source",
+    "build_recipe",
+    "build_monitors",
+    "solve_mode_source",
+    "compute_freq_band",
+    "get_default_absorber_params",
+    "prepare_simulation_inputs",
 
     # Simulation
     "simulate",
