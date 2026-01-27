@@ -164,6 +164,9 @@ cython_debug/
 # VS Code
 .vscode/
 
+# Dev notebooks (local testing)
+examples/*_dev.ipynb
+
 # macOS
 .DS_Store
 
