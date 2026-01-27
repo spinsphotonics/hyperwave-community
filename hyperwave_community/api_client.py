@@ -170,6 +170,53 @@ def _handle_api_error(e: requests.exceptions.HTTPError, operation: str) -> None:
 
 
 # =============================================================================
+# ACCOUNT INFO
+# =============================================================================
+
+def get_account_info() -> Optional[Dict[str, Any]]:
+    """Verify API key and get account information including credit balance.
+
+    Returns:
+        Dictionary with:
+            - valid: Whether the API key is valid
+            - credits_balance: Current credit balance
+            - credits_balance_usd: Credit balance in USD ($10 = 1 credit)
+        Returns None if request fails.
+
+    Example:
+        >>> import hyperwave_community as hwc
+        >>> hwc.configure_api(api_key='your-key-here')
+        >>> info = hwc.get_account_info()
+        >>> if info:
+        ...     print(f"API key valid: {info['valid']}")
+        ...     print(f"Credits: {info['credits_balance']:.4f} (${info['credits_balance_usd']:.2f})")
+    """
+    config = _get_api_config()
+    API_URL = config['api_url']
+    API_KEY = config['api_key']
+
+    try:
+        response = requests.post(
+            f"{API_URL}/account_info",
+            params={"api_key": API_KEY},
+            timeout=30
+        )
+        response.raise_for_status()
+        return response.json()
+
+    except requests.exceptions.HTTPError as e:
+        if e.response is not None and e.response.status_code == 403:
+            print("Invalid API key.")
+            print("Please verify your API key in your dashboard at spinsphotonics.com/dashboard")
+        else:
+            print(f"Error getting account info: {e}")
+        return None
+    except requests.exceptions.RequestException as e:
+        print(f"Error getting account info: {e}")
+        return None
+
+
+# =============================================================================
 # COST ESTIMATION
 # =============================================================================
 

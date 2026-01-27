@@ -86,6 +86,7 @@ from .sources import (
 # Import API client functions
 from .api_client import (
     configure_api,
+    get_account_info,
     estimate_cost,
     early_stopping_simulate,
     generate_gaussian_source,
@@ -164,6 +165,7 @@ __all__ = [
 
     # API
     "configure_api",
+    "get_account_info",
     "estimate_cost",
     "early_stopping_simulate",
     "generate_gaussian_source",
