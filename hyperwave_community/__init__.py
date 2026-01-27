@@ -115,6 +115,7 @@ from .data_io import (
 # Import simulation utilities
 from .simulate import (
     simulate,
+    simulate_from_recipe,
     quick_view_monitors,
 )
 
@@ -175,5 +176,6 @@ __all__ = [
 
     # Simulation
     "simulate",
+    "simulate_from_recipe",
     "quick_view_monitors",
 ]

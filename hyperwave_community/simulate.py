@@ -246,6 +246,173 @@ def simulate(
         return None
 
 
+def simulate_from_recipe(
+    structure_recipe: Dict[str, Any],
+    source_field: np.ndarray,
+    source_offset: Tuple[int, int, int],
+    freq_band: Tuple[float, float, int],
+    monitors: Dict[str, Any],
+    mode_info: Optional[Dict] = None,
+    max_steps: int = 10000,
+    check_every_n: int = 1000,
+    source_ramp_periods: float = 5.0,
+    add_absorption: bool = True,
+    absorption_widths: Tuple[int, int, int] = (70, 35, 17),
+    absorption_coeff: float = 4.89e-3,
+    gpu_type: str = "H100",
+    api_key: Optional[str] = None,
+) -> Optional[Dict[str, Any]]:
+    """Run FDTD simulation using a structure recipe directly.
+
+    This is a convenience function that works with the output of
+    prepare_simulation_inputs() or build_recipe().
+
+    Args:
+        structure_recipe: Structure recipe dict from prepare_simulation_inputs().
+        source_field: Source field array from prepare_simulation_inputs().
+        source_offset: Source offset tuple.
+        freq_band: Frequency band tuple.
+        monitors: Monitor dict (can be recipe format from prepare_simulation_inputs).
+        mode_info: Optional mode information.
+        max_steps: Maximum FDTD time steps.
+        check_every_n: Convergence check interval.
+        source_ramp_periods: Number of periods for source turn-on.
+        add_absorption: If True, add PML absorption boundaries.
+        absorption_widths: PML widths in pixels.
+        absorption_coeff: PML absorption coefficient.
+        gpu_type: GPU type to use.
+        api_key: API key.
+
+    Returns:
+        Simulation results dict or None on error.
+
+    Example:
+        >>> inputs = hwc.prepare_simulation_inputs(
+        ...     component_name="mmi1x2",
+        ...     api_key=API_KEY
+        ... )
+        >>> results = hwc.simulate_from_recipe(
+        ...     structure_recipe=inputs['structure_recipe'],
+        ...     source_field=inputs['source_field'],
+        ...     source_offset=inputs['source_offset'],
+        ...     freq_band=inputs['freq_band'],
+        ...     monitors=inputs['monitors'],
+        ...     api_key=API_KEY
+        ... )
+    """
+    if not api_key:
+        print("API key required to proceed.")
+        print("Sign up for free at spinsphotonics.com to get your API key.")
+        return None
+
+    API_URL = "https://hyperwave-cloud.onrender.com"
+
+    # Encode source field
+    source_field_b64 = encode_array(np.array(source_field))
+
+    # Convert monitors to dict format if it's a list (from prepare_simulation_inputs)
+    if isinstance(monitors, list):
+        monitors_serialized = {}
+        for i, m in enumerate(monitors):
+            name = m.get('name', f'monitor_{i}')
+            monitors_serialized[name] = {
+                'shape': m['shape'],
+                'offset': m['offset'],
+                'index': i
+            }
+    else:
+        monitors_serialized = monitors
+
+    # Prepare mode_info
+    mode_info_serialized = None
+    if mode_info is not None:
+        mode_info_serialized = {
+            k: v.tolist() if isinstance(v, (np.ndarray, jnp.ndarray)) else v
+            for k, v in mode_info.items()
+        }
+
+    # Prepare request
+    request_data = {
+        "structure_recipe": structure_recipe,
+        "source_field_b64": source_field_b64,
+        "source_field_shape": list(source_field.shape),
+        "source_offset": list(source_offset),
+        "freq_band": list(freq_band),
+        "monitors": monitors_serialized,
+        "mode_info": mode_info_serialized,
+        "max_steps": max_steps,
+        "check_every_n": check_every_n,
+        "source_ramp_periods": source_ramp_periods,
+        "add_absorption": add_absorption,
+        "absorption_widths": list(absorption_widths),
+        "absorption_coeff": absorption_coeff,
+        "gpu_type": gpu_type
+    }
+
+    headers = {
+        "X-API-Key": api_key,
+        "Content-Type": "application/json"
+    }
+
+    try:
+        response = requests.post(
+            f"{API_URL}/simulate",
+            json=request_data,
+            headers=headers,
+            timeout=600
+        )
+        response.raise_for_status()
+        results = response.json()
+
+        # Decode monitor data
+        monitor_data = {}
+        for name, b64_str in results['monitor_data_b64'].items():
+            monitor_data[name] = decode_array(b64_str)
+
+        # Decode powers and transmissions
+        powers = {name: decode_array(b64_str) for name, b64_str in results['powers'].items()}
+        transmissions = {name: decode_array(b64_str) for name, b64_str in results['transmissions'].items()}
+
+        # Decode convergence
+        conv_steps = decode_array(results['convergence_steps'])
+        conv_errors = {k: decode_array(v) for k, v in results['convergence_errors'].items()}
+
+        return {
+            'monitor_data': monitor_data,
+            'monitor_names': results['monitor_names'],
+            'convergence': (conv_steps, list(conv_errors.values())),
+            'performance': results['performance'],
+            'powers': powers,
+            'transmissions': transmissions,
+            'sim_time': results['sim_time'],
+            'gpu_type': results['gpu_type'],
+            'simulation_id': results.get('simulation_id'),
+            'execution_time_seconds': results.get('execution_time_seconds'),
+            'computation_time_seconds': results.get('computation_time_seconds'),
+        }
+
+    except requests.exceptions.HTTPError as e:
+        if e.response is not None:
+            status_code = e.response.status_code
+            if status_code == 401:
+                print("No API key detected.")
+            elif status_code == 403:
+                print("Invalid API key.")
+            elif status_code == 402:
+                print("Insufficient credits.")
+            elif status_code == 429:
+                print("Too many concurrent simulations.")
+            else:
+                print(f"Error: {status_code}")
+        return None
+    except requests.exceptions.Timeout:
+        print("Request timeout.")
+        return None
+    except requests.exceptions.RequestException:
+        print("Connection error.")
+        return None
+
+
 def quick_view_monitors(results: Dict[str, Any], component: str = 'Hz', cmap: str = 'inferno'):
     """Quick visualization of each monitor's first frequency slice.
 
