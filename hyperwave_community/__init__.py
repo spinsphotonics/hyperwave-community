@@ -83,19 +83,22 @@ from .sources import (
     create_gaussian_source,
 )
 
-# Import API client functions
+# Import API client functions (SDK-style interface)
 from .api_client import (
     configure_api,
     get_account_info,
     estimate_cost,
-    early_stopping_simulate,
-    generate_gaussian_source,
+    # Two-stage workflow (recommended)
+    prepare_simulation,
+    run_simulation,
+    # One-shot workflow
+    simulate,
+    # Granular workflow
     build_recipe,
     build_monitors,
     solve_mode_source,
     compute_freq_band,
     get_default_absorber_params,
-    prepare_simulation_inputs,
 )
 
 # Import metasurface utilities
@@ -113,9 +116,9 @@ from .data_io import (
 )
 
 
-# Import simulation utilities
+# Import simulation utilities (local versions, for backwards compatibility)
 from .simulate import (
-    simulate,
+    simulate as simulate_local,
     simulate_from_recipe,
     quick_view_monitors,
 )
@@ -163,21 +166,25 @@ __all__ = [
     "gds_to_theta",
     "component_to_theta",
 
-    # API
+    # API - Two-stage workflow (recommended)
     "configure_api",
     "get_account_info",
     "estimate_cost",
-    "early_stopping_simulate",
-    "generate_gaussian_source",
+    "prepare_simulation",
+    "run_simulation",
+
+    # API - One-shot workflow
+    "simulate",
+
+    # API - Granular workflow
     "build_recipe",
     "build_monitors",
     "solve_mode_source",
     "compute_freq_band",
     "get_default_absorber_params",
-    "prepare_simulation_inputs",
 
-    # Simulation
-    "simulate",
+    # Simulation utilities
+    "simulate_local",
     "simulate_from_recipe",
     "quick_view_monitors",
 ]
