@@ -1,28 +1,25 @@
-"""API client configuration and utilities for Hyperwave GPU services.
+"""Hyperwave API Client for GPU-accelerated FDTD photonics simulations.
 
-This module provides API configuration and helper functions for encoding/decoding
-data transmitted to/from the Hyperwave API.
+Three workflow levels are available:
 
-Main functions:
-    configure_api: Set API credentials and endpoint
-    encode_array: Encode numpy arrays for API transmission
-    decode_array: Decode arrays from API responses
+1. TWO-STAGE WORKFLOW (Recommended for most users):
+    - prepare_simulation() - Setup simulation parameters (CPU on Modal)
+    - run_simulation() - Run FDTD with pre-computed setup (GPU on Modal)
 
-GPU Simulation Functions:
-    simulate: Run FDTD simulation (in simulate.py)
-    early_stopping_simulate: Run FDTD with early stopping
-    generate_gaussian_source: Generate Gaussian source field
+2. GRANULAR WORKFLOW (For advanced control):
+    - build_recipe() - Create structure from GDSFactory component
+    - build_monitors() - Create monitors from port information
+    - compute_freq_band() - Convert wavelengths to frequencies
+    - solve_mode_source() - Solve for waveguide mode
+    - get_default_absorber_params() - Get absorber configuration
 
-Recipe Builder Functions (CPU, no credits):
-    build_recipe: Build structure recipe from gdsfactory component
-    build_monitors: Build monitors from port info
-    solve_mode_source: Solve waveguide mode source
-    compute_freq_band: Compute frequency band from wavelengths
-    get_default_absorber_params: Get default absorber parameters
-    prepare_simulation_inputs: Prepare ALL simulation inputs in one call
+3. ONE-SHOT WORKFLOW (For quick tests):
+    - simulate() - Combines setup + simulation in one call
 
 Utility Functions:
-    estimate_cost: Estimate simulation cost before running
+    - configure_api() - Set API credentials and endpoint
+    - get_account_info() - Get account info and credit balance
+    - estimate_cost() - Estimate simulation cost before running
 
 Environment Variables:
     HYPERWAVE_API_KEY: API authentication key
@@ -32,10 +29,10 @@ Environment Variables:
 import os
 import base64
 import io
+import time
 from typing import Dict, Any, Tuple, Optional, List
 
 import numpy as np
-import jax.numpy as jnp
 import requests
 
 
@@ -60,9 +57,6 @@ def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None):
     Example:
         >>> import hyperwave_community as hwc
         >>> hwc.configure_api(api_key='your-key-here')
-        >>> # Or use environment variable
-        >>> import os
-        >>> os.environ['HYPERWAVE_API_KEY'] = 'your-key-here'
     """
     global _API_CONFIG
 
@@ -84,16 +78,8 @@ def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None):
 
 
 def _get_api_config() -> Dict[str, str]:
-    """Get current API configuration.
-
-    Returns:
-        Dictionary with 'api_key' and 'api_url' keys.
-
-    Raises:
-        RuntimeError: If API is not configured.
-    """
+    """Get current API configuration."""
     if _API_CONFIG['api_key'] is None:
-        # Try to load from environment
         if 'HYPERWAVE_API_KEY' in os.environ:
             _API_CONFIG['api_key'] = os.environ['HYPERWAVE_API_KEY']
         else:
@@ -101,33 +87,18 @@ def _get_api_config() -> Dict[str, str]:
                 "API not configured. Call configure_api() or set HYPERWAVE_API_KEY "
                 "environment variable first."
             )
-
     return _API_CONFIG
 
 
 def encode_array(arr: np.ndarray) -> str:
-    """Encode numpy array to base64 string for API transmission.
-
-    Args:
-        arr: Numpy array to encode.
-
-    Returns:
-        Base64-encoded string representation of array.
-    """
+    """Encode numpy array to base64 string for API transmission."""
     buffer = io.BytesIO()
     np.save(buffer, arr)
     return base64.b64encode(buffer.getvalue()).decode('utf-8')
 
 
 def decode_array(b64_str: str) -> np.ndarray:
-    """Decode base64 string to numpy array.
-
-    Args:
-        b64_str: Base64-encoded string.
-
-    Returns:
-        Decoded numpy array.
-    """
+    """Decode base64 string to numpy array."""
     buffer = io.BytesIO(base64.b64decode(b64_str))
     return np.load(buffer)
 
@@ -136,7 +107,6 @@ def _handle_api_error(e: requests.exceptions.HTTPError, operation: str) -> None:
     """Handle common API errors with user-friendly messages."""
     if e.response is not None:
         status_code = e.response.status_code
-
         if status_code == 401:
             print("No API key detected in request.")
             print("Sign up for free at spinsphotonics.com to get your API key.")
@@ -144,29 +114,16 @@ def _handle_api_error(e: requests.exceptions.HTTPError, operation: str) -> None:
             print("Provided API key is invalid.")
             print("Please verify your API key in your dashboard at spinsphotonics.com/dashboard")
         elif status_code == 402:
-            try:
-                error_data = e.response.json()
-                current_balance = error_data.get("current_balance", 0)
-                balance_msg = f"Current balance: {current_balance:.4f} credits"
-            except:
-                balance_msg = ""
-
             print(f"Insufficient credits for {operation}.")
-            if balance_msg:
-                print(balance_msg)
             print("Add credits to your account at spinsphotonics.com/billing")
         elif status_code == 429:
             print("Too many concurrent simulations.")
-            print("Please wait for existing simulations to complete.")
         elif status_code == 502:
-            print("Service temporarily unavailable.")
-            print("Our servers are experiencing high load. Please retry in a few moments.")
+            print("Service temporarily unavailable. Please retry.")
         else:
             print(f"Unexpected error (Code: {status_code})")
-            print("Please try again or contact support if the issue persists.")
     else:
         print("Communication error.")
-        print("Unable to process your request at this time. Please try again later.")
 
 
 # =============================================================================
@@ -180,22 +137,7 @@ def get_account_info(quiet: bool = False) -> Optional[Dict[str, Any]]:
         quiet: If True, don't print the greeting message.
 
     Returns:
-        Dictionary with:
-            - valid: Whether the API key is valid
-            - name: User's name
-            - email: User's email
-            - api_key_prefix: First 8 characters of API key
-            - credits_balance: Current credit balance
-            - credits_balance_usd: Credit balance in USD ($10 = 1 credit)
-        Returns None if request fails.
-
-    Example:
-        >>> import hyperwave_community as hwc
-        >>> hwc.configure_api(api_key='your-key-here')
-        >>> hwc.get_account_info()
-        Hello David! (dq4443@gmail.com)
-        API Key: 2c8cae99...
-        Credits: 429.2156 ($4,292.16)
+        Dictionary with valid, name, email, api_key_prefix, credits_balance, credits_balance_usd.
     """
     config = _get_api_config()
     API_URL = config['api_url']
@@ -249,27 +191,7 @@ def estimate_cost(
     gpu_type: str = "H100",
     simulation_type: str = "fdtd_simulation",
 ) -> Optional[Dict[str, Any]]:
-    """Estimate simulation cost before running (no auth required).
-
-    Args:
-        grid_points: Total grid points (Lx * Ly * Lz). Either this or structure_shape required.
-        structure_shape: Structure shape (3, Lx, Ly, Lz). Alternative to grid_points.
-        max_steps: Maximum FDTD steps.
-        gpu_type: GPU type (B200, H200, H100, A100-80GB, A100-40GB, L40S, A10G, T4).
-        simulation_type: Type of simulation (fdtd_simulation, gaussian_source).
-
-    Returns:
-        Dictionary with estimated_seconds, estimated_credits, estimated_cost_usd, gpu_type, grid_points, note.
-        Returns None if request fails.
-
-    Example:
-        >>> estimate = hwc.estimate_cost(
-        ...     structure_shape=(3, 500, 300, 150),
-        ...     max_steps=20000,
-        ...     gpu_type="H100"
-        ... )
-        >>> print(f"Estimated cost: ${estimate['estimated_cost_usd']:.2f} ({estimate['estimated_credits']:.4f} credits)")
-    """
+    """Estimate simulation cost before running (no auth required)."""
     API_URL = _API_CONFIG['api_url']
 
     request_data = {
@@ -287,307 +209,465 @@ def estimate_cost(
         return None
 
     try:
-        response = requests.post(
-            f"{API_URL}/estimate_cost",
-            json=request_data,
-            timeout=30
-        )
+        response = requests.post(f"{API_URL}/estimate_cost", json=request_data, timeout=30)
         response.raise_for_status()
         return response.json()
-
     except requests.exceptions.RequestException as e:
         print(f"Error estimating cost: {e}")
         return None
 
 
 # =============================================================================
-# EARLY STOPPING SIMULATION
+# TWO-STAGE WORKFLOW (Recommended)
 # =============================================================================
 
-def early_stopping_simulate(
-    structure,
-    source_field: jnp.ndarray,
-    source_offset: Tuple[int, int, int],
-    freq_band: Tuple[float, float, int],
-    monitors,
-    mode_info: Optional[Dict] = None,
-    max_steps: int = 200000,
-    check_every_n: int = 5000,
-    source_ramp_periods: float = 5.0,
-    add_absorption: bool = True,
-    absorption_widths: Tuple[int, int, int] = (70, 35, 17),
-    absorption_coeff: float = 4.89e-3,
-    relative_threshold: float = 0.01,
-    absolute_threshold: float = 1e-8,
-    significant_power_threshold: float = 1e-6,
-    min_stable_checks: int = 3,
-    gpu_type: str = "H100",
-    api_key: Optional[str] = None,
+def prepare_simulation(
+    device_type: str,
+    pdk_config: Dict[str, Any],
+    source_port: str = "o1",
+    wavelength_um: float = 1.55,
+    cells_per_wavelength: int = 25,
+    mode_num: int = 0,
+    device_params: Optional[Dict[str, Any]] = None,
 ) -> Optional[Dict[str, Any]]:
-    """Run FDTD simulation with early stopping on GPU via API.
+    """Stage 1: Prepare simulation inputs on Modal CPU.
 
-    Early stopping monitors power at all ports and stops when power stabilizes,
-    significantly reducing simulation time for well-converging structures.
+    This performs all setup work needed before simulation:
+    - Build structure recipe from GDSFactory component
+    - Create monitors at port locations
+    - Solve for waveguide mode at source port
+    - Return all data needed for simulation
 
     Args:
-        structure: Structure object with permittivity and conductivity.
-        source_field: Source field array, shape (num_freqs, 6, x, y, z).
-        source_offset: Corner position (x, y, z) for source placement.
-        freq_band: Frequency specification as (min, max, num_points).
-        monitors: MonitorSet object containing field monitors.
-        mode_info: Optional dictionary with mode information.
-        max_steps: Maximum FDTD time steps (default higher for early stopping).
-        check_every_n: Convergence check interval (in time steps).
-        source_ramp_periods: Number of periods for source turn-on.
-        add_absorption: If True, add PML absorption boundaries on GPU.
-        absorption_widths: PML widths as (x_width, y_width, z_width) in pixels.
-        absorption_coeff: PML absorption coefficient.
-        relative_threshold: Relative power change threshold for convergence.
-        absolute_threshold: Absolute power threshold.
-        significant_power_threshold: Minimum power to be considered significant.
-        min_stable_checks: Minimum stable checks before stopping.
-        gpu_type: GPU type to use.
-        api_key: API key (overrides configured key).
+        device_type: Device type name (e.g., "mmi2x2", "mmi1x2").
+        pdk_config: PDK configuration dict with material parameters:
+            - n_core: Core refractive index (e.g., 3.48 for silicon)
+            - n_clad: Cladding refractive index (e.g., 1.45 for SiO2)
+            - wg_height_um: Waveguide height in micrometers (e.g., 0.22)
+            - clad_top_um: Top cladding thickness in micrometers (e.g., 1.89)
+            - clad_bot_um: Bottom cladding (BOX) thickness in micrometers (e.g., 2.0)
+        source_port: Input port name (e.g., "o1", "o2").
+        wavelength_um: Wavelength in micrometers (default: 1.55).
+        cells_per_wavelength: FDTD resolution (default: 25). Higher = more accurate but slower.
+        mode_num: Mode number to solve (0 = fundamental, default: 0).
+        device_params: Optional dict of device-specific parameters.
 
     Returns:
-        Dictionary containing:
-            - monitor_data: Dict mapping monitor names to field arrays
-            - monitor_names: Dict mapping names to indices
-            - power_history: Dict of power history per monitor
-            - converged: Whether simulation converged
-            - convergence_step: Step at which convergence occurred
-            - performance: Grid-points × steps per second
-            - sim_time: GPU simulation time in seconds
-            - gpu_type: GPU type used
+        Dict with:
+        - mode_preview: Mode visualization data (n_eff, Ex, Ey, Ez)
+        - setup_data: Pre-computed setup for run_simulation()
+        - wavelength_um: Wavelength used
+        - resolution_nm: Resolution in nanometers
+        - source_port: Actual source port name
 
     Example:
-        >>> results = hwc.early_stopping_simulate(
-        ...     structure=structure,
-        ...     source_field=source,
-        ...     source_offset=offset,
-        ...     freq_band=freq_band,
-        ...     monitors=monitors,
-        ...     max_steps=200000,
-        ...     relative_threshold=0.01,
-        ...     api_key='your-key'
+        >>> pdk_config = {
+        ...     "n_core": 3.48,
+        ...     "n_clad": 1.45,
+        ...     "wg_height_um": 0.22,
+        ...     "clad_top_um": 1.89,
+        ...     "clad_bot_um": 2.0,
+        ... }
+        >>> setup = hwc.prepare_simulation(
+        ...     device_type="mmi2x2",
+        ...     pdk_config=pdk_config,
+        ...     source_port="o1",
+        ...     wavelength_um=1.55,
+        ...     cells_per_wavelength=25,
         ... )
-        >>> print(f"Converged at step {results['convergence_step']}")
+        >>> print(f"Mode n_eff: {setup['mode_preview']['n_eff']}")
     """
-    # Use configured API key if not explicitly provided
-    if not api_key:
-        try:
-            config = _get_api_config()
-            api_key = config['api_key']
-        except RuntimeError:
-            print("API key required. Call configure_api() or pass api_key parameter.")
-            return None
+    config = _get_api_config()
+    API_URL = config['api_url']
+    API_KEY = config['api_key']
 
-    API_URL = _API_CONFIG['api_url']
+    # Validate pdk_config
+    required_fields = ["n_core", "n_clad", "wg_height_um", "clad_top_um", "clad_bot_um"]
+    missing = [f for f in required_fields if f not in pdk_config]
+    if missing:
+        raise ValueError(f"pdk_config missing required fields: {missing}")
 
-    # Extract structure recipe
-    structure_recipe = structure.extract_recipe()
+    print(f"Preparing simulation for {device_type}...")
+    print(f"  Source: {source_port}, Wavelength: {wavelength_um} um, Resolution: {cells_per_wavelength} cells/wavelength")
 
-    # Encode source field
-    source_field_b64 = encode_array(np.array(source_field))
-
-    # Serialize monitors
-    monitors_serialized = {}
-    monitor_tuple = monitors.to_tuple()
-    for i, (name, monitor) in enumerate(zip(monitors.list_monitors(), monitor_tuple[0])):
-        monitors_serialized[name] = {
-            'shape': list(monitor.shape),
-            'offset': list(monitor.offset),
-            'index': i
-        }
-
-    # Prepare mode_info
-    mode_info_serialized = None
-    if mode_info is not None:
-        mode_info_serialized = {
-            k: v.tolist() if isinstance(v, (np.ndarray, jnp.ndarray)) else v
-            for k, v in mode_info.items()
-        }
-
-    request_data = {
-        "structure_recipe": structure_recipe,
-        "source_field_b64": source_field_b64,
-        "source_field_shape": list(source_field.shape),
-        "source_offset": list(source_offset),
-        "freq_band": list(freq_band),
-        "monitors": monitors_serialized,
-        "mode_info": mode_info_serialized,
-        "max_steps": max_steps,
-        "check_every_n": check_every_n,
-        "source_ramp_periods": source_ramp_periods,
-        "add_absorption": add_absorption,
-        "absorption_widths": list(absorption_widths),
-        "absorption_coeff": absorption_coeff,
-        "relative_threshold": relative_threshold,
-        "absolute_threshold": absolute_threshold,
-        "significant_power_threshold": significant_power_threshold,
-        "min_stable_checks": min_stable_checks,
-        "gpu_type": gpu_type
+    body = {
+        "device_type": device_type,
+        "device_params": device_params or {},
+        "source_port": source_port,
+        "wavelength_um": wavelength_um,
+        "cells_per_wavelength": cells_per_wavelength,
+        "pdk_config": pdk_config,
+        "mode_num": mode_num,
     }
 
     headers = {
-        "X-API-Key": api_key,
+        "X-API-Key": API_KEY,
         "Content-Type": "application/json"
     }
 
     try:
         response = requests.post(
-            f"{API_URL}/early_stopping",
-            json=request_data,
-            headers=headers,
-            timeout=1800  # 30 minute timeout for long simulations
-        )
-        response.raise_for_status()
-        results = response.json()
-
-        # Decode monitor data
-        monitor_data = {}
-        for name, b64_str in results.get('monitor_data_b64', {}).items():
-            monitor_data[name] = decode_array(b64_str)
-
-        # Decode power history
-        power_history = {}
-        for name, b64_str in results.get('power_history_b64', {}).items():
-            power_history[name] = decode_array(b64_str)
-
-        return {
-            'monitor_data': monitor_data,
-            'monitor_names': results.get('monitor_names', {}),
-            'power_history': power_history,
-            'converged': results.get('converged', False),
-            'convergence_step': results.get('convergence_step', 0),
-            'num_checks': results.get('num_checks', 0),
-            'max_power_seen': results.get('max_power_seen', 0.0),
-            'performance': results.get('performance', 0.0),
-            'sim_time': results.get('sim_time', 0.0),
-            'gpu_type': results.get('gpu_type', gpu_type),
-            'simulation_id': results.get('simulation_id'),
-            'execution_time_seconds': results.get('execution_time_seconds'),
-            'computation_time_seconds': results.get('computation_time_seconds')
-        }
-
-    except requests.exceptions.HTTPError as e:
-        _handle_api_error(e, "early stopping simulation")
-        return None
-    except requests.exceptions.Timeout:
-        print("Request timeout. The simulation is taking longer than expected.")
-        return None
-    except requests.exceptions.ConnectionError:
-        print("Connection failed. Please check your network connection.")
-        return None
-    except requests.exceptions.RequestException:
-        print("Communication error. Please try again later.")
-        return None
-
-
-# =============================================================================
-# GAUSSIAN SOURCE GENERATION
-# =============================================================================
-
-def generate_gaussian_source(
-    structure_shape: Tuple[int, int, int, int],
-    conductivity_boundary: jnp.ndarray,
-    freq_band: Tuple[float, float, int],
-    source_z_pos: int,
-    polarization: str = 'x',
-    max_steps: int = 5000,
-    check_every_n: int = 1000,
-    gpu_type: str = "H100",
-    api_key: Optional[str] = None,
-) -> Dict[str, Any]:
-    """Generate unidirectional Gaussian source on GPU via API.
-
-    NOTE: This endpoint may have interface mismatches. Use with caution.
-
-    Args:
-        structure_shape: Simulation domain shape as (3, Lx, Ly, Lz).
-        conductivity_boundary: Absorption boundary array, shape (Lx, Ly, Lz).
-        freq_band: Frequency specification as (min, max, num_points).
-        source_z_pos: Z-position for source injection (in pixels).
-        polarization: Polarization direction, 'x' or 'y'.
-        max_steps: Maximum FDTD steps for source generation.
-        check_every_n: Convergence check interval.
-        gpu_type: GPU type to use.
-        api_key: API key (overrides configured key).
-
-    Returns:
-        Dictionary containing source_field, source_power, source_position, etc.
-    """
-    # Use configured API key if not explicitly provided
-    if not api_key:
-        try:
-            config = _get_api_config()
-            api_key = config['api_key']
-        except RuntimeError:
-            print("API key required. Call configure_api() or pass api_key parameter.")
-            return None
-
-    API_URL = _API_CONFIG['api_url']
-
-    # Encode conductivity boundary
-    conductivity_b64 = encode_array(np.array(conductivity_boundary))
-
-    request_data = {
-        "structure_shape": list(structure_shape),
-        "conductivity_boundary_b64": conductivity_b64,
-        "freq_band": list(freq_band),
-        "source_z_pos": source_z_pos,
-        "polarization": polarization,
-        "max_steps": max_steps,
-        "check_every_n": check_every_n,
-        "gpu_type": gpu_type
-    }
-
-    headers = {
-        "X-API-Key": api_key,
-        "Content-Type": "application/json"
-    }
-
-    try:
-        response = requests.post(
-            f"{API_URL}/generate_gaussian_source",
-            json=request_data,
+            f"{API_URL}/prepare_simulation",
+            json=body,
             headers=headers,
             timeout=600
         )
         response.raise_for_status()
-        results = response.json()
+        result = response.json()
 
-        source_field = decode_array(results['source_field_b64'])
+        if result.get("status") != "success":
+            raise Exception(f"Failed to prepare simulation: {result}")
+
+        mode_preview = result.get("mode_preview", {})
+        n_eff = mode_preview.get("n_eff", "N/A")
+        print(f"Mode solved: n_eff={n_eff}")
+        print(f"Setup complete. Ready for run_simulation()")
 
         return {
-            'source_field': source_field,
-            'source_field_shape': results['source_field_shape'],
-            'source_power': results['source_power'],
-            'source_position': tuple(results['source_position']),
-            'total_time': results['total_time'],
-            'fdtd_time': results['fdtd_time'],
-            'gpu_type': results['gpu_type'],
-            'simulation_id': results.get('simulation_id'),
-            'execution_time_seconds': results.get('execution_time_seconds'),
-            'computation_time_seconds': results.get('computation_time_seconds')
+            "mode_preview": mode_preview,
+            "setup_data": result.get("setup_data"),
+            "wavelength_um": result.get("wavelength_um"),
+            "resolution_nm": result.get("resolution_nm"),
+            "source_port": result.get("source_port"),
         }
 
     except requests.exceptions.HTTPError as e:
-        _handle_api_error(e, "Gaussian source generation")
+        _handle_api_error(e, "prepare_simulation")
         return None
-    except requests.exceptions.Timeout:
-        print("Request timeout.")
+    except requests.exceptions.RequestException as e:
+        print(f"Error preparing simulation: {e}")
         return None
-    except requests.exceptions.ConnectionError:
-        print("Connection failed.")
+
+
+def run_simulation(
+    device_type: str,
+    setup_data: Dict[str, Any],
+    num_steps: int = 20000,
+    check_every_n: int = 1000,
+    source_ramp_periods: float = 10.0,
+    gpu_type: str = "H100",
+    min_steps: int = 0,
+    min_stable_checks: int = 3,
+    absorber_width: int = 82,
+    absorber_coeff: float = 0.0006173770394704579,
+    significant_power_threshold: float = 1e-6,
+    required_ports: Optional[List[str]] = None,
+    poll_interval: float = 2.0,
+) -> Optional[Dict[str, Any]]:
+    """Stage 2: Run FDTD simulation on Modal GPU with pre-computed setup.
+
+    This is the fast path when you already have setup_data from prepare_simulation().
+    Skips all setup work and goes directly to GPU simulation.
+
+    Args:
+        device_type: Device type name (for tracking).
+        setup_data: Pre-computed setup from prepare_simulation()['setup_data'].
+        num_steps: Maximum FDTD steps (default: 20000).
+        check_every_n: Convergence check interval (default: 1000).
+        source_ramp_periods: Source ramp-up periods (default: 10.0).
+        gpu_type: GPU type - "B200", "H200", "H100", "A100-80GB", etc.
+        min_steps: Minimum steps before early stopping (default: 0).
+        min_stable_checks: Consecutive stable checks for convergence (default: 3).
+        absorber_width: Absorber width in cells (default: 82).
+        absorber_coeff: Absorber coefficient.
+        significant_power_threshold: Min power level for convergence check.
+        required_ports: List of port names to check for convergence.
+        poll_interval: Seconds between status polls (default: 2.0).
+
+    Returns:
+        Dict with simulation results:
+        - s_parameters: Analyzed transmission data
+        - field_intensity: 2D field intensity for visualization
+        - port_fields: Per-port field data
+        - sim_time: GPU simulation time in seconds
+        - converged: Whether simulation converged
+
+    Example:
+        >>> setup = hwc.prepare_simulation(device_type="mmi2x2", pdk_config=pdk_config)
+        >>> results = hwc.run_simulation(
+        ...     device_type="mmi2x2",
+        ...     setup_data=setup['setup_data'],
+        ...     num_steps=30000,
+        ...     gpu_type="H100",
+        ... )
+        >>> print(f"T_total: {results['s_parameters']['T_total']}")
+    """
+    config = _get_api_config()
+    API_URL = config['api_url']
+    API_KEY = config['api_key']
+
+    if setup_data is None:
+        raise Exception(
+            "setup_data is required. Use prepare_simulation() first, or use simulate() for one-shot workflow."
+        )
+
+    # Handle both formats: full prepare_simulation result or just setup_data
+    if "setup_data" in setup_data and "source_field_base64" not in setup_data:
+        setup_data = setup_data["setup_data"]
+
+    print(f"Starting simulation for {device_type}...")
+    print(f"  GPU: {gpu_type}, Max steps: {num_steps}")
+
+    body = {
+        "device_type": device_type,
+        "setup_data": setup_data,
+        "num_steps": num_steps,
+        "check_every_n": check_every_n,
+        "source_ramp_periods": source_ramp_periods,
+        "gpu_type": gpu_type,
+        "min_steps": min_steps,
+        "min_stable_checks": min_stable_checks,
+        "absorber_width": absorber_width,
+        "absorber_coeff": absorber_coeff,
+        "significant_power_threshold": significant_power_threshold,
+        "required_ports": required_ports,
+    }
+
+    headers = {
+        "X-API-Key": API_KEY,
+        "Content-Type": "application/json"
+    }
+
+    try:
+        # Start the job
+        response = requests.post(
+            f"{API_URL}/run_simulation/start",
+            json=body,
+            headers=headers,
+            timeout=60
+        )
+        response.raise_for_status()
+        result = response.json()
+
+        if result.get("status") != "success":
+            raise Exception(f"Failed to start simulation: {result}")
+
+        job_id = result.get("job_id")
+        print(f"Job started: {job_id[:8]}...")
+
+        # Poll for completion
+        last_progress = ""
+        while True:
+            time.sleep(poll_interval)
+
+            status_response = requests.get(
+                f"{API_URL}/run_simulation/status/{job_id}",
+                headers=headers,
+                timeout=30
+            )
+            status_result = status_response.json()
+
+            status = status_result.get("status")
+            progress = status_result.get("progress", "")
+
+            if progress and progress != last_progress:
+                print(f"  {progress}")
+                last_progress = progress
+
+            if status == "completed":
+                sim_result = status_result.get("result", {})
+                sim_time = sim_result.get("sim_time", 0)
+                converged = sim_result.get("converged", False)
+                print(f"Simulation completed in {sim_time:.1f}s (converged: {converged})")
+                return sim_result
+
+            elif status in ("failed", "error"):
+                error = status_result.get("error", "Unknown error")
+                print(f"Simulation failed: {error}")
+                raise Exception(f"Simulation failed: {error}")
+
+            elif status not in ("starting", "running", "pending"):
+                raise Exception(f"Unexpected status: {status}")
+
+    except requests.exceptions.HTTPError as e:
+        _handle_api_error(e, "run_simulation")
         return None
-    except requests.exceptions.RequestException:
-        print("Communication error.")
+    except requests.exceptions.RequestException as e:
+        print(f"Error running simulation: {e}")
         return None
 
 
 # =============================================================================
-# RECIPE BUILDER FUNCTIONS (CPU, no credits consumed)
+# ONE-SHOT WORKFLOW
+# =============================================================================
+
+def simulate(
+    device_type: str,
+    pdk_config: Dict[str, Any],
+    source_port: str = "o1",
+    wavelength_um: float = 1.55,
+    wavelength_span_nm: float = 100,
+    num_wavelengths: int = 5,
+    cells_per_wavelength: int = 25,
+    num_steps: int = 30000,
+    check_every_n: int = 1000,
+    source_ramp_periods: float = 5.0,
+    gpu_type: str = "H100",
+    device_params: Optional[Dict[str, Any]] = None,
+    min_steps: int = 0,
+    min_stable_checks: int = 3,
+    absorber_width: Optional[int] = None,
+    absorber_coeff: Optional[float] = None,
+    significant_power_threshold: float = 1e-6,
+    required_ports: Optional[List[str]] = None,
+    poll_interval: float = 2.0,
+) -> Optional[Dict[str, Any]]:
+    """One-shot FDTD simulation on Modal GPUs (combines setup + simulation).
+
+    NOTE: For better control, use the two-stage workflow instead:
+        1. prepare_simulation() - Get mode preview and setup data
+        2. run_simulation() - Run FDTD with pre-computed setup
+
+    Args:
+        device_type: Device type name (e.g., "mmi2x2", "mmi1x2").
+        pdk_config: PDK configuration dict with material parameters:
+            - n_core: Core refractive index (e.g., 3.48 for silicon)
+            - n_clad: Cladding refractive index (e.g., 1.45 for SiO2)
+            - wg_height_um: Waveguide height in micrometers (e.g., 0.22)
+            - clad_top_um: Top cladding thickness in micrometers (e.g., 1.89)
+            - clad_bot_um: Bottom cladding (BOX) thickness in micrometers (e.g., 2.0)
+        source_port: Input port name (e.g., "o1", "o2").
+        wavelength_um: Center wavelength in micrometers (default: 1.55).
+        wavelength_span_nm: Wavelength span in nanometers (default: 100).
+        num_wavelengths: Number of wavelength points (default: 5).
+        cells_per_wavelength: FDTD resolution (default: 25).
+        num_steps: Maximum FDTD steps (default: 30000).
+        check_every_n: Convergence check interval (default: 1000).
+        source_ramp_periods: Source ramp-up periods (default: 5.0).
+        gpu_type: GPU type - "B200", "H200", "H100", "A100-80GB", etc.
+        device_params: Optional dict of device-specific parameters.
+        min_steps: Minimum FDTD steps before convergence check.
+        min_stable_checks: Required consecutive stable checks.
+        absorber_width: PML absorber width in pixels.
+        absorber_coeff: PML absorption coefficient.
+        significant_power_threshold: Min power for port detection.
+        required_ports: List of port names that must have power.
+        poll_interval: Seconds between status polls.
+
+    Returns:
+        Dict with simulation results:
+        - s_parameters: Analyzed transmission data
+        - field_intensity: 2D field for visualization
+        - sim_time: GPU simulation time in seconds
+        - converged: Whether simulation converged
+
+    Example:
+        >>> pdk_config = {
+        ...     "n_core": 3.48,
+        ...     "n_clad": 1.45,
+        ...     "wg_height_um": 0.22,
+        ...     "clad_top_um": 1.89,
+        ...     "clad_bot_um": 2.0,
+        ... }
+        >>> results = hwc.simulate(
+        ...     device_type="mmi2x2",
+        ...     pdk_config=pdk_config,
+        ...     source_port="o1",
+        ...     wavelength_um=1.55,
+        ... )
+        >>> print(f"T_total: {results['s_parameters']['T_total']}")
+    """
+    config = _get_api_config()
+    API_URL = config['api_url']
+    API_KEY = config['api_key']
+
+    # Validate pdk_config
+    required_fields = ["n_core", "n_clad", "wg_height_um", "clad_top_um", "clad_bot_um"]
+    missing = [f for f in required_fields if f not in pdk_config]
+    if missing:
+        raise ValueError(f"pdk_config missing required fields: {missing}")
+
+    print(f"Starting simulation for {device_type}...")
+    print(f"  Source: {source_port}, Wavelength: {wavelength_um} um (+/- {wavelength_span_nm/2} nm)")
+    print(f"  GPU: {gpu_type}")
+
+    body = {
+        "device_type": device_type,
+        "source_port": source_port,
+        "wavelength_um": wavelength_um,
+        "wavelength_span_nm": wavelength_span_nm,
+        "num_wavelengths": num_wavelengths,
+        "cells_per_wavelength": cells_per_wavelength,
+        "num_steps": num_steps,
+        "check_every_n": check_every_n,
+        "source_ramp_periods": source_ramp_periods,
+        "gpu_type": gpu_type,
+        "pdk_config": pdk_config,
+        "device_params": device_params or {},
+        "min_steps": min_steps,
+        "min_stable_checks": min_stable_checks,
+        "absorber_width": absorber_width,
+        "absorber_coeff": absorber_coeff,
+        "significant_power_threshold": significant_power_threshold,
+        "required_ports": required_ports,
+    }
+
+    headers = {
+        "X-API-Key": API_KEY,
+        "Content-Type": "application/json"
+    }
+
+    try:
+        # Start the job
+        response = requests.post(
+            f"{API_URL}/simulate/start",
+            json=body,
+            headers=headers,
+            timeout=60
+        )
+        response.raise_for_status()
+        result = response.json()
+
+        if result.get("status") != "success":
+            raise Exception(f"Failed to start simulation: {result}")
+
+        job_id = result.get("job_id")
+        print(f"Job started: {job_id[:8]}...")
+
+        # Poll for completion
+        last_progress = ""
+        while True:
+            time.sleep(poll_interval)
+
+            status_response = requests.get(
+                f"{API_URL}/simulate/status/{job_id}",
+                headers=headers,
+                timeout=30
+            )
+            status_result = status_response.json()
+
+            status = status_result.get("status")
+            progress = status_result.get("progress", "")
+
+            if progress and progress != last_progress:
+                print(f"  {progress}")
+                last_progress = progress
+
+            if status == "completed":
+                sim_result = status_result.get("result", {})
+                sim_time = sim_result.get("sim_time", 0)
+                converged = sim_result.get("converged", False)
+                print(f"Simulation completed in {sim_time:.1f}s (converged: {converged})")
+                return sim_result
+
+            elif status in ("failed", "error"):
+                error = status_result.get("error", "Unknown error")
+                print(f"Simulation failed: {error}")
+                raise Exception(f"Simulation failed: {error}")
+
+            elif status not in ("starting", "running", "pending"):
+                raise Exception(f"Unexpected status: {status}")
+
+    except requests.exceptions.HTTPError as e:
+        _handle_api_error(e, "simulate")
+        return None
+    except requests.exceptions.RequestException as e:
+        print(f"Error running simulation: {e}")
+        return None
+
+
+# =============================================================================
+# GRANULAR WORKFLOW FUNCTIONS
 # =============================================================================
 
 def build_recipe(
@@ -596,15 +676,14 @@ def build_recipe(
     extension_length: float = 2.0,
     resolution_nm: float = 30.0,
     n_core: float = 3.48,
-    n_clad: float = 1.4457,
+    n_clad: float = 1.45,
     wg_height_um: float = 0.22,
     total_height_um: float = 4.0,
     padding: Tuple[int, int, int, int] = (100, 100, 0, 0),
     density_radius: int = 3,
     vertical_radius: float = 2.0,
-    api_key: Optional[str] = None,
 ) -> Optional[Dict[str, Any]]:
-    """Build structure recipe from gdsfactory component on Modal CPU.
+    """Build structure recipe from GDSFactory component on Modal CPU.
 
     This function runs on CPU and does NOT consume credits.
 
@@ -620,35 +699,16 @@ def build_recipe(
         padding: (left, right, top, bottom) padding in theta pixels.
         density_radius: Radius for density filtering.
         vertical_radius: Vertical blur radius.
-        api_key: API key (overrides configured key).
 
     Returns:
-        Dictionary containing:
-            - recipe: Structure recipe for simulation
-            - density_core: 2D core density array
-            - density_clad: 2D clad density array
-            - dimensions: (Lx, Ly, Lz) structure dimensions
-            - port_info: Dict of port positions and orientations
-            - layer_config: Layer thickness configuration
-            - eps_values: (eps_clad, eps_core) permittivity values
-
-    Example:
-        >>> result = hwc.build_recipe(
-        ...     component_name="mmi2x2",
-        ...     resolution_nm=30,
-        ... )
-        >>> print(f"Dimensions: {result['dimensions']}")
+        Dictionary containing recipe, density_core, density_clad, dimensions,
+        port_info, layer_config, eps_values, resolution_um.
     """
-    # Use configured API key if not explicitly provided
-    if not api_key:
-        try:
-            config = _get_api_config()
-            api_key = config['api_key']
-        except RuntimeError:
-            print("API key required. Call configure_api() or pass api_key parameter.")
-            return None
+    config = _get_api_config()
+    API_URL = config['api_url']
+    API_KEY = config['api_key']
 
-    API_URL = _API_CONFIG['api_url']
+    print(f"Building recipe for {component_name}...")
 
     request_data = {
         "component_name": component_name,
@@ -664,10 +724,7 @@ def build_recipe(
         "vertical_radius": vertical_radius,
     }
 
-    headers = {
-        "X-API-Key": api_key,
-        "Content-Type": "application/json"
-    }
+    headers = {"X-API-Key": API_KEY, "Content-Type": "application/json"}
 
     try:
         response = requests.post(
@@ -678,6 +735,11 @@ def build_recipe(
         )
         response.raise_for_status()
         results = response.json()
+
+        dims = results.get('dimensions', [])
+        ports = list(results.get('port_info', {}).keys())
+        print(f"Recipe built: {dims[0]}x{dims[1]}x{dims[2]} cells")
+        print(f"Ports: {ports}")
 
         return {
             'recipe': results['recipe'],
@@ -703,43 +765,22 @@ def build_recipe(
 def build_monitors(
     port_info: Dict[str, Any],
     dimensions: Tuple[int, int, int],
-    source_port: str = "o2",
+    source_port: str = "o1",
     monitor_x_um: float = 0.1,
     monitor_y_um: float = 1.5,
     monitor_z_um: float = 1.5,
     resolution_um: float = 0.03,
     source_offset_cells: int = 5,
-    api_key: Optional[str] = None,
 ) -> Optional[Dict[str, Any]]:
     """Build monitors from port information on Modal CPU.
 
     This function runs on CPU and does NOT consume credits.
-
-    Args:
-        port_info: Dict of port info from build_recipe.
-        dimensions: (Lx, Ly, Lz) from build_recipe.
-        source_port: Port name for source injection (e.g., "o2").
-        monitor_x_um: Monitor thickness in um.
-        monitor_y_um: Monitor Y extent in um.
-        monitor_z_um: Monitor Z extent in um.
-        resolution_um: Grid resolution in um.
-        source_offset_cells: Cells before monitor for source position.
-        api_key: API key (overrides configured key).
-
-    Returns:
-        Dictionary containing monitors, monitor_names, source_port_name,
-        source_position, mode_bounds.
     """
-    # Use configured API key if not explicitly provided
-    if not api_key:
-        try:
-            config = _get_api_config()
-            api_key = config['api_key']
-        except RuntimeError:
-            print("API key required. Call configure_api() or pass api_key parameter.")
-            return None
+    config = _get_api_config()
+    API_URL = config['api_url']
+    API_KEY = config['api_key']
 
-    API_URL = _API_CONFIG['api_url']
+    print(f"Building monitors (source: {source_port})...")
 
     request_data = {
         "port_info": port_info,
@@ -752,10 +793,7 @@ def build_monitors(
         "source_offset_cells": source_offset_cells,
     }
 
-    headers = {
-        "X-API-Key": api_key,
-        "Content-Type": "application/json"
-    }
+    headers = {"X-API-Key": API_KEY, "Content-Type": "application/json"}
 
     try:
         response = requests.post(
@@ -765,7 +803,9 @@ def build_monitors(
             timeout=120
         )
         response.raise_for_status()
-        return response.json()
+        result = response.json()
+        print(f"Monitors built: {list(result.get('monitor_names', {}).keys())}")
+        return result
 
     except requests.exceptions.HTTPError as e:
         _handle_api_error(e, "monitor building")
@@ -775,136 +815,21 @@ def build_monitors(
         return None
 
 
-def solve_mode_source(
-    density_core: np.ndarray,
-    density_clad: np.ndarray,
-    source_x_position: int,
-    mode_bounds: Dict[str, int],
-    layer_config: Dict[str, Any],
-    eps_values: Tuple[float, float],
-    freq_band: Tuple[float, float, int],
-    slice_half_width: int = 5,
-    mode_num: int = 0,
-    propagation_axis: str = "x",
-    api_key: Optional[str] = None,
-) -> Optional[Dict[str, Any]]:
-    """Solve for waveguide mode source field on Modal CPU.
-
-    This function runs on CPU and does NOT consume credits.
-
-    Args:
-        density_core: 2D core density array from build_recipe.
-        density_clad: 2D clad density array from build_recipe.
-        source_x_position: X position for source (in structure coords).
-        mode_bounds: Dict with y_min, y_max, z_min, z_max from build_monitors.
-        layer_config: Layer configuration from build_recipe.
-        eps_values: (eps_clad, eps_core) from build_recipe.
-        freq_band: (omega_min, omega_max, n_freqs) frequency band.
-        slice_half_width: Half-width of structure slice in theta pixels.
-        mode_num: Which mode to solve for (0 = fundamental).
-        propagation_axis: Propagation direction ("x", "-x", "y", "-y").
-        api_key: API key (overrides configured key).
-
-    Returns:
-        Dictionary containing source_field, source_offset, mode_info, freq_band.
-    """
-    # Use configured API key if not explicitly provided
-    if not api_key:
-        try:
-            config = _get_api_config()
-            api_key = config['api_key']
-        except RuntimeError:
-            print("API key required. Call configure_api() or pass api_key parameter.")
-            return None
-
-    API_URL = _API_CONFIG['api_url']
-
-    request_data = {
-        "density_core_b64": encode_array(np.array(density_core)),
-        "density_core_shape": list(density_core.shape),
-        "density_clad_b64": encode_array(np.array(density_clad)),
-        "density_clad_shape": list(density_clad.shape),
-        "source_x_position": source_x_position,
-        "mode_bounds": mode_bounds,
-        "layer_config": layer_config,
-        "eps_values": list(eps_values),
-        "freq_band": list(freq_band),
-        "slice_half_width": slice_half_width,
-        "mode_num": mode_num,
-        "propagation_axis": propagation_axis,
-    }
-
-    headers = {
-        "X-API-Key": api_key,
-        "Content-Type": "application/json"
-    }
-
-    try:
-        response = requests.post(
-            f"{API_URL}/solve_mode_source",
-            json=request_data,
-            headers=headers,
-            timeout=300
-        )
-        response.raise_for_status()
-        results = response.json()
-
-        return {
-            'source_field': decode_array(results['source_field_b64']),
-            'source_offset': tuple(results['source_offset']),
-            'mode_info': results.get('mode_info', {}),
-            'freq_band': tuple(results['freq_band']),
-            'solve_time_seconds': results.get('solve_time_seconds', 0.0),
-        }
-
-    except requests.exceptions.HTTPError as e:
-        _handle_api_error(e, "mode source solving")
-        return None
-    except requests.exceptions.RequestException as e:
-        print(f"Error solving mode source: {e}")
-        return None
-
-
 def compute_freq_band(
-    wl_min_um: float,
-    wl_max_um: float,
+    wl_min_um: float = 1.55,
+    wl_max_um: float = 1.55,
     n_freqs: int = 1,
     resolution_um: float = 0.03,
-    api_key: Optional[str] = None,
 ) -> Optional[Dict[str, Any]]:
     """Compute frequency band from wavelength range on Modal CPU.
 
     This function runs on CPU and does NOT consume credits.
-
-    Args:
-        wl_min_um: Minimum wavelength in micrometers.
-        wl_max_um: Maximum wavelength in micrometers.
-        n_freqs: Number of frequency points.
-        resolution_um: Grid resolution in micrometers.
-        api_key: API key (overrides configured key).
-
-    Returns:
-        Dictionary containing freq_band, wavelengths_um, frequencies_omega.
-
-    Example:
-        >>> result = hwc.compute_freq_band(
-        ...     wl_min_um=1.5,
-        ...     wl_max_um=1.6,
-        ...     n_freqs=5,
-        ...     api_key='your-key'
-        ... )
-        >>> print(f"Freq band: {result['freq_band']}")
     """
-    # Use configured API key if not explicitly provided
-    if not api_key:
-        try:
-            config = _get_api_config()
-            api_key = config['api_key']
-        except RuntimeError:
-            print("API key required. Call configure_api() or pass api_key parameter.")
-            return None
+    config = _get_api_config()
+    API_URL = config['api_url']
+    API_KEY = config['api_key']
 
-    API_URL = _API_CONFIG['api_url']
+    print(f"Computing freq band: {wl_min_um}-{wl_max_um} um ({n_freqs} points)...")
 
     request_data = {
         "wl_min_um": wl_min_um,
@@ -913,10 +838,7 @@ def compute_freq_band(
         "resolution_um": resolution_um,
     }
 
-    headers = {
-        "X-API-Key": api_key,
-        "Content-Type": "application/json"
-    }
+    headers = {"X-API-Key": API_KEY, "Content-Type": "application/json"}
 
     try:
         response = requests.post(
@@ -927,6 +849,7 @@ def compute_freq_band(
         )
         response.raise_for_status()
         results = response.json()
+        print(f"Freq band computed: {results['freq_band']}")
 
         return {
             'freq_band': tuple(results['freq_band']),
@@ -943,43 +866,95 @@ def compute_freq_band(
         return None
 
 
+def solve_mode_source(
+    density_core: np.ndarray,
+    density_clad: np.ndarray,
+    source_x_position: int,
+    mode_bounds: Dict[str, int],
+    layer_config: Dict[str, Any],
+    eps_values: Tuple[float, float],
+    freq_band: Tuple[float, float, int],
+    slice_half_width: int = 5,
+    mode_num: int = 0,
+    propagation_axis: str = "x",
+) -> Optional[Dict[str, Any]]:
+    """Solve for waveguide mode source field on Modal CPU.
+
+    This function runs on CPU and does NOT consume credits.
+    """
+    config = _get_api_config()
+    API_URL = config['api_url']
+    API_KEY = config['api_key']
+
+    print(f"Solving mode at x={source_x_position}...")
+
+    request_data = {
+        "density_core_b64": encode_array(np.array(density_core)),
+        "density_core_shape": list(density_core.shape),
+        "density_clad_b64": encode_array(np.array(density_clad)),
+        "density_clad_shape": list(density_clad.shape),
+        "source_x_position": source_x_position,
+        "mode_bounds": mode_bounds,
+        "layer_config": layer_config,
+        "eps_values": list(eps_values),
+        "freq_band": list(freq_band),
+        "slice_half_width": slice_half_width,
+        "mode_num": mode_num,
+        "propagation_axis": propagation_axis,
+    }
+
+    headers = {"X-API-Key": API_KEY, "Content-Type": "application/json"}
+
+    try:
+        response = requests.post(
+            f"{API_URL}/solve_mode_source",
+            json=request_data,
+            headers=headers,
+            timeout=300
+        )
+        response.raise_for_status()
+        results = response.json()
+
+        mode_info = results.get('mode_info', {})
+        n_eff = mode_info.get('n_eff', 'N/A')
+        print(f"Mode solved: n_eff={n_eff}")
+
+        return {
+            'source_field': decode_array(results['source_field_b64']),
+            'source_offset': tuple(results['source_offset']),
+            'mode_info': mode_info,
+            'freq_band': tuple(results['freq_band']),
+            'solve_time_seconds': results.get('solve_time_seconds', 0.0),
+        }
+
+    except requests.exceptions.HTTPError as e:
+        _handle_api_error(e, "mode source solving")
+        return None
+    except requests.exceptions.RequestException as e:
+        print(f"Error solving mode source: {e}")
+        return None
+
+
 def get_default_absorber_params(
     structure_dimensions: Tuple[int, int, int],
     absorber_fraction: float = 0.1,
-    api_key: Optional[str] = None,
 ) -> Optional[Dict[str, Any]]:
     """Get default absorber parameters based on structure size on Modal CPU.
 
     This function runs on CPU and does NOT consume credits.
-
-    Args:
-        structure_dimensions: (Lx, Ly, Lz) structure dimensions.
-        absorber_fraction: Fraction of each dimension for absorber (default 10%).
-        api_key: API key (overrides configured key).
-
-    Returns:
-        Dictionary containing absorption_widths, absorption_coeff, add_absorption.
     """
-    # Use configured API key if not explicitly provided
-    if not api_key:
-        try:
-            config = _get_api_config()
-            api_key = config['api_key']
-        except RuntimeError:
-            print("API key required. Call configure_api() or pass api_key parameter.")
-            return None
+    config = _get_api_config()
+    API_URL = config['api_url']
+    API_KEY = config['api_key']
 
-    API_URL = _API_CONFIG['api_url']
+    print(f"Computing absorber params...")
 
     request_data = {
         "structure_dimensions": list(structure_dimensions),
         "absorber_fraction": absorber_fraction,
     }
 
-    headers = {
-        "X-API-Key": api_key,
-        "Content-Type": "application/json"
-    }
+    headers = {"X-API-Key": API_KEY, "Content-Type": "application/json"}
 
     try:
         response = requests.post(
@@ -990,6 +965,8 @@ def get_default_absorber_params(
         )
         response.raise_for_status()
         results = response.json()
+
+        print(f"Absorber params computed")
 
         return {
             'absorption_widths': tuple(results['absorption_widths']),
@@ -1002,145 +979,4 @@ def get_default_absorber_params(
         return None
     except requests.exceptions.RequestException as e:
         print(f"Error getting absorber params: {e}")
-        return None
-
-
-def prepare_simulation_inputs(
-    component_name: str,
-    component_kwargs: Optional[Dict[str, Any]] = None,
-    extension_length: float = 2.0,
-    resolution_nm: float = 30.0,
-    n_core: float = 3.48,
-    n_clad: float = 1.45,
-    wg_height_um: float = 0.22,
-    clad_top_um: float = 1.89,
-    clad_bot_um: float = 2.0,
-    padding: Tuple[int, int, int, int] = (100, 100, 0, 0),
-    density_radius: int = 3,
-    vertical_radius: float = 2.0,
-    source_port: str = "o2",
-    wl_min_um: float = 1.55,
-    wl_max_um: float = 1.55,
-    n_freqs: int = 1,
-    monitor_x_um: float = 0.1,
-    monitor_y_um: float = 1.5,
-    monitor_z_um: float = 1.5,
-    mode_num: int = 0,
-    api_key: Optional[str] = None,
-) -> Optional[Dict[str, Any]]:
-    """Prepare ALL inputs needed for GPU simulation in one call on Modal CPU.
-
-    This is a convenience function that combines build_recipe, build_monitors,
-    and solve_mode_source into a single API call. Runs on CPU, no credits consumed.
-
-    Args:
-        component_name: Name of gdsfactory component.
-        component_kwargs: Kwargs for component constructor.
-        extension_length: Port extension length in um.
-        resolution_nm: Grid resolution in nm.
-        n_core: Core refractive index.
-        n_clad: Cladding refractive index.
-        wg_height_um: Waveguide height in um.
-        clad_top_um: Top cladding thickness in um.
-        clad_bot_um: Bottom cladding (BOX) thickness in um.
-        padding: Theta padding.
-        density_radius: Density filter radius.
-        vertical_radius: Vertical blur radius.
-        source_port: Source port name.
-        wl_min_um: Min wavelength in um.
-        wl_max_um: Max wavelength in um.
-        n_freqs: Number of frequencies.
-        monitor_x_um: Monitor thickness.
-        monitor_y_um: Monitor Y extent.
-        monitor_z_um: Monitor Z extent.
-        mode_num: Mode number to solve.
-        api_key: API key (overrides configured key).
-
-    Returns:
-        Dictionary with ALL simulation inputs:
-            - structure_recipe: Recipe for reconstruction
-            - source_field: Mode source field
-            - source_offset: Source offset tuple
-            - freq_band: Frequency band tuple
-            - monitors: Monitor list (recipe format)
-            - mode_info: Mode information
-            - absorber_params: Default absorber parameters
-            - dimensions: Structure dimensions
-            - metadata: Build metadata
-
-    Example:
-        >>> inputs = hwc.prepare_simulation_inputs(
-        ...     component_name="mmi2x2",
-        ...     resolution_nm=30,
-        ...     wl_min_um=1.55,
-        ...     api_key='your-key'
-        ... )
-        >>> # Then use inputs directly with simulate()
-    """
-    # Use configured API key if not explicitly provided
-    if not api_key:
-        try:
-            config = _get_api_config()
-            api_key = config['api_key']
-        except RuntimeError:
-            print("API key required. Call configure_api() or pass api_key parameter.")
-            return None
-
-    API_URL = _API_CONFIG['api_url']
-
-    request_data = {
-        "component_name": component_name,
-        "component_kwargs": component_kwargs,
-        "extension_length": extension_length,
-        "resolution_nm": resolution_nm,
-        "n_core": n_core,
-        "n_clad": n_clad,
-        "wg_height_um": wg_height_um,
-        "clad_top_um": clad_top_um,
-        "clad_bot_um": clad_bot_um,
-        "padding": list(padding),
-        "density_radius": density_radius,
-        "vertical_radius": vertical_radius,
-        "source_port": source_port,
-        "wl_min_um": wl_min_um,
-        "wl_max_um": wl_max_um,
-        "n_freqs": n_freqs,
-        "monitor_x_um": monitor_x_um,
-        "monitor_y_um": monitor_y_um,
-        "monitor_z_um": monitor_z_um,
-        "mode_num": mode_num,
-    }
-
-    headers = {
-        "X-API-Key": api_key,
-        "Content-Type": "application/json"
-    }
-
-    try:
-        response = requests.post(
-            f"{API_URL}/prepare_simulation_inputs",
-            json=request_data,
-            headers=headers,
-            timeout=600
-        )
-        response.raise_for_status()
-        results = response.json()
-
-        return {
-            'structure_recipe': results['structure_recipe'],
-            'source_field': decode_array(results['source_field_b64']),
-            'source_offset': tuple(results['source_offset']),
-            'freq_band': tuple(results['freq_band']),
-            'monitors': results['monitors'],
-            'mode_info': results.get('mode_info', {}),
-            'absorber_params': results['absorber_params'],
-            'dimensions': tuple(results['dimensions']),
-            'metadata': results.get('metadata', {}),
-        }
-
-    except requests.exceptions.HTTPError as e:
-        _handle_api_error(e, "simulation input preparation")
-        return None
-    except requests.exceptions.RequestException as e:
-        print(f"Error preparing simulation inputs: {e}")
         return None
