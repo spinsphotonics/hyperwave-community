@@ -2115,11 +2115,24 @@ def analyze_transmission(
         output_monitors = [name for name in monitor_data.keys()
                          if name.startswith("Output_")]
 
+    # Helper to extract fields from monitor data (handles both formats)
+    def _get_fields(data, freq_idx=0):
+        """Extract field data, handling both (n_freqs, 6, ny, nz) and (6, ny, nz) formats."""
+        arr = np.array(data)
+        if arr.ndim == 4:
+            # Shape: (n_freqs, 6, ny, nz) - index into frequency axis
+            return arr[freq_idx]
+        elif arr.ndim == 3:
+            # Shape: (6, ny, nz) - use directly
+            return arr
+        else:
+            raise ValueError(f"Unexpected monitor data shape: {arr.shape}. Expected 3D or 4D array.")
+
     # Compute input power
     if input_monitor not in monitor_data:
         raise ValueError(f"Input monitor '{input_monitor}' not found in results")
 
-    input_fields = monitor_data[input_monitor][0]
+    input_fields = _get_fields(monitor_data[input_monitor])
     power_in = compute_monitor_power(input_fields, direction)
 
     # Compute transmission for each output
@@ -2128,7 +2141,7 @@ def analyze_transmission(
         if monitor_name not in monitor_data:
             print(f"Warning: Monitor '{monitor_name}' not found, skipping")
             continue
-        output_fields = monitor_data[monitor_name][0]
+        output_fields = _get_fields(monitor_data[monitor_name])
         power_out = compute_monitor_power(output_fields, direction)
         transmissions[monitor_name] = power_out / power_in
 
@@ -2186,19 +2199,22 @@ def get_field_intensity_2d(
     if monitor_name not in monitor_data:
         raise ValueError(f"Monitor '{monitor_name}' not found in results")
 
-    fields = monitor_data[monitor_name][0]
+    data = np.array(monitor_data[monitor_name])
 
-    # Handle different data shapes
-    if len(fields.shape) == 4:
-        # Shape: (6, n_samples, ny, nz) or (6, nx, ny, nz)
-        E_fields = fields[0:3, :, :, :]
+    # Handle different data shapes from various endpoints
+    if data.ndim == 3:
+        # Shape: (6, ny, nz) - direct field data
+        E_fields = data[0:3, :, :]
         field_intensity = np.sum(np.abs(E_fields)**2, axis=0)
-        field_2d = np.squeeze(field_intensity).T
+        field_2d = field_intensity.T
+    elif data.ndim == 4:
+        # Shape: (n_freqs, 6, ny, nz) - frequency-indexed data
+        # Use first frequency
+        E_fields = data[0, 0:3, :, :]
+        field_intensity = np.sum(np.abs(E_fields)**2, axis=0)
+        field_2d = field_intensity.T
     else:
-        # Shape: (n_freqs, 6, nx, ny, nz)
-        E_fields = fields[0, 0:3, :, :, :]
-        field_intensity = np.sum(np.abs(E_fields)**2, axis=0)
-        field_2d = np.squeeze(field_intensity).T
+        raise ValueError(f"Unexpected monitor data shape: {data.shape}. Expected 3D or 4D array.")
 
     result = {'intensity': field_2d}
 
