@@ -26,9 +26,8 @@ Granular Workflow (Recommended)
 -------------------------------
 
 The granular workflow gives you maximum control over the simulation process.
-CPU steps are free (require valid API key), GPU steps consume credits.
 
-**CPU Steps (Free):**
+**Setup Functions:**
 
 .. autofunction:: hyperwave_community.api_client.build_recipe
 .. autofunction:: hyperwave_community.api_client.build_monitors
@@ -36,14 +35,14 @@ CPU steps are free (require valid API key), GPU steps consume credits.
 .. autofunction:: hyperwave_community.api_client.solve_mode_source
 .. autofunction:: hyperwave_community.api_client.get_default_absorber_params
 
-**GPU Step (Uses Credits):**
+**Run Simulation:**
 
 .. autofunction:: hyperwave_community.api_client.run_simulation
 
 Two-Stage Workflow
 ------------------
 
-The two-stage workflow separates setup (CPU) from simulation (GPU).
+The two-stage workflow separates setup from simulation.
 
 .. autofunction:: hyperwave_community.api_client.prepare_simulation
 
@@ -68,16 +67,33 @@ Control early stopping behavior with convergence presets or custom configuration
 
 All presets use 1% relative threshold for convergence detection.
 
+**Custom Configuration:**
+
+For fine-grained control, create a custom ``ConvergenceConfig``:
+
+.. code-block:: python
+
+   convergence = hwc.ConvergenceConfig(
+       check_every_n=500,            # Steps between convergence checks (default: 1000)
+       relative_threshold=0.005,     # Relative power change threshold (default: 0.01 = 1%)
+       min_stable_checks=5,          # Consecutive stable checks required (default: 3)
+       min_steps=3000,               # Minimum steps before checking (default: 0)
+       power_threshold=1e-7,         # Ignore ports with power below this (default: 1e-6)
+       monitors=["Output_o3"],       # Specific monitors to check (default: None = all outputs)
+   )
+
+   results = hwc.run_simulation(..., convergence=convergence)
+
 .. autoclass:: hyperwave_community.api_client.ConvergenceConfig
    :members:
    :undoc-members:
 
 .. autodata:: hyperwave_community.api_client.CONVERGENCE_PRESETS
 
-Analysis Functions (Local)
---------------------------
+Analysis Functions
+------------------
 
-These functions run locally and do not consume API credits.
+These functions run locally for analyzing simulation results.
 
 .. autofunction:: hyperwave_community.api_client.analyze_transmission
 .. autofunction:: hyperwave_community.api_client.get_field_intensity_2d

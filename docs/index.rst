@@ -7,9 +7,9 @@ Features
 --------
 
 * **GDSFactory Integration**: Import photonic components directly from GDSFactory
-* **Granular Workflow**: Step-by-step control with free CPU preprocessing
+* **Granular Workflow**: Step-by-step control over simulation setup
 * **GPU-Accelerated Simulation**: Run FDTD simulations on cloud-based GPUs (B200, H200, H100, A100, etc.)
-* **Early Stopping**: Smart convergence detection to save credits
+* **Early Stopping**: Smart convergence detection to optimize simulation time
 * **Power Analysis**: Poynting flux calculations and transmission spectra
 * **Visualization**: Built-in plotting for structures, modes, and field intensities
 
@@ -31,8 +31,7 @@ Or install from source:
 Quick Start (Granular Workflow)
 -------------------------------
 
-The granular workflow is recommended for most users. CPU steps are **free** (require valid API key),
-only the GPU simulation step consumes credits.
+The granular workflow is recommended for most users.
 
 1. Configure API
 ~~~~~~~~~~~~~~~~
@@ -47,8 +46,8 @@ Get your API key from `spinsphotonics.com <https://spinsphotonics.com>`_.
    hwc.configure_api(api_key="your-api-key-here")
    hwc.get_account_info()  # Check your credits
 
-2. Build Structure Recipe (Free)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2. Build Structure Recipe
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Build a 3D photonic structure from a GDSFactory component.
 
@@ -69,8 +68,8 @@ Build a 3D photonic structure from a GDSFactory component.
    print(f"Structure dimensions: {recipe_result['dimensions']}")
    print(f"Ports: {list(recipe_result['port_info'].keys())}")
 
-3. Build Monitors (Free)
-~~~~~~~~~~~~~~~~~~~~~~~~
+3. Build Monitors
+~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -83,8 +82,8 @@ Build a 3D photonic structure from a GDSFactory component.
        show_structure=True,        # Visualize structure with monitors
    )
 
-4. Compute Frequency Band (Free)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4. Compute Frequency Band
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -96,8 +95,8 @@ Build a 3D photonic structure from a GDSFactory component.
        resolution_um=recipe_result['resolution_um'],
    )
 
-5. Solve Waveguide Mode (Free)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+5. Solve Waveguide Mode
+~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -114,8 +113,8 @@ Build a 3D photonic structure from a GDSFactory component.
        show_mode=True,             # Visualize mode profile
    )
 
-6. Run Simulation (Uses Credits)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+6. Run Simulation
+~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -135,8 +134,8 @@ Build a 3D photonic structure from a GDSFactory component.
    if results.get('converged'):
        print(f"Converged at step: {results['convergence_step']}")
 
-7. Analyze Results (Free)
-~~~~~~~~~~~~~~~~~~~~~~~~~
+7. Analyze Results
+~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -175,7 +174,7 @@ Build a 3D photonic structure from a GDSFactory component.
 Convergence Presets
 -------------------
 
-Control early stopping behavior to save credits:
+Control early stopping behavior:
 
 - ``"quick"`` - Fast, fewer stability checks (2 checks at 2000 step intervals)
 - ``"default"`` - Balanced approach (3 checks at 1000 step intervals)
@@ -184,15 +183,17 @@ Control early stopping behavior to save credits:
 
 All presets use 1% relative threshold.
 
-For custom configuration:
+For custom configuration, use ``ConvergenceConfig`` with all available options:
 
 .. code-block:: python
 
    convergence = hwc.ConvergenceConfig(
-       check_every_n=500,
-       relative_threshold=0.005,   # 0.5% threshold
-       min_stable_checks=5,
-       min_steps=3000,
+       check_every_n=500,            # Steps between convergence checks (default: 1000)
+       relative_threshold=0.005,     # Relative power change threshold (default: 0.01 = 1%)
+       min_stable_checks=5,          # Consecutive stable checks required (default: 3)
+       min_steps=3000,               # Minimum steps before checking (default: 0)
+       power_threshold=1e-7,         # Ignore ports with power below this (default: 1e-6)
+       monitors=["Output_o3"],       # Specific monitors to check (default: None = all outputs)
    )
 
    results = hwc.run_simulation(..., convergence=convergence)
