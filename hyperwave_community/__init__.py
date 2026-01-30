@@ -117,6 +117,9 @@ from .api_client import (
     # Utility functions
     encode_array,
     decode_array,
+    # Convergence configuration
+    ConvergenceConfig,
+    CONVERGENCE_PRESETS,
 )
 
 # Import metasurface utilities
@@ -222,6 +225,10 @@ __all__ = [
     # Utility functions
     "encode_array",
     "decode_array",
+
+    # Convergence configuration
+    "ConvergenceConfig",
+    "CONVERGENCE_PRESETS",
 
     # Simulation utilities
     "simulate_local",
