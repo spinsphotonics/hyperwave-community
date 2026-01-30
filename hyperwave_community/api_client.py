@@ -43,6 +43,103 @@ from typing import Dict, Any, Tuple, Optional, List
 
 import numpy as np
 import requests
+from dataclasses import dataclass, field
+
+
+# =============================================================================
+# CONVERGENCE CONFIGURATION
+# =============================================================================
+
+@dataclass
+class ConvergenceConfig:
+    """Configuration for early stopping convergence behavior.
+
+    Use this for fine-grained control over when simulations stop.
+    For most users, the string presets ("quick", "default", "thorough", "full")
+    are recommended instead.
+
+    Attributes:
+        check_every_n: Steps between convergence checks (default: 1000).
+        relative_threshold: Relative power change threshold (default: 0.001).
+        min_stable_checks: Consecutive stable checks required (default: 3).
+        min_steps: Minimum steps before checking convergence (default: 0).
+        power_threshold: Ignore ports with power below this (default: 1e-6).
+        monitors: List of specific monitor names to check. If None, checks all output ports.
+
+    Example:
+        >>> config = hwc.ConvergenceConfig(
+        ...     check_every_n=500,
+        ...     relative_threshold=0.0001,
+        ...     min_stable_checks=5,
+        ...     min_steps=3000,
+        ... )
+        >>> results = hwc.run_simulation(..., convergence=config)
+    """
+    check_every_n: int = 1000
+    relative_threshold: float = 0.001
+    min_stable_checks: int = 3
+    min_steps: int = 0
+    power_threshold: float = 1e-6
+    monitors: Optional[List[str]] = None
+
+
+# Preset convergence configurations
+CONVERGENCE_PRESETS = {
+    "quick": ConvergenceConfig(
+        check_every_n=2000,
+        relative_threshold=0.01,
+        min_stable_checks=2,
+        min_steps=0,
+        power_threshold=1e-5,
+    ),
+    "default": ConvergenceConfig(
+        check_every_n=1000,
+        relative_threshold=0.001,
+        min_stable_checks=3,
+        min_steps=0,
+        power_threshold=1e-6,
+    ),
+    "thorough": ConvergenceConfig(
+        check_every_n=1000,
+        relative_threshold=0.0001,
+        min_stable_checks=5,
+        min_steps=5000,
+        power_threshold=1e-7,
+    ),
+    "full": None,  # No early stopping - runs all steps
+}
+
+
+def _resolve_convergence(convergence) -> Optional[ConvergenceConfig]:
+    """Resolve convergence parameter to a ConvergenceConfig or None.
+
+    Args:
+        convergence: Can be:
+            - str: Preset name ("quick", "default", "thorough", "full")
+            - ConvergenceConfig: Custom configuration
+            - bool: True -> "default", False -> "full" (legacy support)
+            - None: Uses "default"
+
+    Returns:
+        ConvergenceConfig or None (for "full"/no early stopping)
+    """
+    if convergence is None:
+        return CONVERGENCE_PRESETS["default"]
+
+    if isinstance(convergence, bool):
+        # Legacy support: True -> default early stopping, False -> no early stopping
+        return CONVERGENCE_PRESETS["default"] if convergence else None
+
+    if isinstance(convergence, str):
+        if convergence not in CONVERGENCE_PRESETS:
+            valid = list(CONVERGENCE_PRESETS.keys())
+            raise ValueError(f"Unknown convergence preset '{convergence}'. Valid options: {valid}")
+        return CONVERGENCE_PRESETS[convergence]
+
+    if isinstance(convergence, ConvergenceConfig):
+        return convergence
+
+    raise TypeError(f"convergence must be str, bool, ConvergenceConfig, or None. Got {type(convergence)}")
 
 
 # Global API configuration
@@ -391,42 +488,29 @@ def run_simulation(
     device_type: str,
     setup_data: Dict[str, Any],
     num_steps: int = 20000,
-    check_every_n: int = 1000,
-    source_ramp_periods: float = 10.0,
     gpu_type: str = "H100",
-    min_steps: int = 0,
-    min_stable_checks: int = 3,
+    convergence: Optional[str] = "default",
     absorption_widths: List[int] = None,
     absorption_coeff: float = 0.0006173770394704579,
-    significant_power_threshold: float = 1e-6,
-    required_ports: Optional[List[str]] = None,
-    poll_interval: float = 2.0,
-    early_stopping: bool = True,
-    relative_threshold: float = 0.001,
-    absolute_threshold: float = 1e-10,
+    source_ramp_periods: float = 10.0,
 ) -> Optional[Dict[str, Any]]:
-    """Stage 2: Run FDTD simulation on Modal GPU with pre-computed setup.
-
-    This is the fast path when you already have setup_data from prepare_simulation().
-    Skips all setup work and goes directly to GPU simulation.
+    """Run FDTD simulation on Modal GPU.
 
     Args:
         device_type: Device type name (for tracking).
-        setup_data: Pre-computed setup from prepare_simulation()['setup_data'].
+        setup_data: Pre-computed setup from granular workflow or prepare_simulation().
         num_steps: Maximum FDTD steps (default: 20000).
-        check_every_n: Convergence check interval (default: 1000).
-        source_ramp_periods: Source ramp-up periods (default: 10.0).
         gpu_type: GPU type - "B200", "H200", "H100", "A100-80GB", etc.
-        min_steps: Minimum steps before early stopping (default: 0).
-        min_stable_checks: Consecutive stable checks for convergence (default: 3).
+        convergence: Early stopping behavior. Options:
+            - "quick": Stop early, check less frequently (fastest)
+            - "default": Balanced approach (recommended)
+            - "thorough": Check carefully before stopping (most conservative)
+            - "full": No early stopping, run all num_steps
+            - ConvergenceConfig: Custom configuration object
+            - True/False: Legacy support (True="default", False="full")
         absorption_widths: Absorber widths [x, y, z] in cells (default: [82, 40, 40]).
         absorption_coeff: Absorber coefficient.
-        significant_power_threshold: Min power level for convergence check.
-        required_ports: List of port names to check for convergence.
-        poll_interval: Seconds between status polls (default: 2.0).
-        early_stopping: If True, use early stopping endpoint (default: True).
-        relative_threshold: Relative change threshold for convergence (default: 0.001).
-        absolute_threshold: Absolute change threshold for convergence (default: 1e-10).
+        source_ramp_periods: Source ramp-up periods (default: 10.0).
 
     Returns:
         Dict with simulation results:
@@ -434,19 +518,32 @@ def run_simulation(
         - total_time: Total execution time including overhead
         - monitor_data: Decoded monitor field data
         - powers: Power at each monitor
-        - converged: Whether simulation converged (only meaningful with early_stopping=True)
+        - converged: Whether simulation converged (False if convergence="full")
+        - convergence_step: Step at which convergence was detected
         - performance: Simulation performance (pts*steps/s)
 
     Example:
-        >>> setup = hwc.prepare_simulation(device_type="mmi2x2", pdk_config=pdk_config)
+        >>> # Simple usage with preset
         >>> results = hwc.run_simulation(
         ...     device_type="mmi2x2",
-        ...     setup_data=setup['setup_data'],
-        ...     num_steps=30000,
+        ...     setup_data=setup_data,
         ...     gpu_type="H100",
-        ...     early_stopping=True,
+        ...     convergence="default",
         ... )
-        >>> print(f"Simulation time: {results['sim_time']:.1f}s")
+
+        >>> # Custom convergence settings
+        >>> results = hwc.run_simulation(
+        ...     device_type="mmi2x2",
+        ...     setup_data=setup_data,
+        ...     convergence=hwc.ConvergenceConfig(
+        ...         check_every_n=500,
+        ...         relative_threshold=0.0001,
+        ...         min_steps=3000,
+        ...     ),
+        ... )
+
+        >>> # No early stopping (run all steps)
+        >>> results = hwc.run_simulation(..., convergence="full")
     """
     import time
     start_time = time.time()
@@ -464,10 +561,16 @@ def run_simulation(
     if "setup_data" in setup_data and "source_field_base64" not in setup_data:
         setup_data = setup_data["setup_data"]
 
-    endpoint = "/early_stopping" if early_stopping else "/simulate"
+    # Resolve convergence configuration
+    conv_config = _resolve_convergence(convergence)
+    use_early_stopping = conv_config is not None
+
+    endpoint = "/early_stopping" if use_early_stopping else "/simulate"
+    convergence_name = convergence if isinstance(convergence, str) else ("custom" if conv_config else "full")
+
     print(f"Starting simulation for {device_type}...")
     print(f"  GPU: {gpu_type}, Max steps: {num_steps}")
-    print(f"  Early stopping: {early_stopping}")
+    print(f"  Convergence: {convergence_name}")
 
     # Build request body
     body = {
@@ -478,7 +581,7 @@ def run_simulation(
         "freq_band": setup_data.get("freq_band"),
         "monitors": setup_data.get("monitors"),
         "max_steps": num_steps,
-        "check_every_n": check_every_n,
+        "check_every_n": conv_config.check_every_n if conv_config else 1000,
         "source_ramp_periods": source_ramp_periods,
         "gpu_type": gpu_type,
         "add_absorption": True,
@@ -487,11 +590,12 @@ def run_simulation(
     }
 
     # Add early stopping specific parameters
-    if early_stopping:
-        body["relative_threshold"] = relative_threshold
-        body["absolute_threshold"] = absolute_threshold
-        body["significant_power_threshold"] = significant_power_threshold
-        body["min_stable_checks"] = min_stable_checks
+    if use_early_stopping:
+        body["relative_threshold"] = conv_config.relative_threshold
+        body["absolute_threshold"] = 1e-10  # Fixed value
+        body["significant_power_threshold"] = conv_config.power_threshold
+        body["min_stable_checks"] = conv_config.min_stable_checks
+        # Note: min_steps is handled by the Modal function internally
 
     headers = {
         "X-API-Key": API_KEY,
@@ -514,7 +618,7 @@ def run_simulation(
         total_time = time.time() - start_time
         converged = result.get("converged", False)
 
-        if early_stopping:
+        if use_early_stopping:
             convergence_step = result.get("convergence_step", 0)
             print(f"Simulation completed in {sim_time:.1f}s (total: {total_time:.1f}s)")
             if converged:
@@ -565,7 +669,7 @@ def run_simulation(
             "sim_time": sim_time,
             "total_time": total_time,
             "converged": converged,
-            "convergence_step": result.get("convergence_step", 0) if early_stopping else 0,
+            "convergence_step": result.get("convergence_step", 0) if use_early_stopping else 0,
             "monitor_data": monitor_data,
             "monitor_data_shapes": monitor_shapes,
             "monitor_names": result.get("monitor_names", {}),
