@@ -60,7 +60,7 @@ class ConvergenceConfig:
 
     Attributes:
         check_every_n: Steps between convergence checks (default: 1000).
-        relative_threshold: Relative power change threshold (default: 0.001).
+        relative_threshold: Relative power change threshold (default: 0.01 = 1%).
         min_stable_checks: Consecutive stable checks required (default: 3).
         min_steps: Minimum steps before checking convergence (default: 0).
         power_threshold: Ignore ports with power below this (default: 1e-6).
@@ -69,14 +69,13 @@ class ConvergenceConfig:
     Example:
         >>> config = hwc.ConvergenceConfig(
         ...     check_every_n=500,
-        ...     relative_threshold=0.0001,
         ...     min_stable_checks=5,
         ...     min_steps=3000,
         ... )
         >>> results = hwc.run_simulation(..., convergence=config)
     """
     check_every_n: int = 1000
-    relative_threshold: float = 0.001
+    relative_threshold: float = 0.01
     min_stable_checks: int = 3
     min_steps: int = 0
     power_threshold: float = 1e-6
@@ -84,6 +83,7 @@ class ConvergenceConfig:
 
 
 # Preset convergence configurations
+# All presets use 1% relative threshold - differences are in check frequency and stability requirements
 CONVERGENCE_PRESETS = {
     "quick": ConvergenceConfig(
         check_every_n=2000,
@@ -94,14 +94,14 @@ CONVERGENCE_PRESETS = {
     ),
     "default": ConvergenceConfig(
         check_every_n=1000,
-        relative_threshold=0.001,
+        relative_threshold=0.01,
         min_stable_checks=3,
         min_steps=0,
         power_threshold=1e-6,
     ),
     "thorough": ConvergenceConfig(
         check_every_n=1000,
-        relative_threshold=0.0001,
+        relative_threshold=0.01,
         min_stable_checks=5,
         min_steps=5000,
         power_threshold=1e-7,
@@ -486,7 +486,14 @@ def prepare_simulation(
 
 def run_simulation(
     device_type: str,
-    setup_data: Dict[str, Any],
+    # Option 1: Pass individual granular results (recommended)
+    recipe_result: Optional[Dict[str, Any]] = None,
+    monitor_result: Optional[Dict[str, Any]] = None,
+    freq_result: Optional[Dict[str, Any]] = None,
+    source_result: Optional[Dict[str, Any]] = None,
+    # Option 2: Pass pre-packaged setup_data (legacy/advanced)
+    setup_data: Optional[Dict[str, Any]] = None,
+    # Simulation parameters
     num_steps: int = 20000,
     gpu_type: str = "H100",
     convergence: Optional[str] = "default",
@@ -496,9 +503,36 @@ def run_simulation(
 ) -> Optional[Dict[str, Any]]:
     """Run FDTD simulation on Modal GPU.
 
+    Two ways to call this function:
+
+    **Option 1: Pass granular results directly (recommended)**
+    ```python
+    results = hwc.run_simulation(
+        device_type="mmi2x2",
+        recipe_result=recipe_result,
+        monitor_result=monitor_result,
+        freq_result=freq_result,
+        source_result=source_result,
+        gpu_type="H100",
+    )
+    ```
+
+    **Option 2: Pass pre-packaged setup_data (legacy)**
+    ```python
+    results = hwc.run_simulation(
+        device_type="mmi2x2",
+        setup_data=setup_data,
+        gpu_type="H100",
+    )
+    ```
+
     Args:
         device_type: Device type name (for tracking).
-        setup_data: Pre-computed setup from granular workflow or prepare_simulation().
+        recipe_result: Result from build_recipe().
+        monitor_result: Result from build_monitors().
+        freq_result: Result from compute_freq_band().
+        source_result: Result from solve_mode_source().
+        setup_data: Pre-packaged setup (alternative to individual results).
         num_steps: Maximum FDTD steps (default: 20000).
         gpu_type: GPU type - "B200", "H200", "H100", "A100-80GB", etc.
         convergence: Early stopping behavior. Options:
@@ -507,7 +541,6 @@ def run_simulation(
             - "thorough": Check carefully before stopping (most conservative)
             - "full": No early stopping, run all num_steps
             - ConvergenceConfig: Custom configuration object
-            - True/False: Legacy support (True="default", False="full")
         absorption_widths: Absorber widths [x, y, z] in cells (default: [82, 40, 40]).
         absorption_coeff: Absorber coefficient.
         source_ramp_periods: Source ramp-up periods (default: 10.0).
@@ -521,29 +554,6 @@ def run_simulation(
         - converged: Whether simulation converged (False if convergence="full")
         - convergence_step: Step at which convergence was detected
         - performance: Simulation performance (pts*steps/s)
-
-    Example:
-        >>> # Simple usage with preset
-        >>> results = hwc.run_simulation(
-        ...     device_type="mmi2x2",
-        ...     setup_data=setup_data,
-        ...     gpu_type="H100",
-        ...     convergence="default",
-        ... )
-
-        >>> # Custom convergence settings
-        >>> results = hwc.run_simulation(
-        ...     device_type="mmi2x2",
-        ...     setup_data=setup_data,
-        ...     convergence=hwc.ConvergenceConfig(
-        ...         check_every_n=500,
-        ...         relative_threshold=0.0001,
-        ...         min_steps=3000,
-        ...     ),
-        ... )
-
-        >>> # No early stopping (run all steps)
-        >>> results = hwc.run_simulation(..., convergence="full")
     """
     import time
     start_time = time.time()
@@ -552,14 +562,28 @@ def run_simulation(
     API_URL = config['api_url']
     API_KEY = config['api_key']
 
-    if setup_data is None:
-        raise Exception(
-            "setup_data is required. Use prepare_simulation() first, or use simulate() for one-shot workflow."
+    # Build setup_data from individual results if provided
+    if recipe_result is not None and monitor_result is not None and source_result is not None:
+        # Package granular results into setup_data format
+        setup_data = {
+            'structure_recipe': recipe_result['recipe'],
+            'source_field_b64': encode_array(source_result['source_field']),
+            'source_field_shape': list(source_result['source_field'].shape),
+            'source_offset': list(source_result['source_offset']),
+            'freq_band': list(freq_result['freq_band']) if freq_result else [0.081, 0.081, 1],
+            'monitors': monitor_result['monitors'],
+            'monitor_names': monitor_result['monitor_names'],
+            'dimensions': list(recipe_result['dimensions']),
+        }
+    elif setup_data is None:
+        raise ValueError(
+            "Either provide individual results (recipe_result, monitor_result, freq_result, source_result) "
+            "or a pre-packaged setup_data dict."
         )
-
-    # Handle both formats: full prepare_simulation result or just setup_data
-    if "setup_data" in setup_data and "source_field_base64" not in setup_data:
-        setup_data = setup_data["setup_data"]
+    else:
+        # Handle legacy formats: full prepare_simulation result or just setup_data
+        if "setup_data" in setup_data and "source_field_base64" not in setup_data:
+            setup_data = setup_data["setup_data"]
 
     # Resolve convergence configuration
     conv_config = _resolve_convergence(convergence)
