@@ -2109,6 +2109,7 @@ def analyze_transmission(
             - 'excess_loss_dB': Excess loss in dB (10*log10(total))
     """
     monitor_data = results.get('monitor_data', {})
+    monitor_shapes = results.get('monitor_data_shapes', {})
 
     # Auto-detect output monitors if not specified
     if output_monitors is None:
@@ -2116,23 +2117,46 @@ def analyze_transmission(
                          if name.startswith("Output_")]
 
     # Helper to extract fields from monitor data (handles both formats)
-    def _get_fields(data, freq_idx=0):
-        """Extract field data, handling both (n_freqs, 6, ny, nz) and (6, ny, nz) formats."""
+    def _get_fields(monitor_name, freq_idx=0):
+        """Extract field data, handling various formats and reshaping if needed."""
+        data = monitor_data[monitor_name]
         arr = np.array(data)
-        if arr.ndim == 4:
+
+        # If 1D array, try to reshape using stored shape
+        if arr.ndim == 1 and monitor_name in monitor_shapes:
+            target_shape = tuple(monitor_shapes[monitor_name])
+            n_elements = np.prod(target_shape)
+
+            # Try complex64 first (monitor fields are typically complex)
+            if len(arr) == n_elements * 2:  # float32 view of complex64
+                arr = arr.view(np.complex64).reshape(target_shape)
+            elif len(arr) == n_elements:
+                arr = arr.reshape(target_shape)
+            # If still can't reshape, try as complex64 directly
+            elif len(arr) * 2 == n_elements:
+                arr = arr.astype(np.complex64).reshape(target_shape)
+
+        if arr.ndim == 5:
+            # Shape: (1, 6, 3, ny, nz) - squeeze and take first freq
+            arr = arr[freq_idx]  # Now (6, 3, ny, nz)
+            # Average over the 3rd dimension if present
+            if arr.ndim == 4 and arr.shape[1] == 3:
+                arr = np.mean(arr, axis=1)  # Now (6, ny, nz)
+            return arr
+        elif arr.ndim == 4:
             # Shape: (n_freqs, 6, ny, nz) - index into frequency axis
             return arr[freq_idx]
         elif arr.ndim == 3:
             # Shape: (6, ny, nz) - use directly
             return arr
         else:
-            raise ValueError(f"Unexpected monitor data shape: {arr.shape}. Expected 3D or 4D array.")
+            raise ValueError(f"Unexpected monitor data shape for {monitor_name}: {arr.shape}. Expected 3D, 4D or 5D array.")
 
     # Compute input power
     if input_monitor not in monitor_data:
         raise ValueError(f"Input monitor '{input_monitor}' not found in results")
 
-    input_fields = _get_fields(monitor_data[input_monitor])
+    input_fields = _get_fields(input_monitor)
     power_in = compute_monitor_power(input_fields, direction)
 
     # Compute transmission for each output
@@ -2141,7 +2165,7 @@ def analyze_transmission(
         if monitor_name not in monitor_data:
             print(f"Warning: Monitor '{monitor_name}' not found, skipping")
             continue
-        output_fields = _get_fields(monitor_data[monitor_name])
+        output_fields = _get_fields(monitor_name)
         power_out = compute_monitor_power(output_fields, direction)
         transmissions[monitor_name] = power_out / power_in
 
@@ -2195,16 +2219,30 @@ def get_field_intensity_2d(
             - 'wavelength_nm': Wavelength in nm (if freq_band provided)
     """
     monitor_data = results.get('monitor_data', {})
+    monitor_shapes = results.get('monitor_data_shapes', {})
 
     if monitor_name not in monitor_data:
         raise ValueError(f"Monitor '{monitor_name}' not found in results")
 
     data = np.array(monitor_data[monitor_name])
 
+    # If 1D array, try to reshape using stored shape
+    if data.ndim == 1 and monitor_name in monitor_shapes:
+        target_shape = tuple(monitor_shapes[monitor_name])
+        n_elements = np.prod(target_shape)
+
+        # Try complex64 first (monitor fields are typically complex)
+        if len(data) == n_elements * 2:  # float32 view of complex64
+            data = data.view(np.complex64).reshape(target_shape)
+        elif len(data) == n_elements:
+            data = data.reshape(target_shape)
+
     # Handle different data shapes from various endpoints
-    if data.ndim == 3:
-        # Shape: (6, ny, nz) - direct field data
-        E_fields = data[0:3, :, :]
+    if data.ndim == 5:
+        # Shape: (1, 6, 3, ny, nz) - squeeze first dim, take E fields, average over 3rd
+        data = data[0]  # Now (6, 3, ny, nz)
+        E_fields = data[0:3, :, :, :]  # (3, 3, ny, nz)
+        E_fields = np.mean(E_fields, axis=1)  # (3, ny, nz)
         field_intensity = np.sum(np.abs(E_fields)**2, axis=0)
         field_2d = field_intensity.T
     elif data.ndim == 4:
@@ -2213,8 +2251,13 @@ def get_field_intensity_2d(
         E_fields = data[0, 0:3, :, :]
         field_intensity = np.sum(np.abs(E_fields)**2, axis=0)
         field_2d = field_intensity.T
+    elif data.ndim == 3:
+        # Shape: (6, ny, nz) - direct field data
+        E_fields = data[0:3, :, :]
+        field_intensity = np.sum(np.abs(E_fields)**2, axis=0)
+        field_2d = field_intensity.T
     else:
-        raise ValueError(f"Unexpected monitor data shape: {data.shape}. Expected 3D or 4D array.")
+        raise ValueError(f"Unexpected monitor data shape: {data.shape}. Expected 3D, 4D or 5D array.")
 
     result = {'intensity': field_2d}
 
