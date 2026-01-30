@@ -99,6 +99,24 @@ from .api_client import (
     solve_mode_source,
     compute_freq_band,
     get_default_absorber_params,
+    # New granular workflow functions (fine-grained control)
+    load_component,
+    create_structure_recipe,
+    create_monitors,
+    solve_mode,
+    run_gpu_simulation,
+    analyze_transmission,
+    get_field_slice,
+    # Analysis functions (local, no API calls)
+    compute_poynting_vector,
+    compute_monitor_power,
+    get_field_intensity_2d,
+    # Visualization functions
+    visualize_structure,
+    visualize_mode_source,
+    # Utility functions
+    encode_array,
+    decode_array,
 )
 
 # Import metasurface utilities
@@ -182,6 +200,28 @@ __all__ = [
     "solve_mode_source",
     "compute_freq_band",
     "get_default_absorber_params",
+
+    # API - New granular workflow (fine-grained control)
+    "load_component",
+    "create_structure_recipe",
+    "create_monitors",
+    "solve_mode",
+    "run_gpu_simulation",
+    "analyze_transmission",
+    "get_field_slice",
+
+    # Analysis functions (local)
+    "compute_poynting_vector",
+    "compute_monitor_power",
+    "get_field_intensity_2d",
+
+    # Visualization functions
+    "visualize_structure",
+    "visualize_mode_source",
+
+    # Utility functions
+    "encode_array",
+    "decode_array",
 
     # Simulation utilities
     "simulate_local",
