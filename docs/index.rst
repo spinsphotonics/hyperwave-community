@@ -6,12 +6,12 @@ Welcome to the Hyperwave Community documentation. This package provides an open-
 Features
 --------
 
-* **Local Structure Design**: Create photonic structures with density filtering and layer stacking
-* **Modal Source Generation**: Fast eigenvalue-based waveguide mode solver (runs locally)
-* **GPU-Accelerated Simulation**: Run FDTD simulations on cloud-based GPUs via API
-* **Unidirectional Gaussian Sources**: Generate reflection-free Gaussian beams via API
+* **GDSFactory Integration**: Import photonic components directly from GDSFactory
+* **Granular Workflow**: Step-by-step control with free CPU preprocessing
+* **GPU-Accelerated Simulation**: Run FDTD simulations on cloud-based GPUs (B200, H200, H100, A100, etc.)
+* **Early Stopping**: Smart convergence detection to save credits
 * **Power Analysis**: Poynting flux calculations and transmission spectra
-* **Visualization**: Built-in plotting for structures, fields, and convergence
+* **Visualization**: Built-in plotting for structures, modes, and field intensities
 
 Installation
 ------------
@@ -28,196 +28,189 @@ Or install from source:
    cd hyperwave-community
    pip install -e .
 
-Quick Start
------------
+Quick Start (Granular Workflow)
+-------------------------------
 
-1. Get Your API Key
-~~~~~~~~~~~~~~~~~~~
+The granular workflow is recommended for most users. CPU steps are **free** (require valid API key),
+only the GPU simulation step consumes credits.
 
-Sign up at `spinsphotonics.com <https://spinsphotonics.com>`_ to get your API key.
+1. Configure API
+~~~~~~~~~~~~~~~~
+
+Get your API key from `spinsphotonics.com <https://spinsphotonics.com>`_.
 
 .. code-block:: python
 
    import hyperwave_community as hwc
 
-   # Get your API key from your dashboard at: https://spinsphotonics.com/dashboard
-   api_key = "your-api-key-here"
+   # Configure and validate API key
+   hwc.configure_api(api_key="your-api-key-here")
+   hwc.get_account_info()  # Check your credits
 
-2. Create Theta (Design Pattern)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2. Build Structure Recipe (Free)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: python
-
-   import jax.numpy as jnp
-   import matplotlib.pyplot as plt
-
-   # Create design pattern (theta) - binary pattern for waveguide
-   theta = jnp.zeros((500, 1000))
-   center_y = theta.shape[0] // 2
-   waveguide_width = 40
-   strip_start = center_y - waveguide_width // 2
-   strip_end = center_y + waveguide_width // 2
-   theta = theta.at[strip_start:strip_end, :].set(1.0)
-
-   # Visualize theta pattern
-   plt.imshow(theta)
-
-   # Apply density filtering for smooth edges
-   waveguide_density = hwc.density(theta=theta, radius=8, alpha=0)
-
-   # Create blank density pattern for cladding layers (all SiO2)
-   cladding_density = hwc.density(theta=jnp.zeros_like(theta), radius=0, alpha=0)
-
-   # Visualize density pattern
-   plt.imshow(waveguide_density)
-
-3. Build Structure and Visualize
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Build a 3D photonic structure from a GDSFactory component.
 
 .. code-block:: python
 
-   # Define materials (Silicon on SiO2)
-   n_Si, n_SiO2 = 3.4, 1.45
-   eps_Si, eps_SiO2 = n_Si**2, n_SiO2**2
-
-   # Define layer stack: SiO2 / Si / SiO2
-   waveguide_layer = hwc.Layer(
-       density_pattern=waveguide_density,
-       permittivity_values=(eps_SiO2, eps_Si),
-       layer_thickness=20
+   # Build structure recipe from GDSFactory component
+   recipe_result = hwc.build_recipe(
+       component_name="mmi2x2_with_sbend",  # Any gdsfactory component
+       resolution_nm=20,           # Grid resolution in nm
+       n_core=3.48,                # Silicon refractive index
+       n_clad=1.4457,              # SiO2 cladding refractive index
+       wg_height_um=0.22,          # Waveguide core height in um
+       total_height_um=4.0,        # Total simulation height
+       extension_length=2.0,       # Port extension length in um
+       padding=[100, 100, 0, 0],   # Padding cells (left, right, top, bottom)
    )
 
-   cladding_layer = hwc.Layer(
-       density_pattern=cladding_density,
-       permittivity_values=eps_SiO2,
-       layer_thickness=40
-   )
+   print(f"Structure dimensions: {recipe_result['dimensions']}")
+   print(f"Ports: {list(recipe_result['port_info'].keys())}")
 
-   # Build 3D structure with vertical blurring
-   structure = hwc.create_structure(
-       layers=[cladding_layer, waveguide_layer, cladding_layer],
-       vertical_radius=2
-   )
-
-   # Add adiabatic absorbing boundaries
-   _, Lx, Ly, Lz = structure.permittivity.shape
-   abs_width = 70
-   abs_coeff = 4.89e-3
-   abs_shape = (abs_width, abs_width//2, abs_width//4)
-
-   absorption_boundary = hwc.create_absorption_mask(
-       grid_shape=(Lx, Ly, Lz),
-       absorption_widths=abs_shape,
-       absorption_coeff=abs_coeff
-   )
-
-   structure.conductivity = structure.conductivity + absorption_boundary
-
-   # Visualize structure
-   hwc.view_structure(structure, show_permittivity=True, show_conductivity=False)
-
-4. Create Mode Source and Visualize
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3. Build Monitors (Free)
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
-   # Define frequency band (telecom wavelengths)
-   freq_band = (2*jnp.pi/32, 2*jnp.pi/30, 2)  # λ=30-32 pixels, 2 frequencies
-
-   # Generate mode source (after absorber region)
-   source_position = abs_shape[0] + 10  # 80 pixels (70 + 10)
-   source_field, source_offset, mode_info = hwc.create_mode_source(
-       structure=structure,
-       freq_band=freq_band,
-       mode_num=0,  # Fundamental mode
-       propagation_axis='x',
-       source_position=source_position,
-       perpendicular_bounds=(0, structure.permittivity.shape[2]),
-       visualize=True  # Shows mode profile
+   # Build monitors from port information
+   monitor_result = hwc.build_monitors(
+       port_info=recipe_result['port_info'],
+       dimensions=recipe_result['dimensions'],
+       source_port="o1",           # Input port name
+       structure_recipe=recipe_result['recipe'],
+       show_structure=True,        # Visualize structure with monitors
    )
 
-   print(f"Mode propagation constant β: {mode_info['beta']}")
-   print(f"Mode solver error: {mode_info['error']}")
-
-5. Setup Monitors and Visualize Placement
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4. Compute Frequency Band (Free)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
-   # Create monitor set
-   monitors = hwc.MonitorSet()
-
-   # Add monitors with automatic waveguide detection
-   monitors.add_monitors_at_position(
-       structure=structure,
-       axis='x',
-       position=100,
-       label='Input'
+   # Convert wavelength to frequency band
+   freq_result = hwc.compute_freq_band(
+       wl_min_um=1.55,             # Center wavelength
+       wl_max_um=1.55,
+       n_freqs=1,
+       resolution_um=recipe_result['resolution_um'],
    )
 
-   monitors.add_monitors_at_position(
-       structure=structure,
-       axis='x',
-       position=400,
-       label='Output'
+5. Solve Waveguide Mode (Free)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   # Solve for waveguide mode at source port
+   source_result = hwc.solve_mode_source(
+       density_core=recipe_result['density_core'],
+       density_clad=recipe_result['density_clad'],
+       source_x_position=monitor_result['source_position'],
+       mode_bounds=monitor_result['mode_bounds'],
+       layer_config=recipe_result['layer_config'],
+       eps_values=recipe_result['eps_values'],
+       freq_band=freq_result['freq_band'],
+       mode_num=0,                 # Fundamental TE mode
+       show_mode=True,             # Visualize mode profile
    )
 
-   # Visualize monitor positions on structure
-   hwc.view_monitors(structure, monitors)
-   print(f"Configured monitors: {monitors.list_monitors()}")
+6. Run Simulation (Uses Credits)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-6. Run Simulation via API
+.. code-block:: python
+
+   # Run FDTD simulation - pass granular results directly
+   results = hwc.run_simulation(
+       device_type="mmi2x2_with_sbend",
+       recipe_result=recipe_result,
+       monitor_result=monitor_result,
+       freq_result=freq_result,
+       source_result=source_result,
+       num_steps=20000,
+       gpu_type="H100",            # Options: B200, H200, H100, A100, etc.
+       convergence="default",      # or "quick", "thorough", "full"
+   )
+
+   print(f"Simulation time: {results['sim_time']:.1f}s")
+   if results.get('converged'):
+       print(f"Converged at step: {results['convergence_step']}")
+
+7. Analyze Results (Free)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
-   # Run FDTD simulation on cloud GPU
-   results = hwc.simulate(
-       structure=structure,
-       source_field=source_field,
-       source_offset=source_offset,
-       freq_band=freq_band,
-       monitors=monitors,
-       mode_info=mode_info,
-       simulation_steps=20000,
-       check_every_n=1000,
-       source_ramp_periods=5.0,
-       add_absorption=True,
-       absorption_widths=(70, 35, 17),
-       absorption_coeff=4.89e-3,
-       api_key=api_key,
-       gpu_type="H100"  # Options: "B200", "H200", "H100", "A100-80GB", "A100-40GB", "L40S", "L4", "A10G", "T4"
+   import matplotlib.pyplot as plt
+
+   # Transmission analysis
+   transmission = hwc.analyze_transmission(
+       results,
+       input_monitor="Input_o1",
+       output_monitors=["Output_o3", "Output_o4"],
    )
 
-   print(f"GPU time: {results['sim_time']:.2f}s")
-   print(f"Performance: {results['performance']:.2e} grid-points×steps/s")
+   # Field intensity visualization
+   field_data = hwc.get_field_intensity_2d(
+       results,
+       monitor_name='xy_mid',
+       dimensions=recipe_result['dimensions'],
+       resolution_um=recipe_result['resolution_um'],
+       freq_band=freq_result['freq_band'],
+   )
 
-7. Analyze Results
-~~~~~~~~~~~~~~~~~~
+   plt.figure(figsize=(12, 5))
+   plt.imshow(
+       field_data['intensity'],
+       origin='upper',
+       extent=field_data['extent'],
+       cmap='jet',
+       aspect='equal'
+   )
+   plt.xlabel('x (μm)')
+   plt.ylabel('y (μm)')
+   plt.title(f"|E|² at λ = {field_data['wavelength_nm']:.1f} nm")
+   plt.colorbar(label='|E|²')
+   plt.show()
+
+Convergence Presets
+-------------------
+
+Control early stopping behavior to save credits:
+
+- ``"quick"`` - Fast, fewer stability checks (2 checks at 2000 step intervals)
+- ``"default"`` - Balanced approach (3 checks at 1000 step intervals)
+- ``"thorough"`` - Conservative (5 checks, min 5000 steps)
+- ``"full"`` - No early stopping, run all steps
+
+All presets use 1% relative threshold.
+
+For custom configuration:
 
 .. code-block:: python
 
-   # Quick visualization of all monitors
-   hwc.quick_view_monitors(results, component='all')  # Total field intensity
-   hwc.quick_view_monitors(results, component='Hz')   # Hz component
+   convergence = hwc.ConvergenceConfig(
+       check_every_n=500,
+       relative_threshold=0.005,   # 0.5% threshold
+       min_stable_checks=5,
+       min_steps=3000,
+   )
 
-   # Power analysis (already computed by API)
-   input_power = results['powers']['Input']
-   output_power = results['powers']['Output']
+   results = hwc.run_simulation(..., convergence=convergence)
 
-   print(f"Input power: {jnp.mean(input_power):.4e}")
-   print(f"Output power: {jnp.mean(output_power):.4e}")
+GPU Options
+-----------
 
-   # Transmission analysis
-   transmission = results['transmissions']['transmission']
-   print(f"Transmission per frequency: {transmission}")
-   print(f"Average transmission: {jnp.mean(transmission):.4f}")
-   print(f"Transmission in dB: {10*jnp.log10(jnp.mean(transmission)):.2f} dB")
+Available GPU types (in order of performance):
 
-   # Loss calculation
-   loss = 1 - jnp.mean(transmission)
-   loss_dB = -10*jnp.log10(jnp.mean(transmission))
-   print(f"Loss: {loss:.4f} ({loss_dB:.2f} dB)")
+- ``"B200"`` - NVIDIA B200 (fastest)
+- ``"H200"`` - NVIDIA H200
+- ``"H100"`` - NVIDIA H100
+- ``"A100-80GB"`` - NVIDIA A100 80GB
+- ``"A100-40GB"`` - NVIDIA A100 40GB
+- ``"L40S"`` - NVIDIA L40S
+- ``"L4"`` - NVIDIA L4
+- ``"A10G"`` - NVIDIA A10G
+- ``"T4"`` - NVIDIA T4 (most economical)
 
 .. toctree::
    :maxdepth: 2
