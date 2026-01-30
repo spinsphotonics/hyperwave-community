@@ -401,6 +401,9 @@ def run_simulation(
     significant_power_threshold: float = 1e-6,
     required_ports: Optional[List[str]] = None,
     poll_interval: float = 2.0,
+    early_stopping: bool = True,
+    relative_threshold: float = 0.001,
+    absolute_threshold: float = 1e-10,
 ) -> Optional[Dict[str, Any]]:
     """Stage 2: Run FDTD simulation on Modal GPU with pre-computed setup.
 
@@ -421,14 +424,18 @@ def run_simulation(
         significant_power_threshold: Min power level for convergence check.
         required_ports: List of port names to check for convergence.
         poll_interval: Seconds between status polls (default: 2.0).
+        early_stopping: If True, use early stopping endpoint (default: True).
+        relative_threshold: Relative change threshold for convergence (default: 0.001).
+        absolute_threshold: Absolute change threshold for convergence (default: 1e-10).
 
     Returns:
         Dict with simulation results:
-        - s_parameters: Analyzed transmission data
-        - field_intensity: 2D field intensity for visualization
-        - port_fields: Per-port field data
         - sim_time: GPU simulation time in seconds
-        - converged: Whether simulation converged
+        - total_time: Total execution time including overhead
+        - monitor_data: Decoded monitor field data
+        - powers: Power at each monitor
+        - converged: Whether simulation converged (only meaningful with early_stopping=True)
+        - performance: Simulation performance (pts*steps/s)
 
     Example:
         >>> setup = hwc.prepare_simulation(device_type="mmi2x2", pdk_config=pdk_config)
@@ -437,9 +444,13 @@ def run_simulation(
         ...     setup_data=setup['setup_data'],
         ...     num_steps=30000,
         ...     gpu_type="H100",
+        ...     early_stopping=True,
         ... )
-        >>> print(f"T_total: {results['s_parameters']['T_total']}")
+        >>> print(f"Simulation time: {results['sim_time']:.1f}s")
     """
+    import time
+    start_time = time.time()
+
     config = _get_api_config()
     API_URL = config['api_url']
     API_KEY = config['api_key']
@@ -453,10 +464,12 @@ def run_simulation(
     if "setup_data" in setup_data and "source_field_base64" not in setup_data:
         setup_data = setup_data["setup_data"]
 
+    endpoint = "/early_stopping" if early_stopping else "/simulate"
     print(f"Starting simulation for {device_type}...")
     print(f"  GPU: {gpu_type}, Max steps: {num_steps}")
+    print(f"  Early stopping: {early_stopping}")
 
-    # Build request body for /simulate endpoint
+    # Build request body
     body = {
         "structure_recipe": setup_data.get("structure_recipe"),
         "source_field_b64": setup_data.get("source_field_b64"),
@@ -473,16 +486,23 @@ def run_simulation(
         "absorption_coeff": float(absorption_coeff),
     }
 
+    # Add early stopping specific parameters
+    if early_stopping:
+        body["relative_threshold"] = relative_threshold
+        body["absolute_threshold"] = absolute_threshold
+        body["significant_power_threshold"] = significant_power_threshold
+        body["min_stable_checks"] = min_stable_checks
+
     headers = {
         "X-API-Key": API_KEY,
         "Content-Type": "application/json"
     }
 
     try:
-        # Call /simulate endpoint (synchronous)
-        print("Calling simulation API...")
+        # Call appropriate endpoint
+        print(f"Calling {endpoint} API...")
         response = requests.post(
-            f"{API_URL}/simulate",
+            f"{API_URL}{endpoint}",
             json=body,
             headers=headers,
             timeout=600  # 10 minute timeout for long simulations
@@ -491,8 +511,16 @@ def run_simulation(
         result = response.json()
 
         sim_time = result.get("sim_time", 0)
+        total_time = time.time() - start_time
         converged = result.get("converged", False)
-        print(f"Simulation completed in {sim_time:.1f}s (converged: {converged})")
+
+        if early_stopping:
+            convergence_step = result.get("convergence_step", 0)
+            print(f"Simulation completed in {sim_time:.1f}s (total: {total_time:.1f}s)")
+            if converged:
+                print(f"  Converged at step {convergence_step}")
+        else:
+            print(f"Simulation completed in {sim_time:.1f}s (total: {total_time:.1f}s)")
 
         # Decode base64-encoded arrays from API response
         def decode_b64_dict(d, shapes=None):
@@ -535,7 +563,9 @@ def run_simulation(
         # Process results
         return {
             "sim_time": sim_time,
+            "total_time": total_time,
             "converged": converged,
+            "convergence_step": result.get("convergence_step", 0) if early_stopping else 0,
             "monitor_data": monitor_data,
             "monitor_data_shapes": monitor_shapes,
             "monitor_names": result.get("monitor_names", {}),
