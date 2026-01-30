@@ -2126,14 +2126,17 @@ def analyze_transmission(
         if arr.ndim == 1 and monitor_name in monitor_shapes:
             target_shape = tuple(monitor_shapes[monitor_name])
             n_elements = np.prod(target_shape)
+            expected_float32_len = n_elements * 2  # complex64 stored as float32 pairs
 
-            # Try complex64 first (monitor fields are typically complex)
-            if len(arr) == n_elements * 2:  # float32 view of complex64
-                arr = arr.view(np.complex64).reshape(target_shape)
+            # Handle cases where array might have padding/extra elements
+            if len(arr) >= expected_float32_len:
+                # Truncate to expected size and view as complex64
+                arr = arr[:expected_float32_len].view(np.complex64).reshape(target_shape)
             elif len(arr) == n_elements:
+                # Already the right number of elements (complex stored directly)
                 arr = arr.reshape(target_shape)
-            # If still can't reshape, try as complex64 directly
             elif len(arr) * 2 == n_elements:
+                # float64 or needs casting to complex
                 arr = arr.astype(np.complex64).reshape(target_shape)
 
         if arr.ndim == 5:
@@ -2230,11 +2233,14 @@ def get_field_intensity_2d(
     if data.ndim == 1 and monitor_name in monitor_shapes:
         target_shape = tuple(monitor_shapes[monitor_name])
         n_elements = np.prod(target_shape)
+        expected_float32_len = n_elements * 2  # complex64 stored as float32 pairs
 
-        # Try complex64 first (monitor fields are typically complex)
-        if len(data) == n_elements * 2:  # float32 view of complex64
-            data = data.view(np.complex64).reshape(target_shape)
+        # Handle cases where array might have padding/extra elements
+        if len(data) >= expected_float32_len:
+            # Truncate to expected size and view as complex64
+            data = data[:expected_float32_len].view(np.complex64).reshape(target_shape)
         elif len(data) == n_elements:
+            # Already the right number of elements (complex stored directly)
             data = data.reshape(target_shape)
 
     # Handle different data shapes from various endpoints
