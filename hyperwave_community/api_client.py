@@ -2269,12 +2269,23 @@ def get_field_intensity_2d(
 
     # Handle different data shapes from various endpoints
     if data.ndim == 5:
-        # Shape: (1, 6, 3, ny, nz) - squeeze first dim, take E fields, average over 3rd
-        data = data[0]  # Now (6, 3, ny, nz)
-        E_fields = data[0:3, :, :, :]  # (3, 3, ny, nz)
-        E_fields = np.mean(E_fields, axis=1)  # (3, ny, nz)
-        field_intensity = np.sum(np.abs(E_fields)**2, axis=0)
-        field_2d = field_intensity.T
+        # Two possible shapes:
+        # 1. Port monitors: (1, 6, 3, ny, nz) - small 3rd dim, average over it
+        # 2. xy_mid monitor: (1, 6, Lx, Ly, 1) - large xy dims, squeeze last dim
+        data = data[0]  # Now (6, dim2, dim3, dim4)
+
+        if data.shape[-1] == 1:
+            # xy_mid case: (6, Lx, Ly, 1) - squeeze z dimension
+            data = data.squeeze(-1)  # Now (6, Lx, Ly)
+            E_fields = data[0:3, :, :]  # (3, Lx, Ly)
+            field_intensity = np.sum(np.abs(E_fields)**2, axis=0)
+            field_2d = field_intensity.T  # (Ly, Lx) for imshow
+        else:
+            # Port monitor case: (6, 3, ny, nz) - average over small dimension
+            E_fields = data[0:3, :, :, :]  # (3, 3, ny, nz)
+            E_fields = np.mean(E_fields, axis=1)  # (3, ny, nz)
+            field_intensity = np.sum(np.abs(E_fields)**2, axis=0)
+            field_2d = field_intensity.T
     elif data.ndim == 4:
         # Shape: (n_freqs, 6, ny, nz) - frequency-indexed data
         # Use first frequency
