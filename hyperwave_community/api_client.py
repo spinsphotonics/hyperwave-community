@@ -1049,7 +1049,9 @@ def build_monitors(
             Lx, Ly, Lz = dimensions
             z_mid = Lz // 2
             # Create xy_mid monitor covering full xy plane at z=z_mid
+            # Note: 'name' field is required by API for monitor dict conversion
             xy_mid_monitor = {
+                'name': 'xy_mid',
                 'type': 'xy_plane',
                 'z_start': z_mid,
                 'z_end': z_mid + 1,
