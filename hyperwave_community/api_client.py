@@ -995,6 +995,7 @@ def build_monitors(
     source_offset_cells: int = 5,
     structure_recipe: Dict[str, Any] = None,
     show_structure: bool = True,
+    include_field_monitor: bool = True,
 ) -> Optional[Dict[str, Any]]:
     """Build monitors from port information on Modal CPU.
 
@@ -1011,6 +1012,7 @@ def build_monitors(
         source_offset_cells: Offset of source from monitor
         structure_recipe: Recipe from build_recipe() - required for visualization
         show_structure: If True and structure_recipe provided, show structure plot
+        include_field_monitor: If True, create xy_mid monitor for field visualization
     """
     config = _get_api_config()
     API_URL = config['api_url']
@@ -1027,6 +1029,7 @@ def build_monitors(
         "monitor_z_um": monitor_z_um,
         "resolution_um": resolution_um,
         "source_offset_cells": source_offset_cells,
+        "include_field_monitor": include_field_monitor,
     }
 
     headers = {"X-API-Key": API_KEY, "Content-Type": "application/json"}
@@ -1040,6 +1043,28 @@ def build_monitors(
         )
         response.raise_for_status()
         result = response.json()
+
+        # Add xy_mid field monitor if requested and not already present
+        if include_field_monitor and 'xy_mid' not in result.get('monitor_names', {}):
+            Lx, Ly, Lz = dimensions
+            z_mid = Lz // 2
+            # Create xy_mid monitor covering full xy plane at z=z_mid
+            xy_mid_monitor = {
+                'type': 'xy_plane',
+                'z_start': z_mid,
+                'z_end': z_mid + 1,
+                'x_start': 0,
+                'x_end': Lx,
+                'y_start': 0,
+                'y_end': Ly,
+            }
+            # Add to monitors list and names
+            monitors = result.get('monitors', [])
+            monitor_idx = len(monitors)
+            monitors.append(xy_mid_monitor)
+            result['monitors'] = monitors
+            result['monitor_names']['xy_mid'] = monitor_idx
+
         print(f"Monitors built: {list(result.get('monitor_names', {}).keys())}")
 
         # Visualize structure if requested and recipe provided
