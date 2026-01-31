@@ -1049,16 +1049,13 @@ def build_monitors(
             Lx, Ly, Lz = dimensions
             z_mid = Lz // 2
             # Create xy_mid monitor covering full xy plane at z=z_mid
-            # Note: 'name' field is required by API for monitor dict conversion
+            # Must use 'shape' and 'offset' format (same as port monitors)
+            # shape: (Lx, Ly, 1) - full xy plane, 1 z-slice
+            # offset: (0, 0, z_mid) - starting position
             xy_mid_monitor = {
                 'name': 'xy_mid',
-                'type': 'xy_plane',
-                'z_start': z_mid,
-                'z_end': z_mid + 1,
-                'x_start': 0,
-                'x_end': Lx,
-                'y_start': 0,
-                'y_end': Ly,
+                'shape': [Lx, Ly, 1],
+                'offset': [0, 0, z_mid],
             }
             # Add to monitors list and names
             monitors = result.get('monitors', [])
