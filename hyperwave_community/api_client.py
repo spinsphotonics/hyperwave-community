@@ -145,7 +145,7 @@ def _resolve_convergence(convergence) -> Optional[ConvergenceConfig]:
 # Global API configuration
 _API_CONFIG = {
     'api_key': None,
-    'api_url': 'https://hyperwave-cloud.onrender.com'
+    'api_url': 'https://hyperwave-api-ndxkltl5nq-uc.a.run.app'
 }
 
 

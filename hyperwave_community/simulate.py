@@ -97,7 +97,7 @@ def simulate(
         print("Sign up for free at spinsphotonics.com to get your API key.")
         return None
 
-    API_URL = "https://hyperwave-cloud.onrender.com"
+    API_URL = "https://hyperwave-api-ndxkltl5nq-uc.a.run.app"
 
     # Extract structure recipe
     structure_recipe = structure.extract_recipe()
@@ -305,7 +305,7 @@ def simulate_from_recipe(
         print("Sign up for free at spinsphotonics.com to get your API key.")
         return None
 
-    API_URL = "https://hyperwave-cloud.onrender.com"
+    API_URL = "https://hyperwave-api-ndxkltl5nq-uc.a.run.app"
 
     # Encode source field
     source_field_b64 = encode_array(np.array(source_field))
