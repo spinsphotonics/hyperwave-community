@@ -138,11 +138,12 @@ from .data_io import (
 
 
 # Import simulation utilities (local versions, for backwards compatibility)
-from .simulate import (
-    simulate as simulate_local,
-    simulate_from_recipe,
-    quick_view_monitors,
-)
+# Note: We import these with explicit names to avoid shadowing the api_client.simulate function
+from .simulate import simulate as simulate_local
+from .simulate import simulate_from_recipe, quick_view_monitors
+
+# Re-import simulate from api_client to ensure it's not shadowed by the module import above
+from .api_client import simulate
 
 # Define public API
 __all__ = [
