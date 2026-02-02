@@ -1,14 +1,13 @@
 Hyperwave Community Documentation
 ==================================
 
-Welcome to the Hyperwave Community documentation. This package provides an open-source photonics simulation toolkit with GPU-accelerated FDTD via cloud API.
+GPU-accelerated FDTD photonics simulation via cloud API.
 
 Features
 --------
 
 * **GDSFactory Integration**: Import photonic components directly from GDSFactory
-* **Granular Workflow**: Step-by-step control over simulation setup
-* **GPU-Accelerated Simulation**: Run FDTD simulations on cloud-based GPUs (B200, H200, H100, A100, etc.)
+* **GPU-Accelerated Simulation**: Run FDTD simulations on cloud GPUs (B200, H200, H100, A100, etc.)
 * **Early Stopping**: Smart convergence detection to optimize simulation time
 * **Power Analysis**: Poynting flux calculations and transmission spectra
 * **Visualization**: Built-in plotting for structures, modes, and field intensities
@@ -20,203 +19,58 @@ Installation
 
    pip install hyperwave-community
 
-Or install from source:
+Or install from GitHub:
 
 .. code-block:: bash
 
-   git clone https://github.com/spinsphotonics/hyperwave-community.git
-   cd hyperwave-community
-   pip install -e .
+   pip install git+https://github.com/spinsphotonics/hyperwave-community.git
 
-Quick Start (Granular Workflow)
--------------------------------
+Workflow Overview
+-----------------
 
-The granular workflow is recommended for most users.
+The SDK workflow consists of:
 
-1. Configure API
-~~~~~~~~~~~~~~~~
-
-Get your API key from `spinsphotonics.com <https://spinsphotonics.com>`_.
+1. **CPU Steps (free)**: Build structure, monitors, frequency band, and mode source
+2. **GPU Step (uses credits)**: Run FDTD simulation
+3. **Analysis (free, local)**: Analyze transmission and visualize fields
 
 .. code-block:: python
 
    import hyperwave_community as hwc
 
-   # Configure and validate API key
-   hwc.configure_api(api_key="your-api-key-here")
-   hwc.get_account_info()  # Check your credits
+   # Configure API
+   hwc.configure_api(api_key="your-api-key")
 
-2. Build Structure Recipe
-~~~~~~~~~~~~~~~~~~~~~~~~~
+   # CPU Steps (free)
+   recipe_result = hwc.build_recipe(component_name="mmi2x2", ...)
+   monitor_result = hwc.build_monitors(port_info=recipe_result['port_info'], ...)
+   freq_result = hwc.compute_freq_band(wl_min_um=1.55, wl_max_um=1.55, ...)
+   source_result = hwc.solve_mode_source(density_core=recipe_result['density_core'], ...)
 
-Build a 3D photonic structure from a GDSFactory component.
-
-.. code-block:: python
-
-   # Build structure recipe from GDSFactory component
-   recipe_result = hwc.build_recipe(
-       component_name="mmi2x2_with_sbend",  # Any gdsfactory component
-       resolution_nm=20,           # Grid resolution in nm
-       n_core=3.48,                # Silicon refractive index
-       n_clad=1.4457,              # SiO2 cladding refractive index
-       wg_height_um=0.22,          # Waveguide core height in um
-       total_height_um=4.0,        # Total simulation height
-       extension_length=2.0,       # Port extension length in um
-       padding=[100, 100, 0, 0],   # Padding cells (left, right, top, bottom)
-   )
-
-   print(f"Structure dimensions: {recipe_result['dimensions']}")
-   print(f"Ports: {list(recipe_result['port_info'].keys())}")
-
-3. Build Monitors
-~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   # Build monitors from port information
-   monitor_result = hwc.build_monitors(
-       port_info=recipe_result['port_info'],
-       dimensions=recipe_result['dimensions'],
-       source_port="o1",           # Input port name
-       structure_recipe=recipe_result['recipe'],
-       show_structure=True,        # Visualize structure with monitors
-   )
-
-4. Compute Frequency Band
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   # Convert wavelength to frequency band
-   freq_result = hwc.compute_freq_band(
-       wl_min_um=1.55,             # Center wavelength
-       wl_max_um=1.55,
-       n_freqs=1,
-       resolution_um=recipe_result['resolution_um'],
-   )
-
-5. Solve Waveguide Mode
-~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   # Solve for waveguide mode at source port
-   source_result = hwc.solve_mode_source(
-       density_core=recipe_result['density_core'],
-       density_clad=recipe_result['density_clad'],
-       source_x_position=monitor_result['source_position'],
-       mode_bounds=monitor_result['mode_bounds'],
-       layer_config=recipe_result['layer_config'],
-       eps_values=recipe_result['eps_values'],
-       freq_band=freq_result['freq_band'],
-       mode_num=0,                 # Fundamental TE mode
-       show_mode=True,             # Visualize mode profile
-   )
-
-6. Run Simulation
-~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   # Run FDTD simulation - pass granular results directly
+   # GPU Step (uses credits)
    results = hwc.run_simulation(
-       device_type="mmi2x2_with_sbend",
+       device_type="mmi2x2",
        recipe_result=recipe_result,
        monitor_result=monitor_result,
        freq_result=freq_result,
        source_result=source_result,
-       num_steps=20000,
-       gpu_type="H100",            # Options: B200, H200, H100, A100, etc.
-       convergence="default",      # or "quick", "thorough", "full"
+       gpu_type="H100",
+       convergence="default",
    )
 
-   print(f"Simulation time: {results['sim_time']:.1f}s")
-   if results.get('converged'):
-       print(f"Converged at step: {results['convergence_step']}")
+   # Analysis (free, local)
+   transmission = hwc.analyze_transmission(results, input_monitor="Input_o1", ...)
 
-7. Analyze Results
-~~~~~~~~~~~~~~~~~~
-
-.. code-block:: python
-
-   import matplotlib.pyplot as plt
-
-   # Transmission analysis
-   transmission = hwc.analyze_transmission(
-       results,
-       input_monitor="Input_o1",
-       output_monitors=["Output_o3", "Output_o4"],
-   )
-
-   # Field intensity visualization
-   field_data = hwc.get_field_intensity_2d(
-       results,
-       monitor_name='xy_mid',
-       dimensions=recipe_result['dimensions'],
-       resolution_um=recipe_result['resolution_um'],
-       freq_band=freq_result['freq_band'],
-   )
-
-   plt.figure(figsize=(12, 5))
-   plt.imshow(
-       field_data['intensity'],
-       origin='upper',
-       extent=field_data['extent'],
-       cmap='jet',
-       aspect='equal'
-   )
-   plt.xlabel('x (μm)')
-   plt.ylabel('y (μm)')
-   plt.title(f"|E|² at λ = {field_data['wavelength_nm']:.1f} nm")
-   plt.colorbar(label='|E|²')
-   plt.show()
-
-Convergence Presets
--------------------
-
-Control early stopping behavior:
-
-- ``"quick"`` - Fast, fewer stability checks (2 checks at 2000 step intervals)
-- ``"default"`` - Balanced approach (3 checks at 1000 step intervals)
-- ``"thorough"`` - Conservative (5 checks, min 5000 steps)
-- ``"full"`` - No early stopping, run all steps
-
-All presets use 1% relative threshold.
-
-For custom configuration, use ``ConvergenceConfig`` with all available options:
-
-.. code-block:: python
-
-   convergence = hwc.ConvergenceConfig(
-       check_every_n=500,            # Steps between convergence checks (default: 1000)
-       relative_threshold=0.005,     # Relative power change threshold (default: 0.01 = 1%)
-       min_stable_checks=5,          # Consecutive stable checks required (default: 3)
-       min_steps=3000,               # Minimum steps before checking (default: 0)
-       power_threshold=1e-7,         # Ignore ports with power below this (default: 1e-6)
-       monitors=["Output_o3"],       # Specific monitors to check (default: None = all outputs)
-   )
-
-   results = hwc.run_simulation(..., convergence=convergence)
-
-GPU Options
------------
-
-Available GPU types (in order of performance):
-
-- ``"B200"`` - NVIDIA B200 (fastest)
-- ``"H200"`` - NVIDIA H200
-- ``"H100"`` - NVIDIA H100
-- ``"A100-80GB"`` - NVIDIA A100 80GB
-- ``"A100-40GB"`` - NVIDIA A100 40GB
-- ``"L40S"`` - NVIDIA L40S
-- ``"L4"`` - NVIDIA L4
-- ``"A10G"`` - NVIDIA A10G
-- ``"T4"`` - NVIDIA T4 (most economical)
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2
 
+   quickstart
    api
+   convergence
+   gpu_options
 
 Indices and tables
 ==================
