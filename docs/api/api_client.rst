@@ -6,14 +6,14 @@ The API client module provides GPU-accelerated FDTD simulation via the Hyperwave
 .. automodule:: hyperwave_community.api_client
    :no-members:
 
-Workflows Overview
-------------------
+Workflow Overview
+-----------------
 
-The SDK supports multiple workflow levels:
+The SDK workflow consists of:
 
-1. **Granular Workflow** (Recommended): Maximum control with step-by-step functions
-2. **Two-Stage Workflow**: Separate setup and simulation phases
-3. **One-Shot Workflow**: Quick single-function simulation
+1. **CPU Steps (free)**: Build structure, monitors, frequency band, and mode source
+2. **GPU Step (uses credits)**: Run FDTD simulation
+3. **Analysis (free, local)**: Analyze transmission and visualize fields
 
 Configuration & Account
 -----------------------
@@ -22,12 +22,10 @@ Configuration & Account
 .. autofunction:: hyperwave_community.api_client.get_account_info
 .. autofunction:: hyperwave_community.api_client.estimate_cost
 
-Granular Workflow (Recommended)
--------------------------------
+CPU Steps (Free)
+----------------
 
-The granular workflow gives you maximum control over the simulation process.
-
-**Setup Functions:**
+These functions run on Modal CPU and don't consume credits.
 
 .. autofunction:: hyperwave_community.api_client.build_recipe
 .. autofunction:: hyperwave_community.api_client.build_monitors
@@ -35,23 +33,12 @@ The granular workflow gives you maximum control over the simulation process.
 .. autofunction:: hyperwave_community.api_client.solve_mode_source
 .. autofunction:: hyperwave_community.api_client.get_default_absorber_params
 
-**Run Simulation:**
+GPU Step (Uses Credits)
+-----------------------
 
 .. autofunction:: hyperwave_community.api_client.run_simulation
 
-Two-Stage Workflow
-------------------
-
-The two-stage workflow separates setup from simulation.
-
-.. autofunction:: hyperwave_community.api_client.prepare_simulation
-
-One-Shot Workflow
------------------
-
-For quick tests, use the one-shot workflow that combines everything.
-
-.. autofunction:: hyperwave_community.api_client.simulate
+.. _convergence-configuration:
 
 Convergence Configuration
 -------------------------
@@ -90,8 +77,8 @@ For fine-grained control, create a custom ``ConvergenceConfig``:
 
 .. autodata:: hyperwave_community.api_client.CONVERGENCE_PRESETS
 
-Analysis Functions
-------------------
+Analysis Functions (Free, Local)
+--------------------------------
 
 These functions run locally for analyzing simulation results.
 
@@ -111,15 +98,3 @@ Utility Functions
 
 .. autofunction:: hyperwave_community.api_client.encode_array
 .. autofunction:: hyperwave_community.api_client.decode_array
-
-Advanced Granular Workflow
---------------------------
-
-For fine-grained control over individual API calls:
-
-.. autofunction:: hyperwave_community.api_client.load_component
-.. autofunction:: hyperwave_community.api_client.create_structure_recipe
-.. autofunction:: hyperwave_community.api_client.create_monitors
-.. autofunction:: hyperwave_community.api_client.solve_mode
-.. autofunction:: hyperwave_community.api_client.run_gpu_simulation
-.. autofunction:: hyperwave_community.api_client.get_field_slice
