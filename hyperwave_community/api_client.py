@@ -1,29 +1,19 @@
 """Hyperwave API Client for GPU-accelerated FDTD photonics simulations.
 
-Four workflow levels are available:
+WORKFLOW:
 
-1. TWO-STAGE WORKFLOW (Recommended for most users):
-    - prepare_simulation() - Setup simulation parameters (CPU on Modal)
-    - run_simulation() - Run FDTD with pre-computed setup (GPU on Modal)
-
-2. GRANULAR WORKFLOW (For advanced control):
+CPU Steps (free, require valid API key):
     - build_recipe() - Create structure from GDSFactory component
     - build_monitors() - Create monitors from port information
     - compute_freq_band() - Convert wavelengths to frequencies
     - solve_mode_source() - Solve for waveguide mode
-    - get_default_absorber_params() - Get absorber configuration
 
-3. NEW GRANULAR WORKFLOW (For fine-grained control):
-    - load_component() - Load GDSFactory component metadata
-    - create_structure_recipe() - Create structure recipe from component
-    - create_monitors() - Create monitors from structure recipe
-    - solve_mode() - Solve waveguide mode at source port
-    - run_gpu_simulation() - Run FDTD simulation on GPU
+GPU Step (uses credits):
+    - run_simulation() - Run FDTD simulation on GPU
+
+Analysis (free, runs locally):
     - analyze_transmission() - Analyze transmission from results
-    - get_field_slice() - Extract 2D field slice for visualization
-
-4. ONE-SHOT WORKFLOW (For quick tests):
-    - simulate() - Combines setup + simulation in one call
+    - get_field_intensity_2d() - Extract 2D field intensity for visualization
 
 Utility Functions:
     - configure_api() - Set API credentials and endpoint
@@ -374,6 +364,27 @@ def prepare_simulation(
     cells_per_wavelength: int = 25,
     mode_num: int = 0,
     device_params: Optional[Dict[str, Any]] = None,
+    # build_recipe parameters
+    extension_length: float = 2.0,
+    total_height_um: float = 4.0,
+    padding: Tuple[int, int, int, int] = (100, 100, 0, 0),
+    density_radius: int = 3,
+    vertical_radius: float = 2.0,
+    # build_monitors parameters
+    monitor_x_um: float = 0.1,
+    monitor_y_um: float = 1.5,
+    monitor_z_um: float = 1.5,
+    source_offset_cells: int = 5,
+    show_structure: bool = False,
+    include_field_monitor: bool = True,
+    # compute_freq_band parameters
+    n_freqs: int = 1,
+    # solve_mode_source parameters
+    slice_half_width: int = 5,
+    propagation_axis: str = "x",
+    show_mode: bool = False,
+    # get_default_absorber_params parameters
+    absorber_fraction: float = 0.1,
 ) -> Optional[Dict[str, Any]]:
     """Stage 1: Prepare simulation inputs on Modal CPU.
 
@@ -396,6 +407,32 @@ def prepare_simulation(
         cells_per_wavelength: FDTD resolution (default: 25). Higher = more accurate but slower.
         mode_num: Mode number to solve (0 = fundamental, default: 0).
         device_params: Optional dict of device-specific parameters.
+
+        # Structure recipe parameters (from build_recipe):
+        extension_length: Length to extend ports in um (default: 2.0).
+        total_height_um: Total structure height in um (default: 4.0).
+        padding: (left, right, top, bottom) padding in theta pixels (default: (100,100,0,0)).
+        density_radius: Radius for density filtering (default: 3).
+        vertical_radius: Vertical blur radius (default: 2.0).
+
+        # Monitor parameters (from build_monitors):
+        monitor_x_um: Monitor thickness in x direction (default: 0.1).
+        monitor_y_um: Monitor size in y direction (default: 1.5).
+        monitor_z_um: Monitor size in z direction (default: 1.5).
+        source_offset_cells: Offset of source from monitor in cells (default: 5).
+        show_structure: If True, display structure visualization (default: False).
+        include_field_monitor: If True, include xy_mid monitor for field vis (default: True).
+
+        # Frequency band parameters (from compute_freq_band):
+        n_freqs: Number of frequency points (default: 1).
+
+        # Mode solver parameters (from solve_mode_source):
+        slice_half_width: Half-width of mode slice in cells (default: 5).
+        propagation_axis: Propagation axis 'x', 'y', or 'z' (default: "x").
+        show_mode: If True, display mode profile visualization (default: False).
+
+        # Absorber parameters (from get_default_absorber_params):
+        absorber_fraction: Fraction of structure for absorber (default: 0.1).
 
     Returns:
         Dict with:
@@ -443,6 +480,27 @@ def prepare_simulation(
         "cells_per_wavelength": cells_per_wavelength,
         "pdk_config": pdk_config,
         "mode_num": mode_num,
+        # build_recipe parameters
+        "extension_length": extension_length,
+        "total_height_um": total_height_um,
+        "padding": list(padding),
+        "density_radius": density_radius,
+        "vertical_radius": vertical_radius,
+        # build_monitors parameters
+        "monitor_x_um": monitor_x_um,
+        "monitor_y_um": monitor_y_um,
+        "monitor_z_um": monitor_z_um,
+        "source_offset_cells": source_offset_cells,
+        "show_structure": show_structure,
+        "include_field_monitor": include_field_monitor,
+        # compute_freq_band parameters
+        "n_freqs": n_freqs,
+        # solve_mode_source parameters
+        "slice_half_width": slice_half_width,
+        "propagation_axis": propagation_axis,
+        "show_mode": show_mode,
+        # get_default_absorber_params parameters
+        "absorber_fraction": absorber_fraction,
     }
 
     headers = {
@@ -500,6 +558,11 @@ def run_simulation(
     absorption_widths: List[int] = None,
     absorption_coeff: float = 0.0006173770394704579,
     source_ramp_periods: float = 10.0,
+    # Analysis parameters (for analyze_transmission)
+    input_monitor: Optional[str] = None,
+    output_monitors: Optional[List[str]] = None,
+    # Field slice parameters (for get_field_intensity)
+    field_monitor_name: str = "xy_mid",
 ) -> Optional[Dict[str, Any]]:
     """Run FDTD simulation on Modal GPU.
 
@@ -545,6 +608,13 @@ def run_simulation(
         absorption_coeff: Absorber coefficient.
         source_ramp_periods: Source ramp-up periods (default: 10.0).
 
+        # Analysis parameters (for analyze_transmission):
+        input_monitor: Name of input monitor (default: auto-detect from source_port).
+        output_monitors: List of output monitor names (default: auto-detect all non-input ports).
+
+        # Field slice parameters (for get_field_intensity):
+        field_monitor_name: Name of 2D field monitor (default: "xy_mid").
+
     Returns:
         Dict with simulation results:
         - sim_time: GPU simulation time in seconds
@@ -554,6 +624,8 @@ def run_simulation(
         - converged: Whether simulation converged (False if convergence="full")
         - convergence_step: Step at which convergence was detected
         - performance: Simulation performance (pts*steps/s)
+        - s_parameters: S-parameter results (if analyze_transmission succeeds)
+        - field_intensity: 2D field intensity data (if get_field_intensity succeeds)
     """
     import time
     start_time = time.time()
@@ -596,6 +668,39 @@ def run_simulation(
     print(f"  GPU: {gpu_type}, Max steps: {num_steps}")
     print(f"  Convergence: {convergence_name}")
 
+    # Get absorber params from setup_data if available (from prepare_simulation)
+    absorber_params = setup_data.get("absorber_params", {})
+
+    # Get structure dimensions for validation
+    dimensions = setup_data.get("dimensions", [1000, 500, 200])
+    # Calculate maximum safe absorber widths based on dimensions
+    # Absorber width must be less than half the dimension
+    max_safe_x = max(10, dimensions[0] // 2 - 10) if len(dimensions) > 0 else 82
+    max_safe_y = max(10, dimensions[1] // 2 - 10) if len(dimensions) > 1 else 40
+    max_safe_z = max(10, dimensions[2] // 2 - 10) if len(dimensions) > 2 else 40
+
+    # Use absorber params from setup_data if user didn't explicitly override
+    if absorption_widths is None:
+        # Get from setup_data or use defaults
+        if absorber_params and "absorption_widths" in absorber_params:
+            absorption_widths = list(absorber_params["absorption_widths"])
+        else:
+            absorption_widths = [82, 40, 40]  # Default values
+
+    # ALWAYS validate absorption_widths against structure dimensions
+    # This prevents "z_pad cannot exceed half the z dimension" errors
+    absorption_widths = [
+        min(absorption_widths[0], max_safe_x),
+        min(absorption_widths[1], max_safe_y),
+        min(absorption_widths[2], max_safe_z),
+    ]
+
+    # Get absorption_coeff from setup_data if available and not explicitly overridden
+    if absorber_params and "absorption_coeff" in absorber_params:
+        effective_absorption_coeff = absorber_params["absorption_coeff"]
+    else:
+        effective_absorption_coeff = absorption_coeff
+
     # Build request body
     body = {
         "structure_recipe": setup_data.get("structure_recipe"),
@@ -609,8 +714,8 @@ def run_simulation(
         "source_ramp_periods": source_ramp_periods,
         "gpu_type": gpu_type,
         "add_absorption": True,
-        "absorption_widths": list(absorption_widths) if absorption_widths else [82, 40, 40],
-        "absorption_coeff": float(absorption_coeff),
+        "absorption_widths": list(absorption_widths),
+        "absorption_coeff": float(effective_absorption_coeff),
     }
 
     # Add early stopping specific parameters
@@ -688,8 +793,8 @@ def run_simulation(
         monitor_data = decode_b64_dict(result.get("monitor_data_b64", {}), monitor_shapes)
         powers = decode_b64_dict(result.get("powers", {}))
 
-        # Process results
-        return {
+        # Build simulation results dict for analysis
+        sim_results = {
             "sim_time": sim_time,
             "total_time": total_time,
             "converged": converged,
@@ -699,7 +804,50 @@ def run_simulation(
             "monitor_names": result.get("monitor_names", {}),
             "powers": powers,
             "performance": result.get("performance", 0),
+            # Keep raw result for analyze_transmission
+            "_raw_result": result,
         }
+
+        # Run analyze_transmission locally (avoids 413 payload size errors)
+        print("Analyzing transmission...")
+        try:
+            # Use local analyze_transmission function instead of API call
+            trans_result = analyze_transmission(
+                result,
+                input_monitor=input_monitor or "Input_o1",
+                output_monitors=output_monitors,
+                print_results=False
+            )
+            sim_results["s_parameters"] = trans_result
+            print(f"  Transmission analyzed: {len(trans_result.get('transmissions', {}))} ports")
+        except Exception as e:
+            print(f"  Warning: Could not analyze transmission: {e}")
+            sim_results["s_parameters"] = None
+
+        # Get field intensity for visualization (if specified monitor exists)
+        if field_monitor_name in result.get("monitor_names", {}):
+            print(f"Extracting field intensity from '{field_monitor_name}'...")
+            try:
+                # Use local extraction instead of API call (avoids 413 errors)
+                field_result = get_field_intensity_2d(
+                    result,
+                    monitor_name=field_monitor_name,
+                    dimensions=result.get("dimensions"),
+                    resolution_um=result.get("resolution_um", 0.02),
+                    freq_band=result.get("freq_band"),
+                )
+                sim_results["field_intensity"] = field_result
+                print(f"  Field intensity extracted: {field_result.get('shape')}")
+            except Exception as e:
+                print(f"  Warning: Could not extract field intensity: {e}")
+                sim_results["field_intensity"] = None
+        else:
+            sim_results["field_intensity"] = None
+
+        # Remove raw result from returned dict
+        del sim_results["_raw_result"]
+
+        return sim_results
 
     except requests.exceptions.HTTPError as e:
         _handle_api_error(e, "run_simulation")
@@ -733,6 +881,24 @@ def simulate(
     significant_power_threshold: float = 1e-6,
     required_ports: Optional[List[str]] = None,
     poll_interval: float = 2.0,
+    # build_recipe parameters
+    extension_length: float = 2.0,
+    total_height_um: float = 4.0,
+    padding: Tuple[int, int, int, int] = (100, 100, 0, 0),
+    density_radius: int = 3,
+    vertical_radius: float = 2.0,
+    # build_monitors parameters
+    monitor_x_um: float = 0.1,
+    monitor_y_um: float = 1.5,
+    monitor_z_um: float = 1.5,
+    source_offset_cells: int = 5,
+    include_field_monitor: bool = True,
+    # solve_mode_source parameters
+    mode_num: int = 0,
+    slice_half_width: int = 5,
+    propagation_axis: str = "x",
+    # get_default_absorber_params parameters
+    absorber_fraction: float = 0.1,
 ) -> Optional[Dict[str, Any]]:
     """One-shot FDTD simulation on Modal GPUs (combines setup + simulation).
 
@@ -765,6 +931,28 @@ def simulate(
         significant_power_threshold: Min power for port detection.
         required_ports: List of port names that must have power.
         poll_interval: Seconds between status polls.
+
+        # Structure recipe parameters (from build_recipe):
+        extension_length: Length to extend ports in um (default: 2.0).
+        total_height_um: Total structure height in um (default: 4.0).
+        padding: (left, right, top, bottom) padding in theta pixels (default: (100,100,0,0)).
+        density_radius: Radius for density filtering (default: 3).
+        vertical_radius: Vertical blur radius (default: 2.0).
+
+        # Monitor parameters (from build_monitors):
+        monitor_x_um: Monitor thickness in x direction (default: 0.1).
+        monitor_y_um: Monitor size in y direction (default: 1.5).
+        monitor_z_um: Monitor size in z direction (default: 1.5).
+        source_offset_cells: Offset of source from monitor in cells (default: 5).
+        include_field_monitor: If True, include xy_mid monitor for field vis (default: True).
+
+        # Mode solver parameters (from solve_mode_source):
+        mode_num: Mode number to solve (0 = fundamental, default: 0).
+        slice_half_width: Half-width of mode slice in cells (default: 5).
+        propagation_axis: Propagation axis 'x', 'y', or 'z' (default: "x").
+
+        # Absorber parameters (from get_default_absorber_params):
+        absorber_fraction: Fraction of structure for absorber (default: 0.1).
 
     Returns:
         Dict with simulation results:
@@ -822,6 +1010,24 @@ def simulate(
         "absorber_coeff": absorber_coeff,
         "significant_power_threshold": significant_power_threshold,
         "required_ports": required_ports,
+        # build_recipe parameters
+        "extension_length": extension_length,
+        "total_height_um": total_height_um,
+        "padding": list(padding),
+        "density_radius": density_radius,
+        "vertical_radius": vertical_radius,
+        # build_monitors parameters
+        "monitor_x_um": monitor_x_um,
+        "monitor_y_um": monitor_y_um,
+        "monitor_z_um": monitor_z_um,
+        "source_offset_cells": source_offset_cells,
+        "include_field_monitor": include_field_monitor,
+        # solve_mode_source parameters
+        "mode_num": mode_num,
+        "slice_half_width": slice_half_width,
+        "propagation_axis": propagation_axis,
+        # get_default_absorber_params parameters
+        "absorber_fraction": absorber_fraction,
     }
 
     headers = {
@@ -866,10 +1072,26 @@ def simulate(
                 last_progress = progress
 
             if status == "completed":
-                sim_result = status_result.get("result", {})
-                sim_time = sim_result.get("sim_time", 0)
-                converged = sim_result.get("converged", False)
+                # Extract results from top-level response
+                sim_time = status_result.get("sim_time", 0)
+                converged = status_result.get("converged", False)
                 print(f"Simulation completed in {sim_time:.1f}s (converged: {converged})")
+
+                # Build result dict
+                sim_result = {
+                    "s_parameters": status_result.get("s_parameters", {}),
+                    "sim_time": sim_time,
+                    "converged": converged,
+                }
+
+                # Decode field_intensity if present
+                field_intensity = status_result.get("field_intensity")
+                if field_intensity:
+                    if "intensity_2d_b64" in field_intensity:
+                        field_intensity["intensity_2d"] = decode_array(field_intensity["intensity_2d_b64"])
+                        del field_intensity["intensity_2d_b64"]
+                    sim_result["field_intensity"] = field_intensity
+
                 return sim_result
 
             elif status in ("failed", "error"):

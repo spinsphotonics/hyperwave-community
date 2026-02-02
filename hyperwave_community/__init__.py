@@ -85,32 +85,23 @@ from .sources import (
 
 # Import API client functions (SDK-style interface)
 from .api_client import (
+    # Configuration
     configure_api,
     get_account_info,
     estimate_cost,
-    # Two-stage workflow (recommended)
-    prepare_simulation,
-    run_simulation,
-    # One-shot workflow
-    simulate,
-    # Granular workflow
+    # CPU Steps (free)
     build_recipe,
     build_monitors,
     solve_mode_source,
     compute_freq_band,
     get_default_absorber_params,
-    # New granular workflow functions (fine-grained control)
-    load_component,
-    create_structure_recipe,
-    create_monitors,
-    solve_mode,
-    run_gpu_simulation,
+    # GPU Step (uses credits)
+    run_simulation,
+    # Analysis functions (local, free)
     analyze_transmission,
-    get_field_slice,
-    # Analysis functions (local, no API calls)
+    get_field_intensity_2d,
     compute_poynting_vector,
     compute_monitor_power,
-    get_field_intensity_2d,
     # Visualization functions
     visualize_structure,
     visualize_mode_source,
@@ -188,31 +179,23 @@ __all__ = [
     "gds_to_theta",
     "component_to_theta",
 
-    # API - Two-stage workflow (recommended)
+    # API - Configuration
     "configure_api",
     "get_account_info",
     "estimate_cost",
-    "prepare_simulation",
-    "run_simulation",
 
-    # API - One-shot workflow
-    "simulate",
-
-    # API - Granular workflow
+    # API - CPU Steps (free)
     "build_recipe",
     "build_monitors",
     "solve_mode_source",
     "compute_freq_band",
     "get_default_absorber_params",
 
-    # API - New granular workflow (fine-grained control)
-    "load_component",
-    "create_structure_recipe",
-    "create_monitors",
-    "solve_mode",
-    "run_gpu_simulation",
+    # API - GPU Step (uses credits)
+    "run_simulation",
+
+    # API - Analysis (local, free)
     "analyze_transmission",
-    "get_field_slice",
 
     # Analysis functions (local)
     "compute_poynting_vector",
