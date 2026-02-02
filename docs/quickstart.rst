@@ -152,20 +152,27 @@ Summary
      - Function
      - Cost
    * - 1
-     - ``build_recipe()``
+     - :func:`~hyperwave_community.api_client.build_recipe`
      - Free
    * - 2
-     - ``build_monitors()``
+     - :func:`~hyperwave_community.api_client.build_monitors`
      - Free
    * - 3
-     - ``compute_freq_band()``
+     - :func:`~hyperwave_community.api_client.compute_freq_band`
      - Free
    * - 4
-     - ``solve_mode_source()``
+     - :func:`~hyperwave_community.api_client.solve_mode_source`
      - Free
    * - 5
-     - ``run_simulation()``
+     - :func:`~hyperwave_community.api_client.run_simulation`
      - Credits
    * - 6
-     - ``analyze_transmission()``
+     - :func:`~hyperwave_community.api_client.analyze_transmission`
      - Free
+
+Next Steps
+----------
+
+- **Full API Reference**: See :doc:`api/api_client` for complete function documentation
+- **GPU Options**: See :doc:`gpu_options` for available GPU types
+- **Convergence Options**: See :doc:`convergence` for early stopping configuration
