@@ -36,6 +36,27 @@ import requests
 from dataclasses import dataclass, field
 
 
+def _to_json_serializable(obj):
+    """Recursively convert numpy/JAX arrays to JSON-serializable Python types."""
+    if obj is None:
+        return None
+    if isinstance(obj, (bool, int, float, str)):
+        return obj
+    if isinstance(obj, (list, tuple)):
+        return [_to_json_serializable(item) for item in obj]
+    if isinstance(obj, dict):
+        return {k: _to_json_serializable(v) for k, v in obj.items()}
+    if hasattr(obj, 'tolist'):  # numpy/JAX arrays
+        return obj.tolist()
+    if hasattr(obj, 'item'):  # numpy scalars
+        return obj.item()
+    # Fallback: try to convert to float, then string
+    try:
+        return float(obj)
+    except (TypeError, ValueError):
+        return str(obj)
+
+
 # =============================================================================
 # CONVERGENCE CONFIGURATION
 # =============================================================================
@@ -2492,9 +2513,9 @@ def visualize_structure(
     print(f"Generating structure visualization (axis={axis})...")
 
     request_data = {
-        "structure_recipe": structure_recipe,
-        "monitors": monitors,
-        "monitor_names": monitor_names,
+        "structure_recipe": _to_json_serializable(structure_recipe),
+        "monitors": _to_json_serializable(monitors),
+        "monitor_names": _to_json_serializable(monitor_names),
         "dimensions": list(dimensions) if dimensions else None,
         "source_position": source_position,
         "axis": axis,
