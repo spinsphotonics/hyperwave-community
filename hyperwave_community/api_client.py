@@ -476,16 +476,34 @@ def load_component(
         })
 
     # Convert ports to the format expected by build_monitors
+    # Port positions need to be offset by bounding box min and converted to STRUCTURE cells
+    # (theta is 2x finer, but we want structure cell coordinates)
+    bbox = device_info.get('bounding_box_um', (0, 0, 0, 0))
+    xmin_um, ymin_um = bbox[0], bbox[1]
+
+    # Get max valid structure cell indices (theta is 2x finer)
+    theta_shape = device_info.get('shape', theta.shape)
+    max_x_cell = theta_shape[0] // 2 - 1  # -1 for 0-based indexing
+    max_y_cell = theta_shape[1] // 2 - 1
+
     port_info_dict = {}
     for port in component.ports:
-        # Convert port position from um to cells
+        # Convert port position from um to structure cells
+        # 1. Get port position in um (relative to component origin)
         port_x_um, port_y_um = port.center
-        port_x_cells = int(port_x_um / resolution_um)
-        port_y_cells = int(port_y_um / resolution_um)
+        # 2. Offset to make relative to bounding box origin
+        port_x_um_offset = port_x_um - xmin_um
+        port_y_um_offset = port_y_um - ymin_um
+        # 3. Convert to structure cells (not theta cells)
+        port_x_cells = int(port_x_um_offset / resolution_um)
+        port_y_cells = int(port_y_um_offset / resolution_um)
+        # 4. Cap to valid range (ports at exact edge need to be inside bounds)
+        port_x_cells = min(port_x_cells, max_x_cell)
+        port_y_cells = min(port_y_cells, max_y_cell)
 
         port_info_dict[port.name] = {
-            'x_cell': port_x_cells,
-            'y_cell': port_y_cells,
+            'x_struct': port_x_cells,
+            'y_struct': port_y_cells,
             'orientation': port.orientation,
             'width_um': port.width,
         }
@@ -643,11 +661,14 @@ def build_recipe_from_theta(
     dimensions = (Lx, Ly, Lz)
 
     # Adjust port positions for padding
+    # Note: In density(), padding = (left, right, top, bottom) where:
+    #   - left/right (padding[0]/[1]) pad the Y axis (axis 1)
+    #   - top/bottom (padding[2]/[3]) pad the X axis (axis 0)
     adjusted_port_info = {}
     for port_name, port_data in port_info.items():
         adjusted_port_info[port_name] = {
-            'x_cell': port_data['x_cell'] + padding[0],  # left padding
-            'y_cell': port_data['y_cell'] + padding[2],  # top padding
+            'x_struct': port_data['x_struct'] + padding[2],  # top padding adds to X
+            'y_struct': port_data['y_struct'] + padding[0],  # left padding adds to Y
             'orientation': port_data['orientation'],
             'width_um': port_data['width_um'],
         }
@@ -689,6 +710,131 @@ def build_recipe_from_theta(
         'padding': padding,
         'structure': structure,
         'device_info': theta_result.get('device_info'),
+    }
+
+
+def build_monitors_local(
+    recipe_result: Dict[str, Any],
+    source_port: str = "o1",
+    monitor_margin_um: float = 1.5,
+    source_offset_cells: int = 5,
+    show_monitors: bool = True,
+) -> Dict[str, Any]:
+    """Build monitors locally from recipe_result (no API call).
+
+    This function works with the output of build_recipe_from_theta() to create
+    monitors locally using the Structure object.
+
+    Args:
+        recipe_result: Output from build_recipe_from_theta() containing structure.
+        source_port: Name of port to use as source (default: "o1").
+        monitor_margin_um: Margin around waveguide for monitor size (default: 1.5).
+        source_offset_cells: Offset of source from port in cells (default: 5).
+        show_monitors: If True, show structure with monitor positions (default: True).
+
+    Returns:
+        Dictionary containing:
+            - monitors: MonitorSet object
+            - monitors_recipe: Serialized monitor recipe for simulation
+            - source_position: X position of source in cells
+            - source_port_name: Name of source port
+            - monitor_names: Dict mapping monitor names to indices
+            - mode_bounds: Bounds for mode solving
+
+    Example:
+        >>> theta_result = hwc.load_component("mmi2x2", resolution_nm=20)
+        >>> recipe_result = hwc.build_recipe_from_theta(theta_result)
+        >>> monitor_result = hwc.build_monitors_local(recipe_result, source_port="o1")
+    """
+    from .monitors import MonitorSet, view_monitors
+
+    structure = recipe_result.get('structure')
+    if structure is None:
+        raise ValueError("recipe_result must contain 'structure' from build_recipe_from_theta()")
+
+    port_info = recipe_result['port_info']
+    dimensions = recipe_result['dimensions']
+    resolution_um = recipe_result['resolution_um']
+    layer_config = recipe_result['layer_config']
+
+    Lx, Ly, Lz = dimensions
+
+    # Get source port info
+    if source_port not in port_info:
+        available = list(port_info.keys())
+        raise ValueError(f"Source port '{source_port}' not found. Available: {available}")
+
+    source_port_data = port_info[source_port]
+    source_x = source_port_data['x_struct']
+
+    # Determine if source is on left or right side
+    is_left_port = source_x < Lx // 2
+    source_offset = source_offset_cells if is_left_port else -source_offset_cells
+    source_position = source_x + source_offset
+
+    # Create monitors
+    monitors = MonitorSet()
+
+    # Calculate monitor size in cells
+    monitor_margin_cells = int(monitor_margin_um / resolution_um)
+    slab_thickness = layer_config['slab_thickness_cells']
+    wg_thickness = layer_config['wg_thickness_cells']
+    z_center = slab_thickness + wg_thickness // 2
+
+    # Add input monitor at source port
+    input_label = f"Input_{source_port}"
+    monitors.add_monitors_at_position(
+        structure=structure,
+        axis='x',
+        position=source_position,
+        label=input_label,
+    )
+
+    # Add output monitors at other ports
+    output_ports = [p for p in port_info.keys() if p != source_port]
+    for port_name in output_ports:
+        port_data = port_info[port_name]
+        port_x = port_data['x_struct']
+
+        # Offset away from port edge
+        is_port_left = port_x < Lx // 2
+        port_offset = source_offset_cells if is_port_left else -source_offset_cells
+        monitor_x = port_x + port_offset
+
+        output_label = f"Output_{port_name}"
+        monitors.add_monitors_at_position(
+            structure=structure,
+            axis='x',
+            position=monitor_x,
+            label=output_label,
+        )
+
+    # Show monitors if requested
+    if show_monitors:
+        view_monitors(structure, monitors)
+
+    # Get monitor names from the MonitorSet mapping
+    monitor_names = monitors.mapping.copy()
+
+    # Get mode bounds (y bounds around source port for mode solving)
+    source_y = source_port_data['y_struct']
+    mode_half_width = int(1.5 / resolution_um)  # 1.5 um half-width
+    mode_bounds = (
+        max(0, source_y - mode_half_width),
+        min(Ly, source_y + mode_half_width),
+    )
+
+    print(f"Monitors created: {list(monitor_names.keys())}")
+    print(f"Source port: {source_port} at x={source_position}")
+
+    return {
+        'monitors': monitors,
+        'monitors_recipe': monitors.recipe,
+        'source_position': source_position,
+        'source_port_name': source_port,
+        'monitor_names': monitor_names,
+        'mode_bounds': mode_bounds,
+        'layer_config': layer_config,
     }
 
 
