@@ -91,16 +91,20 @@ structure = hwc.create_structure(
     vertical_radius=2
 )
 
-# Add adiabatic absorbing boundaries
-_, Lx, Ly, Lz = structure.permittivity.shape
-abs_width = 70
-abs_coeff = 4.89e-3
-abs_shape = (abs_width, abs_width//2, abs_width//4)
+# Get Bayesian-optimized absorber parameters for your resolution
+# (Baseline optimized at 20nm resolution, automatically scales to your grid)
+absorber_params = hwc.get_optimized_absorber_params(
+    resolution_nm=20,  # Your grid resolution in nm
+    structure_dimensions=(Lx, Ly, Lz),
+)
+print(f"Absorber widths: {absorber_params['absorption_widths']}")
+print(f"Absorber coefficient: {absorber_params['absorber_coeff']:.6f}")
 
+# Create adiabatic absorbing boundaries
 absorption_boundary = hwc.create_absorption_mask(
     grid_shape=(Lx, Ly, Lz),
-    absorption_widths=abs_shape,
-    absorption_coeff=abs_coeff
+    absorption_widths=absorber_params['absorption_widths'],
+    absorption_coeff=absorber_params['absorber_coeff'],
 )
 
 structure.conductivity = structure.conductivity + absorption_boundary
@@ -162,18 +166,18 @@ print(f"Configured monitors: {monitors.list_monitors()}")
 ```python
 # Run FDTD simulation on cloud GPU
 results = hwc.simulate(
-    structure=structure,
+    structure_recipe=structure.extract_recipe(),
     source_field=source_field,
     source_offset=source_offset,
     freq_band=freq_band,
-    monitors=monitors,
+    monitors_recipe=monitors.recipe,
     mode_info=mode_info,
     simulation_steps=20000,
     check_every_n=1000,
     source_ramp_periods=5.0,
     add_absorption=True,
-    absorption_widths=(70, 35, 17),
-    absorption_coeff=4.89e-3,
+    absorption_widths=absorber_params['absorption_widths'],
+    absorption_coeff=absorber_params['absorber_coeff'],
     api_key=api_key,
     gpu_type="H100"  # Options: "B200", "H200", "H100", "A100-80GB", "A100-40GB", "L40S", "L4", "A10G", "T4"
 )
@@ -247,6 +251,10 @@ Coming soon:
 - `density(theta, radius, alpha)` - Apply density filtering
 - `create_structure(layers, vertical_radius)` - Create 3D structure from layers
 - `Layer(density_pattern, permittivity_values, layer_thickness)` - Layer specification
+
+### Absorption
+- `create_absorption_mask(grid_shape, absorption_widths, absorption_coeff)` - Create adiabatic absorber
+- `get_optimized_absorber_params(resolution_nm, wavelength_um, structure_dimensions)` - Get Bayesian-optimized absorber parameters scaled for your resolution
 
 ### Sources
 - `mode(freq_band, permittivity, axis, mode_num)` - Low-level mode solver
