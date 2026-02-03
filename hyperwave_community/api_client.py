@@ -862,11 +862,11 @@ def run_simulation(
 # =============================================================================
 
 def simulate(
-    structure,
+    structure_recipe: Dict[str, Any],
     source_field,
     source_offset: Tuple[int, int, int],
     freq_band: Tuple[float, float, int],
-    monitors,
+    monitors_recipe: List[Dict],
     mode_info: Optional[Dict] = None,
     simulation_steps: int = 20000,
     check_every_n: int = 1000,
@@ -878,18 +878,18 @@ def simulate(
     gpu_type: str = "H100",
     convergence: Optional[str] = "default",
 ) -> Optional[Dict[str, Any]]:
-    """Run FDTD simulation on cloud GPU using local Structure and MonitorSet objects.
+    """Run FDTD simulation on cloud GPU using structure recipe and monitors recipe.
 
     This function is for the LOCAL WORKFLOW where you create the structure,
     monitors, and source field locally using JAX, then send them to the cloud
     for GPU-accelerated FDTD simulation.
 
     Args:
-        structure: Structure object with permittivity and conductivity.
+        structure_recipe: Recipe dict from structure.extract_recipe().
         source_field: Source field array (JAX or numpy) of shape (num_freqs, 6, x, y, z).
         source_offset: (x, y, z) position offset for source placement.
         freq_band: Frequency band tuple (omega_min, omega_max, num_freqs).
-        monitors: MonitorSet object containing all monitors.
+        monitors_recipe: Recipe list from monitors.recipe property.
         mode_info: Optional mode information dictionary from create_mode_source.
         simulation_steps: Maximum FDTD time steps (default: 20000).
         check_every_n: Steps between convergence checks (default: 1000).
@@ -911,26 +911,24 @@ def simulate(
 
     Example:
         >>> # Create structure locally
-        >>> theta = hwc.component_to_theta(component, resolution=0.02)
-        >>> density = hwc.density(theta, radius=2)
         >>> structure = hwc.create_structure(layers=[...])
+        >>> structure_recipe = structure.extract_recipe()
         >>>
         >>> # Create source locally
-        >>> source_field, source_offset, mode_info = hwc.create_mode_source(
-        ...     structure, freq_band, mode_num=0, propagation_axis="x"
-        ... )
+        >>> source_field, source_offset, mode_info = hwc.create_mode_source(...)
         >>>
         >>> # Create monitors locally
         >>> monitors = hwc.MonitorSet()
-        >>> monitors.add_monitors_at_position(structure, axis="x", position=50, label="Input")
+        >>> monitors.add_monitors_at_position(...)
+        >>> monitors_recipe = monitors.recipe
         >>>
         >>> # Run on cloud GPU
         >>> results = hwc.simulate(
-        ...     structure=structure,
+        ...     structure_recipe=structure_recipe,
         ...     source_field=source_field,
         ...     source_offset=source_offset,
         ...     freq_band=freq_band,
-        ...     monitors=monitors,
+        ...     monitors_recipe=monitors_recipe,
         ...     gpu_type="H100"
         ... )
     """
@@ -951,13 +949,13 @@ def simulate(
 
     start_time = time.time()
 
-    # Extract structure recipe
-    print("Extracting structure recipe...")
-    structure_recipe = structure.extract_recipe()
-
-    # Get structure dimensions
-    _, Lx, Ly, Lz = structure.permittivity.shape
-    dimensions = [Lx, Ly, Lz]
+    # Get structure dimensions from recipe metadata
+    dimensions = structure_recipe.get('metadata', {}).get('final_shape', [0, 0, 0, 0])[1:]
+    if not dimensions or dimensions == [0, 0, 0]:
+        # Fallback: try to infer from source field shape
+        source_array = np.asarray(source_field)
+        if len(source_array.shape) >= 5:
+            dimensions = list(source_array.shape[2:])  # (num_freqs, 6, x, y, z)
     print(f"  Structure dimensions: {dimensions}")
 
     # Encode source field to base64
@@ -967,9 +965,7 @@ def simulate(
     source_field_shape = list(source_array.shape)
     print(f"  Source field shape: {source_field_shape}")
 
-    # Extract monitors recipe
-    print("Extracting monitors recipe...")
-    monitors_recipe = monitors.recipe
+    # Use monitors recipe directly
     print(f"  Monitors: {[m['name'] for m in monitors_recipe]}")
 
     # Build convergence config
