@@ -313,10 +313,10 @@ def preview_component(
             'width': port.width,
         })
 
-    # Get bounds (bbox is a method in gdsfactory)
+    # Get bounds (bbox() returns DBox with left/bottom/right/top attributes)
     bounds = component.bbox()
-    xmin, ymin = bounds[0]
-    xmax, ymax = bounds[1]
+    xmin, ymin = bounds.left, bounds.bottom
+    xmax, ymax = bounds.right, bounds.top
 
     # Plot if requested
     if show_plot:
