@@ -501,10 +501,15 @@ def load_component(
         port_x_cells = min(port_x_cells, max_x_cell)
         port_y_cells = min(port_y_cells, max_y_cell)
 
+        # is_input: True if port faces inward (orientation ~180 degrees)
+        is_input = abs(port.orientation % 360 - 180) < 1
+
         port_info_dict[port.name] = {
             'x_struct': port_x_cells,
             'y_struct': port_y_cells,
             'orientation': port.orientation,
+            'is_input': is_input,
+            'center_um': (port_x_um, port_y_um),
             'width_um': port.width,
         }
 
@@ -670,6 +675,8 @@ def build_recipe_from_theta(
             'x_struct': port_data['x_struct'] + padding[2],  # top padding adds to X
             'y_struct': port_data['y_struct'] + padding[0],  # left padding adds to Y
             'orientation': port_data['orientation'],
+            'is_input': port_data['is_input'],
+            'center_um': port_data['center_um'],
             'width_um': port_data['width_um'],
         }
 
