@@ -60,6 +60,7 @@ from .structure import (
 # Import absorption functions
 from .absorption import (
     create_absorption_mask,
+    get_optimized_absorber_params,
 )
 
 # Import monitor functions
@@ -150,6 +151,7 @@ __all__ = [
 
     # Absorption
     "create_absorption_mask",
+    "get_optimized_absorber_params",
 
     # Monitors
     "Monitor",
