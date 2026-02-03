@@ -19,13 +19,13 @@ from dataclasses import dataclass
 @dataclass
 class Monitor:
     """Monitor configuration for field extraction during FDTD simulation.
-
+    
     Args:
         shape: Monitor volume dimensions (xx, yy, zz). All values must be positive.
         offset: Monitor volume position offset (x, y, z). Can be negative.
     """
-    shape: Tuple[int, int, int]
-    offset: Tuple[int, int, int]
+    shape: tuple[int, int, int]
+    offset: tuple[int, int, int]
     
     def __post_init__(self):
         """Validate monitor parameters."""
@@ -220,14 +220,131 @@ def get_electric_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
 
 def get_magnetic_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
     """Calculate magnetic field intensity |H|^2.
-    
+
     Args:
         field: Field data with shape (N_freq, 6, ...).
-    
+
     Returns:
         Magnetic field intensity with shape (N_freq, ...).
     """
     return jnp.sum(jnp.abs(field[:, 3:6, ...])**2, axis=1)
+
+
+def _cross_product_surface_integral(
+    field_a: jnp.ndarray,
+    field_b: jnp.ndarray,
+    axis: int
+) -> jnp.ndarray:
+    """Compute surface integral of cross product for mode overlap.
+
+    Calculates integral of (a x conj(b)) dot n over the surface,
+    where n is the unit normal in the specified axis direction.
+
+    Args:
+        field_a: First field with shape (3, y, z) for E or H components.
+        field_b: Second field with shape (3, y, z) for E or H components.
+        axis: Normal direction (0=x, 1=y, 2=z).
+
+    Returns:
+        Complex scalar representing the surface integral.
+    """
+    cross_prod = jnp.cross(field_a, jnp.conj(field_b), axis=0)
+    return jnp.sum(cross_prod[axis, :, :])
+
+
+def mode_coupling_efficiency(
+    output_field: jnp.ndarray,
+    mode_field: jnp.ndarray,
+    input_power: float,
+    mode_cross_power: float,
+    axis: int = 0
+) -> Tuple[jnp.ndarray, jnp.ndarray]:
+    """Calculate mode coupling efficiency with proper normalization.
+
+    Computes the overlap integral between the simulated output field and
+    a target mode field, normalized by input power and mode self-overlap.
+    This gives the fraction of input power coupled into the target mode.
+
+    The formula used is:
+        eta = |Re(integral(E_mode x H_out) * integral(E_out x H_mode))| / (4 * P_in * P_mode_norm)
+
+    where the normalization ensures eta=1 for perfect mode matching.
+
+    Args:
+        output_field: Simulated field at output monitor. Shape (N_freq, 6, x, y, z).
+            The 6 components are [Ex, Ey, Ez, Hx, Hy, Hz].
+        mode_field: Target mode field. Shape (N_freq, 6, x, y, z).
+            Must have singleton dimension along propagation axis.
+        input_power: Input source power (scalar). Used to normalize output field.
+        mode_cross_power: Mode self-overlap power (integral of E_mode x H_mode*).
+            Used to normalize mode field to unit power.
+        axis: Propagation axis (0=x, 1=y, 2=z). Default is 0 (x-propagation).
+
+    Returns:
+        Tuple of (efficiency_linear, efficiency_dB) where:
+        - efficiency_linear: Array of shape (N_freq,) with values in [0, 1]
+        - efficiency_dB: Array of shape (N_freq,) in decibels (10*log10)
+
+    Example:
+        >>> # After running simulation with Gaussian source into waveguide
+        >>> output = results['monitor_data'][results['monitor_names']['waveguide_end']]
+        >>> eff_lin, eff_dB = mode_coupling_efficiency(
+        ...     output_field=output,
+        ...     mode_field=mode_field,
+        ...     input_power=input_power,
+        ...     mode_cross_power=P_mode_cross,
+        ...     axis=0
+        ... )
+        >>> print(f"Coupling efficiency: {eff_lin[0]*100:.2f}% ({eff_dB[0]:.2f} dB)")
+
+    Note:
+        - The output_field is averaged along the propagation axis if it has
+          thickness > 1 (e.g., monitor with thickness=5 for stability).
+        - Mode field should be from the same waveguide cross-section where
+          the output is measured for accurate results.
+    """
+    # Normalization factors
+    alpha_scale = 1.0 / jnp.sqrt(input_power)  # Normalize output by input power
+    beta_scale = jnp.sqrt(2.0 / mode_cross_power)  # Normalize mode to unit power
+
+    # Average output field along propagation axis (axis+2 accounts for freq and component dims)
+    field_avg = jnp.mean(output_field * alpha_scale, axis=(axis + 2))
+
+    # Normalize mode field
+    mode_norm = mode_field * beta_scale
+
+    N_freq = output_field.shape[0]
+    eff_linear = jnp.zeros((N_freq,))
+
+    for i in range(N_freq):
+        # Extract E and H from normalized mode field
+        if axis == 0:
+            e0 = mode_norm[i, 0:3, 0, :, :]
+            h0 = mode_norm[i, 3:6, 0, :, :]
+        elif axis == 1:
+            e0 = mode_norm[i, 0:3, :, 0, :]
+            h0 = mode_norm[i, 3:6, :, 0, :]
+        else:  # axis == 2
+            e0 = mode_norm[i, 0:3, :, :, 0]
+            h0 = mode_norm[i, 3:6, :, :, 0]
+
+        # Extract E and H from averaged output field
+        e1 = field_avg[i, 0:3, :, :]
+        h1 = field_avg[i, 3:6, :, :]
+
+        # Compute overlap integrals
+        cross_e0h1 = _cross_product_surface_integral(e0, h1, axis)
+        cross_e1h0 = _cross_product_surface_integral(e1, h0, axis)
+
+        # Mode coupling efficiency: |Re(cross_e0h1 * cross_e1h0)| / 4
+        # The factor of 4 comes from the normalization convention
+        omega = jnp.real(cross_e0h1 * cross_e1h0)
+        eff_linear = eff_linear.at[i].set(jnp.abs(omega) / 4.0)
+
+    # Convert to dB
+    eff_dB = 10.0 * jnp.log10(jnp.maximum(eff_linear, 1e-10))
+
+    return eff_linear, eff_dB
 
 
 def view_monitors(structure, monitors: Union[List, 'MonitorSet'], monitor_mapping: Optional[Dict[str, int]] = None,
@@ -681,7 +798,7 @@ class MonitorSet:
 
     def __getitem__(self, key: Union[str, int]) -> Monitor:
         """Allow dict-like and list-like access to monitors."""
-        return self.get(key)
+        return self.get_monitor(key)
 
     def __repr__(self) -> str:
         """String representation of MonitorSet."""
@@ -734,7 +851,10 @@ class MonitorSet:
         height_factor: Optional[float] = None,
         min_width_factor: float = 1.5,
         label: Optional[str] = None,
-        verbose: bool = False
+        verbose: bool = False,
+        x_ranges: Optional[Tuple[int, int]] = None,
+        y_ranges: Optional[Tuple[int, int]] = None,
+        z_ranges: Optional[Tuple[int, int]] = None
     ) -> List[str]:
         """Add monitors automatically along a specific axis at a specific position.
 
@@ -770,6 +890,12 @@ class MonitorSet:
                 - Two monitors: adds '_top'/'_bottom' or '_left'/'_right' (e.g., 'input_top')
                 - Multiple monitors: adds index (e.g., 'input_0', 'input_1')
             verbose: Whether to print detection information. Default is False.
+            x_ranges: Tuple (start, end) to restrict X range for waveguide detection.
+                      Used when axis='y' or axis='z'.
+            y_ranges: Tuple (start, end) to restrict Y range for waveguide detection.
+                      Used when axis='x' or axis='z'.
+            z_ranges: Tuple (start, end) to restrict Z range for center-of-mass calculation.
+                      Used when axis='x' or axis='y'.
 
         Returns:
             List of names of the added monitors.
@@ -797,7 +923,7 @@ class MonitorSet:
         return add_monitors_at_position(
             self, structure, axis, position,
             monitor_thickness, width_factor, height_factor, min_width_factor,
-            label, verbose
+            label, verbose, x_ranges, y_ranges, z_ranges
         )
 
     @property
@@ -832,7 +958,10 @@ def _detect_waveguides(
     y_position: Optional[int] = None,
     z_position: Optional[int] = None,
     axis: str = 'y',
-    threshold_method: str = 'auto'
+    threshold_method: str = 'auto',
+    x_ranges: Optional[Tuple[int, int]] = None,
+    y_ranges: Optional[Tuple[int, int]] = None,
+    z_ranges: Optional[Tuple[int, int]] = None
 ) -> List[Dict]:
     """Detect waveguide positions and dimensions by analyzing permittivity.
 
@@ -854,6 +983,9 @@ def _detect_waveguides(
             - 'auto': Midpoint between min and max permittivity (default)
             - 'otsu': Otsu's automatic thresholding algorithm
             - float: Manual threshold value for permittivity
+        x_ranges: Tuple (start, end) to restrict X range for waveguide detection.
+        y_ranges: Tuple (start, end) to restrict Y range for waveguide detection.
+        z_ranges: Tuple (start, end) to restrict Z range for center-of-mass calculation.
 
     Returns:
         List of dictionaries containing waveguide information. Each dictionary
@@ -872,6 +1004,7 @@ def _detect_waveguides(
         Only detects waveguides with width >= 3 pixels to filter out noise.
         Results are sorted by center position along the detection axis.
         Uses 2D cross-section analysis to automatically find waveguide core at any Z height.
+        Range parameters restrict the region for center-of-mass Z detection.
     """
     # Get permittivity array (remove frequency dimension if present)
     if len(structure.permittivity.shape) == 4:
@@ -894,11 +1027,33 @@ def _detect_waveguides(
         # Detect waveguides along Y axis using full YZ slice at x_position
         slice_2d = eps_array[x_position, :, :]  # Shape: (y_dim, z_dim)
 
+        # Apply range restrictions for center-of-mass calculation
+        if y_ranges is not None:
+            y_start, y_end = y_ranges
+            slice_2d_restricted_y = slice_2d[y_start:y_end, :]
+        else:
+            slice_2d_restricted_y = slice_2d
+
+        if z_ranges is not None:
+            z_start, z_end = z_ranges
+            slice_2d_restricted = slice_2d_restricted_y[:, z_start:z_end]
+            z_offset = z_start  # Offset to add back to get global Z position
+        else:
+            slice_2d_restricted = slice_2d_restricted_y
+            z_offset = 0
+
         # Find optimal Z position (where waveguide core is)
         if auto_detect_z:
             # Find Z with highest permittivity (waveguide core location)
-            max_eps_per_z = jnp.max(slice_2d, axis=0)  # Max along Y for each Z
-            z_position = int(jnp.argmax(max_eps_per_z))
+            # Use center of mass of high-permittivity region instead of max
+            max_eps_per_z = jnp.max(slice_2d_restricted, axis=0)  # Max along Y for each Z
+
+            # Find center of mass of high-permittivity Z positions
+            threshold = (jnp.max(max_eps_per_z) + jnp.min(max_eps_per_z)) / 2
+            high_eps_mask = max_eps_per_z > threshold
+            z_positions = jnp.arange(len(max_eps_per_z))
+            z_position_local = int(jnp.sum(z_positions * high_eps_mask) / jnp.sum(high_eps_mask))
+            z_position = z_position_local + z_offset  # Convert to global Z position
 
         # Extract 1D slice along Y at optimal Z
         slice_1d = slice_2d[:, z_position]  # Y variation at core Z
@@ -907,11 +1062,33 @@ def _detect_waveguides(
         # Detect waveguides along X axis using full XZ slice at y_position
         slice_2d = eps_array[:, y_position, :]  # Shape: (x_dim, z_dim)
 
+        # Apply range restrictions for center-of-mass calculation
+        if x_ranges is not None:
+            x_start, x_end = x_ranges
+            slice_2d_restricted_x = slice_2d[x_start:x_end, :]
+        else:
+            slice_2d_restricted_x = slice_2d
+
+        if z_ranges is not None:
+            z_start, z_end = z_ranges
+            slice_2d_restricted = slice_2d_restricted_x[:, z_start:z_end]
+            z_offset = z_start  # Offset to add back to get global Z position
+        else:
+            slice_2d_restricted = slice_2d_restricted_x
+            z_offset = 0
+
         # Find optimal Z position (where waveguide core is)
         if auto_detect_z:
             # Find Z with highest permittivity (waveguide core location)
-            max_eps_per_z = jnp.max(slice_2d, axis=0)  # Max along X for each Z
-            z_position = int(jnp.argmax(max_eps_per_z))
+            # Use center of mass of high-permittivity region instead of max
+            max_eps_per_z = jnp.max(slice_2d_restricted, axis=0)  # Max along X for each Z
+
+            # Find center of mass of high-permittivity Z positions
+            threshold = (jnp.max(max_eps_per_z) + jnp.min(max_eps_per_z)) / 2
+            high_eps_mask = max_eps_per_z > threshold
+            z_positions = jnp.arange(len(max_eps_per_z))
+            z_position_local = int(jnp.sum(z_positions * high_eps_mask) / jnp.sum(high_eps_mask))
+            z_position = z_position_local + z_offset  # Convert to global Z position
 
         # Extract 1D slice along X at optimal Z
         slice_1d = slice_2d[:, z_position]  # X variation at core Z
@@ -1015,7 +1192,10 @@ def add_monitors_at_position(
     height_factor: Optional[float] = None,
     min_width_factor: float = 1.5,
     label: Optional[str] = None,
-    verbose: bool = True
+    verbose: bool = True,
+    x_ranges: Optional[Tuple[int, int]] = None,
+    y_ranges: Optional[Tuple[int, int]] = None,
+    z_ranges: Optional[Tuple[int, int]] = None
 ) -> List[str]:
     """Add monitors automatically along a specific axis at a specific position.
 
@@ -1053,6 +1233,12 @@ def add_monitors_at_position(
                 - Two monitors: adds '_top'/'_bottom' or '_left'/'_right' (e.g., 'input_top')
                 - Multiple monitors: adds index (e.g., 'input_0', 'input_1')
         verbose: Whether to print detection information. Default is False.
+        x_ranges: Tuple (start, end) to restrict X range for waveguide detection.
+                  Used when axis='y' or axis='z'.
+        y_ranges: Tuple (start, end) to restrict Y range for waveguide detection.
+                  Used when axis='x' or axis='z'.
+        z_ranges: Tuple (start, end) to restrict Z range for center-of-mass calculation.
+                  Used when axis='x' or axis='y'.
 
     Returns:
         List of names of the added monitors.
@@ -1096,7 +1282,9 @@ def add_monitors_at_position(
             structure,
             x_position=position,
             z_position=None,  # Auto-detect Z where waveguide core is
-            axis='y'
+            axis='y',
+            y_ranges=y_ranges,
+            z_ranges=z_ranges
         )
 
         if verbose:
@@ -1154,7 +1342,9 @@ def add_monitors_at_position(
             structure,
             y_position=position,
             z_position=None,  # Auto-detect Z where waveguide core is
-            axis='x'
+            axis='x',
+            x_ranges=x_ranges,
+            z_ranges=z_ranges
         )
 
         if verbose:
@@ -1212,7 +1402,9 @@ def add_monitors_at_position(
             structure,
             x_position=x_dim // 2,
             z_position=position,
-            axis='y'
+            axis='y',
+            x_ranges=x_ranges,
+            y_ranges=y_ranges
         )
 
         if verbose:

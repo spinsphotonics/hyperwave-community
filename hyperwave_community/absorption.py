@@ -295,6 +295,82 @@ def create_absorption_mask(
     return absorption_mask
 
 
+def rescale_absorption_mask(
+    original_grid_shape: Tuple[int, int, int],
+    original_absorption_widths: Tuple[int, int, int],
+    original_absorption_coeff: float,
+    new_grid_shape: Tuple[int, int, int],
+    show_plots: bool = False
+) -> jax.Array:
+    """Rescale absorption parameters to a new resolution while preserving the profile.
+
+    This function takes the parameters used to create an absorption mask at one
+    resolution and automatically scales them to work at a different resolution,
+    preserving the physical absorption profile.
+
+    Args:
+        original_grid_shape: Tuple of (xx_old, yy_old, zz_old) original grid dimensions.
+        original_absorption_widths: Tuple of (x_width, y_width, z_width) original absorption widths.
+        original_absorption_coeff: Original absorption coefficient (smoothness parameter).
+        new_grid_shape: Tuple of (xx_new, yy_new, zz_new) target grid dimensions.
+        show_plots: Whether to display the new absorption mask visualization.
+
+    Returns:
+        new_absorption_mask: (3, xx_new, yy_new, zz_new) rescaled absorption array.
+
+    Algorithm:
+        1. Calculate resolution scaling factors for each axis
+        2. Scale absorption widths proportionally
+        3. Scale coefficient to preserve physical absorption strength
+
+    Example:
+        >>> # Create mask at low resolution
+        >>> mask_low = create_absorption_mask((100, 80, 60), (20, 15, 10), 0.05)
+        >>>
+        >>> # Rescale to high resolution using original parameters
+        >>> mask_high = rescale_absorption_mask(
+        ...     original_grid_shape=(100, 80, 60),
+        ...     original_absorption_widths=(20, 15, 10),
+        ...     original_absorption_coeff=0.05,
+        ...     new_grid_shape=(200, 160, 120)
+        ... )
+        >>>
+        >>> print(f"Rescaled shape: {mask_high.shape}")
+    """
+    xx_old, yy_old, zz_old = original_grid_shape
+    width_x_old, width_y_old, width_z_old = original_absorption_widths
+    xx_new, yy_new, zz_new = new_grid_shape
+
+    # Calculate resolution scaling factors
+    scale_x = xx_new / xx_old
+    scale_y = yy_new / yy_old
+    scale_z = zz_new / zz_old
+
+    # Scale widths proportionally to new resolution
+    new_width_x = int(width_x_old * scale_x)
+    new_width_y = int(width_y_old * scale_y)
+    new_width_z = int(width_z_old * scale_z)
+
+    # Scale smoothness coefficient to preserve physical absorption
+    # At physical distance d from boundary:
+    #   - Old grid: d pixels away, absorption = coeff × d²
+    #   - New grid: (scale × d) pixels away, absorption = new_coeff × (scale × d)²
+    # To keep same absorption: new_coeff × (scale × d)² = coeff × d²
+    # Therefore: new_coeff = coeff / scale²
+    avg_scale = (scale_x + scale_y + scale_z) / 3
+    new_coeff = original_absorption_coeff / (avg_scale ** 2)
+
+    # Create new absorption mask with scaled parameters
+    new_absorption_mask = create_absorption_mask(
+        grid_shape=new_grid_shape,
+        absorption_widths=(new_width_x, new_width_y, new_width_z),
+        absorption_coeff=new_coeff,
+        show_plots=show_plots
+    )
+
+    return new_absorption_mask
+
+
 def _view_absorption_mask_internal(
     absorption_mask: jax.Array,
     slice_positions: Optional[Tuple[float, float, float]] = None,

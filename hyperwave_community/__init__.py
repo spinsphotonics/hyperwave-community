@@ -78,10 +78,10 @@ from .monitors import (
 
 # Import source functions
 from .sources import (
-    mode,
-    create_mode_source,
     create_gaussian_source,
 )
+# create_mode_source is in simulate.py (uses mode solver)
+from .simulate import create_mode_source
 
 # Import API client functions (SDK-style interface)
 from .api_client import (
@@ -131,7 +131,7 @@ from .data_io import (
 # Import simulation utilities (local versions, for backwards compatibility)
 # Note: We import these with explicit names to avoid shadowing the api_client.simulate function
 from .simulate import simulate as simulate_local
-from .simulate import simulate_from_recipe, quick_view_monitors
+from .simulate import quick_view_monitors
 
 # Re-import simulate from api_client to ensure it's not shadowed by the module import above
 from .api_client import simulate
@@ -164,7 +164,6 @@ __all__ = [
     "view_monitors",
 
     # Sources
-    "mode",
     "create_mode_source",
     "create_gaussian_source",
     "generate_gaussian_source",
@@ -216,6 +215,5 @@ __all__ = [
 
     # Simulation utilities
     "simulate_local",
-    "simulate_from_recipe",
     "quick_view_monitors",
 ]

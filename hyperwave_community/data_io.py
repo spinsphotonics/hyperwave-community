@@ -256,38 +256,21 @@ def generate_gds_from_density(
 
     Args:
         density_array: 2D array of density values (0-1) from optimization.
-            Values above 'level' are considered material. Note: density arrays
-            are typically at 2x the resolution of the structure.
+            Values above 'level' are considered material.
         level: Contour threshold (default 0.5). Material is density > level.
         output_filename: Name for output GDS file.
         add_border: If True, adds zero padding for closed contour extraction.
-        resolution: Structure grid resolution in micrometers per pixel (default 0.05).
-            This is the resolution of your STRUCTURE, not the density array.
-            The function automatically applies 2x downsampling since density
-            arrays are at 2x finer resolution than the structure.
+        resolution: Grid resolution in micrometers per pixel (default 0.05).
+            Same as gds_to_theta - each pixel represents this many micrometers.
 
     Returns:
         Absolute path to the generated GDS file.
 
     Note:
         The density array maintains its original orientation. Both numpy
-        and GDS coordinate systems are treated consistently. Since density
-        arrays are at 2x the resolution of the structure, the function
-        internally uses resolution/2 for scaling to get correct physical dimensions.
-
-    Example:
-        >>> # If your structure has 0.05 um/pixel resolution
-        >>> # Your density array will have 0.025 um/pixel resolution (2x finer)
-        >>> gds_path = generate_gds_from_density(
-        ...     density_array=density,
-        ...     resolution=0.05,  # Pass structure resolution, not density resolution
-        ...     output_filename="device.gds"
-        ... )
+        and GDS coordinate systems are treated consistently. The resolution
+        parameter scales pixel coordinates to physical dimensions.
     """
-    # Since density arrays are at 2x the resolution of the structure,
-    # we need to use half the resolution for correct physical scaling
-    density_resolution = resolution / 2.0
-
     # Add a 1-pixel border of zeros to ensure proper contour extraction
     # This is purely algorithmic, not decorative
     if add_border:
@@ -341,12 +324,12 @@ def generate_gds_from_density(
     # Convert processed contours to gdstk.Polygon objects
     # Note: c[:, ::-1] swaps x and y coordinates to match GDS convention
     # If we added a border, we need to subtract 1 from coordinates to compensate
-    # Apply density_resolution scaling to convert pixel coordinates to physical dimensions
-    # GDS uses micrometers, and our density_resolution is already in micrometers
+    # Apply resolution scaling to convert pixel coordinates to physical dimensions
+    # GDS uses micrometers, and our resolution is already in micrometers
     if add_border:
-        gds_polygons = [gdstk.Polygon((c[:, ::-1] - 1) * density_resolution) for c in processed_contours]
+        gds_polygons = [gdstk.Polygon((c[:, ::-1] - 1) * resolution) for c in processed_contours]
     else:
-        gds_polygons = [gdstk.Polygon(c[:, ::-1] * density_resolution) for c in processed_contours]
+        gds_polygons = [gdstk.Polygon(c[:, ::-1] * resolution) for c in processed_contours]
 
     if not gds_polygons:
         # Create an empty library and cell and write it to GDS
@@ -406,6 +389,7 @@ def view_gds(gds_filepath: str, density_array: np.ndarray = None, figsize: tuple
 
     Reads a GDS file and plots the polygons it contains. If the original
     density array is provided, displays both side-by-side for comparison.
+    The visualization shows the full domain including cladding regions.
 
     Args:
         gds_filepath: Path to the GDS file to visualize.
@@ -417,8 +401,8 @@ def view_gds(gds_filepath: str, density_array: np.ndarray = None, figsize: tuple
 
     Note:
         Polygons are displayed with semi-transparent blue fill and no edge
-        outline. GDS coordinates are shown in micrometers. The density array
-        is displayed in pixels with PuOr colormap for better contrast.
+        outline. The full domain is shown including cladding regions when
+        density array is provided. The density array uses grayscale colormap.
     """
     # Read the GDS file
     lib_verify = gdstk.read_gds(gds_filepath)
@@ -434,13 +418,14 @@ def view_gds(gds_filepath: str, density_array: np.ndarray = None, figsize: tuple
     if density_array is not None:
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=figsize)
 
-        # Plot original density array in pixels (no colorbar)
-        ax1.imshow(density_array, cmap='PuOr', origin='upper',
-                   extent=[0, density_array.shape[1], 0, density_array.shape[0]])
+        # Plot original density array
+        im = ax1.imshow(density_array, cmap='gray', origin='upper',
+                        extent=[0, density_array.shape[1], 0, density_array.shape[0]])
         ax1.set_title(f'Original Density ({density_array.shape[0]}×{density_array.shape[1]} pixels)')
         ax1.set_xlabel('X (pixels)')
         ax1.set_ylabel('Y (pixels)')
         ax1.grid(True, alpha=0.3)
+        plt.colorbar(im, ax=ax1, label='Density')
 
         ax = ax2
     else:
@@ -454,33 +439,36 @@ def view_gds(gds_filepath: str, density_array: np.ndarray = None, figsize: tuple
                                  facecolor='blue', linewidth=0)
         ax.add_patch(poly_patch)
 
-    # Set axis limits to show GDS polygons (which are already in micrometers)
-    # Always use polygon bounds to scale properly
-    if polygons:
-        all_x = []
-        all_y = []
-        for poly in polygons:
-            points = poly.points
-            all_x.extend(points[:, 0])
-            all_y.extend(points[:, 1])
+    # Set axis limits to show full domain
+    # Always use density array dimensions if provided to show full domain including cladding
+    if density_array is not None:
+        # Show the full domain extent
+        ax.set_xlim(0, density_array.shape[1])
+        ax.set_ylim(0, density_array.shape[0])
+    else:
+        # If no density array, try to infer reasonable bounds from polygons
+        if polygons:
+            all_x = []
+            all_y = []
+            for poly in polygons:
+                points = poly.points
+                all_x.extend(points[:, 0])
+                all_y.extend(points[:, 1])
 
-        # Use actual polygon bounds with small margin in micrometers
-        if all_x and all_y:
-            margin = 1.0  # 1 micrometer margin
-            ax.set_xlim(min(all_x) - margin, max(all_x) + margin)
-            ax.set_ylim(min(all_y) - margin, max(all_y) + margin)
+            # Use actual polygon bounds with 1-pixel margin
+            if all_x and all_y:
+                # Fixed 1-pixel margin, not percentage-based
+                margin = 1
+                ax.set_xlim(min(all_x) - margin, max(all_x) + margin)
+                ax.set_ylim(min(all_y) - margin, max(all_y) + margin)
         else:
-            # Default view if no valid coordinates
+            # Default view if no reference
             ax.set_xlim(0, 100)
             ax.set_ylim(0, 100)
-    else:
-        # Default view if no polygons
-        ax.set_xlim(0, 100)
-        ax.set_ylim(0, 100)
 
     ax.set_aspect('equal')
-    ax.set_xlabel('X (μm)')
-    ax.set_ylabel('Y (μm)')
+    ax.set_xlabel('X (GDS units)')
+    ax.set_ylabel('Y (GDS units)')
     ax.set_title(f'GDS Polygons ({len(polygons)} polygons)')
     ax.grid(True, alpha=0.3)
 
@@ -641,19 +629,21 @@ def gds_to_theta(
         # Update theta array
         theta_array[y_min_px:y_max_px, x_min_px:x_max_px][inside_mask] = waveguide_value
 
-    # Convert to JAX array
-    theta_jax = jnp.array(theta_array)
+    # Convert to JAX array and transpose to (x, y) format for hyperwave
+    # theta_array is (ny, nx), we need (nx, ny) = (x, y)
+    theta_jax = jnp.array(theta_array.T)
 
     # Print summary
     print(f"Extracted {len(polygons)} polygons from GDS file")
 
     # Prepare metadata
+    # physical_size_um is (x_size, y_size) = (width, height)
     info = {
         'gds_file': gds_filepath,
         'cell_name': cell.name,
-        'shape': theta_jax.shape,
+        'shape': theta_jax.shape,  # Now (x, y)
         'resolution': resolution,
-        'physical_size_um': (width, height),
+        'physical_size_um': (width, height),  # (x_size, y_size)
         'bounding_box_um': (x_min, y_min, x_max, y_max),
         'layer': used_layer,
         'num_polygons': len(polygons),
@@ -798,16 +788,18 @@ def component_to_theta(
                 if path.contains_point([x + 0.5, y + 0.5]):
                     theta_array[y, x] = waveguide_value
 
-    # Convert to JAX array
-    theta_jax = jnp.array(theta_array)
+    # Convert to JAX array and transpose to (x, y) format for hyperwave
+    # theta_array is (ny, nx), we need (nx, ny) = (x, y)
+    theta_jax = jnp.array(theta_array.T)
 
     # Create info dictionary
+    # physical_size_um is (x_size, y_size) = (width, height)
     info = {
         'component_name': comp_name,
-        'shape': theta_jax.shape,
+        'shape': theta_jax.shape,  # Now (x, y)
         'theta_resolution_um': theta_resolution,
         'structure_resolution_um': resolution,
-        'physical_size_um': (width, height),
+        'physical_size_um': (width, height),  # (x_size, y_size)
         'bounding_box_um': (x_min, y_min, x_max, y_max),
         'layer': used_layer,
         'waveguide_value': waveguide_value,

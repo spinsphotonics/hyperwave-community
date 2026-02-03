@@ -858,10 +858,228 @@ def run_simulation(
 
 
 # =============================================================================
-# ONE-SHOT WORKFLOW
+# LOCAL WORKFLOW - Takes local objects (Structure, MonitorSet, etc.)
 # =============================================================================
 
 def simulate(
+    structure,
+    source_field,
+    source_offset: Tuple[int, int, int],
+    freq_band: Tuple[float, float, int],
+    monitors,
+    mode_info: Optional[Dict] = None,
+    simulation_steps: int = 20000,
+    check_every_n: int = 1000,
+    source_ramp_periods: float = 5.0,
+    add_absorption: bool = True,
+    absorption_widths: Tuple[int, int, int] = (60, 40, 40),
+    absorption_coeff: float = 1e-4,
+    api_key: Optional[str] = None,
+    gpu_type: str = "H100",
+    convergence: Optional[str] = "default",
+) -> Optional[Dict[str, Any]]:
+    """Run FDTD simulation on cloud GPU using local Structure and MonitorSet objects.
+
+    This function is for the LOCAL WORKFLOW where you create the structure,
+    monitors, and source field locally using JAX, then send them to the cloud
+    for GPU-accelerated FDTD simulation.
+
+    Args:
+        structure: Structure object with permittivity and conductivity.
+        source_field: Source field array (JAX or numpy) of shape (num_freqs, 6, x, y, z).
+        source_offset: (x, y, z) position offset for source placement.
+        freq_band: Frequency band tuple (omega_min, omega_max, num_freqs).
+        monitors: MonitorSet object containing all monitors.
+        mode_info: Optional mode information dictionary from create_mode_source.
+        simulation_steps: Maximum FDTD time steps (default: 20000).
+        check_every_n: Steps between convergence checks (default: 1000).
+        source_ramp_periods: Source ramp-up periods (default: 5.0).
+        add_absorption: Whether to add absorbing boundaries (default: True).
+        absorption_widths: Absorber widths (x, y, z) in pixels (default: (60, 40, 40)).
+        absorption_coeff: Absorption coefficient (default: 1e-4).
+        api_key: API key for authentication. If None, uses configured API key.
+        gpu_type: GPU type - "B200", "H200", "H100", "A100-80GB", etc.
+        convergence: Early stopping preset ("quick", "default", "thorough", "full").
+
+    Returns:
+        Dictionary with simulation results including:
+            - monitor_data: Dict mapping monitor names to field arrays
+            - sim_time: GPU simulation time in seconds
+            - performance: Grid points × steps per second
+            - converged: Whether simulation converged early
+            - convergence_step: Step at which convergence was reached (if applicable)
+
+    Example:
+        >>> # Create structure locally
+        >>> theta = hwc.component_to_theta(component, resolution=0.02)
+        >>> density = hwc.density(theta, radius=2)
+        >>> structure = hwc.create_structure(layers=[...])
+        >>>
+        >>> # Create source locally
+        >>> source_field, source_offset, mode_info = hwc.create_mode_source(
+        ...     structure, freq_band, mode_num=0, propagation_axis="x"
+        ... )
+        >>>
+        >>> # Create monitors locally
+        >>> monitors = hwc.MonitorSet()
+        >>> monitors.add_monitors_at_position(structure, axis="x", position=50, label="Input")
+        >>>
+        >>> # Run on cloud GPU
+        >>> results = hwc.simulate(
+        ...     structure=structure,
+        ...     source_field=source_field,
+        ...     source_offset=source_offset,
+        ...     freq_band=freq_band,
+        ...     monitors=monitors,
+        ...     gpu_type="H100"
+        ... )
+    """
+    global API_KEY, API_URL
+
+    # Use provided api_key or fall back to configured one
+    effective_api_key = api_key or API_KEY
+    if not effective_api_key:
+        raise ValueError("No API key provided. Either pass api_key parameter or call configure_api() first.")
+
+    # Configure API if api_key was provided
+    if api_key and api_key != API_KEY:
+        configure_api(api_key=api_key, validate=False)
+
+    print(f"\n{'='*60}")
+    print("LOCAL WORKFLOW: Preparing simulation data for cloud GPU")
+    print(f"{'='*60}")
+
+    start_time = time.time()
+
+    # Extract structure recipe
+    print("Extracting structure recipe...")
+    structure_recipe = structure.extract_recipe()
+
+    # Get structure dimensions
+    _, Lx, Ly, Lz = structure.permittivity.shape
+    dimensions = [Lx, Ly, Lz]
+    print(f"  Structure dimensions: {dimensions}")
+
+    # Encode source field to base64
+    print("Encoding source field...")
+    source_array = np.asarray(source_field)
+    source_field_b64 = encode_array(source_array)
+    source_field_shape = list(source_array.shape)
+    print(f"  Source field shape: {source_field_shape}")
+
+    # Extract monitors recipe
+    print("Extracting monitors recipe...")
+    monitors_recipe = monitors.recipe
+    print(f"  Monitors: {[m['name'] for m in monitors_recipe]}")
+
+    # Build convergence config
+    conv_config = None
+    use_early_stopping = convergence != "full"
+    if use_early_stopping:
+        if isinstance(convergence, str):
+            if convergence not in CONVERGENCE_PRESETS:
+                raise ValueError(f"Unknown convergence preset: {convergence}. "
+                               f"Valid options: {list(CONVERGENCE_PRESETS.keys())}")
+            conv_config = CONVERGENCE_PRESETS[convergence]
+        elif isinstance(convergence, ConvergenceConfig):
+            conv_config = convergence
+        else:
+            conv_config = CONVERGENCE_PRESETS["default"]
+
+    endpoint = "/early_stopping" if use_early_stopping else "/simulate"
+
+    # Build request body
+    body = {
+        "structure_recipe": structure_recipe,
+        "source_field_b64": source_field_b64,
+        "source_field_shape": source_field_shape,
+        "source_offset": list(source_offset),
+        "freq_band": list(freq_band),
+        "monitors": monitors_recipe,
+        "max_steps": simulation_steps,
+        "check_every_n": conv_config.check_every_n if conv_config else check_every_n,
+        "source_ramp_periods": source_ramp_periods,
+        "gpu_type": gpu_type,
+        "add_absorption": add_absorption,
+        "absorption_widths": list(absorption_widths),
+        "absorption_coeff": float(absorption_coeff),
+    }
+
+    # Add early stopping parameters
+    if use_early_stopping and conv_config:
+        body["relative_threshold"] = conv_config.relative_threshold
+        body["absolute_threshold"] = 1e-10
+        body["significant_power_threshold"] = conv_config.power_threshold
+        body["min_stable_checks"] = conv_config.min_stable_checks
+
+    print(f"\nStarting GPU simulation...")
+    print(f"  GPU: {gpu_type}, Max steps: {simulation_steps}")
+    if use_early_stopping:
+        print(f"  Convergence: {convergence}")
+
+    headers = {
+        "X-API-Key": effective_api_key,
+        "Content-Type": "application/json"
+    }
+
+    try:
+        print(f"Calling {endpoint} API...")
+        response = requests.post(
+            f"{API_URL}{endpoint}",
+            json=body,
+            headers=headers,
+            timeout=600
+        )
+        response.raise_for_status()
+        result = response.json()
+
+        sim_time = result.get("sim_time", 0)
+        total_time = time.time() - start_time
+        converged = result.get("converged", False)
+
+        print(f"Simulation completed in {sim_time:.1f}s (total: {total_time:.1f}s)")
+        if converged:
+            print(f"  Converged at step {result.get('convergence_step', 0)}")
+
+        # Decode monitor data
+        monitor_data_raw = result.get("monitor_data", {})
+        monitor_shapes = result.get("monitor_shapes", {})
+        monitor_data = {}
+
+        for name, data_b64 in monitor_data_raw.items():
+            if isinstance(data_b64, str) and data_b64:
+                shape = monitor_shapes.get(name)
+                if shape:
+                    try:
+                        arr_bytes = base64.b64decode(data_b64)
+                        arr = np.frombuffer(arr_bytes, dtype=np.complex64).reshape(shape)
+                        monitor_data[name] = arr
+                    except Exception as e:
+                        print(f"Warning: Failed to decode monitor {name}: {e}")
+
+        return {
+            "monitor_data": monitor_data,
+            "sim_time": sim_time,
+            "performance": result.get("performance", 0),
+            "converged": converged,
+            "convergence_step": result.get("convergence_step"),
+            "dimensions": dimensions,
+            "freq_band": freq_band,
+        }
+
+    except requests.exceptions.HTTPError as e:
+        _handle_api_error(e, "simulation")
+        return None
+    except requests.exceptions.RequestException as e:
+        print(f"Error running simulation: {e}")
+        return None
+
+
+# =============================================================================
+# ONE-SHOT WORKFLOW (DEPRECATED - use SDK workflow instead)
+# =============================================================================
+
+def simulate_one_shot(
     device_type: str,
     pdk_config: Dict[str, Any],
     source_port: str = "o1",
