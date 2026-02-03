@@ -87,6 +87,7 @@ from .sources import (
 from .api_client import (
     configure_api,
     generate_gaussian_source,
+    compute_adjoint_gradient,
 )
 
 # Import metasurface utilities
@@ -155,6 +156,7 @@ __all__ = [
 
     # API
     "configure_api",
+    "compute_adjoint_gradient",
 
     # Simulation
     "simulate",
