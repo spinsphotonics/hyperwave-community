@@ -132,6 +132,216 @@ def _resolve_convergence(convergence) -> Optional[ConvergenceConfig]:
     raise TypeError(f"convergence must be str, bool, ConvergenceConfig, or None. Got {type(convergence)}")
 
 
+# =============================================================================
+# COMPONENT PREVIEW (LOCAL - requires gdsfactory)
+# =============================================================================
+
+# List of supported GDSFactory components with their default parameters
+SUPPORTED_COMPONENTS = {
+    # Basic waveguides
+    "straight": {"length": 20.0, "width": 0.5},
+    "bend_euler": {"radius": 10.0, "angle": 90, "p": 0.5},
+    "bend_s": {"size": (10.0, 5.0), "npoints": 99},
+    "taper": {"length": 15.0, "width1": 0.5, "width2": 3.0},
+
+    # Directional couplers
+    "coupler": {"gap": 0.25, "length": 15.0, "dx": 8.0, "dy": 4.0},
+    "coupler_symmetric": {"gap": 0.234, "dy": 4.0, "dx": 10.0},
+    "coupler_ring": {"gap": 0.2, "radius": 10.0, "length_x": 4.0, "length_extension": 3.0},
+
+    # MMI splitters
+    "mmi1x2": {"width_mmi": 6.0, "length_mmi": 5.5, "gap_mmi": 0.25, "width_taper": 1.5, "length_taper": 10.0},
+    "mmi2x2": {"width_mmi": 6.0, "length_mmi": 5.5, "gap_mmi": 0.25, "width_taper": 1.5, "length_taper": 10.0},
+    "mmi2x2_with_sbend": {},  # No parameters
+
+    # Ring resonators
+    "ring_single": {"gap": 0.2, "radius": 10.0, "length_x": 4.0, "length_y": 0.6},
+    "ring_double": {"gap": 0.2, "radius": 10.0, "length_x": 4.0, "length_y": 0.6},
+
+    # Interferometers
+    "mzi": {"delta_length": 10.0, "length_y": 2.0, "length_x": 0.1},
+
+    # Crossings
+    "crossing": {},
+    "crossing45": {},
+
+    # Grating couplers
+    "grating_coupler_elliptical": {"polarization": "te", "taper_length": 16.0, "taper_angle": 40.0,
+                                    "wavelength": 1.55, "fiber_angle": 15.0, "grating_line_width": 0.343},
+    "grating_coupler_rectangular": {"n_periods": 20, "period": 0.63, "fill_factor": 0.5,
+                                     "width_grating": 10.0, "length_taper": 150.0},
+
+    # Spirals
+    "spiral_inner_io": {"N": 6, "x_straight_inner_right": 150.0, "x_straight_inner_left": 50.0},
+
+    # Bragg gratings
+    "dbr": {"w1": 0.5, "w2": 0.6, "l1": 0.2, "l2": 0.2, "n": 10},
+    "dbr_tapered": {"length": 10.0, "period": 0.3, "dc": 0.5, "w1": 0.4, "w2": 1.0, "taper_length": 20.0},
+}
+
+
+def list_components() -> List[str]:
+    """List all supported GDSFactory component names.
+
+    Returns:
+        List of component name strings that can be used with preview_component()
+        and build_recipe().
+
+    Example:
+        >>> hwc.list_components()
+        ['straight', 'bend_euler', 'mmi2x2', ...]
+    """
+    return list(SUPPORTED_COMPONENTS.keys())
+
+
+def get_component_params(component_name: str) -> Dict[str, Any]:
+    """Get default parameters for a GDSFactory component.
+
+    Args:
+        component_name: Name of the component (e.g., "mmi2x2")
+
+    Returns:
+        Dictionary of parameter names and their default values.
+        Empty dict means the component takes no parameters.
+
+    Example:
+        >>> hwc.get_component_params("mmi2x2")
+        {'width_mmi': 6.0, 'length_mmi': 5.5, 'gap_mmi': 0.25, ...}
+
+        >>> hwc.get_component_params("mmi2x2_with_sbend")
+        {}  # No parameters
+    """
+    if component_name not in SUPPORTED_COMPONENTS:
+        available = list(SUPPORTED_COMPONENTS.keys())
+        raise ValueError(f"Unknown component '{component_name}'. Available: {available}")
+    return SUPPORTED_COMPONENTS[component_name].copy()
+
+
+def preview_component(
+    component_name: str,
+    component_kwargs: Optional[Dict[str, Any]] = None,
+    extension_length: float = 2.0,
+    show_plot: bool = True,
+) -> Dict[str, Any]:
+    """Preview a GDSFactory component locally before building.
+
+    This function loads a GDSFactory component locally to visualize it
+    and inspect its ports before calling build_recipe(). Requires gdsfactory
+    to be installed locally.
+
+    Args:
+        component_name: Name of the gdsfactory component (e.g., "mmi2x2").
+        component_kwargs: Optional dict of parameters to customize the component.
+            Use get_component_params() to see available parameters.
+        extension_length: Length to extend ports in um (default: 2.0).
+        show_plot: If True, display the component plot (default: True).
+
+    Returns:
+        Dictionary containing:
+            - component: The gdsfactory Component object
+            - name: Component name
+            - ports: List of port info dicts with name, center, orientation, width
+            - bounds: Component bounding box (xmin, ymin, xmax, ymax)
+            - size_um: Component size in um (width, height)
+            - params: Parameters used (defaults merged with provided kwargs)
+
+    Example:
+        >>> # Preview with default parameters
+        >>> info = hwc.preview_component("mmi2x2")
+
+        >>> # Preview with custom parameters
+        >>> info = hwc.preview_component("mmi2x2", {"width_mmi": 8.0, "length_mmi": 7.0})
+
+        >>> # Check available parameters first
+        >>> params = hwc.get_component_params("mmi2x2")
+        >>> params["width_mmi"] = 8.0  # Modify
+        >>> info = hwc.preview_component("mmi2x2", params)
+    """
+    try:
+        import gdsfactory as gf
+    except ImportError:
+        raise ImportError(
+            "gdsfactory is required for preview_component(). "
+            "Install with: pip install gdsfactory"
+        )
+
+    # Activate PDK
+    try:
+        gf.CONF.pdk = "generic"
+    except Exception:
+        pass  # PDK might already be active
+
+    # Get default params and merge with provided kwargs
+    if component_name in SUPPORTED_COMPONENTS:
+        params = SUPPORTED_COMPONENTS[component_name].copy()
+    else:
+        params = {}
+
+    if component_kwargs:
+        params.update(component_kwargs)
+
+    # Get the component function
+    if not hasattr(gf.components, component_name):
+        available = [c for c in dir(gf.components) if not c.startswith('_')]
+        raise ValueError(f"Unknown component '{component_name}'. Check gf.components for available options.")
+
+    component_func = getattr(gf.components, component_name)
+
+    # Create the component
+    try:
+        if params:
+            component = component_func(**params)
+        else:
+            component = component_func()
+    except TypeError as e:
+        # If params don't match, show helpful error
+        import inspect
+        sig = inspect.signature(component_func)
+        valid_params = list(sig.parameters.keys())
+        raise TypeError(f"Invalid parameters for {component_name}. Valid params: {valid_params}. Error: {e}")
+
+    # Extend ports
+    component = gf.c.extend_ports(component, length=extension_length)
+
+    # Extract port info
+    ports_info = []
+    for port in component.ports:
+        ports_info.append({
+            'name': port.name,
+            'center': tuple(port.center),
+            'orientation': port.orientation,
+            'width': port.width,
+        })
+
+    # Get bounds
+    bounds = component.bbox
+    xmin, ymin = bounds[0]
+    xmax, ymax = bounds[1]
+
+    # Plot if requested
+    if show_plot:
+        component.plot()
+        print(f"\nComponent: {component.name}")
+        print(f"Size: {xmax - xmin:.2f} x {ymax - ymin:.2f} um")
+        print(f"Ports ({len(ports_info)}):")
+        for p in ports_info:
+            print(f"  {p['name']}: center=({p['center'][0]:.2f}, {p['center'][1]:.2f}), "
+                  f"orientation={p['orientation']}°, width={p['width']:.3f}um")
+        if params:
+            print(f"\nParameters used:")
+            for k, v in params.items():
+                print(f"  {k}: {v}")
+
+    return {
+        'component': component,
+        'name': component.name,
+        'ports': ports_info,
+        'bounds': (xmin, ymin, xmax, ymax),
+        'size_um': (xmax - xmin, ymax - ymin),
+        'params': params,
+    }
+
+
 # Global API configuration
 _API_CONFIG = {
     'api_key': None,

@@ -114,6 +114,10 @@ from .api_client import (
     CONVERGENCE_PRESETS,
     # Inverse design
     compute_adjoint_gradient,
+    # Component preview functions
+    list_components,
+    get_component_params,
+    preview_component,
 )
 
 # Import metasurface utilities
@@ -217,6 +221,11 @@ __all__ = [
     # Convergence configuration
     "ConvergenceConfig",
     "CONVERGENCE_PRESETS",
+
+    # Component preview functions
+    "list_components",
+    "get_component_params",
+    "preview_component",
 
     # Simulation utilities
     "simulate_local",
