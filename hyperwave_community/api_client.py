@@ -342,6 +342,354 @@ def preview_component(
     }
 
 
+def load_component(
+    component_name: str,
+    component_kwargs: Optional[Dict[str, Any]] = None,
+    extension_length: float = 2.0,
+    resolution_nm: float = 20.0,
+    show_plot: bool = True,
+) -> Dict[str, Any]:
+    """Load a GDSFactory component and convert to theta (design pattern).
+
+    This is the first step of a two-step workflow:
+    1. load_component() → theta (this function)
+    2. build_recipe_from_theta() → recipe
+
+    Args:
+        component_name: Name of the gdsfactory component (e.g., "mmi2x2", "coupler").
+        component_kwargs: Optional dict of parameters to customize the component.
+            Use get_component_params() to see available parameters.
+        extension_length: Length to extend ports in um (default: 2.0).
+        resolution_nm: Grid resolution in nanometers (default: 20.0).
+        show_plot: If True, display the theta pattern (default: True).
+
+    Returns:
+        Dictionary containing:
+            - theta: 2D JAX array of the design pattern
+            - device_info: Metadata about the component
+            - ports: Port information (name, center, orientation, width)
+            - component: The gdsfactory Component object
+            - resolution_nm: Resolution used
+            - resolution_um: Resolution in micrometers
+
+    Example:
+        >>> # Load component with default parameters
+        >>> theta_result = hwc.load_component("mmi2x2", resolution_nm=20)
+        >>> plt.imshow(theta_result['theta'])
+
+        >>> # Load with custom parameters
+        >>> theta_result = hwc.load_component(
+        ...     "mmi2x2",
+        ...     component_kwargs={"width_mmi": 8.0, "length_mmi": 10.0},
+        ...     resolution_nm=20,
+        ... )
+
+        >>> # Then build recipe from theta
+        >>> recipe_result = hwc.build_recipe_from_theta(
+        ...     theta_result=theta_result,
+        ...     n_core=3.48,
+        ...     n_clad=1.45,
+        ... )
+    """
+    try:
+        import gdsfactory as gf
+        import matplotlib.pyplot as plt
+    except ImportError:
+        raise ImportError(
+            "gdsfactory is required for load_component(). "
+            "Install with: pip install gdsfactory"
+        )
+
+    # Import component_to_theta from data_io
+    from .data_io import component_to_theta
+
+    # Activate PDK
+    try:
+        gf.CONF.pdk = "generic"
+    except Exception:
+        pass
+    try:
+        gf.gpdk.PDK.activate()
+    except Exception:
+        pass
+
+    # Get the component function
+    if not hasattr(gf.components, component_name):
+        available = [name for name in dir(gf.components) if not name.startswith('_')]
+        raise ValueError(
+            f"Component '{component_name}' not found. "
+            f"Available components include: {available[:20]}..."
+        )
+
+    component_func = getattr(gf.components, component_name)
+
+    # Build kwargs
+    kwargs = component_kwargs or {}
+
+    # Create component with port extensions
+    try:
+        base_component = component_func(**kwargs)
+        component = gf.routing.add_fiber_array(
+            base_component,
+            with_loopback=False,
+            fanout_length=0,
+            straight_separation=0,
+            component_name=component_name,
+        ) if extension_length > 0 else base_component
+
+        # If add_fiber_array doesn't work well, fall back to manual extension
+        # For now, use a simpler approach - just extend the ports
+        component = gf.add_padding(
+            base_component,
+            default=0,
+            right=extension_length,
+            left=extension_length,
+        )
+    except Exception:
+        # Fallback: just use base component with padding
+        component = component_func(**kwargs)
+        try:
+            component = gf.add_padding(
+                component,
+                default=0,
+                right=extension_length,
+                left=extension_length,
+            )
+        except Exception:
+            pass
+
+    # Convert to theta
+    resolution_um = resolution_nm / 1000.0
+    theta, device_info = component_to_theta(
+        component=component,
+        resolution=resolution_um,
+    )
+
+    # Get port info
+    ports_info = []
+    for port in component.ports:
+        ports_info.append({
+            'name': port.name,
+            'center': tuple(port.center),
+            'orientation': port.orientation,
+            'width': port.width,
+        })
+
+    # Convert ports to the format expected by build_monitors
+    port_info_dict = {}
+    for port in component.ports:
+        # Convert port position from um to cells
+        port_x_um, port_y_um = port.center
+        port_x_cells = int(port_x_um / resolution_um)
+        port_y_cells = int(port_y_um / resolution_um)
+
+        port_info_dict[port.name] = {
+            'x_cell': port_x_cells,
+            'y_cell': port_y_cells,
+            'orientation': port.orientation,
+            'width_um': port.width,
+        }
+
+    # Plot if requested
+    if show_plot:
+        fig, ax = plt.subplots(figsize=(12, 4))
+        im = ax.imshow(theta, cmap='gray', origin='lower')
+        ax.set_title(f"Theta: {component_name} @ {resolution_nm}nm resolution")
+        ax.set_xlabel("x (cells)")
+        ax.set_ylabel("y (cells)")
+        plt.colorbar(im, ax=ax, label="theta")
+        plt.tight_layout()
+        plt.show()
+
+        print(f"\nComponent: {component_name}")
+        print(f"Theta shape: {theta.shape}")
+        print(f"Resolution: {resolution_nm}nm ({resolution_um}um)")
+        print(f"Physical size: {theta.shape[1] * resolution_um:.2f} x {theta.shape[0] * resolution_um:.2f} um")
+        print(f"Ports ({len(ports_info)}):")
+        for p in ports_info:
+            print(f"  {p['name']}: center=({p['center'][0]:.2f}, {p['center'][1]:.2f}), "
+                  f"orientation={p['orientation']}°, width={p['width']:.3f}um")
+
+    return {
+        'theta': theta,
+        'device_info': device_info,
+        'ports': ports_info,
+        'port_info': port_info_dict,
+        'component': component,
+        'component_name': component_name,
+        'resolution_nm': resolution_nm,
+        'resolution_um': resolution_um,
+        'extension_length': extension_length,
+        'component_kwargs': kwargs,
+    }
+
+
+def build_recipe_from_theta(
+    theta_result: Dict[str, Any],
+    n_core: float = 3.48,
+    n_clad: float = 1.45,
+    wg_height_um: float = 0.22,
+    total_height_um: float = 4.0,
+    padding: Tuple[int, int, int, int] = (100, 100, 0, 0),
+    density_radius: int = 3,
+    vertical_radius: float = 2.0,
+    show_structure: bool = True,
+) -> Dict[str, Any]:
+    """Build structure recipe from theta (design pattern).
+
+    This is the second step of a two-step workflow:
+    1. load_component() → theta
+    2. build_recipe_from_theta() → recipe (this function)
+
+    This function runs entirely locally (no API call) and does NOT consume credits.
+
+    Args:
+        theta_result: Output from load_component() containing theta and metadata.
+        n_core: Core refractive index (default: 3.48 for Silicon).
+        n_clad: Cladding refractive index (default: 1.45 for SiO2).
+        wg_height_um: Waveguide height in um (default: 0.22).
+        total_height_um: Total structure height in um (default: 4.0).
+        padding: (left, right, top, bottom) padding in cells (default: (100, 100, 0, 0)).
+        density_radius: Radius for density filtering (default: 3).
+        vertical_radius: Vertical blur radius (default: 2.0).
+        show_structure: If True, show structure visualization (default: True).
+
+    Returns:
+        Dictionary containing:
+            - recipe: Structure recipe dict for simulation
+            - density_core: Core layer density pattern
+            - density_clad: Cladding layer density pattern
+            - dimensions: (Lx, Ly, Lz) structure dimensions
+            - port_info: Port information for monitors
+            - layer_config: Layer configuration
+            - eps_values: (eps_clad, eps_core) tuple
+            - resolution_um: Resolution in micrometers
+            - structure: The Structure object (for visualization)
+
+    Example:
+        >>> # First load the component
+        >>> theta_result = hwc.load_component("mmi2x2", resolution_nm=20)
+
+        >>> # Then build the recipe
+        >>> recipe_result = hwc.build_recipe_from_theta(
+        ...     theta_result=theta_result,
+        ...     n_core=3.48,
+        ...     n_clad=1.45,
+        ...     wg_height_um=0.22,
+        ... )
+        >>> print(f"Structure dimensions: {recipe_result['dimensions']}")
+    """
+    import jax.numpy as jnp
+    import matplotlib.pyplot as plt
+
+    # Import local structure functions
+    from .structure import density, Layer, create_structure
+
+    # Extract from theta_result
+    theta = theta_result['theta']
+    resolution_um = theta_result['resolution_um']
+    port_info = theta_result.get('port_info', {})
+    component_name = theta_result.get('component_name', 'unknown')
+
+    print(f"Building recipe from theta...")
+
+    # Calculate permittivities
+    eps_core = n_core ** 2
+    eps_clad = n_clad ** 2
+
+    # Create density patterns with padding
+    density_core = density(
+        theta=theta,
+        pad_width=padding,
+        radius=density_radius,
+    )
+
+    density_clad = density(
+        theta=jnp.zeros_like(theta),
+        pad_width=padding,
+        radius=density_radius,
+    )
+
+    # Calculate layer thicknesses in cells
+    wg_thickness_cells = max(1, int(round(wg_height_um / resolution_um)))
+    slab_height_um = (total_height_um - wg_height_um) / 2
+    slab_thickness_cells = max(1, int(round(slab_height_um / resolution_um)))
+
+    # Create layers
+    core_layer = Layer(
+        density_pattern=density_core,
+        permittivity_values=(eps_clad, eps_core),
+        layer_thickness=wg_thickness_cells,
+    )
+
+    clad_layer = Layer(
+        density_pattern=density_clad,
+        permittivity_values=eps_clad,
+        layer_thickness=slab_thickness_cells,
+    )
+
+    # Build structure: clad / core / clad
+    structure = create_structure(
+        layers=[clad_layer, core_layer, clad_layer],
+        vertical_radius=vertical_radius,
+    )
+
+    # Get dimensions
+    _, Lx, Ly, Lz = structure.permittivity.shape
+    dimensions = (Lx, Ly, Lz)
+
+    # Adjust port positions for padding
+    adjusted_port_info = {}
+    for port_name, port_data in port_info.items():
+        adjusted_port_info[port_name] = {
+            'x_cell': port_data['x_cell'] + padding[0],  # left padding
+            'y_cell': port_data['y_cell'] + padding[2],  # top padding
+            'orientation': port_data['orientation'],
+            'width_um': port_data['width_um'],
+        }
+
+    # Create layer config
+    layer_config = {
+        'slab_thickness_cells': slab_thickness_cells,
+        'wg_thickness_cells': wg_thickness_cells,
+        'total_z_cells': Lz,
+    }
+
+    # Extract recipe
+    recipe = structure.extract_recipe()
+
+    # Show structure if requested
+    if show_structure:
+        # View XY slice at waveguide center
+        z_center = slab_thickness_cells + wg_thickness_cells // 2
+        structure.view(
+            show_permittivity=True,
+            show_conductivity=False,
+            axis="z",
+            position=z_center,
+            cmap_permittivity="viridis",
+        )
+        plt.title(f"{component_name} - XY slice at z={z_center}")
+        plt.show()
+
+    print(f"Recipe built: {Lx}x{Ly}x{Lz} cells")
+    print(f"Ports: {list(adjusted_port_info.keys())}")
+
+    return {
+        'recipe': recipe,
+        'density_core': density_core,
+        'density_clad': density_clad,
+        'dimensions': dimensions,
+        'port_info': adjusted_port_info,
+        'layer_config': layer_config,
+        'eps_values': (eps_clad, eps_core),
+        'resolution_um': resolution_um,
+        'padding': padding,
+        'structure': structure,
+        'device_info': theta_result.get('device_info'),
+    }
+
+
 # Global API configuration
 _API_CONFIG = {
     'api_key': None,
@@ -1929,550 +2277,6 @@ def get_default_absorber_params(
         return None
     except requests.exceptions.RequestException as e:
         print(f"Error getting absorber params: {e}")
-        return None
-
-
-# =============================================================================
-# NEW GRANULAR WORKFLOW FUNCTIONS (Fine-grained control)
-# =============================================================================
-
-def load_component(
-    name: str,
-    extension_length: float = 2.0,
-    component_kwargs: Optional[Dict[str, Any]] = None,
-) -> Optional[Dict[str, Any]]:
-    """Load GDSFactory component and get its metadata.
-
-    This function runs on CPU and does NOT consume credits.
-
-    Args:
-        name: Component name from gdsfactory (e.g., "mmi1x2", "mmi2x2").
-        extension_length: Length to extend ports in micrometers (default: 2.0).
-        component_kwargs: Optional kwargs to pass to component constructor.
-
-    Returns:
-        Dictionary containing:
-        - name: Component name
-        - port_info: Port information dict
-        - bounding_box_um: Bounding box in micrometers
-        - component_params: Component parameters
-
-    Example:
-        >>> component_data = hwc.load_component("mmi2x2", extension_length=2.0)
-        >>> print(f"Ports: {list(component_data['port_info'].keys())}")
-    """
-    config = _get_api_config()
-    API_URL = config['api_url']
-    API_KEY = config['api_key']
-
-    print(f"Loading component: {name}...")
-
-    request_data = {
-        "name": name,
-        "extension_length": extension_length,
-        "component_kwargs": component_kwargs or {},
-    }
-
-    headers = {"X-API-Key": API_KEY, "Content-Type": "application/json"}
-
-    try:
-        response = requests.post(
-            f"{API_URL}/granular/component/load",
-            json=request_data,
-            headers=headers,
-            timeout=120
-        )
-        response.raise_for_status()
-        result = response.json()
-
-        ports = list(result.get('port_info', {}).keys())
-        print(f"Component loaded: {ports}")
-
-        return result
-
-    except requests.exceptions.HTTPError as e:
-        _handle_api_error(e, "component loading")
-        return None
-    except requests.exceptions.RequestException as e:
-        print(f"Error loading component: {e}")
-        return None
-
-
-def create_structure_recipe(
-    component_data: Dict[str, Any],
-    resolution_nm: float = 20.0,
-    n_core: float = 3.48,
-    n_clad: float = 1.4457,
-    wg_height_um: float = 0.22,
-    clad_top_um: float = 1.89,
-    clad_bot_um: float = 2.0,
-    padding: Tuple[int, int, int, int] = (100, 100, 0, 0),
-    density_radius: int = 3,
-    vertical_radius: float = 2.0,
-) -> Optional[Dict[str, Any]]:
-    """Create structure recipe from component data.
-
-    This function runs on CPU and does NOT consume credits.
-
-    Args:
-        component_data: Component data from load_component().
-        resolution_nm: Grid resolution in nanometers (default: 20.0).
-        n_core: Core refractive index (default: 3.48 for silicon).
-        n_clad: Cladding refractive index (default: 1.4457 for SiO2).
-        wg_height_um: Waveguide height in micrometers (default: 0.22).
-        clad_top_um: Top cladding thickness in micrometers (default: 1.89).
-        clad_bot_um: Bottom cladding thickness in micrometers (default: 2.0).
-        padding: (left, right, top, bottom) padding in theta pixels.
-        density_radius: Radius for density filtering (default: 3).
-        vertical_radius: Vertical blur radius (default: 2.0).
-
-    Returns:
-        Dictionary containing:
-        - structure_recipe: Recipe for simulation
-        - dimensions: (nx, ny, nz) grid dimensions
-        - port_info_cells: Port locations in grid cells
-        - freq_band: Frequency band tuple
-        - wavelengths_um: Wavelength list
-
-    Example:
-        >>> component_data = hwc.load_component("mmi2x2")
-        >>> recipe_data = hwc.create_structure_recipe(
-        ...     component_data,
-        ...     resolution_nm=20,
-        ...     n_core=3.48,
-        ...     n_clad=1.4457,
-        ... )
-        >>> print(f"Dimensions: {recipe_data['dimensions']}")
-    """
-    config = _get_api_config()
-    API_URL = config['api_url']
-    API_KEY = config['api_key']
-
-    print(f"Creating structure recipe...")
-
-    request_data = {
-        "component_data": component_data,
-        "resolution_nm": resolution_nm,
-        "n_core": n_core,
-        "n_clad": n_clad,
-        "wg_height_um": wg_height_um,
-        "clad_top_um": clad_top_um,
-        "clad_bot_um": clad_bot_um,
-        "padding": list(padding),
-        "density_radius": density_radius,
-        "vertical_radius": vertical_radius,
-    }
-
-    headers = {"X-API-Key": API_KEY, "Content-Type": "application/json"}
-
-    try:
-        response = requests.post(
-            f"{API_URL}/granular/structure/create",
-            json=request_data,
-            headers=headers,
-            timeout=300
-        )
-        response.raise_for_status()
-        result = response.json()
-
-        dims = result.get('dimensions', [])
-        print(f"Structure recipe created: {dims[0]}x{dims[1]}x{dims[2]} cells")
-
-        return result
-
-    except requests.exceptions.HTTPError as e:
-        _handle_api_error(e, "structure recipe creation")
-        return None
-    except requests.exceptions.RequestException as e:
-        print(f"Error creating structure recipe: {e}")
-        return None
-
-
-def create_monitors(
-    structure_recipe_data: Dict[str, Any],
-    source_port: str = "o2",
-    monitor_x_um: float = 0.1,
-    monitor_y_um: float = 1.5,
-    monitor_z_um: float = 1.5,
-    source_offset_cells: int = 5,
-) -> Optional[Dict[str, Any]]:
-    """Create monitors from structure recipe data.
-
-    This function runs on CPU and does NOT consume credits.
-
-    Args:
-        structure_recipe_data: Structure recipe data from create_structure_recipe().
-        source_port: Name of input port (default: "o2").
-        monitor_x_um: Monitor width in x direction in micrometers (default: 0.1).
-        monitor_y_um: Monitor width in y direction in micrometers (default: 1.5).
-        monitor_z_um: Monitor width in z direction in micrometers (default: 1.5).
-        source_offset_cells: Source offset from port in cells (default: 5).
-
-    Returns:
-        Dictionary containing:
-        - monitors: Monitor configuration dict
-        - mode_solve_params: Parameters for mode solving
-        - source_port_name: Actual source port name
-
-    Example:
-        >>> monitors_data = hwc.create_monitors(
-        ...     structure_recipe_data,
-        ...     source_port="o2",
-        ...     monitor_x_um=0.1,
-        ... )
-        >>> print(f"Source port: {monitors_data['source_port_name']}")
-    """
-    config = _get_api_config()
-    API_URL = config['api_url']
-    API_KEY = config['api_key']
-
-    print(f"Creating monitors (source: {source_port})...")
-
-    request_data = {
-        "structure_recipe_data": structure_recipe_data,
-        "source_port": source_port,
-        "monitor_x_um": monitor_x_um,
-        "monitor_y_um": monitor_y_um,
-        "monitor_z_um": monitor_z_um,
-        "source_offset_cells": source_offset_cells,
-    }
-
-    headers = {"X-API-Key": API_KEY, "Content-Type": "application/json"}
-
-    try:
-        response = requests.post(
-            f"{API_URL}/granular/monitors/create",
-            json=request_data,
-            headers=headers,
-            timeout=120
-        )
-        response.raise_for_status()
-        result = response.json()
-
-        print(f"Monitors created")
-
-        return result
-
-    except requests.exceptions.HTTPError as e:
-        _handle_api_error(e, "monitor creation")
-        return None
-    except requests.exceptions.RequestException as e:
-        print(f"Error creating monitors: {e}")
-        return None
-
-
-def solve_mode(
-    structure_recipe: Dict[str, Any],
-    mode_solve_params: Dict[str, Any],
-    freq_band: Tuple[float, float, int],
-    mode_num: int = 0,
-) -> Optional[Dict[str, Any]]:
-    """Solve for waveguide mode at source port.
-
-    This function runs on CPU and does NOT consume credits.
-
-    Args:
-        structure_recipe: Structure recipe dict.
-        mode_solve_params: Mode solve parameters from create_monitors().
-        freq_band: Frequency band tuple (f_min, f_max, n_freqs).
-        mode_num: Mode number to solve (0 = fundamental, default: 0).
-
-    Returns:
-        Dictionary containing:
-        - source_field: Source field numpy array
-        - source_offset: Source offset tuple
-        - freq_band: Frequency band used
-        - mode_info: Mode information dict (n_eff, etc.)
-
-    Example:
-        >>> source_data = hwc.solve_mode(
-        ...     structure_recipe,
-        ...     mode_solve_params,
-        ...     freq_band=(1.2, 1.3, 5),
-        ...     mode_num=0,
-        ... )
-        >>> print(f"n_eff: {source_data['mode_info']['n_eff']}")
-    """
-    config = _get_api_config()
-    API_URL = config['api_url']
-    API_KEY = config['api_key']
-
-    print(f"Solving mode (mode_num={mode_num})...")
-
-    request_data = {
-        "structure_recipe": structure_recipe,
-        "mode_solve_params": mode_solve_params,
-        "freq_band": list(freq_band),
-        "mode_num": mode_num,
-    }
-
-    headers = {"X-API-Key": API_KEY, "Content-Type": "application/json"}
-
-    try:
-        response = requests.post(
-            f"{API_URL}/granular/mode/solve",
-            json=request_data,
-            headers=headers,
-            timeout=300
-        )
-        response.raise_for_status()
-        result = response.json()
-
-        # Decode base64 source field
-        if 'source_field_b64' in result:
-            result['source_field'] = decode_array(result['source_field_b64'])
-            del result['source_field_b64']
-
-        mode_info = result.get('mode_info', {})
-        n_eff = mode_info.get('n_eff', 'N/A')
-        print(f"Mode solved: n_eff={n_eff}")
-
-        return result
-
-    except requests.exceptions.HTTPError as e:
-        _handle_api_error(e, "mode solving")
-        return None
-    except requests.exceptions.RequestException as e:
-        print(f"Error solving mode: {e}")
-        return None
-
-
-def run_gpu_simulation(
-    structure_recipe: Dict[str, Any],
-    source_data: Dict[str, Any],
-    monitors: Dict[str, Any],
-    gpu_type: str = "H100",
-    max_steps: int = 20000,
-    check_every_n: int = 1000,
-    source_ramp_periods: float = 10.0,
-    min_steps: int = 0,
-    min_stable_checks: int = 3,
-    absorber_width: Optional[int] = None,
-    absorber_coeff: Optional[float] = None,
-) -> Optional[Dict[str, Any]]:
-    """Run FDTD simulation on GPU with granular inputs.
-
-    This function runs on GPU and DOES consume credits.
-
-    Args:
-        structure_recipe: Structure recipe dict.
-        source_data: Source data from solve_mode().
-        monitors: Monitor configuration from create_monitors().
-        gpu_type: GPU type - "H100", "A100-80GB", etc. (default: "H100").
-        max_steps: Maximum FDTD steps (default: 20000).
-        check_every_n: Convergence check interval (default: 1000).
-        source_ramp_periods: Source ramp-up periods (default: 10.0).
-        min_steps: Minimum steps before early stopping (default: 0).
-        min_stable_checks: Consecutive stable checks for convergence (default: 3).
-        absorber_width: Absorber width in cells (optional).
-        absorber_coeff: Absorber coefficient (optional).
-
-    Returns:
-        Dictionary containing:
-        - field_data: Field data with decoded numpy arrays
-        - s_parameters: Transmission/reflection data
-        - sim_time: GPU simulation time
-        - converged: Whether simulation converged
-
-    Example:
-        >>> results = hwc.run_gpu_simulation(
-        ...     structure_recipe,
-        ...     source_data,
-        ...     monitors,
-        ...     gpu_type="H100",
-        ...     max_steps=20000,
-        ... )
-        >>> print(f"Converged: {results['converged']}")
-    """
-    config = _get_api_config()
-    API_URL = config['api_url']
-    API_KEY = config['api_key']
-
-    print(f"Starting GPU simulation...")
-    print(f"  GPU: {gpu_type}, Max steps: {max_steps}")
-
-    # Encode source field if it's a numpy array
-    request_data = {
-        "structure_recipe": structure_recipe,
-        "source_data": source_data.copy(),
-        "monitors": monitors,
-        "gpu_type": gpu_type,
-        "max_steps": max_steps,
-        "check_every_n": check_every_n,
-        "source_ramp_periods": source_ramp_periods,
-        "min_steps": min_steps,
-        "min_stable_checks": min_stable_checks,
-    }
-
-    if absorber_width is not None:
-        request_data["absorber_width"] = absorber_width
-    if absorber_coeff is not None:
-        request_data["absorber_coeff"] = absorber_coeff
-
-    # Encode source field if present
-    if 'source_field' in request_data['source_data']:
-        source_field = request_data['source_data']['source_field']
-        if isinstance(source_field, np.ndarray):
-            request_data['source_data']['source_field_b64'] = encode_array(source_field)
-            del request_data['source_data']['source_field']
-
-    headers = {"X-API-Key": API_KEY, "Content-Type": "application/json"}
-
-    try:
-        response = requests.post(
-            f"{API_URL}/granular/simulation/run",
-            json=request_data,
-            headers=headers,
-            timeout=1800  # 30 minutes for long simulations
-        )
-        response.raise_for_status()
-        result = response.json()
-
-        # Decode base64 arrays in response
-        if 'field_data' in result:
-            field_data = result['field_data']
-            for key in field_data:
-                if isinstance(field_data[key], str) and key.endswith('_b64'):
-                    array_key = key.replace('_b64', '')
-                    field_data[array_key] = decode_array(field_data[key])
-                    del field_data[key]
-
-        sim_time = result.get('sim_time', 0)
-        converged = result.get('converged', False)
-        print(f"Simulation completed in {sim_time:.1f}s (converged: {converged})")
-
-        return result
-
-    except requests.exceptions.HTTPError as e:
-        _handle_api_error(e, "GPU simulation")
-        return None
-    except requests.exceptions.RequestException as e:
-        print(f"Error running GPU simulation: {e}")
-        return None
-
-
-def analyze_transmission(
-    simulation_results: Dict[str, Any],
-) -> Optional[Dict[str, Any]]:
-    """Analyze transmission from simulation results.
-
-    This function runs on CPU and does NOT consume credits.
-
-    Args:
-        simulation_results: Simulation results from run_gpu_simulation().
-
-    Returns:
-        Dictionary containing:
-        - wavelengths_nm: Wavelengths in nanometers
-        - transmission: Transmission values per port
-        - total_transmission: Total transmission sum
-        - excess_loss_dB: Excess loss in dB
-
-    Example:
-        >>> trans_data = hwc.analyze_transmission(simulation_results)
-        >>> print(f"Excess loss: {trans_data['excess_loss_dB']:.2f} dB")
-    """
-    config = _get_api_config()
-    API_URL = config['api_url']
-    API_KEY = config['api_key']
-
-    print(f"Analyzing transmission...")
-
-    request_data = {
-        "simulation_results": simulation_results,
-    }
-
-    headers = {"X-API-Key": API_KEY, "Content-Type": "application/json"}
-
-    try:
-        response = requests.post(
-            f"{API_URL}/granular/analysis/transmission",
-            json=request_data,
-            headers=headers,
-            timeout=60
-        )
-        response.raise_for_status()
-        result = response.json()
-
-        print(f"Transmission analyzed")
-
-        return result
-
-    except requests.exceptions.HTTPError as e:
-        _handle_api_error(e, "transmission analysis")
-        return None
-    except requests.exceptions.RequestException as e:
-        print(f"Error analyzing transmission: {e}")
-        return None
-
-
-def get_field_slice(
-    simulation_results: Dict[str, Any],
-    monitor_name: str = "xy_mid",
-    freq_idx: int = 0,
-) -> Optional[Dict[str, Any]]:
-    """Get 2D field slice from simulation results.
-
-    This function runs on CPU and does NOT consume credits.
-
-    Args:
-        simulation_results: Simulation results from run_gpu_simulation().
-        monitor_name: Name of monitor to extract (default: "xy_mid").
-        freq_idx: Frequency index to extract (default: 0).
-
-    Returns:
-        Dictionary containing:
-        - intensity_2d: 2D field intensity numpy array
-        - shape: Array shape tuple
-        - monitor_name: Monitor name used
-
-    Example:
-        >>> field_data = hwc.get_field_slice(
-        ...     simulation_results,
-        ...     monitor_name="xy_mid",
-        ...     freq_idx=0,
-        ... )
-        >>> import matplotlib.pyplot as plt
-        >>> plt.imshow(field_data['intensity_2d'])
-    """
-    config = _get_api_config()
-    API_URL = config['api_url']
-    API_KEY = config['api_key']
-
-    print(f"Getting field slice ({monitor_name}, freq={freq_idx})...")
-
-    request_data = {
-        "simulation_results": simulation_results,
-        "monitor_name": monitor_name,
-        "freq_idx": freq_idx,
-    }
-
-    headers = {"X-API-Key": API_KEY, "Content-Type": "application/json"}
-
-    try:
-        response = requests.post(
-            f"{API_URL}/granular/analysis/field_slice",
-            json=request_data,
-            headers=headers,
-            timeout=60
-        )
-        response.raise_for_status()
-        result = response.json()
-
-        # Decode base64 intensity array
-        if 'intensity_2d_b64' in result:
-            result['intensity_2d'] = decode_array(result['intensity_2d_b64'])
-            del result['intensity_2d_b64']
-
-        print(f"Field slice extracted: {result.get('shape')}")
-
-        return result
-
-    except requests.exceptions.HTTPError as e:
-        _handle_api_error(e, "field slice extraction")
-        return None
-    except requests.exceptions.RequestException as e:
-        print(f"Error getting field slice: {e}")
         return None
 
 

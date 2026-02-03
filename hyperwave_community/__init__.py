@@ -118,6 +118,9 @@ from .api_client import (
     list_components,
     get_component_params,
     preview_component,
+    # Granular workflow functions
+    load_component,
+    build_recipe_from_theta,
 )
 
 # Import metasurface utilities
@@ -226,6 +229,10 @@ __all__ = [
     "list_components",
     "get_component_params",
     "preview_component",
+
+    # Granular workflow functions
+    "load_component",
+    "build_recipe_from_theta",
 
     # Simulation utilities
     "simulate_local",
