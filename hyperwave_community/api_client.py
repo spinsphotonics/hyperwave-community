@@ -448,47 +448,31 @@ def load_component(
     kwargs = component_kwargs or {}
 
     # Create component with port extensions
+    # Use gf.c.extend_ports() to match Modal API behavior
+    # This adds actual waveguide segments to the ports (not just empty padding)
     try:
         base_component = component_func(**kwargs)
-        component = gf.routing.add_fiber_array(
-            base_component,
-            with_loopback=False,
-            fanout_length=0,
-            straight_separation=0,
-            component_name=component_name,
-        ) if extension_length > 0 else base_component
+        if extension_length > 0:
+            component = gf.c.extend_ports(base_component, length=extension_length)
+        else:
+            component = base_component
+    except Exception as e:
+        # Fallback: just use base component without extension
+        print(f"Warning: Could not extend ports: {e}")
+        base_component = component_func(**kwargs)
+        component = base_component
 
-        # If add_fiber_array doesn't work well, fall back to manual extension
-        # For now, use a simpler approach - just extend the ports
-        component = gf.add_padding(
-            base_component,
-            default=0,
-            right=extension_length,
-            left=extension_length,
-        )
-    except Exception:
-        # Fallback: just use base component with padding
-        component = component_func(**kwargs)
-        try:
-            component = gf.add_padding(
-                component,
-                default=0,
-                right=extension_length,
-                left=extension_length,
-            )
-        except Exception:
-            pass
-
-    # Convert to theta
+    # Convert to theta (use extended component for geometry)
     resolution_um = resolution_nm / 1000.0
     theta, device_info = component_to_theta(
         component=component,
         resolution=resolution_um,
     )
 
-    # Get port info
+    # Get port info (use ORIGINAL component's ports for positions, like Modal API)
+    # The Modal uses gf_device.ports (original), not gf_extended.ports
     ports_info = []
-    for port in component.ports:
+    for port in base_component.ports:
         ports_info.append({
             'name': port.name,
             'center': tuple(port.center),
@@ -498,36 +482,34 @@ def load_component(
 
     # Convert ports to the format expected by build_monitors
     # Port positions need to be offset by bounding box min and converted to STRUCTURE cells
-    # (theta is 2x finer, but we want structure cell coordinates)
+    # Use ORIGINAL component's ports but EXTENDED component's bounding box
     bbox = device_info.get('bounding_box_um', (0, 0, 0, 0))
     xmin_um, ymin_um = bbox[0], bbox[1]
 
-    # Get max valid structure cell indices (theta is 2x finer)
-    theta_shape = device_info.get('shape', theta.shape)
-    max_x_cell = theta_shape[0] // 2 - 1  # -1 for 0-based indexing
-    max_y_cell = theta_shape[1] // 2 - 1
+    # Get theta resolution for cell conversion (theta is 2x finer than structure)
+    theta_res = device_info.get('theta_resolution_um', resolution_um / 2)
 
     port_info_dict = {}
-    for port in component.ports:
-        # Convert port position from um to structure cells
-        # 1. Get port position in um (relative to component origin)
+    # Use base_component.ports (original) for positions, matching Modal behavior
+    # Modal formula: x_struct = int((px_um - x_min) / theta_res / 2)
+    # Note: NO padding offset here - that's added in build_recipe_from_theta
+    for port in base_component.ports:
+        # Get port position in um
         port_x_um, port_y_um = port.center
-        # 2. Offset to make relative to bounding box origin
-        port_x_um_offset = port_x_um - xmin_um
-        port_y_um_offset = port_y_um - ymin_um
-        # 3. Convert to structure cells (not theta cells)
-        port_x_cells = int(port_x_um_offset / resolution_um)
-        port_y_cells = int(port_y_um_offset / resolution_um)
-        # 4. Cap to valid range (ports at exact edge need to be inside bounds)
-        port_x_cells = min(port_x_cells, max_x_cell)
-        port_y_cells = min(port_y_cells, max_y_cell)
+
+        # Convert to structure cells using Modal's formula:
+        # x_struct = int((px_um - x_min) / theta_res / 2)
+        # where theta_res is 0.01 um (10nm), so theta_res / 2 = 0.005 um
+        # But we want structure cells, so we divide by resolution_um (0.02 um)
+        x_struct = int((port_x_um - xmin_um) / theta_res / 2)
+        y_struct = int((port_y_um - ymin_um) / theta_res / 2)
 
         # is_input: True if port faces inward (orientation ~180 degrees)
         is_input = abs(port.orientation % 360 - 180) < 1
 
         port_info_dict[port.name] = {
-            'x_struct': port_x_cells,
-            'y_struct': port_y_cells,
+            'x_struct': x_struct,
+            'y_struct': y_struct,
             'orientation': port.orientation,
             'is_input': is_input,
             'center_um': (port_x_um, port_y_um),
@@ -692,20 +674,24 @@ def build_recipe_from_theta(
     #   - top/bottom (padding[2]/[3]) pad the X axis (axis 0)
     adjusted_port_info = {}
     for port_name, port_data in port_info.items():
+        # Padding is in theta cells (2x finer), divide by 2 for structure cells
+        x_pad_struct = padding[2] // 2
+        y_pad_struct = padding[0] // 2
         adjusted_port_info[port_name] = {
-            'x_struct': port_data['x_struct'] + padding[2],  # top padding adds to X
-            'y_struct': port_data['y_struct'] + padding[0],  # left padding adds to Y
+            'x_struct': port_data['x_struct'] + x_pad_struct,
+            'y_struct': port_data['y_struct'] + y_pad_struct,
             'orientation': port_data['orientation'],
             'is_input': port_data['is_input'],
             'center_um': port_data['center_um'],
             'width_um': port_data['width_um'],
         }
 
-    # Create layer config
+    # Create layer config (match Modal API key names exactly)
     layer_config = {
-        'slab_thickness_cells': slab_thickness_cells,
-        'wg_thickness_cells': wg_thickness_cells,
-        'total_z_cells': Lz,
+        'clad_bot_cells': slab_thickness_cells,
+        'wg_height_cells': wg_thickness_cells,
+        'clad_top_cells': slab_thickness_cells,  # Symmetric cladding
+        'vertical_radius': vertical_radius,
     }
 
     # Extract recipe
@@ -805,9 +791,9 @@ def build_monitors_local(
 
     # Calculate monitor size in cells
     monitor_margin_cells = int(monitor_margin_um / resolution_um)
-    slab_thickness = layer_config['slab_thickness_cells']
-    wg_thickness = layer_config['wg_thickness_cells']
-    z_center = slab_thickness + wg_thickness // 2
+    clad_bot_cells = layer_config['clad_bot_cells']
+    wg_height_cells = layer_config['wg_height_cells']
+    z_center = clad_bot_cells + wg_height_cells // 2
 
     # Add input monitor at source port
     input_label = f"Input_{source_port}"
@@ -869,7 +855,7 @@ def build_monitors_local(
 # Global API configuration
 _API_CONFIG = {
     'api_key': None,
-    'api_url': 'https://hyperwave-api-ndxkltl5nq-uc.a.run.app'
+    'api_url': 'https://hyperwave-api-153269426439.us-central1.run.app'
 }
 
 
@@ -1371,14 +1357,15 @@ def run_simulation(
     # Build setup_data from individual results if provided
     if recipe_result is not None and monitor_result is not None and source_result is not None:
         # Package granular results into setup_data format
+        # Use _to_json_serializable to convert numpy/JAX arrays to JSON-serializable types
         setup_data = {
-            'structure_recipe': recipe_result['recipe'],
+            'structure_recipe': _to_json_serializable(recipe_result['recipe']),
             'source_field_b64': encode_array(source_result['source_field']),
             'source_field_shape': list(source_result['source_field'].shape),
             'source_offset': list(source_result['source_offset']),
             'freq_band': list(freq_result['freq_band']) if freq_result else [0.081, 0.081, 1],
-            'monitors': monitor_result['monitors'],
-            'monitor_names': monitor_result['monitor_names'],
+            'monitors': _to_json_serializable(monitor_result['monitors']),
+            'monitor_names': _to_json_serializable(monitor_result['monitor_names']),
             'dimensions': list(recipe_result['dimensions']),
         }
     elif setup_data is None:
