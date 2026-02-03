@@ -839,7 +839,7 @@ def run_simulation(
                     freq_band=result.get("freq_band"),
                 )
                 sim_results["field_intensity"] = field_result
-                print(f"  Field intensity extracted: {field_result.get('shape')}")
+                print(f"  Field intensity extracted: {field_result['intensity'].shape}")
             except Exception as e:
                 print(f"  Warning: Could not extract field intensity: {e}")
                 sim_results["field_intensity"] = None
