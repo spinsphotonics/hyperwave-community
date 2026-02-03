@@ -491,10 +491,14 @@ def load_component(
         }
 
     # Plot if requested
+    # Note: theta is sampled at 2x finer resolution than structure
+    theta_resolution_nm = resolution_nm / 2
+    theta_resolution_um = resolution_um / 2
+
     if show_plot:
         fig, ax = plt.subplots(figsize=(12, 4))
         im = ax.imshow(theta.T, cmap='gray', origin='lower')
-        ax.set_title(f"Theta: {component_name} @ {resolution_nm}nm resolution")
+        ax.set_title(f"Theta: {component_name}")
         ax.set_xlabel("x (cells)")
         ax.set_ylabel("y (cells)")
         plt.colorbar(im, ax=ax, label="theta")
@@ -503,8 +507,8 @@ def load_component(
 
         print(f"\nComponent: {component_name}")
         print(f"Theta shape: {theta.shape}")
-        print(f"Resolution: {resolution_nm}nm ({resolution_um}um)")
-        print(f"Physical size: {theta.shape[0] * resolution_um:.2f} x {theta.shape[1] * resolution_um:.2f} um")
+        print(f"Theta resolution: {theta_resolution_nm}nm (structure will be {resolution_nm}nm)")
+        print(f"Physical size: {theta.shape[0] * theta_resolution_um:.2f} x {theta.shape[1] * theta_resolution_um:.2f} um")
         print(f"Ports ({len(ports_info)}):")
         for p in ports_info:
             print(f"  {p['name']}: center=({p['center'][0]:.2f}, {p['center'][1]:.2f}), "
