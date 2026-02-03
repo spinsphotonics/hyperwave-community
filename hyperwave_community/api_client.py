@@ -28,6 +28,7 @@ Environment Variables:
 import os
 import base64
 import io
+import json
 import time
 from typing import Dict, Any, Tuple, Optional, List, Callable
 
@@ -1476,23 +1477,56 @@ def run_simulation(
         else:
             print(f"Simulation completed in {sim_time:.1f}s (total: {total_time:.1f}s)")
 
+        # Check if data is stored externally (large responses)
+        data_url = result.get("data_url")
+        if data_url:
+            print(f"Fetching large response from cloud storage...")
+            try:
+                import gzip
+                url_response = requests.get(data_url, timeout=120)
+                url_response.raise_for_status()
+                # Decompress and parse JSON
+                decompressed = gzip.decompress(url_response.content)
+                result = json.loads(decompressed.decode('utf-8'))
+                print(f"  Downloaded {len(url_response.content) / 1024 / 1024:.2f} MB")
+            except Exception as e:
+                print(f"  ERROR: Failed to fetch large response: {e}")
+                raise RuntimeError(f"Failed to fetch simulation results from cloud storage: {e}")
+
+        # Check if data is gzip compressed
+        data_compressed = result.get("data_compressed", False)
+
         # Decode base64-encoded arrays from API response
-        def decode_b64_dict(d, shapes=None):
+        def decode_b64_dict(d, shapes=None, dtypes=None, is_compressed=False):
             """Decode base64 strings in a dict back to numpy arrays."""
             import numpy as np
+            import gzip as gzip_module
             decoded = {}
             for k, v in d.items():
                 if isinstance(v, str) and v:
                     try:
-                        # Decode base64 to bytes, then to numpy array
+                        # Decode base64 to bytes
                         arr_bytes = base64.b64decode(v)
-                        # Try to infer dtype - most simulation data is float32 or complex64
+
+                        # Decompress if gzip compressed
+                        if is_compressed:
+                            try:
+                                arr_bytes = gzip_module.decompress(arr_bytes)
+                            except Exception:
+                                pass  # Might not be compressed, continue
+
+                        # Get dtype from metadata or infer
+                        dtype = np.complex64  # Default for monitor data
+                        if dtypes and k in dtypes:
+                            dtype = np.dtype(dtypes[k])
+
+                        # Reshape if shape is known
                         if shapes and k in shapes:
                             shape = shapes[k]
-                            # Check if it's complex data (monitor fields are complex)
                             try:
-                                arr = np.frombuffer(arr_bytes, dtype=np.complex64).reshape(shape)
+                                arr = np.frombuffer(arr_bytes, dtype=dtype).reshape(shape)
                             except ValueError:
+                                # Fallback to float32 if complex64 doesn't work
                                 try:
                                     arr = np.frombuffer(arr_bytes, dtype=np.float32).reshape(shape)
                                 except ValueError:
@@ -1507,12 +1541,18 @@ def run_simulation(
                     decoded[k] = v
             return decoded
 
-        # Get shapes for decoding monitor data
+        # Get shapes and dtypes for decoding monitor data
         monitor_shapes = result.get("monitor_data_shapes", {})
+        monitor_dtypes = result.get("monitor_data_dtypes", {})
 
-        # Decode the base64-encoded data
-        monitor_data = decode_b64_dict(result.get("monitor_data_b64", {}), monitor_shapes)
-        powers = decode_b64_dict(result.get("powers", {}))
+        # Decode the base64-encoded data (with compression support)
+        monitor_data = decode_b64_dict(
+            result.get("monitor_data_b64", {}),
+            shapes=monitor_shapes,
+            dtypes=monitor_dtypes,
+            is_compressed=data_compressed
+        )
+        powers = decode_b64_dict(result.get("powers", {}), is_compressed=data_compressed)
 
         # Build simulation results dict for analysis
         sim_results = {
