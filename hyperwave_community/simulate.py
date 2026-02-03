@@ -16,14 +16,21 @@ try:
 except ImportError:
     MATPLOTLIB_AVAILABLE = False
 
-# Local solver functions (only available in full hyperwave package)
+# Mode solver (available in hyperwave-community)
 try:
-    from .solve import mem_efficient_multi_freq, mode, gaussian_source
+    from .mode_solver import mode
+    MODE_SOLVER_AVAILABLE = True
+except ImportError:
+    MODE_SOLVER_AVAILABLE = False
+    mode = None
+
+# Full FDTD solver (only available in full hyperwave package)
+try:
+    from .solve import mem_efficient_multi_freq, gaussian_source
     SOLVER_AVAILABLE = True
 except ImportError:
     SOLVER_AVAILABLE = False
     mem_efficient_multi_freq = None
-    mode = None
     gaussian_source = None
 
 # Use relative imports for hyperwave_community modules
@@ -227,6 +234,13 @@ def create_mode_source(
             - source_offset: (x, y, z) CORNER position for source placement
             - mode_info: Dict with 'field', 'beta', and 'error'
     """
+    # Check if mode solver is available
+    if not MODE_SOLVER_AVAILABLE:
+        raise ImportError(
+            "Mode solver not available. This usually means JAX is not properly installed. "
+            "Try: pip install jax jaxlib"
+        )
+
     # Validate propagation axis
     if propagation_axis not in ['x', 'y']:
         raise ValueError(f"propagation_axis must be 'x' or 'y', got '{propagation_axis}'")
