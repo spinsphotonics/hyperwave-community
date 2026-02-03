@@ -313,8 +313,8 @@ def preview_component(
             'width': port.width,
         })
 
-    # Get bounds
-    bounds = component.bbox
+    # Get bounds (bbox is a method in gdsfactory)
+    bounds = component.bbox()
     xmin, ymin = bounds[0]
     xmax, ymax = bounds[1]
 
