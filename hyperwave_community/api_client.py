@@ -669,8 +669,6 @@ def build_recipe_from_theta(
             position=z_center,
             cmap_permittivity="viridis",
         )
-        plt.title(f"{component_name} - XY slice at z={z_center}")
-        plt.show()
 
     print(f"Recipe built: {Lx}x{Ly}x{Lz} cells")
     print(f"Ports: {list(adjusted_port_info.keys())}")
