@@ -812,8 +812,9 @@ def run_simulation(
         print("Analyzing transmission...")
         try:
             # Use local analyze_transmission function instead of API call
+            # Pass sim_results (with decoded monitor_data), not raw result
             trans_result = analyze_transmission(
-                result,
+                sim_results,
                 input_monitor=input_monitor or "Input_o1",
                 output_monitors=output_monitors,
                 print_results=False
@@ -825,12 +826,13 @@ def run_simulation(
             sim_results["s_parameters"] = None
 
         # Get field intensity for visualization (if specified monitor exists)
-        if field_monitor_name in result.get("monitor_names", {}):
+        if field_monitor_name in sim_results.get("monitor_names", {}):
             print(f"Extracting field intensity from '{field_monitor_name}'...")
             try:
                 # Use local extraction instead of API call (avoids 413 errors)
+                # Pass sim_results (with decoded monitor_data), not raw result
                 field_result = get_field_intensity_2d(
-                    result,
+                    sim_results,
                     monitor_name=field_monitor_name,
                     dimensions=result.get("dimensions"),
                     resolution_um=result.get("resolution_um", 0.02),
@@ -842,6 +844,7 @@ def run_simulation(
                 print(f"  Warning: Could not extract field intensity: {e}")
                 sim_results["field_intensity"] = None
         else:
+            print(f"  Warning: Could not extract field intensity: Monitor '{field_monitor_name}' not found in results")
             sim_results["field_intensity"] = None
 
         # Remove raw result from returned dict
