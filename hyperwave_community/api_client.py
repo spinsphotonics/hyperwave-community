@@ -493,7 +493,7 @@ def load_component(
     # Plot if requested
     if show_plot:
         fig, ax = plt.subplots(figsize=(12, 4))
-        im = ax.imshow(theta, cmap='gray', origin='lower')
+        im = ax.imshow(theta.T, cmap='gray', origin='lower')
         ax.set_title(f"Theta: {component_name} @ {resolution_nm}nm resolution")
         ax.set_xlabel("x (cells)")
         ax.set_ylabel("y (cells)")
@@ -504,7 +504,7 @@ def load_component(
         print(f"\nComponent: {component_name}")
         print(f"Theta shape: {theta.shape}")
         print(f"Resolution: {resolution_nm}nm ({resolution_um}um)")
-        print(f"Physical size: {theta.shape[1] * resolution_um:.2f} x {theta.shape[0] * resolution_um:.2f} um")
+        print(f"Physical size: {theta.shape[0] * resolution_um:.2f} x {theta.shape[1] * resolution_um:.2f} um")
         print(f"Ports ({len(ports_info)}):")
         for p in ports_info:
             print(f"  {p['name']}: center=({p['center'][0]:.2f}, {p['center'][1]:.2f}), "
