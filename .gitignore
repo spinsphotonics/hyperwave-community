@@ -164,8 +164,9 @@ cython_debug/
 # VS Code
 .vscode/
 
-# Dev notebooks (local testing)
+# Dev/live notebooks with API keys (local testing)
 examples/*_dev.ipynb
+examples/getting_started_api.ipynb
 
 # macOS
 .DS_Store

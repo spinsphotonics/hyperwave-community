@@ -906,7 +906,7 @@ def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None, 
             response = requests.post(
                 f"{_API_CONFIG['api_url']}/account_info",
                 params={"api_key": _API_CONFIG['api_key']},
-                timeout=10
+                timeout=60  # Modal cold start can take time
             )
             if response.status_code == 403:
                 raise RuntimeError("Invalid API key. Please check your API key and try again.")

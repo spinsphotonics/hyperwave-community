@@ -33,11 +33,11 @@ setup(
         "matplotlib>=3.4.0",
         "requests>=2.26.0",
         "gdstk>=0.9.0",
+        "gdsfactory>=7.0.0",
         "scikit-image>=0.19.0",
         "cloudpickle>=2.0.0",
     ],
     extras_require={
-        "gdsfactory": ["gdsfactory>=7.0.0"],
         "docs": [
             "sphinx>=8.0",
             "pydata-sphinx-theme",
