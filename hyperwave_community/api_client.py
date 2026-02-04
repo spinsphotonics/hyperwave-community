@@ -1817,8 +1817,12 @@ def simulate(
                     except Exception as e:
                         print(f"Warning: Failed to decode monitor {name}: {e}")
 
+        # Build monitor_names dict (name -> index for compatibility with quick_view_monitors)
+        monitor_names = {name: i for i, name in enumerate(monitor_data.keys())}
+
         return {
             "monitor_data": monitor_data,
+            "monitor_names": monitor_names,
             "sim_time": sim_time,
             "performance": result.get("performance", 0),
             "converged": converged,
