@@ -1,0 +1,31 @@
+/* Custom CSS for SPINS Photonics blue theme */
+
+/* Override PyData theme purple with SPINS blue */
+:root {
+    --pst-color-primary: #1E88E5;
+    --pst-color-primary-highlight: #42A5F5;
+}
+
+/* Active/current navigation items - change purple underline to blue */
+.bd-sidebar .current a {
+    border-bottom-color: #1E88E5 !important;
+}
+
+.bd-sidebar .active > a {
+    border-bottom-color: #1E88E5 !important;
+}
+
+/* Left border indicator on active items */
+.bd-sidebar .active > .nav-link,
+.bd-sidebar .active > a {
+    border-left-color: #1E88E5 !important;
+}
+
+/* Links in general */
+a {
+    color: #1976D2;
+}
+
+a:hover {
+    color: #1565C0;
+}
