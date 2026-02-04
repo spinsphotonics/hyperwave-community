@@ -675,8 +675,26 @@ def quick_view_monitors(results, component='Hz', cmap='inferno'):
         print("Matplotlib not available for visualization")
         return
 
-    for name, idx in results['monitor_names'].items():
-        monitor_data = results['monitor_data'][idx]
+    # Handle both dict-based and index-based monitor data formats
+    monitor_data_dict = results.get('monitor_data', {})
+
+    # If monitor_data is dict keyed by name, iterate directly
+    if isinstance(monitor_data_dict, dict) and monitor_data_dict:
+        # Check if it's keyed by name (string) or index (int)
+        first_key = next(iter(monitor_data_dict.keys()))
+        if isinstance(first_key, str):
+            # Dict keyed by name - iterate directly
+            items_to_iterate = monitor_data_dict.items()
+        else:
+            # Dict keyed by index - use monitor_names mapping
+            items_to_iterate = [(name, monitor_data_dict[idx])
+                               for name, idx in results.get('monitor_names', {}).items()]
+    else:
+        # Fallback to old format
+        items_to_iterate = [(name, results['monitor_data'][idx])
+                           for name, idx in results.get('monitor_names', {}).items()]
+
+    for name, monitor_data in items_to_iterate:
 
         # Extract first frequency
         if component in ['Ex', 'Ey', 'Ez', 'Hx', 'Hy', 'Hz']:
