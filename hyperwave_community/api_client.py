@@ -1696,16 +1696,16 @@ def simulate(
         ...     gpu_type="H100"
         ... )
     """
-    global API_KEY, API_URL
-
     # Use provided api_key or fall back to configured one
-    effective_api_key = api_key or API_KEY
+    effective_api_key = api_key or _API_CONFIG.get('api_key')
     if not effective_api_key:
         raise ValueError("No API key provided. Either pass api_key parameter or call configure_api() first.")
 
-    # Configure API if api_key was provided
-    if api_key and api_key != API_KEY:
+    # Configure API if api_key was provided and different from current
+    if api_key and api_key != _API_CONFIG.get('api_key'):
         configure_api(api_key=api_key, validate=False)
+
+    API_URL = _API_CONFIG['api_url']
 
     print(f"\n{'='*60}")
     print("LOCAL WORKFLOW: Preparing simulation data for cloud GPU")
@@ -1750,12 +1750,12 @@ def simulate(
 
     # Build request body
     body = {
-        "structure_recipe": structure_recipe,
+        "structure_recipe": _to_json_serializable(structure_recipe),
         "source_field_b64": source_field_b64,
         "source_field_shape": source_field_shape,
         "source_offset": list(source_offset),
         "freq_band": list(freq_band),
-        "monitors": monitors_recipe,
+        "monitors": _to_json_serializable(monitors_recipe),
         "max_steps": simulation_steps,
         "check_every_n": conv_config.check_every_n if conv_config else check_every_n,
         "source_ramp_periods": source_ramp_periods,
@@ -1802,8 +1802,8 @@ def simulate(
             print(f"  Converged at step {result.get('convergence_step', 0)}")
 
         # Decode monitor data
-        monitor_data_raw = result.get("monitor_data", {})
-        monitor_shapes = result.get("monitor_shapes", {})
+        monitor_data_raw = result.get("monitor_data_b64", {})
+        monitor_shapes = result.get("monitor_data_shapes", {})
         monitor_data = {}
 
         for name, data_b64 in monitor_data_raw.items():
