@@ -7,17 +7,8 @@ Requirements
 * Python 3.9 or higher
 * Internet connection (for API calls)
 
-Install from PyPI
------------------
-
-.. code-block:: bash
-
-   pip install hyperwave-community
-
 Install from GitHub
 -------------------
-
-For the latest development version:
 
 .. code-block:: bash
 
