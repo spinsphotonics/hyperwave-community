@@ -1,7 +1,7 @@
 Local Workflow Tutorial
 =======================
 
-This tutorial walks through the local workflow for simulating an MMI 2x2 splitter. The local workflow gives you full control over structure creation, allowing custom theta patterns and inspection of intermediate data.
+This tutorial walks through the local workflow for FDTD photonics simulations. The local workflow runs all CPU steps on your machine using hyperwave functions directly. Only the GPU simulation requires an API call.
 
 **Download the notebook**: `getting_started_local.ipynb <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/getting_started_local.ipynb>`_
 
@@ -9,78 +9,51 @@ This tutorial walks through the local workflow for simulating an MMI 2x2 splitte
    :local:
    :depth: 1
 
-Configure API
--------------
-
-First, configure your API key. Get one from `spinsphotonics.com <https://spinsphotonics.com>`_.
+Imports
+-------
 
 .. code-block:: python
 
    import hyperwave_community as hwc
+   import gdsfactory as gf
+   import matplotlib.pyplot as plt
+   import numpy as np
+   import jax.numpy as jnp
 
-   hwc.configure_api(api_key="your-api-key-here")
-   hwc.get_account_info()  # Check your credits
+Step 1: Load GDSFactory Component
+---------------------------------
 
-Step 1a: Load Component (Theta)
--------------------------------
-
-Load a GDSFactory component and convert it to a binary theta pattern. This step runs entirely locally.
+Load a photonic component from GDSFactory and convert it to a binary theta pattern.
 
 .. code-block:: python
 
    # Component settings
    COMPONENT_NAME = "mmi2x2_with_sbend"
-   RESOLUTION_NM = 20
-   EXTENSION_LENGTH = 2.0
+   RESOLUTION_UM = 0.02  # 20nm resolution
 
-   # Load component to theta
-   theta_result = hwc.load_component(
-       component_name=COMPONENT_NAME,
-       resolution_nm=RESOLUTION_NM,
-       extension_length=EXTENSION_LENGTH,
-       show_plot=True,  # Visualize the pattern
+   # Load component from GDSFactory
+   component = gf.components.mmi2x2_with_sbend()
+
+   # Convert to theta pattern
+   theta, device_info = hwc.component_to_theta(
+       component=component,
+       resolution=RESOLUTION_UM,
    )
 
-   print(f"Theta shape: {theta_result['theta'].shape}")
-   print(f"Ports: {list(theta_result['port_info'].keys())}")
+   print(f"Theta shape: {theta.shape}")
+   print(f"Device size: {device_info['physical_size_um']} um")
 
-**Output:**
-
-.. code-block:: text
-
-   Theta shape: (3600, 700)
-   Ports: ['o1', 'o2', 'o3', 'o4']
-
-Exploring Components
-^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: python
-
-   # List available components
-   print("Available components:")
-   for comp in hwc.list_components()[:10]:
-       print(f"  - {comp}")
-
-   # Get parameters for a component
-   params = hwc.get_component_params("mmi2x2")
-   print(f"Parameters: {params}")
-
-   # Preview with custom parameters
-   preview = hwc.preview_component(
-       component_name="mmi2x2",
-       component_kwargs={"width_mmi": 6.0, "length_mmi": 10.0},
-       extension_length=2.0,
-       show_plot=True,
-   )
+   # Visualize
+   plt.imshow(theta, cmap='gray', aspect='equal')
+   plt.title('Theta Pattern')
+   plt.show()
 
 Custom Theta Patterns
 ^^^^^^^^^^^^^^^^^^^^^
 
-For inverse design or custom structures, you can create theta directly:
+You can also create custom theta patterns for inverse design:
 
 .. code-block:: python
-
-   import numpy as np
 
    # Create a custom waveguide pattern
    theta = np.zeros((500, 1000))
@@ -90,237 +63,217 @@ For inverse design or custom structures, you can create theta directly:
    # Straight waveguide
    theta[center_y - wg_width//2 : center_y + wg_width//2, :] = 1.0
 
-   # Use with build_recipe_from_theta by creating a theta_result dict
+Step 2: Apply Density Filtering
+-------------------------------
 
-Step 1b: Build Recipe from Theta
---------------------------------
-
-Convert the theta pattern to a 3D structure recipe. This step processes the pattern locally.
+Smooth the theta pattern with density filtering for numerical stability.
 
 .. code-block:: python
 
    # Material properties
-   N_CORE = 3.48      # Silicon
-   N_CLAD = 1.4457    # SiO2
+   N_CORE = 3.48      # Silicon refractive index
+   N_CLAD = 1.4457    # SiO2 cladding refractive index
 
-   # Build recipe from theta
-   recipe_result = hwc.build_recipe_from_theta(
-       theta_result=theta_result,
-       n_core=N_CORE,
-       n_clad=N_CLAD,
-       wg_height_um=0.22,
-       total_height_um=4.0,
-       padding=(100, 100, 0, 0),
-       density_radius=3,
-       vertical_radius=2.0,
-       show_structure=True,  # Visualize the 3D structure
+   # Padding for absorbers and monitors
+   PADDING = (100, 100, 0, 0)  # (left, right, top, bottom)
+
+   # Apply density filtering
+   density_core = hwc.density(
+       theta=theta,
+       pad_width=PADDING,
+       radius=3,
    )
 
-   print(f"Structure dimensions: {recipe_result['dimensions']}")
-   print(f"Ports: {list(recipe_result['port_info'].keys())}")
+   density_clad = hwc.density(
+       theta=jnp.zeros_like(theta),
+       pad_width=PADDING,
+       radius=3,
+   )
 
-**Output:**
+   print(f"Density shape: {density_core.shape}")
 
-.. code-block:: text
+Step 3: Build 3D Layer Structure
+--------------------------------
 
-   Structure dimensions: (1800, 350, 199)
-   Ports: ['o1', 'o2', 'o3', 'o4']
-
-Inspecting Intermediate Data
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The local workflow gives you access to all intermediate arrays:
+Stack layers to create the 3D permittivity structure.
 
 .. code-block:: python
 
-   import numpy as np
+   # Layer dimensions
+   WG_HEIGHT_UM = 0.22
+   TOTAL_HEIGHT_UM = 4.0
+   VERTICAL_RADIUS = 2.0
 
-   # Access the structure object for visualization
-   structure = recipe_result['structure']
+   # Calculate layer thicknesses in cells
+   wg_thickness = int(np.round(WG_HEIGHT_UM / RESOLUTION_UM))
+   clad_thickness = int(np.round((TOTAL_HEIGHT_UM - WG_HEIGHT_UM) / 2 / RESOLUTION_UM))
 
-   # Access density arrays (before 3D construction)
-   print(f"density_core shape: {recipe_result['density_core'].shape}")
-   print(f"density_core dtype: {recipe_result['density_core'].dtype}")
-   print(f"density_core size: {np.array(recipe_result['density_core']).nbytes / 1024 / 1024:.2f} MB")
+   # Define layers
+   waveguide_layer = hwc.Layer(
+       density_pattern=density_core,
+       permittivity_values=(N_CLAD**2, N_CORE**2),
+       layer_thickness=wg_thickness,
+   )
 
-   # Layer configuration
-   print(f"layer_config: {recipe_result['layer_config']}")
+   cladding_layer = hwc.Layer(
+       density_pattern=density_clad,
+       permittivity_values=N_CLAD**2,
+       layer_thickness=clad_thickness,
+   )
 
-Comparing Local vs API
-^^^^^^^^^^^^^^^^^^^^^^
+   # Create 3D structure
+   structure = hwc.create_structure(
+       layers=[cladding_layer, waveguide_layer, cladding_layer],
+       vertical_radius=VERTICAL_RADIUS,
+   )
 
-You can verify that local processing matches the API:
+   _, Lx, Ly, Lz = structure.permittivity.shape
+   print(f"Structure dimensions: ({Lx}, {Ly}, {Lz})")
+
+   # Visualize
+   structure.view(axis="z", position=Lz // 2)
+
+Step 4: Add Absorbing Boundaries
+--------------------------------
+
+Add PML absorbing boundaries to prevent reflections.
 
 .. code-block:: python
 
-   # Build via API for comparison
-   api_recipe_result = hwc.build_recipe(
-       component_name=COMPONENT_NAME,
-       resolution_nm=RESOLUTION_NM,
-       extension_length=EXTENSION_LENGTH,
-       n_core=N_CORE,
-       n_clad=N_CLAD,
-       wg_height_um=0.22,
-       total_height_um=4.0,
-       padding=(100, 100, 0, 0),
-       density_radius=3,
-       vertical_radius=2.0,
+   # Absorber parameters
+   ABS_WIDTH_X = 82
+   ABS_WIDTH_Y = 41
+   ABS_WIDTH_Z = 41
+   ABS_COEFF = 6.17e-4
+
+   abs_shape = (ABS_WIDTH_X, ABS_WIDTH_Y, ABS_WIDTH_Z)
+
+   # Create absorption mask
+   absorber = hwc.create_absorption_mask(
+       grid_shape=(Lx, Ly, Lz),
+       absorption_widths=abs_shape,
+       absorption_coeff=ABS_COEFF,
    )
 
-   # Compare dimensions
-   print(f"Local: {recipe_result['dimensions']}")
-   print(f"API:   {api_recipe_result['dimensions']}")
+   # Add absorber to structure
+   structure.conductivity = jnp.zeros_like(structure.conductivity) + absorber
 
-Step 2: Build Monitors
-----------------------
+Step 5: Create Mode Source
+--------------------------
 
-Set up field monitors at input and output ports.
+Solve for the fundamental waveguide mode at the input port.
 
 .. code-block:: python
 
-   SOURCE_PORT = "o1"
+   # Wavelength and frequency settings
+   WL_UM = 1.55
+   wl_cells = WL_UM / RESOLUTION_UM
+   freq_band = (2 * jnp.pi / wl_cells, 2 * jnp.pi / wl_cells, 1)
 
-   monitor_result = hwc.build_monitors(
-       port_info=recipe_result['port_info'],
-       dimensions=recipe_result['dimensions'],
-       source_port=SOURCE_PORT,
-       resolution_um=recipe_result['resolution_um'],
-       structure_recipe=recipe_result['recipe'],
-       show_structure=True,
+   # Source position (after absorber)
+   source_pos_x = ABS_WIDTH_X + 5
+
+   # Create mode source
+   source_field, source_offset, mode_info = hwc.create_mode_source(
+       structure=structure,
+       freq_band=freq_band,
+       mode_num=0,
+       propagation_axis="x",
+       source_position=source_pos_x,
+       perpendicular_bounds=(0, Ly // 2),  # Bottom waveguide only
+       visualize=True,
    )
 
-   print(f"Monitors: {list(monitor_result['monitor_names'].keys())}")
-   print(f"Source port: {monitor_result['source_port_name']}")
-   print(f"Source position: x={monitor_result['source_position']}")
+   print(f"Source field shape: {source_field.shape}")
 
-Step 3: Compute Frequency Band
-------------------------------
-
-.. code-block:: python
-
-   WL_CENTER_UM = 1.55
-   N_FREQS = 1
-
-   freq_result = hwc.compute_freq_band(
-       wl_min_um=WL_CENTER_UM,
-       wl_max_um=WL_CENTER_UM,
-       n_freqs=N_FREQS,
-       resolution_um=recipe_result['resolution_um'],
-   )
-
-   print(f"Frequency band: {freq_result['freq_band']}")
-   print(f"Wavelengths: {freq_result['wavelengths_um']}")
-
-Step 4: Solve Waveguide Mode
-----------------------------
-
-.. code-block:: python
-
-   # Debug info available in local workflow
-   print(f"density_core shape: {recipe_result['density_core'].shape}")
-   print(f"mode_bounds: {monitor_result['mode_bounds']}")
-   print(f"source_position: {monitor_result['source_position']}")
-
-   MODE_NUM = 0
-
-   source_result = hwc.solve_mode_source(
-       density_core=recipe_result['density_core'],
-       density_clad=recipe_result['density_clad'],
-       source_x_position=monitor_result['source_position'],
-       mode_bounds=monitor_result['mode_bounds'],
-       layer_config=recipe_result['layer_config'],
-       eps_values=recipe_result['eps_values'],
-       freq_band=freq_result['freq_band'],
-       mode_num=MODE_NUM,
-       show_mode=True,
-   )
-
-   print(f"Source field shape: {source_result['source_field'].shape}")
-   print(f"Source offset: {source_result['source_offset']}")
-
-Step 5: Run Simulation
-----------------------
-
-This step uses GPU credits. See :doc:`../gpu_options` and :doc:`../convergence` for options.
-
-.. code-block:: python
-
-   NUM_STEPS = 20000
-   GPU_TYPE = "B200"
-
-   # Get optimized absorber parameters
-   absorber_params = hwc.get_optimized_absorber_params(
-       resolution_nm=RESOLUTION_NM,
-       wavelength_um=WL_CENTER_UM,
-       structure_dimensions=recipe_result['dimensions'],
-   )
-   print(f"Absorber params: {absorber_params}")
-
-   # Run simulation
-   results = hwc.run_simulation(
-       device_type=COMPONENT_NAME,
-       recipe_result=recipe_result,
-       monitor_result=monitor_result,
-       freq_result=freq_result,
-       source_result=source_result,
-       num_steps=NUM_STEPS,
-       gpu_type=GPU_TYPE,
-       absorption_widths=absorber_params['absorption_widths'],
-       absorption_coeff=absorber_params['absorber_coeff'],
-       convergence="default",
-   )
-
-   print(f"Simulation time: {results['sim_time']:.1f}s")
-   print(f"Total execution time: {results['total_time']:.1f}s")
-   if results.get('converged'):
-       print(f"Converged at step: {results['convergence_step']}")
-
-Step 6: Analyze Results
+Step 6: Set Up Monitors
 -----------------------
 
-Transmission Analysis
-^^^^^^^^^^^^^^^^^^^^^
+Configure field monitors at input and output ports.
 
 .. code-block:: python
 
-   transmission = hwc.analyze_transmission(
-       results,
-       input_monitor="Input_o1",
-       output_monitors=["Output_o3", "Output_o4"],
+   # Create monitor set
+   monitors = hwc.MonitorSet()
+
+   # Input monitor
+   monitors.add_monitors_at_position(
+       structure=structure,
+       axis="x",
+       position=ABS_WIDTH_X + 10,
+       label="Input",
    )
 
-   print(f"Input power: {transmission['power_in']:.4f}")
-   print(f"Total transmission: {transmission['total_transmission']:.4f}")
-   print(f"Excess loss: {transmission['excess_loss_dB']:.2f} dB")
+   # Output monitors
+   monitors.add_monitors_at_position(
+       structure=structure,
+       axis="x",
+       position=Lx - (ABS_WIDTH_X + 10),
+       label="Output",
+   )
 
-Field Visualization
-^^^^^^^^^^^^^^^^^^^
+   monitors.list_monitors()
+
+   # Visualize
+   monitors.view(
+       structure=structure,
+       axis="z",
+       position=Lz // 2,
+       source_position=source_pos_x,
+   )
+
+Step 7: Run GPU Simulation
+--------------------------
+
+This step runs on cloud GPU and requires an API key.
 
 .. code-block:: python
 
-   import matplotlib.pyplot as plt
+   API_KEY = "your-api-key-here"
 
-   field_data = hwc.get_field_intensity_2d(
-       results,
-       monitor_name='xy_mid',
-       dimensions=recipe_result['dimensions'],
-       resolution_um=recipe_result['resolution_um'],
-       freq_band=freq_result['freq_band'],
+   results = hwc.simulate(
+       structure=structure,
+       source_field=source_field,
+       source_offset=source_offset,
+       freq_band=freq_band,
+       monitors=monitors,
+       mode_info=mode_info,
+       simulation_steps=20000,
+       check_every_n=1000,
+       source_ramp_periods=5.0,
+       add_absorption=True,
+       absorption_widths=abs_shape,
+       absorption_coeff=ABS_COEFF,
+       api_key=API_KEY,
+       gpu_type="B200",
    )
 
-   plt.figure(figsize=(12, 5))
-   plt.imshow(
-       field_data['intensity'],
-       origin='upper',
-       extent=field_data['extent'],
-       cmap='jet',
-       aspect='equal'
-   )
-   plt.xlabel('x (μm)')
-   plt.ylabel('y (μm)')
-   plt.title(f"|E|² at λ = {field_data['wavelength_nm']:.1f} nm")
-   plt.colorbar(label='|E|²')
-   plt.show()
+   print(f"GPU time: {results['sim_time']:.2f}s")
+
+Step 8: Analyze Results
+-----------------------
+
+Analyze transmission using Poynting flux calculations.
+
+.. code-block:: python
+
+   # Get monitor data
+   monitor_data = results['monitor_data']
+
+   # Poynting vector calculation
+   def S_from_slice(field_slice):
+       E = field_slice[:, :3, :, :]
+       H = field_slice[:, 3:, :, :]
+       S = jnp.zeros_like(E, dtype=jnp.float32)
+       S = S.at[:, 0].set(jnp.real(E[:, 1] * jnp.conj(H[:, 2]) - E[:, 2] * jnp.conj(H[:, 1])))
+       return S * 0.5
+
+   # Calculate power
+   input_plane = jnp.mean(monitor_data['Input_bottom'], axis=2)
+   S_in = S_from_slice(input_plane)
+   power_in = jnp.abs(jnp.sum(S_in[:, 0], axis=(1, 2)))
+
+   # ... similar for outputs
 
 Summary
 -------
@@ -330,44 +283,48 @@ Summary
 
    * - Step
      - Function
+     - Runs On
      - Cost
-     - Notes
-   * - 1a
-     - ``load_component()``
+   * - 1
+     - ``component_to_theta()``
+     - Local
      - Free
-     - Local processing
-   * - 1b
-     - ``build_recipe_from_theta()``
-     - Free
-     - Local processing
    * - 2
-     - ``build_monitors()``
+     - ``density()``
+     - Local
      - Free
-     - API call
    * - 3
-     - ``compute_freq_band()``
+     - ``Layer()``, ``create_structure()``
+     - Local
      - Free
-     - API call
    * - 4
-     - ``solve_mode_source()``
+     - ``create_absorption_mask()``
+     - Local
      - Free
-     - API call
    * - 5
-     - ``run_simulation()``
-     - Credits
-     - GPU simulation
-   * - 6
-     - ``analyze_transmission()``
+     - ``create_mode_source()``
+     - Local
      - Free
-     - Local analysis
+   * - 6
+     - ``MonitorSet()``
+     - Local
+     - Free
+   * - 7
+     - ``simulate()``
+     - Cloud GPU
+     - Credits
+   * - 8
+     - Analysis
+     - Local
+     - Free
 
 When to Use Local Workflow
 --------------------------
 
-* **Custom structures**: Create theta patterns that aren't available in GDSFactory
-* **Inverse design**: Optimize theta as a design variable
-* **Debugging**: Inspect intermediate arrays and verify processing
-* **Large-scale studies**: Process structures locally before committing to GPU time
+* **Custom structures**: Create theta patterns not available in GDSFactory
+* **Inverse design**: Optimize theta as a design variable with gradients
+* **Debugging**: Inspect all intermediate arrays (density, permittivity, etc.)
+* **Large structures**: Pre-process locally before committing to GPU time
 
 Next Steps
 ----------
@@ -375,4 +332,4 @@ Next Steps
 * :doc:`../gpu_options` - Choose the right GPU for your simulation
 * :doc:`../convergence` - Configure early stopping
 * :doc:`../api` - Full API reference
-* :doc:`api_workflow` - Simpler workflow for standard components
+* :doc:`api_workflow` - Simpler workflow using API functions
