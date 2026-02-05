@@ -28,16 +28,18 @@ setup(
     install_requires=[
         "jax>=0.4.0",
         "jaxlib>=0.4.0",
-        "numpy>=1.20.0",
+        "numpy>=1.20.0,<2.0",  # Pin to numpy 1.x for Colab compatibility
         "scipy>=1.7.0",
         "matplotlib>=3.4.0",
         "requests>=2.26.0",
         "gdstk>=0.9.0",
-        "gdsfactory>=7.0.0",
         "scikit-image>=0.19.0",
         "cloudpickle>=2.0.0",
     ],
     extras_require={
+        "gds": [
+            "gdsfactory>=7.0.0,<8.0",  # Limit gdsfactory version
+        ],
         "docs": [
             "sphinx>=8.0",
             "pydata-sphinx-theme",
