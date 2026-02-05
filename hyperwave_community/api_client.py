@@ -28,6 +28,7 @@ Environment Variables:
 import os
 import base64
 import io
+import gzip
 import time
 from typing import Dict, Any, Tuple, Optional, List, Callable
 
@@ -185,7 +186,7 @@ def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None, 
             response = requests.post(
                 f"{_API_CONFIG['api_url']}/account_info",
                 params={"api_key": _API_CONFIG['api_key']},
-                timeout=10
+                timeout=60  # Allow for Cloud Run cold start
             )
             if response.status_code == 403:
                 raise RuntimeError("Invalid API key. Please check your API key and try again.")
@@ -935,16 +936,17 @@ def simulate(
         ...     gpu_type="H100"
         ... )
     """
-    global API_KEY, API_URL
-
     # Use provided api_key or fall back to configured one
-    effective_api_key = api_key or API_KEY
+    effective_api_key = api_key or _API_CONFIG.get('api_key')
     if not effective_api_key:
         raise ValueError("No API key provided. Either pass api_key parameter or call configure_api() first.")
 
-    # Configure API if api_key was provided
-    if api_key and api_key != API_KEY:
+    # Configure API if api_key was provided and different from current
+    if api_key and api_key != _API_CONFIG.get('api_key'):
         configure_api(api_key=api_key, validate=False)
+
+    # Get API URL from config
+    API_URL = _API_CONFIG['api_url']
 
     print(f"\n{'='*60}")
     print("LOCAL WORKFLOW: Preparing simulation data for cloud GPU")
@@ -987,14 +989,27 @@ def simulate(
 
     endpoint = "/early_stopping" if use_early_stopping else "/simulate"
 
-    # Build request body
+    # Helper to convert numpy arrays to JSON-serializable format
+    def make_json_serializable(obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        elif isinstance(obj, dict):
+            return {k: make_json_serializable(v) for k, v in obj.items()}
+        elif isinstance(obj, (list, tuple)):
+            return [make_json_serializable(x) for x in obj]
+        elif hasattr(obj, 'item'):  # numpy scalar
+            return obj.item()
+        else:
+            return obj
+
+    # Build request body (convert recipes to JSON-serializable format)
     body = {
-        "structure_recipe": structure_recipe,
+        "structure_recipe": make_json_serializable(structure_recipe),
         "source_field_b64": source_field_b64,
         "source_field_shape": source_field_shape,
         "source_offset": list(source_offset),
         "freq_band": list(freq_band),
-        "monitors": monitors_recipe,
+        "monitors": make_json_serializable(monitors_recipe),
         "max_steps": simulation_steps,
         "check_every_n": conv_config.check_every_n if conv_config else check_every_n,
         "source_ramp_periods": source_ramp_periods,
@@ -2757,16 +2772,82 @@ def get_field_intensity_2d(
     return result
 
 
+# Maximum request size before using GCS upload (25MB to stay safely under 32MB limit)
+MAX_INLINE_REQUEST_SIZE_MB = 25
+
+
+def _upload_large_array(
+    arr: np.ndarray,
+    array_name: str,
+    api_key: str,
+) -> Optional[str]:
+    """Upload a large array to temporary GCS storage.
+
+    Args:
+        arr: Numpy array to upload
+        array_name: Name/purpose of the array (e.g., 'source_field', 'theta')
+        api_key: API key for authentication
+
+    Returns:
+        upload_id if successful, None otherwise
+    """
+    API_URL = _API_CONFIG['api_url']
+
+    # Compress the array data
+    buffer = io.BytesIO()
+    np.save(buffer, arr)
+    raw_data = buffer.getvalue()
+    compressed_data = gzip.compress(raw_data)
+
+    raw_size_mb = len(raw_data) / (1024 * 1024)
+    compressed_size_mb = len(compressed_data) / (1024 * 1024)
+    print(f"Uploading {array_name}: {raw_size_mb:.1f} MB -> {compressed_size_mb:.1f} MB (gzip)")
+
+    # Encode to base64 for JSON transmission
+    array_b64 = base64.b64encode(compressed_data).decode('utf-8')
+
+    request_data = {
+        "array_b64": array_b64,
+        "array_shape": list(arr.shape),
+        "array_dtype": str(arr.dtype),
+        "array_name": array_name,
+    }
+
+    headers = {
+        "X-API-Key": api_key,
+        "Content-Type": "application/json"
+    }
+
+    try:
+        response = requests.post(
+            f"{API_URL}/upload_array",
+            json=request_data,
+            headers=headers,
+            timeout=300  # 5 minute timeout for upload
+        )
+        response.raise_for_status()
+        result = response.json()
+        print(f"Uploaded {array_name}: upload_id={result['upload_id']}")
+        return result['upload_id']
+
+    except requests.exceptions.HTTPError as e:
+        print(f"Upload failed: {e.response.status_code} - {e.response.text}")
+        return None
+    except Exception as e:
+        print(f"Upload error: {e}")
+        return None
+
+
 def compute_adjoint_gradient(
     theta: np.ndarray,
-    source_field: np.ndarray,
-    source_offset: Tuple[int, int, int],
-    freq_band: Tuple[float, float, int],
-    loss_monitor_shape: Tuple[int, int, int],
-    loss_monitor_offset: Tuple[int, int, int],
-    design_monitor_shape: Tuple[int, int, int],
-    design_monitor_offset: Tuple[int, int, int],
-    structure_spec: Dict[str, Any],
+    source_field: Optional[np.ndarray] = None,
+    source_offset: Tuple[int, int, int] = None,
+    freq_band: Tuple[float, float, int] = None,
+    loss_monitor_shape: Tuple[int, int, int] = None,
+    loss_monitor_offset: Tuple[int, int, int] = None,
+    design_monitor_shape: Tuple[int, int, int] = None,
+    design_monitor_offset: Tuple[int, int, int] = None,
+    structure_spec: Dict[str, Any] = None,
     loss_fn: Optional[Callable] = None,
     mode_field: Optional[np.ndarray] = None,
     input_power: Optional[float] = None,
@@ -2780,6 +2861,13 @@ def compute_adjoint_gradient(
     absorption_coeff: float = 0.00489,
     gpu_type: str = "H100",
     api_key: Optional[str] = None,
+    # Server-side Gaussian source generation (alternative to source_field)
+    gaussian_source_params: Optional[Dict[str, Any]] = None,
+    # GC workflow: two-layer design with theta_bottom
+    theta_bottom: Optional[np.ndarray] = None,
+    # Density filtering parameters (override structure_spec defaults)
+    density_radius: int = 1,
+    density_alpha: float = 0.8,
 ) -> Dict[str, Any]:
     """Compute adjoint gradient for inverse design on GPU via API.
 
@@ -2884,6 +2972,19 @@ def compute_adjoint_gradient(
         print("Sign up for free at spinsphotonics.com to get your API key.")
         return None
 
+    # Validate source - either source_field OR gaussian_source_params must be provided
+    if source_field is None and gaussian_source_params is None:
+        raise ValueError(
+            "Must provide either source_field or gaussian_source_params.\n"
+            "  - source_field: Pre-computed source array\n"
+            "  - gaussian_source_params: Dict with waist_radius, structure_shape, etc.\n"
+            "    (source will be generated on GPU, avoiding large data transfer)"
+        )
+    if source_field is not None and gaussian_source_params is not None:
+        raise ValueError(
+            "Provide either source_field or gaussian_source_params, not both"
+        )
+
     # Validate loss parameters - at least one must be provided
     if (loss_fn is None and mode_field is None and
         power_axis is None and intensity_component is None):
@@ -2895,11 +2996,31 @@ def compute_adjoint_gradient(
             "  - intensity_component: Simple |E|^2 ('Ex', 'Ey', 'Ez')"
         )
 
-    API_URL = "https://hyperwave-cloud.onrender.com"
+    API_URL = _API_CONFIG['api_url']
 
-    # Encode theta and source_field to base64
-    theta_b64 = encode_array(np.array(theta, dtype=np.float32))
-    source_field_b64 = encode_array(np.array(source_field))
+    # Convert arrays
+    theta_arr = np.array(theta, dtype=np.float32)
+
+    # Handle theta_bottom for two-layer GC designs
+    theta_bottom_arr = None
+    if theta_bottom is not None:
+        theta_bottom_arr = np.array(theta_bottom, dtype=np.float32)
+
+    # Determine if using server-side source generation
+    use_gaussian_source = gaussian_source_params is not None
+
+    if use_gaussian_source:
+        # No source array needed - will be generated on GPU
+        source_field_arr = None
+        source_field_size_mb = 0
+        print(f"Using server-side Gaussian source generation (no source data transfer)")
+    else:
+        source_field_arr = np.array(source_field)
+        source_field_size_mb = source_field_arr.nbytes / (1024 * 1024)
+
+    # Estimate request size (raw bytes)
+    theta_size_mb = theta_arr.nbytes / (1024 * 1024)
+    total_size_mb = theta_size_mb + source_field_size_mb
 
     # Serialize custom loss function if provided
     loss_fn_pickle_b64 = None
@@ -2939,28 +3060,78 @@ def compute_adjoint_gradient(
             'maximize': intensity_maximize
         }
 
-    # Build request
-    request_data = {
-        "theta_b64": theta_b64,
-        "theta_shape": list(np.array(theta).shape),
-        "source_field_b64": source_field_b64,
-        "source_field_shape": list(np.array(source_field).shape),
-        "source_offset": list(source_offset),
-        "freq_band": [float(x) for x in freq_band],
-        "loss_monitor_shape": list(loss_monitor_shape),
-        "loss_monitor_offset": list(loss_monitor_offset),
-        "design_monitor_shape": list(design_monitor_shape),
-        "design_monitor_offset": list(design_monitor_offset),
-        "structure_spec": structure_spec,
-        "mode_coupling_params": mode_coupling_params,
-        "intensity_params": intensity_params,
-        "power_params": power_params,
-        "loss_fn_pickle_b64": loss_fn_pickle_b64,
-        "add_absorption": True,
-        "absorption_widths": list(absorption_widths),
-        "absorption_coeff": float(absorption_coeff),
-        "gpu_type": gpu_type
-    }
+    # Encode theta_bottom if provided (for two-layer GC designs)
+    theta_bottom_b64 = None
+    theta_bottom_shape = None
+    if theta_bottom_arr is not None:
+        theta_bottom_b64 = encode_array(theta_bottom_arr)
+        theta_bottom_shape = list(theta_bottom_arr.shape)
+
+    # Build request based on source mode
+    if use_gaussian_source:
+        # Server-side Gaussian source generation - small request!
+        theta_b64 = encode_array(theta_arr)
+
+        request_data = {
+            "theta_b64": theta_b64,
+            "theta_shape": list(theta_arr.shape),
+            "source_field_b64": None,  # Not used - server generates
+            "source_field_shape": None,
+            "gaussian_source_params": gaussian_source_params,
+            "source_offset": list(source_offset),
+            "freq_band": [float(x) for x in freq_band],
+            "loss_monitor_shape": list(loss_monitor_shape),
+            "loss_monitor_offset": list(loss_monitor_offset),
+            "design_monitor_shape": list(design_monitor_shape),
+            "design_monitor_offset": list(design_monitor_offset),
+            "structure_spec": structure_spec,
+            "mode_coupling_params": mode_coupling_params,
+            "intensity_params": intensity_params,
+            "power_params": power_params,
+            "loss_fn_pickle_b64": loss_fn_pickle_b64,
+            "add_absorption": True,
+            "absorption_widths": list(absorption_widths),
+            "absorption_coeff": float(absorption_coeff),
+            "gpu_type": gpu_type,
+            # GC workflow parameters
+            "theta_bottom_b64": theta_bottom_b64,
+            "theta_bottom_shape": theta_bottom_shape,
+            "density_radius": density_radius,
+            "density_alpha": density_alpha,
+        }
+        endpoint = "/inverse_design"
+    else:
+        # Use inline data for small requests
+        theta_b64 = encode_array(theta_arr)
+        source_field_b64 = encode_array(source_field_arr)
+
+        request_data = {
+            "theta_b64": theta_b64,
+            "theta_shape": list(theta_arr.shape),
+            "source_field_b64": source_field_b64,
+            "source_field_shape": list(source_field_arr.shape),
+            "source_offset": list(source_offset),
+            "freq_band": [float(x) for x in freq_band],
+            "loss_monitor_shape": list(loss_monitor_shape),
+            "loss_monitor_offset": list(loss_monitor_offset),
+            "design_monitor_shape": list(design_monitor_shape),
+            "design_monitor_offset": list(design_monitor_offset),
+            "structure_spec": structure_spec,
+            "mode_coupling_params": mode_coupling_params,
+            "intensity_params": intensity_params,
+            "power_params": power_params,
+            "loss_fn_pickle_b64": loss_fn_pickle_b64,
+            "add_absorption": True,
+            "absorption_widths": list(absorption_widths),
+            "absorption_coeff": float(absorption_coeff),
+            "gpu_type": gpu_type,
+            # GC workflow parameters
+            "theta_bottom_b64": theta_bottom_b64,
+            "theta_bottom_shape": theta_bottom_shape,
+            "density_radius": density_radius,
+            "density_alpha": density_alpha,
+        }
+        endpoint = "/inverse_design"
 
     headers = {
         "X-API-Key": api_key,
@@ -2969,11 +3140,13 @@ def compute_adjoint_gradient(
 
     # Debug info
     print(f"\n=== Inverse Design API Request ===")
-    print(f"Endpoint: {API_URL}/inverse_design")
+    print(f"Endpoint: {API_URL}{endpoint}")
     print(f"Theta shape: {request_data['theta_shape']}")
     print(f"Design monitor: shape={design_monitor_shape}, offset={design_monitor_offset}")
     print(f"Loss monitor: shape={loss_monitor_shape}, offset={loss_monitor_offset}")
     print(f"GPU type: {gpu_type}")
+    if use_gaussian_source:
+        print(f"Source mode: Gaussian generation on GPU")
     if loss_fn_pickle_b64:
         print(f"Loss type: Custom function (cloudpickle)")
     elif mode_coupling_params:
@@ -2985,11 +3158,23 @@ def compute_adjoint_gradient(
         print(f"Loss type: Intensity |{intensity_component}|^2 (maximize={intensity_maximize})")
     print(f"==================================\n")
 
-    # Send request
+    # Send request with gzip compression
     try:
+        import json
+        json_data = json.dumps(request_data)
+        compressed_data = gzip.compress(json_data.encode('utf-8'))
+
+        # Update headers for gzip encoding
+        headers["Content-Encoding"] = "gzip"
+
+        # Log compression stats
+        original_size_mb = len(json_data) / (1024 * 1024)
+        compressed_size_mb = len(compressed_data) / (1024 * 1024)
+        print(f"Request size: {original_size_mb:.1f} MB -> {compressed_size_mb:.1f} MB (gzip)")
+
         response = requests.post(
-            f"{API_URL}/inverse_design",
-            json=request_data,
+            f"{API_URL}{endpoint}",
+            data=compressed_data,
             headers=headers,
             timeout=1800  # 30 minute timeout for inverse design
         )
