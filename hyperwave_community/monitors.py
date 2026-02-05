@@ -1322,10 +1322,11 @@ def add_monitors_at_position(
             )
 
             # Generate name
+            # Waveguides are sorted by Y center (ascending), so i=0 has lower Y = bottom
             if len(waveguides) == 1:
                 name = label
             elif len(waveguides) == 2:
-                name = f"{label}_{'top' if i == 0 else 'bottom'}"
+                name = f"{label}_{'bottom' if i == 0 else 'top'}"
             else:
                 name = f"{label}_{i}"
 
