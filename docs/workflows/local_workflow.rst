@@ -20,6 +20,10 @@ Imports
    import numpy as np
    import jax.numpy as jnp
 
+   # Activate generic PDK (required for gdsfactory)
+   PDK = gf.gpdk.get_generic_pdk()
+   PDK.activate()
+
 Step 1: Load GDSFactory Component
 ---------------------------------
 
@@ -30,9 +34,13 @@ Load a photonic component from GDSFactory and convert it to a binary theta patte
    # Component settings
    COMPONENT_NAME = "mmi2x2_with_sbend"
    RESOLUTION_UM = 0.02  # 20nm resolution
+   EXTENSION_LENGTH = 2.0  # Extend ports by 2um
 
    # Load component from GDSFactory
    component = gf.components.mmi2x2_with_sbend()
+
+   # Extend ports to ensure proper mode coupling
+   component = gf.c.extend_ports(component, length=EXTENSION_LENGTH)
 
    # Convert to theta pattern
    theta, device_info = hwc.component_to_theta(
@@ -44,7 +52,7 @@ Load a photonic component from GDSFactory and convert it to a binary theta patte
    print(f"Device size: {device_info['physical_size_um']} um")
 
    # Visualize
-   plt.imshow(theta, cmap='gray', aspect='equal')
+   plt.imshow(theta.T, cmap='gray', aspect='equal')
    plt.title('Theta Pattern')
    plt.show()
 
@@ -140,7 +148,7 @@ Add PML absorbing boundaries to prevent reflections.
 
 .. code-block:: python
 
-   # Absorber parameters
+   # Absorber parameters (optimized for 20nm resolution)
    ABS_WIDTH_X = 82
    ABS_WIDTH_Y = 41
    ABS_WIDTH_Z = 41
@@ -171,7 +179,7 @@ Solve for the fundamental waveguide mode at the input port.
    freq_band = (2 * jnp.pi / wl_cells, 2 * jnp.pi / wl_cells, 1)
 
    # Source position (after absorber)
-   source_pos_x = ABS_WIDTH_X + 5
+   source_pos_x = ABS_WIDTH_X
 
    # Create mode source
    source_field, source_offset, mode_info = hwc.create_mode_source(
@@ -212,6 +220,13 @@ Configure field monitors at input and output ports.
        label="Output",
    )
 
+   # Add xy_mid monitor for field visualization
+   xy_mid_monitor = hwc.Monitor(
+       shape=(Lx, Ly, 1),
+       offset=(0, 0, Lz // 2)
+   )
+   monitors.add(xy_mid_monitor, name="xy_mid")
+
    monitors.list_monitors()
 
    # Visualize
@@ -231,12 +246,16 @@ This step runs on cloud GPU and requires an API key.
 
    API_KEY = "your-api-key-here"
 
+   # Extract recipes for API
+   structure_recipe = structure.extract_recipe()
+   monitors_recipe = monitors.recipe
+
    results = hwc.simulate(
-       structure=structure,
+       structure_recipe=structure_recipe,
        source_field=source_field,
        source_offset=source_offset,
        freq_band=freq_band,
-       monitors=monitors,
+       monitors_recipe=monitors_recipe,
        mode_info=mode_info,
        simulation_steps=20000,
        check_every_n=1000,
@@ -268,12 +287,28 @@ Analyze transmission using Poynting flux calculations.
        S = S.at[:, 0].set(jnp.real(E[:, 1] * jnp.conj(H[:, 2]) - E[:, 2] * jnp.conj(H[:, 1])))
        return S * 0.5
 
-   # Calculate power
-   input_plane = jnp.mean(monitor_data['Input_bottom'], axis=2)
-   S_in = S_from_slice(input_plane)
-   power_in = jnp.abs(jnp.sum(S_in[:, 0], axis=(1, 2)))
+   # Get field data and calculate power
+   input_fields = monitor_data['Input_bottom']
+   output_bottom = monitor_data['Output_bottom']
+   output_top = monitor_data['Output_top']
 
-   # ... similar for outputs
+   input_plane = jnp.mean(input_fields, axis=2)
+   out_bottom_plane = jnp.mean(output_bottom, axis=2)
+   out_top_plane = jnp.mean(output_top, axis=2)
+
+   S_in = S_from_slice(input_plane)
+   S_out_bottom = S_from_slice(out_bottom_plane)
+   S_out_top = S_from_slice(out_top_plane)
+
+   power_in = jnp.abs(jnp.sum(S_in[:, 0, :, :], axis=(1, 2)))
+   power_out_bottom = jnp.abs(jnp.sum(S_out_bottom[:, 0, :, :], axis=(1, 2)))
+   power_out_top = jnp.abs(jnp.sum(S_out_top[:, 0, :, :], axis=(1, 2)))
+   power_out_total = power_out_bottom + power_out_top
+
+   total_transmission = power_out_total / power_in
+   loss_db = -10 * jnp.log10(total_transmission[0])
+
+   print(f"Transmission: {float(total_transmission[0]):.4%} ({float(loss_db):.2f} dB)")
 
 Summary
 -------
