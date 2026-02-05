@@ -395,9 +395,8 @@ def load_component(
             - resolution_um: Resolution in micrometers
 
     Example:
-        >>> # Load component with default parameters
-        >>> theta_result = hwc.load_component("mmi2x2", resolution_nm=20)
-        >>> plt.imshow(theta_result['theta'])
+        >>> # Load component with default 20nm resolution
+        >>> theta_result = hwc.load_component("mmi2x2")
 
         >>> # Load with custom parameters
         >>> theta_result = hwc.load_component(
@@ -2100,7 +2099,7 @@ def build_recipe(
     component_name: str,
     component_kwargs: Optional[Dict[str, Any]] = None,
     extension_length: float = 2.0,
-    resolution_nm: float = 30.0,
+    resolution_nm: float = 20.0,
     n_core: float = 3.48,
     n_clad: float = 1.45,
     wg_height_um: float = 0.22,
@@ -2117,8 +2116,8 @@ def build_recipe(
         component_name: Name of gdsfactory component (e.g., "mmi2x2").
         component_kwargs: Kwargs to pass to component constructor.
         extension_length: Length to extend ports in um.
-        resolution_nm: Grid resolution in nanometers.
-        n_core: Core refractive index.
+        resolution_nm: Grid resolution in nanometers (default: 20.0).
+        n_core: Core refractive index (default: 3.48 for silicon).
         n_clad: Cladding refractive index.
         wg_height_um: Waveguide height in um.
         total_height_um: Total structure height in um.
@@ -2130,6 +2129,7 @@ def build_recipe(
         Dictionary containing recipe, density_core, density_clad, dimensions,
         port_info, layer_config, eps_values, resolution_um.
     """
+
     config = _get_api_config()
     API_URL = config['api_url']
     API_KEY = config['api_key']
