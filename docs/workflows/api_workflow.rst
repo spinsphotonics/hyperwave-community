@@ -3,7 +3,11 @@ API Workflow Tutorial
 
 This tutorial walks through the API workflow for simulating an MMI 2x2 splitter. The API workflow is the simplest way to run FDTD simulations using standard GDSFactory components.
 
-**Download the notebook**: `getting_started.ipynb <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/getting_started.ipynb>`_
+In the API workflow, all CPU-intensive steps (structure creation, density filtering, layer stacking) run on Modal servers provided by SPINs. You only need to specify the component and parameters -- the server handles the rest. Only the GPU FDTD simulation step uses credits.
+
+**Download the notebook**: `api_workflow.ipynb <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/api_workflow.ipynb>`_
+
+`Open in Google Colab <https://colab.research.google.com/drive/1I4O89n39Cqj2H1fsoJjcQBsT90vOsMBL>`_
 
 .. contents:: Steps
    :local:
@@ -12,7 +16,7 @@ This tutorial walks through the API workflow for simulating an MMI 2x2 splitter.
 Configure API
 -------------
 
-First, configure your API key. Get one from `spinsphotonics.com <https://spinsphotonics.com>`_.
+Your API key authenticates requests to the SPINs servers and tracks your credit usage. You can get one by signing up at `spinsphotonics.com <https://spinsphotonics.com>`_. After configuring the key, calling ``get_account_info()`` displays your remaining credits and account details so you can verify your setup before running any simulations.
 
 .. code-block:: python
 
@@ -24,7 +28,17 @@ First, configure your API key. Get one from `spinsphotonics.com <https://spinsph
 Step 1: Build Structure Recipe
 ------------------------------
 
-Build a 3D photonic structure from a GDSFactory component with a single API call.
+``build_recipe()`` is the core of the API workflow. A single call loads a GDSFactory component, converts it to a 2D design pattern (theta), applies density filtering, and builds the full 3D permittivity structure on the server. This is where the photonic device geometry is fully defined.
+
+The key configurable parameters are:
+
+- ``component_name``: Any GDSFactory component (e.g. ``"mmi1x2"``, ``"coupler"``, ``"bend_euler"``).
+- ``resolution_nm``: Grid cell size in nanometers. Smaller values produce more accurate results but increase simulation time and memory. 20 nm is a good default for silicon photonics at 1550 nm.
+- ``extension_length``: How far to extend waveguide ports, in micrometers. Longer extensions help with mode coupling and reduce reflections at the simulation boundary.
+- ``n_core`` / ``n_clad``: Refractive indices of the core and cladding materials (e.g. 3.48 for silicon, 1.4457 for SiO2).
+- ``padding``: Extra grid cells around the structure (left, right, top, bottom) to accommodate absorbing boundary layers and monitors.
+- ``density_radius``: Smoothing radius for the density filter, which controls the minimum feature size.
+- ``wg_height_um`` / ``total_height_um``: Waveguide slab thickness and total simulation domain height, both in micrometers.
 
 .. code-block:: python
 
@@ -79,7 +93,9 @@ To see available GDSFactory components:
 Step 2: Build Monitors
 ----------------------
 
-Set up field monitors at input and output ports.
+Monitors are field sampling planes placed at specific positions in the simulation domain. They record the electromagnetic field at each frequency point during the simulation, which is later used to compute transmission and visualize field patterns. ``build_monitors()`` automatically places monitors at each port detected from the GDSFactory component.
+
+The ``source_port`` parameter specifies which port to excite -- monitors at other ports measure the output transmission. Set ``show_structure=True`` to visualize where monitors are placed relative to the structure, which is useful for verifying the simulation setup before committing GPU credits.
 
 .. code-block:: python
 
@@ -107,7 +123,9 @@ Set up field monitors at input and output ports.
 Step 3: Compute Frequency Band
 ------------------------------
 
-Convert wavelengths to the frequency band used internally.
+FDTD simulations operate in normalized frequency units internally. ``compute_freq_band()`` converts physical wavelengths (in micrometers) to these internal units so that the solver can correctly discretize the source pulse and frequency-domain monitors.
+
+For single-wavelength simulations, set ``wl_min_um`` equal to ``wl_max_um`` as shown below. For broadband sweeps, specify a wavelength range and set ``n_freqs`` greater than 1 to sample multiple frequency points in a single simulation run, which is far more efficient than running separate simulations at each wavelength.
 
 .. code-block:: python
 
@@ -127,7 +145,9 @@ Convert wavelengths to the frequency band used internally.
 Step 4: Solve Waveguide Mode
 ----------------------------
 
-Compute the fundamental waveguide mode for the source.
+Before running the FDTD simulation, we need to define the electromagnetic source that will excite the device. ``solve_mode_source()`` computes the fundamental waveguide mode profile at the source port by solving a 2D cross-section eigenvalue problem. This mode profile is then injected as a continuous-wave source during the simulation, ensuring that only the desired guided mode is launched into the structure.
+
+Set ``mode_num=0`` for the fundamental TE mode, ``mode_num=1`` for the first higher-order mode, and so on. Set ``show_mode=True`` to visualize the solved mode profile, which is helpful for confirming that the correct mode was selected.
 
 .. code-block:: python
 
@@ -151,7 +171,14 @@ Compute the fundamental waveguide mode for the source.
 Step 5: Run Simulation
 ----------------------
 
-This step uses GPU credits. See :doc:`../gpu_options` and :doc:`../convergence` for options.
+This is the only step that consumes credits. The FDTD simulation runs on a cloud GPU, stepping Maxwell's equations forward in time until the fields converge or the maximum number of steps is reached. All previous steps (structure building, monitor placement, mode solving) were free server-side computations that prepared the inputs for this step.
+
+The key parameters to configure are:
+
+- ``gpu_type``: Choose from ``"B200"`` (fastest), ``"H200"``, ``"H100"``, or ``"A100"``. See :doc:`../gpu_options` for performance and cost comparisons.
+- ``num_steps``: Maximum number of simulation time steps. The simulation may stop early if convergence is detected.
+- ``convergence``: Set to ``"default"`` for automatic early stopping when the fields have decayed, or ``"none"`` to run all steps regardless. See :doc:`../convergence` for details.
+- Absorber parameters (boundary layer widths and absorption coefficients) are automatically optimized for your resolution and wavelength using ``get_optimized_absorber_params()``.
 
 .. code-block:: python
 
@@ -192,10 +219,12 @@ This step uses GPU credits. See :doc:`../gpu_options` and :doc:`../convergence` 
 Step 6: Analyze Results
 -----------------------
 
-Analysis runs locally and is free.
+All analysis runs locally on your machine and is free. No server calls or credits are needed for this step.
 
 Transmission Analysis
 ^^^^^^^^^^^^^^^^^^^^^
+
+``analyze_transmission()`` computes the power flowing through each output monitor using Poynting flux integration and normalizes by the input power. The result includes per-port transmission in both linear and dB units, total transmission across all output ports, and excess loss. For an ideal 2x2 MMI splitter, each output should receive approximately 50% of the input power (-3 dB), with minimal excess loss indicating low scattering and absorption.
 
 .. code-block:: python
 
@@ -225,6 +254,8 @@ Transmission Analysis
 
 Field Visualization
 ^^^^^^^^^^^^^^^^^^^
+
+``get_field_intensity_2d()`` extracts the electric field intensity |E|^2 from a 2D monitor slice and returns it along with physical coordinates for plotting. The ``xy_mid`` monitor captures the field pattern at the middle of the waveguide layer, showing how light propagates through the input waveguide, distributes across the multimode interference region, and splits into the two output ports.
 
 .. code-block:: python
 

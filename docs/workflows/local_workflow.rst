@@ -1,9 +1,16 @@
 Local Workflow Tutorial
 =======================
 
-This tutorial walks through the local workflow for FDTD photonics simulations. The local workflow runs all CPU steps on your machine using hyperwave functions directly. Only the GPU simulation requires an API call.
+In the local workflow, all CPU steps run on your machine (or in Google Colab). You build the
+simulation structure step by step, giving you full access to intermediate arrays -- theta patterns,
+density fields, permittivity distributions -- at every stage. This is ideal for custom structures,
+inverse design, and debugging, because you can inspect and modify any intermediate result before
+proceeding to the next step. Only the GPU FDTD simulation step (Step 7) requires an API call and
+uses credits; everything else runs locally and is free.
 
-**Download the notebook**: `getting_started_local.ipynb <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/getting_started_local.ipynb>`_
+**Download the notebook**: `local_workflow.ipynb <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/local_workflow.ipynb>`_
+
+`Open in Google Colab <https://colab.research.google.com/drive/1zl50puRg376G20sva0GgPuWlPZlaRNmk>`_
 
 .. contents:: Steps
    :local:
@@ -11,6 +18,12 @@ This tutorial walks through the local workflow for FDTD photonics simulations. T
 
 Imports
 -------
+
+The local workflow uses GDSFactory for photonic component layout, JAX for array operations (which
+are GPU-compatible and differentiable), and matplotlib for visualization. NumPy is used alongside
+JAX for operations that do not require automatic differentiation. The generic PDK activation call
+at the end is required before loading any GDSFactory components -- it registers the standard layer
+stack and cross-sections that ``component_to_theta()`` relies on.
 
 .. code-block:: python
 
@@ -27,7 +40,20 @@ Imports
 Step 1: Load GDSFactory Component
 ---------------------------------
 
-Load a photonic component from GDSFactory and convert it to a binary theta pattern.
+The first step converts a photonic component into a 2D binary pattern called "theta." Theta is a
+2D array where 1 represents the core material (silicon) and 0 represents the cladding (SiO2). The
+function ``component_to_theta()`` rasterizes the GDS polygons onto a regular grid at the specified
+resolution, producing a pixel-level representation of the device geometry.
+
+There are several key parameters to understand:
+
+- **RESOLUTION_UM**: The grid cell size in microns. A value of 0.02 (20 nm) is standard for silicon
+  photonics at 1550 nm wavelength. Finer resolution increases accuracy but also increases the
+  simulation grid size and therefore the cost in credits.
+- **EXTENSION_LENGTH**: Extends waveguide ports outward by this distance (in microns). This ensures
+  the mode source and monitors are placed in straight waveguide regions, well away from the device's
+  active area where the geometry is changing. Without sufficient extension, the source mode can
+  couple poorly into the device.
 
 .. code-block:: python
 
@@ -59,7 +85,11 @@ Load a photonic component from GDSFactory and convert it to a binary theta patte
 Custom Theta Patterns
 ^^^^^^^^^^^^^^^^^^^^^
 
-You can also create custom theta patterns for inverse design:
+You are not limited to GDSFactory components. Any 2D binary array can serve as a theta pattern.
+This is particularly useful for inverse design workflows, where theta is treated as a continuous
+design variable and optimized with gradients flowing through the entire simulation pipeline --
+from theta, through density filtering, structure construction, FDTD simulation, and finally to
+the objective function.
 
 .. code-block:: python
 
@@ -74,36 +104,64 @@ You can also create custom theta patterns for inverse design:
 Step 2: Apply Density Filtering
 -------------------------------
 
-Smooth the theta pattern with density filtering for numerical stability.
+Density filtering smooths the binary theta pattern using a conic filter, converting the sharp 0/1
+boundaries into gradual transitions. This serves two purposes. First, it improves numerical
+stability in the FDTD simulation by avoiding abrupt permittivity jumps at material interfaces.
+Second, for inverse design, it enforces minimum feature sizes -- the filter radius sets the
+smallest feature that can appear in the optimized structure.
+
+Before filtering, the theta pattern is padded with extra cells using the ``pad_width`` parameter.
+The padding of 100 cells on the left and right provides space for absorbing boundaries and field
+monitors along the propagation axis. The top and bottom padding is set to 0 because the Y
+boundaries are already far from the waveguide core and do not need additional space.
+
+Two separate density patterns are created: one for the waveguide core and one for the cladding.
+The ``radius`` parameter controls the smoothing strength. A smaller radius (3) is used for the
+waveguide core to preserve fine geometric features, while a larger radius (5) is used for the
+uniform cladding where sharp features are not needed.
 
 .. code-block:: python
 
    # Material properties
-   N_CORE = 3.48      # Silicon refractive index
-   N_CLAD = 1.4457    # SiO2 cladding refractive index
+   N_CORE = 3.48      # Silicon refractive index at 1550nm
+   N_CLAD = 1.45      # SiO2 cladding refractive index at 1550nm
 
    # Padding for absorbers and monitors
-   PADDING = (100, 100, 0, 0)  # (left, right, top, bottom)
+   PADDING = (100, 100, 0, 0)  # (left, right, top, bottom) in pixels
 
    # Apply density filtering
    density_core = hwc.density(
        theta=theta,
        pad_width=PADDING,
-       radius=3,
+       radius=3,  # Smoothing radius for waveguide
    )
 
    density_clad = hwc.density(
        theta=jnp.zeros_like(theta),
        pad_width=PADDING,
-       radius=3,
+       radius=5,  # Wider smoothing for uniform cladding
    )
 
-   print(f"Density shape: {density_core.shape}")
+   print(f"Density shape (with padding): {density_core.shape}")
 
 Step 3: Build 3D Layer Structure
 --------------------------------
 
-Stack layers to create the 3D permittivity structure.
+This step extrudes the 2D density patterns into a full 3D permittivity distribution by stacking
+layers vertically. The structure consists of three layers: bottom cladding, waveguide core, and
+top cladding. Each layer maps its density pattern to permittivity values. The waveguide layer
+interpolates between cladding permittivity and core permittivity based on the density value at
+each grid cell, while the cladding layers use a uniform permittivity. The ``vertical_radius``
+parameter applies vertical blurring between layers to smooth the transitions in the z-direction,
+avoiding abrupt permittivity changes between adjacent layers.
+
+There are two key parameters controlling the vertical geometry:
+
+- **WG_HEIGHT_UM**: The waveguide core thickness. A value of 0.22 um (220 nm) is the standard
+  silicon-on-insulator (SOI) thickness used across most silicon photonics foundries.
+- **TOTAL_HEIGHT_UM**: The total simulation domain height. This must be large enough for the
+  optical mode fields to decay to near-zero at the top and bottom boundaries. A value of 4.0 um
+  provides sufficient margin for typical single-mode waveguide structures.
 
 .. code-block:: python
 
@@ -144,32 +202,70 @@ Stack layers to create the 3D permittivity structure.
 Step 4: Add Absorbing Boundaries
 --------------------------------
 
-Add PML absorbing boundaries to prevent reflections.
+FDTD simulations use a finite computational domain, so absorbing boundaries are needed at the
+domain edges to prevent artificial reflections from corrupting the results. Without them, outgoing
+light would bounce off the grid boundaries and interfere with the physical fields inside the
+simulation region.
+
+The function ``get_optimized_absorber_params()`` returns Bayesian-optimized absorber width and
+coefficient values that are scaled for your specific grid resolution. These pre-optimized
+parameters ensure good absorption performance without excessive computational overhead. The
+returned absorption widths are asymmetric: the x-direction (propagation axis) gets a wider
+absorber because light travels primarily along that axis, while the y and z directions receive
+narrower absorbers since less energy reaches those boundaries.
+
+The absorber is applied to the structure's conductivity field, creating a gradually increasing
+loss region near each boundary. Electromagnetic waves entering this region are progressively
+attenuated and effectively absorbed before reaching the grid edge.
 
 .. code-block:: python
 
-   # Absorber parameters (optimized for 20nm resolution)
-   ABS_WIDTH_X = 82
-   ABS_WIDTH_Y = 41
-   ABS_WIDTH_Z = 41
-   ABS_COEFF = 6.17e-4
+   # Get Bayesian-optimized absorber parameters scaled for our resolution
+   abs_params = hwc.get_optimized_absorber_params(
+       resolution_nm=RESOLUTION_UM * 1000,
+       structure_dimensions=(Lx, Ly, Lz),
+   )
 
-   abs_shape = (ABS_WIDTH_X, ABS_WIDTH_Y, ABS_WIDTH_Z)
+   ABS_COEFF = abs_params['absorber_coeff']
+   abs_shape = abs_params['absorption_widths']
+
+   print(f"Absorber width: {abs_params['absorber_width']} cells")
+   print(f"Absorber coeff: {ABS_COEFF:.6f}")
+   print(f"Absorption widths (x,y,z): {abs_shape}")
 
    # Create absorption mask
    absorber = hwc.create_absorption_mask(
        grid_shape=(Lx, Ly, Lz),
        absorption_widths=abs_shape,
        absorption_coeff=ABS_COEFF,
+       show_plots=True,
    )
 
-   # Add absorber to structure
+   # Add absorber to structure conductivity
    structure.conductivity = jnp.zeros_like(structure.conductivity) + absorber
 
 Step 5: Create Mode Source
 --------------------------
 
-Solve for the fundamental waveguide mode at the input port.
+The FDTD source is a waveguide mode profile computed by solving a 2D cross-section eigenvalue
+problem. Rather than injecting a simple plane wave, this approach excites a physically accurate
+waveguide mode that matches the structure, resulting in clean coupling with minimal reflections.
+
+The process works in several stages. First, waveguide positions are auto-detected by placing
+temporary monitors at the source plane -- this finds where the high-index core regions are. Next,
+the mode-solving region is expanded to 2x the detected waveguide size. This expansion is critical:
+it ensures the mode field fully decays to zero at the boundaries of the solving region, preventing
+truncation artifacts that would introduce spurious reflections. After the eigenvalue solve, the
+source field is trimmed back to the expanded region to minimize the amount of data that must be
+transferred to the GPU.
+
+Key parameters to be aware of:
+
+- **mode_num=0**: Selects the fundamental TE mode. Use 1, 2, etc. to select higher-order modes.
+- **source_pos_x**: The x-position where the source is placed, set just inside the absorber
+  boundary so the source excites a clean waveguide mode in the straight extension region.
+- **visualize=True**: Displays the solved mode profile and permittivity cross-section so you can
+  visually verify that the mode solver found the correct mode.
 
 .. code-block:: python
 
@@ -178,52 +274,115 @@ Solve for the fundamental waveguide mode at the input port.
    wl_cells = WL_UM / RESOLUTION_UM
    freq_band = (2 * jnp.pi / wl_cells, 2 * jnp.pi / wl_cells, 1)
 
-   # Source position (after absorber)
-   source_pos_x = ABS_WIDTH_X
+   # Source position (after absorber region)
+   source_pos_x = abs_shape[0]
 
-   # Create mode source
+   # Auto-detect waveguide bounds using temporary monitor placement
+   temp_monitors = hwc.MonitorSet()
+   temp_monitors.add_monitors_at_position(
+       structure=structure,
+       axis="x",
+       position=source_pos_x,
+       label="source_detect",
+   )
+
+   # Use the first detected waveguide (bottom input port)
+   source_monitor = temp_monitors.monitors[0]
+
+   # Expand bounds to 2x for mode solving (ensures mode field decays to zero)
+   y_min_orig = source_monitor.offset[1]
+   y_max_orig = y_min_orig + source_monitor.shape[1]
+   z_min_orig = source_monitor.offset[2]
+   z_max_orig = z_min_orig + source_monitor.shape[2]
+
+   y_center = (y_min_orig + y_max_orig) // 2
+   z_center = (z_min_orig + z_max_orig) // 2
+   y_half = source_monitor.shape[1]
+   z_half = source_monitor.shape[2]
+
+   y_min = max(0, y_center - y_half)
+   y_max = min(Ly, y_center + y_half)
+   z_min = max(0, z_center - z_half)
+   z_max = min(Lz, z_center + z_half)
+
+   # Create mode source in expanded region
    source_field, source_offset, mode_info = hwc.create_mode_source(
        structure=structure,
        freq_band=freq_band,
        mode_num=0,
        propagation_axis="x",
        source_position=source_pos_x,
-       perpendicular_bounds=(0, Ly // 2),  # Bottom waveguide only
+       perpendicular_bounds=(y_min, y_max),
+       z_bounds=(z_min, z_max),
        visualize=True,
+       visualize_permittivity=True,
    )
 
-   print(f"Source field shape: {source_field.shape}")
+   # Trim source field to mode region (reduces data transfer)
+   source_field_trimmed = source_field[:, :, :, y_min:y_max, z_min:z_max]
+   source_offset_corrected = (source_pos_x, y_min, z_min)
+
+   print(f"Source field shape: {source_field_trimmed.shape}")
 
 Step 6: Set Up Monitors
 -----------------------
 
-Configure field monitors at input and output ports.
+Monitors are 3D volumes that record the electromagnetic field at specified locations during the
+simulation. This step places monitors at each port of the original (un-extended) GDSFactory
+component by converting port positions from physical coordinates (microns) to structure grid
+coordinates. Ports facing left (180-degree orientation) are labeled as inputs, and ports facing
+right (0-degree orientation) are labeled as outputs.
+
+In addition to port monitors, an ``xy_mid`` monitor is added that captures a full XY plane slice
+at the waveguide center height. This monitor is used for visualizing the field propagation pattern
+across the entire device after simulation.
+
+The monitor sizing parameters control the spatial extent of each port monitor:
+
+- **MONITOR_THICKNESS**: The number of cells along the propagation axis (x). Averaging the
+  recorded field across this thickness reduces noise in the transmission calculation.
+- **MONITOR_HALF**: The half-extent of the monitor in the Y and Z directions. This must be large
+  enough to capture the full spatial extent of the waveguide mode field, including its evanescent
+  tails in the cladding.
 
 .. code-block:: python
 
    # Create monitor set
    monitors = hwc.MonitorSet()
 
-   # Input monitor
-   monitors.add_monitors_at_position(
-       structure=structure,
-       axis="x",
-       position=ABS_WIDTH_X + 10,
-       label="Input",
-   )
+   # Coordinate mapping from device_info
+   y_pad_struct = PADDING[0] // 2
+   x_pad_struct = PADDING[2] // 2
+   bbox = device_info['bounding_box_um']
+   x_min_um, y_min_um = bbox[0], bbox[1]
+   theta_res = device_info['theta_resolution_um']
 
-   # Output monitors
-   monitors.add_monitors_at_position(
-       structure=structure,
-       axis="x",
-       position=Lx - (ABS_WIDTH_X + 10),
-       label="Output",
-   )
+   # Monitor sizing
+   MONITOR_THICKNESS = 5
+   MONITOR_HALF = 35
+   z_wg_center = clad_thickness + wg_thickness // 2
+
+   # Place monitors at original device ports
+   for port in gf_device.ports:
+       px_um, py_um = port.center
+       x_struct = int((px_um - x_min_um) / theta_res / 2) + x_pad_struct
+       y_struct = int((py_um - y_min_um) / theta_res / 2) + y_pad_struct
+
+       if abs(port.orientation % 360 - 180) < 1:
+           label = f"Input_{port.name}"
+       else:
+           label = f"Output_{port.name}"
+
+       monitor = hwc.Monitor(
+           shape=(MONITOR_THICKNESS, 2 * MONITOR_HALF, 2 * MONITOR_HALF),
+           offset=(x_struct, y_struct - MONITOR_HALF, z_wg_center - MONITOR_HALF)
+       )
+       monitors.add(monitor, label)
 
    # Add xy_mid monitor for field visualization
    xy_mid_monitor = hwc.Monitor(
        shape=(Lx, Ly, 1),
-       offset=(0, 0, Lz // 2)
+       offset=(0, 0, z_wg_center)
    )
    monitors.add(xy_mid_monitor, name="xy_mid")
 
@@ -233,18 +392,43 @@ Configure field monitors at input and output ports.
    monitors.view(
        structure=structure,
        axis="z",
-       position=Lz // 2,
+       position=z_wg_center,
        source_position=source_pos_x,
+       absorber_boundary=absorber,
    )
 
 Step 7: Run GPU Simulation
 --------------------------
 
-This step runs on cloud GPU and requires an API key.
+This is the only step that uses credits. Everything up to this point has been free local
+computation; now the prepared structure is sent to a cloud GPU for the actual FDTD time-stepping.
+
+The function ``structure.extract_recipe()`` serializes the full 3D permittivity and conductivity
+arrays into a compact format suitable for transfer to the cloud. The ``simulate()`` function then
+sends this structure recipe along with the source field and monitor configuration to the server,
+which reconstructs the structure on the GPU and runs the FDTD time-stepping algorithm.
+
+Key parameters that control the simulation:
+
+- **simulation_steps**: The maximum number of FDTD time steps. A value of 20000 is typically
+  sufficient for most photonic devices to reach steady state.
+- **check_every_n**: How often (in time steps) to check for convergence. Every 1000 steps, the
+  solver evaluates whether the fields have settled and can terminate early if convergence criteria
+  are met.
+- **source_ramp_periods**: The number of optical periods over which to gradually ramp the source
+  amplitude from zero to full power. This gradual turn-on reduces transient artifacts that would
+  otherwise contaminate the field monitors.
+- **gpu_type**: Selects the GPU hardware. Options are ``"B200"`` (fastest), ``"H200"``, ``"H100"``,
+  or ``"A100"``. Faster GPUs cost more credits per step but complete sooner. See
+  :doc:`../gpu_options` for a detailed comparison.
 
 .. code-block:: python
 
-   API_KEY = "your-api-key-here"
+   import hyperwave_community as hwc
+
+   # Configure and validate API key
+   hwc.configure_api(api_key="your-api-key-here")
+   hwc.get_account_info()
 
    # Extract recipes for API
    structure_recipe = structure.extract_recipe()
@@ -252,8 +436,8 @@ This step runs on cloud GPU and requires an API key.
 
    results = hwc.simulate(
        structure_recipe=structure_recipe,
-       source_field=source_field,
-       source_offset=source_offset,
+       source_field=source_field_trimmed,
+       source_offset=source_offset_corrected,
        freq_band=freq_band,
        monitors_recipe=monitors_recipe,
        mode_info=mode_info,
@@ -263,52 +447,72 @@ This step runs on cloud GPU and requires an API key.
        add_absorption=True,
        absorption_widths=abs_shape,
        absorption_coeff=ABS_COEFF,
-       api_key=API_KEY,
        gpu_type="B200",
    )
 
    print(f"GPU time: {results['sim_time']:.2f}s")
+   print(f"Performance: {results['performance']:.2e} grid-points*steps/s")
 
 Step 8: Analyze Results
 -----------------------
 
-Analyze transmission using Poynting flux calculations.
+Monitor data is returned as arrays of shape ``(N_freq, 6, ...)`` containing all six electromagnetic
+field components (Ex, Ey, Ez, Hx, Hy, Hz) at each frequency point. The analysis proceeds in three
+stages: first, the field is averaged across the monitor thickness (the x-dimension) to produce a
+single 2D cross-section per monitor; second, the Poynting vector ``S = 0.5 * Re(E x H*)`` is
+computed using ``hwc.S_from_slice()``; and third, the x-component of S (the component along the
+propagation direction) is integrated over the monitor cross-section to obtain the total power
+flowing through each port.
+
+For the MMI 2x2 splitter simulated here, ``Input_o1`` excites the bottom input port. The power is
+then measured at ``Output_o3`` (the cross port, on the opposite side of the MMI) and ``Output_o4``
+(the bar port, on the same side). An ideal 50:50 splitter produces -3 dB at each output port with
+zero excess loss. Deviation from -3 dB indicates either imbalance between the outputs or excess
+scattering/radiation loss within the device.
 
 .. code-block:: python
 
    # Get monitor data
    monitor_data = results['monitor_data']
+   print(f"Available monitors: {list(monitor_data.keys())}")
 
-   # Poynting vector calculation
-   def S_from_slice(field_slice):
-       E = field_slice[:, :3, :, :]
-       H = field_slice[:, 3:, :, :]
-       S = jnp.zeros_like(E, dtype=jnp.float32)
-       S = S.at[:, 0].set(jnp.real(E[:, 1] * jnp.conj(H[:, 2]) - E[:, 2] * jnp.conj(H[:, 1])))
-       return S * 0.5
+   # MMI 2x2 port mapping:
+   #   Input_o1 (bottom) ---> Output_o4 (bottom, bar)
+   #   Input_o2 (top)    ---> Output_o3 (top, bar)
+   input_name = "Input_o1"
+   bar_name = "Output_o4"
+   cross_name = "Output_o3"
 
-   # Get field data and calculate power
-   input_fields = monitor_data['Input_bottom']
-   output_bottom = monitor_data['Output_bottom']
-   output_top = monitor_data['Output_top']
+   input_fields = monitor_data[input_name]
+   bar_fields = monitor_data[bar_name]
+   cross_fields = monitor_data[cross_name]
 
+   # Average across monitor thickness (X dimension)
    input_plane = jnp.mean(input_fields, axis=2)
-   out_bottom_plane = jnp.mean(output_bottom, axis=2)
-   out_top_plane = jnp.mean(output_top, axis=2)
+   bar_plane = jnp.mean(bar_fields, axis=2)
+   cross_plane = jnp.mean(cross_fields, axis=2)
 
-   S_in = S_from_slice(input_plane)
-   S_out_bottom = S_from_slice(out_bottom_plane)
-   S_out_top = S_from_slice(out_top_plane)
+   # Calculate Poynting vectors
+   S_in = hwc.S_from_slice(input_plane)
+   S_bar = hwc.S_from_slice(bar_plane)
+   S_cross = hwc.S_from_slice(cross_plane)
 
+   # Calculate power (X-component for x-propagating mode)
    power_in = jnp.abs(jnp.sum(S_in[:, 0, :, :], axis=(1, 2)))
-   power_out_bottom = jnp.abs(jnp.sum(S_out_bottom[:, 0, :, :], axis=(1, 2)))
-   power_out_top = jnp.abs(jnp.sum(S_out_top[:, 0, :, :], axis=(1, 2)))
-   power_out_total = power_out_bottom + power_out_top
+   power_bar = jnp.abs(jnp.sum(S_bar[:, 0, :, :], axis=(1, 2)))
+   power_cross = jnp.abs(jnp.sum(S_cross[:, 0, :, :], axis=(1, 2)))
+   power_out_total = power_bar + power_cross
 
-   total_transmission = power_out_total / power_in
-   loss_db = -10 * jnp.log10(total_transmission[0])
+   # Transmission metrics
+   T_bar = power_bar / power_in
+   T_cross = power_cross / power_in
+   T_total = power_out_total / power_in
+   excess_loss_dB = 10 * jnp.log10(T_total)
 
-   print(f"Transmission: {float(total_transmission[0]):.4%} ({float(loss_db):.2f} dB)")
+   print(f"Bar port ({bar_name}):    T = {float(T_bar[0]):.5f}")
+   print(f"Cross port ({cross_name}): T = {float(T_cross[0]):.5f}")
+   print(f"Total transmission:        {float(T_total[0]):.5f}")
+   print(f"Excess loss:               {float(excess_loss_dB[0]):.2f} dB")
 
 Summary
 -------

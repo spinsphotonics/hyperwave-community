@@ -1,45 +1,16 @@
 Workflows
 =========
 
-Hyperwave Community offers two workflows for running FDTD photonics simulations. Both produce identical results - choose based on your needs.
+Hyperwave Community offers two workflows for running FDTD photonics simulations. Both produce identical results - choose based on where you want CPU work to run.
 
 .. contents:: On this page
    :local:
    :depth: 2
 
-Workflow Comparison
--------------------
+API Workflow
+------------
 
-.. list-table::
-   :header-rows: 1
-   :widths: 30 35 35
-
-   * -
-     - **API Workflow**
-     - **Local Workflow**
-   * - Best for
-     - Quick simulations, beginners
-     - Custom structures, optimization
-   * - Structure creation
-     - Single API call
-     - Step-by-step local functions
-   * - GDSFactory components
-     - Built-in support
-     - Full customization
-   * - Custom theta patterns
-     - Not supported
-     - Full support
-   * - Intermediate inspection
-     - Limited
-     - Full access to all arrays
-   * - Lines of code
-     - ~30 lines
-     - ~50 lines
-
-API Workflow (Recommended for Beginners)
-----------------------------------------
-
-The API workflow uses a single ``build_recipe()`` call to create structures from GDSFactory components. This is the simplest way to run simulations.
+All CPU steps (structure creation, mode solving, etc.) run on Modal servers provided by SPINs. You send a single ``build_recipe()`` call and get back the full structure.
 
 **Use this workflow when:**
 
@@ -66,63 +37,87 @@ The API workflow uses a single ``build_recipe()`` call to create structures from
 
 :doc:`api_workflow` - Full tutorial
 
-Local Workflow (For Advanced Users)
------------------------------------
+Local Workflow
+--------------
 
-The local workflow separates structure creation into distinct steps: loading a component (or creating custom theta), applying density filtering, and building the recipe. This gives you full control over the process.
+All CPU steps run locally on your machine (or Colab). You build the structure step by step using hyperwave functions directly. Only the GPU simulation requires an API call.
 
 **Use this workflow when:**
 
 * You need custom structures not available in GDSFactory
 * You're doing inverse design / optimization
-* You want to inspect or modify intermediate arrays (theta, density)
-* You need to compare local vs API outputs
+* You want to inspect or modify intermediate arrays (theta, density, permittivity)
+* You're running in Colab and want to use Colab's CPU
 
 **Example:**
 
 .. code-block:: python
 
    import hyperwave_community as hwc
+   import gdsfactory as gf
 
-   hwc.configure_api(api_key="your-key")
-
-   # Step 1a: Load component to theta (or create custom theta)
-   theta_result = hwc.load_component(
-       component_name="mmi2x2_with_sbend",
-       resolution_nm=20,
-       show_plot=True,  # Inspect the pattern
+   # Load component and convert to theta pattern
+   component = gf.components.mmi2x2_with_sbend()
+   theta, device_info = hwc.component_to_theta(
+       component=component,
+       resolution=0.02,
    )
 
-   # Step 1b: Build recipe from theta (local processing)
-   recipe_result = hwc.build_recipe_from_theta(
-       theta_result=theta_result,
-       n_core=3.48,
-       n_clad=1.4457,
-       ...
-   )
+   # Build structure step by step
+   density_core = hwc.density(theta=theta, pad_width=(100, 100, 0, 0), radius=3)
+   structure = hwc.create_structure(layers=[...], vertical_radius=2.0)
 
 :doc:`local_workflow` - Full tutorial
+
+Workflow Comparison
+-------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 35 35
+
+   * -
+     - **API Workflow**
+     - **Local Workflow**
+   * - CPU work runs on
+     - Modal (SPINs servers)
+     - Your machine / Colab
+   * - Structure creation
+     - Single API call
+     - Step-by-step local functions
+   * - GDSFactory components
+     - Built-in support
+     - Full customization
+   * - Custom theta patterns
+     - Not supported
+     - Full support
+   * - Intermediate inspection
+     - Limited
+     - Full access to all arrays
+   * - Lines of code
+     - ~30 lines
+     - ~50 lines
 
 Shared Steps
 ------------
 
-Both workflows share the same steps after building the recipe:
+Both workflows share the same simulation and analysis steps:
 
 .. code-block:: python
 
-   # Step 2: Build monitors (free)
+   # Build monitors (free)
    monitor_result = hwc.build_monitors(...)
 
-   # Step 3: Compute frequency band (free)
+   # Compute frequency band (free)
    freq_result = hwc.compute_freq_band(...)
 
-   # Step 4: Solve mode source (free)
+   # Solve mode source (free)
    source_result = hwc.solve_mode_source(...)
 
-   # Step 5: Run simulation (uses credits)
+   # Run simulation (uses credits)
    results = hwc.run_simulation(...)
 
-   # Step 6: Analyze results (free, local)
+   # Analyze results (free, local)
    transmission = hwc.analyze_transmission(...)
 
 Cost Structure
