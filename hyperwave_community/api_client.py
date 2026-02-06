@@ -3099,11 +3099,18 @@ def compute_adjoint_gradient(
         ...     api_key='your-key'
         ... )
     """
-    # Check for API key
-    if not api_key:
+    # Use provided api_key or fall back to configured one
+    effective_api_key = api_key or _API_CONFIG.get('api_key')
+    if not effective_api_key:
         print("API key required to proceed.")
         print("Sign up for free at spinsphotonics.com to get your API key.")
         return None
+
+    # Configure API if api_key was provided and different from current
+    if api_key and api_key != _API_CONFIG.get('api_key'):
+        configure_api(api_key=api_key, validate=False)
+
+    API_URL = _API_CONFIG['api_url']
 
     # Validate loss parameters - at least one must be provided
     if (loss_fn is None and mode_field is None and
@@ -3115,8 +3122,6 @@ def compute_adjoint_gradient(
             "  - power_axis: Poynting vector power (0=x, 1=y, 2=z)\n"
             "  - intensity_component: Simple |E|^2 ('Ex', 'Ey', 'Ez')"
         )
-
-    API_URL = "https://hyperwave-cloud.onrender.com"
 
     # Encode theta and source_field to base64
     theta_b64 = encode_array(np.array(theta, dtype=np.float32))
@@ -3184,7 +3189,7 @@ def compute_adjoint_gradient(
     }
 
     headers = {
-        "X-API-Key": api_key,
+        "X-API-Key": effective_api_key,
         "Content-Type": "application/json"
     }
 
