@@ -10,7 +10,7 @@ uses credits; everything else runs locally and is free.
 
 **Download the notebook**: `local_workflow.ipynb <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/local_workflow.ipynb>`_
 
-`Open in Google Colab <https://colab.research.google.com/drive/1zl50puRg376G20sva0GgPuWlPZlaRNmk>`_
+`Open in Google Colab <https://colab.research.google.com/drive/1beS-zVf-_evSKDswYvVQ7yzFT_DEfcXj>`_
 
 .. contents:: Steps
    :local:

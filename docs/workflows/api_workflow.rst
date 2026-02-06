@@ -7,7 +7,7 @@ In the API workflow, all CPU-intensive steps (structure creation, density filter
 
 **Download the notebook**: `api_workflow.ipynb <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/api_workflow.ipynb>`_
 
-`Open in Google Colab <https://colab.research.google.com/drive/1I4O89n39Cqj2H1fsoJjcQBsT90vOsMBL>`_
+`Open in Google Colab <https://colab.research.google.com/drive/1EedFLMWf07UN-Uw77cbzLNW5ahL6dF83>`_
 
 .. contents:: Steps
    :local:
