@@ -1,5 +1,5 @@
-Local Workflow Tutorial
-=======================
+Local Workflow
+==============
 
 In the local workflow, all CPU steps run on your machine (or in Google Colab). You build the
 simulation structure step by step, giving you full access to intermediate arrays -- theta patterns,

@@ -32,16 +32,16 @@ Getting Started
 
 .. toctree::
    :maxdepth: 1
-   :caption: Configuration
-
-   convergence
-   gpu_options
-
-.. toctree::
-   :maxdepth: 1
    :caption: API Reference
 
    api
+
+.. toctree::
+   :maxdepth: 1
+   :caption: More
+
+   convergence
+   gpu_options
 
 Indices and tables
 ==================

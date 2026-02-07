@@ -1,5 +1,5 @@
-API Workflow Tutorial
-=====================
+API Workflow
+============
 
 This tutorial walks through the API workflow for simulating an MMI 2x2 splitter. The API workflow is the simplest way to run FDTD simulations using standard GDSFactory components.
 
