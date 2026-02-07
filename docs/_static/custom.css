@@ -29,3 +29,91 @@ a {
 a:hover {
     color: #1565C0;
 }
+
+/* Sortable table headers */
+table.sortable thead th {
+    position: relative;
+    padding-right: 20px;
+    user-select: none;
+    transition: background-color 0.15s;
+}
+
+table.sortable thead th:hover {
+    background-color: rgba(30, 136, 229, 0.08);
+}
+
+table.sortable thead th::after {
+    content: "\2195";
+    position: absolute;
+    right: 4px;
+    opacity: 0.3;
+    font-size: 0.8em;
+}
+
+table.sortable thead th.sort-asc::after {
+    content: "\2191";
+    opacity: 0.8;
+}
+
+table.sortable thead th.sort-desc::after {
+    content: "\2193";
+    opacity: 0.8;
+}
+
+/* GPU Calculator */
+.gpu-calc-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+    align-items: flex-end;
+}
+
+.gpu-calc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.gpu-calc-field label {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--pst-color-text-muted, #666);
+}
+
+.gpu-calc-field input {
+    width: 100px;
+    padding: 6px 8px;
+    border: 1px solid var(--pst-color-border, #ccc);
+    border-radius: 4px;
+    font-size: 0.95em;
+    background: var(--pst-color-surface, #fff);
+    color: var(--pst-color-text-base, #333);
+}
+
+.gpu-calc-field input:focus {
+    outline: 2px solid var(--pst-color-primary, #1E88E5);
+    border-color: transparent;
+}
+
+.gpu-oom-row {
+    opacity: 0.55;
+}
+
+.gpu-oom-badge {
+    color: #c62828;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.gpu-ok-badge {
+    color: #2e7d32;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.gpu-calc-note {
+    font-size: 0.85em;
+    color: var(--pst-color-text-muted, #888);
+    margin-top: 8px;
+}

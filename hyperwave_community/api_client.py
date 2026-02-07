@@ -30,6 +30,7 @@ import base64
 import io
 import json
 import time
+import warnings
 from typing import Dict, Any, Tuple, Optional, List, Callable
 
 import numpy as np
@@ -1040,6 +1041,17 @@ def get_account_info(quiet: bool = False) -> Optional[Dict[str, Any]]:
 # COST ESTIMATION
 # =============================================================================
 
+GPU_MAX_CELLS = {
+    "B200": 700_000_000,
+    "H200": 510_000_000,
+    "H100": 290_000_000,
+    "A100-80GB": 290_000_000,
+    "A100-40GB": 145_000_000,
+    "L40S": 175_000_000,
+    "A10G": 85_000_000,
+    "T4": 58_000_000,
+}
+
 def estimate_cost(
     grid_points: Optional[int] = None,
     structure_shape: Optional[Tuple[int, int, int, int]] = None,
@@ -1063,6 +1075,17 @@ def estimate_cost(
     else:
         print("Either grid_points or structure_shape must be provided.")
         return None
+
+    effective_cells = grid_points if grid_points is not None else int(np.prod(structure_shape))
+    max_cells = GPU_MAX_CELLS.get(gpu_type, float('inf'))
+    if effective_cells > max_cells:
+        warnings.warn(
+            f"Estimated grid size ({effective_cells / 1e6:.0f}M cells) exceeds {gpu_type} VRAM "
+            f"capacity (~{max_cells / 1e6:.0f}M cells max). The simulation will likely fail "
+            f"with an out-of-memory error. Consider using a larger GPU or reducing the "
+            f"structure size.",
+            stacklevel=2,
+        )
 
     try:
         response = requests.post(f"{API_URL}/estimate_cost", json=request_data, timeout=30)

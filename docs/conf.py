@@ -63,11 +63,6 @@ html_title = "Hyperwave Community"
 # Favicon (browser tab icon)
 html_favicon = '_static/spins_logo.png'
 
-# Custom CSS files
-html_css_files = [
-    'custom.css',
-]
-
 # -- Extension configuration -------------------------------------------------
 
 # Napoleon settings for Google-style docstrings
@@ -107,5 +102,11 @@ intersphinx_mapping = {
 
 # -- Custom configuration ----------------------------------------------------
 
-# Add any custom CSS
-html_css_files = []
+# Custom CSS and JS files
+html_css_files = [
+    'custom.css',
+]
+html_js_files = [
+    'sortable.js',
+    'gpu_calculator.js',
+]
