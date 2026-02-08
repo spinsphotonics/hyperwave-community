@@ -113,7 +113,7 @@ from .api_client import (
     ConvergenceConfig,
     CONVERGENCE_PRESETS,
     # Inverse design
-    compute_adjoint_gradient,
+    run_optimization,
     # Component preview functions
     list_components,
     get_component_params,
@@ -194,7 +194,6 @@ __all__ = [
     "configure_api",
     "get_account_info",
     "estimate_cost",
-    "compute_adjoint_gradient",
 
     # API - CPU Steps (free)
     "build_recipe",
@@ -205,6 +204,7 @@ __all__ = [
 
     # API - GPU Step (uses credits)
     "run_simulation",
+    "run_optimization",
 
     # API - Analysis (local, free)
     "analyze_transmission",

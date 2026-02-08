@@ -907,7 +907,7 @@ def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None, 
             response = requests.post(
                 f"{_API_CONFIG['api_url']}/account_info",
                 params={"api_key": _API_CONFIG['api_key']},
-                timeout=60  # Modal cold start can take time
+                timeout=120  # Modal cold start can take time
             )
             if response.status_code == 403:
                 raise RuntimeError("Invalid API key. Please check your API key and try again.")
@@ -1004,7 +1004,7 @@ def get_account_info(quiet: bool = False) -> Optional[Dict[str, Any]]:
         response = requests.post(
             f"{API_URL}/account_info",
             params={"api_key": API_KEY},
-            timeout=30
+            timeout=120
         )
         response.raise_for_status()
         info = response.json()
@@ -1056,7 +1056,7 @@ def estimate_cost(
     grid_points: Optional[int] = None,
     structure_shape: Optional[Tuple[int, int, int, int]] = None,
     max_steps: int = 10000,
-    gpu_type: str = "H100",
+    gpu_type: str = "B200",
     simulation_type: str = "fdtd_simulation",
 ) -> Optional[Dict[str, Any]]:
     """Estimate simulation cost before running (no auth required)."""
@@ -1076,6 +1076,7 @@ def estimate_cost(
         print("Either grid_points or structure_shape must be provided.")
         return None
 
+    # Warn if grid exceeds GPU VRAM capacity
     effective_cells = grid_points if grid_points is not None else int(np.prod(structure_shape))
     max_cells = GPU_MAX_CELLS.get(gpu_type, float('inf'))
     if effective_cells > max_cells:
@@ -1297,7 +1298,7 @@ def run_simulation(
     setup_data: Optional[Dict[str, Any]] = None,
     # Simulation parameters
     num_steps: int = 20000,
-    gpu_type: str = "H100",
+    gpu_type: str = "B200",
     convergence: Optional[str] = "default",
     absorption_widths: List[int] = None,
     absorption_coeff: float = 0.0006173770394704579,
@@ -1320,7 +1321,7 @@ def run_simulation(
         monitor_result=monitor_result,
         freq_result=freq_result,
         source_result=source_result,
-        gpu_type="H100",
+        gpu_type="B200",
     )
     ```
 
@@ -1329,7 +1330,7 @@ def run_simulation(
     results = hwc.run_simulation(
         device_type="mmi2x2",
         setup_data=setup_data,
-        gpu_type="H100",
+        gpu_type="B200",
     )
     ```
 
@@ -1662,7 +1663,7 @@ def simulate(
     absorption_widths: Tuple[int, int, int] = (60, 40, 40),
     absorption_coeff: float = 1e-4,
     api_key: Optional[str] = None,
-    gpu_type: str = "H100",
+    gpu_type: str = "B200",
     convergence: Optional[str] = "default",
 ) -> Optional[Dict[str, Any]]:
     """Run FDTD simulation on cloud GPU using structure recipe and monitors recipe.
@@ -1877,7 +1878,7 @@ def simulate_one_shot(
     num_steps: int = 30000,
     check_every_n: int = 1000,
     source_ramp_periods: float = 5.0,
-    gpu_type: str = "H100",
+    gpu_type: str = "B200",
     device_params: Optional[Dict[str, Any]] = None,
     min_steps: int = 0,
     min_stable_checks: int = 3,
@@ -3001,16 +3002,21 @@ def get_field_intensity_2d(
     return result
 
 
-def compute_adjoint_gradient(
+
+# =============================================================================
+# INVERSE DESIGN OPTIMIZATION (Streaming)
+# =============================================================================
+
+def run_optimization(
     theta: np.ndarray,
     source_field: np.ndarray,
     source_offset: Tuple[int, int, int],
     freq_band: Tuple[float, float, int],
+    structure_spec: Dict[str, Any],
     loss_monitor_shape: Tuple[int, int, int],
     loss_monitor_offset: Tuple[int, int, int],
     design_monitor_shape: Tuple[int, int, int],
     design_monitor_offset: Tuple[int, int, int],
-    structure_spec: Dict[str, Any],
     loss_fn: Optional[Callable] = None,
     mode_field: Optional[np.ndarray] = None,
     input_power: Optional[float] = None,
@@ -3020,19 +3026,28 @@ def compute_adjoint_gradient(
     power_maximize: bool = True,
     intensity_component: Optional[str] = None,
     intensity_maximize: bool = True,
+    num_steps: int = 50,
+    learning_rate: float = 0.01,
+    grad_clip_norm: float = 1.0,
+    cosine_decay_alpha: float = 0.1,
+    enforce_symmetry: bool = False,
+    waveguide_mask: Optional[np.ndarray] = None,
     absorption_widths: Tuple[int, int, int] = (70, 35, 17),
     absorption_coeff: float = 0.00489,
-    gpu_type: str = "H100",
+    max_steps: int = 10000,
+    check_every_n: int = 1000,
+    gpu_type: str = "B200",
     api_key: Optional[str] = None,
-) -> Dict[str, Any]:
-    """Compute adjoint gradient for inverse design on GPU via API.
+) -> 'Generator[Dict[str, Any], None, None]':
+    """Run optimization loop on cloud GPU.
 
-    Computes the gradient of a loss function with respect to design variables
-    (theta) using the memory-efficient adjoint method. This enables gradient-based
-    optimization of photonic devices.
+    Sends all optimization parameters in a single request. The cloud GPU
+    runs the full loop (forward + adjoint FDTD per step, Adam updates) and
+    returns results after each completed step.
 
-    The 3-part autodiff chain:
-        theta -> permittivity (via structure_spec) -> fields (FDTD) -> loss
+    **Cancellation:** Stopping iteration (KeyboardInterrupt, ``break``, or
+    abandoning the generator) closes the connection and cancels the GPU
+    task. You are only charged for steps that actually completed.
 
     Loss function options (in priority order):
         1. loss_fn: Custom function (most flexible)
@@ -3041,103 +3056,94 @@ def compute_adjoint_gradient(
         4. intensity_component: Simple |E|^2
 
     Args:
-        theta: Design variables (2D numpy array). Values typically in [0, 1].
+        theta: Initial design variables (2D numpy array, values in [0, 1]).
         source_field: Source field array, shape (n_freq, 6, sx, sy, sz).
         source_offset: Source injection position (x, y, z) in pixels.
         freq_band: Frequency specification as (omega_min, omega_max, num_freqs).
-        loss_monitor_shape: Shape of loss monitor. For power loss, use the
-            full cross-section. For point intensity, use (1, 1, 1).
-        loss_monitor_offset: Position where loss is computed (x, y, z).
+        structure_spec: Structure specification dictionary with ``layers_info``
+            and ``construction_params``.
+        loss_monitor_shape: Shape of loss monitor volume.
+        loss_monitor_offset: Position of loss monitor (x, y, z).
         design_monitor_shape: Shape of design region for gradient computation.
         design_monitor_offset: Offset of design region.
-        structure_spec: Structure specification dictionary with:
-            - layers_info: list of layer dicts with density_radius, density_alpha,
-              permittivity_values, layer_thickness, conductivity_values
-            - construction_params: dict with vertical_radius
-        loss_fn: Custom loss function (optional). Signature: loss_fn(loss_field) -> scalar.
-            loss_field shape: (n_freq, 6, mx, my, mz). Serialized via cloudpickle.
-            WARNING: Avoid closures over large arrays (causes memory leaks).
+        loss_fn: Custom loss function (optional). Serialized via cloudpickle.
         mode_field: Target mode field for mode coupling loss (optional).
-            If provided, also requires input_power and mode_cross_power.
-        input_power: Input power for mode coupling loss.
-        mode_cross_power: Mode cross power for mode coupling loss.
-        mode_axis: Axis for mode overlap calculation (default: 0 for x-propagation).
-        power_axis: Axis for Poynting vector power loss (optional).
-            0=x, 1=y, 2=z. Uses S_from_slice to compute power through monitor.
+        input_power: Input power for mode coupling normalization.
+        mode_cross_power: Mode cross power for mode coupling normalization.
+        mode_axis: Axis for mode overlap (default: 0 for x-propagation).
+        power_axis: Axis for Poynting vector power loss (0=x, 1=y, 2=z).
         power_maximize: Whether to maximize power (default: True).
         intensity_component: Field component for intensity loss ('Ex', 'Ey', 'Ez').
         intensity_maximize: Whether to maximize intensity (default: True).
+        num_steps: Number of optimization steps (default: 50).
+        learning_rate: Peak learning rate for Adam with cosine decay (default: 0.01).
+        grad_clip_norm: Global gradient clipping norm (default: 1.0).
+        cosine_decay_alpha: Final LR as fraction of initial (default: 0.1).
+        enforce_symmetry: Symmetrize gradient via ``(g + g.T) / 2`` (default: False).
+        waveguide_mask: Binary mask where theta is forced to 1.0 (optional).
         absorption_widths: PML absorption widths (x, y, z) in pixels.
         absorption_coeff: PML absorption coefficient.
-        gpu_type: GPU type to use. Options: B200, H200, H100, A100-80GB, A100-40GB, L40S, A10G, T4.
+        max_steps: Maximum FDTD timesteps per simulation (default: 10000).
+        check_every_n: FDTD convergence check interval (default: 1000).
+        gpu_type: GPU type (default: "B200").
         api_key: API key (overrides configured key).
 
-    Returns:
-        Dictionary containing:
-            - loss: Computed loss value
-            - grad_theta: Gradient array (same shape as theta)
-            - grad_min: Minimum gradient value
-            - grad_max: Maximum gradient value
-            - grad_time: Gradient computation time (seconds)
-            - total_time: Total time including overhead
-            - gpu_type: GPU type used
-            - memory_reduction_pct: Memory reduction from efficient adjoint
-            - simulation_id: Unique ID for this computation
+    Yields:
+        dict with keys:
+            - step (int): Step number (1-indexed).
+            - loss (float): Loss value at this step.
+            - efficiency (float): Coupling efficiency (0 to 1) if mode loss is used.
+            - theta_b64 (str): Base64-encoded updated theta array.
+            - theta (np.ndarray): Updated design variables (decoded from theta_b64).
+            - grad_max (float): Maximum absolute gradient value.
+            - step_time (float): GPU time for this step in seconds.
+            - is_final (bool): True on the last step.
 
     Raises:
         ValueError: If no loss specification is provided.
 
-    Note:
-        Computation takes approximately 30-120 seconds depending on structure size
-        and GPU type. Uses memory-efficient adjoint method (90%+ memory reduction).
-
-    Example 1: Custom loss function
-        >>> def my_loss(loss_field):
-        ...     import jax.numpy as jnp
-        ...     Ez = loss_field[0, 2, :, :, :]
-        ...     return -jnp.sum(jnp.abs(Ez)**2)  # Maximize total Ez intensity
-        >>>
-        >>> result = hwc.compute_adjoint_gradient(
-        ...     theta=theta, source_field=source, ...,
-        ...     loss_fn=my_loss,
-        ...     api_key='your-key'
-        ... )
-
-    Example 2: Power through monitor (using S_from_slice)
-        >>> result = hwc.compute_adjoint_gradient(
-        ...     theta=theta, source_field=source, ...,
-        ...     loss_monitor_shape=(1, 50, 50),  # Full YZ cross-section
-        ...     loss_monitor_offset=(output_x, 0, 0),
-        ...     power_axis=0,  # Maximize Sx (power in x-direction)
-        ...     power_maximize=True,
-        ...     api_key='your-key'
-        ... )
-
-    Example 3: Simple intensity
-        >>> result = hwc.compute_adjoint_gradient(
-        ...     theta=theta, source_field=source, ...,
-        ...     loss_monitor_shape=(1, 1, 1),  # Point monitor
-        ...     intensity_component='Ez',
-        ...     intensity_maximize=True,
-        ...     api_key='your-key'
-        ... )
+    Example:
+        >>> results = []
+        >>> try:
+        ...     for step_result in hwc.run_optimization(
+        ...         theta=theta_init,
+        ...         source_field=source,
+        ...         source_offset=source_offset,
+        ...         freq_band=freq_band,
+        ...         structure_spec=structure_spec,
+        ...         loss_monitor_shape=(1, Ly, Lz),
+        ...         loss_monitor_offset=(output_x, 0, 0),
+        ...         design_monitor_shape=(Lx, Ly, h_etch),
+        ...         design_monitor_offset=(0, 0, z_etch),
+        ...         mode_field=mode_full,
+        ...         input_power=input_power,
+        ...         mode_cross_power=P_mode_cross,
+        ...         num_steps=50,
+        ...         learning_rate=0.01,
+        ...         gpu_type="B200",
+        ...     ):
+        ...         eff = step_result['efficiency'] * 100
+        ...         print(f"Step {step_result['step']}: {eff:.2f}%")
+        ...         results.append(step_result)
+        ... except KeyboardInterrupt:
+        ...     print(f"Stopped after {len(results)} steps.")
     """
-    # Use provided api_key or fall back to configured one
+    import json
+
     effective_api_key = api_key or _API_CONFIG.get('api_key')
     if not effective_api_key:
         print("API key required to proceed.")
         print("Sign up for free at spinsphotonics.com to get your API key.")
-        return None
+        return
 
-    # Configure API if api_key was provided and different from current
     if api_key and api_key != _API_CONFIG.get('api_key'):
         configure_api(api_key=api_key, validate=False)
 
     API_URL = _API_CONFIG['api_url']
 
-    # Validate loss parameters - at least one must be provided
+    # Validate loss parameters
     if (loss_fn is None and mode_field is None and
-        power_axis is None and intensity_component is None):
+            power_axis is None and intensity_component is None):
         raise ValueError(
             "Must provide at least one loss specification:\n"
             "  - loss_fn: Custom loss function\n"
@@ -3146,18 +3152,18 @@ def compute_adjoint_gradient(
             "  - intensity_component: Simple |E|^2 ('Ex', 'Ey', 'Ez')"
         )
 
-    # Encode theta and source_field to base64
+    # Encode arrays
     theta_b64 = encode_array(np.array(theta, dtype=np.float32))
     source_field_b64 = encode_array(np.array(source_field))
 
-    # Serialize custom loss function if provided
+    # Serialize custom loss function
     loss_fn_pickle_b64 = None
     if loss_fn is not None:
         import cloudpickle
         loss_fn_bytes = cloudpickle.dumps(loss_fn)
         loss_fn_pickle_b64 = base64.b64encode(loss_fn_bytes).decode('utf-8')
 
-    # Prepare mode coupling params if provided
+    # Mode coupling params
     mode_coupling_params = None
     if mode_field is not None:
         if input_power is None or mode_cross_power is None:
@@ -3172,7 +3178,7 @@ def compute_adjoint_gradient(
             'axis': int(mode_axis)
         }
 
-    # Prepare power params if provided
+    # Power params
     power_params = None
     if power_axis is not None:
         power_params = {
@@ -3180,13 +3186,18 @@ def compute_adjoint_gradient(
             'maximize': power_maximize
         }
 
-    # Prepare intensity params if provided
+    # Intensity params
     intensity_params = None
     if intensity_component is not None:
         intensity_params = {
             'component': intensity_component,
             'maximize': intensity_maximize
         }
+
+    # Waveguide mask
+    waveguide_mask_b64 = None
+    if waveguide_mask is not None:
+        waveguide_mask_b64 = encode_array(np.array(waveguide_mask, dtype=np.float32))
 
     # Build request
     request_data = {
@@ -3205,107 +3216,115 @@ def compute_adjoint_gradient(
         "intensity_params": intensity_params,
         "power_params": power_params,
         "loss_fn_pickle_b64": loss_fn_pickle_b64,
+        "waveguide_mask_b64": waveguide_mask_b64,
+        "waveguide_mask_shape": list(np.array(waveguide_mask).shape) if waveguide_mask is not None else None,
+        "optimizer_config": {
+            "num_steps": num_steps,
+            "learning_rate": learning_rate,
+            "grad_clip_norm": grad_clip_norm,
+            "cosine_decay_alpha": cosine_decay_alpha,
+            "enforce_symmetry": enforce_symmetry,
+        },
         "add_absorption": True,
         "absorption_widths": list(absorption_widths),
         "absorption_coeff": float(absorption_coeff),
-        "gpu_type": gpu_type
+        "max_steps": max_steps,
+        "check_every_n": check_every_n,
+        "gpu_type": gpu_type,
     }
 
     headers = {
         "X-API-Key": effective_api_key,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Accept": "text/event-stream",
     }
 
-    # Debug info
-    print(f"\n=== Inverse Design API Request ===")
-    print(f"Endpoint: {API_URL}/inverse_design")
+    print(f"\n=== Inverse Design Optimization ===")
+    print(f"Endpoint: {API_URL}/inverse_design_stream")  # internal endpoint name
     print(f"Theta shape: {request_data['theta_shape']}")
-    print(f"Design monitor: shape={design_monitor_shape}, offset={design_monitor_offset}")
-    print(f"Loss monitor: shape={loss_monitor_shape}, offset={loss_monitor_offset}")
-    print(f"GPU type: {gpu_type}")
-    if loss_fn_pickle_b64:
-        print(f"Loss type: Custom function (cloudpickle)")
-    elif mode_coupling_params:
-        print(f"Loss type: Mode coupling")
+    print(f"Steps: {num_steps}, LR: {learning_rate}, GPU: {gpu_type}")
+    if mode_coupling_params:
+        print(f"Loss: Mode coupling")
     elif power_params:
         axis_names = {0: 'x', 1: 'y', 2: 'z'}
-        print(f"Loss type: Power S_{axis_names.get(power_axis, power_axis)} via S_from_slice (maximize={power_maximize})")
+        print(f"Loss: Power S_{axis_names.get(power_axis, power_axis)} (maximize={power_maximize})")
     elif intensity_params:
-        print(f"Loss type: Intensity |{intensity_component}|^2 (maximize={intensity_maximize})")
-    print(f"==================================\n")
+        print(f"Loss: Intensity |{intensity_component}|^2 (maximize={intensity_maximize})")
+    elif loss_fn_pickle_b64:
+        print(f"Loss: Custom function (cloudpickle)")
+    print(f"====================================\n")
 
-    # Send request
+    response = None
     try:
+        # SSE request with long read timeout (GPU steps take ~60-120s each)
         response = requests.post(
-            f"{API_URL}/inverse_design",
+            f"{API_URL}/inverse_design_stream",
             json=request_data,
             headers=headers,
-            timeout=1800  # 30 minute timeout for inverse design
+            stream=True,
+            timeout=(30, None),  # 30s connect, unlimited read
         )
-
         response.raise_for_status()
 
-        results = response.json()
+        # Parse Server-Sent Events
+        for line in response.iter_lines(decode_unicode=True):
+            if not line:
+                continue
+            if not line.startswith('data: '):
+                continue
 
-        # Decode gradient
-        grad_theta = decode_array(results['grad_theta_b64'])
+            event_json = line[6:]  # strip 'data: ' prefix
 
-        return {
-            'loss': results['loss'],
-            'grad_theta': grad_theta,
-            'grad_min': results['grad_min'],
-            'grad_max': results['grad_max'],
-            'grad_time': results['grad_time'],
-            'total_time': results['total_time'],
-            'gpu_type': results['gpu_type'],
-            'memory_reduction_pct': results['memory_reduction_pct'],
-            'simulation_id': results.get('simulation_id'),
-            'execution_time_seconds': results.get('execution_time_seconds'),
-            'computation_time_seconds': results.get('computation_time_seconds')
-        }
+            # End-of-stream sentinel
+            if event_json == '[DONE]':
+                break
+
+            try:
+                event = json.loads(event_json)
+            except json.JSONDecodeError:
+                continue
+
+            # Handle error events from server
+            if event.get('type') == 'error':
+                print(f"\nServer error: {event.get('message', 'Unknown error')}")
+                return
+
+            # Decode theta array
+            if 'theta_b64' in event:
+                event['theta'] = decode_array(event['theta_b64'])
+
+            yield event
 
     except requests.exceptions.HTTPError as e:
         if e.response is not None:
             status_code = e.response.status_code
             response_text = e.response.text
-
             print(f"\n=== API Error ===")
             print(f"Status Code: {status_code}")
             print(f"Response: {response_text}")
             print(f"=================\n")
-
             if status_code == 401:
-                print("No API key detected in request.")
-                print("Sign up for free at spinsphotonics.com to get your API key.")
+                print("No API key detected. Sign up at spinsphotonics.com")
             elif status_code == 403:
-                print("Provided API key is invalid.")
-                print("Please verify your API key at spinsphotonics.com/dashboard")
+                print("Invalid API key. Verify at spinsphotonics.com/dashboard")
             elif status_code == 402:
-                print("Insufficient credits for inverse design computation.")
-                print("Minimum required: 1.0 credits")
-                print("Add credits at spinsphotonics.com/billing")
-            elif status_code == 502:
-                print("Service temporarily unavailable. Please retry later.")
-            else:
-                print(f"Unexpected error (Code: {status_code})")
-        return None
+                print("Insufficient credits. Add credits at spinsphotonics.com/billing")
+        return
 
     except requests.exceptions.Timeout:
-        print("Request timeout.")
-        print("Inverse design computation is taking longer than expected. Please try again.")
-        return None
+        print("Connection timeout. Please try again.")
+        return
 
     except requests.exceptions.ConnectionError:
-        print("Connection failed.")
-        print("Unable to reach API servers. Please check your connection.")
-        return None
+        print("Connection failed. Please check your network.")
+        return
 
-    except requests.exceptions.RequestException:
-        print("Communication error.")
-        print("Unable to process your request. Please try again later.")
-        return None
+    except GeneratorExit:
+        # Generator was closed (user interrupted or broke out of loop).
+        # Closing the response drops the connection, signaling the server
+        # to cancel the GPU task.
+        pass
 
-    except ValueError:
-        print("Invalid server response.")
-        print("Received malformed data from server.")
-        return None
+    finally:
+        if response is not None:
+            response.close()
