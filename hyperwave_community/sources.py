@@ -212,6 +212,191 @@ def create_gaussian_source(
     return err_src_field, input_power
 
 
+# ---------------------------------------------------------------------------
+# Wave equation error helpers (finite-difference curl for free-space post-processing)
+# ---------------------------------------------------------------------------
+
+def _spatial_diff(field, axis, is_forward):
+    """Forward or backward finite difference along *axis*."""
+    if is_forward:
+        return np.roll(field, -1, axis=axis) - field
+    return field - np.roll(field, 1, axis=axis)
+
+
+def _curl_3d(field, is_forward):
+    """Curl of a (..., 3, x, y, z) vector field via finite differences."""
+    fx = field[..., 0, :, :, :]
+    fy = field[..., 1, :, :, :]
+    fz = field[..., 2, :, :, :]
+    _d = partial(_spatial_diff, is_forward=is_forward)
+    dx = lambda f: _d(f, axis=-3)
+    dy = lambda f: _d(f, axis=-2)
+    dz = lambda f: _d(f, axis=-1)
+    return np.stack([dy(fz) - dz(fy), dz(fx) - dx(fz), dx(fy) - dy(fx)],
+                    axis=-4)
+
+
+def _wave_equation_error_free_space(field, frequencies):
+    """Wave equation residual in free space (eps=1, sigma=0, no source).
+
+    Args:
+        field: (N_freq, 6, x, y, z) complex field values.
+        frequencies: Array of angular frequencies.
+
+    Returns:
+        (N_freq, 6, x, y, z) error tensor.
+    """
+    w = np.asarray(frequencies, dtype=np.float64).reshape(-1, 1, 1, 1, 1)
+    e = field[:, 0:3]
+    h = field[:, 3:6]
+    error_e = _curl_3d(e, is_forward=True) + 1j * w * h
+    error_h = _curl_3d(h, is_forward=False) - 1j * w * e
+    return np.concatenate([error_e, error_h], axis=1)
+
+
+# ---------------------------------------------------------------------------
+# Cloud-based Gaussian source generation
+# ---------------------------------------------------------------------------
+
+def generate_gaussian_source(
+    sim_shape: Tuple[int, int, int],
+    frequencies,
+    source_pos: Tuple[int, int, int],
+    waist_radius: float,
+    theta: float = 0.0,
+    phi: float = 0.0,
+    polarization: str = 'y',
+    max_steps: int = 5000,
+    check_every_n: int = 1000,
+    absorption_widths: Tuple[int, int, int] = (30, 30, 20),
+    absorption_coeff: float = 1e-4,
+    gpu_type: str = "B200",
+) -> Tuple[np.ndarray, np.ndarray]:
+    """Generate a Gaussian beam source via cloud GPU FDTD simulation.
+
+    Runs FDTD in free space on a cloud GPU, then computes the wave equation
+    error locally to produce a clean unidirectional source field.  This is
+    the cloud-compatible replacement for ``create_gaussian_source`` which
+    requires the full hyperwave solver package.
+
+    Args:
+        sim_shape: Simulation domain (Lx, Ly, Lz) in structure grid pixels.
+        frequencies: Array of angular frequencies (omega = 2*pi/lambda).
+        source_pos: Source center (x, y, z) in structure grid pixels.
+        waist_radius: Beam waist radius in structure grid pixels.
+        theta: Tilt angle in degrees (negative tilts toward -x).
+        phi: Azimuthal angle in degrees (0=XZ plane).
+        polarization: ``'x'`` or ``'y'``.
+        max_steps: Maximum FDTD time steps.
+        check_every_n: Steps between convergence checks.
+        absorption_widths: PML widths ``(x, y, z)`` in pixels.
+        absorption_coeff: PML absorption coefficient.
+        gpu_type: Cloud GPU type (``"B200"``, ``"H100"``, etc.).
+
+    Returns:
+        ``(source_field, input_power)`` where *source_field* has shape
+        ``(N_freq, 6, Lx, Ly, 1)`` and *input_power* has shape ``(N_freq,)``.
+    """
+    from .structure import recipe_from_params
+    from .api_client import simulate as api_simulate
+    from .monitors import get_power_through_plane
+
+    Lx, Ly, Lz = sim_shape
+    frequencies = np.asarray(frequencies)
+    num_freqs = len(frequencies)
+
+    # Source offset: full XY span, at source z position
+    source_offset = (0, 0, int(source_pos[2]))
+
+    # ----- Build Gaussian initial field -----
+    x = np.arange(Lx, dtype=np.float64)[:, None] - source_pos[0]
+    y = np.arange(Ly, dtype=np.float64)[None, :] - source_pos[1]
+    gaussian_xy = np.exp(-(x**2 + y**2) / (2 * waist_radius**2))
+
+    theta_rad = theta * np.pi / 180
+    phi_rad = phi * np.pi / 180
+
+    initial_source = np.zeros((num_freqs, 6, Lx, Ly, 1), dtype=np.complex64)
+    pol_idx = 0 if polarization == 'x' else 1
+
+    for fi in range(num_freqs):
+        k0 = float(frequencies[fi])
+        kx = k0 * np.sin(theta_rad) * np.cos(phi_rad)
+        ky = k0 * np.sin(theta_rad) * np.sin(phi_rad)
+        phase = np.exp(-1j * (kx * x + ky * y))
+        initial_source[fi, pol_idx, :, :, 0] = gaussian_xy * phase
+
+    # ----- Air-only structure recipe (lightweight, no large arrays) -----
+    air_recipe = recipe_from_params(
+        grid_shape=(2 * Lx, 2 * Ly),
+        layers=[{
+            'density': 'uniform',
+            'value': 0.0,
+            'permittivity': 1.0,
+            'thickness': float(Lz),
+        }],
+        vertical_radius=0.0,
+    )
+
+    # ----- Monitor at source plane (z-thickness = 4 for wave equation error) -----
+    z_offset = max(int(source_pos[2]) - 1, 0)
+    monitors_recipe = [{
+        'name': 'source_plane',
+        'shape': (Lx, Ly, 4),
+        'offset': (0, 0, z_offset),
+    }]
+
+    # ----- Frequency band -----
+    freq_min = float(np.min(frequencies))
+    freq_max = float(np.max(frequencies))
+    freq_band = (freq_min, freq_max, num_freqs)
+
+    # ----- Run FDTD on cloud GPU -----
+    response = api_simulate(
+        structure_recipe=air_recipe,
+        source_field=initial_source,
+        source_offset=source_offset,
+        freq_band=freq_band,
+        monitors_recipe=monitors_recipe,
+        simulation_steps=max_steps,
+        check_every_n=check_every_n,
+        source_ramp_periods=10,
+        add_absorption=True,
+        absorption_widths=absorption_widths,
+        absorption_coeff=absorption_coeff,
+        gpu_type=gpu_type,
+        convergence="default",
+    )
+
+    # ----- Post-process: wave equation error -----
+    field = np.array(response['monitor_data']['source_plane'])  # (N, 6, Lx, Ly, 4)
+
+    # Zero out field components that aren't part of the source plane
+    # (same masking as the reference implementation)
+    field[:, (0, 1, 5), :, :, :2] = 0
+    field[:, (2, 3, 4), :, :, :1] = 0
+
+    error = _wave_equation_error_free_space(field, frequencies)
+
+    # Extract error at source z (index 1 within the 4-pixel slab)
+    err_plane = error[:, :, :, :, 1:2]  # (N, 6, Lx, Ly, 1)
+
+    # Swap E and H components to create source field
+    swap_idx = np.array([3, 4, 5, 0, 1, 2])
+    err_src_field = err_plane[:, swap_idx, :, :, :]
+
+    # Zero out z-components (Ez, Hz)
+    err_src_field[:, 2, :, :, :] = 0.0
+    err_src_field[:, 5, :, :, :] = 0.0
+
+    # ----- Compute input power -----
+    input_power = np.abs(np.array(get_power_through_plane(
+        field=jnp.array(err_src_field), axis='z', position=0
+    )))
+
+    return err_src_field, input_power
+
+
 # @title new gaussian
 def create_gaussian_source_full_span_on_modal(
     air_recipe: dict,
@@ -1019,7 +1204,12 @@ def mode_converter(
     else:
         monitors = [output_monitor]
 
-    # Run simulation
+    # Run simulation (requires full hyperwave solver)
+    if not SOLVER_AVAILABLE:
+        raise ImportError(
+            "mode_converter requires the full hyperwave solver package. "
+            "Install hyperwave or use the cloud API workflow instead."
+        )
 
     out_list, steps, errs = hws.mem_efficient_multi_freq(
         freq_band=freq_band,
@@ -1117,7 +1307,10 @@ def mode_converter(
 
         # Print stats
         print(f"\nMode converter results:")
-        print(f"  Simulation: {steps[-1]} steps, final error: {jnp.max(errs[-1]):.6f}")
+        if steps:
+            print(f"  Simulation: {steps[-1]} steps, final error: {jnp.max(errs[-1]):.6f}")
+        else:
+            print(f"  Simulation: cloud GPU")
         print(f"  Input max |E|:  {float(jnp.max(jnp.abs(mode_E_field))):.6f}")
         print(f"  Output max |E|: {float(jnp.max(jnp.abs(output_E))):.6f}")
         print(f"  Output max |H|: {float(jnp.max(jnp.abs(output_H))):.6f}")

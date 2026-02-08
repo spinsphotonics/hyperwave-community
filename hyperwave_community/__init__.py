@@ -55,6 +55,7 @@ from .structure import (
     view_structure,
     Layer,
     Structure,
+    recipe_from_params,
 )
 
 # Import absorption functions
@@ -80,6 +81,7 @@ from .monitors import (
 # Import source functions
 from .sources import (
     create_gaussian_source,
+    generate_gaussian_source,
 )
 # create_mode_source is in simulate.py (uses mode solver)
 from .simulate import create_mode_source
@@ -159,6 +161,7 @@ __all__ = [
     "view_structure",
     "Layer",
     "Structure",
+    "recipe_from_params",
 
     # Absorption
     "create_absorption_mask",
