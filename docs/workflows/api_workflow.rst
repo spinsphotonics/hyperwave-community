@@ -168,6 +168,22 @@ Set ``mode_num=0`` for the fundamental TE mode, ``mode_num=1`` for the first hig
    print(f"Source field shape: {source_result['source_field'].shape}")
    print(f"Source offset: {source_result['source_offset']}")
 
+Estimate Cost
+^^^^^^^^^^^^^
+
+Before running, preview the estimated cost (see :ref:`gpu-cost-estimation` for details):
+
+.. code-block:: python
+
+   dims = recipe_result['dimensions']
+   cost = hwc.estimate_cost(
+       grid_points=dims[0] * dims[1] * dims[2],
+       max_steps=20000,
+       gpu_type="B200",
+   )
+   print(f"Estimated time: {cost['estimated_seconds']:.0f}s")
+   print(f"Estimated cost: ${cost['estimated_cost_usd']:.2f}")
+
 Step 5: Run Simulation
 ----------------------
 

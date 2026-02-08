@@ -397,6 +397,21 @@ The monitor sizing parameters control the spatial extent of each port monitor:
        absorber_boundary=absorber,
    )
 
+Before running, preview the estimated cost:
+
+.. code-block:: python
+
+   dims = structure.permittivity.shape
+   cost = hwc.estimate_cost(
+       grid_points=dims[1] * dims[2] * dims[3],
+       max_steps=20000,
+       gpu_type="B200",
+   )
+   print(f"Estimated time: {cost['estimated_seconds']:.0f}s")
+   print(f"Estimated cost: ${cost['estimated_cost_usd']:.2f}")
+
+See :ref:`gpu-cost-estimation` for details.
+
 Step 7: Run GPU Simulation
 --------------------------
 
