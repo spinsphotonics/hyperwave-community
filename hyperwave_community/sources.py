@@ -341,10 +341,12 @@ def generate_gaussian_source(
     # ----- Monitor at source plane (z-thickness = 4 for wave equation error) -----
     z_offset = max(int(source_pos[2]) - 1, 0)
     monitors_recipe = [{
-        'name': 'source_plane',
+        'name': 'Output_source_plane',
         'shape': (Lx, Ly, 4),
         'offset': (0, 0, z_offset),
     }]
+    # NOTE: Monitor must be named 'Output_*' for the /early_stopping endpoint.
+    # We use convergence="full" below to bypass early stopping for source gen.
 
     # ----- Frequency band -----
     freq_min = float(np.min(frequencies))
@@ -365,11 +367,11 @@ def generate_gaussian_source(
         absorption_widths=absorption_widths,
         absorption_coeff=absorption_coeff,
         gpu_type=gpu_type,
-        convergence="default",
+        convergence="full",
     )
 
     # ----- Post-process: wave equation error -----
-    field = np.array(response['monitor_data']['source_plane'])  # (N, 6, Lx, Ly, 4)
+    field = np.array(response['monitor_data']['Output_source_plane'])  # (N, 6, Lx, Ly, 4)
 
     # Zero out field components that aren't part of the source plane
     # (same masking as the reference implementation)
