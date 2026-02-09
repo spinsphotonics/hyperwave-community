@@ -3,7 +3,7 @@ API Workflow
 
 This tutorial walks through the API workflow for simulating an MMI 2x2 splitter. The API workflow is the simplest way to run FDTD simulations using standard GDSFactory components.
 
-In the API workflow, all CPU-intensive steps (structure creation, density filtering, layer stacking) run on Modal servers provided by SPINs. You only need to specify the component and parameters; the server handles the rest. Only the GPU FDTD simulation step uses credits.
+In the API workflow, all CPU-intensive steps (structure creation, density filtering, layer stacking) run on Modal servers provided by SPINs. You only need to specify the component and parameters; the server handles the rest. Only the GPU FDTD simulation step costs credits (1 credit = $25 = 1 hour of compute).
 
 **Download the notebook**: `api_workflow.ipynb <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/api_workflow.ipynb>`_
 
@@ -16,7 +16,7 @@ In the API workflow, all CPU-intensive steps (structure creation, density filter
 Configure API
 -------------
 
-Your API key authenticates requests to the SPINs servers and tracks your credit usage. You can get one by signing up at `spinsphotonics.com <https://spinsphotonics.com>`_. After configuring the key, calling ``get_account_info()`` displays your remaining credits and account details so you can verify your setup before running any simulations.
+Your API key authenticates requests to the SPINs servers and tracks your credit balance. You can get one by signing up at `spinsphotonics.com <https://spinsphotonics.com>`_. After configuring the key, calling ``get_account_info()`` displays your remaining credits and account details so you can verify your setup before running any simulations.
 
 .. code-block:: python
 
@@ -95,7 +95,7 @@ Step 2: Build Monitors
 
 Monitors are field sampling planes placed at specific positions in the simulation domain. They record the electromagnetic field at each frequency point during the simulation, which is later used to compute transmission and visualize field patterns. ``build_monitors()`` automatically places monitors at each port detected from the GDSFactory component.
 
-The ``source_port`` parameter specifies which port to excite. Monitors at other ports measure the output transmission. Set ``show_structure=True`` to visualize where monitors are placed relative to the structure, which is useful for verifying the simulation setup before committing GPU credits.
+The ``source_port`` parameter specifies which port to excite. Monitors at other ports measure the output transmission. Set ``show_structure=True`` to visualize where monitors are placed relative to the structure, which is useful for verifying the simulation setup before committing compute time.
 
 .. code-block:: python
 
@@ -186,7 +186,7 @@ Before running, preview the estimated cost (see :ref:`gpu-cost-estimation` for d
 Step 5: Run Simulation
 ----------------------
 
-This is the only step that consumes credits. The FDTD simulation runs on a cloud GPU, stepping Maxwell's equations forward in time until the fields converge or the maximum number of steps is reached. All previous steps (structure building, monitor placement, mode solving) were free server-side computations that prepared the inputs for this step.
+This is the only step that consumes credits (1 credit = $25 = 1 hour of B200 compute). The FDTD simulation runs on a cloud GPU, stepping Maxwell's equations forward in time until the fields converge or the maximum number of steps is reached. All previous steps (structure building, monitor placement, mode solving) were free server-side computations that prepared the inputs for this step.
 
 The key parameters to configure are:
 
@@ -231,7 +231,7 @@ The key parameters to configure are:
 Step 6: Analyze Results
 -----------------------
 
-All analysis runs locally on your machine and is free. No server calls or credits are needed for this step.
+All analysis runs locally on your machine and is free. No server calls or credits are consumed for this step.
 
 Transmission Analysis
 ^^^^^^^^^^^^^^^^^^^^^
@@ -318,7 +318,7 @@ Summary
      - Free
    * - 5
      - ``run_simulation()``
-     - Credits
+     - Credits ($25/hr)
    * - 6
      - ``analyze_transmission()``
      - Free

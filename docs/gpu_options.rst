@@ -3,69 +3,34 @@
 GPU Options
 ===========
 
-All simulations run on NVIDIA B200 GPUs by default. For access to other GPU
-types, contact us at `spinsphotonics.com/contact <https://spinsphotonics.com/contact>`_.
+All simulations run exclusively on NVIDIA B200 GPUs.
+
+.. note::
+
+   Effective February 2026, all simulations run exclusively on NVIDIA B200 GPUs. Previous GPU
+   tiers have been consolidated into a single, streamlined pricing tier at $25 per compute hour.
+   The per-hour cost for B200 simulations remains unchanged from prior pricing.
 
 .. _gpu-performance:
 
 Performance Reference
 ---------------------
 
-The table below shows performance stats across GPU types for reference.
-
-| \* Max footprint assumes 20 nm mesh and 4.2 um stack height.
-| \* Credits (10 x 10 um) = estimated cost for a 10 x 10 um device at 10,000 steps.
-| \* See :ref:`gpu-specs` for full hardware specifications.
-
 .. list-table::
    :header-rows: 1
-   :class: sortable
 
    * - GPU
      - Speed (Gcell/s)
      - Max Footprint (um)
-     - Credits / hr
-     - Credits (10 x 10 um)
+     - Cost / hr
    * - ``"B200"``
      - 25
      - 36 x 36
-     - 2.50
-     - 0.015
-   * - ``"H200"``
-     - 16
-     - 31 x 31
-     - 2.00
-     - 0.018
-   * - ``"H100"``
-     - 13
-     - 23 x 23
-     - 1.50
-     - 0.017
-   * - ``"A100-80GB"``
-     - 9
-     - 23 x 23
-     - 1.00
-     - 0.016
-   * - ``"A100-40GB"``
-     - 7
-     - 16 x 16
-     - 0.80
-     - 0.017
-   * - ``"L40S"``
-     - 5
-     - 18 x 18
-     - 0.70
-     - 0.020
-   * - ``"A10G"``
-     - 3
-     - 12 x 12
-     - 0.40
-     - 0.020
-   * - ``"T4"``
-     - 2
-     - 10 x 10
-     - 0.30
-     - 0.022
+     - $25.00
+
+| \* Max footprint assumes 20 nm mesh and 4.2 um stack height.
+| \* 1 credit = $25 = 1 hour of compute.
+| \* See :ref:`gpu-specs` for full hardware specifications.
 
 .. _gpu-cost-estimation:
 
@@ -90,7 +55,7 @@ running. Free, no authentication required.
 Returns:
 
 - ``estimated_seconds``: estimated simulation wall time
-- ``estimated_credits``: estimated credit cost
+- ``estimated_credits``: estimated credits (1 credit = $25 = 1 hour)
 - ``estimated_cost_usd``: estimated cost in USD
 - ``grid_points``: total grid points in the simulation
 
@@ -150,38 +115,13 @@ Full hardware and billing reference. Back to :ref:`gpu-performance`.
      - VRAM (GB)
      - Speed (Gcell/s)
      - Max Cells (M)
+     - Cost / hr
    * - ``"B200"``
      - 192
      - 25
      - 700
-   * - ``"H200"``
-     - 141
-     - 16
-     - 510
-   * - ``"H100"``
-     - 80
-     - 13
-     - 290
-   * - ``"A100-80GB"``
-     - 80
-     - 9
-     - 290
-   * - ``"A100-40GB"``
-     - 40
-     - 7
-     - 145
-   * - ``"L40S"``
-     - 48
-     - 5
-     - 175
-   * - ``"A10G"``
-     - 24
-     - 3
-     - 85
-   * - ``"T4"``
-     - 16
-     - 2
-     - 58
+     - $25.00
 
 | \* Max Cells assumes 20 nm mesh resolution and 4.2 um stack height (210 vertical cells).
 | \* Non-square footprints are possible. The constraint is total cell count, not aspect ratio.
+| \* 1 credit = $25 = 1 hour of compute.

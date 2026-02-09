@@ -6,7 +6,7 @@ simulation structure step by step, giving you full access to intermediate arrays
 density fields, permittivity distributions -- at every stage. This is ideal for custom structures,
 inverse design, and debugging, because you can inspect and modify any intermediate result before
 proceeding to the next step. Only the GPU FDTD simulation step (Step 7) requires an API call and
-uses credits; everything else runs locally and is free.
+costs credits (1 credit = $25 = 1 hour of B200 compute); everything else runs locally and is free.
 
 **Download the notebook**: `local_workflow.ipynb <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/local_workflow.ipynb>`_
 
@@ -49,7 +49,7 @@ There are several key parameters to understand:
 
 - **RESOLUTION_UM**: The grid cell size in microns. A value of 0.02 (20 nm) is standard for silicon
   photonics at 1550 nm wavelength. Finer resolution increases accuracy but also increases the
-  simulation grid size and therefore the cost in credits.
+  simulation grid size and therefore the compute cost.
 - **EXTENSION_LENGTH**: Extends waveguide ports outward by this distance (in microns). This ensures
   the mode source and monitors are placed in straight waveguide regions, well away from the device's
   active area where the geometry is changing. Without sufficient extension, the source mode can
@@ -414,8 +414,7 @@ See :ref:`gpu-cost-estimation` for details.
 Step 7: Run GPU Simulation
 --------------------------
 
-This is the only step that uses credits. Everything up to this point has been free local
-computation; now the prepared structure is sent to a cloud GPU for the actual FDTD time-stepping.
+This is the only step that costs credits (1 credit = $25 = 1 hour of B200 compute). Everything up to this point has been free local computation; now the prepared structure is sent to a cloud GPU for the actual FDTD time-stepping.
 
 The function ``structure.extract_recipe()`` serializes the full 3D permittivity and conductivity
 arrays into a compact format suitable for transfer to the cloud. The ``simulate()`` function then
@@ -561,7 +560,7 @@ Summary
    * - 7
      - ``simulate()``
      - Cloud GPU
-     - Credits
+     - Credits ($25/hr)
    * - 8
      - Analysis
      - Local

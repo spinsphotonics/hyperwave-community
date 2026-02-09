@@ -12,7 +12,7 @@ Workflow Overview
 The SDK workflow consists of:
 
 1. **CPU Steps (free)**: Build structure, monitors, frequency band, and mode source
-2. **GPU Step (uses credits)**: Run FDTD simulation
+2. **GPU Step (costs credits, $25/hr on B200)**: Run FDTD simulation
 3. **Analysis (free, local)**: Analyze transmission and visualize fields
 
 Configuration & Account
@@ -25,7 +25,7 @@ Configuration & Account
 CPU Steps (Free)
 ----------------
 
-These functions run on Modal CPU and don't consume credits.
+These functions run on Modal CPU and do not consume credits.
 
 .. autofunction:: hyperwave_community.api_client.build_recipe
 .. autofunction:: hyperwave_community.api_client.build_monitors
@@ -33,8 +33,8 @@ These functions run on Modal CPU and don't consume credits.
 .. autofunction:: hyperwave_community.api_client.solve_mode_source
 .. autofunction:: hyperwave_community.api_client.get_default_absorber_params
 
-GPU Step (Uses Credits)
------------------------
+GPU Step (Costs Credits, $25/hr)
+---------------------------------
 
 .. autofunction:: hyperwave_community.api_client.run_simulation
 

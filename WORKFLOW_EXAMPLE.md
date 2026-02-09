@@ -58,7 +58,7 @@ source_result = hwc.solve_mode_source(
 )
 print(f"Source field shape: {source_result['source_field'].shape}")
 
-# 6. Run GPU simulation (CONSUMES CREDITS)
+# 6. Run GPU simulation (COSTS CREDITS: $25/hr on B200)
 results = hwc.run_simulation(
     device_type="mmi2x2",
     recipe_result=recipe_result,
@@ -110,11 +110,11 @@ plt.show()
 | 3 | `build_monitors()` | Free |
 | 4 | `compute_freq_band()` | Free |
 | 5 | `solve_mode_source()` | Free |
-| 6 | `run_simulation()` | **Credits** |
+| 6 | `run_simulation()` | **Credits ($25/hr)** |
 | 7 | `analyze_transmission()` | Free |
 | 8 | `get_field_intensity_2d()` | Free |
 
-Only Step 6 (`run_simulation`) consumes GPU credits. All other steps run on CPU and are free.
+Only Step 6 (`run_simulation`) consumes credits. All simulations run on NVIDIA B200 GPUs at $25 per compute hour (1 credit = $25 = 1 hour). All other steps run on CPU and are free.
 
 ## Convergence Options
 

@@ -114,7 +114,7 @@ Both workflows share the same simulation and analysis steps:
    # Solve mode source (free)
    source_result = hwc.solve_mode_source(...)
 
-   # Run simulation (uses credits)
+   # Run simulation (costs credits: 1 credit = $25 = 1 hr)
    results = hwc.run_simulation(...)
 
    # Analyze results (free, local)
@@ -133,11 +133,11 @@ Both workflows have the same cost structure:
    * - Structure creation (Steps 1-4)
      - Free
    * - GPU Simulation (Step 5)
-     - Credits
+     - Credits ($25/hr)
    * - Analysis (Step 6)
      - Free
 
-Credits are only consumed when running ``run_simulation()``. All other functions are free but require a valid API key.
+Credits are only consumed when running ``run_simulation()``. All simulations run on NVIDIA B200 GPUs at $25 per compute hour (1 credit = $25 = 1 hour). All other functions are free but require a valid API key.
 
 .. toctree::
    :maxdepth: 1
