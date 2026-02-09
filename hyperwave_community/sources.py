@@ -248,7 +248,7 @@ def create_gaussian_source_full_span_on_modal(
         max_steps: Maximum FDTD steps for error calculation.
         check_every_n: Steps between error checks.
         show_plots: Whether to display field plots.
-        gpu_type: Modal GPU type (B200, H100, A100, A10G, T4, L40S, etc.).
+        gpu_type: GPU type for cloud simulation (default: B200).
         add_absorption: Whether to add PML boundaries to free-space simulation.
                         Must be True. User must provide absorption_widths and absorption_coeff.
         absorption_widths: PML widths (x, y, z). Required parameter.
@@ -639,7 +639,7 @@ def create_gaussian_source_on_modal(
     max_steps: int = 5_000,
     check_every_n: int = 200,
     show_plots: bool = False,
-    gpu_type: str = "H100",
+    gpu_type: str = "B200",
 ) -> Tuple[jnp.ndarray, jnp.ndarray]:
     """Create a Gaussian beam source using wave equation error method on Modal GPU.
 
@@ -662,7 +662,7 @@ def create_gaussian_source_on_modal(
         max_steps: Maximum FDTD steps for error calculation.
         check_every_n: Steps between error checks.
         show_plots: Whether to display field plots.
-        gpu_type: Modal GPU type (H100, A100, A10G, T4, L40S, etc.).
+        gpu_type: GPU type for cloud simulation (default: B200).
 
     Returns:
         Tuple of (source_field, input_power) where:

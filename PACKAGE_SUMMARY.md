@@ -220,7 +220,7 @@ results = hwc.simulate(
 2. **Gaussian source API**: Requires FDTD (~20-30s), must use GPU
 3. **Structure building LOCAL**: Pure geometry operations, no compute needed
 4. **GDS I/O LOCAL**: File conversion and visualization, no heavy compute
-5. **Simulation API**: Heavy FDTD compute, requires H100 GPU
+5. **Simulation API**: Heavy FDTD compute, requires B200 GPU
 
 ## Next Steps
 

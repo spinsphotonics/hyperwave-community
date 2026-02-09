@@ -66,7 +66,6 @@ results = hwc.run_simulation(
     freq_result=freq_result,
     source_result=source_result,
     num_steps=20000,
-    gpu_type="B200",
     convergence="default",
 )
 print(f"Simulation time: {results['sim_time']:.1f}s")
