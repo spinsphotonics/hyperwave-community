@@ -405,7 +405,6 @@ Before running, preview the estimated cost:
    cost = hwc.estimate_cost(
        grid_points=dims[1] * dims[2] * dims[3],
        max_steps=20000,
-       gpu_type="B200",
    )
    print(f"Estimated time: {cost['estimated_seconds']:.0f}s")
    print(f"Estimated cost: ${cost['estimated_cost_usd']:.2f}")
@@ -433,9 +432,6 @@ Key parameters that control the simulation:
 - **source_ramp_periods**: The number of optical periods over which to gradually ramp the source
   amplitude from zero to full power. This gradual turn-on reduces transient artifacts that would
   otherwise contaminate the field monitors.
-- **gpu_type**: Selects the GPU hardware. Options are ``"B200"`` (fastest), ``"H200"``, ``"H100"``,
-  or ``"A100"``. Faster GPUs cost more credits per step but complete sooner. See
-  :doc:`../gpu_options` for a detailed comparison.
 
 .. code-block:: python
 
@@ -462,7 +458,6 @@ Key parameters that control the simulation:
        add_absorption=True,
        absorption_widths=abs_shape,
        absorption_coeff=ABS_COEFF,
-       gpu_type="B200",
    )
 
    print(f"GPU time: {results['sim_time']:.2f}s")
@@ -583,7 +578,7 @@ When to Use Local Workflow
 Next Steps
 ----------
 
-* :doc:`../gpu_options` - Choose the right GPU for your simulation
+* :doc:`../gpu_options` - GPU performance and cost reference
 * :doc:`../convergence` - Configure early stopping
 * :doc:`../api` - Full API reference
 * :doc:`api_workflow` - Simpler workflow using API functions

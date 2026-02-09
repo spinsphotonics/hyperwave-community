@@ -3,32 +3,15 @@
 GPU Options
 ===========
 
-Hyperwave runs FDTD simulations on cloud GPUs. **B200** is the recommended
-default -- fastest, largest capacity, and lowest cost per simulation.
+All simulations run on NVIDIA B200 GPUs by default. For access to other GPU
+types, contact us at `spinsphotonics.com/contact <https://spinsphotonics.com/contact>`_.
 
-.. _gpu-usage:
+.. _gpu-performance:
 
-Usage
------
+Performance Reference
+---------------------
 
-Pass ``gpu_type`` to :func:`~hyperwave_community.run_simulation`:
-
-.. code-block:: python
-
-   results = hwc.run_simulation(
-       ...,
-       gpu_type="B200",   # recommended default
-   )
-
-See :ref:`gpu-available` for all supported GPUs, or :ref:`gpu-cost-estimation`
-to preview cost before running.
-
-.. _gpu-available:
-
-Available GPUs
---------------
-
-Click any column header to sort.
+The table below shows performance stats across GPU types for reference.
 
 | \* Max footprint assumes 20 nm mesh and 4.2 um stack height.
 | \* Credits (10 x 10 um) = estimated cost for a 10 x 10 um device at 10,000 steps.
@@ -84,10 +67,6 @@ Click any column header to sort.
      - 0.30
      - 0.022
 
-- **B200** -- Recommended default. Fastest, largest capacity, lowest cost per simulation.
-- **H200** -- Good alternative when B200 availability is limited.
-- **H100, A100-80GB, A100-40GB, L40S, A10G, T4** -- Architecture benchmarking.
-
 .. _gpu-cost-estimation:
 
 Cost Estimation
@@ -104,18 +83,16 @@ running. Free, no authentication required.
    cost = hwc.estimate_cost(
        grid_points=grid_points,
        max_steps=20000,
-       gpu_type="B200",
    )
    print(f"Estimated time: {cost['estimated_seconds']:.0f}s")
    print(f"Estimated cost: ${cost['estimated_cost_usd']:.2f}")
 
 Returns:
 
-- ``estimated_seconds`` -- estimated simulation wall time
-- ``estimated_credits`` -- estimated credit cost
-- ``estimated_cost_usd`` -- estimated cost in USD
-- ``gpu_type`` -- the GPU type used for the estimate
-- ``grid_points`` -- total grid points in the simulation
+- ``estimated_seconds``: estimated simulation wall time
+- ``estimated_credits``: estimated credit cost
+- ``estimated_cost_usd``: estimated cost in USD
+- ``grid_points``: total grid points in the simulation
 
 .. note::
 
@@ -127,8 +104,7 @@ Returns:
 Cost Calculator
 ---------------
 
-Compare estimated time and cost across all GPUs. Rows marked **OOM** exceed
-that GPU's VRAM capacity.
+Preview estimated time and cost for your simulation dimensions.
 
 .. raw:: html
 
@@ -165,7 +141,7 @@ that GPU's VRAM capacity.
 Appendix: GPU Specifications
 ----------------------------
 
-Full hardware and billing reference. Back to :ref:`gpu-available`.
+Full hardware and billing reference. Back to :ref:`gpu-performance`.
 
 .. list-table::
    :header-rows: 1
@@ -208,4 +184,4 @@ Full hardware and billing reference. Back to :ref:`gpu-available`.
      - 58
 
 | \* Max Cells assumes 20 nm mesh resolution and 4.2 um stack height (210 vertical cells).
-| \* Non-square footprints are possible -- the constraint is total cell count, not aspect ratio.
+| \* Non-square footprints are possible. The constraint is total cell count, not aspect ratio.

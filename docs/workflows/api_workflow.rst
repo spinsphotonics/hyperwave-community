@@ -3,7 +3,7 @@ API Workflow
 
 This tutorial walks through the API workflow for simulating an MMI 2x2 splitter. The API workflow is the simplest way to run FDTD simulations using standard GDSFactory components.
 
-In the API workflow, all CPU-intensive steps (structure creation, density filtering, layer stacking) run on Modal servers provided by SPINs. You only need to specify the component and parameters -- the server handles the rest. Only the GPU FDTD simulation step uses credits.
+In the API workflow, all CPU-intensive steps (structure creation, density filtering, layer stacking) run on Modal servers provided by SPINs. You only need to specify the component and parameters; the server handles the rest. Only the GPU FDTD simulation step uses credits.
 
 **Download the notebook**: `api_workflow.ipynb <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/api_workflow.ipynb>`_
 
@@ -95,7 +95,7 @@ Step 2: Build Monitors
 
 Monitors are field sampling planes placed at specific positions in the simulation domain. They record the electromagnetic field at each frequency point during the simulation, which is later used to compute transmission and visualize field patterns. ``build_monitors()`` automatically places monitors at each port detected from the GDSFactory component.
 
-The ``source_port`` parameter specifies which port to excite -- monitors at other ports measure the output transmission. Set ``show_structure=True`` to visualize where monitors are placed relative to the structure, which is useful for verifying the simulation setup before committing GPU credits.
+The ``source_port`` parameter specifies which port to excite. Monitors at other ports measure the output transmission. Set ``show_structure=True`` to visualize where monitors are placed relative to the structure, which is useful for verifying the simulation setup before committing GPU credits.
 
 .. code-block:: python
 
@@ -179,7 +179,6 @@ Before running, preview the estimated cost (see :ref:`gpu-cost-estimation` for d
    cost = hwc.estimate_cost(
        grid_points=dims[0] * dims[1] * dims[2],
        max_steps=20000,
-       gpu_type="B200",
    )
    print(f"Estimated time: {cost['estimated_seconds']:.0f}s")
    print(f"Estimated cost: ${cost['estimated_cost_usd']:.2f}")
@@ -191,7 +190,6 @@ This is the only step that consumes credits. The FDTD simulation runs on a cloud
 
 The key parameters to configure are:
 
-- ``gpu_type``: Choose from ``"B200"`` (fastest), ``"H200"``, ``"H100"``, or ``"A100"``. See :doc:`../gpu_options` for performance and cost comparisons.
 - ``num_steps``: Maximum number of simulation time steps. The simulation may stop early if convergence is detected.
 - ``convergence``: Set to ``"default"`` for automatic early stopping when the fields have decayed, or ``"none"`` to run all steps regardless. See :doc:`../convergence` for details.
 - Absorber parameters (boundary layer widths and absorption coefficients) are automatically optimized for your resolution and wavelength using ``get_optimized_absorber_params()``.
@@ -199,7 +197,6 @@ The key parameters to configure are:
 .. code-block:: python
 
    NUM_STEPS = 20000
-   GPU_TYPE = "B200"
 
    # Get optimized absorber parameters
    absorber_params = hwc.get_optimized_absorber_params(
@@ -216,7 +213,6 @@ The key parameters to configure are:
        freq_result=freq_result,
        source_result=source_result,
        num_steps=NUM_STEPS,
-       gpu_type=GPU_TYPE,
        absorption_widths=absorber_params['absorption_widths'],
        absorption_coeff=absorber_params['absorber_coeff'],
        convergence="default",
@@ -330,7 +326,7 @@ Summary
 Next Steps
 ----------
 
-* :doc:`../gpu_options` - Choose the right GPU for your simulation
+* :doc:`../gpu_options` - GPU performance and cost reference
 * :doc:`../convergence` - Configure early stopping
 * :doc:`../api` - Full API reference
 * :doc:`local_workflow` - Try the local workflow for more control

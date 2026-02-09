@@ -906,7 +906,7 @@ def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None, 
         try:
             response = requests.post(
                 f"{_API_CONFIG['api_url']}/account_info",
-                headers={"X-API-Key": _API_CONFIG["api_key"]},
+                params={"api_key": _API_CONFIG['api_key']},
                 timeout=120  # Modal cold start can take time
             )
             if response.status_code == 403:
@@ -1056,10 +1056,10 @@ def estimate_cost(
     grid_points: Optional[int] = None,
     structure_shape: Optional[Tuple[int, int, int, int]] = None,
     max_steps: int = 10000,
-    gpu_type: str = "B200",
     simulation_type: str = "fdtd_simulation",
 ) -> Optional[Dict[str, Any]]:
     """Estimate simulation cost before running (no auth required)."""
+    gpu_type = "B200"
     API_URL = _API_CONFIG['api_url']
 
     request_data = {
@@ -1298,7 +1298,6 @@ def run_simulation(
     setup_data: Optional[Dict[str, Any]] = None,
     # Simulation parameters
     num_steps: int = 20000,
-    gpu_type: str = "B200",
     convergence: Optional[str] = "default",
     absorption_widths: List[int] = None,
     absorption_coeff: float = 0.0006173770394704579,
@@ -1321,7 +1320,6 @@ def run_simulation(
         monitor_result=monitor_result,
         freq_result=freq_result,
         source_result=source_result,
-        gpu_type="B200",
     )
     ```
 
@@ -1330,7 +1328,6 @@ def run_simulation(
     results = hwc.run_simulation(
         device_type="mmi2x2",
         setup_data=setup_data,
-        gpu_type="B200",
     )
     ```
 
@@ -1342,7 +1339,6 @@ def run_simulation(
         source_result: Result from solve_mode_source().
         setup_data: Pre-packaged setup (alternative to individual results).
         num_steps: Maximum FDTD steps (default: 20000).
-        gpu_type: GPU type - "B200", "H200", "H100", "A100-80GB", etc.
         convergence: Early stopping behavior. Options:
             - "quick": Stop early, check less frequently (fastest)
             - "default": Balanced approach (recommended)
@@ -1372,6 +1368,8 @@ def run_simulation(
         - s_parameters: S-parameter results (if analyze_transmission succeeds)
         - field_intensity: 2D field intensity data (if get_field_intensity succeeds)
     """
+    gpu_type = "B200"
+
     import time
     start_time = time.time()
 
@@ -1663,7 +1661,6 @@ def simulate(
     absorption_widths: Tuple[int, int, int] = (60, 40, 40),
     absorption_coeff: float = 1e-4,
     api_key: Optional[str] = None,
-    gpu_type: str = "B200",
     convergence: Optional[str] = "default",
 ) -> Optional[Dict[str, Any]]:
     """Run FDTD simulation on cloud GPU using structure recipe and monitors recipe.
@@ -1686,7 +1683,6 @@ def simulate(
         absorption_widths: Absorber widths (x, y, z) in pixels (default: (60, 40, 40)).
         absorption_coeff: Absorption coefficient (default: 1e-4).
         api_key: API key for authentication. If None, uses configured API key.
-        gpu_type: GPU type - "B200", "H200", "H100", "A100-80GB", etc.
         convergence: Early stopping preset ("quick", "default", "thorough", "full").
 
     Returns:
@@ -1717,9 +1713,10 @@ def simulate(
         ...     source_offset=source_offset,
         ...     freq_band=freq_band,
         ...     monitors_recipe=monitors_recipe,
-        ...     gpu_type="H100"
         ... )
     """
+    gpu_type = "B200"
+
     # Use provided api_key or fall back to configured one
     effective_api_key = api_key or _API_CONFIG.get('api_key')
     if not effective_api_key:
@@ -1878,7 +1875,6 @@ def simulate_one_shot(
     num_steps: int = 30000,
     check_every_n: int = 1000,
     source_ramp_periods: float = 5.0,
-    gpu_type: str = "B200",
     device_params: Optional[Dict[str, Any]] = None,
     min_steps: int = 0,
     min_stable_checks: int = 3,
@@ -1928,7 +1924,6 @@ def simulate_one_shot(
         num_steps: Maximum FDTD steps (default: 30000).
         check_every_n: Convergence check interval (default: 1000).
         source_ramp_periods: Source ramp-up periods (default: 5.0).
-        gpu_type: GPU type - "B200", "H200", "H100", "A100-80GB", etc.
         device_params: Optional dict of device-specific parameters.
         min_steps: Minimum FDTD steps before convergence check.
         min_stable_checks: Required consecutive stable checks.
@@ -1983,6 +1978,8 @@ def simulate_one_shot(
         ... )
         >>> print(f"T_total: {results['s_parameters']['T_total']}")
     """
+    gpu_type = "B200"
+
     config = _get_api_config()
     API_URL = config['api_url']
     API_KEY = config['api_key']
@@ -3036,7 +3033,6 @@ def run_optimization(
     absorption_coeff: float = 0.00489,
     max_steps: int = 10000,
     check_every_n: int = 1000,
-    gpu_type: str = "B200",
     api_key: Optional[str] = None,
 ) -> 'Generator[Dict[str, Any], None, None]':
     """Run optimization loop on cloud GPU.
@@ -3085,7 +3081,6 @@ def run_optimization(
         absorption_coeff: PML absorption coefficient.
         max_steps: Maximum FDTD timesteps per simulation (default: 10000).
         check_every_n: FDTD convergence check interval (default: 1000).
-        gpu_type: GPU type (default: "B200").
         api_key: API key (overrides configured key).
 
     Yields:
@@ -3120,7 +3115,6 @@ def run_optimization(
         ...         mode_cross_power=P_mode_cross,
         ...         num_steps=50,
         ...         learning_rate=0.01,
-        ...         gpu_type="B200",
         ...     ):
         ...         eff = step_result['efficiency'] * 100
         ...         print(f"Step {step_result['step']}: {eff:.2f}%")
@@ -3128,6 +3122,8 @@ def run_optimization(
         ... except KeyboardInterrupt:
         ...     print(f"Stopped after {len(results)} steps.")
     """
+    gpu_type = "B200"
+
     import json
 
     effective_api_key = api_key or _API_CONFIG.get('api_key')
