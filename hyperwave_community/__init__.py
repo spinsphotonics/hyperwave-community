@@ -148,7 +148,7 @@ from .simulate import simulate as simulate_local
 from .simulate import quick_view_monitors
 
 # Re-import simulate from api_client to ensure it's not shadowed by the module import above
-from .api_client import simulate
+from .api_client import simulate, mode_convert
 
 # Define public API
 __all__ = [
@@ -240,6 +240,9 @@ __all__ = [
     "load_component",
     "build_recipe_from_theta",
     "build_monitors_local",
+
+    # Mode conversion (cloud GPU)
+    "mode_convert",
 
     # Simulation utilities
     "simulate_local",

@@ -3609,3 +3609,153 @@ def run_optimization(
     finally:
         if response is not None:
             response.close()
+
+
+# =============================================================================
+# MODE CONVERTER - Cloud GPU version
+# =============================================================================
+
+def mode_convert(
+    mode_E_field,
+    freq_band,
+    permittivity_slice,
+    propagation_axis: str = 'x',
+    propagation_length: int = 60,
+    absorption_width: int = 20,
+    absorption_coeff: float = 4.89e-3,
+    simulation_steps: int = 5000,
+    gpu_type: str = "B200",
+    api_key: Optional[str] = None,
+):
+    """Convert E-only mode field to full E+H field via cloud GPU simulation.
+
+    Cloud-accelerated version of mode_converter(). Runs FDTD on cloud GPU
+    instead of local CPU. Uses the raw_arrays path in the early_stopping
+    Modal function.
+
+    Args:
+        mode_E_field: E-field mode pattern from mode solver with shape
+            (num_freqs, 3, 1, y, z) for x-propagation.
+        freq_band: Frequency band (min, max, num_points).
+        permittivity_slice: 2D permittivity slice (y, z) matching mode field.
+        propagation_axis: Direction of mode propagation ('x' or 'y').
+        propagation_length: Propagation distance in grid units (default: 60).
+        absorption_width: Width of absorbing boundaries (default: 20).
+        absorption_coeff: Absorption coefficient (default: 4.89e-3).
+        simulation_steps: Maximum FDTD time steps (default: 5000).
+        gpu_type: GPU type for cloud simulation (default: "B200").
+        api_key: Optional API key override.
+
+    Returns:
+        Full mode field with shape (num_freqs, 6, 1, y, z) containing
+        both E and H field components.
+    """
+    from . import absorption as hwa
+
+    if propagation_axis not in ['x', 'y']:
+        raise ValueError(f"propagation_axis must be 'x' or 'y', got '{propagation_axis}'")
+
+    # Extract mode dimensions
+    if propagation_axis == 'x':
+        _, _, _, mode_y, mode_z = mode_E_field.shape
+        mode_perp = mode_y
+        mode_vert = mode_z
+    else:
+        _, _, mode_x, _, mode_z = mode_E_field.shape
+        mode_perp = mode_x
+        mode_vert = mode_z
+
+    # Validate permittivity_slice dimensions
+    perm_slice = np.asarray(permittivity_slice)
+    if perm_slice.shape != (mode_perp, mode_vert):
+        raise ValueError(
+            f"permittivity_slice shape {perm_slice.shape} doesn't match "
+            f"mode field dimensions ({mode_perp}, {mode_vert})"
+        )
+
+    # Build 3D permittivity (same logic as mode_converter)
+    total_x = 2 * absorption_width + propagation_length
+    total_x = total_x + (total_x % 2)  # Make even
+
+    if propagation_axis == 'x':
+        eps_2d = perm_slice[np.newaxis, :, :]  # (1, y, z)
+        eps_2d = np.tile(eps_2d, (total_x, 1, 1))  # (x, y, z)
+        eps = np.stack([eps_2d, eps_2d, eps_2d], axis=0)  # (3, x, y, z)
+    else:
+        eps_2d = perm_slice[:, np.newaxis, :]  # (x, 1, z)
+        eps_2d = np.tile(eps_2d, (1, total_x, 1))  # (x, y, z)
+        eps = np.stack([eps_2d, eps_2d, eps_2d], axis=0)  # (3, x, y, z)
+
+    # Build conductivity with absorption
+    cond = np.zeros_like(eps)
+    if propagation_axis == 'x':
+        grid_shape = (total_x, mode_perp, mode_vert)
+        abs_widths = (absorption_width, absorption_width // 2, absorption_width // 2)
+    else:
+        grid_shape = (mode_perp, total_x, mode_vert)
+        abs_widths = (absorption_width // 2, absorption_width, absorption_width // 2)
+
+    absorption_mask = hwa.create_absorption_mask(
+        grid_shape=grid_shape,
+        absorption_widths=abs_widths,
+        absorption_coeff=absorption_coeff,
+        show_plots=False
+    )
+    cond = cond + np.asarray(absorption_mask)
+
+    # Create source field (E + zeros for H)
+    mode_E = np.asarray(mode_E_field)
+    source_field = np.concatenate([mode_E, np.zeros_like(mode_E)], axis=1)
+
+    # Source and monitor positions (same as mode_converter)
+    if propagation_axis == 'x':
+        source_offset = (absorption_width + 5, 0, 0)
+        monitor_x = total_x - absorption_width - 10
+        monitor_shape = [1, mode_perp, mode_vert]
+        monitor_offset = [monitor_x, 0, 0]
+    else:
+        source_offset = (0, absorption_width + 5, 0)
+        monitor_y = total_x - absorption_width - 10
+        monitor_shape = [mode_perp, 1, mode_vert]
+        monitor_offset = [0, monitor_y, 0]
+
+    # Pack into raw_arrays recipe (uses existing early_stopping raw_arrays path)
+    raw_recipe = {
+        'raw_arrays': True,
+        'permittivity': eps.astype(np.float32).tolist(),
+        'conductivity': cond.astype(np.float32).tolist(),
+        'metadata': {'final_shape': list(eps.shape)},
+    }
+
+    monitors_recipe = [
+        {'name': 'Output_mode', 'shape': monitor_shape, 'offset': monitor_offset}
+    ]
+
+    print(f"Mode convert: grid {grid_shape}, prop_length={propagation_length}")
+
+    # Call cloud simulation (add_absorption=False since we built it locally)
+    result = simulate(
+        structure_recipe=raw_recipe,
+        source_field=source_field,
+        source_offset=source_offset,
+        freq_band=freq_band,
+        monitors_recipe=monitors_recipe,
+        simulation_steps=simulation_steps,
+        add_absorption=False,
+        absorption_widths=(0, 0, 0),
+        absorption_coeff=0.0,
+        api_key=api_key,
+        gpu_type=gpu_type,
+        convergence="default",
+    )
+
+    if result is None:
+        raise RuntimeError("Cloud simulation failed for mode_convert")
+
+    # Extract mode field from monitor
+    mode_field = result['monitor_data'].get('Output_mode')
+    if mode_field is None:
+        raise RuntimeError("Output_mode monitor not found in simulation results")
+
+    print(f"Mode convert complete: {mode_field.shape}")
+    return mode_field

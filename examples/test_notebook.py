@@ -1,11 +1,14 @@
 """Test script: all notebook code cells combined. Run to find bugs."""
 import os
 import pickle
+import functools
 from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
 
 import matplotlib
 matplotlib.use('Agg')
+
+print = functools.partial(__builtins__.__dict__["print"], flush=True)
 
 # === Cell 2: Imports ===
 import hyperwave_community as hwc
@@ -35,8 +38,8 @@ h_sub = 0.8
 h_air = 1.0
 pad = 3.0
 
-dx = 0.05  # coarse grid for fast testing (50nm)
-pixel_size = dx / 2
+dx = 0.070           # 70nm structure grid (fast iteration; 35nm for production)
+pixel_size = dx / 2   # 35nm theta grid
 domain = 40.0
 
 wg_width = 0.5
@@ -89,7 +92,7 @@ wg_hw = int(round(wg_width / 2 / dx))
 wg_len_theta = int(round(wg_length / pixel_size))
 wg_hw_theta = int(round(wg_width / 2 / pixel_size))
 
-abs_margin = 80
+abs_margin = int(round(80 * 0.05 / dx))  # scale from 50nm reference
 abs_margin_theta = 2 * abs_margin
 design_region = {
     'x_start': wg_len_theta,
@@ -110,11 +113,9 @@ print(f"Design region: {(dr['x_end'] - dr['x_start']) * pixel_size:.1f} x "
 # === Cell 8: Structure recipe ===
 density_top = hwc.density(theta=jnp.array(theta_init), pad_width=0, alpha=DENSITY_ALPHA, radius=DENSITY_RADIUS)
 
-theta_bottom = np.where(theta_init > 0, 1.0, 0.0).astype(np.float32)
-density_bottom = hwc.density(theta=jnp.array(theta_bottom), pad_width=0, alpha=DENSITY_ALPHA, radius=DENSITY_RADIUS)
-
 slab_density = hwc.density(jnp.zeros((theta_Lx, theta_Ly)), pad_width=0)
 
+# Layer 4 (dev/slab) is scalar eps_si -- continuous silicon film below partial etch
 recipe = hwc.recipe_from_params(
     grid_shape=density_top.shape,
     layers=[
@@ -122,7 +123,7 @@ recipe = hwc.recipe_from_params(
         {'density': np.array(slab_density),   'permittivity': eps_air,              'thickness': h0},
         {'density': np.array(slab_density),   'permittivity': eps_clad,             'thickness': h1},
         {'density': np.array(density_top),    'permittivity': (eps_clad, eps_si),   'thickness': h2},
-        {'density': np.array(density_bottom), 'permittivity': (eps_clad, eps_si),   'thickness': h3},
+        {'density': np.array(slab_density),   'permittivity': eps_si,               'thickness': h3},
         {'density': np.array(slab_density),   'permittivity': eps_sio2,             'thickness': h4},
         {'density': np.array(slab_density),   'permittivity': eps_si,               'thickness': h5},
         {'density': np.array(slab_density),   'permittivity': eps_si,               'thickness': h_p},
@@ -144,140 +145,105 @@ grating_x = int(round((dr['x_start'] + dr['x_end']) / 2 * pixel_size / dx))
 grating_y = Ly // 2
 waist_px = beam_waist / dx
 
-CACHE = '/tmp/gc_notebook_source_cache.npz'
-if os.path.exists(CACHE):
-    print(f"Loading cached source from {CACHE}")
-    _c = np.load(CACHE)
-    source_field, input_power = _c['source_field'], float(_c['input_power'])
-else:
-    print(f"Generating Gaussian source on cloud GPU...")
-    source_field, input_power = hwc.generate_gaussian_source(
-        sim_shape=(Lx, Ly, Lz),
-        frequencies=np.array([freq]),
-        source_pos=(grating_x, grating_y, source_z),
-        waist_radius=waist_px,
-        theta=-fiber_angle,
-        phi=0.0,
-        polarization='y',
-        max_steps=5000,
-        gpu_type="B200",
-    )
-    input_power = float(np.mean(input_power))
-    np.savez(CACHE, source_field=source_field, input_power=input_power)
-    print(f"Cached source to {CACHE}")
+print(f"Generating Gaussian source on cloud GPU...")
+source_field, input_power = hwc.generate_gaussian_source(
+    sim_shape=(Lx, Ly, Lz),
+    frequencies=np.array([freq]),
+    source_pos=(grating_x, grating_y, source_z),
+    waist_radius=waist_px,
+    theta=-fiber_angle,
+    phi=0.0,
+    polarization='y',
+    max_steps=5000,
+    gpu_type="B200",
+)
 
-source_offset = (0, 0, source_z)  # full-domain source, Gaussian center already baked in
+source_offset = (0, 0, source_z)
+input_power = float(np.mean(input_power))
 
 print(f"Source shape: {source_field.shape}")
 print(f"Source offset: {source_offset}")
 print(f"Input power: {input_power:.6f}")
 
 # === Cell 12: Mode computation ===
-# Compute waveguide mode for mode overlap loss (matching reference _optimize_loop_stream).
-# Steps: build WG structure -> solve E-only mode -> mode_converter for E+H -> P_mode_cross.
-MODE_CACHE = '/tmp/gc_notebook_mode_cache.pkl'
-if os.path.exists(MODE_CACHE):
-    print(f"Loading cached mode from {MODE_CACHE}")
-    with open(MODE_CACHE, 'rb') as f:
-        _mc = pickle.load(f)
-    mode_field_full = np.array(_mc['mode_field'])
-    P_mode_cross = float(_mc['P_mode_cross'])
-    n_eff_mode = float(_mc['n_eff'])
-else:
-    print("Computing waveguide mode...")
+print("Computing waveguide mode...")
 
-    # Build small WG structure (small X, full Y) for mode solving
-    small_x_theta = 40  # 20 pixels in perm grid
-    theta_mode_wg = np.zeros((small_x_theta, theta_Ly), dtype=np.float32)
-    theta_mode_wg[:, theta_Ly // 2 - wg_hw_theta : theta_Ly // 2 + wg_hw_theta] = 1.0
+small_x_theta = 40
+theta_mode_wg = np.zeros((small_x_theta, theta_Ly), dtype=np.float32)
+theta_mode_wg[:, theta_Ly // 2 - wg_hw_theta : theta_Ly // 2 + wg_hw_theta] = 1.0
 
-    density_mode_top = hwc.density(
-        theta=jnp.array(theta_mode_wg), pad_width=0,
-        alpha=DENSITY_ALPHA, radius=DENSITY_RADIUS,
-    )
-    theta_mode_bottom = np.where(theta_mode_wg > 0, 1.0, 0.0).astype(np.float32)
-    density_mode_bottom = hwc.density(
-        theta=jnp.array(theta_mode_bottom), pad_width=0,
-        alpha=DENSITY_ALPHA, radius=DENSITY_RADIUS,
-    )
-    slab_density_mode = hwc.density(jnp.zeros((small_x_theta, theta_Ly)), pad_width=0)
+density_mode_top = hwc.density(
+    theta=jnp.array(theta_mode_wg), pad_width=0,
+    alpha=DENSITY_ALPHA, radius=DENSITY_RADIUS,
+)
+theta_mode_bottom = np.where(theta_mode_wg > 0, 1.0, 0.0).astype(np.float32)
+density_mode_bottom = hwc.density(
+    theta=jnp.array(theta_mode_bottom), pad_width=0,
+    alpha=DENSITY_ALPHA, radius=DENSITY_RADIUS,
+)
+slab_density_mode = hwc.density(jnp.zeros((small_x_theta, theta_Ly)), pad_width=0)
 
-    wg_structure = hwc.create_structure(layers=[
-        hwc.Layer(density_pattern=slab_density_mode, permittivity_values=eps_air, layer_thickness=h_p),
-        hwc.Layer(density_pattern=slab_density_mode, permittivity_values=eps_air, layer_thickness=h0),
-        hwc.Layer(density_pattern=slab_density_mode, permittivity_values=eps_clad, layer_thickness=h1),
-        hwc.Layer(density_pattern=density_mode_top, permittivity_values=(eps_clad, eps_si), layer_thickness=h2),
-        hwc.Layer(density_pattern=density_mode_bottom, permittivity_values=(eps_clad, eps_si), layer_thickness=h3),
-        hwc.Layer(density_pattern=slab_density_mode, permittivity_values=eps_sio2, layer_thickness=h4),
-        hwc.Layer(density_pattern=slab_density_mode, permittivity_values=eps_si, layer_thickness=h5),
-        hwc.Layer(density_pattern=slab_density_mode, permittivity_values=eps_si, layer_thickness=h_p),
-    ], vertical_radius=0)
+wg_structure = hwc.create_structure(layers=[
+    hwc.Layer(density_pattern=slab_density_mode, permittivity_values=eps_air, layer_thickness=h_p),
+    hwc.Layer(density_pattern=slab_density_mode, permittivity_values=eps_air, layer_thickness=h0),
+    hwc.Layer(density_pattern=slab_density_mode, permittivity_values=eps_clad, layer_thickness=h1),
+    hwc.Layer(density_pattern=density_mode_top, permittivity_values=(eps_clad, eps_si), layer_thickness=h2),
+    hwc.Layer(density_pattern=density_mode_bottom, permittivity_values=(eps_clad, eps_si), layer_thickness=h3),
+    hwc.Layer(density_pattern=slab_density_mode, permittivity_values=eps_sio2, layer_thickness=h4),
+    hwc.Layer(density_pattern=slab_density_mode, permittivity_values=eps_si, layer_thickness=h5),
+    hwc.Layer(density_pattern=slab_density_mode, permittivity_values=eps_si, layer_thickness=h_p),
+], vertical_radius=0)
 
-    eps_wg = np.array(wg_structure.permittivity)  # (3, small_x_perm, Ly_perm, Lz)
-    Lz_wg = eps_wg.shape[3]
-    Ly_perm = eps_wg.shape[2]
-    print(f"WG structure shape: {eps_wg.shape}")
+eps_wg = np.array(wg_structure.permittivity)
+Lz_wg = eps_wg.shape[3]
+Ly_perm = eps_wg.shape[2]
+print(f"WG structure shape: {eps_wg.shape}")
 
-    # Extract YZ cross-section at center of small structure
-    x_center = eps_wg.shape[1] // 2
-    eps_yz = eps_wg[0, x_center, :, :]  # (Ly_perm, Lz)
+x_center = eps_wg.shape[1] // 2
+eps_yz = eps_wg[0, x_center, :, :]
 
-    # Crop around waveguide for mode solve
-    crop_y = min(50, Ly_perm // 4)
-    crop_z = min(30, Lz_wg // 4)
-    y_center_idx = Ly_perm // 2
-    y_start = y_center_idx - crop_y
-    y_end = y_center_idx + crop_y
-    z_start = max(0, z_etch - crop_z)
-    z_end = min(Lz_wg, z_box + crop_z)
+crop_y = min(50, Ly_perm // 4)
+crop_z = min(30, Lz_wg // 4)
+y_center_idx = Ly_perm // 2
+y_start = y_center_idx - crop_y
+y_end = y_center_idx + crop_y
+z_start = max(0, z_etch - crop_z)
+z_end = min(Lz_wg, z_box + crop_z)
 
-    eps_cropped = eps_yz[y_start:y_end, z_start:z_end]
-    print(f"Cropped eps for mode solve: {eps_cropped.shape}")
+eps_cropped = eps_yz[y_start:y_end, z_start:z_end]
+print(f"Cropped eps for mode solve: {eps_cropped.shape}")
 
-    # 4D permittivity for mode solver: (3, 1, y_crop, z_crop)
-    eps_4d = jnp.stack([jnp.array(eps_cropped)] * 3, axis=0)[:, jnp.newaxis, :, :]
+eps_4d = jnp.stack([jnp.array(eps_cropped)] * 3, axis=0)[:, jnp.newaxis, :, :]
 
-    # Solve E-only mode eigenvalue
-    from hyperwave_community.mode_solver import mode as hwc_mode
-    mode_E_field, beta_arr, _err = hwc_mode(
-        freq_band=freq_band,
-        permittivity=eps_4d,
-        axis=0,
-        mode_num=0,
-    )
-    n_eff_mode = float(beta_arr[0]) / (2 * np.pi / wl_px)
-    print(f"n_eff = {n_eff_mode:.4f}")
+from hyperwave_community.mode_solver import mode as hwc_mode
+mode_E_field, beta_arr, _err = hwc_mode(
+    freq_band=freq_band,
+    permittivity=eps_4d,
+    axis=0,
+    mode_num=0,
+)
+n_eff_mode = float(beta_arr[0]) / (2 * np.pi / wl_px)
+print(f"n_eff = {n_eff_mode:.4f}")
+assert 2.0 < n_eff_mode < 3.0, f"n_eff={n_eff_mode:.4f} out of range"
 
-    # Convert E-only -> E+H via short waveguide FDTD (matching reference)
-    from hyperwave_community.sources import mode_converter
-    mode_E_cropped = mode_E_field[0:1, 0:3, :, :, :]  # (1, 3, 1, y_crop, z_crop)
-    mode_full_cropped = mode_converter(
-        mode_E_field=mode_E_cropped,
-        freq_band=freq_band,
-        permittivity_slice=jnp.array(eps_cropped),
-        propagation_axis='x',
-        visualize=False,
-    )
-    print(f"Mode field (cropped): {mode_full_cropped.shape}")
+mode_E_cropped = mode_E_field[0:1, 0:3, :, :, :]
+mode_full_cropped = hwc.mode_convert(
+    mode_E_field=mode_E_cropped,
+    freq_band=freq_band,
+    permittivity_slice=np.array(eps_cropped),
+    propagation_axis='x',
+    gpu_type="B200",
+)
+print(f"Mode field (cropped): {mode_full_cropped.shape}")
 
-    # Compute P_mode_cross = |Re(integral(E_mode x conj(H_mode))[axis])|
-    mode_e0 = np.array(mode_full_cropped[0, 0:3, 0, :, :])  # (3, y_crop, z_crop)
-    mode_h0 = np.array(mode_full_cropped[0, 3:6, 0, :, :])  # (3, y_crop, z_crop)
-    cross = np.cross(mode_e0, np.conj(mode_h0), axis=0)
-    P_mode_cross = float(np.abs(np.real(np.sum(cross[0, :, :]))))  # axis=0
-    print(f"P_mode_cross = {P_mode_cross:.6f}")
+mode_e = np.array(mode_full_cropped[0, 0:3, 0, :, :])
+mode_h = np.array(mode_full_cropped[0, 3:6, 0, :, :])
+cross = np.cross(mode_e, np.conj(mode_h), axis=0)
+P_mode_cross = float(np.abs(np.real(np.sum(cross[0, :, :]))))
+print(f"P_mode_cross = {P_mode_cross:.6f}")
 
-    # Pad mode field to full YZ size for optimizer
-    mode_field_full = np.zeros((1, 6, 1, Ly_perm, Lz_wg), dtype=np.complex64)
-    mode_field_full[:, :, :, y_start:y_end, z_start:z_end] = np.array(mode_full_cropped)
-
-    with open(MODE_CACHE, 'wb') as f:
-        pickle.dump({
-            'mode_field': mode_field_full,
-            'P_mode_cross': P_mode_cross,
-            'n_eff': n_eff_mode,
-        }, f)
-    print(f"Cached mode to {MODE_CACHE}")
+mode_field_full = np.zeros((1, 6, 1, Ly_perm, Lz_wg), dtype=np.complex64)
+mode_field_full[:, :, :, y_start:y_end, z_start:z_end] = np.array(mode_full_cropped)
 
 print(f"Mode field shape: {mode_field_full.shape}")
 print(f"P_mode_cross: {P_mode_cross:.6f}")
@@ -300,41 +266,37 @@ monitors.add(hwc.Monitor(shape=(Lx, 1, Lz), offset=(0, Ly // 2, 0)), name='Outpu
 monitors.add(hwc.Monitor(shape=(1, Ly, Lz), offset=(Lx // 2, 0, 0)), name='Output_yz_center')
 monitors.add(hwc.Monitor(shape=(1, Ly, Lz), offset=(output_x, 0, 0)), name='Output_wg_output')
 
-FWD_CACHE = '/tmp/gc_notebook_fwd_cache.npz'
-if os.path.exists(FWD_CACHE):
-    print(f"Skipping forward sim (already verified)")
-else:
-    print(f"Running forward simulation...")
-    fwd_results = hwc.simulate(
-        structure_recipe=recipe,
-        source_field=source_field,
-        source_offset=source_offset,
-        freq_band=freq_band,
-        monitors_recipe=monitors.recipe,
-        absorption_widths=abs_widths,
-        absorption_coeff=abs_coeff,
-        gpu_type="B200",
-    )
-    print(f"Forward sim complete: {fwd_results['sim_time']:.1f}s GPU time")
-    np.savez(FWD_CACHE, done=True)
+print(f"Running forward simulation...")
+fwd_results = hwc.simulate(
+    structure_recipe=recipe,
+    source_field=source_field,
+    source_offset=source_offset,
+    freq_band=freq_band,
+    monitors_recipe=monitors.recipe,
+    absorption_widths=abs_widths,
+    absorption_coeff=abs_coeff,
+    gpu_type="B200",
+    simulation_steps=10000,
+)
+print(f"Forward sim complete: {fwd_results['sim_time']:.1f}s GPU time")
 
-    wg_field = np.array(fwd_results['monitor_data']['Output_wg_output'])
-    S = hwc.S_from_slice(jnp.mean(jnp.array(wg_field), axis=2))
-    power = float(jnp.abs(jnp.sum(S[0, 0, :, :])))
-    print(f"Waveguide output power: {power:.6f}")
-    print(f"Coupling (approx): {power / input_power * 100:.1f}%")
+wg_field = np.array(fwd_results['monitor_data']['Output_wg_output'])
+S = hwc.S_from_slice(jnp.mean(jnp.array(wg_field), axis=2))
+power = float(jnp.abs(jnp.sum(S[0, 0, :, :])))
+print(f"Waveguide output power: {power:.6f}")
+print(f"Coupling (approx): {power / input_power * 100:.1f}%")
 
 # === Cell 17: Optimization setup ===
 structure_spec = {
     'layers_info': [
-        {'permittivity_values': float(eps_air),              'layer_thickness': round(h_p), 'density_radius': 0, 'density_alpha': 0},
-        {'permittivity_values': float(eps_air),              'layer_thickness': round(h0),  'density_radius': 0, 'density_alpha': 0},
-        {'permittivity_values': float(eps_clad),             'layer_thickness': round(h1),  'density_radius': 0, 'density_alpha': 0},
-        {'permittivity_values': [float(eps_clad), float(eps_si)], 'layer_thickness': round(h2),  'density_radius': DENSITY_RADIUS, 'density_alpha': DENSITY_ALPHA},
-        {'permittivity_values': [float(eps_clad), float(eps_si)], 'layer_thickness': round(h3),  'density_radius': 0, 'density_alpha': 0},
-        {'permittivity_values': float(eps_sio2),             'layer_thickness': round(h4),  'density_radius': 0, 'density_alpha': 0},
-        {'permittivity_values': float(eps_si),               'layer_thickness': round(h5),  'density_radius': 0, 'density_alpha': 0},
-        {'permittivity_values': float(eps_si),               'layer_thickness': round(h_p), 'density_radius': 0, 'density_alpha': 0},
+        {'permittivity_values': float(eps_air),              'layer_thickness': float(h_p), 'density_radius': 0, 'density_alpha': 0},
+        {'permittivity_values': float(eps_air),              'layer_thickness': float(h0),  'density_radius': 0, 'density_alpha': 0},
+        {'permittivity_values': float(eps_clad),             'layer_thickness': float(h1),  'density_radius': 0, 'density_alpha': 0},
+        {'permittivity_values': [float(eps_clad), float(eps_si)], 'layer_thickness': float(h2),  'density_radius': DENSITY_RADIUS, 'density_alpha': DENSITY_ALPHA},
+        {'permittivity_values': float(eps_si),               'layer_thickness': float(h3),  'density_radius': 0, 'density_alpha': 0},
+        {'permittivity_values': float(eps_sio2),             'layer_thickness': float(h4),  'density_radius': 0, 'density_alpha': 0},
+        {'permittivity_values': float(eps_si),               'layer_thickness': float(h5),  'density_radius': 0, 'density_alpha': 0},
+        {'permittivity_values': float(eps_si),               'layer_thickness': float(h_p), 'density_radius': 0, 'density_alpha': 0},
     ],
     'construction_params': {'vertical_radius': 0},
 }
@@ -348,14 +310,14 @@ design_monitor_offset = (0, 0, z_etch)
 waveguide_mask = np.zeros((theta_Lx, theta_Ly), dtype=np.float32)
 waveguide_mask[:wg_len_theta, theta_Ly // 2 - wg_hw_theta : theta_Ly // 2 + wg_hw_theta] = 1.0
 
-NUM_STEPS = 2  # minimal for testing
+NUM_STEPS = 2
 LR = 0.01
 GRAD_CLIP = 1.0
 
 print(f"Loss monitor at x={loss_monitor_offset[0]} ({loss_monitor_offset[0] * dx:.1f} um)")
 print(f"Design monitor: {design_monitor_shape}")
 
-# === Cell 19: Optimization loop (mode overlap loss, matching reference) ===
+# === Cell 19: Optimization loop ===
 print(f"Running optimization ({NUM_STEPS} steps)...")
 print(f"Loss: Mode coupling (maximize efficiency)")
 results = []
@@ -385,11 +347,10 @@ for step_result in hwc.run_optimization(
 ):
     results.append(step_result)
     loss = step_result['loss']
-    eff_pct = abs(loss) * 100  # mode coupling loss returns -efficiency
+    eff_pct = abs(loss) * 100
     print(f"Step {step_result['step']:3d}/{NUM_STEPS}:  eff = {eff_pct:.2f}%  "
           f"|grad|_max = {step_result['grad_max']:.3e}  ({step_result['step_time']:.1f}s)")
 
-# Mode coupling loss_fn returns -efficiency, so abs(loss) = efficiency (fraction)
 efficiencies = [abs(r['loss']) * 100 for r in results]
 best_idx = int(np.argmax(efficiencies))
 best_eff = efficiencies[best_idx]
@@ -397,27 +358,23 @@ print(f"\nBest: {best_eff:.2f}% ({-10 * np.log10(max(best_eff / 100, 1e-10)):.2f
 theta_final = results[-1]['theta']
 
 # === Cell 21: Results ===
-efficiencies = [abs(r['loss']) * 100 for r in results]
-best_idx = int(np.argmax(efficiencies))
 best_theta = results[best_idx]['theta']
 print(f"Best theta shape: {best_theta.shape}")
 
 # === Cell 23: Verification forward sim ===
 density_best = hwc.density(theta=jnp.array(best_theta), pad_width=0, alpha=DENSITY_ALPHA, radius=DENSITY_RADIUS)
-theta_bottom_best = np.where(best_theta > 0, 1.0, 0.0).astype(np.float32)
-density_bottom_best = hwc.density(theta=jnp.array(theta_bottom_best), pad_width=0, alpha=DENSITY_ALPHA, radius=DENSITY_RADIUS)
 
 recipe_best = hwc.recipe_from_params(
     grid_shape=density_best.shape,
     layers=[
-        {'density': np.array(slab_density),        'permittivity': eps_air,            'thickness': h_p},
-        {'density': np.array(slab_density),        'permittivity': eps_air,            'thickness': h0},
-        {'density': np.array(slab_density),        'permittivity': eps_clad,           'thickness': h1},
-        {'density': np.array(density_best),        'permittivity': (eps_clad, eps_si), 'thickness': h2},
-        {'density': np.array(density_bottom_best), 'permittivity': (eps_clad, eps_si), 'thickness': h3},
-        {'density': np.array(slab_density),        'permittivity': eps_sio2,           'thickness': h4},
-        {'density': np.array(slab_density),        'permittivity': eps_si,             'thickness': h5},
-        {'density': np.array(slab_density),        'permittivity': eps_si,             'thickness': h_p},
+        {'density': np.array(slab_density),  'permittivity': eps_air,            'thickness': h_p},
+        {'density': np.array(slab_density),  'permittivity': eps_air,            'thickness': h0},
+        {'density': np.array(slab_density),  'permittivity': eps_clad,           'thickness': h1},
+        {'density': np.array(density_best),  'permittivity': (eps_clad, eps_si), 'thickness': h2},
+        {'density': np.array(slab_density),  'permittivity': eps_si,             'thickness': h3},
+        {'density': np.array(slab_density),  'permittivity': eps_sio2,           'thickness': h4},
+        {'density': np.array(slab_density),  'permittivity': eps_si,             'thickness': h5},
+        {'density': np.array(slab_density),  'permittivity': eps_si,             'thickness': h_p},
     ],
     vertical_radius=0,
 )
@@ -432,6 +389,7 @@ opt_results = hwc.simulate(
     absorption_widths=abs_widths,
     absorption_coeff=abs_coeff,
     gpu_type="B200",
+    simulation_steps=10000,
 )
 
 wg_field = np.array(opt_results['monitor_data']['Output_wg_output'])
