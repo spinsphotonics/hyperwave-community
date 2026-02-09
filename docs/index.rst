@@ -17,17 +17,15 @@ Getting Started
 ---------------
 
 1. :doc:`installation` - Install the package and get an API key
-2. :doc:`getting_started/colab_secrets` - Set up your API key in Google Colab
-3. :doc:`workflows/index` - Choose between API and local workflows
-4. :doc:`workflows/api_workflow` - API workflow tutorial
-5. :doc:`workflows/local_workflow` - Local workflow tutorial
+2. :doc:`workflows/index` - Choose between API and local workflows
+3. :doc:`workflows/api_workflow` - API workflow tutorial
+4. :doc:`workflows/local_workflow` - Local workflow tutorial
 
 .. toctree::
    :maxdepth: 1
    :caption: Getting Started
 
    installation
-   getting_started/colab_secrets
    workflows/index
    workflows/api_workflow
    workflows/local_workflow
@@ -40,10 +38,11 @@ Getting Started
 
 .. toctree::
    :maxdepth: 1
-   :caption: More
+   :caption: Reference
 
    convergence
    gpu_options
+   getting_started/colab_secrets
 
 Indices and tables
 ==================
