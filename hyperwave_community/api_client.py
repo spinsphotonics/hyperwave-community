@@ -906,7 +906,7 @@ def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None, 
         try:
             response = requests.post(
                 f"{_API_CONFIG['api_url']}/account_info",
-                params={"api_key": _API_CONFIG['api_key']},
+                headers={"X-API-Key": _API_CONFIG["api_key"]},
                 timeout=120  # Modal cold start can take time
             )
             if response.status_code == 403:

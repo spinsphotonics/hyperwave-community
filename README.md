@@ -5,13 +5,13 @@ GPU-accelerated FDTD photonics simulation via cloud API. Design photonic structu
 ## Installation
 
 ```bash
-pip install hyperwave-community
+pip install "hyperwave-community @ git+https://github.com/spinsphotonics/hyperwave-community.git"
 ```
 
 With GDSFactory support:
 
 ```bash
-pip install "hyperwave-community[gdsfactory]"
+pip install "hyperwave-community[gdsfactory] @ git+https://github.com/spinsphotonics/hyperwave-community.git"
 ```
 
 ## Quick Start
