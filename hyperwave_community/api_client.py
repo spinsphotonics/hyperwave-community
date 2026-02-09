@@ -857,7 +857,7 @@ def build_monitors_local(
 # Global API configuration
 _API_CONFIG = {
     'api_key': None,
-    'api_url': 'https://spinsphotonics--hyperwave-api-fastapi-app.modal.run'
+    'api_url': 'https://hyperwave-gateway-production.up.railway.app'
 }
 
 
