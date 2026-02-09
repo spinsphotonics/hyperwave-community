@@ -7,7 +7,7 @@ Features
 --------
 
 * **GDSFactory Integration**: Import photonic components directly from GDSFactory
-* **GPU-Accelerated Simulation**: Run FDTD simulations on cloud GPUs (B200, H200, H100, A100)
+* **GPU-Accelerated Simulation**: Run FDTD simulations on cloud NVIDIA B200 GPUs
 * **Two Workflows**: API workflow (Modal CPU) or local workflow (your CPU)
 * **Early Stopping**: Smart convergence detection to optimize simulation time
 * **Power Analysis**: Poynting flux calculations and transmission spectra
