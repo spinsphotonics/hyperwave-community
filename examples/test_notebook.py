@@ -164,7 +164,12 @@ grating_x = int(round((dr['x_start'] + dr['x_end']) / 2 * pixel_size / dx))
 grating_y = Ly // 2
 waist_px = beam_waist / dx
 
+est = hwc.estimate_cost(structure_shape=(3, Lx, Ly, Lz), max_steps=1000, gpu_type="B200")
+if est:
+    print(f"Source gen estimate: {est['estimated_seconds']:.0f}s, {est['estimated_credits']:.4f} credits")
+
 print(f"Generating Gaussian source on cloud GPU...")
+t0 = time.time()
 source_field, input_power = hwc.generate_gaussian_source(
     sim_shape=(Lx, Ly, Lz),
     frequencies=np.array([freq]),
@@ -176,6 +181,8 @@ source_field, input_power = hwc.generate_gaussian_source(
     max_steps=1000,
     gpu_type="B200",
 )
+
+print(f"Source generated in {time.time() - t0:.1f}s")
 
 source_offset = (0, 0, source_z)
 input_power = float(np.mean(input_power))
@@ -266,7 +273,12 @@ monitors.add(hwc.Monitor(shape=(1, Ly, Lz), offset=(Lx // 2, 0, 0)), name='Outpu
 monitors.add(hwc.Monitor(shape=(1, Ly, Lz), offset=(output_x, 0, 0)), name='Output_wg_output')
 
 # === Step 8: Forward simulation ===
+est = hwc.estimate_cost(structure_shape=(3, Lx, Ly, Lz), max_steps=10000, gpu_type="B200")
+if est:
+    print(f"Forward sim estimate: {est['estimated_seconds']:.0f}s, {est['estimated_credits']:.4f} credits")
+
 print(f"Running forward simulation...")
+t0 = time.time()
 fwd_results = hwc.simulate(
     structure_recipe=recipe,
     source_field=source_field,
@@ -278,7 +290,7 @@ fwd_results = hwc.simulate(
     gpu_type="B200",
     simulation_steps=10000,
 )
-print(f"Forward sim complete: {fwd_results['sim_time']:.1f}s GPU time")
+print(f"Forward sim complete: {fwd_results['sim_time']:.1f}s GPU, {time.time() - t0:.0f}s total")
 
 wg_field = np.array(fwd_results['monitor_data']['Output_wg_output'])
 S = hwc.S_from_slice(jnp.mean(jnp.array(wg_field), axis=2))
@@ -313,41 +325,60 @@ GRAD_CLIP = 1.0
 print(f"Loss monitor at x={loss_monitor_offset[0]} ({loss_monitor_offset[0] * dx:.1f} um)")
 print(f"Design monitor: {design_monitor_shape}")
 
+est = hwc.estimate_cost(
+    structure_shape=(3, Lx, Ly, Lz),
+    max_steps=10000 * NUM_STEPS * 2,
+    gpu_type="B200",
+    simulation_type="fdtd_simulation",
+)
+if est:
+    print(f"Optimization estimate ({NUM_STEPS} steps): {est['estimated_seconds']:.0f}s, "
+          f"{est['estimated_credits']:.4f} credits (${est['estimated_cost_usd']:.2f})")
+
 print(f"Running optimization ({NUM_STEPS} steps)...")
 results = []
+t_opt_start = time.time()
 
-for step_result in hwc.run_optimization(
-    theta=theta_init,
-    source_field=source_field,
-    source_offset=source_offset,
-    freq_band=freq_band,
-    structure_spec=structure_spec,
-    loss_monitor_shape=loss_monitor_shape,
-    loss_monitor_offset=loss_monitor_offset,
-    design_monitor_shape=design_monitor_shape,
-    design_monitor_offset=design_monitor_offset,
-    mode_field=mode_field,
-    input_power=input_power,
-    mode_cross_power=P_mode_cross,
-    mode_axis=0,
-    waveguide_mask=waveguide_mask,
-    num_steps=NUM_STEPS,
-    learning_rate=LR,
-    grad_clip_norm=GRAD_CLIP,
-    cosine_decay_alpha=0.1,
-    absorption_widths=abs_widths,
-    absorption_coeff=abs_coeff,
-    gpu_type="B200",
-):
-    results.append(step_result)
-    eff = abs(step_result['loss']) * 100
-    print(f"Step {step_result['step']:3d}/{NUM_STEPS}:  eff = {eff:.2f}%  "
-          f"|grad|_max = {step_result['grad_max']:.3e}  ({step_result['step_time']:.1f}s)")
+try:
+    for step_result in hwc.run_optimization(
+        theta=theta_init,
+        source_field=source_field,
+        source_offset=source_offset,
+        freq_band=freq_band,
+        structure_spec=structure_spec,
+        loss_monitor_shape=loss_monitor_shape,
+        loss_monitor_offset=loss_monitor_offset,
+        design_monitor_shape=design_monitor_shape,
+        design_monitor_offset=design_monitor_offset,
+        mode_field=mode_field,
+        input_power=input_power,
+        mode_cross_power=P_mode_cross,
+        mode_axis=0,
+        waveguide_mask=waveguide_mask,
+        num_steps=NUM_STEPS,
+        learning_rate=LR,
+        grad_clip_norm=GRAD_CLIP,
+        cosine_decay_alpha=0.1,
+        absorption_widths=abs_widths,
+        absorption_coeff=abs_coeff,
+        gpu_type="B200",
+    ):
+        results.append(step_result)
+        eff = abs(step_result['loss']) * 100
+        print(f"Step {step_result['step']:3d}/{NUM_STEPS}:  eff = {eff:.2f}%  "
+              f"|grad|_max = {step_result['grad_max']:.3e}  ({step_result['step_time']:.1f}s)",
+              flush=True)
+except KeyboardInterrupt:
+    elapsed = time.time() - t_opt_start
+    print(f"\nCancelled after {len(results)} steps ({elapsed:.0f}s).", flush=True)
 
-efficiencies = [abs(r['loss']) * 100 for r in results]
-best_idx = int(np.argmax(efficiencies))
-best_eff = efficiencies[best_idx]
-print(f"\nBest: {best_eff:.2f}% ({-10 * np.log10(max(best_eff / 100, 1e-10)):.2f} dB) at step {best_idx + 1}")
+if results:
+    efficiencies = [abs(r['loss']) * 100 for r in results]
+    best_idx = int(np.argmax(efficiencies))
+    best_eff = efficiencies[best_idx]
+    print(f"\nBest: {best_eff:.2f}% ({-10 * np.log10(max(best_eff / 100, 1e-10)):.2f} dB) at step {best_idx + 1}")
+else:
+    print("No optimization steps completed.")
 
 # === Step 10: Results ===
 best_theta = results[best_idx]['theta']
@@ -362,7 +393,12 @@ opt_layers[3] = hwc.Layer(
 )
 recipe_best = build_recipe(opt_layers)
 
+est = hwc.estimate_cost(structure_shape=(3, Lx, Ly, Lz), max_steps=10000, gpu_type="B200")
+if est:
+    print(f"Verification sim estimate: {est['estimated_seconds']:.0f}s, {est['estimated_credits']:.4f} credits")
+
 print(f"Running verification forward sim...")
+t0 = time.time()
 opt_results = hwc.simulate(
     structure_recipe=recipe_best,
     source_field=source_field,
@@ -374,6 +410,7 @@ opt_results = hwc.simulate(
     gpu_type="B200",
     simulation_steps=10000,
 )
+print(f"Verification sim complete: {opt_results['sim_time']:.1f}s GPU, {time.time() - t0:.0f}s total")
 
 # Poynting vector power coupling
 wg_field = np.array(opt_results['monitor_data']['Output_wg_output'])

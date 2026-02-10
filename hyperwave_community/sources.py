@@ -396,7 +396,7 @@ def generate_gaussian_source(
         field=jnp.array(err_src_field), axis='z', position=0
     )))
 
-    return err_src_field, input_power
+    return err_src_field.astype(np.complex64), input_power
 
 
 # @title new gaussian

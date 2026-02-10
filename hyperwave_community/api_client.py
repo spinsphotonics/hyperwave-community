@@ -937,6 +937,11 @@ def _get_api_config() -> Dict[str, str]:
 
 def encode_array(arr: np.ndarray) -> str:
     """Encode numpy array to base64 string for API transmission."""
+    # Downcast to single precision to halve transfer size
+    if arr.dtype == np.complex128:
+        arr = arr.astype(np.complex64)
+    elif arr.dtype == np.float64:
+        arr = arr.astype(np.float32)
     buffer = io.BytesIO()
     np.save(buffer, arr)
     return base64.b64encode(buffer.getvalue()).decode('utf-8')
@@ -3520,20 +3525,19 @@ def run_optimization(
         "Accept": "text/event-stream",
     }
 
-    print(f"\n=== Inverse Design Optimization ===")
-    print(f"Endpoint: {API_URL}/inverse_design_stream")  # internal endpoint name
-    print(f"Theta shape: {request_data['theta_shape']}")
-    print(f"Steps: {num_steps}, LR: {learning_rate}, GPU: {gpu_type}")
+    print(f"\n=== Inverse Design Optimization ===", flush=True)
+    print(f"Theta shape: {request_data['theta_shape']}", flush=True)
+    print(f"Steps: {num_steps}, LR: {learning_rate}, GPU: {gpu_type}", flush=True)
     if mode_coupling_params:
-        print(f"Loss: Mode coupling")
+        print(f"Loss: Mode coupling", flush=True)
     elif power_params:
         axis_names = {0: 'x', 1: 'y', 2: 'z'}
-        print(f"Loss: Power S_{axis_names.get(power_axis, power_axis)} (maximize={power_maximize})")
+        print(f"Loss: Power S_{axis_names.get(power_axis, power_axis)} (maximize={power_maximize})", flush=True)
     elif intensity_params:
-        print(f"Loss: Intensity |{intensity_component}|^2 (maximize={intensity_maximize})")
+        print(f"Loss: Intensity |{intensity_component}|^2 (maximize={intensity_maximize})", flush=True)
     elif loss_fn_pickle_b64:
-        print(f"Loss: Custom function (cloudpickle)")
-    print(f"====================================\n")
+        print(f"Loss: Custom function (cloudpickle)", flush=True)
+    print(f"====================================\n", flush=True)
 
     response = None
     try:
