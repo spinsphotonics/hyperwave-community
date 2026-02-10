@@ -3574,6 +3574,10 @@ def run_optimization(
                 print(f"\nServer error: {event.get('message', 'Unknown error')}")
                 return
 
+            # Skip heartbeat events (keep-alive from server)
+            if event.get('type') == 'heartbeat':
+                continue
+
             # Decode theta array
             if 'theta_b64' in event:
                 event['theta'] = decode_array(event['theta_b64'])
