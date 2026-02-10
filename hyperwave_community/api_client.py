@@ -3624,7 +3624,7 @@ def mode_convert(
     freq_band,
     permittivity_slice,
     propagation_axis: str = 'x',
-    propagation_length: int = 60,
+    propagation_length: int = 500,
     absorption_width: int = 20,
     absorption_coeff: float = 4.89e-3,
     simulation_steps: int = 5000,
@@ -3643,7 +3643,7 @@ def mode_convert(
         freq_band: Frequency band (min, max, num_points).
         permittivity_slice: 2D permittivity slice (y, z) matching mode field.
         propagation_axis: Direction of mode propagation ('x' or 'y').
-        propagation_length: Propagation distance in grid units (default: 60).
+        propagation_length: Propagation distance in grid units (default: 500).
         absorption_width: Width of absorbing boundaries (default: 20).
         absorption_coeff: Absorption coefficient (default: 4.89e-3).
         simulation_steps: Maximum FDTD time steps (default: 5000).
