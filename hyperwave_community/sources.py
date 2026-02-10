@@ -268,8 +268,8 @@ def generate_gaussian_source(
     polarization: str = 'y',
     max_steps: int = 5000,
     check_every_n: int = 1000,
-    absorption_widths: Tuple[int, int, int] = (30, 30, 20),
-    absorption_coeff: float = 1e-4,
+    absorption_widths: Tuple[int, int, int] = None,
+    absorption_coeff: float = None,
     gpu_type: str = "B200",
 ) -> Tuple[np.ndarray, np.ndarray]:
     """Generate a Gaussian beam source via cloud GPU FDTD simulation.
@@ -289,8 +289,11 @@ def generate_gaussian_source(
         polarization: ``'x'`` or ``'y'``.
         max_steps: Maximum FDTD time steps.
         check_every_n: Steps between convergence checks.
-        absorption_widths: PML widths ``(x, y, z)`` in pixels.
-        absorption_coeff: PML absorption coefficient.
+        absorption_widths: PML widths ``(x, y, z)`` in pixels.  If ``None``
+            (default), automatically computed from the wavelength to ensure
+            at least ~1 wavelength of absorber on each side.
+        absorption_coeff: PML absorption coefficient.  If ``None`` (default),
+            automatically scaled from Bayesian-optimized baseline values.
         gpu_type: Cloud GPU type (``"B200"``, ``"H100"``, etc.).
 
     Returns:
@@ -304,6 +307,24 @@ def generate_gaussian_source(
     Lx, Ly, Lz = sim_shape
     frequencies = np.asarray(frequencies)
     num_freqs = len(frequencies)
+
+    # Auto-compute absorption params from wavelength if not specified.
+    # Baseline: width=82 cells at wl_px=77.5 (20nm res, 1550nm),
+    # coeff=6.17e-4.  Both scale with (wl_px / 77.5).
+    wl_px = 2 * np.pi / float(np.mean(frequencies))
+    if absorption_widths is None:
+        w_xy = max(20, int(round(1.06 * wl_px)))
+        w_z = max(15, int(round(0.7 * wl_px)))
+        absorption_widths = (
+            min(w_xy, Lx // 4),
+            min(w_xy, Ly // 4),
+            min(w_z, Lz // 4),
+        )
+    if absorption_coeff is None:
+        absorption_coeff = 1.03e-7 * wl_px ** 2
+
+    print(f"Absorber widths (x,y,z): {absorption_widths}")
+    print(f"Absorber coefficient: {absorption_coeff:.6f}")
 
     # Source offset: full XY span, at source z position
     source_offset = (0, 0, int(source_pos[2]))
