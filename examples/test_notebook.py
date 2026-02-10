@@ -38,8 +38,8 @@ h_sub = 0.8
 h_air = 1.0
 pad = 3.0
 
-dx = 0.070           # 70nm structure grid (fast iteration; 35nm for production)
-pixel_size = dx / 2   # 35nm theta grid
+dx = 0.035           # 35nm structure grid (reference GC resolution)
+pixel_size = dx / 2   # 17.5nm theta grid
 domain = 40.0
 
 wg_width = 0.5
@@ -54,18 +54,28 @@ Ly = Lx
 theta_Lx = 2 * Lx
 theta_Ly = 2 * Ly
 
-h_p = pad / dx
-h0 = h_air / dx
-h1 = h_clad / dx
-h2 = etch_depth / dx
-h3 = (h_dev - etch_depth) / dx
-h4 = h_box / dx
-h5 = h_sub / dx
-Lz = int(math.ceil(h_p + h0 + h1 + h2 + h3 + h4 + h5 + h_p))
+# Layer thicknesses in pixels (float for mode solve structure)
+h_p_f = pad / dx
+h0_f = h_air / dx
+h1_f = h_clad / dx
+h2_f = etch_depth / dx
+h3_f = (h_dev - etch_depth) / dx
+h4_f = h_box / dx
+h5_f = h_sub / dx
 
-z_etch = int(round(h_p + h0 + h1))
-z_slab = z_etch + int(round(h2))
-z_box = z_slab + int(round(h3))
+# Integer pixel thicknesses for simulation structure (matches reference exactly)
+h_p = int(round(h_p_f))
+h0 = int(round(h0_f))
+h1 = int(round(h1_f))
+h2 = int(round(h2_f))
+h3 = int(round(h3_f))
+h4 = int(round(h4_f))
+h5 = int(round(h5_f))
+Lz = h_p + h0 + h1 + h2 + h3 + h4 + h5 + h_p
+
+z_etch = h_p + h0 + h1
+z_slab = z_etch + h2
+z_box = z_slab + h3
 
 wl_px = wavelength_um / dx
 freq = 2 * np.pi / wl_px
@@ -82,8 +92,7 @@ DESIGN_LAYER = 3
 
 print(f"Structure grid: {Lx} x {Ly} x {Lz} ({dx * 1000:.0f} nm)")
 print(f"Theta grid: {theta_Lx} x {theta_Ly} ({pixel_size * 1000:.1f} nm)")
-print(f"Layers (px): pad={h_p:.2f} air={h0:.2f} clad={h1:.2f} "
-      f"etch={h2:.2f} slab={h3:.2f} BOX={h4:.2f} sub={h5:.2f} pad={h_p:.2f}")
+print(f"Layers (px): pad={h_p} air={h0} clad={h1} etch={h2} slab={h3} BOX={h4} sub={h5} pad={h_p}")
 
 # === Cell 6: Theta ===
 wg_len = int(round(wg_length / dx))
@@ -310,7 +319,7 @@ design_monitor_offset = (0, 0, z_etch)
 waveguide_mask = np.zeros((theta_Lx, theta_Ly), dtype=np.float32)
 waveguide_mask[:wg_len_theta, theta_Ly // 2 - wg_hw_theta : theta_Ly // 2 + wg_hw_theta] = 1.0
 
-NUM_STEPS = 2
+NUM_STEPS = 5
 LR = 0.01
 GRAD_CLIP = 1.0
 
