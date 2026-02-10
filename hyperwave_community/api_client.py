@@ -3293,6 +3293,86 @@ def compute_adjoint_gradient(
         return None
 
 
+def _run_optimization_ws(api_url, api_key, request_data):
+    """WebSocket transport for run_optimization.
+
+    Client sends keepalive pings every 30s to prevent proxy timeouts.
+    Server sends step results as JSON messages.
+    Closing the WebSocket cancels the GPU task.
+    """
+    import json
+    import threading
+    import time
+    import websocket
+
+    # Convert HTTP(S) URL to WebSocket URL
+    ws_url = api_url.replace("https://", "wss://").replace("http://", "ws://")
+    ws_url = f"{ws_url}/inverse_design_ws"
+
+    ws = None
+    stop_ping = threading.Event()
+    ping_thread = None
+
+    try:
+        ws = websocket.create_connection(
+            ws_url,
+            header={"X-API-Key": api_key},
+            timeout=30,
+        )
+
+        # Send optimization request
+        ws.send(json.dumps({"type": "start", "data": request_data}))
+
+        # Background thread sends keepalive pings every 30s
+        def _pinger():
+            while not stop_ping.is_set():
+                stop_ping.wait(30)
+                if not stop_ping.is_set():
+                    try:
+                        ws.send(json.dumps({"type": "ping"}))
+                    except Exception:
+                        break
+
+        ping_thread = threading.Thread(target=_pinger, daemon=True)
+        ping_thread.start()
+
+        # Receive step results
+        while True:
+            raw = ws.recv()
+            if not raw:
+                continue
+
+            msg = json.loads(raw)
+            msg_type = msg.get("type")
+
+            if msg_type == "error":
+                print(f"\nServer error: {msg.get('message', 'Unknown error')}")
+                return
+
+            if msg_type == "done":
+                break
+
+            if msg_type == "step":
+                if "theta_b64" in msg:
+                    msg["theta"] = decode_array(msg["theta_b64"])
+                yield msg
+
+    except GeneratorExit:
+        # User interrupted (break or KeyboardInterrupt).
+        # Closing WebSocket signals server to cancel GPU task.
+        pass
+
+    finally:
+        stop_ping.set()
+        if ping_thread is not None:
+            ping_thread.join(timeout=2)
+        if ws is not None:
+            try:
+                ws.close()
+            except Exception:
+                pass
+
+
 def run_optimization(
     theta: np.ndarray,
     source_field: np.ndarray,
@@ -3539,9 +3619,20 @@ def run_optimization(
         print(f"Loss: Custom function (cloudpickle)", flush=True)
     print(f"====================================\n", flush=True)
 
+    # Try WebSocket first (bidirectional, client sends keepalive pings).
+    # Falls back to SSE if websocket-client is not installed.
+    try:
+        import websocket as _ws_lib
+        yield from _run_optimization_ws(API_URL, effective_api_key, request_data)
+        return
+    except ImportError:
+        pass  # websocket-client not installed, use SSE
+    except Exception as e:
+        print(f"WebSocket unavailable ({e}), using SSE fallback", flush=True)
+
+    # SSE fallback
     response = None
     try:
-        # SSE request with long read timeout (GPU steps take ~60-120s each)
         response = requests.post(
             f"{API_URL}/inverse_design_stream",
             json=request_data,
