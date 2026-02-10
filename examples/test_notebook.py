@@ -179,7 +179,6 @@ source_field, input_power = hwc.generate_gaussian_source(
     phi=0.0,
     polarization='y',
     max_steps=5000,
-    check_every_n=200,
     gpu_type="B200",
 )
 

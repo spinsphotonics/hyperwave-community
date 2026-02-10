@@ -267,7 +267,7 @@ def generate_gaussian_source(
     phi: float = 0.0,
     polarization: str = 'y',
     max_steps: int = 5000,
-    check_every_n: int = 200,
+    check_every_n: int = 1000,
     absorption_widths: Tuple[int, int, int] = (30, 30, 20),
     absorption_coeff: float = 1e-4,
     gpu_type: str = "B200",
@@ -1079,7 +1079,7 @@ def mode_converter(
     absorption_width: int = 20,
     absorption_coeff: float = 4.89e-3,
     max_steps: int = 5000,
-    check_every_n: int = 200,
+    check_every_n: int = 1000,
     source_ramp_periods: float = 5.0,
     visualize: bool = True,
 ) -> jnp.ndarray:
