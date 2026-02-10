@@ -3296,8 +3296,13 @@ def compute_adjoint_gradient(
 def _run_optimization_ws(api_url, api_key, request_data):
     """WebSocket transport for run_optimization.
 
-    Client sends keepalive pings every 30s to prevent proxy timeouts.
-    Server sends step results as JSON messages.
+    Two-step protocol:
+      1. HTTP POST to /inverse_design_start sends the large payload (supports gzip).
+         Returns a session_id.
+      2. WebSocket connects to /inverse_design_ws?session_id=<id> for streaming.
+         Client sends keepalive pings every 30s.
+         Server sends step results as JSON messages.
+
     Closing the WebSocket cancels the GPU task.
     """
     import json
@@ -3305,9 +3310,32 @@ def _run_optimization_ws(api_url, api_key, request_data):
     import time
     import websocket
 
-    # Convert HTTP(S) URL to WebSocket URL
+    # Step 1: POST the large request, get session_id
+    headers = {
+        "X-API-Key": api_key,
+        "Content-Type": "application/json",
+    }
+
+    # Gzip compress to reduce upload time
+    import gzip as _gzip
+    body = json.dumps(request_data).encode()
+    compressed = _gzip.compress(body)
+    if len(compressed) < len(body):
+        headers["Content-Encoding"] = "gzip"
+        body = compressed
+
+    response = requests.post(
+        f"{api_url}/inverse_design_start",
+        data=body,
+        headers=headers,
+        timeout=(30, 120),
+    )
+    response.raise_for_status()
+    session_id = response.json()["session_id"]
+
+    # Step 2: Connect WebSocket for streaming results
     ws_url = api_url.replace("https://", "wss://").replace("http://", "ws://")
-    ws_url = f"{ws_url}/inverse_design_ws"
+    ws_url = f"{ws_url}/inverse_design_ws?session_id={session_id}"
 
     ws = None
     stop_ping = threading.Event()
@@ -3319,9 +3347,6 @@ def _run_optimization_ws(api_url, api_key, request_data):
             header={"X-API-Key": api_key},
             timeout=30,
         )
-
-        # Send optimization request
-        ws.send(json.dumps({"type": "start", "data": request_data}))
 
         # Background thread sends keepalive pings every 30s
         def _pinger():
