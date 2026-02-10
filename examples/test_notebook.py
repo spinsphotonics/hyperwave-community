@@ -101,19 +101,17 @@ wg_hw = int(round(wg_width / 2 / dx))
 wg_len_theta = int(round(wg_length / pixel_size))
 wg_hw_theta = int(round(wg_width / 2 / pixel_size))
 
-abs_margin = int(round(80 * 0.05 / dx))  # scale from 50nm reference
-abs_margin_theta = 2 * abs_margin
 design_region = {
     'x_start': wg_len_theta,
-    'x_end': theta_Lx - abs_margin_theta,
-    'y_start': abs_margin_theta,
-    'y_end': theta_Ly - abs_margin_theta,
+    'x_end': theta_Lx - wg_len_theta,
+    'y_start': wg_len_theta,
+    'y_end': theta_Ly - wg_len_theta,
 }
 
-theta_init = np.zeros((theta_Lx, theta_Ly), dtype=np.float32)
-theta_init[:wg_len_theta, theta_Ly // 2 - wg_hw_theta : theta_Ly // 2 + wg_hw_theta] = 1.0
 dr = design_region
+theta_init = np.zeros((theta_Lx, theta_Ly), dtype=np.float32)
 theta_init[dr['x_start']:dr['x_end'], dr['y_start']:dr['y_end']] = 0.5
+theta_init[:wg_len_theta, theta_Ly // 2 - wg_hw_theta : theta_Ly // 2 + wg_hw_theta] = 1.0
 
 print(f"Theta shape: {theta_init.shape}")
 print(f"Design region: {(dr['x_end'] - dr['x_start']) * pixel_size:.1f} x "
