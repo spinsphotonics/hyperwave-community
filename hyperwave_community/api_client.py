@@ -3293,6 +3293,112 @@ def compute_adjoint_gradient(
         return None
 
 
+def _run_optimization_ws(api_url, api_key, request_data):
+    """WebSocket transport for run_optimization.
+
+    Two-step protocol:
+      1. HTTP POST to /inverse_design_start sends the large payload (gzip).
+         Returns a session_id.
+      2. WebSocket connects to /inverse_design_ws?session_id=<id> for streaming.
+         Client sends keepalive pings every 30s.
+         Server sends step results as JSON messages.
+
+    Closing the WebSocket cancels the GPU task.
+    """
+    import json
+    import threading
+    import time as _time
+    import websocket
+
+    # Step 1: POST the large request, get session_id
+    headers = {
+        "X-API-Key": api_key,
+        "Content-Type": "application/json",
+    }
+
+    import gzip as _gzip
+    body = json.dumps(request_data).encode()
+    compressed = _gzip.compress(body)
+    if len(compressed) < len(body):
+        headers["Content-Encoding"] = "gzip"
+        body = compressed
+
+    t0 = _time.time()
+    response = requests.post(
+        f"{api_url}/inverse_design_start",
+        data=body,
+        headers=headers,
+        timeout=(60, 300),
+    )
+    response.raise_for_status()
+    session_id = response.json()["session_id"]
+    print(f"  POST /inverse_design_start: {_time.time() - t0:.1f}s, session={session_id[:8]}...", flush=True)
+
+    # Step 2: Connect WebSocket for streaming results
+    ws_url = api_url.replace("https://", "wss://").replace("http://", "ws://")
+    ws_url = f"{ws_url}/inverse_design_ws?session_id={session_id}"
+
+    ws = None
+    stop_ping = threading.Event()
+    ping_thread = None
+
+    try:
+        t1 = _time.time()
+        ws = websocket.create_connection(
+            ws_url,
+            header={"X-API-Key": api_key},
+            timeout=30,
+        )
+        ws.settimeout(600)  # each step can take 200+ seconds at high res
+        print(f"  WebSocket connected in {_time.time() - t1:.1f}s", flush=True)
+
+        # Background keepalive pings every 30s
+        def _pinger():
+            while not stop_ping.is_set():
+                stop_ping.wait(30)
+                if not stop_ping.is_set():
+                    try:
+                        ws.send(json.dumps({"type": "ping"}))
+                    except Exception:
+                        break
+
+        ping_thread = threading.Thread(target=_pinger, daemon=True)
+        ping_thread.start()
+
+        # Receive step results
+        while True:
+            raw = ws.recv()
+            if not raw:
+                continue
+
+            msg = json.loads(raw)
+            msg_type = msg.get("type")
+
+            if msg_type == "error":
+                raise RuntimeError(msg.get('message', 'Unknown server error'))
+
+            if msg_type == "done":
+                break
+
+            if msg_type == "step":
+                if "theta_b64" in msg:
+                    msg["theta"] = decode_array(msg["theta_b64"])
+                yield msg
+
+    except GeneratorExit:
+        pass  # user interrupted, closing WS cancels GPU task
+
+    finally:
+        stop_ping.set()
+        if ping_thread is not None:
+            ping_thread.join(timeout=2)
+        if ws is not None:
+            try:
+                ws.close()
+            except Exception:
+                pass
+
+
 def run_optimization(
     theta: np.ndarray,
     source_field: np.ndarray,
@@ -3539,7 +3645,18 @@ def run_optimization(
         print(f"Loss: Custom function (cloudpickle)", flush=True)
     print(f"====================================\n", flush=True)
 
-    # SSE streaming
+    # Try WebSocket first (real-time streaming, works through Modal proxy).
+    # Falls back to SSE if websocket-client is not installed or WS fails.
+    try:
+        import websocket as _ws_lib
+        yield from _run_optimization_ws(API_URL, effective_api_key, request_data)
+        return
+    except ImportError:
+        pass  # websocket-client not installed, use SSE
+    except Exception as e:
+        print(f"WebSocket unavailable ({e}), using SSE fallback", flush=True)
+
+    # SSE streaming (fallback)
     response = None
     try:
         # Gzip compress for large payloads (theta at 35nm is ~40MB as JSON)
