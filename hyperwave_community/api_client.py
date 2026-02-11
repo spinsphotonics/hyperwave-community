@@ -3758,7 +3758,7 @@ def mode_convert(
     propagation_length: int = 500,
     absorption_width: int = 20,
     absorption_coeff: float = 4.89e-3,
-    simulation_steps: int = 5000,
+    simulation_steps: int = 10000,
     gpu_type: str = "B200",
     api_key: Optional[str] = None,
 ):
@@ -3777,7 +3777,7 @@ def mode_convert(
         propagation_length: Propagation distance in grid units (default: 500).
         absorption_width: Width of absorbing boundaries (default: 20).
         absorption_coeff: Absorption coefficient (default: 4.89e-3).
-        simulation_steps: Maximum FDTD time steps (default: 5000).
+        simulation_steps: Maximum FDTD time steps (default: 10000).
         gpu_type: GPU type for cloud simulation (default: "B200").
         api_key: Optional API key override.
 

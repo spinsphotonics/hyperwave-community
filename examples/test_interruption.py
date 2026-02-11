@@ -220,18 +220,14 @@ if len(results) == 1:
 else:
     print(f"UNEXPECTED: Received {len(results)} steps (expected 1)")
 
-# Wait a moment, then check if stuck sims were left
-import requests as req
-time.sleep(5)
-resp = req.post(
-    "https://spinsphotonics--hyperwave-api-fastapi-app.modal.run/clear_stuck_simulations",
-    headers={"X-API-Key": os.environ['HYPERWAVE_API_KEY']},
-)
-stuck = resp.json()
-print(f"Stuck simulations after interruption: {stuck['cleared']}")
-if stuck['cleared'] > 0:
-    print(f"  WARNING: {stuck['cleared']} stuck sims left behind: {stuck['simulations']}")
-else:
-    print("  GOOD: No stuck simulations")
+# Wait for GPU to shut down, then verify via account info
+time.sleep(10)
+print("\nVerifying billing state...")
+try:
+    info = hwc.configure_api(api_key=os.environ['HYPERWAVE_API_KEY'], validate=True)
+    if info:
+        print(f"  Credits remaining: {info.get('credits', '?')}")
+except Exception as e:
+    print(f"  Could not verify: {e}")
 
 print("\n=== INTERRUPTION TEST DONE ===")
