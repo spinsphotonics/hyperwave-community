@@ -3349,8 +3349,11 @@ def _run_optimization_ws(api_url, api_key, request_data):
         ws = websocket.create_connection(
             ws_url,
             header={"X-API-Key": api_key},
-            timeout=120,
+            timeout=30,  # connect timeout
         )
+        # Each optimization step can take 200+ seconds at high resolution.
+        # Set recv timeout high enough to wait for step results.
+        ws.settimeout(600)
         print(f"  WebSocket connected in {_time.time() - t1:.1f}s", flush=True)
 
         # Background thread sends keepalive pings every 30s
@@ -3376,8 +3379,7 @@ def _run_optimization_ws(api_url, api_key, request_data):
             msg_type = msg.get("type")
 
             if msg_type == "error":
-                print(f"\nServer error: {msg.get('message', 'Unknown error')}")
-                return
+                raise RuntimeError(msg.get('message', 'Unknown server error'))
 
             if msg_type == "done":
                 break
@@ -3663,12 +3665,22 @@ def run_optimization(
     # SSE fallback
     response = None
     try:
+        # Gzip compress for large payloads (theta at 35nm is ~40MB as JSON)
+        import gzip as _gzip_sse
+        import json as _json_sse
+        body_sse = _json_sse.dumps(request_data).encode()
+        compressed_sse = _gzip_sse.compress(body_sse)
+        if len(compressed_sse) < len(body_sse):
+            headers["Content-Encoding"] = "gzip"
+            body_sse = compressed_sse
+        headers["Content-Type"] = "application/json"
+
         response = requests.post(
             f"{API_URL}/inverse_design_stream",
-            json=request_data,
+            data=body_sse,
             headers=headers,
             stream=True,
-            timeout=(30, None),  # 30s connect, unlimited read
+            timeout=(60, None),  # 60s connect, unlimited read
         )
         response.raise_for_status()
 
