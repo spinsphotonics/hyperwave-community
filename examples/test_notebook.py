@@ -2,6 +2,7 @@
 import os
 import pickle
 import functools
+from datetime import datetime
 from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
 
@@ -17,6 +18,9 @@ import jax.numpy as jnp
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 import time
+
+_run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
+print(f"=== test_notebook.py  run={_run_id} ===")
 
 hwc.configure_api(api_key=os.environ['HYPERWAVE_API_KEY'])
 
@@ -179,6 +183,8 @@ source_field, input_power = hwc.generate_gaussian_source(
     phi=0.0,
     polarization='y',
     max_steps=5000,
+    absorption_widths=(30, 30, 20),
+    absorption_coeff=1e-4,
     gpu_type="B200",
 )
 
@@ -286,24 +292,34 @@ if est:
 
 print(f"Running forward simulation...")
 t0 = time.time()
-fwd_results = hwc.simulate(
-    structure_recipe=recipe,
-    source_field=source_field,
-    source_offset=source_offset,
-    freq_band=freq_band,
-    monitors_recipe=monitors.recipe,
-    absorption_widths=abs_widths,
-    absorption_coeff=abs_coeff,
-    gpu_type="B200",
-    simulation_steps=10000,
-)
-print(f"Forward sim complete: {fwd_results['sim_time']:.1f}s GPU, {time.time() - t0:.0f}s total")
+fwd_results = None
+for attempt in range(3):
+    fwd_results = hwc.simulate(
+        structure_recipe=recipe,
+        source_field=source_field,
+        source_offset=source_offset,
+        freq_band=freq_band,
+        monitors_recipe=monitors.recipe,
+        absorption_widths=abs_widths,
+        absorption_coeff=abs_coeff,
+        gpu_type="B200",
+        simulation_steps=10000,
+    )
+    if fwd_results is not None:
+        break
+    print(f"  Forward sim attempt {attempt + 1} failed (rate limit), retrying in 30s...")
+    time.sleep(30)
+if fwd_results is None:
+    print("Forward sim failed after 3 attempts. Skipping to optimization.")
+else:
+    print(f"Forward sim complete: {fwd_results['sim_time']:.1f}s GPU, {time.time() - t0:.0f}s total")
 
-wg_field = np.array(fwd_results['monitor_data']['Output_wg_output'])
-S = hwc.S_from_slice(jnp.mean(jnp.array(wg_field), axis=2))
-power = float(jnp.abs(jnp.sum(S[0, 0, :, :])))
-print(f"Waveguide output power: {power:.6f}")
-print(f"Coupling (approx): {power / input_power * 100:.1f}%")
+if fwd_results is not None:
+    wg_field = np.array(fwd_results['monitor_data']['Output_wg_output'])
+    S = hwc.S_from_slice(jnp.mean(jnp.array(wg_field), axis=2))
+    power = float(jnp.abs(jnp.sum(S[0, 0, :, :])))
+    print(f"Waveguide output power: {power:.6f}")
+    print(f"Coupling (approx): {power / input_power * 100:.1f}%")
 
 # === Step 9: Optimization ===
 structure_spec = {
@@ -372,8 +388,10 @@ try:
     ):
         results.append(step_result)
         eff = abs(step_result['loss']) * 100
+        wall = time.time() - t_opt_start
         print(f"Step {step_result['step']:3d}/{NUM_STEPS}:  eff = {eff:.2f}%  "
-              f"|grad|_max = {step_result['grad_max']:.3e}  ({step_result['step_time']:.1f}s)",
+              f"|grad|_max = {step_result['grad_max']:.3e}  ({step_result['step_time']:.1f}s GPU, "
+              f"wall={wall:.1f}s)",
               flush=True)
 except KeyboardInterrupt:
     elapsed = time.time() - t_opt_start

@@ -3324,14 +3324,17 @@ def _run_optimization_ws(api_url, api_key, request_data):
         headers["Content-Encoding"] = "gzip"
         body = compressed
 
+    import time as _time
+    t0 = _time.time()
     response = requests.post(
         f"{api_url}/inverse_design_start",
         data=body,
         headers=headers,
-        timeout=(30, 120),
+        timeout=(60, 300),
     )
     response.raise_for_status()
     session_id = response.json()["session_id"]
+    print(f"  POST /inverse_design_start: {_time.time() - t0:.1f}s, session={session_id[:8]}...", flush=True)
 
     # Step 2: Connect WebSocket for streaming results
     ws_url = api_url.replace("https://", "wss://").replace("http://", "ws://")
@@ -3342,11 +3345,13 @@ def _run_optimization_ws(api_url, api_key, request_data):
     ping_thread = None
 
     try:
+        t1 = _time.time()
         ws = websocket.create_connection(
             ws_url,
             header={"X-API-Key": api_key},
-            timeout=30,
+            timeout=120,
         )
+        print(f"  WebSocket connected in {_time.time() - t1:.1f}s", flush=True)
 
         # Background thread sends keepalive pings every 30s
         def _pinger():
