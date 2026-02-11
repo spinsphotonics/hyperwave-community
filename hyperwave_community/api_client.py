@@ -26,6 +26,7 @@ Environment Variables:
 """
 
 import os
+import sys
 import base64
 import io
 import json
@@ -3652,15 +3653,18 @@ def run_optimization(
     print(f"====================================\n", flush=True)
 
     # Try WebSocket first (bidirectional, client sends keepalive pings).
-    # Falls back to SSE if websocket-client is not installed.
-    try:
-        import websocket as _ws_lib
-        yield from _run_optimization_ws(API_URL, effective_api_key, request_data)
-        return
-    except ImportError:
-        pass  # websocket-client not installed, use SSE
-    except Exception as e:
-        print(f"WebSocket unavailable ({e}), using SSE fallback", flush=True)
+    # Falls back to SSE if websocket-client is not installed or on Colab
+    # (Colab proxies block WebSocket connections).
+    _in_colab = 'google.colab' in sys.modules or os.path.exists('/content')
+    if not _in_colab:
+        try:
+            import websocket as _ws_lib
+            yield from _run_optimization_ws(API_URL, effective_api_key, request_data)
+            return
+        except ImportError:
+            pass  # websocket-client not installed, use SSE
+        except Exception as e:
+            print(f"WebSocket unavailable ({e}), using SSE fallback", flush=True)
 
     # SSE fallback
     response = None
