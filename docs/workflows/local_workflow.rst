@@ -8,9 +8,9 @@ inverse design, and debugging, because you can inspect and modify any intermedia
 proceeding to the next step. Only the GPU FDTD simulation step (Step 7) requires an API call and
 costs credits (1 credit = $25 = 1 hour of B200 compute); everything else runs locally and is free.
 
-**Download the notebook**: `local_workflow.ipynb <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/local_workflow.ipynb>`_
+**Open in Google Colab**: `local_workflow.ipynb <https://colab.research.google.com/github/spinsphotonics/hyperwave-community/blob/main/examples/local_workflow.ipynb>`_
 
-`Open in Google Colab <https://colab.research.google.com/drive/1beS-zVf-_evSKDswYvVQ7yzFT_DEfcXj>`_
+`Download the notebook <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/local_workflow.ipynb>`_
 
 .. contents:: Steps
    :local:

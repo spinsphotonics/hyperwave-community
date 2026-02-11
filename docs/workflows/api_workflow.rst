@@ -5,9 +5,9 @@ This tutorial walks through the API workflow for simulating an MMI 2x2 splitter.
 
 In the API workflow, all CPU-intensive steps (structure creation, density filtering, layer stacking) run on Modal servers provided by SPINs. You only need to specify the component and parameters; the server handles the rest. Only the GPU FDTD simulation step costs credits (1 credit = $25 = 1 hour of compute).
 
-**Download the notebook**: `api_workflow.ipynb <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/api_workflow.ipynb>`_
+**Open in Google Colab**: `api_workflow.ipynb <https://colab.research.google.com/github/spinsphotonics/hyperwave-community/blob/main/examples/api_workflow.ipynb>`_
 
-`Open in Google Colab <https://colab.research.google.com/drive/1EedFLMWf07UN-Uw77cbzLNW5ahL6dF83>`_
+`Download the notebook <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/api_workflow.ipynb>`_
 
 .. contents:: Steps
    :local:

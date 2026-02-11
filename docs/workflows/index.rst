@@ -145,3 +145,4 @@ Credits are only consumed when running ``run_simulation()``. All simulations run
 
    api_workflow
    local_workflow
+   inverse_design
