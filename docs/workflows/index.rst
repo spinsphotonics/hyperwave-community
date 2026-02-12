@@ -69,34 +69,82 @@ All CPU steps run locally on your machine (or Colab). You build the structure st
 
 :doc:`local_workflow` - Full tutorial
 
+Inverse Design Workflow
+----------------------
+
+Adjoint-method gradient-based optimization on cloud GPUs. The optimizer iteratively
+updates a 2D design pattern (theta) by running forward and adjoint FDTD simulations
+to compute gradients of a loss function with respect to the design variables.
+
+**Use this workflow when:**
+
+* You want to optimize a photonic structure (e.g., grating coupler) for a target objective
+* You need gradient-based topology optimization with minimum feature size control
+* You want to maximize mode coupling efficiency or other custom loss functions
+
+**Example:**
+
+.. code-block:: python
+
+   import hyperwave_community as hwc
+
+   hwc.configure_api(api_key="your-key")
+
+   # Run optimization loop on cloud GPU
+   for step_result in hwc.run_optimization(
+       theta=theta_init,
+       source_field=source_field,
+       source_offset=source_offset,
+       freq_band=freq_band,
+       structure_spec=structure_spec,
+       loss_fn=mode_overlap_loss,
+       num_steps=50,
+       learning_rate=0.01,
+       ...
+   ):
+       print(f"Step {step_result['step']}: efficiency = {abs(step_result['loss']) * 100:.2f}%")
+
+:doc:`inverse_design` - Full tutorial
+
 Workflow Comparison
 -------------------
 
 .. list-table::
    :header-rows: 1
-   :widths: 30 35 35
+   :widths: 25 25 25 25
 
    * -
      - **API Workflow**
      - **Local Workflow**
+     - **Inverse Design**
    * - CPU work runs on
      - Modal (SPINs servers)
      - Your machine / Colab
+     - Your machine + cloud GPU
    * - Structure creation
      - Single API call
      - Step-by-step local functions
+     - Step-by-step with theta optimization
    * - GDSFactory components
      - Built-in support
      - Full customization
+     - Not used (custom theta)
    * - Custom theta patterns
      - Not supported
      - Full support
+     - Required (design variable)
    * - Intermediate inspection
      - Limited
      - Full access to all arrays
+     - Full access to all arrays
+   * - Optimization
+     - Not supported
+     - Manual only
+     - Adjoint-method gradient-based
    * - Lines of code
      - ~30 lines
      - ~50 lines
+     - ~80 lines
 
 Shared Steps
 ------------
@@ -123,7 +171,7 @@ Both workflows share the same simulation and analysis steps:
 Cost Structure
 --------------
 
-Both workflows have the same cost structure:
+All workflows share the same cost structure:
 
 .. list-table::
    :header-rows: 1
@@ -136,8 +184,10 @@ Both workflows have the same cost structure:
      - Credits ($25/hr)
    * - Analysis (Step 6)
      - Free
+   * - Optimization (inverse design only)
+     - Credits, 2 sims per step ($25/hr)
 
-Credits are only consumed when running ``run_simulation()``. All simulations run on NVIDIA B200 GPUs at $25 per compute hour (1 credit = $25 = 1 hour). All other functions are free but require a valid API key.
+Credits are only consumed when running ``run_simulation()`` or ``run_optimization()``. All simulations run on NVIDIA B200 GPUs at $25 per compute hour (1 credit = $25 = 1 hour). All other functions are free but require a valid API key.
 
 .. toctree::
    :maxdepth: 1

@@ -20,6 +20,7 @@ Getting Started
 2. :doc:`workflows/index` - Choose between API and local workflows
 3. :doc:`workflows/api_workflow` - API workflow tutorial
 4. :doc:`workflows/local_workflow` - Local workflow tutorial
+5. :doc:`workflows/inverse_design` - Inverse design optimization tutorial
 
 .. toctree::
    :maxdepth: 1
@@ -29,6 +30,7 @@ Getting Started
    workflows/index
    workflows/api_workflow
    workflows/local_workflow
+   workflows/inverse_design
 
 .. toctree::
    :maxdepth: 2
