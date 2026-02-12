@@ -21,11 +21,12 @@ Getting Started
 3. :doc:`workflows/api_workflow` - Single-call workflow for integration into existing systems
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Getting Started
 
    installation
-   workflows/index
+   workflows/local_workflow
+   workflows/api_workflow
 
 .. toctree::
    :maxdepth: 1
