@@ -914,7 +914,7 @@ def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None,
     # Validate API key if requested (use gateway for fast response, no cold start)
     if validate:
         try:
-            validate_url = _API_CONFIG.get('gateway_url', _API_CONFIG['api_url'])
+            validate_url = _API_CONFIG.get('gateway_url') or _API_CONFIG['api_url']
             response = requests.post(
                 f"{validate_url}/account_info",
                 params={"api_key": _API_CONFIG['api_key']},
