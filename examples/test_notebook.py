@@ -335,14 +335,19 @@ structure_spec = {
 loss_monitor_shape = (1, Ly, Lz)
 loss_monitor_offset = (output_x, 0, 0)
 
-design_monitor_shape = (Lx, Ly, int(round(h2)))
-design_monitor_offset = (0, 0, z_etch)
+# Design monitor: constrained to design region only (not full domain)
+dr_x0 = dr['x_start'] // 2  # theta to structure coordinates
+dr_x1 = dr['x_end'] // 2
+dr_y0 = dr['y_start'] // 2
+dr_y1 = dr['y_end'] // 2
+design_monitor_shape = (dr_x1 - dr_x0, dr_y1 - dr_y0, int(round(h2)))
+design_monitor_offset = (dr_x0, dr_y0, z_etch)
 
 waveguide_mask = np.zeros((theta_Lx, theta_Ly), dtype=np.float32)
 waveguide_mask[:wg_len_theta, theta_Ly // 2 - wg_hw_theta : theta_Ly // 2 + wg_hw_theta] = 1.0
 
 NUM_STEPS = 2
-LR = 0.01
+LR = 0.1
 GRAD_CLIP = 1.0
 
 print(f"Loss monitor at x={loss_monitor_offset[0]} ({loss_monitor_offset[0] * dx:.1f} um)")

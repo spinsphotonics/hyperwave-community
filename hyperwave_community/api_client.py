@@ -856,17 +856,22 @@ def build_monitors_local(
 # Global API configuration
 _API_CONFIG = {
     'api_key': None,
-    'api_url': 'https://spinsphotonics--hyperwave-api-fastapi-app.modal.run'
+    'api_url': 'https://spinsphotonics--hyperwave-api-fastapi-app.modal.run',
+    'gateway_url': 'https://hyperwave-gateway-production.up.railway.app',
 }
 
 
-def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None, validate: bool = True) -> Optional[Dict[str, Any]]:
+def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None,
+                   gateway_url: Optional[str] = None, validate: bool = True) -> Optional[Dict[str, Any]]:
     """Configure API credentials and endpoint, with optional validation.
 
     Args:
         api_key: API authentication key. If None, uses HYPERWAVE_API_KEY environment variable.
-        api_url: API endpoint URL. If None, uses HYPERWAVE_API_URL environment variable
-            or defaults to production endpoint.
+        api_url: GPU endpoint URL (Modal). If None, uses HYPERWAVE_API_URL environment variable
+            or defaults to production Modal endpoint.
+        gateway_url: Gateway URL (Railway) for WebSocket optimization and billing.
+            If None, uses HYPERWAVE_GATEWAY_URL environment variable or defaults
+            to production Railway endpoint.
         validate: If True (default), validates the API key by calling the server.
 
     Returns:
@@ -894,19 +899,25 @@ def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None, 
     elif 'HYPERWAVE_API_URL' in os.environ:
         _API_CONFIG['api_url'] = os.environ['HYPERWAVE_API_URL']
 
+    if gateway_url is not None:
+        _API_CONFIG['gateway_url'] = gateway_url
+    elif 'HYPERWAVE_GATEWAY_URL' in os.environ:
+        _API_CONFIG['gateway_url'] = os.environ['HYPERWAVE_GATEWAY_URL']
+
     if _API_CONFIG['api_key'] is None:
         raise ValueError(
             "API key not provided. Set HYPERWAVE_API_KEY environment variable "
             "or call configure_api(api_key='your-key') first."
         )
 
-    # Validate API key if requested
+    # Validate API key if requested (use gateway for fast response, no cold start)
     if validate:
         try:
+            validate_url = _API_CONFIG.get('gateway_url', _API_CONFIG['api_url'])
             response = requests.post(
-                f"{_API_CONFIG['api_url']}/account_info",
+                f"{validate_url}/account_info",
                 params={"api_key": _API_CONFIG['api_key']},
-                timeout=60  # Modal cold start can take time
+                timeout=30
             )
             if response.status_code == 403:
                 raise RuntimeError("Invalid API key. Please check your API key and try again.")
@@ -3645,11 +3656,12 @@ def run_optimization(
         print(f"Loss: Custom function (cloudpickle)", flush=True)
     print(f"====================================\n", flush=True)
 
-    # Try WebSocket first (real-time streaming, works through Modal proxy).
-    # Falls back to SSE if websocket-client is not installed or WS fails.
+    # Try WebSocket first via gateway (Railway, always-on, supports WS).
+    # Falls back to SSE on Modal if websocket-client not installed or WS fails.
+    GATEWAY_URL = _API_CONFIG.get('gateway_url', API_URL)
     try:
         import websocket as _ws_lib
-        yield from _run_optimization_ws(API_URL, effective_api_key, request_data)
+        yield from _run_optimization_ws(GATEWAY_URL, effective_api_key, request_data)
         return
     except ImportError:
         pass  # websocket-client not installed, use SSE
