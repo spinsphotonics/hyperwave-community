@@ -165,6 +165,7 @@ cython_debug/
 .vscode/
 
 # Editor/tool config
+JOURNAL.md
 
 # Dev/live notebooks with API keys (local testing)
 examples/*_dev.ipynb

@@ -29,3 +29,11 @@ Python SDK + Jupyter notebooks + Sphinx docs for the HyperWave simulation platfo
 
 ### Merged feb_mvp to main
 - All changes above deployed via merge to main. Railway auto-deploys from main.
+
+## 2026-02-10
+
+### Notebook install string cleanup
+- Simplified install string in api_workflow.ipynb and local_workflow.ipynb from `%pip install "hyperwave-community[gds] @ git+https://..." --no-cache-dir -q` to `%pip install git+https://github.com/spinsphotonics/hyperwave-community.git -q`.
+- The `[gds]` extra never existed in setup.py (gdsfactory is in base install_requires).
+
+### Merged feb_mvp to main

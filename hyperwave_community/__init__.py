@@ -55,6 +55,7 @@ from .structure import (
     view_structure,
     Layer,
     Structure,
+    recipe_from_params,
 )
 
 # Import absorption functions
@@ -80,6 +81,7 @@ from .monitors import (
 # Import source functions
 from .sources import (
     create_gaussian_source,
+    generate_gaussian_source,
 )
 # create_mode_source is in simulate.py (uses mode solver)
 from .simulate import create_mode_source
@@ -113,6 +115,7 @@ from .api_client import (
     ConvergenceConfig,
     CONVERGENCE_PRESETS,
     # Inverse design
+    compute_adjoint_gradient,
     run_optimization,
     # Component preview functions
     list_components,
@@ -145,7 +148,7 @@ from .simulate import simulate as simulate_local
 from .simulate import quick_view_monitors
 
 # Re-import simulate from api_client to ensure it's not shadowed by the module import above
-from .api_client import simulate
+from .api_client import simulate, mode_convert
 
 # Define public API
 __all__ = [
@@ -158,6 +161,7 @@ __all__ = [
     "view_structure",
     "Layer",
     "Structure",
+    "recipe_from_params",
 
     # Absorption
     "create_absorption_mask",
@@ -194,6 +198,7 @@ __all__ = [
     "configure_api",
     "get_account_info",
     "estimate_cost",
+    "compute_adjoint_gradient",
 
     # API - CPU Steps (free)
     "build_recipe",
@@ -235,6 +240,9 @@ __all__ = [
     "load_component",
     "build_recipe_from_theta",
     "build_monitors_local",
+
+    # Mode conversion (cloud GPU)
+    "mode_convert",
 
     # Simulation utilities
     "simulate_local",

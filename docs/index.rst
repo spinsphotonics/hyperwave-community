@@ -31,6 +31,12 @@ Getting Started
    workflows/local_workflow
 
 .. toctree::
+   :maxdepth: 2
+   :caption: User Guide
+
+   user_guide/index
+
+.. toctree::
    :maxdepth: 1
    :caption: API Reference
 

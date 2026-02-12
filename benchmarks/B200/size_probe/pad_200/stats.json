@@ -1,0 +1,31 @@
+{
+  "gpu_type": "B200",
+  "padding": [
+    200,
+    200,
+    0,
+    0
+  ],
+  "timestamp": "2026-02-07T12:18:39.015794",
+  "probe_steps": 5000,
+  "dimensions": [
+    1800,
+    450,
+    199
+  ],
+  "voxels": 161190000,
+  "voxels_M": 161.2,
+  "estimated_cost": {
+    "estimated_seconds": 32.2,
+    "estimated_credits": 0.0224,
+    "estimated_cost_usd": 0.22,
+    "gpu_type": "B200",
+    "grid_points": 161190000,
+    "note": "Actual cost may be lower if simulation converges early"
+  },
+  "status": "success",
+  "sim_time": 38.239330530166626,
+  "performance": 21076467313.259945,
+  "gcells_per_s": 21.076467313259943,
+  "sim_wall_time": 87.40952563285828
+}

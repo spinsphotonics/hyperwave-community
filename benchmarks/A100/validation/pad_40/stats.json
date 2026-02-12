@@ -1,0 +1,43 @@
+{
+  "gpu_type": "A100",
+  "category": "validation",
+  "label": "pad_40",
+  "padding": [
+    40,
+    40,
+    0,
+    0
+  ],
+  "timestamp": "2026-02-07T02:53:05.073660",
+  "status": "failed_simulation",
+  "dimensions": [
+    1800,
+    290,
+    199
+  ],
+  "voxels": 103878000,
+  "voxels_M": 103.9,
+  "monitor_names": [
+    "Input_o1",
+    "Input_o2",
+    "Output_o3",
+    "Output_o4",
+    "xy_mid"
+  ],
+  "absorber_width": 82,
+  "absorber_coeff": 0.0006173770394704579,
+  "absorption_widths": [
+    82,
+    41,
+    41
+  ],
+  "estimated_cost": {
+    "estimated_seconds": 831.0,
+    "estimated_credits": 0.2308,
+    "estimated_cost_usd": 2.31,
+    "gpu_type": "A100",
+    "grid_points": 103878000,
+    "note": "Actual cost may be lower if simulation converges early"
+  },
+  "sim_wall_time": 973.5845839977264
+}

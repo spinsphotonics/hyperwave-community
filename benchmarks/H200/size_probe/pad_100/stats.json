@@ -1,0 +1,28 @@
+{
+  "gpu_type": "H200",
+  "padding": [
+    100,
+    100,
+    0,
+    0
+  ],
+  "timestamp": "2026-02-07T12:16:12.045961",
+  "probe_steps": 5000,
+  "dimensions": [
+    1800,
+    350,
+    199
+  ],
+  "voxels": 125370000,
+  "voxels_M": 125.4,
+  "estimated_cost": {
+    "estimated_seconds": 52.2,
+    "estimated_credits": 0.029,
+    "estimated_cost_usd": 0.29,
+    "gpu_type": "H200",
+    "grid_points": 125370000,
+    "note": "Actual cost may be lower if simulation converges early"
+  },
+  "status": "failed_simulation",
+  "sim_wall_time": 10.644543170928955
+}
