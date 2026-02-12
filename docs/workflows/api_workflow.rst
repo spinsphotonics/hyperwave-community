@@ -22,7 +22,8 @@ Your API key authenticates requests to the SPINs servers and tracks your credit 
 
    import hyperwave_community as hwc
 
-   hwc.configure_api(api_key="your-api-key-here")
+   from google.colab import userdata
+   hwc.configure_api(api_key=userdata.get('HYPERWAVE_API_KEY'))
    hwc.get_account_info()  # Check your credits
 
 Step 1: Build Structure Recipe
