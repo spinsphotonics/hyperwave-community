@@ -24,7 +24,8 @@ All CPU steps (structure creation, mode solving, etc.) run on Modal servers prov
 
    import hyperwave_community as hwc
 
-   hwc.configure_api(api_key="your-key")
+   from google.colab import userdata
+   hwc.configure_api(api_key=userdata.get('HYPERWAVE_API_KEY'))
 
    # Single call creates the entire structure
    recipe_result = hwc.build_recipe(

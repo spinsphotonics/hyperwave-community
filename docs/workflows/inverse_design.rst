@@ -24,7 +24,8 @@ Install the package and configure your API key:
 
    import hyperwave_community as hwc
 
-   hwc.configure_api(api_key="your-api-key-here")
+   from google.colab import userdata
+   hwc.configure_api(api_key=userdata.get('HYPERWAVE_API_KEY'))
    hwc.get_account_info()
 
 You will also need these imports throughout the workflow:
