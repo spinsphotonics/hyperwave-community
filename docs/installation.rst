@@ -44,8 +44,8 @@ Get an API Key
 
 To run simulations, you need an API key from `spinsphotonics.com <https://spinsphotonics.com>`_.
 
-1. Create an account at spinsphotonics.com
-2. Navigate to your dashboard to find your API key
+1. Sign up at `spinsphotonics.com <https://spinsphotonics.com>`_
+2. Find your API key in the dashboard under Settings
 3. Configure the SDK:
 
 .. code-block:: python
@@ -54,6 +54,9 @@ To run simulations, you need an API key from `spinsphotonics.com <https://spinsp
 
    hwc.configure_api(api_key="your-api-key-here")
    hwc.get_account_info()  # Verify your key and check credits
+
+.. tip::
+   If you are using Google Colab, store your API key in **Colab Secrets** instead of pasting it directly in your notebook. See :doc:`getting_started/colab_secrets` for setup instructions.
 
 Next Steps
 ----------
