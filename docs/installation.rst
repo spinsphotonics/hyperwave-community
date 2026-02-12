@@ -7,24 +7,28 @@ Requirements
 * Python 3.9 or higher
 * Internet connection (for API calls)
 
-Install from GitHub
--------------------
+The easiest way to get started is with `Google Colab <https://colab.research.google.com>`_, which provides a free hosted notebook environment with all dependencies pre-installed. All of our tutorials include "Open in Colab" links that let you start running simulations immediately.
 
-.. code-block:: bash
+Install in Google Colab
+-----------------------
 
-   pip install git+https://github.com/spinsphotonics/hyperwave-community.git
-
-Install in Jupyter/Colab
-------------------------
-
-In a Jupyter notebook or Google Colab, use:
+Run this in the first cell of your Colab notebook:
 
 .. code-block:: python
 
    %pip install git+https://github.com/spinsphotonics/hyperwave-community.git -q
 
+Install Locally
+---------------
+
+If you prefer to work on your own machine:
+
+.. code-block:: bash
+
+   pip install git+https://github.com/spinsphotonics/hyperwave-community.git
+
 .. note::
-   You may need to restart the kernel after installation.
+   You may need to restart the kernel after installation in Jupyter.
 
 Dependencies
 ------------
