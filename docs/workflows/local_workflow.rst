@@ -437,7 +437,8 @@ Key parameters that control the simulation:
    import hyperwave_community as hwc
 
    # Configure and validate API key
-   hwc.configure_api(api_key="your-api-key-here")
+   from google.colab import userdata
+   hwc.configure_api(api_key=userdata.get('HYPERWAVE_API_KEY'))
    hwc.get_account_info()
 
    # Extract recipes for API
