@@ -43,36 +43,10 @@ The local workflow is the primary way to use Hyperwave. All CPU steps run locall
 
 :doc:`local_workflow` - Full tutorial
 
-API Workflow
-------------
+You can also use the API Workflow
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The API workflow packages the entire structure creation pipeline into a single server-side call. It targets users who want to integrate the Hyperwave solver into an existing environment or application (e.g., a UI, automated pipeline, or third-party tool) with minimal code.
-
-**Use this workflow when:**
-
-* You are integrating Hyperwave into an existing application or UI
-* You want a single API call to produce a ready-to-simulate structure
-* You are working with standard GDSFactory components and don't need to modify intermediate arrays
-
-**Example:**
-
-.. code-block:: python
-
-   import hyperwave_community as hwc
-
-   from google.colab import userdata
-   hwc.configure_api(api_key=userdata.get('HYPERWAVE_API_KEY'))
-
-   # Single call creates the entire structure
-   recipe_result = hwc.build_recipe(
-       component_name="mmi2x2_with_sbend",
-       resolution_nm=20,
-       n_core=3.48,
-       n_clad=1.4457,
-       ...
-   )
-
-:doc:`api_workflow` - Full tutorial
+If you are integrating Hyperwave into an existing application, UI, or automated pipeline, the API workflow provides a single server-side call that handles structure creation for you. See :doc:`api_workflow` for details.
 
 Workflow Comparison
 -------------------
