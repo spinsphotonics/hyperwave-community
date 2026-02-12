@@ -7,8 +7,8 @@ Hyperwave Community offers two workflows for running FDTD photonics simulations.
    :local:
    :depth: 2
 
-Local Workflow (Recommended)
-----------------------------
+Local Workflow
+--------------
 
 The local workflow is the primary way to use Hyperwave. All CPU steps run locally on your machine or in Google Colab, giving you full control over intermediate arrays (theta, density, permittivity) at every stage. Only the GPU simulation requires an API call.
 

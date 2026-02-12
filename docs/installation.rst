@@ -60,6 +60,6 @@ Next Steps
 
 Choose a workflow to get started:
 
-* :doc:`workflows/index` - Compare workflows and choose the right one
-* :doc:`workflows/api_workflow` - Quick start with the API workflow (recommended for beginners)
-* :doc:`workflows/local_workflow` - Detailed local workflow with more control
+* :doc:`workflows/index` - Overview of available workflows
+* :doc:`workflows/local_workflow` - Step-by-step tutorial with full control
+* :doc:`workflows/api_workflow` - Single-call workflow for integration into existing systems
