@@ -1,22 +1,58 @@
 Workflows
 =========
 
-Hyperwave Community offers two workflows for running FDTD photonics simulations. Both produce identical results - choose based on where you want CPU work to run.
+Hyperwave Community offers two workflows for running FDTD photonics simulations. Both produce identical results on NVIDIA B200 GPUs.
 
 .. contents:: On this page
    :local:
    :depth: 2
 
+Local Workflow (Recommended)
+----------------------------
+
+The local workflow is the primary way to use Hyperwave. All CPU steps run locally on your machine or in Google Colab, giving you full control over intermediate arrays (theta, density, permittivity) at every stage. Only the GPU simulation requires an API call.
+
+**Start here for:**
+
+* Learning how the solver works
+* Testing and validating simulations
+* Custom structures and parameter sweeps
+* Inverse design and optimization
+* Any workflow where you want to inspect or modify intermediate data
+
+**Example:**
+
+.. code-block:: python
+
+   import hyperwave_community as hwc
+   import gdsfactory as gf
+
+   from google.colab import userdata
+   hwc.configure_api(api_key=userdata.get('HYPERWAVE_API_KEY'))
+
+   # Load component and convert to theta pattern
+   component = gf.components.mmi2x2_with_sbend()
+   theta, device_info = hwc.component_to_theta(
+       component=component,
+       resolution=0.02,
+   )
+
+   # Build structure step by step
+   density_core = hwc.density(theta=theta, pad_width=(100, 100, 0, 0), radius=3)
+   structure = hwc.create_structure(layers=[...], vertical_radius=2.0)
+
+:doc:`local_workflow` - Full tutorial
+
 API Workflow
 ------------
 
-All CPU steps (structure creation, mode solving, etc.) run on Modal servers provided by SPINs. You send a single ``build_recipe()`` call and get back the full structure.
+The API workflow packages the entire structure creation pipeline into a single server-side call. It targets users who want to integrate the Hyperwave solver into an existing environment or application (e.g., a UI, automated pipeline, or third-party tool) with minimal code.
 
 **Use this workflow when:**
 
-* You want to simulate standard GDSFactory components (MMIs, couplers, bends, etc.)
-* You want minimal code
-* You don't need to inspect intermediate data
+* You are integrating Hyperwave into an existing application or UI
+* You want a single API call to produce a ready-to-simulate structure
+* You are working with standard GDSFactory components and don't need to modify intermediate arrays
 
 **Example:**
 
@@ -38,38 +74,6 @@ All CPU steps (structure creation, mode solving, etc.) run on Modal servers prov
 
 :doc:`api_workflow` - Full tutorial
 
-Local Workflow
---------------
-
-All CPU steps run locally on your machine (or Colab). You build the structure step by step using hyperwave functions directly. Only the GPU simulation requires an API call.
-
-**Use this workflow when:**
-
-* You need custom structures not available in GDSFactory
-* You're doing inverse design / optimization
-* You want to inspect or modify intermediate arrays (theta, density, permittivity)
-* You're running in Colab and want to use Colab's CPU
-
-**Example:**
-
-.. code-block:: python
-
-   import hyperwave_community as hwc
-   import gdsfactory as gf
-
-   # Load component and convert to theta pattern
-   component = gf.components.mmi2x2_with_sbend()
-   theta, device_info = hwc.component_to_theta(
-       component=component,
-       resolution=0.02,
-   )
-
-   # Build structure step by step
-   density_core = hwc.density(theta=theta, pad_width=(100, 100, 0, 0), radius=3)
-   structure = hwc.create_structure(layers=[...], vertical_radius=2.0)
-
-:doc:`local_workflow` - Full tutorial
-
 Workflow Comparison
 -------------------
 
@@ -78,26 +82,26 @@ Workflow Comparison
    :widths: 30 35 35
 
    * -
-     - **API Workflow**
      - **Local Workflow**
+     - **API Workflow**
+   * - Primary use
+     - Learning, testing, custom work
+     - Integration into existing systems
    * - CPU work runs on
-     - Modal (SPINs servers)
      - Your machine / Colab
+     - Modal (SPINs servers)
    * - Structure creation
-     - Single API call
      - Step-by-step local functions
-   * - GDSFactory components
-     - Built-in support
-     - Full customization
+     - Single API call
    * - Custom theta patterns
-     - Not supported
      - Full support
+     - Not supported
    * - Intermediate inspection
-     - Limited
      - Full access to all arrays
+     - Limited
    * - Lines of code
-     - ~30 lines
      - ~50 lines
+     - ~30 lines
 
 Shared Steps
 ------------
@@ -144,6 +148,6 @@ Credits are only consumed when running ``run_simulation()``. All simulations run
    :maxdepth: 1
    :hidden:
 
-   api_workflow
    local_workflow
+   api_workflow
    inverse_design
