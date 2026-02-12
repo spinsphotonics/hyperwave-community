@@ -5,13 +5,13 @@ Inverse Design Workflow
 
 This tutorial walks through gradient-based topology optimization of a silicon-on-insulator (SOI) grating coupler using the adjoint method on cloud GPUs. Each optimization step runs a forward and adjoint FDTD simulation to compute the gradient of a loss function with respect to design variables. The optimizer (Adam with cosine learning rate decay) updates the 2D design pattern to maximize mode coupling efficiency from a fiber into a waveguide.
 
-**Open in Google Colab**: `gc_inverse_design.ipynb <https://colab.research.google.com/github/spinsphotonics/hyperwave-community/blob/main/examples/gc_inverse_design.ipynb>`_
+**Open in Google Colab**: `inverse_design_workflow.ipynb <https://colab.research.google.com/github/spinsphotonics/hyperwave-community/blob/main/examples/inverse_design_workflow.ipynb>`_
 
-`Download the notebook <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/gc_inverse_design.ipynb>`_
+`Download the notebook <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/inverse_design_workflow.ipynb>`_
 
-.. contents:: Steps
+.. contents:: On this page
    :local:
-   :depth: 1
+   :depth: 2
 
 Prerequisites
 -------------
@@ -24,8 +24,7 @@ Install the package and configure your API key:
 
    import hyperwave_community as hwc
 
-   from google.colab import userdata
-   hwc.configure_api(api_key=userdata.get('HYPERWAVE_API_KEY'))
+   hwc.configure_api(api_key="your-api-key-here")
    hwc.get_account_info()
 
 You will also need these imports throughout the workflow:
@@ -484,8 +483,8 @@ Compute the mode coupling efficiency using the mode overlap integral:
 Notebook Download
 -----------------
 
-`Open in Google Colab <https://colab.research.google.com/github/spinsphotonics/hyperwave-community/blob/main/examples/gc_inverse_design.ipynb>`_
-| `Download from GitHub <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/gc_inverse_design.ipynb>`_
+`Open in Google Colab <https://colab.research.google.com/github/spinsphotonics/hyperwave-community/blob/main/examples/inverse_design_workflow.ipynb>`_
+| `Download from GitHub <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/inverse_design_workflow.ipynb>`_
 
 Summary
 -------
@@ -528,8 +527,6 @@ Next Steps
 * Gradually increase ``density_alpha`` during optimization for binarization
 * Expand ``freq_band`` to multiple wavelengths (e.g., 1530-1570nm) for broadband optimization
 * Try different initial theta values (0.3, 0.5, 0.7, or random) to explore different local optima
-* :doc:`api_workflow` - Cloud-based forward simulations
-* :doc:`local_workflow` - Step-by-step local workflow with full control
-* :doc:`../gpu_options` - GPU performance and cost reference
-* :doc:`../convergence` - Early stopping configuration
-* :doc:`../api` - Full API reference
+* :doc:`../gpu_options` for GPU performance and cost reference
+* :doc:`../convergence` for early stopping configuration
+* :doc:`../api` for full API reference
