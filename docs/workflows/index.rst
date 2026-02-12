@@ -120,7 +120,6 @@ Credits are only consumed when running ``run_simulation()``. All simulations run
 
 .. toctree::
    :maxdepth: 1
-   :hidden:
 
    local_workflow
    api_workflow
