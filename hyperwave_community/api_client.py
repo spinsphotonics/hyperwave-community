@@ -1072,10 +1072,10 @@ def estimate_cost(
     grid_points: Optional[int] = None,
     structure_shape: Optional[Tuple[int, int, int, int]] = None,
     max_steps: int = 10000,
+    gpu_type: str = "B200",
     simulation_type: str = "fdtd_simulation",
 ) -> Optional[Dict[str, Any]]:
     """Estimate simulation cost before running (no auth required)."""
-    gpu_type = "B200"
     API_URL = _API_CONFIG['api_url']
 
     request_data = {
@@ -1653,10 +1653,9 @@ def run_simulation(
 
     except requests.exceptions.HTTPError as e:
         _handle_api_error(e, "run_simulation")
-        return None
+        raise RuntimeError(f"Simulation failed: {e}") from e
     except requests.exceptions.RequestException as e:
-        print(f"Error running simulation: {e}")
-        return None
+        raise RuntimeError(f"Simulation request failed: {e}") from e
 
 
 # =============================================================================
@@ -1678,6 +1677,7 @@ def simulate(
     absorption_coeff: float = 1e-4,
     api_key: Optional[str] = None,
     convergence: Optional[str] = "default",
+    gpu_type: str = "B200",
 ) -> Optional[Dict[str, Any]]:
     """Run FDTD simulation on cloud GPU using structure recipe and monitors recipe.
 
@@ -1700,6 +1700,7 @@ def simulate(
         absorption_coeff: Absorption coefficient (default: 1e-4).
         api_key: API key for authentication. If None, uses configured API key.
         convergence: Early stopping preset ("quick", "default", "thorough", "full").
+        gpu_type: GPU type for simulation (default: "B200").
 
     Returns:
         Dictionary with simulation results including:
@@ -1731,8 +1732,6 @@ def simulate(
         ...     monitors_recipe=monitors_recipe,
         ... )
     """
-    gpu_type = "B200"
-
     # Use provided api_key or fall back to configured one
     effective_api_key = api_key or _API_CONFIG.get('api_key')
     if not effective_api_key:
@@ -1870,10 +1869,9 @@ def simulate(
 
     except requests.exceptions.HTTPError as e:
         _handle_api_error(e, "simulation")
-        return None
+        raise RuntimeError(f"Simulation failed: {e}") from e
     except requests.exceptions.RequestException as e:
-        print(f"Error running simulation: {e}")
-        return None
+        raise RuntimeError(f"Simulation request failed: {e}") from e
 
 
 # =============================================================================
