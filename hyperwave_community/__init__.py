@@ -60,6 +60,7 @@ from .structure import (
 
 # Import absorption functions
 from .absorption import (
+    absorber_params,
     create_absorption_mask,
     get_optimized_absorber_params,
 )
@@ -164,6 +165,7 @@ __all__ = [
     "recipe_from_params",
 
     # Absorption
+    "absorber_params",
     "create_absorption_mask",
     "get_optimized_absorber_params",
 
