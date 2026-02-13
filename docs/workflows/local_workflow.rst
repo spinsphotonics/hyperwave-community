@@ -1,12 +1,7 @@
 Local Workflow
 ==============
 
-In the local workflow, all CPU steps run on your machine (or in Google Colab). You build the
-simulation structure step by step, giving you full access to intermediate arrays -- theta patterns,
-density fields, permittivity distributions -- at every stage. This is ideal for custom structures,
-inverse design, and debugging, because you can inspect and modify any intermediate result before
-proceeding to the next step. Only the GPU FDTD simulation step (Step 7) requires an API call and
-costs credits (1 credit = $25 = 1 hour of B200 compute); everything else runs locally and is free.
+All CPU steps run on your machine (or in Google Colab), giving you full access to intermediate arrays (theta patterns, density fields, permittivity distributions) at every stage. This is the best workflow for learning how the solver works, testing simulations, building custom structures, and running inverse design. Only the GPU FDTD simulation step (Step 7) requires an API call and costs credits (1 credit = $25 = 1 hour of B200 compute); everything else runs locally and is free.
 
 **Open in Google Colab**: `local_workflow.ipynb <https://colab.research.google.com/github/spinsphotonics/hyperwave-community/blob/main/examples/local_workflow.ipynb>`_
 

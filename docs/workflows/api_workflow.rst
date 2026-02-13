@@ -1,9 +1,9 @@
 API Workflow
 ============
 
-This tutorial walks through the API workflow for simulating an MMI 2x2 splitter. The API workflow is the simplest way to run FDTD simulations using standard GDSFactory components.
+The API workflow packages the entire structure creation pipeline into a single server-side call. It is designed for users who want to integrate the Hyperwave solver into an existing application, UI, or automated pipeline with minimal code. All CPU-intensive steps (structure creation, density filtering, layer stacking) run on Modal servers provided by SPINs. Only the GPU FDTD simulation step costs credits (1 credit = $25 = 1 hour of compute).
 
-In the API workflow, all CPU-intensive steps (structure creation, density filtering, layer stacking) run on Modal servers provided by SPINs. You only need to specify the component and parameters; the server handles the rest. Only the GPU FDTD simulation step costs credits (1 credit = $25 = 1 hour of compute).
+If you are new to Hyperwave or want full control over intermediate data, start with the :doc:`local_workflow` instead.
 
 **Open in Google Colab**: `api_workflow.ipynb <https://colab.research.google.com/github/spinsphotonics/hyperwave-community/blob/main/examples/api_workflow.ipynb>`_
 

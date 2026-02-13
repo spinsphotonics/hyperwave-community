@@ -1,53 +1,26 @@
+:orphan:
+
 Workflows
 =========
 
-Hyperwave Community offers two workflows for running FDTD photonics simulations. Both produce identical results - choose based on where you want CPU work to run.
+Hyperwave Community offers two workflows for running FDTD photonics simulations. Both produce identical results on NVIDIA B200 GPUs.
 
 .. contents:: On this page
    :local:
    :depth: 2
 
-API Workflow
-------------
-
-All CPU steps (structure creation, mode solving, etc.) run on Modal servers provided by SPINs. You send a single ``build_recipe()`` call and get back the full structure.
-
-**Use this workflow when:**
-
-* You want to simulate standard GDSFactory components (MMIs, couplers, bends, etc.)
-* You want minimal code
-* You don't need to inspect intermediate data
-
-**Example:**
-
-.. code-block:: python
-
-   import hyperwave_community as hwc
-
-   hwc.configure_api(api_key="your-key")
-
-   # Single call creates the entire structure
-   recipe_result = hwc.build_recipe(
-       component_name="mmi2x2_with_sbend",
-       resolution_nm=20,
-       n_core=3.48,
-       n_clad=1.4457,
-       ...
-   )
-
-:doc:`api_workflow` - Full tutorial
-
 Local Workflow
 --------------
 
-All CPU steps run locally on your machine (or Colab). You build the structure step by step using hyperwave functions directly. Only the GPU simulation requires an API call.
+The local workflow is the primary way to use Hyperwave. All CPU steps run locally on your machine or in Google Colab, giving you full control over intermediate arrays (theta, density, permittivity) at every stage. Only the GPU simulation requires an API call.
 
-**Use this workflow when:**
+**Start here for:**
 
-* You need custom structures not available in GDSFactory
-* You're doing inverse design / optimization
-* You want to inspect or modify intermediate arrays (theta, density, permittivity)
-* You're running in Colab and want to use Colab's CPU
+* Learning how the solver works
+* Testing and validating simulations
+* Custom structures and parameter sweeps
+* Inverse design and optimization
+* Any workflow where you want to inspect or modify intermediate data
 
 **Example:**
 
@@ -55,6 +28,9 @@ All CPU steps run locally on your machine (or Colab). You build the structure st
 
    import hyperwave_community as hwc
    import gdsfactory as gf
+
+   from google.colab import userdata
+   hwc.configure_api(api_key=userdata.get('HYPERWAVE_API_KEY'))
 
    # Load component and convert to theta pattern
    component = gf.components.mmi2x2_with_sbend()
@@ -69,8 +45,13 @@ All CPU steps run locally on your machine (or Colab). You build the structure st
 
 :doc:`local_workflow` - Full tutorial
 
+You can also use the API Workflow
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you are integrating Hyperwave into an existing application, UI, or automated pipeline, the API workflow provides a single server-side call that handles structure creation for you. See :doc:`api_workflow` for details.
+
 Inverse Design Workflow
-----------------------
+-----------------------
 
 Adjoint-method gradient-based optimization on cloud GPUs. The optimizer iteratively
 updates a 2D design pattern (theta) by running forward and adjoint FDTD simulations
@@ -88,7 +69,8 @@ to compute gradients of a loss function with respect to the design variables.
 
    import hyperwave_community as hwc
 
-   hwc.configure_api(api_key="your-key")
+   from google.colab import userdata
+   hwc.configure_api(api_key=userdata.get('HYPERWAVE_API_KEY'))
 
    # Run optimization loop on cloud GPU
    for step_result in hwc.run_optimization(
@@ -111,39 +93,39 @@ Workflow Comparison
 
 .. list-table::
    :header-rows: 1
-   :widths: 25 25 25 25
+   :widths: 20 25 25 30
 
    * -
-     - **API Workflow**
      - **Local Workflow**
+     - **API Workflow**
      - **Inverse Design**
+   * - Primary use
+     - Learning, testing, custom work
+     - Integration into existing systems
+     - Topology optimization
    * - CPU work runs on
-     - Modal (SPINs servers)
      - Your machine / Colab
+     - Modal (SPINs servers)
      - Your machine + cloud GPU
    * - Structure creation
-     - Single API call
      - Step-by-step local functions
+     - Single API call
      - Step-by-step with theta optimization
-   * - GDSFactory components
-     - Built-in support
-     - Full customization
-     - Not used (custom theta)
    * - Custom theta patterns
-     - Not supported
      - Full support
+     - Not supported
      - Required (design variable)
    * - Intermediate inspection
+     - Full access to all arrays
      - Limited
      - Full access to all arrays
-     - Full access to all arrays
    * - Optimization
-     - Not supported
      - Manual only
+     - Not supported
      - Adjoint-method gradient-based
    * - Lines of code
-     - ~30 lines
      - ~50 lines
+     - ~30 lines
      - ~80 lines
 
 Shared Steps
@@ -191,8 +173,7 @@ Credits are only consumed when running ``run_simulation()`` or ``run_optimizatio
 
 .. toctree::
    :maxdepth: 1
-   :hidden:
 
-   api_workflow
    local_workflow
+   api_workflow
    inverse_design
