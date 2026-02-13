@@ -1819,14 +1819,39 @@ def simulate(
     }
 
     try:
-        print(f"Calling {endpoint} API...")
-        response = requests.post(
-            f"{API_URL}{endpoint}",
-            json=body,
-            headers=headers,
-            timeout=600
-        )
-        response.raise_for_status()
+        max_retries = 3
+        retry_delay = 10
+        last_error = None
+
+        for attempt in range(max_retries):
+            try:
+                if attempt > 0:
+                    print(f"Retry {attempt}/{max_retries - 1} after {retry_delay}s...")
+                    time.sleep(retry_delay)
+                    retry_delay *= 2
+                print(f"Calling {endpoint} API...")
+                response = requests.post(
+                    f"{API_URL}{endpoint}",
+                    json=body,
+                    headers=headers,
+                    timeout=1800
+                )
+                response.raise_for_status()
+                break
+            except requests.exceptions.HTTPError as retry_err:
+                status = retry_err.response.status_code if retry_err.response is not None else 0
+                if status in (502, 503, 504) and attempt < max_retries - 1:
+                    print(f"Service temporarily unavailable (HTTP {status}). Will retry.")
+                    last_error = retry_err
+                    continue
+                raise
+            except requests.exceptions.ReadTimeout as retry_err:
+                if attempt < max_retries - 1:
+                    print(f"Request timed out. Will retry.")
+                    last_error = retry_err
+                    continue
+                raise
+
         result = response.json()
 
         sim_time = result.get("sim_time", 0)
