@@ -135,14 +135,14 @@ def absorber_params(
 ) -> Dict[str, any]:
     """Compute absorber parameters from wavelength and grid spacing.
 
-    Uses power-law fits (param = a * wl^b * dx^c) to Bayesian-optimized
-    results. Trained on 6 configs: {1310, 1550}nm x {25, 35, 50}nm,
-    100 trials each, straight-down Gaussian source in free space.
+    Uses power-law fits to Bayesian-optimized results with minimum floors
+    derived from validated simulation defaults. The BO was trained on
+    {1310, 1550}nm x {25, 35, 50}nm configs (100 trials each).
 
-    Fit quality (z-scores all within +/-1.8):
-        - XY width: R2=0.133 (noisy, floored at 0.5um)
-        - Z width:  R2=0.676 (decent, strong wl dependence)
-        - Coefficient: R2=0.887 (good, dx^2.6 ~ known dx^2 physics)
+    The Z-direction fit (R2=0.676) and coefficient fit (R2=0.887) are
+    reliable. The XY fit (R2=0.133) is floored at 2.1 um because the
+    BO training setup (straight-down source) did not exercise lateral
+    absorption sufficiently.
 
     Args:
         wavelength_um: Wavelength in micrometers (e.g. 1.31 or 1.55).
@@ -170,9 +170,10 @@ def absorber_params(
 
     # Power-law fits: param = a * wl^b * dx^c
     # From v2 BO (straight-down source, 100 trials, 6 configs)
-    abs_xy_um = max(0.5, 0.062 * wl ** 1.389 * dx ** (-0.619))
-    abs_z_um = 1.244 * wl ** 1.758 * dx ** 0.159
-    abs_coeff = 2.876 * wl ** (-1.607) * dx ** 2.579
+    # Floors match the simulate() defaults at 35nm: (60, 40, 40) / 1e-4
+    abs_xy_um = max(2.1, 0.062 * wl ** 1.389 * dx ** (-0.619))
+    abs_z_um = max(1.4, 1.244 * wl ** 1.758 * dx ** 0.159)
+    abs_coeff = max(1e-4, 2.876 * wl ** (-1.607) * dx ** 2.579)
 
     result = {
         "abs_xy_um": abs_xy_um,
