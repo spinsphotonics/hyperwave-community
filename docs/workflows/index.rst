@@ -1,5 +1,3 @@
-:orphan:
-
 Workflows
 =========
 
@@ -49,46 +47,6 @@ You can also use the API Workflow
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you are integrating Hyperwave into an existing application, UI, or automated pipeline, the API workflow provides a single server-side call that handles structure creation for you. See :doc:`api_workflow` for details.
-
-Inverse Design Workflow
------------------------
-
-Adjoint-method gradient-based optimization on cloud GPUs. The optimizer iteratively
-updates a 2D design pattern (theta) by running forward and adjoint FDTD simulations
-to compute gradients of a loss function with respect to the design variables.
-
-**Use this workflow when:**
-
-* You want to optimize a photonic structure (e.g., grating coupler) for a target objective
-* You need gradient-based topology optimization with adjoint-method gradients
-* You want to maximize mode coupling efficiency, Poynting power, or field intensity
-
-**Example:**
-
-.. code-block:: python
-
-   import hyperwave_community as hwc
-
-   from google.colab import userdata
-   hwc.configure_api(api_key=userdata.get('HYPERWAVE_API_KEY'))
-
-   # Run optimization loop on cloud GPU
-   for step_result in hwc.run_optimization(
-       theta=theta_init,
-       source_field=source_field,
-       source_offset=source_offset,
-       freq_band=freq_band,
-       structure_spec=structure_spec,
-       mode_field=mode_field,        # built-in mode coupling loss
-       input_power=input_power,
-       mode_cross_power=P_mode_cross,
-       num_steps=50,
-       learning_rate=0.1,
-       ...
-   ):
-       print(f"Step {step_result['step']}: efficiency = {abs(step_result['loss']) * 100:.2f}%")
-
-:doc:`inverse_design` - Full tutorial
 
 Workflow Comparison
 -------------------
