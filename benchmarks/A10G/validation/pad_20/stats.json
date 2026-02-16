@@ -1,0 +1,43 @@
+{
+  "gpu_type": "A10G",
+  "category": "validation",
+  "label": "pad_20",
+  "padding": [
+    20,
+    20,
+    0,
+    0
+  ],
+  "timestamp": "2026-02-07T04:34:17.910196",
+  "status": "failed_simulation",
+  "dimensions": [
+    1800,
+    270,
+    199
+  ],
+  "voxels": 96714000,
+  "voxels_M": 96.7,
+  "monitor_names": [
+    "Input_o1",
+    "Input_o2",
+    "Output_o3",
+    "Output_o4",
+    "xy_mid"
+  ],
+  "absorber_width": 82,
+  "absorber_coeff": 0.0006173770394704579,
+  "absorption_widths": [
+    82,
+    41,
+    41
+  ],
+  "estimated_cost": {
+    "estimated_seconds": 2579.0,
+    "estimated_credits": 0.2866,
+    "estimated_cost_usd": 2.87,
+    "gpu_type": "A10G",
+    "grid_points": 96714000,
+    "note": "Actual cost may be lower if simulation converges early"
+  },
+  "sim_wall_time": 154.65233182907104
+}

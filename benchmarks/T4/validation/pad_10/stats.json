@@ -1,0 +1,43 @@
+{
+  "gpu_type": "T4",
+  "category": "validation",
+  "label": "pad_10",
+  "padding": [
+    10,
+    10,
+    0,
+    0
+  ],
+  "timestamp": "2026-02-07T04:34:17.911287",
+  "status": "failed_simulation",
+  "dimensions": [
+    1800,
+    260,
+    199
+  ],
+  "voxels": 93132000,
+  "voxels_M": 93.1,
+  "monitor_names": [
+    "Input_o1",
+    "Input_o2",
+    "Output_o3",
+    "Output_o4",
+    "xy_mid"
+  ],
+  "absorber_width": 82,
+  "absorber_coeff": 0.0006173770394704579,
+  "absorption_widths": [
+    82,
+    41,
+    41
+  ],
+  "estimated_cost": {
+    "estimated_seconds": 4656.6,
+    "estimated_credits": 0.3881,
+    "estimated_cost_usd": 3.88,
+    "gpu_type": "T4",
+    "grid_points": 93132000,
+    "note": "Actual cost may be lower if simulation converges early"
+  },
+  "sim_wall_time": 82.64275312423706
+}

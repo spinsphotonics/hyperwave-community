@@ -857,17 +857,22 @@ def build_monitors_local(
 # Global API configuration
 _API_CONFIG = {
     'api_key': None,
-    'api_url': 'https://hyperwave-gateway-production.up.railway.app'
+    'api_url': 'https://hyperwave-gateway-production.up.railway.app',
+    'gateway_url': None,
 }
 
 
-def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None, validate: bool = True) -> Optional[Dict[str, Any]]:
+def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None,
+                   gateway_url: Optional[str] = None, validate: bool = True) -> Optional[Dict[str, Any]]:
     """Configure API credentials and endpoint, with optional validation.
 
     Args:
         api_key: API authentication key. If None, uses HYPERWAVE_API_KEY environment variable.
-        api_url: API endpoint URL. If None, uses HYPERWAVE_API_URL environment variable
-            or defaults to production endpoint.
+        api_url: GPU endpoint URL (Modal). If None, uses HYPERWAVE_API_URL environment variable
+            or defaults to production Modal endpoint.
+        gateway_url: Gateway URL (Railway) for WebSocket optimization and billing.
+            If None, uses HYPERWAVE_GATEWAY_URL environment variable or defaults
+            to production Railway endpoint.
         validate: If True (default), validates the API key by calling the server.
 
     Returns:
@@ -895,19 +900,25 @@ def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None, 
     elif 'HYPERWAVE_API_URL' in os.environ:
         _API_CONFIG['api_url'] = os.environ['HYPERWAVE_API_URL']
 
+    if gateway_url is not None:
+        _API_CONFIG['gateway_url'] = gateway_url
+    elif 'HYPERWAVE_GATEWAY_URL' in os.environ:
+        _API_CONFIG['gateway_url'] = os.environ['HYPERWAVE_GATEWAY_URL']
+
     if _API_CONFIG['api_key'] is None:
         raise ValueError(
             "API key not provided. Set HYPERWAVE_API_KEY environment variable "
             "or call configure_api(api_key='your-key') first."
         )
 
-    # Validate API key if requested
+    # Validate API key if requested (use gateway for fast response, no cold start)
     if validate:
         try:
+            validate_url = _API_CONFIG.get('gateway_url') or _API_CONFIG['api_url']
             response = requests.post(
-                f"{_API_CONFIG['api_url']}/account_info",
+                f"{validate_url}/account_info",
                 params={"api_key": _API_CONFIG['api_key']},
-                timeout=120  # Modal cold start can take time
+                timeout=30
             )
             if response.status_code == 403:
                 raise RuntimeError("Invalid API key. Please check your API key and try again.")
@@ -938,6 +949,11 @@ def _get_api_config() -> Dict[str, str]:
 
 def encode_array(arr: np.ndarray) -> str:
     """Encode numpy array to base64 string for API transmission."""
+    # Downcast to single precision to halve transfer size
+    if arr.dtype == np.complex128:
+        arr = arr.astype(np.complex64)
+    elif arr.dtype == np.float64:
+        arr = arr.astype(np.float32)
     buffer = io.BytesIO()
     np.save(buffer, arr)
     return base64.b64encode(buffer.getvalue()).decode('utf-8')
@@ -1056,10 +1072,10 @@ def estimate_cost(
     grid_points: Optional[int] = None,
     structure_shape: Optional[Tuple[int, int, int, int]] = None,
     max_steps: int = 10000,
+    gpu_type: str = "B200",
     simulation_type: str = "fdtd_simulation",
 ) -> Optional[Dict[str, Any]]:
     """Estimate simulation cost before running (no auth required)."""
-    gpu_type = "B200"
     API_URL = _API_CONFIG['api_url']
 
     request_data = {
@@ -1637,10 +1653,9 @@ def run_simulation(
 
     except requests.exceptions.HTTPError as e:
         _handle_api_error(e, "run_simulation")
-        return None
+        raise RuntimeError(f"Simulation failed: {e}") from e
     except requests.exceptions.RequestException as e:
-        print(f"Error running simulation: {e}")
-        return None
+        raise RuntimeError(f"Simulation request failed: {e}") from e
 
 
 # =============================================================================
@@ -1662,6 +1677,7 @@ def simulate(
     absorption_coeff: float = 1e-4,
     api_key: Optional[str] = None,
     convergence: Optional[str] = "default",
+    gpu_type: str = "B200",
 ) -> Optional[Dict[str, Any]]:
     """Run FDTD simulation on cloud GPU using structure recipe and monitors recipe.
 
@@ -1684,6 +1700,7 @@ def simulate(
         absorption_coeff: Absorption coefficient (default: 1e-4).
         api_key: API key for authentication. If None, uses configured API key.
         convergence: Early stopping preset ("quick", "default", "thorough", "full").
+        gpu_type: GPU type for simulation (default: "B200").
 
     Returns:
         Dictionary with simulation results including:
@@ -1715,8 +1732,6 @@ def simulate(
         ...     monitors_recipe=monitors_recipe,
         ... )
     """
-    gpu_type = "B200"
-
     # Use provided api_key or fall back to configured one
     effective_api_key = api_key or _API_CONFIG.get('api_key')
     if not effective_api_key:
@@ -1804,14 +1819,39 @@ def simulate(
     }
 
     try:
-        print(f"Calling {endpoint} API...")
-        response = requests.post(
-            f"{API_URL}{endpoint}",
-            json=body,
-            headers=headers,
-            timeout=600
-        )
-        response.raise_for_status()
+        max_retries = 3
+        retry_delay = 10
+        last_error = None
+
+        for attempt in range(max_retries):
+            try:
+                if attempt > 0:
+                    print(f"Retry {attempt}/{max_retries - 1} after {retry_delay}s...")
+                    time.sleep(retry_delay)
+                    retry_delay *= 2
+                print(f"Calling {endpoint} API...")
+                response = requests.post(
+                    f"{API_URL}{endpoint}",
+                    json=body,
+                    headers=headers,
+                    timeout=1800
+                )
+                response.raise_for_status()
+                break
+            except requests.exceptions.HTTPError as retry_err:
+                status = retry_err.response.status_code if retry_err.response is not None else 0
+                if status in (502, 503, 504) and attempt < max_retries - 1:
+                    print(f"Service temporarily unavailable (HTTP {status}). Will retry.")
+                    last_error = retry_err
+                    continue
+                raise
+            except requests.exceptions.ReadTimeout as retry_err:
+                if attempt < max_retries - 1:
+                    print(f"Request timed out. Will retry.")
+                    last_error = retry_err
+                    continue
+                raise
+
         result = response.json()
 
         sim_time = result.get("sim_time", 0)
@@ -1854,10 +1894,9 @@ def simulate(
 
     except requests.exceptions.HTTPError as e:
         _handle_api_error(e, "simulation")
-        return None
+        raise RuntimeError(f"Simulation failed: {e}") from e
     except requests.exceptions.RequestException as e:
-        print(f"Error running simulation: {e}")
-        return None
+        raise RuntimeError(f"Simulation request failed: {e}") from e
 
 
 # =============================================================================
@@ -3004,6 +3043,446 @@ def get_field_intensity_2d(
 # INVERSE DESIGN OPTIMIZATION (Streaming)
 # =============================================================================
 
+
+def compute_adjoint_gradient(
+    theta: np.ndarray,
+    source_field: np.ndarray,
+    source_offset: Tuple[int, int, int],
+    freq_band: Tuple[float, float, int],
+    loss_monitor_shape: Tuple[int, int, int],
+    loss_monitor_offset: Tuple[int, int, int],
+    design_monitor_shape: Tuple[int, int, int],
+    design_monitor_offset: Tuple[int, int, int],
+    structure_spec: Dict[str, Any],
+    loss_fn: Optional[Callable] = None,
+    mode_field: Optional[np.ndarray] = None,
+    input_power: Optional[float] = None,
+    mode_cross_power: Optional[float] = None,
+    mode_axis: int = 0,
+    power_axis: Optional[int] = None,
+    power_maximize: bool = True,
+    intensity_component: Optional[str] = None,
+    intensity_maximize: bool = True,
+    absorption_widths: Tuple[int, int, int] = (70, 35, 17),
+    absorption_coeff: float = 0.00489,
+    gpu_type: str = "B200",
+    api_key: Optional[str] = None,
+) -> Dict[str, Any]:
+    """Compute adjoint gradient for inverse design on GPU via API.
+
+    Computes the gradient of a loss function with respect to design variables
+    (theta) using the memory-efficient adjoint method. This enables gradient-based
+    optimization of photonic devices.
+
+    The 3-part autodiff chain:
+        theta -> permittivity (via structure_spec) -> fields (FDTD) -> loss
+
+    Loss function options (in priority order):
+        1. loss_fn: Custom function (most flexible)
+        2. mode_field: Mode coupling efficiency
+        3. power_axis: Poynting vector power (S_from_slice)
+        4. intensity_component: Simple |E|^2
+
+    Args:
+        theta: Design variables (2D numpy array). Values typically in [0, 1].
+        source_field: Source field array, shape (n_freq, 6, sx, sy, sz).
+        source_offset: Source injection position (x, y, z) in pixels.
+        freq_band: Frequency specification as (omega_min, omega_max, num_freqs).
+        loss_monitor_shape: Shape of loss monitor. For power loss, use the
+            full cross-section. For point intensity, use (1, 1, 1).
+        loss_monitor_offset: Position where loss is computed (x, y, z).
+        design_monitor_shape: Shape of design region for gradient computation.
+        design_monitor_offset: Offset of design region.
+        structure_spec: Structure specification dictionary with:
+            - layers_info: list of layer dicts with density_radius, density_alpha,
+              permittivity_values, layer_thickness, conductivity_values
+            - construction_params: dict with vertical_radius
+        loss_fn: Custom loss function (optional). Signature: loss_fn(loss_field) -> scalar.
+            loss_field shape: (n_freq, 6, mx, my, mz). Serialized via cloudpickle.
+            WARNING: Avoid closures over large arrays (causes memory leaks).
+        mode_field: Target mode field for mode coupling loss (optional).
+            If provided, also requires input_power and mode_cross_power.
+        input_power: Input power for mode coupling loss.
+        mode_cross_power: Mode cross power for mode coupling loss.
+        mode_axis: Axis for mode overlap calculation (default: 0 for x-propagation).
+        power_axis: Axis for Poynting vector power loss (optional).
+            0=x, 1=y, 2=z. Uses S_from_slice to compute power through monitor.
+        power_maximize: Whether to maximize power (default: True).
+        intensity_component: Field component for intensity loss ('Ex', 'Ey', 'Ez').
+        intensity_maximize: Whether to maximize intensity (default: True).
+        absorption_widths: PML absorption widths (x, y, z) in pixels.
+        absorption_coeff: PML absorption coefficient.
+        gpu_type: GPU type to use. Options: B200, H200, H100, A100-80GB, A100-40GB, L40S, A10G, T4.
+        api_key: API key (overrides configured key).
+
+    Returns:
+        Dictionary containing:
+            - loss: Computed loss value
+            - grad_theta: Gradient array (same shape as theta)
+            - grad_min: Minimum gradient value
+            - grad_max: Maximum gradient value
+            - grad_time: Gradient computation time (seconds)
+            - total_time: Total time including overhead
+            - gpu_type: GPU type used
+            - memory_reduction_pct: Memory reduction from efficient adjoint
+            - simulation_id: Unique ID for this computation
+
+    Raises:
+        ValueError: If no loss specification is provided.
+
+    Note:
+        Computation takes approximately 30-120 seconds depending on structure size
+        and GPU type. Uses memory-efficient adjoint method (90%+ memory reduction).
+
+    Example 1: Custom loss function
+        >>> def my_loss(loss_field):
+        ...     import jax.numpy as jnp
+        ...     Ez = loss_field[0, 2, :, :, :]
+        ...     return -jnp.sum(jnp.abs(Ez)**2)  # Maximize total Ez intensity
+        >>>
+        >>> result = hwc.compute_adjoint_gradient(
+        ...     theta=theta, source_field=source, ...,
+        ...     loss_fn=my_loss,
+        ...     api_key='your-key'
+        ... )
+
+    Example 2: Power through monitor (using S_from_slice)
+        >>> result = hwc.compute_adjoint_gradient(
+        ...     theta=theta, source_field=source, ...,
+        ...     loss_monitor_shape=(1, 50, 50),  # Full YZ cross-section
+        ...     loss_monitor_offset=(output_x, 0, 0),
+        ...     power_axis=0,  # Maximize Sx (power in x-direction)
+        ...     power_maximize=True,
+        ...     api_key='your-key'
+        ... )
+
+    Example 3: Simple intensity
+        >>> result = hwc.compute_adjoint_gradient(
+        ...     theta=theta, source_field=source, ...,
+        ...     loss_monitor_shape=(1, 1, 1),  # Point monitor
+        ...     intensity_component='Ez',
+        ...     intensity_maximize=True,
+        ...     api_key='your-key'
+        ... )
+    """
+    # Use provided api_key or fall back to configured one
+    effective_api_key = api_key or _API_CONFIG.get('api_key')
+    if not effective_api_key:
+        print("API key required to proceed.")
+        print("Sign up for free at spinsphotonics.com to get your API key.")
+        return None
+
+    # Configure API if api_key was provided and different from current
+    if api_key and api_key != _API_CONFIG.get('api_key'):
+        configure_api(api_key=api_key, validate=False)
+
+    API_URL = _API_CONFIG['api_url']
+
+    # Validate loss parameters - at least one must be provided
+    if (loss_fn is None and mode_field is None and
+        power_axis is None and intensity_component is None):
+        raise ValueError(
+            "Must provide at least one loss specification:\n"
+            "  - loss_fn: Custom loss function\n"
+            "  - mode_field: Mode coupling (with input_power, mode_cross_power)\n"
+            "  - power_axis: Poynting vector power (0=x, 1=y, 2=z)\n"
+            "  - intensity_component: Simple |E|^2 ('Ex', 'Ey', 'Ez')"
+        )
+
+    # Encode theta and source_field to base64
+    theta_b64 = encode_array(np.array(theta, dtype=np.float32))
+    source_field_b64 = encode_array(np.array(source_field))
+
+    # Serialize custom loss function if provided
+    loss_fn_pickle_b64 = None
+    if loss_fn is not None:
+        import cloudpickle
+        loss_fn_bytes = cloudpickle.dumps(loss_fn)
+        loss_fn_pickle_b64 = base64.b64encode(loss_fn_bytes).decode('utf-8')
+
+    # Prepare mode coupling params if provided
+    mode_coupling_params = None
+    if mode_field is not None:
+        if input_power is None or mode_cross_power is None:
+            raise ValueError(
+                "mode_field requires input_power and mode_cross_power"
+            )
+        mode_coupling_params = {
+            'mode_field_b64': encode_array(np.array(mode_field)),
+            'mode_field_shape': list(np.array(mode_field).shape),
+            'input_power': float(input_power),
+            'mode_cross_power': float(mode_cross_power),
+            'axis': int(mode_axis)
+        }
+
+    # Prepare power params if provided
+    power_params = None
+    if power_axis is not None:
+        power_params = {
+            'axis': int(power_axis),
+            'maximize': power_maximize
+        }
+
+    # Prepare intensity params if provided
+    intensity_params = None
+    if intensity_component is not None:
+        intensity_params = {
+            'component': intensity_component,
+            'maximize': intensity_maximize
+        }
+
+    # Build request
+    request_data = {
+        "theta_b64": theta_b64,
+        "theta_shape": list(np.array(theta).shape),
+        "source_field_b64": source_field_b64,
+        "source_field_shape": list(np.array(source_field).shape),
+        "source_offset": list(source_offset),
+        "freq_band": [float(x) for x in freq_band],
+        "loss_monitor_shape": list(loss_monitor_shape),
+        "loss_monitor_offset": list(loss_monitor_offset),
+        "design_monitor_shape": list(design_monitor_shape),
+        "design_monitor_offset": list(design_monitor_offset),
+        "structure_spec": structure_spec,
+        "mode_coupling_params": mode_coupling_params,
+        "intensity_params": intensity_params,
+        "power_params": power_params,
+        "loss_fn_pickle_b64": loss_fn_pickle_b64,
+        "add_absorption": True,
+        "absorption_widths": list(absorption_widths),
+        "absorption_coeff": float(absorption_coeff),
+        "gpu_type": gpu_type
+    }
+
+    headers = {
+        "X-API-Key": effective_api_key,
+        "Content-Type": "application/json"
+    }
+
+    # Debug info
+    print(f"\n=== Inverse Design API Request ===")
+    print(f"Endpoint: {API_URL}/inverse_design")
+    print(f"Theta shape: {request_data['theta_shape']}")
+    print(f"Design monitor: shape={design_monitor_shape}, offset={design_monitor_offset}")
+    print(f"Loss monitor: shape={loss_monitor_shape}, offset={loss_monitor_offset}")
+    print(f"GPU type: {gpu_type}")
+    if loss_fn_pickle_b64:
+        print(f"Loss type: Custom function (cloudpickle)")
+    elif mode_coupling_params:
+        print(f"Loss type: Mode coupling")
+    elif power_params:
+        axis_names = {0: 'x', 1: 'y', 2: 'z'}
+        print(f"Loss type: Power S_{axis_names.get(power_axis, power_axis)} via S_from_slice (maximize={power_maximize})")
+    elif intensity_params:
+        print(f"Loss type: Intensity |{intensity_component}|^2 (maximize={intensity_maximize})")
+    print(f"==================================\n")
+
+    # Send request with retry logic for transient errors
+    try:
+        max_retries = 3
+        retry_delay = 10
+        last_error = None
+
+        for attempt in range(max_retries):
+            try:
+                if attempt > 0:
+                    print(f"Retry {attempt}/{max_retries - 1} after {retry_delay}s...")
+                    time.sleep(retry_delay)
+                    retry_delay *= 2
+                response = requests.post(
+                    f"{API_URL}/inverse_design",
+                    json=request_data,
+                    headers=headers,
+                    timeout=1800  # 30 minute timeout for inverse design
+                )
+                response.raise_for_status()
+                break
+            except requests.exceptions.HTTPError as retry_err:
+                status = retry_err.response.status_code if retry_err.response is not None else 0
+                if status in (502, 503, 504) and attempt < max_retries - 1:
+                    print(f"Service temporarily unavailable (HTTP {status}). Will retry.")
+                    last_error = retry_err
+                    continue
+                raise
+            except requests.exceptions.ReadTimeout as retry_err:
+                if attempt < max_retries - 1:
+                    print(f"Request timed out. Will retry.")
+                    last_error = retry_err
+                    continue
+                raise
+
+        results = response.json()
+
+        # Decode gradient
+        grad_theta = decode_array(results['grad_theta_b64'])
+
+        return {
+            'loss': results['loss'],
+            'grad_theta': grad_theta,
+            'grad_min': results['grad_min'],
+            'grad_max': results['grad_max'],
+            'grad_time': results['grad_time'],
+            'total_time': results['total_time'],
+            'gpu_type': results['gpu_type'],
+            'memory_reduction_pct': results['memory_reduction_pct'],
+            'simulation_id': results.get('simulation_id'),
+            'execution_time_seconds': results.get('execution_time_seconds'),
+            'computation_time_seconds': results.get('computation_time_seconds')
+        }
+
+    except requests.exceptions.HTTPError as e:
+        if e.response is not None:
+            status_code = e.response.status_code
+            response_text = e.response.text
+
+            print(f"\n=== API Error ===")
+            print(f"Status Code: {status_code}")
+            print(f"Response: {response_text}")
+            print(f"=================\n")
+
+            if status_code == 401:
+                print("No API key detected in request.")
+                print("Sign up for free at spinsphotonics.com to get your API key.")
+            elif status_code == 403:
+                print("Provided API key is invalid.")
+                print("Please verify your API key at spinsphotonics.com/dashboard")
+            elif status_code == 402:
+                print("Insufficient credits for inverse design computation.")
+                print("Minimum required: 1.0 credits")
+                print("Add credits at spinsphotonics.com/billing")
+            elif status_code == 502:
+                print("Service temporarily unavailable. Please retry later.")
+            else:
+                print(f"Unexpected error (Code: {status_code})")
+        return None
+
+    except requests.exceptions.Timeout:
+        print("Request timeout.")
+        print("Inverse design computation is taking longer than expected. Please try again.")
+        return None
+
+    except requests.exceptions.ConnectionError:
+        print("Connection failed.")
+        print("Unable to reach API servers. Please check your connection.")
+        return None
+
+    except requests.exceptions.RequestException:
+        print("Communication error.")
+        print("Unable to process your request. Please try again later.")
+        return None
+
+    except ValueError:
+        print("Invalid server response.")
+        print("Received malformed data from server.")
+        return None
+
+
+def _run_optimization_ws(api_url, api_key, request_data):
+    """WebSocket transport for run_optimization.
+
+    Two-step protocol:
+      1. HTTP POST to /inverse_design_start sends the large payload (gzip).
+         Returns a session_id.
+      2. WebSocket connects to /inverse_design_ws?session_id=<id> for streaming.
+         Client sends keepalive pings every 30s.
+         Server sends step results as JSON messages.
+
+    Closing the WebSocket cancels the GPU task.
+    """
+    import json
+    import threading
+    import time as _time
+    import websocket
+
+    # Step 1: POST the large request, get session_id
+    headers = {
+        "X-API-Key": api_key,
+        "Content-Type": "application/json",
+    }
+
+    import gzip as _gzip
+    body = json.dumps(request_data).encode()
+    compressed = _gzip.compress(body)
+    if len(compressed) < len(body):
+        headers["Content-Encoding"] = "gzip"
+        body = compressed
+
+    t0 = _time.time()
+    response = requests.post(
+        f"{api_url}/inverse_design_start",
+        data=body,
+        headers=headers,
+        timeout=(60, 300),
+    )
+    response.raise_for_status()
+    session_id = response.json()["session_id"]
+    print(f"  POST /inverse_design_start: {_time.time() - t0:.1f}s, session={session_id[:8]}...", flush=True)
+
+    # Step 2: Connect WebSocket for streaming results
+    ws_url = api_url.replace("https://", "wss://").replace("http://", "ws://")
+    ws_url = f"{ws_url}/inverse_design_ws?session_id={session_id}"
+
+    ws = None
+    stop_ping = threading.Event()
+    ping_thread = None
+
+    try:
+        t1 = _time.time()
+        ws = websocket.create_connection(
+            ws_url,
+            header={"X-API-Key": api_key},
+            timeout=30,
+        )
+        ws.settimeout(600)  # each step can take 200+ seconds at high res
+        print(f"  WebSocket connected in {_time.time() - t1:.1f}s", flush=True)
+
+        # Background keepalive pings every 30s
+        def _pinger():
+            while not stop_ping.is_set():
+                stop_ping.wait(30)
+                if not stop_ping.is_set():
+                    try:
+                        ws.send(json.dumps({"type": "ping"}))
+                    except Exception:
+                        break
+
+        ping_thread = threading.Thread(target=_pinger, daemon=True)
+        ping_thread.start()
+
+        # Receive step results
+        while True:
+            raw = ws.recv()
+            if not raw:
+                continue
+
+            msg = json.loads(raw)
+            msg_type = msg.get("type")
+
+            if msg_type == "error":
+                raise RuntimeError(msg.get('message', 'Unknown server error'))
+
+            if msg_type == "done":
+                break
+
+            if msg_type == "step":
+                if "theta_b64" in msg:
+                    msg["theta"] = decode_array(msg["theta_b64"])
+                yield msg
+
+    except GeneratorExit:
+        pass  # user interrupted, closing WS cancels GPU task
+
+    finally:
+        stop_ping.set()
+        if ping_thread is not None:
+            ping_thread.join(timeout=2)
+        if ws is not None:
+            try:
+                ws.close()
+            except Exception:
+                pass
+
+
 def run_optimization(
     theta: np.ndarray,
     source_field: np.ndarray,
@@ -3033,6 +3512,7 @@ def run_optimization(
     absorption_coeff: float = 0.00489,
     max_steps: int = 10000,
     check_every_n: int = 1000,
+    gpu_type: str = "B200",
     api_key: Optional[str] = None,
 ) -> 'Generator[Dict[str, Any], None, None]':
     """Run optimization loop on cloud GPU.
@@ -3081,6 +3561,7 @@ def run_optimization(
         absorption_coeff: PML absorption coefficient.
         max_steps: Maximum FDTD timesteps per simulation (default: 10000).
         check_every_n: FDTD convergence check interval (default: 1000).
+        gpu_type: GPU type (default: "B200").
         api_key: API key (overrides configured key).
 
     Yields:
@@ -3115,6 +3596,7 @@ def run_optimization(
         ...         mode_cross_power=P_mode_cross,
         ...         num_steps=50,
         ...         learning_rate=0.01,
+        ...         gpu_type="B200",
         ...     ):
         ...         eff = step_result['efficiency'] * 100
         ...         print(f"Step {step_result['step']}: {eff:.2f}%")
@@ -3122,8 +3604,6 @@ def run_optimization(
         ... except KeyboardInterrupt:
         ...     print(f"Stopped after {len(results)} steps.")
     """
-    gpu_type = "B200"
-
     import json
 
     effective_api_key = api_key or _API_CONFIG.get('api_key')
@@ -3235,30 +3715,51 @@ def run_optimization(
         "Accept": "text/event-stream",
     }
 
-    print(f"\n=== Inverse Design Optimization ===")
-    print(f"Endpoint: {API_URL}/inverse_design_stream")  # internal endpoint name
-    print(f"Theta shape: {request_data['theta_shape']}")
-    print(f"Steps: {num_steps}, LR: {learning_rate}, GPU: {gpu_type}")
+    print(f"\n=== Inverse Design Optimization ===", flush=True)
+    print(f"Theta shape: {request_data['theta_shape']}", flush=True)
+    print(f"Steps: {num_steps}, LR: {learning_rate}, GPU: {gpu_type}", flush=True)
     if mode_coupling_params:
-        print(f"Loss: Mode coupling")
+        print(f"Loss: Mode coupling", flush=True)
     elif power_params:
         axis_names = {0: 'x', 1: 'y', 2: 'z'}
-        print(f"Loss: Power S_{axis_names.get(power_axis, power_axis)} (maximize={power_maximize})")
+        print(f"Loss: Power S_{axis_names.get(power_axis, power_axis)} (maximize={power_maximize})", flush=True)
     elif intensity_params:
-        print(f"Loss: Intensity |{intensity_component}|^2 (maximize={intensity_maximize})")
+        print(f"Loss: Intensity |{intensity_component}|^2 (maximize={intensity_maximize})", flush=True)
     elif loss_fn_pickle_b64:
-        print(f"Loss: Custom function (cloudpickle)")
-    print(f"====================================\n")
+        print(f"Loss: Custom function (cloudpickle)", flush=True)
+    print(f"====================================\n", flush=True)
 
+    # Try WebSocket first via gateway (Railway, always-on, supports WS).
+    # Falls back to SSE on Modal if websocket-client not installed or WS fails.
+    GATEWAY_URL = _API_CONFIG.get('gateway_url', API_URL)
+    try:
+        import websocket as _ws_lib
+        yield from _run_optimization_ws(GATEWAY_URL, effective_api_key, request_data)
+        return
+    except ImportError:
+        pass  # websocket-client not installed, use SSE
+    except Exception as e:
+        print(f"WebSocket unavailable ({e}), using SSE fallback", flush=True)
+
+    # SSE streaming (fallback)
     response = None
     try:
-        # SSE request with long read timeout (GPU steps take ~60-120s each)
+        # Gzip compress for large payloads (theta at 35nm is ~40MB as JSON)
+        import gzip as _gzip_sse
+        import json as _json_sse
+        body_sse = _json_sse.dumps(request_data).encode()
+        compressed_sse = _gzip_sse.compress(body_sse)
+        if len(compressed_sse) < len(body_sse):
+            headers["Content-Encoding"] = "gzip"
+            body_sse = compressed_sse
+        headers["Content-Type"] = "application/json"
+
         response = requests.post(
             f"{API_URL}/inverse_design_stream",
-            json=request_data,
+            data=body_sse,
             headers=headers,
             stream=True,
-            timeout=(30, None),  # 30s connect, unlimited read
+            timeout=(60, None),  # 60s connect, unlimited read
         )
         response.raise_for_status()
 
@@ -3284,6 +3785,10 @@ def run_optimization(
             if event.get('type') == 'error':
                 print(f"\nServer error: {event.get('message', 'Unknown error')}")
                 return
+
+            # Skip heartbeat events (keep-alive from server)
+            if event.get('type') == 'heartbeat':
+                continue
 
             # Decode theta array
             if 'theta_b64' in event:
@@ -3324,3 +3829,153 @@ def run_optimization(
     finally:
         if response is not None:
             response.close()
+
+
+# =============================================================================
+# MODE CONVERTER - Cloud GPU version
+# =============================================================================
+
+def mode_convert(
+    mode_E_field,
+    freq_band,
+    permittivity_slice,
+    propagation_axis: str = 'x',
+    propagation_length: int = 500,
+    absorption_width: int = 20,
+    absorption_coeff: float = 4.89e-3,
+    simulation_steps: int = 10000,
+    gpu_type: str = "B200",
+    api_key: Optional[str] = None,
+):
+    """Convert E-only mode field to full E+H field via cloud GPU simulation.
+
+    Cloud-accelerated version of mode_converter(). Runs FDTD on cloud GPU
+    instead of local CPU. Uses the raw_arrays path in the early_stopping
+    Modal function.
+
+    Args:
+        mode_E_field: E-field mode pattern from mode solver with shape
+            (num_freqs, 3, 1, y, z) for x-propagation.
+        freq_band: Frequency band (min, max, num_points).
+        permittivity_slice: 2D permittivity slice (y, z) matching mode field.
+        propagation_axis: Direction of mode propagation ('x' or 'y').
+        propagation_length: Propagation distance in grid units (default: 500).
+        absorption_width: Width of absorbing boundaries (default: 20).
+        absorption_coeff: Absorption coefficient (default: 4.89e-3).
+        simulation_steps: Maximum FDTD time steps (default: 10000).
+        gpu_type: GPU type for cloud simulation (default: "B200").
+        api_key: Optional API key override.
+
+    Returns:
+        Full mode field with shape (num_freqs, 6, 1, y, z) containing
+        both E and H field components.
+    """
+    from . import absorption as hwa
+
+    if propagation_axis not in ['x', 'y']:
+        raise ValueError(f"propagation_axis must be 'x' or 'y', got '{propagation_axis}'")
+
+    # Extract mode dimensions
+    if propagation_axis == 'x':
+        _, _, _, mode_y, mode_z = mode_E_field.shape
+        mode_perp = mode_y
+        mode_vert = mode_z
+    else:
+        _, _, mode_x, _, mode_z = mode_E_field.shape
+        mode_perp = mode_x
+        mode_vert = mode_z
+
+    # Validate permittivity_slice dimensions
+    perm_slice = np.asarray(permittivity_slice)
+    if perm_slice.shape != (mode_perp, mode_vert):
+        raise ValueError(
+            f"permittivity_slice shape {perm_slice.shape} doesn't match "
+            f"mode field dimensions ({mode_perp}, {mode_vert})"
+        )
+
+    # Build 3D permittivity (same logic as mode_converter)
+    total_x = 2 * absorption_width + propagation_length
+    total_x = total_x + (total_x % 2)  # Make even
+
+    if propagation_axis == 'x':
+        eps_2d = perm_slice[np.newaxis, :, :]  # (1, y, z)
+        eps_2d = np.tile(eps_2d, (total_x, 1, 1))  # (x, y, z)
+        eps = np.stack([eps_2d, eps_2d, eps_2d], axis=0)  # (3, x, y, z)
+    else:
+        eps_2d = perm_slice[:, np.newaxis, :]  # (x, 1, z)
+        eps_2d = np.tile(eps_2d, (1, total_x, 1))  # (x, y, z)
+        eps = np.stack([eps_2d, eps_2d, eps_2d], axis=0)  # (3, x, y, z)
+
+    # Build conductivity with absorption
+    cond = np.zeros_like(eps)
+    if propagation_axis == 'x':
+        grid_shape = (total_x, mode_perp, mode_vert)
+        abs_widths = (absorption_width, absorption_width // 2, absorption_width // 2)
+    else:
+        grid_shape = (mode_perp, total_x, mode_vert)
+        abs_widths = (absorption_width // 2, absorption_width, absorption_width // 2)
+
+    absorption_mask = hwa.create_absorption_mask(
+        grid_shape=grid_shape,
+        absorption_widths=abs_widths,
+        absorption_coeff=absorption_coeff,
+        show_plots=False
+    )
+    cond = cond + np.asarray(absorption_mask)
+
+    # Create source field (E + zeros for H)
+    mode_E = np.asarray(mode_E_field)
+    source_field = np.concatenate([mode_E, np.zeros_like(mode_E)], axis=1)
+
+    # Source and monitor positions (same as mode_converter)
+    if propagation_axis == 'x':
+        source_offset = (absorption_width + 5, 0, 0)
+        monitor_x = total_x - absorption_width - 10
+        monitor_shape = [1, mode_perp, mode_vert]
+        monitor_offset = [monitor_x, 0, 0]
+    else:
+        source_offset = (0, absorption_width + 5, 0)
+        monitor_y = total_x - absorption_width - 10
+        monitor_shape = [mode_perp, 1, mode_vert]
+        monitor_offset = [0, monitor_y, 0]
+
+    # Pack into raw_arrays recipe (uses existing early_stopping raw_arrays path)
+    raw_recipe = {
+        'raw_arrays': True,
+        'permittivity': eps.astype(np.float32).tolist(),
+        'conductivity': cond.astype(np.float32).tolist(),
+        'metadata': {'final_shape': list(eps.shape)},
+    }
+
+    monitors_recipe = [
+        {'name': 'Output_mode', 'shape': monitor_shape, 'offset': monitor_offset}
+    ]
+
+    print(f"Mode convert: grid {grid_shape}, prop_length={propagation_length}")
+
+    # Call cloud simulation (add_absorption=False since we built it locally)
+    result = simulate(
+        structure_recipe=raw_recipe,
+        source_field=source_field,
+        source_offset=source_offset,
+        freq_band=freq_band,
+        monitors_recipe=monitors_recipe,
+        simulation_steps=simulation_steps,
+        add_absorption=False,
+        absorption_widths=(0, 0, 0),
+        absorption_coeff=0.0,
+        api_key=api_key,
+        gpu_type=gpu_type,
+        convergence="default",
+    )
+
+    if result is None:
+        raise RuntimeError("Cloud simulation failed for mode_convert")
+
+    # Extract mode field from monitor
+    mode_field = result['monitor_data'].get('Output_mode')
+    if mode_field is None:
+        raise RuntimeError("Output_mode monitor not found in simulation results")
+
+    print(f"Mode convert complete: {mode_field.shape}")
+    return mode_field

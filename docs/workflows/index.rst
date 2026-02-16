@@ -50,34 +50,85 @@ You can also use the API Workflow
 
 If you are integrating Hyperwave into an existing application, UI, or automated pipeline, the API workflow provides a single server-side call that handles structure creation for you. See :doc:`api_workflow` for details.
 
+Inverse Design Workflow
+-----------------------
+
+Adjoint-method gradient-based optimization on cloud GPUs. The optimizer iteratively
+updates a 2D design pattern (theta) by running forward and adjoint FDTD simulations
+to compute gradients of a loss function with respect to the design variables.
+
+**Use this workflow when:**
+
+* You want to optimize a photonic structure (e.g., grating coupler) for a target objective
+* You need gradient-based topology optimization with adjoint-method gradients
+* You want to maximize mode coupling efficiency, Poynting power, or field intensity
+
+**Example:**
+
+.. code-block:: python
+
+   import hyperwave_community as hwc
+
+   from google.colab import userdata
+   hwc.configure_api(api_key=userdata.get('HYPERWAVE_API_KEY'))
+
+   # Run optimization loop on cloud GPU
+   for step_result in hwc.run_optimization(
+       theta=theta_init,
+       source_field=source_field,
+       source_offset=source_offset,
+       freq_band=freq_band,
+       structure_spec=structure_spec,
+       mode_field=mode_field,        # built-in mode coupling loss
+       input_power=input_power,
+       mode_cross_power=P_mode_cross,
+       num_steps=50,
+       learning_rate=0.1,
+       ...
+   ):
+       print(f"Step {step_result['step']}: efficiency = {abs(step_result['loss']) * 100:.2f}%")
+
+:doc:`inverse_design` - Full tutorial
+
 Workflow Comparison
 -------------------
 
 .. list-table::
    :header-rows: 1
-   :widths: 30 35 35
+   :widths: 20 25 25 30
 
    * -
      - **Local Workflow**
      - **API Workflow**
+     - **Inverse Design**
    * - Primary use
      - Learning, testing, custom work
      - Integration into existing systems
+     - Topology optimization
    * - CPU work runs on
      - Your machine / Colab
      - Modal (SPINs servers)
+     - Your machine + cloud GPU
    * - Structure creation
      - Step-by-step local functions
      - Single API call
+     - Step-by-step with theta optimization
    * - Custom theta patterns
      - Full support
      - Not supported
+     - Required (design variable)
    * - Intermediate inspection
      - Full access to all arrays
      - Limited
+     - Full access to all arrays
+   * - Optimization
+     - Manual only
+     - Not supported
+     - Adjoint-method gradient-based
    * - Lines of code
      - ~50 lines
      - ~30 lines
+     - ~80 lines
 
 Shared Steps
 ------------
@@ -104,7 +155,7 @@ Both workflows share the same simulation and analysis steps:
 Cost Structure
 --------------
 
-Both workflows have the same cost structure:
+All workflows share the same cost structure:
 
 .. list-table::
    :header-rows: 1
@@ -117,8 +168,10 @@ Both workflows have the same cost structure:
      - Credits ($25/hr)
    * - Analysis (Step 6)
      - Free
+   * - Optimization (inverse design only)
+     - Credits, 2 sims per step ($25/hr)
 
-Credits are only consumed when running ``run_simulation()``. All simulations run on NVIDIA B200 GPUs at $25 per compute hour (1 credit = $25 = 1 hour). All other functions are free but require a valid API key.
+Credits are only consumed when running ``run_simulation()`` or ``run_optimization()``. All simulations run on NVIDIA B200 GPUs at $25 per compute hour (1 credit = $25 = 1 hour). All other functions are free but require a valid API key.
 
 .. toctree::
    :maxdepth: 1

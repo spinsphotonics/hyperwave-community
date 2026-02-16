@@ -577,3 +577,4 @@ Next Steps
 * :doc:`../convergence` - Configure early stopping
 * :doc:`../api` - Full API reference
 * :doc:`api_workflow` - Simpler workflow using API functions
+* :doc:`inverse_design` - Gradient-based topology optimization with adjoint method

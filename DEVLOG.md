@@ -1,5 +1,17 @@
 # Hyperwave Community Dev Log
 
+## 2026-02-12: Merge Inverse Design System
+
+- Merged Jim's feb-inverse-design-notebook branch
+- Added WebSocket-based optimization streaming (WS-first, SSE fallback)
+- New SDK functions: run_optimization, compute_adjoint_gradient, mode_convert, generate_gaussian_source, recipe_from_params
+- New notebook: examples/gc_inverse_design.ipynb (grating coupler inverse design)
+- Added gateway_url parameter to configure_api() for split routing flexibility
+- Removed solve.py (local FDTD) in favor of cloud-only mode conversion
+- GPU defaults: B200 across all endpoints
+- New dependency: websocket-client>=1.6.0
+- New unit tests: absorption, data_io, monitors, structure
+
 ## Initial State (pre 2026-02-09)
 
 Python SDK + Jupyter notebooks + Sphinx docs for the HyperWave simulation platform.
@@ -29,3 +41,11 @@ Python SDK + Jupyter notebooks + Sphinx docs for the HyperWave simulation platfo
 
 ### Merged feb_mvp to main
 - All changes above deployed via merge to main. Railway auto-deploys from main.
+
+## 2026-02-10
+
+### Notebook install string cleanup
+- Simplified install string in api_workflow.ipynb and local_workflow.ipynb from `%pip install "hyperwave-community[gds] @ git+https://..." --no-cache-dir -q` to `%pip install git+https://github.com/spinsphotonics/hyperwave-community.git -q`.
+- The `[gds]` extra never existed in setup.py (gdsfactory is in base install_requires).
+
+### Merged feb_mvp to main

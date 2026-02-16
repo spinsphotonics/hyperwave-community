@@ -19,6 +19,7 @@ Getting Started
 1. :doc:`installation` - Install the package and get an API key
 2. :doc:`workflows/local_workflow` - **Start here**: step-by-step tutorial with full control
 3. :doc:`workflows/api_workflow` - Single-call workflow for integration into existing systems
+4. :doc:`workflows/inverse_design` - Inverse design optimization tutorial
 
 .. toctree::
    :maxdepth: 1
@@ -27,6 +28,13 @@ Getting Started
    installation
    workflows/local_workflow
    workflows/api_workflow
+   workflows/inverse_design
+
+.. toctree::
+   :maxdepth: 2
+   :caption: User Guide
+
+   user_guide/index
 
 .. toctree::
    :maxdepth: 1

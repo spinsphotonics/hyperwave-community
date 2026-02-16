@@ -1,0 +1,51 @@
+{
+  "gpu_type": "A100-80GB",
+  "category": "validation",
+  "label": "pad_100",
+  "padding": [
+    100,
+    100,
+    0,
+    0
+  ],
+  "timestamp": "2026-02-07T02:53:05.073003",
+  "status": "success",
+  "dimensions": [
+    1800,
+    350,
+    199
+  ],
+  "voxels": 125370000,
+  "voxels_M": 125.4,
+  "monitor_names": [
+    "Input_o1",
+    "Input_o2",
+    "Output_o3",
+    "Output_o4",
+    "xy_mid"
+  ],
+  "absorber_width": 82,
+  "absorber_coeff": 0.0006173770394704579,
+  "absorption_widths": [
+    82,
+    41,
+    41
+  ],
+  "estimated_cost": null,
+  "sim_time": 175.31406378746033,
+  "total_time": 567.8237733840942,
+  "sim_wall_time": 567.9272170066833,
+  "performance": 8581399389.748262,
+  "gcells_per_s": 8.581399389748263,
+  "converged": true,
+  "convergence_step": 12000,
+  "transmission": {
+    "power_in": "0.039754756",
+    "total_transmission": "0.9409953",
+    "excess_loss_dB": "-0.2641256",
+    "per_port": {
+      "Output_o3": 0.46566227078437805,
+      "Output_o4": 0.47533300518989563
+    }
+  }
+}
