@@ -128,6 +128,68 @@ def get_optimized_absorber_params(
     return result
 
 
+def absorber_params(
+    wavelength_um: float,
+    dx_um: float,
+    structure_dimensions: Tuple[int, int, int] = None,
+) -> Dict[str, any]:
+    """Compute absorber parameters from wavelength and grid spacing.
+
+    Uses power-law fits to Bayesian-optimized results with minimum floors
+    derived from validated simulation defaults. The BO was trained on
+    {1310, 1550}nm x {25, 35, 50}nm configs (100 trials each).
+
+    The Z-direction fit (R2=0.676) and coefficient fit (R2=0.887) are
+    reliable. The XY fit (R2=0.133) is floored at 2.1 um because the
+    BO training setup (straight-down source) did not exercise lateral
+    absorption sufficiently.
+
+    Args:
+        wavelength_um: Wavelength in micrometers (e.g. 1.31 or 1.55).
+        dx_um: Grid spacing in micrometers (e.g. 0.025 for 25nm).
+        structure_dimensions: Optional (Lx, Ly, Lz) in grid cells.
+            If provided, returns integer absorption_widths capped at 25%
+            of each dimension.
+
+    Returns:
+        Dictionary with:
+            - abs_xy_um: XY absorber width in micrometers
+            - abs_z_um: Z absorber width in micrometers
+            - abs_coeff: Absorption coefficient
+            - absorption_widths: (x, y, z) int tuple (if structure_dimensions given)
+
+    Example:
+        >>> params = absorber_params(wavelength_um=1.55, dx_um=0.035)
+        >>> print(f"XY: {params['abs_xy_um']:.3f} um, coeff: {params['abs_coeff']:.2e}")
+
+        >>> params = absorber_params(1.55, 0.035, structure_dimensions=(571, 571, 309))
+        >>> print(f"Widths: {params['absorption_widths']}")
+    """
+    wl = wavelength_um
+    dx = dx_um
+
+    # Power-law fits: param = a * wl^b * dx^c
+    # From v2 BO (straight-down source, 100 trials, 6 configs)
+    # Floors match the simulate() defaults at 35nm: (60, 40, 40) / 1e-4
+    abs_xy_um = max(2.1, 0.062 * wl ** 1.389 * dx ** (-0.619))
+    abs_z_um = max(1.4, 1.244 * wl ** 1.758 * dx ** 0.159)
+    abs_coeff = max(1e-4, 2.876 * wl ** (-1.607) * dx ** 2.579)
+
+    result = {
+        "abs_xy_um": abs_xy_um,
+        "abs_z_um": abs_z_um,
+        "abs_coeff": abs_coeff,
+    }
+
+    if structure_dimensions is not None:
+        Lx, Ly, Lz = structure_dimensions
+        abs_xy = min(int(round(abs_xy_um / dx)), Lx // 4)
+        abs_z = min(int(round(abs_z_um / dx)), Lz // 4)
+        result["absorption_widths"] = (abs_xy, abs_xy, abs_z)
+
+    return result
+
+
 def _absorption_profiles(numcells: int, width: float, smoothness: float) -> jax.Array:
     """Create 1D quadratic absorption profiles for adiabatic boundary conditions.
     
