@@ -1,7 +1,7 @@
 Workflows
 =========
 
-Hyperwave Community offers three workflows for running FDTD photonics simulations. All produce identical results on NVIDIA B200 GPUs.
+Hyperwave Community offers two workflows for running FDTD photonics simulations. Both produce identical results on NVIDIA B200 GPUs.
 
 .. contents:: On this page
    :local:
@@ -43,56 +43,10 @@ The local workflow is the primary way to use Hyperwave. All CPU steps run locall
 
 :doc:`local_workflow` - Full tutorial
 
-Inverse Design Workflow
------------------------
+You can also use the API Workflow
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Adjoint-method gradient-based optimization on cloud GPUs. The optimizer iteratively
-updates a 2D design pattern (theta) by running forward and adjoint FDTD simulations
-to compute gradients of a loss function with respect to the design variables. You
-define a design region, choose a loss function (mode coupling, Poynting power, or
-field intensity), and the optimizer updates the design pattern to maximize your
-objective.
-
-Builds on the local workflow: you set up the same layer stack and mode solve locally,
-then hand the structure specification to ``run_optimization()`` which handles the
-forward/adjoint loop on cloud GPU.
-
-**Example:**
-
-.. code-block:: python
-
-   import hyperwave_community as hwc
-
-   from google.colab import userdata
-   hwc.configure_api(api_key=userdata.get('HYPERWAVE_API_KEY'))
-
-   # Run optimization loop on cloud GPU
-   for step_result in hwc.run_optimization(
-       theta=theta_init,
-       source_field=source_field,
-       source_offset=source_offset,
-       freq_band=freq_band,
-       structure_spec=structure_spec,
-       mode_field=mode_field,        # built-in mode coupling loss
-       input_power=input_power,
-       mode_cross_power=P_mode_cross,
-       num_steps=50,
-       learning_rate=0.1,
-       ...
-   ):
-       print(f"Step {step_result['step']}: efficiency = {abs(step_result['loss']) * 100:.2f}%")
-
-:doc:`inverse_design` - Full tutorial
-
-API Workflow
-------------
-
-If you are integrating Hyperwave into an existing application, UI, or automated
-pipeline, the API workflow provides a single server-side call that handles structure
-creation for you. All CPU-side steps (theta conversion, density filtering, layer
-stacking) run on the server, so you only need a GDS component and an API key.
-
-:doc:`api_workflow` - Full tutorial
+If you are integrating Hyperwave into an existing application, UI, or automated pipeline, the API workflow provides a single server-side call that handles structure creation for you. See :doc:`api_workflow` for details.
 
 Workflow Comparison
 -------------------
@@ -181,5 +135,5 @@ Credits are only consumed when running ``run_simulation()`` or ``run_optimizatio
    :maxdepth: 1
 
    local_workflow
-   inverse_design
    api_workflow
+   inverse_design
