@@ -13,9 +13,9 @@ Lightweight operations (parameter setup, layer stacking, mode solving, monitor p
 locally or in Colab and are free. Cloud GPU steps (source generation, forward simulation,
 optimization) consume credits at $25/hr on NVIDIA B200.
 
-**Open in Google Colab**: `gc_inverse_design.ipynb <https://colab.research.google.com/github/spinsphotonics/hyperwave-community/blob/main/examples/gc_inverse_design.ipynb>`_
+**Open in Google Colab**: `inverse_design_workflow.ipynb <https://colab.research.google.com/github/spinsphotonics/hyperwave-community/blob/main/examples/inverse_design_workflow.ipynb>`_
 
-`Download the notebook <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/gc_inverse_design.ipynb>`_
+`Download the notebook <https://github.com/spinsphotonics/hyperwave-community/blob/main/examples/inverse_design_workflow.ipynb>`_
 
 .. contents:: Steps
    :local:

@@ -26,9 +26,10 @@ Getting Started
    :caption: Getting Started
 
    installation
+   workflows/index
    workflows/local_workflow
    workflows/api_workflow
-   workflows/inverse_design
+   Inverse Design <workflows/inverse_design>
 
 .. toctree::
    :maxdepth: 2

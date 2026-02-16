@@ -5,7 +5,7 @@
 - Merged Jim's feb-inverse-design-notebook branch
 - Added WebSocket-based optimization streaming (WS-first, SSE fallback)
 - New SDK functions: run_optimization, compute_adjoint_gradient, mode_convert, generate_gaussian_source, recipe_from_params
-- New notebook: examples/gc_inverse_design.ipynb (grating coupler inverse design)
+- New notebook: examples/inverse_design_workflow.ipynb (grating coupler inverse design)
 - Added gateway_url parameter to configure_api() for split routing flexibility
 - Removed solve.py (local FDTD) in favor of cloud-only mode conversion
 - GPU defaults: B200 across all endpoints
