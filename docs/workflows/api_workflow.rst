@@ -331,3 +331,4 @@ Next Steps
 * :doc:`../convergence` - Configure early stopping
 * :doc:`../api` - Full API reference
 * :doc:`local_workflow` - Try the local workflow for more control
+* :doc:`inverse_design` - Gradient-based topology optimization with adjoint method

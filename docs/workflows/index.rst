@@ -60,8 +60,8 @@ to compute gradients of a loss function with respect to the design variables.
 **Use this workflow when:**
 
 * You want to optimize a photonic structure (e.g., grating coupler) for a target objective
-* You need gradient-based topology optimization with minimum feature size control
-* You want to maximize mode coupling efficiency or other custom loss functions
+* You need gradient-based topology optimization with adjoint-method gradients
+* You want to maximize mode coupling efficiency, Poynting power, or field intensity
 
 **Example:**
 
@@ -79,9 +79,11 @@ to compute gradients of a loss function with respect to the design variables.
        source_offset=source_offset,
        freq_band=freq_band,
        structure_spec=structure_spec,
-       loss_fn=mode_overlap_loss,
+       mode_field=mode_field,        # built-in mode coupling loss
+       input_power=input_power,
+       mode_cross_power=P_mode_cross,
        num_steps=50,
-       learning_rate=0.01,
+       learning_rate=0.1,
        ...
    ):
        print(f"Step {step_result['step']}: efficiency = {abs(step_result['loss']) * 100:.2f}%")
