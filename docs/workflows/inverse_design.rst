@@ -79,10 +79,12 @@ The vertical layer stack defines the SOI cross-section. Each thickness is specif
 
 - ``h_dev`` (0.220 um): Total silicon device layer thickness. This is the standard 220 nm SOI
   foundry thickness. The top portion is partially etched to form the grating; the bottom portion
-  remains as a continuous slab.
+  is the slab, which has silicon only under the device footprint (design region + waveguide)
+  and cladding elsewhere.
 - ``etch_depth`` (0.110 um): Partial etch depth. The optimizer controls a 2D design pattern
   that determines where the top 110 nm of silicon is etched away, exposing the cladding.
-  The remaining 110 nm (h_dev - etch_depth) forms the unetched slab beneath the grating.
+  The remaining 110 nm (h_dev - etch_depth) forms the slab beneath the grating, but only
+  within the device footprint. Outside the device, the silicon is fully etched away.
 - ``h_box`` (2.0 um): Buried oxide thickness. Separates the silicon device layer from the
   silicon substrate. Must be thick enough to prevent leakage into the substrate.
 - ``h_clad`` (0.78 um): SiO2 cladding thickness above the silicon device layer.
@@ -265,9 +267,9 @@ Build an 8-layer SOI stack using ``hwc.Layer`` and ``hwc.create_structure()``. T
 layer-stacking approach as the :doc:`local_workflow`. Each ``Layer`` object specifies a 2D
 density pattern, the permittivity value(s) for that layer, and the layer thickness in pixels.
 
-Only the etch layer (layer index 3) is controlled by the design variable ``theta``. All other
-layers have fixed, uniform permittivity: their density patterns are set to all-zeros, which
-means they take the single permittivity value directly.
+The etch layer (layer index 3) is controlled by the design variable ``theta``. The slab layer
+(layer index 4) uses a fixed ``slab_device`` pattern that places silicon only under the design
+region and waveguide, with cladding elsewhere. All other layers have fixed, uniform permittivity.
 
 The ``Layer`` constructor accepts either a single permittivity value (for uniform layers) or a
 tuple of two values (for design layers). When a tuple ``(eps_low, eps_high)`` is provided, the
@@ -299,7 +301,7 @@ cladding, cladding to etch, etch to slab) are physically abrupt in real SOI fabr
      - **SiO2/Si**
      - **0.11 um**
    * - slab
-     - Si
+     - SiO2/Si (device footprint)
      - 0.11 um
    * - BOX
      - SiO2
@@ -316,16 +318,22 @@ cladding, cladding to etch, etch to slab) are physically abrupt in real SOI fabr
    # Slab pattern (uniform zero for non-design layers)
    slab = jnp.zeros(theta_init.shape)
 
+   # Slab pattern for the unetched bottom half of the device layer:
+   # Silicon under the design region + waveguide, cladding elsewhere.
+   slab_device = np.zeros((theta_Lx, theta_Ly), dtype=np.float32)
+   slab_device[dr['x_start']:dr['x_end'], dr['y_start']:dr['y_end']] = 1.0
+   slab_device[:wg_len_theta, theta_Ly // 2 - wg_hw_theta : theta_Ly // 2 + wg_hw_theta] = 1.0
+
    # 8-layer SOI stack
    design_layers = [
-       hwc.Layer(density_pattern=slab,                    permittivity_values=eps_air,            layer_thickness=h_p),
-       hwc.Layer(density_pattern=slab,                    permittivity_values=eps_air,            layer_thickness=h0),
-       hwc.Layer(density_pattern=slab,                    permittivity_values=eps_clad,           layer_thickness=h1),
-       hwc.Layer(density_pattern=jnp.array(theta_init),   permittivity_values=(eps_clad, eps_si), layer_thickness=h2),
-       hwc.Layer(density_pattern=slab,                    permittivity_values=eps_si,             layer_thickness=h3),
-       hwc.Layer(density_pattern=slab,                    permittivity_values=eps_sio2,           layer_thickness=h4),
-       hwc.Layer(density_pattern=slab,                    permittivity_values=eps_si,             layer_thickness=h5),
-       hwc.Layer(density_pattern=slab,                    permittivity_values=eps_si,             layer_thickness=h_p),
+       hwc.Layer(density_pattern=slab,                       permittivity_values=eps_air,            layer_thickness=h_p),
+       hwc.Layer(density_pattern=slab,                       permittivity_values=eps_air,            layer_thickness=h0),
+       hwc.Layer(density_pattern=slab,                       permittivity_values=eps_clad,           layer_thickness=h1),
+       hwc.Layer(density_pattern=jnp.array(theta_init),      permittivity_values=(eps_clad, eps_si), layer_thickness=h2),
+       hwc.Layer(density_pattern=jnp.array(slab_device),     permittivity_values=(eps_clad, eps_si), layer_thickness=h3),
+       hwc.Layer(density_pattern=slab,                       permittivity_values=eps_sio2,           layer_thickness=h4),
+       hwc.Layer(density_pattern=slab,                       permittivity_values=eps_si,             layer_thickness=h5),
+       hwc.Layer(density_pattern=slab,                       permittivity_values=eps_si,             layer_thickness=h_p),
    ]
 
    # Build 3D structure locally
