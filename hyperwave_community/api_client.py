@@ -31,7 +31,7 @@ import io
 import json
 import time
 import warnings
-from typing import Dict, Any, Tuple, Optional, List, Callable
+from typing import Dict, Any, Tuple, Optional, List, Callable, Union
 
 import numpy as np
 import requests
@@ -1664,7 +1664,7 @@ def run_simulation(
 
 def simulate(
     structure_recipe: Dict[str, Any],
-    source_field,
+    source_field: Optional[np.ndarray],
     source_offset: Tuple[int, int, int],
     freq_band: Tuple[float, float, int],
     monitors_recipe: List[Dict],
@@ -3484,9 +3484,10 @@ def _run_optimization_ws(api_url, api_key, request_data):
 
 
 def run_optimization(
-    theta: np.ndarray,
-    source_field: np.ndarray,
-    source_offset: Tuple[int, int, int],
+    *,
+    theta: Optional[np.ndarray] = None,
+    source_field: Optional[np.ndarray] = None,
+    source_offset: Optional[Tuple[int, int, int]] = None,
     freq_band: Tuple[float, float, int],
     structure_spec: Dict[str, Any],
     loss_monitor_shape: Tuple[int, int, int],
@@ -3514,6 +3515,9 @@ def run_optimization(
     check_every_n: int = 1000,
     gpu_type: str = "B200",
     api_key: Optional[str] = None,
+    auto_checkpoint: bool = True,
+    checkpoint_path: str = 'hyperwave_checkpoint_latest.npz',
+    checkpoint: Optional[Union[str, Dict[str, Any]]] = None,
 ) -> 'Generator[Dict[str, Any], None, None]':
     """Run optimization loop on cloud GPU.
 
@@ -3563,6 +3567,12 @@ def run_optimization(
         check_every_n: FDTD convergence check interval (default: 1000).
         gpu_type: GPU type (default: "B200").
         api_key: API key (overrides configured key).
+        checkpoint: Path to .npz checkpoint file or dict from load_checkpoint().
+            Resumes optimization from saved state.
+        auto_checkpoint: Save checkpoint after every step (default True).
+            Saves to checkpoint_path.
+        checkpoint_path: Path for auto-checkpoint file
+            (default 'hyperwave_checkpoint_latest.npz').
 
     Yields:
         dict with keys:
@@ -3616,6 +3626,31 @@ def run_optimization(
         configure_api(api_key=api_key, validate=False)
 
     API_URL = _API_CONFIG['api_url']
+
+    initial_opt_state_b64 = None
+    start_step = 0
+    if checkpoint is not None:
+        if theta is not None:
+            raise ValueError(
+                "Cannot provide both 'theta' and 'checkpoint'. "
+                "When resuming from a checkpoint, theta is loaded automatically."
+            )
+        checkpoint_data = checkpoint
+        checkpoint_source = None
+        if isinstance(checkpoint, str):
+            checkpoint_source = checkpoint
+            checkpoint_data = load_checkpoint(checkpoint)
+        theta = checkpoint_data['theta_history'][-1]
+        start_step = int(checkpoint_data.get('last_step', 0))
+        if 'opt_state_b64' in checkpoint_data:
+            initial_opt_state_b64 = checkpoint_data['opt_state_b64']
+        if checkpoint_source:
+            print(f"Resuming from step {start_step} (loaded from {checkpoint_source})", flush=True)
+        else:
+            print(f"Resuming from step {start_step}", flush=True)
+
+    if theta is None:
+        raise ValueError("Must provide either 'theta' or 'checkpoint'")
 
     # Validate loss parameters
     if (loss_fn is None and mode_field is None and
@@ -3709,6 +3744,11 @@ def run_optimization(
         "gpu_type": gpu_type,
     }
 
+    if initial_opt_state_b64 is not None:
+        request_data["initial_opt_state_b64"] = initial_opt_state_b64
+    if start_step > 0:
+        request_data["start_step"] = start_step
+
     headers = {
         "X-API-Key": effective_api_key,
         "Content-Type": "application/json",
@@ -3729,50 +3769,67 @@ def run_optimization(
         print(f"Loss: Custom function (cloudpickle)", flush=True)
     print(f"====================================\n", flush=True)
 
-    # Try WebSocket first via gateway (Railway, always-on, supports WS).
-    # Falls back to SSE on Modal if websocket-client not installed or WS fails.
-    GATEWAY_URL = _API_CONFIG.get('gateway_url', API_URL)
+    # Select transport: WebSocket (preferred) or SSE fallback.
+    GATEWAY_URL = _API_CONFIG.get('gateway_url') or API_URL
+    source_gen = None
     try:
         import websocket as _ws_lib
-        yield from _run_optimization_ws(GATEWAY_URL, effective_api_key, request_data)
-        return
+        source_gen = _run_optimization_ws(GATEWAY_URL, effective_api_key, request_data)
     except ImportError:
-        pass  # websocket-client not installed, use SSE
+        pass
     except Exception as e:
         print(f"WebSocket unavailable ({e}), using SSE fallback", flush=True)
 
-    # SSE streaming (fallback)
+    if source_gen is None:
+        source_gen = _run_optimization_sse(API_URL, headers, request_data, json)
+
+    _accumulated = []
+    try:
+        for event in source_gen:
+            if auto_checkpoint and 'theta' in event:
+                _accumulated.append(event)
+                try:
+                    save_checkpoint(_accumulated, checkpoint_path)
+                    step_num = event.get('step', len(_accumulated))
+                    print(f"Checkpoint saved: {checkpoint_path} (step {step_num})", flush=True)
+                except Exception:
+                    pass
+            yield event
+    except GeneratorExit:
+        source_gen.close()
+
+
+def _run_optimization_sse(api_url, headers, request_data, json):
+    """SSE streaming fallback for run_optimization."""
     response = None
     try:
-        # Gzip compress for large payloads (theta at 35nm is ~40MB as JSON)
         import gzip as _gzip_sse
         import json as _json_sse
         body_sse = _json_sse.dumps(request_data).encode()
         compressed_sse = _gzip_sse.compress(body_sse)
+        sse_headers = dict(headers)
         if len(compressed_sse) < len(body_sse):
-            headers["Content-Encoding"] = "gzip"
+            sse_headers["Content-Encoding"] = "gzip"
             body_sse = compressed_sse
-        headers["Content-Type"] = "application/json"
+        sse_headers["Content-Type"] = "application/json"
 
         response = requests.post(
-            f"{API_URL}/inverse_design_stream",
+            f"{api_url}/inverse_design_stream",
             data=body_sse,
-            headers=headers,
+            headers=sse_headers,
             stream=True,
-            timeout=(60, None),  # 60s connect, unlimited read
+            timeout=(60, None),
         )
         response.raise_for_status()
 
-        # Parse Server-Sent Events
         for line in response.iter_lines(decode_unicode=True):
             if not line:
                 continue
             if not line.startswith('data: '):
                 continue
 
-            event_json = line[6:]  # strip 'data: ' prefix
+            event_json = line[6:]
 
-            # End-of-stream sentinel
             if event_json == '[DONE]':
                 break
 
@@ -3781,16 +3838,13 @@ def run_optimization(
             except json.JSONDecodeError:
                 continue
 
-            # Handle error events from server
             if event.get('type') == 'error':
                 print(f"\nServer error: {event.get('message', 'Unknown error')}")
                 return
 
-            # Skip heartbeat events (keep-alive from server)
             if event.get('type') == 'heartbeat':
                 continue
 
-            # Decode theta array
             if 'theta_b64' in event:
                 event['theta'] = decode_array(event['theta_b64'])
 
@@ -3821,9 +3875,6 @@ def run_optimization(
         return
 
     except GeneratorExit:
-        # Generator was closed (user interrupted or broke out of loop).
-        # Closing the response drops the connection, signaling the server
-        # to cancel the GPU task.
         pass
 
     finally:
@@ -3979,3 +4030,77 @@ def mode_convert(
 
     print(f"Mode convert complete: {mode_field.shape}")
     return mode_field
+
+
+# =============================================================================
+# CHECKPOINT SAVE / LOAD
+# =============================================================================
+
+def save_checkpoint(
+    results: List[Dict[str, Any]],
+    path: str,
+    config: Optional[Dict[str, Any]] = None,
+):
+    """Save optimization results to a .npz checkpoint file."""
+    if not results:
+        raise ValueError("results list is empty, nothing to save")
+
+    theta_history = np.stack(
+        [np.asarray(r['theta'], dtype=np.float32) for r in results], axis=0
+    )
+
+    efficiencies = np.array(
+        [r.get('efficiency', float('nan')) for r in results], dtype=np.float64
+    )
+    best_step = int(np.nanargmax(efficiencies))
+
+    data = {
+        'theta_history': theta_history,
+        'theta_best': theta_history[best_step],
+        'best_step': np.int64(best_step),
+        'loss_history': np.array([r.get('loss', float('nan')) for r in results], dtype=np.float64),
+        'efficiency_history': efficiencies,
+        'grad_max_history': np.array([r.get('grad_max', float('nan')) for r in results], dtype=np.float64),
+        'step_times': np.array([r.get('step_time', float('nan')) for r in results], dtype=np.float64),
+        'last_step': np.int64(results[-1].get('step', len(results))),
+        'config_json': json.dumps(config) if config is not None else json.dumps({}),
+        'metadata_json': json.dumps({
+            'timestamp': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+            'sdk_version': '0.1.0',
+            'num_steps': len(results),
+        }),
+    }
+
+    last = results[-1]
+    if 'adam_m_b64' in last:
+        data['adam_m_b64'] = np.void(last['adam_m_b64'].encode('utf-8') if isinstance(last['adam_m_b64'], str) else last['adam_m_b64'])
+    if 'adam_v_b64' in last:
+        data['adam_v_b64'] = np.void(last['adam_v_b64'].encode('utf-8') if isinstance(last['adam_v_b64'], str) else last['adam_v_b64'])
+    if 'opt_state_b64' in last:
+        data['opt_state_b64'] = np.void(last['opt_state_b64'].encode('utf-8') if isinstance(last['opt_state_b64'], str) else last['opt_state_b64'])
+
+    np.savez_compressed(path, **data)
+
+
+def load_checkpoint(path: str) -> Dict[str, Any]:
+    """Load a .npz checkpoint file and return a dict of arrays and parsed metadata."""
+    npz = np.load(path, allow_pickle=False)
+
+    required = ['theta_history', 'theta_best', 'best_step', 'last_step']
+    for key in required:
+        if key not in npz:
+            raise ValueError(f"Checkpoint missing required key: '{key}'")
+
+    result = {}
+    for key in npz.files:
+        val = npz[key]
+        if key.endswith('_json'):
+            result[key] = json.loads(str(val))
+        elif key in ('adam_m_b64', 'adam_v_b64', 'opt_state_b64'):
+            result[key] = bytes(val).decode('utf-8')
+        elif val.ndim == 0:
+            result[key] = val.item()
+        else:
+            result[key] = val
+
+    return result
