@@ -3,7 +3,6 @@
 Tests absorber parameter computation and absorption mask creation.
 """
 
-import pytest
 import jax.numpy as jnp
 
 from hyperwave_community.absorption import (

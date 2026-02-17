@@ -706,7 +706,7 @@ def component_to_theta(
         Requires gdsfactory to be installed: pip install gdsfactory
     """
     try:
-        import gdsfactory as gf
+        import gdsfactory as gf  # noqa: F401
     except ImportError:
         raise ImportError("gdsfactory is required for component_to_theta. Install with: pip install gdsfactory")
 

@@ -5,17 +5,4 @@ Structure
    :members:
    :undoc-members:
    :show-inheritance:
-
-Classes
--------
-
-.. autoclass:: hyperwave_community.structure.Layer
-   :members:
-   :special-members: __init__
-
-Functions
----------
-
-.. autofunction:: hyperwave_community.structure.density
-.. autofunction:: hyperwave_community.structure.create_structure
-.. autofunction:: hyperwave_community.structure.view_structure
+   :exclude-members: __init__, permittivity, conductivity, layers_info, construction_params, metadata

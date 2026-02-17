@@ -20,8 +20,6 @@ import time
 import threading
 import io
 import sys
-import os
-import numpy as np
 from pathlib import Path
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed

@@ -1,16 +1,11 @@
-import time
-import jax
 import jax.numpy as jnp
 import matplotlib.pyplot as plt
-from typing import NamedTuple, Optional, Tuple, List, Dict, Union
+from typing import Optional, Tuple
 from functools import partial
-from dataclasses import dataclass
-import matplotlib.patches as patches
 import numpy as np
 
 # Import existing functions to avoid duplication
 # Use relative imports for hyperwave_community modules
-from . import monitors as hwm
 
 
 
@@ -101,11 +96,11 @@ def create_gaussian_source(
     p_air = jnp.ones((3, sim_shape[0], sim_shape[1], sim_shape[2]))
 
     # Set up monitors
-    monitor_xy = hw.solve.Monitor(
+    monitor_xy = hw.solve.Monitor(  # noqa: F821
         shape=(sim_shape[0], sim_shape[1], 4),
         offset=(0, 0, source_offset[2] - 1)
     )
-    monitor_xz = hw.solve.Monitor(
+    monitor_xz = hw.solve.Monitor(  # noqa: F821
         shape=(sim_shape[0], 1, sim_shape[2]),
         offset=(0, sim_shape[1]//2, 0)
     )
@@ -116,7 +111,7 @@ def create_gaussian_source(
     freq_band = (freq_min, freq_max, num_freqs)
 
     # Run simulation to get field slices
-    field_slices, _, _ = hw.solve.mem_efficient_multi_freq(
+    field_slices, _, _ = hw.solve.mem_efficient_multi_freq(  # noqa: F821
         freq_band=freq_band,
         permittivity=p_air,
         conductivity=conductivity,
@@ -177,9 +172,9 @@ def create_gaussian_source(
     field = field.at[:, (2, 3, 4), :, :, :1].set(0)
 
     # Compute wave equation error
-    error = hw.solve.wave_equation_error_full(
+    error = hw.solve.wave_equation_error_full(  # noqa: F821
         field=field,
-        freq_band=hw.solve.FreqBand(*freq_band),
+        freq_band=hw.solve.FreqBand(*freq_band),  # noqa: F821
         permittivity=p_air[:, :, :, source_pos[2]-1:source_pos[2]+3],
         conductivity=conductivity[:, :, :, source_pos[2]-1:source_pos[2]+3] if conductivity is not None else None,
         source_field=source_field,
@@ -198,7 +193,7 @@ def create_gaussian_source(
     err_src_field = err_src_field.at[:, (2, 5), ...].set(0.0)
 
     # Calculate input power
-    input_power = jnp.abs(hw.monitors.get_power_through_plane(
+    input_power = jnp.abs(hw.monitors.get_power_through_plane(  # noqa: F821
         field=err_src_field, axis='z', position=0
     ))
 
@@ -222,9 +217,15 @@ def _curl_3d(field, is_forward):
     fy = field[..., 1, :, :, :]
     fz = field[..., 2, :, :, :]
     _d = partial(_spatial_diff, is_forward=is_forward)
-    dx = lambda f: _d(f, axis=-3)
-    dy = lambda f: _d(f, axis=-2)
-    dz = lambda f: _d(f, axis=-1)
+
+    def dx(f):
+        return _d(f, axis=-3)
+
+    def dy(f):
+        return _d(f, axis=-2)
+
+    def dz(f):
+        return _d(f, axis=-1)
     return np.stack([dy(fz) - dz(fy), dz(fx) - dx(fz), dx(fy) - dy(fx)],
                     axis=-4)
 

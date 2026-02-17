@@ -11,13 +11,9 @@ from hyperwave_community import ConvergenceConfig
 import json
 import time
 import threading
-import io
-import sys
-import numpy as np
 from pathlib import Path
 from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor, as_completed
-import matplotlib.pyplot as plt
+from concurrent.futures import ThreadPoolExecutor
 
 hwc.configure_api(api_key="9e293a83-feb0-4275-b6f0-540ba935b4bb")
 print(hwc.get_account_info())

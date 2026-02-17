@@ -268,7 +268,7 @@ Transmission Analysis
 Field Visualization
 ^^^^^^^^^^^^^^^^^^^
 
-``get_field_intensity_2d()`` extracts the electric field intensity |E|^2 from a 2D monitor slice and returns it along with physical coordinates for plotting. The ``xy_mid`` monitor captures the field pattern at the middle of the waveguide layer, showing how light propagates through the input waveguide, distributes across the multimode interference region, and splits into the two output ports.
+``get_field_intensity_2d()`` extracts the electric field intensity ``|E|^2`` from a 2D monitor slice and returns it along with physical coordinates for plotting. The ``xy_mid`` monitor captures the field pattern at the middle of the waveguide layer, showing how light propagates through the input waveguide, distributes across the multimode interference region, and splits into the two output ports.
 
 .. code-block:: python
 

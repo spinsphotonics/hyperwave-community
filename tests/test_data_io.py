@@ -4,9 +4,7 @@ Tests GDS generation and theta round-tripping.
 Requires gdstk and skimage.
 """
 
-import pytest
 import numpy as np
-import jax.numpy as jnp
 import os
 import tempfile
 
