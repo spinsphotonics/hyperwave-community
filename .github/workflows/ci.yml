@@ -1,0 +1,99 @@
+# CD: ReadTheDocs auto-builds docs on push to main
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-ruff
+          restore-keys: ${{ runner.os }}-pip-
+
+      - run: pip install ruff
+
+      - run: ruff check .
+
+  build:
+    name: Build and Import
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
+          restore-keys: ${{ runner.os }}-pip-
+
+      - run: pip install -e .
+
+      - run: python -c "import hyperwave_community"
+
+      # TODO: mock notebook run step
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
+          restore-keys: ${{ runner.os }}-pip-
+
+      - run: pip install -e .[docs]
+
+      - run: pip install pytest
+
+      - run: |
+          if [ -d tests/ ]; then
+            pytest tests/ -v
+          else
+            echo "No tests/ directory found, skipping"
+          fi
+
+  docs:
+    name: Docs Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
+          restore-keys: ${{ runner.os }}-pip-
+
+      - run: pip install -e .[docs]
+
+      - run: sphinx-build -W -b html docs docs/_build/html

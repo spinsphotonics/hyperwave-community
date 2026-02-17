@@ -4,20 +4,16 @@ Converted from inverse_design_workflow.ipynb with Colab-specific code removed.
 """
 
 import os
-import sys
-import math
-import time
-import pickle
+import time  # noqa: E402
 import traceback
 
-import numpy as np
-import jax.numpy as jnp
-import matplotlib
+import numpy as np  # noqa: E402
+import jax.numpy as jnp  # noqa: E402
+import matplotlib  # noqa: E402
 matplotlib.use('Agg')  # non-interactive backend
-import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
+import matplotlib.pyplot as plt  # noqa: E402
 
-import hyperwave_community as hwc
+import hyperwave_community as hwc  # noqa: E402
 
 # --- API Configuration (replaces Colab userdata) ---
 hwc.configure_api(
@@ -179,10 +175,10 @@ try:
         return hwc.recipe_from_params(
             grid_shape=np.array(layers[0].density_pattern).shape,
             layers=[{
-                'density': np.array(l.density_pattern),
-                'permittivity': l.permittivity_values,
-                'thickness': l.layer_thickness,
-            } for l in layers],
+                'density': np.array(layer.density_pattern),
+                'permittivity': layer.permittivity_values,
+                'thickness': layer.layer_thickness,
+            } for layer in layers],
             vertical_radius=0,
         )
 
@@ -465,11 +461,11 @@ try:
     # Structure spec
     structure_spec = {
         'layers_info': [{
-            'permittivity_values': [float(v) for v in l.permittivity_values] if isinstance(l.permittivity_values, tuple) else float(l.permittivity_values),
-            'layer_thickness': float(l.layer_thickness),
+            'permittivity_values': [float(v) for v in layer.permittivity_values] if isinstance(layer.permittivity_values, tuple) else float(layer.permittivity_values),
+            'layer_thickness': float(layer.layer_thickness),
             'density_radius': 0,
             'density_alpha': 0,
-        } for l in design_layers],
+        } for layer in design_layers],
         'construction_params': {'vertical_radius': 0},
     }
 

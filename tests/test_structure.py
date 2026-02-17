@@ -7,7 +7,6 @@ import pytest
 import jax.numpy as jnp
 import numpy as np
 
-import hyperwave_community as hwc
 from hyperwave_community.structure import Layer, density, create_structure
 
 

@@ -31,11 +31,11 @@ import io
 import json
 import time
 import warnings
-from typing import Dict, Any, Tuple, Optional, List, Callable
+from typing import Dict, Any, Generator, Tuple, Optional, List, Callable
 
 import numpy as np
 import requests
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 
 def _to_json_serializable(obj):
@@ -305,7 +305,6 @@ def preview_component(
 
     # Get the component function
     if not hasattr(gf.components, component_name):
-        available = [c for c in dir(gf.components) if not c.startswith('_')]
         raise ValueError(f"Unknown component '{component_name}'. Check gf.components for available options.")
 
     component_func = getattr(gf.components, component_name)
@@ -351,7 +350,7 @@ def preview_component(
             print(f"  {p['name']}: center=({p['center'][0]:.2f}, {p['center'][1]:.2f}), "
                   f"orientation={p['orientation']}°, width={p['width']:.3f}um")
         if params:
-            print(f"\nParameters used:")
+            print("\nParameters used:")
             for k, v in params.items():
                 print(f"  {k}: {v}")
 
@@ -612,7 +611,6 @@ def build_recipe_from_theta(
         >>> print(f"Structure dimensions: {recipe_result['dimensions']}")
     """
     import jax.numpy as jnp
-    import matplotlib.pyplot as plt
 
     # Import local structure functions
     from .structure import density, Layer, create_structure
@@ -621,9 +619,9 @@ def build_recipe_from_theta(
     theta = theta_result['theta']
     resolution_um = theta_result['resolution_um']
     port_info = theta_result.get('port_info', {})
-    component_name = theta_result.get('component_name', 'unknown')
+    _component_name = theta_result.get('component_name', 'unknown')
 
-    print(f"Building recipe from theta...")
+    print("Building recipe from theta...")
 
     # Calculate permittivities
     eps_core = n_core ** 2
@@ -792,10 +790,10 @@ def build_monitors_local(
     monitors = MonitorSet()
 
     # Calculate monitor size in cells
-    monitor_margin_cells = int(monitor_margin_um / resolution_um)
+    _monitor_margin_cells = int(monitor_margin_um / resolution_um)
     clad_bot_cells = layer_config['clad_bot_cells']
     wg_height_cells = layer_config['wg_height_cells']
-    z_center = clad_bot_cells + wg_height_cells // 2
+    _z_center = clad_bot_cells + wg_height_cells // 2
 
     # Add input monitor at source port
     input_label = f"Input_{source_port}"
@@ -983,7 +981,7 @@ def _handle_api_error(e: requests.exceptions.HTTPError, operation: str) -> None:
         elif status_code == 502:
             print("Service temporarily unavailable. Please retry.")
         elif status_code == 422:
-            print(f"Validation error from API:")
+            print("Validation error from API:")
             try:
                 error_detail = e.response.json()
                 print(f"  {error_detail}")
@@ -1285,7 +1283,7 @@ def prepare_simulation(
         mode_preview = result.get("mode_preview", {})
         n_eff = mode_preview.get("n_eff", "N/A")
         print(f"Mode solved: n_eff={n_eff}")
-        print(f"Setup complete. Ready for run_simulation()")
+        print("Setup complete. Ready for run_simulation()")
 
         return {
             "mode_preview": mode_preview,
@@ -1328,24 +1326,22 @@ def run_simulation(
 
     Two ways to call this function:
 
-    **Option 1: Pass granular results directly (recommended)**
-    ```python
-    results = hwc.run_simulation(
-        device_type="mmi2x2",
-        recipe_result=recipe_result,
-        monitor_result=monitor_result,
-        freq_result=freq_result,
-        source_result=source_result,
-    )
-    ```
+    **Option 1: Pass granular results directly (recommended)**::
 
-    **Option 2: Pass pre-packaged setup_data (legacy)**
-    ```python
-    results = hwc.run_simulation(
-        device_type="mmi2x2",
-        setup_data=setup_data,
-    )
-    ```
+        results = hwc.run_simulation(
+            device_type="mmi2x2",
+            recipe_result=recipe_result,
+            monitor_result=monitor_result,
+            freq_result=freq_result,
+            source_result=source_result,
+        )
+
+    **Option 2: Pass pre-packaged setup_data (legacy)**::
+
+        results = hwc.run_simulation(
+            device_type="mmi2x2",
+            setup_data=setup_data,
+        )
 
     Args:
         device_type: Device type name (for tracking).
@@ -1356,6 +1352,7 @@ def run_simulation(
         setup_data: Pre-packaged setup (alternative to individual results).
         num_steps: Maximum FDTD steps (default: 20000).
         convergence: Early stopping behavior. Options:
+
             - "quick": Stop early, check less frequently (fastest)
             - "default": Balanced approach (recommended)
             - "thorough": Check carefully before stopping (most conservative)
@@ -1518,7 +1515,7 @@ def run_simulation(
         # Check if data is stored externally (large responses)
         data_url = result.get("data_url")
         if data_url:
-            print(f"Fetching large response from cloud storage...")
+            print("Fetching large response from cloud storage...")
             try:
                 import gzip
                 url_response = requests.get(data_url, timeout=120)
@@ -1808,7 +1805,7 @@ def simulate(
         body["significant_power_threshold"] = conv_config.power_threshold
         body["min_stable_checks"] = conv_config.min_stable_checks
 
-    print(f"\nStarting GPU simulation...")
+    print("\nStarting GPU simulation...")
     print(f"  GPU: {gpu_type}, Max steps: {simulation_steps}")
     if use_early_stopping:
         print(f"  Convergence: {convergence}")
@@ -1821,7 +1818,7 @@ def simulate(
     try:
         max_retries = 3
         retry_delay = 10
-        last_error = None
+        _last_error = None
 
         for attempt in range(max_retries):
             try:
@@ -1842,13 +1839,13 @@ def simulate(
                 status = retry_err.response.status_code if retry_err.response is not None else 0
                 if status in (502, 503, 504) and attempt < max_retries - 1:
                     print(f"Service temporarily unavailable (HTTP {status}). Will retry.")
-                    last_error = retry_err
+                    _last_error = retry_err
                     continue
                 raise
             except requests.exceptions.ReadTimeout as retry_err:
                 if attempt < max_retries - 1:
-                    print(f"Request timed out. Will retry.")
-                    last_error = retry_err
+                    print("Request timed out. Will retry.")
+                    _last_error = retry_err
                     continue
                 raise
 
@@ -2512,7 +2509,7 @@ def get_default_absorber_params(
     API_URL = config['api_url']
     API_KEY = config['api_key']
 
-    print(f"Computing absorber params...")
+    print("Computing absorber params...")
 
     request_data = {
         "structure_dimensions": list(structure_dimensions),
@@ -2531,7 +2528,7 @@ def get_default_absorber_params(
         response.raise_for_status()
         results = response.json()
 
-        print(f"Absorber params computed")
+        print("Absorber params computed")
 
         return {
             'absorption_widths': tuple(results['absorption_widths']),
@@ -2709,7 +2706,7 @@ def visualize_mode_source(
     elif source_field_b64 is None:
         raise ValueError("Either source_field or source_field_b64 must be provided")
 
-    print(f"Generating mode source visualization...")
+    print("Generating mode source visualization...")
 
     request_data = {
         "source_field_b64": source_field_b64,
@@ -2841,7 +2838,7 @@ def analyze_transmission(
         results: Simulation results from run_simulation()
         input_monitor: Name of input monitor
         output_monitors: List of output monitor names. If None, auto-detects
-                        monitors starting with "Output_"
+                        monitors starting with ``Output_``
         direction: Direction of power flow for Poynting vector ('x', 'y', 'z')
         print_results: If True, print formatted results table
 
@@ -2949,7 +2946,7 @@ def get_field_intensity_2d(
 ) -> Dict[str, Any]:
     """Extract 2D field intensity from simulation results for plotting.
 
-    Computes |E|² from the specified monitor and provides extent/wavelength
+    Computes ``|E|^2`` from the specified monitor and provides extent/wavelength
     info for matplotlib plotting.
 
     Args:
@@ -2961,7 +2958,7 @@ def get_field_intensity_2d(
 
     Returns:
         Dictionary with:
-            - 'intensity': 2D numpy array of |E|² ready for imshow
+            - 'intensity': 2D numpy array of ``|E|^2`` ready for imshow
             - 'extent': [x_min, x_max, y_min, y_max] in μm for imshow extent
             - 'wavelength_nm': Wavelength in nm (if freq_band provided)
     """
@@ -3260,28 +3257,28 @@ def compute_adjoint_gradient(
     }
 
     # Debug info
-    print(f"\n=== Inverse Design API Request ===")
+    print("\n=== Inverse Design API Request ===")
     print(f"Endpoint: {API_URL}/inverse_design")
     print(f"Theta shape: {request_data['theta_shape']}")
     print(f"Design monitor: shape={design_monitor_shape}, offset={design_monitor_offset}")
     print(f"Loss monitor: shape={loss_monitor_shape}, offset={loss_monitor_offset}")
     print(f"GPU type: {gpu_type}")
     if loss_fn_pickle_b64:
-        print(f"Loss type: Custom function (cloudpickle)")
+        print("Loss type: Custom function (cloudpickle)")
     elif mode_coupling_params:
-        print(f"Loss type: Mode coupling")
+        print("Loss type: Mode coupling")
     elif power_params:
         axis_names = {0: 'x', 1: 'y', 2: 'z'}
         print(f"Loss type: Power S_{axis_names.get(power_axis, power_axis)} via S_from_slice (maximize={power_maximize})")
     elif intensity_params:
         print(f"Loss type: Intensity |{intensity_component}|^2 (maximize={intensity_maximize})")
-    print(f"==================================\n")
+    print("==================================\n")
 
     # Send request with retry logic for transient errors
     try:
         max_retries = 3
         retry_delay = 10
-        last_error = None
+        _last_error = None
 
         for attempt in range(max_retries):
             try:
@@ -3301,13 +3298,13 @@ def compute_adjoint_gradient(
                 status = retry_err.response.status_code if retry_err.response is not None else 0
                 if status in (502, 503, 504) and attempt < max_retries - 1:
                     print(f"Service temporarily unavailable (HTTP {status}). Will retry.")
-                    last_error = retry_err
+                    _last_error = retry_err
                     continue
                 raise
             except requests.exceptions.ReadTimeout as retry_err:
                 if attempt < max_retries - 1:
-                    print(f"Request timed out. Will retry.")
-                    last_error = retry_err
+                    print("Request timed out. Will retry.")
+                    _last_error = retry_err
                     continue
                 raise
 
@@ -3335,10 +3332,10 @@ def compute_adjoint_gradient(
             status_code = e.response.status_code
             response_text = e.response.text
 
-            print(f"\n=== API Error ===")
+            print("\n=== API Error ===")
             print(f"Status Code: {status_code}")
             print(f"Response: {response_text}")
-            print(f"=================\n")
+            print("=================\n")
 
             if status_code == 401:
                 print("No API key detected in request.")
@@ -3715,25 +3712,25 @@ def run_optimization(
         "Accept": "text/event-stream",
     }
 
-    print(f"\n=== Inverse Design Optimization ===", flush=True)
+    print("\n=== Inverse Design Optimization ===", flush=True)
     print(f"Theta shape: {request_data['theta_shape']}", flush=True)
     print(f"Steps: {num_steps}, LR: {learning_rate}, GPU: {gpu_type}", flush=True)
     if mode_coupling_params:
-        print(f"Loss: Mode coupling", flush=True)
+        print("Loss: Mode coupling", flush=True)
     elif power_params:
         axis_names = {0: 'x', 1: 'y', 2: 'z'}
         print(f"Loss: Power S_{axis_names.get(power_axis, power_axis)} (maximize={power_maximize})", flush=True)
     elif intensity_params:
         print(f"Loss: Intensity |{intensity_component}|^2 (maximize={intensity_maximize})", flush=True)
     elif loss_fn_pickle_b64:
-        print(f"Loss: Custom function (cloudpickle)", flush=True)
-    print(f"====================================\n", flush=True)
+        print("Loss: Custom function (cloudpickle)", flush=True)
+    print("====================================\n", flush=True)
 
     # Try WebSocket first via gateway (Railway, always-on, supports WS).
     # Falls back to SSE on Modal if websocket-client not installed or WS fails.
-    GATEWAY_URL = _API_CONFIG.get('gateway_url', API_URL)
+    GATEWAY_URL = _API_CONFIG.get('gateway_url') or API_URL
     try:
-        import websocket as _ws_lib
+        import websocket as _ws_lib  # noqa: F401
         yield from _run_optimization_ws(GATEWAY_URL, effective_api_key, request_data)
         return
     except ImportError:
@@ -3800,10 +3797,10 @@ def run_optimization(
         if e.response is not None:
             status_code = e.response.status_code
             response_text = e.response.text
-            print(f"\n=== API Error ===")
+            print("\n=== API Error ===")
             print(f"Status Code: {status_code}")
             print(f"Response: {response_text}")
-            print(f"=================\n")
+            print("=================\n")
             if status_code == 401:
                 print("No API key detected. Sign up at spinsphotonics.com")
             elif status_code == 403:
@@ -3977,5 +3974,7 @@ def mode_convert(
     if mode_field is None:
         raise RuntimeError("Output_mode monitor not found in simulation results")
 
-    print(f"Mode convert complete: {mode_field.shape}")
+    gpu_time = result.get('sim_time', 0)
+    print(f"Mode convert complete: {mode_field.shape} "
+          f"(GPU: {gpu_time:.1f}s, billed: ~{gpu_time / 3600:.4f} credits)")
     return mode_field

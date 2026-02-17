@@ -12,7 +12,6 @@ from dataclasses import dataclass
 
 import jax
 import jax.numpy as jnp
-import matplotlib.pyplot as plt
 
 
 @dataclass
@@ -88,7 +87,7 @@ class Layer:
             density_max = float(jnp.max(self.density_pattern))
             if density_min < -0.1 or density_max > 1.1:
                 print(f"Warning: Density pattern values significantly outside [0, 1]: [{density_min:.6f}, {density_max:.6f}]")
-                print(f"This may indicate an issue with the density filtering or optimization. Consider checking your parameters.")
+                print("This may indicate an issue with the density filtering or optimization. Consider checking your parameters.")
         except Exception:
             # Skip validation during JAX tracing (happens during autodiff)
             # This catches TracerBoolConversionError and ConcretizationTypeError
@@ -799,7 +798,7 @@ def reconstruct_structure_from_recipe(recipe: dict) -> Structure:
     """
     layers_info = recipe['layers_info']
     construction_params = recipe['construction_params']
-    metadata = recipe['metadata']
+    _metadata = recipe['metadata']
     unique_densities = recipe['unique_densities']  # Deduplicated density arrays
 
     # Rebuild the structure using the original layers and parameters
@@ -823,7 +822,6 @@ def reconstruct_structure_from_recipe(recipe: dict) -> Structure:
             # Check if it's a uniform pattern or full array
             if isinstance(density_data, dict) and density_data.get('type') == 'uniform':
                 # Reconstruct uniform density from scalar value
-                import numpy as np
                 density_pattern = jnp.full(density_data['shape'], density_data['value'])
             else:
                 # Full array stored

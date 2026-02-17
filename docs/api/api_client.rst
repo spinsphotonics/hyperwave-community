@@ -74,8 +74,8 @@ For fine-grained control, create a custom ``ConvergenceConfig``:
 .. autoclass:: hyperwave_community.api_client.ConvergenceConfig
    :members:
    :undoc-members:
+   :no-index:
 
-.. autodata:: hyperwave_community.api_client.CONVERGENCE_PRESETS
 
 Analysis Functions (Free, Local)
 --------------------------------

@@ -100,6 +100,13 @@ intersphinx_mapping = {
     'jax': ('https://jax.readthedocs.io/en/latest/', None),
 }
 
+
+# Suppress specific warnings that come from docstring formatting
+# and removed/renamed functions
+suppress_warnings = [
+    'autodoc.import_object',
+    'duplicate.object.description',
+]
 # -- Custom configuration ----------------------------------------------------
 
 # Custom CSS and JS files

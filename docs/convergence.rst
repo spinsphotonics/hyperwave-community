@@ -1,4 +1,4 @@
-.. _convergence-configuration:
+.. _convergence-options:
 
 Convergence Options
 ===================

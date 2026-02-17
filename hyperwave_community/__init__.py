@@ -149,7 +149,7 @@ from .simulate import simulate as simulate_local
 from .simulate import quick_view_monitors
 
 # Re-import simulate from api_client to ensure it's not shadowed by the module import above
-from .api_client import simulate, mode_convert
+from .api_client import simulate, mode_convert  # noqa: F401
 
 # Define public API
 __all__ = [

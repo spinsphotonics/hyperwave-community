@@ -129,9 +129,9 @@ Extract and plot field intensity:
 
 Available field analysis functions:
 
-* ``get_field_intensity(field)``: Total intensity |E|^2 + |H|^2
-* ``get_electric_field_intensity(field)``: Electric intensity |E|^2
-* ``get_magnetic_field_intensity(field)``: Magnetic intensity |H|^2
+* ``get_field_intensity(field)``: Total intensity ``|E|^2 + |H|^2``
+* ``get_electric_field_intensity(field)``: Electric intensity ``|E|^2``
+* ``get_magnetic_field_intensity(field)``: Magnetic intensity ``|H|^2``
 * ``get_field_slice(field, axis, position)``: Extract 2D cross-section
 
 Absorbing Boundaries

@@ -193,7 +193,7 @@ def get_power_through_plane(
 
 
 def get_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
-    """Calculate electromagnetic field intensity |E|^2 + |H|^2.
+    """Calculate electromagnetic field intensity ``|E|^2 + |H|^2``.
     
     Args:
         field: Field data with shape (N_freq, 6, ...).
@@ -207,7 +207,7 @@ def get_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
 
 
 def get_electric_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
-    """Calculate electric field intensity |E|^2.
+    """Calculate electric field intensity ``|E|^2``.
     
     Args:
         field: Field data with shape (N_freq, 6, ...).
@@ -219,7 +219,7 @@ def get_electric_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
 
 
 def get_magnetic_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
-    """Calculate magnetic field intensity |H|^2.
+    """Calculate magnetic field intensity ``|H|^2``.
 
     Args:
         field: Field data with shape (N_freq, 6, ...).
@@ -266,7 +266,7 @@ def mode_coupling_efficiency(
     This gives the fraction of input power coupled into the target mode.
 
     The formula used is:
-        eta = |Re(integral(E_mode x H_out) * integral(E_out x H_mode))| / (4 * P_in * P_mode_norm)
+        ``eta = |Re(integral(E_mode x H_out) * integral(E_out x H_mode))| / (4 * P_in * P_mode_norm)``
 
     where the normalization ensures eta=1 for perfect mode matching.
 
@@ -447,7 +447,7 @@ def view_monitors(structure, monitors: Union[List, 'MonitorSet'], monitor_mappin
             extent = [0, Lx, Ly, 0]
             xlabel, ylabel = 'X (cells)', 'Y (cells)'
         
-        im = ax.imshow(structure_slice.T, extent=extent,
+        ax.imshow(structure_slice.T, extent=extent,
                       cmap='PuOr', alpha=alpha_structure, aspect='auto', origin='upper')
     
     monitor_colors = ['red', 'blue', 'green', 'orange', 'purple', 'brown', 'pink', 'gray']
@@ -886,9 +886,8 @@ class MonitorSet:
                 Default is 1.5. Ensures monitors are at least 1.5x waveguide width.
             label: Label for monitor names. If None, uses 'mon_axisXXX' format
                 where XXX is the position value. If provided, smart suffixes are added:
-                - Single monitor: uses label as-is (e.g., 'input')
-                - Two monitors: adds '_top'/'_bottom' or '_left'/'_right' (e.g., 'input_top')
-                - Multiple monitors: adds index (e.g., 'input_0', 'input_1')
+                single monitor uses label as-is, two monitors adds '_top'/'_bottom' or
+                '_left'/'_right', multiple monitors adds index (e.g., 'input_0').
             verbose: Whether to print detection information. Default is False.
             x_ranges: Tuple (start, end) to restrict X range for waveguide detection.
                       Used when axis='y' or axis='z'.
@@ -932,9 +931,11 @@ class MonitorSet:
 
         Returns:
             List of dictionaries, each containing:
-                - name: Monitor name/label
-                - shape: Monitor shape tuple
-                - offset: Monitor offset tuple
+
+            - name: Monitor name/label
+            - shape: Monitor shape tuple
+            - offset: Monitor offset tuple
+
             Can be used to reconstruct the MonitorSet configuration.
         """
         recipe_list = []
@@ -1229,9 +1230,8 @@ def add_monitors_at_position(
             Default is 1.5. Ensures monitors are at least 1.5x waveguide width.
         label: Prefix for monitor names. If None, uses 'mon_axisXXX' format
             where XXX is the position value. If provided, smart suffixes are added:
-                - Single monitor: uses label as-is (e.g., 'input')
-                - Two monitors: adds '_top'/'_bottom' or '_left'/'_right' (e.g., 'input_top')
-                - Multiple monitors: adds index (e.g., 'input_0', 'input_1')
+            single monitor uses label as-is, two monitors adds '_top'/'_bottom' or
+            '_left'/'_right', multiple monitors adds index (e.g., 'input_0').
         verbose: Whether to print detection information. Default is False.
         x_ranges: Tuple (start, end) to restrict X range for waveguide detection.
                   Used when axis='y' or axis='z'.
@@ -1436,7 +1436,7 @@ def add_monitors_at_position(
     # Handle case where no waveguides detected
     if not waveguides:
         if verbose:
-            print(f"  Warning: No features detected, adding fallback monitor")
+            print("  Warning: No features detected, adding fallback monitor")
 
         # Calculate Z dimension based on height_factor for X and Y axis monitors
         if axis != 'z':

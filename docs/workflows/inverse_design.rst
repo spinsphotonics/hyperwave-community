@@ -527,7 +527,7 @@ which is sufficient to capture the mode's evanescent tails while keeping the sol
 The ``hwc_mode()`` function takes a 4D permittivity tensor ``(3, 1, y, z)`` (three polarization
 components, one x-slice) and returns the E-field modes, propagation constants (beta), and mode
 indices. ``mode_num=0`` selects the fundamental mode. The effective index ``n_eff`` should be
-between 2.0 and 3.0 for a standard 220 nm SOI waveguide at 1550 nm.
+between 2.3 and 3.0 for a standard 220 nm SOI waveguide at 1550 nm.
 
 After the eigenmode solve, ``hwc.mode_convert()`` propagates the E-only field through a 500-pixel
 waveguide segment on a cloud GPU to generate the corresponding H-field components. The resulting
@@ -739,9 +739,10 @@ back after each step via WebSocket (with SSE fallback). Each step runs a forward
 FDTD simulation to compute the gradient of the loss function with respect to theta, then
 updates theta using the Adam optimizer with cosine learning rate decay.
 
-Interrupting the kernel (pressing the stop button in Colab) cancels the GPU task immediately.
-You are only charged for completed steps, and all step results received so far are kept in the
-``results`` list.
+Interrupting the kernel (pressing the stop button in Colab) cancels the optimization after the
+current forward/adjoint step completes (the server finishes the in-progress step before detecting
+the disconnect). You are only charged for completed steps, and all step results received so far
+are kept in the ``results`` list.
 
 Loss Function
 ^^^^^^^^^^^^^
@@ -847,6 +848,8 @@ each completed step. Each dict contains:
 - ``step``: Current step number (1-indexed).
 - ``loss``: The loss function value (negative of efficiency). Take ``abs(loss)`` to get the
   coupling efficiency as a fraction.
+- ``efficiency``: Coupling efficiency as a fraction (0 to 1). Equivalent to ``abs(loss)`` but
+  provided directly for convenience. Use ``step_result['efficiency'] * 100`` to get a percentage.
 - ``theta``: The updated 2D design array after this step's gradient update.
 - ``grad_max``: Maximum absolute gradient value, useful for monitoring convergence.
 - ``step_time``: Wall-clock time for this step in seconds.
@@ -949,10 +952,12 @@ gradient update: the loss value at step N corresponds to the theta from step N-1
 slightly higher than the last reported value.
 
 The verification simulation uses ``convergence="full"`` to ensure it uses the same FDTD solver
-(``mem_efficient_multi_freq``) as the optimizer in Step 9. Without this parameter,
-``simulate()`` defaults to ``convergence="default"``, which routes to the
-``early_stopping_solve`` solver. This alternative solver can produce slightly different results
-(~0.5% gap) due to different field accumulation strategies.
+(``mem_efficient_multi_freq``) as the optimizer in Step 9. The ``convergence`` parameter is a
+client-side routing decision: ``"default"``, ``"quick"``, and ``"thorough"`` send the request to
+the ``/early_stopping`` endpoint on hwcloud, while ``"full"`` sends it to ``/simulate`` with no
+early stopping. Without this parameter, ``simulate()`` defaults to ``convergence="default"``.
+The early stopping path can produce slightly different results (~0.5% gap) due to different
+field accumulation strategies.
 
 .. code-block:: python
 

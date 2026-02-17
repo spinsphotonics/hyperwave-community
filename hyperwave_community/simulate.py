@@ -36,8 +36,6 @@ except ImportError:
 # Use relative imports for hyperwave_community modules
 from . import monitors as hwm
 from .monitors import MonitorSet
-from . import structure as hwst
-from . import absorption as hwa
 
 
 def simulate(
@@ -517,9 +515,9 @@ def visualize_fields(out_list, monitor_mapping, field_component='all', freq_idx=
         out_list: List of monitor outputs.
         monitor_mapping: Dictionary mapping monitor names to indices.
         field_component: Which field component to visualize:
-            - 'all': Total field intensity (|E|² + |H|²)
-            - 'E': Electric field intensity (|E|²)
-            - 'H': Magnetic field intensity (|H|²)
+            - 'all': Total field intensity (``|E|^2 + |H|^2``)
+            - 'E': Electric field intensity (``|E|^2``)
+            - 'H': Magnetic field intensity (``|H|^2``)
             - 'Ex', 'Ey', 'Ez', 'Hx', 'Hy', 'Hz': Individual components
         freq_idx: Frequency index to visualize.
     """
@@ -660,9 +658,9 @@ def quick_view_monitors(results, component='Hz', cmap='inferno'):
         results: Dictionary from simulate() containing monitor data.
         component: Which field to show:
             - 'Ex', 'Ey', 'Ez', 'Hx', 'Hy', 'Hz': Individual components
-            - '|E|': Electric field magnitude
-            - '|H|': Magnetic field magnitude
-            - 'all': Total field intensity |E|²+|H|²
+            - ``'|E|'``: Electric field magnitude
+            - ``'|H|'``: Magnetic field magnitude
+            - 'all': Total field intensity ``|E|^2+|H|^2``
         cmap: Colormap to use for visualization (default 'inferno').
 
     Example:
