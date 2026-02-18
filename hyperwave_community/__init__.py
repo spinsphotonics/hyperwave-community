@@ -126,9 +126,6 @@ from .api_client import (
     load_component,
     build_recipe_from_theta,
     build_monitors_local,
-    # Checkpoint persistence
-    save_checkpoint,
-    load_checkpoint,
 )
 
 # Import metasurface utilities
@@ -245,10 +242,6 @@ __all__ = [
     "load_component",
     "build_recipe_from_theta",
     "build_monitors_local",
-
-    # Checkpoint persistence
-    "save_checkpoint",
-    "load_checkpoint",
 
     # Mode conversion (cloud GPU)
     "mode_convert",
