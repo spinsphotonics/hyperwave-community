@@ -3614,6 +3614,31 @@ def run_optimization(
 
     API_URL = _API_CONFIG['api_url']
 
+    initial_opt_state_b64 = None
+    start_step = 0
+    if checkpoint is not None:
+        if theta is not None:
+            raise ValueError(
+                "Cannot provide both 'theta' and 'checkpoint'. "
+                "When resuming from a checkpoint, theta is loaded automatically."
+            )
+        checkpoint_data = checkpoint
+        checkpoint_source = None
+        if isinstance(checkpoint, str):
+            checkpoint_source = checkpoint
+            checkpoint_data = load_checkpoint(checkpoint)
+        theta = checkpoint_data['theta_history'][-1]
+        start_step = int(checkpoint_data.get('last_step', 0)) + 1
+        if 'opt_state_b64' in checkpoint_data:
+            initial_opt_state_b64 = checkpoint_data['opt_state_b64']
+        if checkpoint_source:
+            print(f"Resuming from step {start_step} (loaded from {checkpoint_source})", flush=True)
+        else:
+            print(f"Resuming from step {start_step}", flush=True)
+
+    if theta is None:
+        raise ValueError("Must provide either 'theta' or 'checkpoint'")
+
     # Validate loss parameters
     if (loss_fn is None and mode_field is None and
             power_axis is None and intensity_component is None):
