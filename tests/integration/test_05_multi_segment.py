@@ -1,14 +1,22 @@
-"""Test 05: Multiple save/load cycles (10+10+10)."""
+"""Test 05: Multiple save/load cycles (10+10+10) must match 30 straight.
+
+With constant LR, each resumed segment continues with the exact same
+optimizer state and LR, so the combined result must be identical to
+a single uninterrupted run.
+"""
 
 import os
 import numpy as np
 import pytest
-from .helpers import make_test_inputs, run_opt, NUM_STEPS, THETA_SHAPE
+from .helpers import make_test_inputs, run_opt, NUM_STEPS, THETA_SHAPE, BASELINE_FILE
 
 
 class TestMultiSegment:
-    def test_three_segments_loss_decreasing(self, configure_sdk, tmp_dir):
-        """Loss should decrease across all 3 segments despite LR restarts."""
+    def test_three_segments_match_baseline(self, configure_sdk, tmp_dir):
+        """10+10+10 resumed losses must exactly match 30-step straight run."""
+        if not os.path.exists(BASELINE_FILE):
+            pytest.skip("Baseline not found")
+        baseline = np.load(BASELINE_FILE, allow_pickle=True)
         hwc = configure_sdk
         theta, source = make_test_inputs()
 
@@ -25,22 +33,8 @@ class TestMultiSegment:
 
         all_losses = np.array([r['loss'] for r in seg1 + seg2 + seg3])
         assert len(all_losses) == 30
-
-        # Overall loss should decrease
-        assert all_losses[-1] < all_losses[0], "Loss did not decrease overall"
-
-        # No huge spikes at resume boundaries
-        last_seg1 = seg1[-1]['loss']
-        first_seg2 = seg2[0]['loss']
-        assert first_seg2 < last_seg1 * 1.5, (
-            f"Loss spike at seg1->seg2: {last_seg1:.6f} -> {first_seg2:.6f}"
-        )
-
-        last_seg2 = seg2[-1]['loss']
-        first_seg3 = seg3[0]['loss']
-        assert first_seg3 < last_seg2 * 1.5, (
-            f"Loss spike at seg2->seg3: {last_seg2:.6f} -> {first_seg3:.6f}"
-        )
+        np.testing.assert_allclose(all_losses, baseline['losses'], rtol=1e-5,
+                                   err_msg="3-segment run diverged from baseline")
 
     def test_step_continuity(self, configure_sdk, tmp_dir):
         hwc = configure_sdk
