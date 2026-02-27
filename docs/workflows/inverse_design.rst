@@ -24,17 +24,14 @@ optimization) consume credits at $25/hr on NVIDIA B200.
 Prerequisites
 -------------
 
-Install the package with the GDS extra (needed for GDSFactory and JAX dependencies) and
-configure your API key:
+Install the package and configure your API key:
 
 .. code-block:: python
 
-   %pip install "hyperwave-community[gds] @ git+https://github.com/spinsphotonics/hyperwave-community.git" -q
+   %pip install hyperwave-community -q
 
-The ``[gds]`` extra installs JAX, GDSFactory, and their dependencies. JAX is used for array
+This installs JAX, GDSFactory, and all dependencies. JAX is used for array
 operations that support automatic differentiation through the density-to-structure pipeline.
-GDSFactory is optional for inverse design (you build theta manually), but importing the full
-package ensures all utilities are available.
 
 .. code-block:: python
 
