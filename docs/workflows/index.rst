@@ -1,7 +1,7 @@
 Workflows
 =========
 
-Hyperwave Community offers two workflows for running FDTD photonics simulations. Both produce identical results on NVIDIA B200 GPUs.
+Hyperwave Community offers two workflows for running FDTD photonics simulations. Both produce identical results on NVIDIA B200 GPUs. For gradient-based topology optimization, see :doc:`inverse_design`.
 
 .. contents:: On this page
    :local:
@@ -53,40 +53,29 @@ Workflow Comparison
 
 .. list-table::
    :header-rows: 1
-   :widths: 20 25 25 30
+   :widths: 30 35 35
 
    * -
      - **Local Workflow**
      - **API Workflow**
-     - **Inverse Design**
    * - Primary use
      - Learning, testing, custom work
      - Integration into existing systems
-     - Topology optimization
    * - CPU work runs on
      - Your machine / Colab
      - Modal (SPINs servers)
-     - Your machine + cloud GPU
    * - Structure creation
      - Step-by-step local functions
      - Single API call
-     - Step-by-step with theta optimization
    * - Custom theta patterns
      - Full support
      - Not supported
-     - Required (design variable)
    * - Intermediate inspection
      - Full access to all arrays
      - Limited
-     - Full access to all arrays
-   * - Optimization
-     - Manual only
-     - Not supported
-     - Adjoint-method gradient-based
    * - Lines of code
      - ~50 lines
      - ~30 lines
-     - ~80 lines
 
 Shared Steps
 ------------
@@ -136,4 +125,3 @@ Credits are only consumed when running ``run_simulation()`` or ``run_optimizatio
 
    local_workflow
    api_workflow
-   inverse_design
