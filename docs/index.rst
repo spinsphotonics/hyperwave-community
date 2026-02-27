@@ -52,6 +52,7 @@ Getting Started
    convergence
    gpu_options
    getting_started/colab_secrets
+   user_guide/index
 
 Indices and tables
 ==================
