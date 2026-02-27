@@ -1,7 +1,7 @@
 .. _inverse-design-workflow:
 
-Inverse Design Workflow
-=======================
+Inverse Design
+==============
 
 Gradient-based topology optimization of a silicon photonic grating coupler using the adjoint
 method on cloud GPUs. Each optimization step runs a forward and adjoint FDTD simulation to
