@@ -2340,7 +2340,7 @@ def compute_adjoint_gradient(
         1. loss_fn: Custom function (most flexible)
         2. mode_field: Mode coupling efficiency
         3. power_axis: Poynting vector power (S_from_slice)
-        4. intensity_component: Simple |E|^2
+        4. intensity_component: Simple E-field intensity
 
     Args:
         theta: Design variables (2D numpy array). Values typically in [0, 1].
@@ -2352,10 +2352,10 @@ def compute_adjoint_gradient(
         loss_monitor_offset: Position where loss is computed (x, y, z).
         design_monitor_shape: Shape of design region for gradient computation.
         design_monitor_offset: Offset of design region.
-        structure_spec: Structure specification dictionary with:
-            - layers_info: list of layer dicts with density_radius, density_alpha,
-              permittivity_values, layer_thickness, conductivity_values
-            - construction_params: dict with vertical_radius
+        structure_spec: Structure specification dictionary containing
+            ``layers_info`` (list of layer dicts with density_radius, density_alpha,
+            permittivity_values, layer_thickness, conductivity_values) and
+            ``construction_params`` (dict with vertical_radius).
         loss_fn: Custom loss function (optional). Signature: loss_fn(loss_field) -> scalar.
             loss_field shape: (n_freq, 6, mx, my, mz). Serialized via cloudpickle.
             WARNING: Avoid closures over large arrays (causes memory leaks).
@@ -2786,7 +2786,7 @@ def run_optimization(
         1. loss_fn: Custom function (most flexible)
         2. mode_field: Mode coupling efficiency
         3. power_axis: Poynting vector power (S_from_slice)
-        4. intensity_component: Simple |E|^2
+        4. intensity_component: Simple E-field intensity
 
     Args:
         theta: Initial design variables (2D numpy array, values in [0, 1]).

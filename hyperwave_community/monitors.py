@@ -191,7 +191,7 @@ def get_power_through_plane(
 
 
 def get_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
-    """Calculate electromagnetic field intensity |E|^2 + |H|^2.
+    """Calculate electromagnetic field intensity ``|E|^2 + |H|^2``.
     
     Args:
         field: Field data with shape (N_freq, 6, ...).
@@ -205,7 +205,7 @@ def get_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
 
 
 def get_electric_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
-    """Calculate electric field intensity |E|^2.
+    """Calculate electric field intensity ``|E|^2``.
     
     Args:
         field: Field data with shape (N_freq, 6, ...).
@@ -217,7 +217,7 @@ def get_electric_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
 
 
 def get_magnetic_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
-    """Calculate magnetic field intensity |H|^2.
+    """Calculate magnetic field intensity ``|H|^2``.
 
     Args:
         field: Field data with shape (N_freq, 6, ...).
@@ -650,11 +650,8 @@ class MonitorSet:
         """Return serializable recipe for reconstructing this MonitorSet.
 
         Returns:
-            List of dictionaries, each containing:
-                - name: Monitor name/label
-                - shape: Monitor shape tuple
-                - offset: Monitor offset tuple
-            Can be used to reconstruct the MonitorSet configuration.
+            List of dictionaries, each containing name, shape, and offset
+            keys. Can be used to reconstruct the MonitorSet configuration.
         """
         recipe_list = []
         for name, idx in self.mapping.items():

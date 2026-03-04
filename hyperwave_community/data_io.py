@@ -717,14 +717,11 @@ def export_csv(
     appropriate CSV output.
 
     Args:
-        data: One of:
-            - Simulation results dict (from run_simulation). Exports
-              S-parameters and per-monitor power as separate CSV files.
-            - S-parameter dict (from analyze_transmission). Exports
-              transmissions as a single CSV.
-            - numpy or JAX array. Written directly as a CSV matrix.
-            - Dict of arrays (e.g. results["monitor_data"]). Each
-              entry is saved as <stem>_<key>.csv.
+        data: Data to export. Supported types: simulation results dict
+            (from run_simulation), S-parameter dict (from analyze_transmission),
+            numpy or JAX array, or dict of arrays. Simulation results produce
+            multiple CSV files for S-parameters and per-monitor power. Arrays
+            are written directly as CSV matrices.
         output_path: Destination file path (default "output.csv").
             When multiple files are produced the stem is reused with
             descriptive suffixes.
