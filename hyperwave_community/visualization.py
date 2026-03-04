@@ -110,6 +110,7 @@ def plot_convergence(
         fig.savefig(save_path, dpi=150, bbox_inches="tight")
     if show:
         plt.show()
+        plt.close(fig)
     return fig
 
 
@@ -198,6 +199,7 @@ def plot_fields(
         fig.savefig(save_path, dpi=150, bbox_inches="tight")
     if show:
         plt.show()
+        plt.close(fig)
     return fig
 
 
@@ -267,6 +269,7 @@ def plot_mode(
         fig.savefig(save_path, dpi=150, bbox_inches="tight")
     if show:
         plt.show()
+        plt.close(fig)
     return fig
 
 
@@ -349,6 +352,7 @@ def plot_monitors(
 
         if show:
             plt.show()
+            plt.close(fig)
 
     return figures
 
@@ -493,6 +497,7 @@ def plot_monitor_layout(
         fig.savefig(save_path, dpi=150, bbox_inches="tight")
     if show:
         plt.show()
+        plt.close(fig)
     return fig
 
 
@@ -557,6 +562,7 @@ def plot_absorption_mask(
         fig.savefig(save_path, dpi=150, bbox_inches="tight")
     if show:
         plt.show()
+        plt.close(fig)
     return fig
 
 
@@ -679,6 +685,7 @@ def plot_structure(
         fig.savefig(save_path, dpi=150, bbox_inches="tight")
     if show:
         plt.show()
+        plt.close(fig)
     return fig
 
 
@@ -772,6 +779,7 @@ def plot_simulation_overview(
         fig.savefig(save_path, dpi=150, bbox_inches="tight")
     if show:
         plt.show()
+        plt.close(fig)
     return fig
 
 
@@ -948,6 +956,7 @@ def plot_gds(
         fig.savefig(save_path, dpi=150, bbox_inches="tight")
     if show:
         plt.show()
+        plt.close(fig)
     return fig
 
 

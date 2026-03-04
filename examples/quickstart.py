@@ -73,7 +73,7 @@ structure = hwc.create_structure(
 _, Lx, Ly, Lz = structure.permittivity.shape
 z_wg_center = clad_cells + wg_cells // 2
 
-hwc.plot_structure(structure, axis="z", position=z_wg_center)
+hwc.plot_structure(structure, axis="z", position=z_wg_center);
 
 
 # %% Step 3: Absorbing Boundaries
@@ -95,12 +95,15 @@ absorber = hwc.create_absorption_mask(
 )
 structure.conductivity = jnp.zeros_like(structure.conductivity) + absorber
 
-hwc.plot_absorption_mask(absorber)
+hwc.plot_absorption_mask(absorber);
 
 
 # %% Step 4: Mode Source
 #
 # Solve for the fundamental TE mode at the input waveguide.
+# We detect the waveguide location at the source plane and constrain
+# the mode solver to that region (2x expanded) so it finds the correct
+# guided mode rather than a slab mode.
 
 WL_UM = 1.55
 wl_cells = WL_UM / RESOLUTION_UM
@@ -108,20 +111,41 @@ freq_band = (2 * jnp.pi / wl_cells, 2 * jnp.pi / wl_cells, 1)
 
 source_pos_x = abs_widths[0]
 
+# Auto-detect waveguide at source plane
+temp_monitors = hwc.MonitorSet()
+temp_monitors.add_monitors_at_position(
+    structure=structure, axis="x", position=source_pos_x, label="detect",
+)
+wg = temp_monitors.monitors[0]
+
+# Expand 2x around detected waveguide so mode field decays to zero at edges
+y_center = wg.offset[1] + wg.shape[1] // 2
+z_center = wg.offset[2] + wg.shape[2] // 2
+y_min = max(0, y_center - wg.shape[1])
+y_max = min(Ly, y_center + wg.shape[1])
+z_min = max(0, z_center - wg.shape[2])
+z_max = min(Lz, z_center + wg.shape[2])
+
 source_field, source_offset, mode_info = hwc.create_mode_source(
     structure=structure,
     freq_band=freq_band,
     mode_num=0,
     propagation_axis="x",
     source_position=source_pos_x,
+    perpendicular_bounds=(y_min, y_max),
+    z_bounds=(z_min, z_max),
 )
+
+# Trim to mode region (reduces data sent to cloud)
+source_field = source_field[:, :, :, y_min:y_max, z_min:z_max]
+source_offset = (source_pos_x, y_min, z_min)
 
 hwc.plot_mode(
     mode_field=mode_info["field"],
     beta=mode_info["beta"],
     mode_num=0,
     propagation_axis="x",
-)
+);
 
 
 # %% Step 5: Monitors
@@ -160,7 +184,7 @@ monitors.add(hwc.Monitor(shape=(Lx, Ly, 1), offset=(0, 0, z_wg_center)), "xy_mid
 hwc.plot_monitor_layout(
     structure.permittivity, monitors,
     axis="z", position=z_wg_center, source_position=source_pos_x,
-)
+);
 
 
 # %% Step 6: Simulate
@@ -195,6 +219,6 @@ transmission = hwc.analyze_transmission(
     results, input_monitor="Input_o1", direction="x",
 )
 
-hwc.plot_monitors(results, component="Hz")
+hwc.plot_monitors(results, component="Hz");
 
-hwc.export_csv(transmission, "quickstart_transmission.csv")
+hwc.export_csv(transmission, "quickstart_transmission.csv");
