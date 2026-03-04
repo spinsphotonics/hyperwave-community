@@ -19,6 +19,7 @@ from skimage import measure
 import os
 from matplotlib.path import Path
 from typing import Optional, Union, Tuple, Dict, Any
+from ._logging import logger
 
 
 # =============================================================================
@@ -547,6 +548,10 @@ def gds_to_theta(
         'background_value': background_value,
     }
 
+    logger.info("Component: %s", comp_name)
+    logger.info("  Theta shape: %s, Device size: %.1f x %.1f um",
+                theta_jax.shape, width, height)
+
     return theta_jax, info
 
 
@@ -697,6 +702,10 @@ def component_to_theta(
         'waveguide_value': waveguide_value,
         'background_value': background_value,
     }
+
+    logger.info("Component: %s", comp_name)
+    logger.info("  Theta: %s, Device: %.1f x %.1f um",
+                theta_jax.shape, width, height)
 
     return theta_jax, info
 

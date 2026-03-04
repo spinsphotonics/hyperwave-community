@@ -12,6 +12,7 @@ import jax.numpy as jnp
 import numpy as np
 from typing import Tuple, Optional, Dict, List, Union
 from dataclasses import dataclass
+from ._logging import logger
 
 
 @dataclass
@@ -424,6 +425,8 @@ class MonitorSet:
         idx = len(self.monitors)
         self.monitors.append(monitor)
         self.mapping[name] = idx
+        logger.info("Monitor added: %s (shape=%s, offset=%s)",
+                    name, monitor.shape, monitor.offset)
 
         return idx
 

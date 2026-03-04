@@ -22,6 +22,7 @@ The new inward padding approach:
 from typing import Tuple, Optional, Dict
 import jax
 import jax.numpy as jnp
+from ._logging import logger
 
 
 def _absorption_profiles(numcells: int, width: float, smoothness: float) -> jax.Array:
@@ -409,6 +410,8 @@ def absorber_params(
         abs_xy = min(int(round(abs_xy_um / dx)), Lx // 4)
         abs_z = min(int(round(abs_z_um / dx)), Lz // 4)
         result["absorption_widths"] = (abs_xy, abs_xy, abs_z)
+        logger.info("Absorber: widths=(%d, %d, %d), coeff=%.6f",
+                    abs_xy, abs_xy, abs_z, abs_coeff)
 
     return result
 

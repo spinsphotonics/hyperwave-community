@@ -9,6 +9,7 @@ from functools import partial
 import math
 from typing import Tuple, Union, List
 from dataclasses import dataclass
+from ._logging import logger
 
 import jax
 import jax.numpy as jnp
@@ -775,6 +776,8 @@ def density(
     if jnp.any(~jnp.isfinite(d)):
         raise ValueError("Output contains non-finite values (Inf or -Inf). Check input and parameters.")
 
+    logger.info("Density: %s", d.shape)
+
     if return_loss:
         return d, loss
     return d
@@ -971,13 +974,17 @@ def create_structure(layers: List[Layer], vertical_radius: float = 5.0) -> Struc
     }
     
     # Return enhanced Structure object
-    return Structure(
+    s = Structure(
         permittivity=permittivity_distribution,
         conductivity=conductivity_distribution,
         layers_info=layers.copy(),  # Store original layers for reconstruction
         construction_params=construction_params,
         metadata=metadata
     )
+    _, Lx, Ly, Lz = permittivity_distribution.shape
+    logger.info("Structure: %d x %d x %d = %s cells",
+                Lx, Ly, Lz, f"{Lx * Ly * Lz:,}")
+    return s
 
 
 

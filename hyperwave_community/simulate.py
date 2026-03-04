@@ -176,9 +176,8 @@ def create_mode_source(
 
     mode_info = {'field': mode_E_field, 'beta': beta, 'error': err}
 
-    if debug:
-        logger.debug(f"Source field shape: {source_field.shape}")
-        logger.debug(f"Source offset: {source_offset}")
+    logger.info("Source: shape=%s, offset=%s, beta=%s",
+                source_field.shape, source_offset, beta)
 
     return source_field, source_offset, mode_info
     
