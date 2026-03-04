@@ -5,7 +5,6 @@ photonic device structures with density filtering and permittivity distributions
 suitable for FDTD simulations.
 """
 
-import warnings
 from functools import partial
 import math
 from typing import Tuple, Union, List
@@ -13,8 +12,6 @@ from dataclasses import dataclass
 
 import jax
 import jax.numpy as jnp
-
-from ._logging import logger
 
 
 @dataclass
@@ -86,13 +83,11 @@ class Layer:
         # Just validate that values are reasonable (not extremely out of range)
         # Skip validation during JAX tracing (autodiff) to avoid concretization errors
         try:
+            import warnings
             density_min = float(jnp.min(self.density_pattern))
             density_max = float(jnp.max(self.density_pattern))
             if density_min < -0.1 or density_max > 1.1:
-                warnings.warn(
-                    f"Density pattern values significantly outside [0, 1]: [{density_min:.6f}, {density_max:.6f}]. "
-                    "This may indicate an issue with the density filtering or optimization."
-                )
+                warnings.warn(f"Density pattern values significantly outside [0, 1]: [{density_min:.6f}, {density_max:.6f}]. This may indicate an issue with the density filtering or optimization. Consider checking your parameters.")
         except Exception:
             # Skip validation during JAX tracing (happens during autodiff)
             # This catches TracerBoolConversionError and ConcretizationTypeError
@@ -277,26 +272,13 @@ class Structure:
         return self.permittivity.shape
 
 
-    def view(self, show_permittivity: bool = True, show_conductivity: bool = True,
-             cmap_permittivity: str = "PuOr", cmap_conductivity: str = "plasma",
-             axis: str = None, position: int = None) -> None:
-        """Visualize structure permittivity and conductivity distributions.
+    def view(self, **kwargs) -> None:
+        """Visualize structure.
 
-        Args:
-            show_permittivity: Whether to show permittivity.
-            show_conductivity: Whether to show conductivity.
-            cmap_permittivity: Colormap for permittivity.
-            cmap_conductivity: Colormap for conductivity.
-            axis: Optional axis to slice along ('x', 'y', or 'z').
-            position: Optional position along the specified axis.
+        This method has moved to the SDK.
+        Use hyperwave_community.visualization.plot_structure instead.
         """
-        from .visualization import plot_structure
-        return plot_structure(self.permittivity, self.conductivity,
-                              show_permittivity=show_permittivity,
-                              show_conductivity=show_conductivity,
-                              cmap_permittivity=cmap_permittivity,
-                              cmap_conductivity=cmap_conductivity,
-                              axis=axis, position=position)
+        raise NotImplementedError("Use hyperwave_community.visualization.plot_structure instead")
 
     def list_layers(self) -> str:
         """Return human-readable description of the structure's layers."""
@@ -412,8 +394,193 @@ def _project(u, eta):
     return jnp.where(_boundary_cell(u - eta), u, (jnp.sign(u - eta) + 1) / 2)
 
 
-@partial(jax.jit, static_argnames=["radius"])
-def _density_pjz_internal(u, radius, alpha, eta):
+def _inflection(u, c):
+    """Gradient-based edge detector for fabrication loss computation.
+
+    Detects inflection points (edges) in the density field by computing the
+    squared gradient magnitude and applying an exponential decay.
+
+    Args:
+        u: 2D density field.
+        c: Controls the sensitivity of inflection detection.
+
+    Returns:
+        2D array of inflection weights in [0, 1], where values near 0
+        indicate strong edges and values near 1 indicate flat regions.
+    """
+    u = jnp.pad(u, 1, "edge")
+    gu2 = (jnp.square(u[2:, 1:-1] - u[:-2, 1:-1]) +
+           jnp.square(u[1:-1, 2:] - u[1:-1, :-2]))
+    return jnp.exp(-c * gu2)
+
+
+def _geom_loss(uproj, ufilt, c, eta_lo, eta_hi):
+    """Fabrication penalty for minimum feature size violations.
+
+    Penalizes features that are too small by combining inflection detection
+    with threshold violations. The loss is non-zero only where the filtered
+    density violates the eta_lo/eta_hi bounds at edge locations.
+
+    Args:
+        uproj: Projected (binarized) density field.
+        ufilt: Filtered density field.
+        c: Controls inflection detection sensitivity.
+        eta_lo: Lower threshold for void-phase feature size control.
+        eta_hi: Upper threshold for solid-phase feature size control.
+
+    Returns:
+        2D array of per-pixel fabrication loss values.
+    """
+    uinfl = _inflection(ufilt, c)
+    return (uproj * uinfl * jnp.square(jnp.minimum(0, ufilt - eta_hi)) +
+            (1 - uproj) * uinfl * jnp.square(jnp.minimum(0, eta_lo - ufilt)))
+
+
+@partial(jax.jit, static_argnames=["min_solid_pixels", "min_void_pixels"])
+def morphological_fab_loss(density, min_solid_pixels, min_void_pixels=None):
+    """Fabrication loss via soft morphological erosion/dilation.
+
+    Penalizes solid features narrower than min_solid_pixels and
+    void gaps narrower than min_void_pixels. Uses max-pooling
+    (differentiable in JAX) for both erosion (-max(-x)) and dilation.
+
+    Supports asymmetric constraints where min CD != min gap.
+
+    Best applied to the filtered (pre-projection) density so that
+    gradients flow through the smooth field. At alpha=1.0, the
+    projected density is binary and has near-zero gradients.
+
+    Args:
+        density: 2D density field in [0, 1]. For gradient flow,
+            pass the filtered density (alpha=0) not the projected one.
+        min_solid_pixels: Minimum solid feature size in pixels.
+            E.g., min_solid_pixels=8 at 12.5nm = 100nm min CD.
+        min_void_pixels: Minimum void (gap) size in pixels.
+            If None, uses min_solid_pixels (symmetric).
+            E.g., min_void_pixels=12 at 12.5nm = 150nm min gap.
+
+    Returns:
+        2D array of per-pixel fabrication loss values (non-negative).
+    """
+    if min_void_pixels is None:
+        min_void_pixels = min_solid_pixels
+
+    # Solid-phase penalty via erosion with solid kernel
+    ks_s = 2 * min_solid_pixels + 1
+    d_neg_padded = jnp.pad(-density, min_solid_pixels, mode='edge')
+    eroded = -jax.lax.reduce_window(
+        d_neg_padded, -jnp.inf, jax.lax.max,
+        (ks_s, ks_s), (1, 1), 'VALID')
+    solid_penalty = density * jnp.square(jnp.maximum(0, density - eroded))
+
+    # Void-phase penalty via dilation with void kernel
+    ks_v = 2 * min_void_pixels + 1
+    d_padded = jnp.pad(density, min_void_pixels, mode='edge')
+    dilated = jax.lax.reduce_window(
+        d_padded, -jnp.inf, jax.lax.max,
+        (ks_v, ks_v), (1, 1), 'VALID')
+    void_penalty = (1 - density) * jnp.square(jnp.maximum(0, dilated - density))
+
+    return solid_penalty + void_penalty
+
+
+def _soft_erode(u, radius, beta=20.0):
+    """Differentiable soft erosion using smooth minimum (log-sum-exp).
+
+    Approximates morphological erosion with a circular structuring element.
+    Uses negative-temperature log-sum-exp as a smooth approximation of min:
+      soft_min(x1,...,xn) = -1/beta * log(mean(exp(-beta * xi)))
+
+    As beta -> inf, approaches true (hard) min. beta=20 is a practical default
+    that gives good gradient flow while closely tracking the binary result.
+
+    On binary {0,1} inputs with beta>=20, this matches hard erosion to >99%.
+
+    Based on: Guzzi et al., "Differentiable Soft Morphological Filters,"
+    MICCAI 2024. Boolean AND -> product generalized via log-sum-exp for
+    numerical stability with large structuring elements.
+
+    Args:
+        u: 2D array in [0, 1].
+        radius: Radius of circular structuring element in pixels.
+        beta: Temperature parameter. Higher = sharper (closer to hard min).
+    Returns:
+        Eroded 2D array, same shape as u.
+    """
+    r = int(radius)
+    # Build circular structuring element offsets
+    offsets = []
+    for dy in range(-r, r + 1):
+        for dx in range(-r, r + 1):
+            if dx * dx + dy * dy <= radius * radius:
+                offsets.append((dy, dx))
+
+    padded = jnp.pad(u, r, mode='edge')
+    # Gather all neighbor values: shape (n_neighbors, H, W)
+    neighbors = jnp.stack([
+        padded[r + dy:r + dy + u.shape[0], r + dx:r + dx + u.shape[1]]
+        for dy, dx in offsets
+    ], axis=0)
+
+    # Smooth min via negative log-sum-exp
+    exp_neg = jnp.exp(-beta * neighbors)
+    result = -jnp.log(jnp.mean(exp_neg, axis=0) + 1e-30) / beta
+    return jnp.clip(result, 0.0, 1.0)
+
+
+def _soft_dilate(u, radius, beta=20.0):
+    """Differentiable soft dilation: 1 - soft_erode(1 - u, radius, beta)."""
+    return 1.0 - _soft_erode(1.0 - u, radius, beta)
+
+
+def _soft_open(u, radius, beta=20.0):
+    """Differentiable soft morphological opening: erode then dilate."""
+    return _soft_dilate(_soft_erode(u, radius, beta), radius, beta)
+
+
+def soft_morphological_fab_loss(theta, solid_radius, void_radius=None, beta=20.0):
+    """Fabrication loss via differentiable soft morphological opening.
+
+    Measures how much the design changes under morphological opening with
+    the given structuring element radii. A design that satisfies minimum
+    feature size constraints is invariant under opening, so the loss is zero.
+
+    Loss = mean((theta - open_solid(theta))^2) + mean((1-theta - open_void(1-theta))^2)
+
+    Based on Hagg & Wadbro (2018): a binary design has min feature size D
+    iff it is morphologically open w.r.t. structuring element of diameter D.
+    Differentiable via Guzzi et al. (MICCAI 2024) smooth morphological ops.
+
+    Unlike morphological_fab_loss (which uses max-pool and pushes theta to
+    gray at alpha=1.0), this approach is exact on binary inputs and does NOT
+    fight binarization -- the opened version of a compliant binary field is
+    the same binary field.
+
+    Args:
+        theta: 2D array in [0, 1]. Can be binary or soft.
+        solid_radius: Min solid feature radius in pixels.
+        void_radius: Min void feature radius in pixels. If None, uses solid_radius.
+        beta: Temperature for smooth min/max. Higher = sharper.
+    Returns:
+        Scalar fab loss (non-negative). Zero iff all features satisfy constraints.
+    """
+    if void_radius is None:
+        void_radius = solid_radius
+
+    # Solid phase: features that are too narrow get eroded away then not restored
+    opened_solid = _soft_open(theta, solid_radius, beta)
+    solid_loss = jnp.mean(jnp.square(theta - opened_solid))
+
+    # Void phase: gaps that are too narrow
+    opened_void = _soft_open(1.0 - theta, void_radius, beta)
+    void_loss = jnp.mean(jnp.square((1.0 - theta) - opened_void))
+
+    return solid_loss + void_loss
+
+
+@partial(jax.jit, static_argnames=["radius", "return_loss"])
+def _density_pjz_internal(u, radius, alpha, eta, c=1.0, eta_lo=0.25,
+                          eta_hi=0.75, return_loss=False):
     """Internal JIT-compiled density filtering function.
 
     This implements the three-field scheme for density filtering.
@@ -425,9 +592,15 @@ def _density_pjz_internal(u, radius, alpha, eta):
         # Apply projection for binarization
         uproj = _project(ufilt, eta)
         # Combine filtered and projected densities based on alpha
-        return alpha * uproj + (1 - alpha) * ufilt
+        d = alpha * uproj + (1 - alpha) * ufilt
+        if return_loss:
+            loss = _geom_loss(uproj, ufilt, c, eta_lo, eta_hi)
+            return d, loss
+        return d
     else:
         # No filtering requested (radius=0), return input
+        if return_loss:
+            return u, jnp.zeros_like(u)
         return u
 
 
@@ -439,11 +612,12 @@ def density(
     pad_width: Union[int, Tuple[int, int, int, int]] = 0,
     alpha: float = 0.0,
     radius: float = 8.0,
-    c: float = 1e3,
+    c: float = 1.0,
     eta: float = 0.5,
-    eta_lo: float = 0.0,
-    eta_hi: float = 1.0,
-) -> jnp.ndarray:
+    eta_lo: float = 0.25,
+    eta_hi: float = 0.75,
+    return_loss: bool = False,
+) -> Union[jnp.ndarray, Tuple[jnp.ndarray, jnp.ndarray]]:
     """Convert raw optimization variables to density field with filtering.
 
     This function takes raw optimization variables and converts them into a proper
@@ -475,16 +649,22 @@ def density(
             Default: 0.0 (no binarization).
         radius: Radius for density filtering (controls minimum feature size).
             Set to 0 to skip filtering. Default: 8.0.
-        c: Controls the detection of inflection points. Default: 1e3.
+        c: Controls the detection of inflection points for fabrication loss. Default: 1.0.
         eta: Threshold value used to binarize the density. Default: 0.5.
-        eta_lo: Controls minimum feature size of void-phase features. Default: 0.0.
-        eta_hi: Controls minimum feature size of density=1 features. Default: 1.0.
+        eta_lo: Controls minimum feature size of void-phase features. Default: 0.25.
+        eta_hi: Controls minimum feature size of density=1 features. Default: 0.75.
+        return_loss: If True, also return the per-pixel fabrication loss array.
+            Default: False.
 
     Returns:
-        Density field with proper structure and constraints.
-        Shape is (nx + 2*pad_width, ny + 2*pad_width). This function enforces
-        even spatial dimensions by trimming the last row/column of `theta` if
-        needed so downstream Yee-grid operations work without errors.
+        If return_loss is False (default): density field array of shape
+        (nx + 2*pad_width, ny + 2*pad_width).
+        If return_loss is True: tuple of (density, loss) where both arrays have
+        the same shape. The loss quantifies minimum feature size violations.
+
+        This function enforces even spatial dimensions by trimming the last
+        row/column of `theta` if needed so downstream Yee-grid operations
+        work without errors.
 
     Raises:
         ValueError: If parameters are outside valid ranges or if output contains NaN/Inf.
@@ -581,14 +761,22 @@ def density(
     # Apply density filtering for minimum feature size constraints
     # This implements the "three-field" scheme from topology optimization
     # Use the internal helper function
-    d = _density_pjz_internal(u, radius, alpha_array, eta)
-    
+    result = _density_pjz_internal(u, radius, alpha_array, eta, c, eta_lo,
+                                   eta_hi, return_loss=return_loss)
+
+    if return_loss:
+        d, loss = result
+    else:
+        d = result
+
     # Check for NaN/Inf in output
     if jnp.any(jnp.isnan(d)):
         raise ValueError("Output contains NaN values. Check input and parameters.")
     if jnp.any(~jnp.isfinite(d)):
         raise ValueError("Output contains non-finite values (Inf or -Inf). Check input and parameters.")
-    
+
+    if return_loss:
+        return d, loss
     return d
 
 
@@ -807,7 +995,7 @@ def reconstruct_structure_from_recipe(recipe: dict) -> Structure:
     """
     layers_info = recipe['layers_info']
     construction_params = recipe['construction_params']
-    _metadata = recipe['metadata']
+    metadata = recipe['metadata']
     unique_densities = recipe['unique_densities']  # Deduplicated density arrays
 
     # Rebuild the structure using the original layers and parameters
@@ -831,6 +1019,7 @@ def reconstruct_structure_from_recipe(recipe: dict) -> Structure:
             # Check if it's a uniform pattern or full array
             if isinstance(density_data, dict) and density_data.get('type') == 'uniform':
                 # Reconstruct uniform density from scalar value
+                import numpy as np
                 density_pattern = jnp.full(density_data['shape'], density_data['value'])
             else:
                 # Full array stored
@@ -900,11 +1089,6 @@ def reconstruct_structure_from_recipe(recipe: dict) -> Structure:
 
 
 
-# =============================================================================
-# Visualization functions
-# =============================================================================
-
-
 
 # =============================================================================
 # INTERNAL HELPER FUNCTIONS
@@ -913,6 +1097,29 @@ def reconstruct_structure_from_recipe(recipe: dict) -> Structure:
 # These functions are internal implementations used by the main APIs above.
 # They handle specialized operations like density filtering and rendering.
 #
+
+def density_pjz(u, radius, alpha, c=1.0, eta=0.5, eta_lo=0.25, eta_hi=0.75):
+    """Backward compatibility wrapper for density_pjz.
+
+    This function is now integrated into the main density() function.
+    Use density() directly for new code.
+
+    Args:
+        u: Variable array with values within [0, 1].
+        radius: Radius of the conical filter used to blur u.
+        alpha: Binarization control parameter [0, 1].
+        c: Controls the detection of inflection points.
+        eta: Threshold value used to binarize the density.
+        eta_lo: Controls minimum feature size of void-phase features.
+        eta_hi: Controls minimum feature size of density=1 features.
+
+    Returns:
+        Tuple of (density, loss) arrays, both of shape (xx, yy).
+    """
+    return _density_pjz_internal(u, radius, alpha, eta, c, eta_lo, eta_hi,
+                                 return_loss=True)
+
+
 
 def _vertical_cone(radius):
     """Create a 1D conical filter kernel for vertical filtering."""

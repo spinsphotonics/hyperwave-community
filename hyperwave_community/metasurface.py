@@ -4,8 +4,6 @@ This module provides functions for creating and optimizing metasurface structure
 with various geometric patterns and arrangements.
 """
 
-import warnings
-
 import jax.numpy as jnp
 
 
@@ -56,6 +54,7 @@ def create_circle_grid(
     if nx_circles < 1 or ny_circles < 1:
         raise ValueError(f"Number of circles must be >= 1, got nx={nx_circles}, ny={ny_circles}")
     if edge_separation == 0:
+        import warnings
         warnings.warn("edge_separation is 0, circles will be touching")
     if padding < 0:
         raise ValueError(f"padding must be non-negative, got {padding}")

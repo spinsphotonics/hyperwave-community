@@ -13,8 +13,6 @@ import numpy as np
 from typing import Tuple, Optional, Dict, List, Union
 from dataclasses import dataclass
 
-from ._logging import logger
-
 
 @dataclass
 class Monitor:
@@ -193,7 +191,7 @@ def get_power_through_plane(
 
 
 def get_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
-    """Calculate electromagnetic field intensity ``|E|^2 + |H|^2``.
+    """Calculate electromagnetic field intensity |E|^2 + |H|^2.
     
     Args:
         field: Field data with shape (N_freq, 6, ...).
@@ -207,7 +205,7 @@ def get_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
 
 
 def get_electric_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
-    """Calculate electric field intensity ``|E|^2``.
+    """Calculate electric field intensity |E|^2.
     
     Args:
         field: Field data with shape (N_freq, 6, ...).
@@ -219,7 +217,7 @@ def get_electric_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
 
 
 def get_magnetic_field_intensity(field: jnp.ndarray) -> jnp.ndarray:
-    """Calculate magnetic field intensity ``|H|^2``.
+    """Calculate magnetic field intensity |H|^2.
 
     Args:
         field: Field data with shape (N_freq, 6, ...).
@@ -266,7 +264,7 @@ def mode_coupling_efficiency(
     This gives the fraction of input power coupled into the target mode.
 
     The formula used is:
-        ``eta = |Re(integral(E_mode x H_out) * integral(E_out x H_mode))| / (4 * P_in * P_mode_norm)``
+        eta = |Re(integral(E_mode x H_out) * integral(E_out x H_mode))| / (4 * P_in * P_mode_norm)
 
     where the normalization ensures eta=1 for perfect mode matching.
 
@@ -554,33 +552,13 @@ class MonitorSet:
         """
         return self.monitors, self.mapping
 
-    def view(self, structure, axis: str = "z", position: Optional[int] = None,
-             figsize: Tuple[int, int] = (12, 8), show_structure: bool = True,
-             alpha_structure: float = 0.3, alpha_monitors: float = 0.7,
-             source_position: Optional[int] = None, absorber_boundary = None) -> None:
+    def view(self, *args, **kwargs) -> None:
         """Visualize monitors in this set overlaid on structure cross-sections.
 
-        Args:
-            structure: Structure object containing permittivity distribution.
-            axis: Viewing axis for the cross-section slice ('x', 'y', or 'z').
-            position: Position along the specified axis for the slice.
-            figsize: Figure size as (width, height) tuple.
-            show_structure: Whether to display the structure permittivity.
-            alpha_structure: Transparency level for structure display (0.0-1.0).
-            alpha_monitors: Transparency level for monitor outlines (0.0-1.0).
-            source_position: Optional X-position of the source plane.
-            absorber_boundary: Optional absorption mask from hyperwave.absorption.
-
-        Note:
-            This method provides a convenient object-oriented interface:
-            >>> monitor_set = MonitorSet()
-            >>> monitor_set.view(structure, axis='z', position=100)
+        This method has been moved to the SDK visualization module.
+        Use hyperwave_community.visualization.plot_monitor_layout instead.
         """
-        from .visualization import plot_monitor_layout
-        return plot_monitor_layout(self, structure=structure, axis=axis, position=position,
-                                   figsize=figsize, show_structure=show_structure,
-                                   alpha_structure=alpha_structure, alpha_monitors=alpha_monitors,
-                                   source_position=source_position, absorber_boundary=absorber_boundary)
+        raise NotImplementedError("Use hyperwave_community.visualization.plot_monitor_layout instead")
 
     def add_monitors_at_position(
         self,
@@ -627,8 +605,9 @@ class MonitorSet:
                 Default is 1.5. Ensures monitors are at least 1.5x waveguide width.
             label: Label for monitor names. If None, uses 'mon_axisXXX' format
                 where XXX is the position value. If provided, smart suffixes are added:
-                single monitor uses label as-is, two monitors adds '_top'/'_bottom' or
-                '_left'/'_right', multiple monitors adds index (e.g., 'input_0').
+                - Single monitor: uses label as-is (e.g., 'input')
+                - Two monitors: adds '_top'/'_bottom' or '_left'/'_right' (e.g., 'input_top')
+                - Multiple monitors: adds index (e.g., 'input_0', 'input_1')
             verbose: Whether to print detection information. Default is False.
             x_ranges: Tuple (start, end) to restrict X range for waveguide detection.
                       Used when axis='y' or axis='z'.
@@ -672,11 +651,9 @@ class MonitorSet:
 
         Returns:
             List of dictionaries, each containing:
-
-            - name: Monitor name/label
-            - shape: Monitor shape tuple
-            - offset: Monitor offset tuple
-
+                - name: Monitor name/label
+                - shape: Monitor shape tuple
+                - offset: Monitor offset tuple
             Can be used to reconstruct the MonitorSet configuration.
         """
         recipe_list = []
@@ -971,8 +948,9 @@ def add_monitors_at_position(
             Default is 1.5. Ensures monitors are at least 1.5x waveguide width.
         label: Prefix for monitor names. If None, uses 'mon_axisXXX' format
             where XXX is the position value. If provided, smart suffixes are added:
-            single monitor uses label as-is, two monitors adds '_top'/'_bottom' or
-            '_left'/'_right', multiple monitors adds index (e.g., 'input_0').
+                - Single monitor: uses label as-is (e.g., 'input')
+                - Two monitors: adds '_top'/'_bottom' or '_left'/'_right' (e.g., 'input_top')
+                - Multiple monitors: adds index (e.g., 'input_0', 'input_1')
         verbose: Whether to print detection information. Default is False.
         x_ranges: Tuple (start, end) to restrict X range for waveguide detection.
                   Used when axis='y' or axis='z'.
@@ -1028,11 +1006,6 @@ def add_monitors_at_position(
             z_ranges=z_ranges
         )
 
-        if verbose:
-            logger.debug(f"Detected {len(waveguides)} features along Y at X={position}")
-            if waveguides and 'z_core' in waveguides[0]:
-                logger.debug(f"  Auto-detected waveguide core at Z={waveguides[0]['z_core']}")
-
         for i, wg in enumerate(waveguides):
             # Calculate monitor extent based on waveguide width
             # Use the larger of width_factor or min_width_factor
@@ -1063,19 +1036,15 @@ def add_monitors_at_position(
             )
 
             # Generate name
-            # Waveguides are sorted by Y center (ascending), so i=0 has lower Y = bottom
             if len(waveguides) == 1:
                 name = label
             elif len(waveguides) == 2:
-                name = f"{label}_{'bottom' if i == 0 else 'top'}"
+                name = f"{label}_{'top' if i == 0 else 'bottom'}"
             else:
                 name = f"{label}_{i}"
 
             monitor_set.add(monitor, name=name)
             added_names.append(name)
-
-            if verbose:
-                logger.debug(f"  Added '{name}': Y=[{y_start}, {y_start+y_height}], width={wg['width']}px")
 
     elif axis == 'y':
         # XZ plane monitors at Y position - detect along X
@@ -1088,11 +1057,6 @@ def add_monitors_at_position(
             x_ranges=x_ranges,
             z_ranges=z_ranges
         )
-
-        if verbose:
-            logger.debug(f"Detected {len(waveguides)} features along X at Y={position}")
-            if waveguides and 'z_core' in waveguides[0]:
-                logger.debug(f"  Auto-detected waveguide core at Z={waveguides[0]['z_core']}")
 
         for i, wg in enumerate(waveguides):
             # Calculate monitor extent based on waveguide width
@@ -1134,9 +1098,6 @@ def add_monitors_at_position(
             monitor_set.add(monitor, name=name)
             added_names.append(name)
 
-            if verbose:
-                logger.debug(f"  Added '{name}': X=[{x_start}, {x_start+x_width}], width={wg['width']}px")
-
     elif axis == 'z':
         # XY plane monitors at Z position - detect along Y (most common)
         # Note: height_factor is ignored for Z-axis monitors since they are XY planes
@@ -1148,9 +1109,6 @@ def add_monitors_at_position(
             x_ranges=x_ranges,
             y_ranges=y_ranges
         )
-
-        if verbose:
-            logger.debug(f"Detected {len(waveguides)} features along Y at Z={position}")
 
         for i, wg in enumerate(waveguides):
             # For Z-plane monitors, typically want full X extent
@@ -1168,17 +1126,11 @@ def add_monitors_at_position(
             monitor_set.add(monitor, name=name)
             added_names.append(name)
 
-            if verbose:
-                logger.debug(f"  Added '{name}': Y=[{wg['start']}, {wg['end']}]")
-
     else:
         raise ValueError(f"axis must be 'x', 'y', or 'z', got {axis}")
 
     # Handle case where no waveguides detected
     if not waveguides:
-        if verbose:
-            logger.debug("  Warning: No features detected, adding fallback monitor")
-
         # Calculate Z dimension based on height_factor for X and Y axis monitors
         if axis != 'z':
             # If not specified, use the same factor as width

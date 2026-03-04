@@ -3174,7 +3174,6 @@ def mode_convert(
         grid_shape=grid_shape,
         absorption_widths=abs_widths,
         absorption_coeff=absorption_coeff,
-        show_plots=False
     )
     cond = cond + np.asarray(absorption_mask)
 

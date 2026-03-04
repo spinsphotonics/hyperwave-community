@@ -23,174 +23,6 @@ from typing import Tuple, Optional, Dict
 import jax
 import jax.numpy as jnp
 
-from ._logging import logger
-
-
-# =============================================================================
-# BAYESIAN-OPTIMIZED ABSORBER PARAMETERS
-# =============================================================================
-# Baseline values from Bayesian optimization (Jan 2025)
-# Optimized for: resolution=20nm, wavelength=1.55um
-_BASELINE_RESOLUTION_NM = 20.0
-_BASELINE_WAVELENGTH_UM = 1.55
-_BASELINE_ABSORBER_WIDTH = 82  # cells at 20nm resolution
-_BASELINE_ABSORBER_COEFF = 0.0006173770394704579
-
-
-def get_optimized_absorber_params(
-    resolution_nm: float = 20.0,
-    wavelength_um: float = 1.55,
-    structure_dimensions: Tuple[int, int, int] = None,
-) -> Dict[str, any]:
-    """Get Bayesian-optimized absorber parameters scaled for given resolution.
-
-    Returns absorber width and coefficient values based on Bayesian optimization
-    results, automatically scaled to the target resolution. The baseline values
-    were optimized at 20nm resolution for 1.55um wavelength.
-
-    Args:
-        resolution_nm: Grid resolution in nanometers (default: 20nm).
-        wavelength_um: Wavelength in micrometers (default: 1.55um).
-            Currently used for reference only; future versions may include
-            wavelength-dependent scaling.
-        structure_dimensions: Optional (Lx, Ly, Lz) structure dimensions.
-            If provided, returns absorption_widths tuple scaled to structure.
-            If None, returns the base absorber_width value.
-
-    Returns:
-        Dictionary containing:
-            - absorber_width: Base absorber width in cells (x-direction)
-            - absorber_coeff: Absorption coefficient
-            - absorption_widths: (x, y, z) tuple if structure_dimensions provided
-            - baseline_info: Dict with baseline optimization parameters
-
-    Scaling Logic:
-        - Width scales inversely with resolution (more cells at higher resolution)
-          new_width = baseline_width × (baseline_resolution / new_resolution)
-        - Coefficient scales with 1/scale² to preserve physical absorption
-          new_coeff = baseline_coeff / scale² where scale = res_new / res_baseline
-
-    Example:
-        >>> # Get params for 20nm resolution (baseline)
-        >>> params = get_optimized_absorber_params(resolution_nm=20)
-        >>> print(f"Width: {params['absorber_width']}, Coeff: {params['absorber_coeff']:.6f}")
-        Width: 82, Coeff: 0.000617
-
-        >>> # Get params for 30nm resolution
-        >>> params = get_optimized_absorber_params(resolution_nm=30)
-        >>> print(f"Width: {params['absorber_width']}, Coeff: {params['absorber_coeff']:.6f}")
-        Width: 54, Coeff: 0.000274
-
-        >>> # Get full absorption_widths for a structure
-        >>> params = get_optimized_absorber_params(
-        ...     resolution_nm=20,
-        ...     structure_dimensions=(1800, 350, 199)
-        ... )
-        >>> print(f"Widths: {params['absorption_widths']}")
-        Widths: (82, 40, 40)
-    """
-    # Calculate resolution scaling factor
-    scale = resolution_nm / _BASELINE_RESOLUTION_NM
-
-    # Scale absorber width (inversely with resolution)
-    # Higher resolution (smaller nm) = more cells for same physical distance
-    scaled_width = int(round(_BASELINE_ABSORBER_WIDTH / scale))
-
-    # Scale coefficient (1/scale² to preserve physical absorption)
-    # Based on the physics: absorption ∝ coeff × distance²
-    # At new resolution, distances scale by 'scale', so coeff scales by 1/scale²
-    scaled_coeff = _BASELINE_ABSORBER_COEFF / (scale ** 2)
-
-    result = {
-        'absorber_width': scaled_width,
-        'absorber_coeff': scaled_coeff,
-        'baseline_info': {
-            'resolution_nm': _BASELINE_RESOLUTION_NM,
-            'wavelength_um': _BASELINE_WAVELENGTH_UM,
-            'width': _BASELINE_ABSORBER_WIDTH,
-            'coeff': _BASELINE_ABSORBER_COEFF,
-        }
-    }
-
-    # If structure dimensions provided, compute full absorption_widths tuple
-    if structure_dimensions is not None:
-        Lx, Ly, Lz = structure_dimensions
-        # X uses full scaled width, Y and Z use half (typical for photonic devices)
-        abs_x = min(scaled_width, Lx // 4)  # Cap at 25% of dimension
-        abs_y = min(scaled_width // 2, Ly // 4)
-        abs_z = min(scaled_width // 2, Lz // 4)
-
-        # Ensure minimum reasonable values
-        abs_x = max(abs_x, 20)
-        abs_y = max(abs_y, 20)
-        abs_z = max(abs_z, 20)
-
-        result['absorption_widths'] = (abs_x, abs_y, abs_z)
-
-    return result
-
-
-def absorber_params(
-    wavelength_um: float,
-    dx_um: float,
-    structure_dimensions: Tuple[int, int, int] = None,
-) -> Dict[str, any]:
-    """Compute absorber parameters from wavelength and grid spacing.
-
-    Uses power-law fits to Bayesian-optimized results with minimum floors
-    derived from validated simulation defaults. The BO was trained on
-    {1310, 1550}nm x {25, 35, 50}nm configs (100 trials each).
-
-    The Z-direction fit (R2=0.676) and coefficient fit (R2=0.887) are
-    reliable. The XY fit (R2=0.133) is floored at 2.1 um because the
-    BO training setup (straight-down source) did not exercise lateral
-    absorption sufficiently.
-
-    Args:
-        wavelength_um: Wavelength in micrometers (e.g. 1.31 or 1.55).
-        dx_um: Grid spacing in micrometers (e.g. 0.025 for 25nm).
-        structure_dimensions: Optional (Lx, Ly, Lz) in grid cells.
-            If provided, returns integer absorption_widths capped at 25%
-            of each dimension.
-
-    Returns:
-        Dictionary with:
-            - abs_xy_um: XY absorber width in micrometers
-            - abs_z_um: Z absorber width in micrometers
-            - abs_coeff: Absorption coefficient
-            - absorption_widths: (x, y, z) int tuple (if structure_dimensions given)
-
-    Example:
-        >>> params = absorber_params(wavelength_um=1.55, dx_um=0.035)
-        >>> print(f"XY: {params['abs_xy_um']:.3f} um, coeff: {params['abs_coeff']:.2e}")
-
-        >>> params = absorber_params(1.55, 0.035, structure_dimensions=(571, 571, 309))
-        >>> print(f"Widths: {params['absorption_widths']}")
-    """
-    wl = wavelength_um
-    dx = dx_um
-
-    # Power-law fits: param = a * wl^b * dx^c
-    # From v2 BO (straight-down source, 100 trials, 6 configs)
-    # Floors match the simulate() defaults at 35nm: (60, 40, 40) / 1e-4
-    abs_xy_um = max(2.1, 0.062 * wl ** 1.389 * dx ** (-0.619))
-    abs_z_um = max(1.4, 1.244 * wl ** 1.758 * dx ** 0.159)
-    abs_coeff = max(1e-4, 2.876 * wl ** (-1.607) * dx ** 2.579)
-
-    result = {
-        "abs_xy_um": abs_xy_um,
-        "abs_z_um": abs_z_um,
-        "abs_coeff": abs_coeff,
-    }
-
-    if structure_dimensions is not None:
-        Lx, Ly, Lz = structure_dimensions
-        abs_xy = min(int(round(abs_xy_um / dx)), Lx // 4)
-        abs_z = min(int(round(abs_z_um / dx)), Lz // 4)
-        result["absorption_widths"] = (abs_xy, abs_xy, abs_z)
-
-    return result
-
 
 def _absorption_profiles(numcells: int, width: float, smoothness: float) -> jax.Array:
     """Create 1D quadratic absorption profiles for adiabatic boundary conditions.
@@ -365,48 +197,42 @@ def create_absorption_mask(
     grid_shape: Tuple[int, int, int],
     absorption_widths: Tuple[int, int, int],
     absorption_coeff: float,
-    show_plots: bool = True
 ) -> jax.Array:
     """Create 3D adiabatic absorption mask with inward padding logic.
-    
+
     This function creates a 3D absorption mask that:
     1. Uses inward padding: absorption occurs at grid boundaries
     2. Creates zero absorption in the center region (preserves device physics)
     3. Increases quadratically toward all boundaries (prevents reflections)
     4. Handles all three field components (Ex, Ey, Ez) with proper Yee grid offsets
-    5. Optionally visualizes the absorption mask when show_plots=True
-    
+
     Args:
         grid_shape: Tuple of (xx, yy, zz) grid dimensions.
         absorption_widths: Tuple of (x_pad, y_pad, z_pad) absorption widths from each boundary.
         absorption_coeff: Maximum absorption strength at boundaries.
-        show_plots: Whether to display absorption mask visualization (default: True).
-        
+
     Returns:
         absorption_mask: (3, xx, yy, zz) absorption array
-        
+
     Physics:
         - Center region stays at zero absorption (perfect device simulation)
         - Boundary regions gradually absorb waves (no artificial reflections)
         - Quadratic profile ensures adiabatic (slowly-varying) transitions
         - Works in full 3D with proper field component offsets
-        
+
     Example:
         >>> import jax.numpy as jnp
         >>> from hyperwave.absorption import create_absorption_mask
-        >>> 
-        >>> # Create absorption mask with inward padding and visualization
+        >>>
+        >>> # Create absorption mask with inward padding
         >>> grid_shape = (100, 80, 60)  # (xx, yy, zz)
         >>> absorption_widths = (10, 8, 6)  # (x_pad, y_pad, z_pad)
         >>> absorption_coeff = 1e-1
-        >>> 
+        >>>
         >>> mask = create_absorption_mask(grid_shape, absorption_widths, absorption_coeff)
         >>> print(f"Grid shape: {grid_shape}")
         >>> print(f"Absorption mask shape: {mask.shape}")
         >>> print(f"Center region size: {grid_shape[0] - 2*absorption_widths[0]} x {grid_shape[1] - 2*absorption_widths[1]} x {grid_shape[2] - 2*absorption_widths[2]}")
-        >>> 
-        >>> # Create without visualization
-        >>> mask = create_absorption_mask(grid_shape, absorption_widths, absorption_coeff, show_plots=False)
     """
     # Input validation
     if not isinstance(grid_shape, tuple) or len(grid_shape) != 3:
@@ -455,11 +281,6 @@ def create_absorption_mask(
         raise ValueError("Generated absorption mask contains NaN values")
     if jnp.any(jnp.isinf(absorption_mask)):
         raise ValueError("Generated absorption mask contains infinite values")
-    
-    # Visualize if requested
-    if show_plots:
-        from .visualization import plot_absorption_mask
-        plot_absorption_mask(absorption_mask)
 
     return absorption_mask
 
@@ -469,7 +290,6 @@ def rescale_absorption_mask(
     original_absorption_widths: Tuple[int, int, int],
     original_absorption_coeff: float,
     new_grid_shape: Tuple[int, int, int],
-    show_plots: bool = False
 ) -> jax.Array:
     """Rescale absorption parameters to a new resolution while preserving the profile.
 
@@ -482,7 +302,6 @@ def rescale_absorption_mask(
         original_absorption_widths: Tuple of (x_width, y_width, z_width) original absorption widths.
         original_absorption_coeff: Original absorption coefficient (smoothness parameter).
         new_grid_shape: Tuple of (xx_new, yy_new, zz_new) target grid dimensions.
-        show_plots: Whether to display the new absorption mask visualization.
 
     Returns:
         new_absorption_mask: (3, xx_new, yy_new, zz_new) rescaled absorption array.
@@ -534,9 +353,63 @@ def rescale_absorption_mask(
         grid_shape=new_grid_shape,
         absorption_widths=(new_width_x, new_width_y, new_width_z),
         absorption_coeff=new_coeff,
-        show_plots=show_plots
     )
 
     return new_absorption_mask
+
+
+def absorber_params(
+    wavelength_um: float,
+    dx_um: float,
+    structure_dimensions: Tuple[int, int, int] = None,
+) -> Dict[str, any]:
+    """Compute absorber parameters from wavelength and grid spacing.
+
+    Uses power-law fits to Bayesian-optimized results with minimum floors
+    derived from validated simulation defaults. The BO was trained on
+    {1310, 1550}nm x {25, 35, 50}nm configs (100 trials each).
+
+    The Z-direction fit (R2=0.676) and coefficient fit (R2=0.887) are
+    reliable. The XY fit (R2=0.133) is floored at 2.1 um because the
+    BO training setup (straight-down source) did not exercise lateral
+    absorption sufficiently.
+
+    Args:
+        wavelength_um: Wavelength in micrometers (e.g. 1.31 or 1.55).
+        dx_um: Grid spacing in micrometers (e.g. 0.025 for 25nm).
+        structure_dimensions: Optional (Lx, Ly, Lz) in grid cells.
+            If provided, returns integer absorption_widths capped at 25%
+            of each dimension.
+
+    Returns:
+        Dictionary with:
+            - abs_xy_um: XY absorber width in micrometers
+            - abs_z_um: Z absorber width in micrometers
+            - abs_coeff: Absorption coefficient
+            - absorption_widths: (x, y, z) int tuple (if structure_dimensions given)
+    """
+    wl = wavelength_um
+    dx = dx_um
+
+    # Power-law fits: param = a * wl^b * dx^c
+    # From v2 BO (straight-down source, 100 trials, 6 configs)
+    # Floors match the simulate() defaults at 35nm: (60, 40, 40) / 1e-4
+    abs_xy_um = max(2.1, 0.062 * wl ** 1.389 * dx ** (-0.619))
+    abs_z_um = max(1.4, 1.244 * wl ** 1.758 * dx ** 0.159)
+    abs_coeff = max(1e-4, 2.876 * wl ** (-1.607) * dx ** 2.579)
+
+    result = {
+        "abs_xy_um": abs_xy_um,
+        "abs_z_um": abs_z_um,
+        "abs_coeff": abs_coeff,
+    }
+
+    if structure_dimensions is not None:
+        Lx, Ly, Lz = structure_dimensions
+        abs_xy = min(int(round(abs_xy_um / dx)), Lx // 4)
+        abs_z = min(int(round(abs_z_um / dx)), Lz // 4)
+        result["absorption_widths"] = (abs_xy, abs_xy, abs_z)
+
+    return result
 
 

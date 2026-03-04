@@ -17,9 +17,8 @@ import jax.numpy as jnp
 import gdstk
 from skimage import measure
 import os
+from matplotlib.path import Path
 from typing import Optional, Union, Tuple, Dict, Any
-
-from ._logging import logger
 
 
 # =============================================================================
@@ -224,9 +223,6 @@ def _split_contours_at_artifacts(contours):
                 clean_contours.append(clean_contour)
                 total_artifacts_removed += len(artifact_indices)
 
-    if total_artifacts_removed > 0:
-        logger.debug(f"Processed {len(contours)} contours: removed {total_artifacts_removed} artifacts")
-
     return clean_contours
 
 
@@ -380,6 +376,7 @@ def generate_gds_from_density(
     return os.path.abspath(output_filename)
 
 
+
 # =============================================================================
 # GDS to Theta Array Conversion
 # =============================================================================
@@ -424,8 +421,6 @@ def gds_to_theta(
         The rasterization uses matplotlib.path for polygon filling which is
         accurate but can be slow for complex polygons.
     """
-    from matplotlib.path import Path
-
     # Convert resolution from nm to μm for internal calculations
     # Resolution is already in micrometers
     resolution_um = resolution
@@ -537,8 +532,6 @@ def gds_to_theta(
     # theta_array is (ny, nx), we need (nx, ny) = (x, y)
     theta_jax = jnp.array(theta_array.T)
 
-    logger.debug(f"Extracted {len(polygons)} polygons from GDS file")
-
     # Prepare metadata
     # physical_size_um is (x_size, y_size) = (width, height)
     info = {
@@ -609,11 +602,9 @@ def component_to_theta(
         Requires gdsfactory to be installed: pip install gdsfactory
     """
     try:
-        import gdsfactory as gf  # noqa: F401
+        import gdsfactory as gf
     except ImportError:
         raise ImportError("gdsfactory is required for component_to_theta. Install with: pip install gdsfactory")
-
-    from matplotlib.path import Path
 
     # Use the component directly
     comp = component
@@ -637,8 +628,6 @@ def component_to_theta(
         # Use first available layer
         used_layer = list(all_polygons.keys())[0]
         polygons = all_polygons[used_layer]
-        if len(all_polygons) > 1:
-            logger.debug(f"Multiple layers found: {list(all_polygons.keys())}. Using layer {used_layer}")
 
     # Get bounding box
     bbox = comp.bbox()

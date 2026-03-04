@@ -175,26 +175,4 @@ def create_mode_source(
         logger.debug(f"Source offset: {source_offset}")
 
     return source_field, source_offset, mode_info
-
-
-def quick_view_monitors(results, component='Hz', cmap='inferno'):
-    """Quick visualization of each monitor's first frequency slice.
-
-    Args:
-        results: Dictionary from simulate() containing monitor data.
-        component: Which field to show:
-            - 'Ex', 'Ey', 'Ez', 'Hx', 'Hy', 'Hz': Individual components
-            - ``'|E|'``: Electric field magnitude
-            - ``'|H|'``: Magnetic field magnitude
-            - 'all': Total field intensity ``|E|^2+|H|^2``
-        cmap: Colormap to use for visualization (default 'inferno').
-
-    Example:
-        >>> results = simulate(...)
-        >>> quick_view_monitors(results, 'Hz')  # View Hz component
-        >>> quick_view_monitors(results, '|E|')  # View electric field magnitude
-        >>> quick_view_monitors(results, 'all')  # View total field intensity
-    """
-    from .visualization import plot_monitors
-    return plot_monitors(results, component=component, cmap=cmap)
     
