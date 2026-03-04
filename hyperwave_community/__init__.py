@@ -150,6 +150,7 @@ from .data_io import (
     generate_gds_from_density,
     gds_to_theta,
     component_to_theta,
+    export_csv,
 )
 
 # Import simulate from api_client (the cloud GPU version)
@@ -233,6 +234,7 @@ __all__ = [
     "generate_gds_from_density",
     "gds_to_theta",
     "component_to_theta",
+    "export_csv",
 
     # API - Configuration
     "configure_api",

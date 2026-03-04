@@ -699,3 +699,165 @@ def component_to_theta(
     }
 
     return theta_jax, info
+
+# =============================================================================
+# CSV Export
+# =============================================================================
+
+def export_csv(
+    data,
+    output_path: str = "output.csv",
+    *,
+    flatten_fields: bool = False,
+) -> str:
+    """Export simulation data to CSV file(s).
+
+    Accepts simulation results dicts, S-parameter dicts, numpy/JAX arrays,
+    or dicts of arrays. Automatically detects the data type and writes
+    appropriate CSV output.
+
+    Args:
+        data: One of:
+            - Simulation results dict (from run_simulation). Exports
+              S-parameters and per-monitor power as separate CSV files.
+            - S-parameter dict (from analyze_transmission). Exports
+              transmissions as a single CSV.
+            - numpy or JAX array. Written directly as a CSV matrix.
+            - Dict of arrays (e.g. results["monitor_data"]). Each
+              entry is saved as <stem>_<key>.csv.
+        output_path: Destination file path (default "output.csv").
+            When multiple files are produced the stem is reused with
+            descriptive suffixes.
+        flatten_fields: If True and data contains monitor field arrays
+            (5-D), flatten spatial dimensions. Default False skips
+            large field arrays and only exports scalar/1-D monitor data.
+
+    Returns:
+        Absolute path of the primary CSV file written (or the directory
+        containing multiple files).
+
+    Examples:
+        >>> # Export full simulation results
+        >>> hwc.export_csv(results, "sim_output.csv")
+        >>> # Export just S-parameters
+        >>> hwc.export_csv(results["s_parameters"], "sparams.csv")
+        >>> # Export a numpy array
+        >>> hwc.export_csv(my_array, "field.csv")
+    """
+    import csv
+
+    stem, ext = os.path.splitext(output_path)
+    if not ext:
+        ext = ".csv"
+
+    written_files = []
+
+    # --- Case 1: simulation results dict (has monitor_data key) -------------
+    if isinstance(data, dict) and "monitor_data" in data:
+        # Export S-parameters if present
+        s_params = data.get("s_parameters")
+        if s_params and isinstance(s_params, dict):
+            sp_path = f"{stem}_sparams{ext}"
+            _write_s_params_csv(s_params, sp_path)
+            written_files.append(sp_path)
+
+        # Export per-monitor power if present
+        powers = data.get("powers")
+        if powers and isinstance(powers, dict):
+            pw_path = f"{stem}_powers{ext}"
+            _write_dict_csv(powers, pw_path, key_header="monitor", value_header="power")
+            written_files.append(pw_path)
+
+        # Export monitor field data if flatten requested
+        monitor_data = data.get("monitor_data", {})
+        if flatten_fields and isinstance(monitor_data, dict):
+            for name, arr in monitor_data.items():
+                arr = np.asarray(arr)
+                fpath = f"{stem}_monitor_{name}{ext}"
+                _write_array_csv(arr.reshape(arr.shape[0], -1) if arr.ndim > 2 else arr, fpath)
+                written_files.append(fpath)
+
+        primary = written_files[0] if written_files else output_path
+        return os.path.abspath(primary)
+
+    # --- Case 2: S-parameter dict (has transmissions key) -------------------
+    if isinstance(data, dict) and "transmissions" in data:
+        path = f"{stem}{ext}"
+        _write_s_params_csv(data, path)
+        return os.path.abspath(path)
+
+    # --- Case 3: plain array (numpy or JAX) ---------------------------------
+    arr = None
+    try:
+        arr = np.asarray(data)
+    except Exception:
+        pass
+
+    if arr is not None and arr.ndim >= 1 and not isinstance(data, dict):
+        path = f"{stem}{ext}"
+        if arr.ndim > 2:
+            arr = arr.reshape(arr.shape[0], -1)
+        _write_array_csv(arr, path)
+        return os.path.abspath(path)
+
+    # --- Case 4: dict of arrays ---------------------------------------------
+    if isinstance(data, dict):
+        for key, value in data.items():
+            try:
+                a = np.asarray(value)
+            except Exception:
+                continue
+            if a.ndim == 0:
+                continue
+            fpath = f"{stem}_{key}{ext}"
+            if a.ndim > 2:
+                a = a.reshape(a.shape[0], -1)
+            _write_array_csv(a, fpath)
+            written_files.append(fpath)
+
+        primary = written_files[0] if written_files else output_path
+        return os.path.abspath(primary)
+
+    raise TypeError(f"Unsupported data type for export_csv: {type(data).__name__}")
+
+
+def _write_s_params_csv(s_params: dict, path: str) -> None:
+    """Write S-parameter / transmission dict to CSV."""
+    import csv
+
+    transmissions = s_params.get("transmissions", {})
+    with open(path, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["monitor", "transmission", "transmission_dB"])
+        for name, T in transmissions.items():
+            T_val = float(T)
+            T_dB = 10 * np.log10(T_val) if T_val > 0 else float("-inf")
+            writer.writerow([name, f"{T_val:.6f}", f"{T_dB:.4f}"])
+
+        total = s_params.get("total_transmission")
+        if total is not None:
+            total_val = float(total)
+            total_dB = 10 * np.log10(total_val) if total_val > 0 else float("-inf")
+            writer.writerow(["TOTAL", f"{total_val:.6f}", f"{total_dB:.4f}"])
+
+        excess = s_params.get("excess_loss_dB")
+        if excess is not None:
+            writer.writerow(["excess_loss_dB", f"{float(excess):.4f}", ""])
+
+
+def _write_dict_csv(d: dict, path: str, *, key_header: str = "key", value_header: str = "value") -> None:
+    """Write a simple key-value dict to CSV."""
+    import csv
+
+    with open(path, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow([key_header, value_header])
+        for k, v in d.items():
+            writer.writerow([k, v])
+
+
+def _write_array_csv(arr, path: str) -> None:
+    """Write a 1-D or 2-D numpy array to CSV."""
+    if arr.ndim == 1:
+        arr = arr.reshape(1, -1)
+    np.savetxt(path, np.real(arr) if np.iscomplexobj(arr) else arr, delimiter=",")
