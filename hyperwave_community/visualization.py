@@ -308,8 +308,8 @@ def plot_monitors(
     comp_map = {"Ex": 0, "Ey": 1, "Ez": 2, "Hx": 3, "Hy": 4, "Hz": 5}
     figures = []
 
-    for name, idx in results["monitor_names"].items():
-        data = np.asarray(results["monitor_data"][idx])
+    for name in results["monitor_names"]:
+        data = np.asarray(results["monitor_data"][name])
 
         # Extract field
         if component in comp_map:

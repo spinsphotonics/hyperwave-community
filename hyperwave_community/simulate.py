@@ -145,6 +145,9 @@ def create_mode_source(
             )
             mode_E_field = full_mode_E_field
 
+            # Reset offset since mode field is now positioned within full array
+            source_offset = (source_position, 0, 0)
+
             if debug:
                 logger.debug(f"Padded mode field from Y[{y_max - y_min}] Z[{z_max - z_min}] to full Y[{full_y_size}] Z[{full_z_size}]")
 
@@ -159,14 +162,17 @@ def create_mode_source(
             )
             mode_E_field = full_mode_E_field
 
+            # Reset offset since mode field is now positioned within full array
+            source_offset = (0, source_position, 0)
+
             if debug:
                 logger.debug(f"Padded mode field from X[{x_max - x_min}] Z[{z_max - z_min}] to full X[{full_x_size}] Z[{full_z_size}]")
 
     # Create full source field (E and H components)
     source_field = jnp.concatenate([mode_E_field, jnp.zeros_like(mode_E_field)], axis=1)
 
-    # source_offset was already set above based on the bounds used
-    # It points to the corner of the solved region, not always (0,0,0)
+    # source_offset points to where this source should be placed in the structure.
+    # When padded to full size, offset is (source_pos, 0, 0) since positioning is baked in.
 
     mode_info = {'field': mode_E_field, 'beta': beta, 'error': err}
 

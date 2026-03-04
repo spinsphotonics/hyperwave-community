@@ -237,12 +237,13 @@ hwc.plot_monitor_layout(
 # This is the only step that uses cloud GPU and requires an API key.
 # Sign up at https://spinsphotonics.com/signup to get your key.
 
-# For Google Colab, load the key from Colab Secrets:
-#   from google.colab import userdata
-#   hwc.configure_api(api_key=userdata.get("HYPERWAVE_API_KEY"))
-#
-# Otherwise, pass your key directly:
-hwc.configure_api(api_key="YOUR_API_KEY_HERE")
+# API key: tries Colab Secrets first, then environment variable.
+try:
+    from google.colab import userdata
+    hwc.configure_api(api_key=userdata.get("HYPERWAVE_API_KEY"))
+except ImportError:
+    import os
+    hwc.configure_api(api_key=os.environ.get("HYPERWAVE_API_KEY"))
 
 # Extract recipes for cloud transmission
 structure_recipe = structure.extract_recipe()

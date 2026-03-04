@@ -300,7 +300,7 @@ input_names = monitors.add_monitors_at_position(
     structure,
     axis="x",
     position=input_x,
-    label="Input",
+    label="Input_src",
 )
 print(f"Input monitors: {input_names}")
 
@@ -310,7 +310,7 @@ reflect_names = monitors.add_monitors_at_position(
     structure,
     axis="x",
     position=reflect_x,
-    label="Reflect",
+    label="Reflect_r1",
 )
 print(f"Reflection monitors: {reflect_names}")
 
@@ -320,7 +320,7 @@ output_names = monitors.add_monitors_at_position(
     structure,
     axis="x",
     position=output_x,
-    label="Output",
+    label="Output_o1",
 )
 print(f"Output monitors: {output_names}")
 
@@ -419,7 +419,7 @@ if "convergence_history" in results:
 
 # 9b. Transmission analysis
 # Use the actual monitor names from Step 7. For a single-waveguide grating
-# coupler, add_monitors_at_position returns ["Input"] (one feature detected).
+# coupler, add_monitors_at_position returns ["Input_src"] (one feature detected).
 transmission = hwc.analyze_transmission(
     results,
     input_monitor=input_names[0],
