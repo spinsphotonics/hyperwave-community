@@ -17,8 +17,9 @@ import jax.numpy as jnp
 import gdstk
 from skimage import measure
 import os
-import matplotlib.pyplot as plt
 from typing import Optional, Union, Tuple, Dict, Any
+
+from ._logging import logger
 
 
 # =============================================================================
@@ -223,9 +224,8 @@ def _split_contours_at_artifacts(contours):
                 clean_contours.append(clean_contour)
                 total_artifacts_removed += len(artifact_indices)
 
-    # Single summary print at the end
     if total_artifacts_removed > 0:
-        print(f"Processed {len(contours)} contours: removed {total_artifacts_removed} artifacts")
+        logger.debug(f"Processed {len(contours)} contours: removed {total_artifacts_removed} artifacts")
 
     return clean_contours
 
@@ -378,102 +378,6 @@ def generate_gds_from_density(
     lib.write_gds(output_filename)
 
     return os.path.abspath(output_filename)
-
-
-# =============================================================================
-# Visualization Function
-# =============================================================================
-
-def view_gds(gds_filepath: str, density_array: np.ndarray = None, figsize: tuple = (12, 6)):
-    """Visualize GDS file contents with optional density comparison.
-
-    Reads a GDS file and plots the polygons it contains. If the original
-    density array is provided, displays both side-by-side for comparison.
-    The visualization shows the full domain including cladding regions.
-
-    Args:
-        gds_filepath: Path to the GDS file to visualize.
-        density_array: Optional original density array for comparison.
-        figsize: Figure size as (width, height) tuple.
-
-    Returns:
-        Matplotlib figure object containing the visualization.
-
-    Note:
-        Polygons are displayed with semi-transparent blue fill and no edge
-        outline. The full domain is shown including cladding regions when
-        density array is provided. The density array uses grayscale colormap.
-    """
-    # Read the GDS file
-    lib_verify = gdstk.read_gds(gds_filepath)
-    cell_verify = lib_verify.top_level()[0]
-
-    # Get polygons from the cell
-    polygons = cell_verify.get_polygons()
-
-    print(f"GDS file: {gds_filepath}")
-    print(f"Number of polygons in GDS: {len(polygons)}")
-
-    # Create figure with subplots if density is provided
-    if density_array is not None:
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=figsize)
-
-        # Plot original density array
-        im = ax1.imshow(density_array, cmap='gray', origin='upper',
-                        extent=[0, density_array.shape[1], 0, density_array.shape[0]])
-        ax1.set_title(f'Original Density ({density_array.shape[0]}×{density_array.shape[1]} pixels)')
-        ax1.set_xlabel('X (pixels)')
-        ax1.set_ylabel('Y (pixels)')
-        ax1.grid(True, alpha=0.3)
-        plt.colorbar(im, ax=ax1, label='Density')
-
-        ax = ax2
-    else:
-        fig, ax = plt.subplots(figsize=(figsize[0]/2, figsize[1]))
-
-    # Plot the GDS polygons
-    for poly in polygons:
-        # gdstk.Polygon objects have a .points attribute
-        points = poly.points
-        poly_patch = plt.Polygon(points, alpha=0.7, edgecolor='none',
-                                 facecolor='blue', linewidth=0)
-        ax.add_patch(poly_patch)
-
-    # Set axis limits to show full domain
-    # Always use density array dimensions if provided to show full domain including cladding
-    if density_array is not None:
-        # Show the full domain extent
-        ax.set_xlim(0, density_array.shape[1])
-        ax.set_ylim(0, density_array.shape[0])
-    else:
-        # If no density array, try to infer reasonable bounds from polygons
-        if polygons:
-            all_x = []
-            all_y = []
-            for poly in polygons:
-                points = poly.points
-                all_x.extend(points[:, 0])
-                all_y.extend(points[:, 1])
-
-            # Use actual polygon bounds with 1-pixel margin
-            if all_x and all_y:
-                # Fixed 1-pixel margin, not percentage-based
-                margin = 1
-                ax.set_xlim(min(all_x) - margin, max(all_x) + margin)
-                ax.set_ylim(min(all_y) - margin, max(all_y) + margin)
-        else:
-            # Default view if no reference
-            ax.set_xlim(0, 100)
-            ax.set_ylim(0, 100)
-
-    ax.set_aspect('equal')
-    ax.set_xlabel('X (GDS units)')
-    ax.set_ylabel('Y (GDS units)')
-    ax.set_title(f'GDS Polygons ({len(polygons)} polygons)')
-    ax.grid(True, alpha=0.3)
-
-    plt.tight_layout()
-    return fig
 
 
 # =============================================================================
@@ -633,8 +537,7 @@ def gds_to_theta(
     # theta_array is (ny, nx), we need (nx, ny) = (x, y)
     theta_jax = jnp.array(theta_array.T)
 
-    # Print summary
-    print(f"Extracted {len(polygons)} polygons from GDS file")
+    logger.debug(f"Extracted {len(polygons)} polygons from GDS file")
 
     # Prepare metadata
     # physical_size_um is (x_size, y_size) = (width, height)
@@ -735,7 +638,7 @@ def component_to_theta(
         used_layer = list(all_polygons.keys())[0]
         polygons = all_polygons[used_layer]
         if len(all_polygons) > 1:
-            print(f"Multiple layers found: {list(all_polygons.keys())}. Using layer {used_layer}")
+            logger.debug(f"Multiple layers found: {list(all_polygons.keys())}. Using layer {used_layer}")
 
     # Get bounding box
     bbox = comp.bbox()

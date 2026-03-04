@@ -5,6 +5,7 @@ photonic device structures with density filtering and permittivity distributions
 suitable for FDTD simulations.
 """
 
+import warnings
 from functools import partial
 import math
 from typing import Tuple, Union, List
@@ -12,6 +13,8 @@ from dataclasses import dataclass
 
 import jax
 import jax.numpy as jnp
+
+from ._logging import logger
 
 
 @dataclass
@@ -86,8 +89,10 @@ class Layer:
             density_min = float(jnp.min(self.density_pattern))
             density_max = float(jnp.max(self.density_pattern))
             if density_min < -0.1 or density_max > 1.1:
-                print(f"Warning: Density pattern values significantly outside [0, 1]: [{density_min:.6f}, {density_max:.6f}]")
-                print("This may indicate an issue with the density filtering or optimization. Consider checking your parameters.")
+                warnings.warn(
+                    f"Density pattern values significantly outside [0, 1]: [{density_min:.6f}, {density_max:.6f}]. "
+                    "This may indicate an issue with the density filtering or optimization."
+                )
         except Exception:
             # Skip validation during JAX tracing (happens during autodiff)
             # This catches TracerBoolConversionError and ConcretizationTypeError
@@ -275,7 +280,7 @@ class Structure:
     def view(self, show_permittivity: bool = True, show_conductivity: bool = True,
              cmap_permittivity: str = "PuOr", cmap_conductivity: str = "plasma",
              axis: str = None, position: int = None) -> None:
-        """Visualize structure using view_structure function.
+        """Visualize structure permittivity and conductivity distributions.
 
         Args:
             show_permittivity: Whether to show permittivity.
@@ -285,19 +290,22 @@ class Structure:
             axis: Optional axis to slice along ('x', 'y', or 'z').
             position: Optional position along the specified axis.
         """
-        view_structure(self, show_permittivity=show_permittivity,
-                      show_conductivity=show_conductivity,
-                      cmap_permittivity=cmap_permittivity,
-                      cmap_conductivity=cmap_conductivity,
-                      axis=axis, position=position)
+        from .visualization import plot_structure
+        return plot_structure(self.permittivity, self.conductivity,
+                              show_permittivity=show_permittivity,
+                              show_conductivity=show_conductivity,
+                              cmap_permittivity=cmap_permittivity,
+                              cmap_conductivity=cmap_conductivity,
+                              axis=axis, position=position)
 
-    def list_layers(self) -> None:
-        """Print human-readable description of the structure's layers."""
-        print("Layer Stack Description:")
-        print("=" * 50)
+    def list_layers(self) -> str:
+        """Return human-readable description of the structure's layers."""
+        lines = []
+        lines.append("Layer Stack Description:")
+        lines.append("=" * 50)
 
         for i, layer in enumerate(self.layers_info):
-            print(f"\nLayer {i}:")
+            lines.append(f"\nLayer {i}:")
 
             # Get density pattern info
             density_shape = layer.density_pattern.shape
@@ -305,8 +313,8 @@ class Structure:
             density_max = float(layer.density_pattern.max())
             density_mean = float(layer.density_pattern.mean())
 
-            print(f"  Density shape: {density_shape[0]} × {density_shape[1]}")
-            print(f"  Density range: [{density_min:.3f}, {density_max:.3f}] (mean: {density_mean:.3f})")
+            lines.append(f"  Density shape: {density_shape[0]} x {density_shape[1]}")
+            lines.append(f"  Density range: [{density_min:.3f}, {density_max:.3f}] (mean: {density_mean:.3f})")
 
             # Describe the pattern type
             if density_max == density_min:
@@ -320,29 +328,30 @@ class Structure:
                 pattern_desc = "binary pattern"
             else:
                 pattern_desc = "grayscale pattern"
-            print(f"  Pattern type: {pattern_desc}")
+            lines.append(f"  Pattern type: {pattern_desc}")
 
             # Permittivity info
             perm_values = layer.permittivity_values
             if isinstance(perm_values, (list, tuple)):
-                print(f"  Permittivity: {perm_values[0]:.2f} → {perm_values[1]:.2f} (interpolated)")
+                lines.append(f"  Permittivity: {perm_values[0]:.2f} -> {perm_values[1]:.2f} (interpolated)")
             else:
-                print(f"  Permittivity: {perm_values:.2f} (uniform)")
+                lines.append(f"  Permittivity: {perm_values:.2f} (uniform)")
 
             # Conductivity info
             cond_values = layer.conductivity_values
             if isinstance(cond_values, (list, tuple)):
                 if cond_values[1] > 0:
-                    print(f"  Conductivity: {cond_values[0]:.3f} → {cond_values[1]:.3f} (interpolated)")
+                    lines.append(f"  Conductivity: {cond_values[0]:.3f} -> {cond_values[1]:.3f} (interpolated)")
             elif cond_values > 0:
-                print(f"  Conductivity: {cond_values:.3f} (uniform)")
+                lines.append(f"  Conductivity: {cond_values:.3f} (uniform)")
 
             # Thickness
-            print(f"  Thickness: {layer.layer_thickness} pixels")
+            lines.append(f"  Thickness: {layer.layer_thickness} pixels")
 
-        print("\n" + "=" * 50)
-        print(f"Total thickness: {self.permittivity.shape[3]} pixels")
-        print(f"Lateral size: {self.permittivity.shape[1]} × {self.permittivity.shape[2]} pixels")
+        lines.append("\n" + "=" * 50)
+        lines.append(f"Total thickness: {self.permittivity.shape[3]} pixels")
+        lines.append(f"Lateral size: {self.permittivity.shape[1]} x {self.permittivity.shape[2]} pixels")
+        return "\n".join(lines)
 
     def __repr__(self) -> str:
         """String representation of the Structure."""
@@ -897,188 +906,6 @@ def reconstruct_structure_from_recipe(recipe: dict) -> Structure:
 
 
 
-def view_structure(structure, show_permittivity=True, show_conductivity=True,
-                  cmap_permittivity="PuOr", cmap_conductivity="plasma",
-                  axis=None, position=None):
-    """Plot structure permittivity and/or conductivity distributions using matplotlib.
-
-    This function creates visualizations of the structure's permittivity and/or conductivity
-    fields. Can show either a single cross-section or default dual view.
-
-    Args:
-        structure: Structure object containing permittivity and conductivity arrays.
-        show_permittivity: Whether to display permittivity plots (default: True).
-        show_conductivity: Whether to display conductivity plots (default: True).
-        cmap_permittivity: Colormap for permittivity plots (default: "PuOr").
-        cmap_conductivity: Colormap for conductivity plots (default: "plasma").
-        axis: Axis to slice along ('x', 'y', or 'z'). If None, shows default dual view (XY at middle Z, XZ at middle Y).
-        position: Position along the specified axis to slice at. If None and axis is specified, uses middle position.
-    
-    Examples:
-        >>> structure = create_structure(layers)
-        >>> view_structure(structure)  # Show both permittivity and conductivity
-        >>> view_structure(structure, show_conductivity=False)  # Only permittivity
-        >>> view_structure(structure, show_permittivity=False)  # Only conductivity
-        >>> view_structure(structure, axis='z', position=50)  # XY slice at z=50
-        >>> view_structure(structure, show_permittivity=True, show_conductivity=False, axis='y', position=100)  # XZ permittivity slice at y=100
-    """
-    try:
-        import matplotlib.pyplot as plt
-    except ImportError:
-        raise ImportError("matplotlib is required for plotting. Install with: pip install matplotlib")
-    
-    # Validate inputs
-    if not isinstance(structure, Structure):
-        raise TypeError(f"structure must be a Structure object, got {type(structure)}")
-    
-    if not show_permittivity and not show_conductivity:
-        raise ValueError("At least one of show_permittivity or show_conductivity must be True")
-    
-    # Extract arrays from structure
-    p = structure.permittivity
-    c = structure.conductivity
-    
-    if axis is None:
-        # Default behavior: show dual view (XY at middle Z, XZ at middle Y)
-        middle_z = p.shape[3] // 2  # nz is the vertical dimension (shape[3])
-        middle_y = p.shape[2] // 2  # ny is the horizontal dimension (shape[2])
-        
-        if show_permittivity and show_conductivity:
-            # Show both permittivity and conductivity
-            fig, axes = plt.subplots(2, 2, figsize=(12, 10))
-            
-            # Permittivity plots
-            im1 = axes[0, 0].imshow(p[0, :, :, middle_z].T, cmap=cmap_permittivity, vmin=p.min(), vmax=p.max())
-            axes[0, 0].set_title(f"Permittivity: x-y plane at z={middle_z} (eps_x)")
-            axes[0, 0].set_xlabel("x")
-            axes[0, 0].set_ylabel("y")
-            plt.colorbar(im1, ax=axes[0, 0])
-            
-            im2 = axes[0, 1].imshow(p[0, :, middle_y, :].T, cmap=cmap_permittivity, vmin=p.min(), vmax=p.max())
-            axes[0, 1].set_title(f"Permittivity: x-z plane at y={middle_y} (eps_x)")
-            axes[0, 1].set_xlabel("x")
-            axes[0, 1].set_ylabel("z")
-            plt.colorbar(im2, ax=axes[0, 1])
-
-            # Conductivity plots
-            im3 = axes[1, 0].imshow(c[0, :, :, middle_z].T, cmap=cmap_conductivity, vmin=c.min(), vmax=c.max())
-            axes[1, 0].set_title(f"Conductivity: x-y plane at z={middle_z} (sigma_x)")
-            axes[1, 0].set_xlabel("x")
-            axes[1, 0].set_ylabel("y")
-            plt.colorbar(im3, ax=axes[1, 0])
-
-            im4 = axes[1, 1].imshow(c[0, :, middle_y, :].T, cmap=cmap_conductivity, vmin=c.min(), vmax=c.max())
-            axes[1, 1].set_title(f"Conductivity: x-z plane at y={middle_y} (sigma_x)")
-            axes[1, 1].set_xlabel("x")
-            axes[1, 1].set_ylabel("z")
-            plt.colorbar(im4, ax=axes[1, 1])
-            
-        elif show_permittivity:
-            # Show only permittivity
-            fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-            
-            im1 = axes[0].imshow(p[0, :, :, middle_z].T, cmap=cmap_permittivity, vmin=p.min(), vmax=p.max())
-            axes[0].set_title(f"Permittivity: x-y plane at z={middle_z} (eps_x)")
-            axes[0].set_xlabel("x")
-            axes[0].set_ylabel("y")
-            plt.colorbar(im1, ax=axes[0])
-            
-            im2 = axes[1].imshow(p[0, :, middle_y, :].T, cmap=cmap_permittivity, vmin=p.min(), vmax=p.max())
-            axes[1].set_title(f"Permittivity: x-z plane at y={middle_y} (eps_x)")
-            axes[1].set_xlabel("x")
-            axes[1].set_ylabel("z")
-            plt.colorbar(im2, ax=axes[1])
-            
-        else:  # show_conductivity only
-            # Show only conductivity
-            fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-            
-            im1 = axes[0].imshow(c[0, :, :, middle_z].T, cmap=cmap_conductivity, vmin=c.min(), vmax=c.max())
-            axes[0].set_title(f"Conductivity: x-y plane at z={middle_z} (sigma_x)")
-            axes[0].set_xlabel("x")
-            axes[0].set_ylabel("y")
-            plt.colorbar(im1, ax=axes[0])
-            
-            im2 = axes[1].imshow(c[0, :, middle_y, :].T, cmap=cmap_conductivity, vmin=c.min(), vmax=c.max())
-            axes[1].set_title(f"Conductivity: x-z plane at y={middle_y} (sigma_x)")
-            axes[1].set_xlabel("x")
-            axes[1].set_ylabel("z")
-            plt.colorbar(im2, ax=axes[1])
-            
-    else:
-        # Single slice mode
-        if axis not in ['x', 'y', 'z']:
-            raise ValueError(f"axis must be 'x', 'y', or 'z', got {axis}")
-        
-        # Determine position if not specified
-        if position is None:
-            if axis == 'x':
-                position = p.shape[1] // 2  # middle x
-            elif axis == 'y':
-                position = p.shape[2] // 2  # middle y
-            elif axis == 'z':
-                position = p.shape[3] // 2  # middle z
-        
-        # Extract slice and determine plot properties
-        if axis == 'x':
-            p_slice = p[0, position, :, :]  # YZ plane
-            c_slice = c[0, position, :, :]  # YZ plane
-            plane_name = "y-z"
-            xlabel, ylabel = "y", "z"
-        elif axis == 'y':
-            p_slice = p[0, :, position, :]  # XZ plane
-            c_slice = c[0, :, position, :]  # XZ plane
-            plane_name = "x-z"
-            xlabel, ylabel = "x", "z"
-        elif axis == 'z':
-            p_slice = p[0, :, :, position]  # XY plane
-            c_slice = c[0, :, :, position]  # XY plane
-            plane_name = "x-y"
-            xlabel, ylabel = "x", "y"
-        
-        if show_permittivity and show_conductivity:
-            # Show both permittivity and conductivity
-            fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-            
-            im1 = axes[0].imshow(p_slice.T, cmap=cmap_permittivity, vmin=p.min(), vmax=p.max(), origin='upper')
-            axes[0].set_title(f"Permittivity: {plane_name} plane at {axis}={position} (eps_x)")
-            axes[0].set_xlabel(xlabel)
-            axes[0].set_ylabel(ylabel)
-            plt.colorbar(im1, ax=axes[0])
-            
-            im2 = axes[1].imshow(c_slice.T, cmap=cmap_conductivity, vmin=c.min(), vmax=c.max(), origin='upper')
-            axes[1].set_title(f"Conductivity: {plane_name} plane at {axis}={position} (sigma_x)")
-            axes[1].set_xlabel(xlabel)
-            axes[1].set_ylabel(ylabel)
-            plt.colorbar(im2, ax=axes[1])
-            
-        elif show_permittivity:
-            # Show only permittivity
-            fig, ax = plt.subplots(1, 1, figsize=(8, 6))
-            
-            im = ax.imshow(p_slice.T, cmap=cmap_permittivity, vmin=p.min(), vmax=p.max(), origin='upper')
-            ax.set_title(f"Permittivity: {plane_name} plane at {axis}={position} (eps_x)")
-            ax.set_xlabel(xlabel)
-            ax.set_ylabel(ylabel)
-            plt.colorbar(im, ax=ax)
-            
-        else:  # show_conductivity only
-            # Show only conductivity
-            fig, ax = plt.subplots(1, 1, figsize=(8, 6))
-            
-            im = ax.imshow(c_slice.T, cmap=cmap_conductivity, vmin=c.min(), vmax=c.max(), origin='upper')
-            ax.set_title(f"Conductivity: {plane_name} plane at {axis}={position} (sigma_x)")
-            ax.set_xlabel(xlabel)
-            ax.set_ylabel(ylabel)
-            plt.colorbar(im, ax=ax)
-    
-    plt.tight_layout()
-    
-    # Only show plot if using an interactive backend
-    if plt.get_backend() != 'Agg':
-        plt.show() 
-
-
 # =============================================================================
 # INTERNAL HELPER FUNCTIONS
 # =============================================================================
@@ -1086,35 +913,6 @@ def view_structure(structure, show_permittivity=True, show_conductivity=True,
 # These functions are internal implementations used by the main APIs above.
 # They handle specialized operations like density filtering and rendering.
 #
-
-def density_pjz(u, radius, alpha, c=1.0, eta=0.5, eta_lo=0.25, eta_hi=0.75):
-    """Backward compatibility wrapper for density_pjz.
-
-    This function is now integrated into the main density() function.
-    Use density() directly for new code.
-
-    Args:
-        u: Variable array with values within [0, 1].
-        radius: Radius of the conical filter used to blur u.
-        alpha: Binarization control parameter [0, 1].
-        c: Controls the detection of inflection points (unused).
-        eta: Threshold value used to binarize the density.
-        eta_lo: Controls minimum feature size of void-phase features (unused).
-        eta_hi: Controls minimum feature size of density=1 features (unused).
-
-    Returns:
-        Density field after filtering and binarization.
-    """
-    # Note: c, eta_lo, eta_hi are not used in the current implementation
-    # They are kept for backward compatibility
-    if radius > 0:
-        ufilt = _filter(u, radius)
-        uproj = _project(ufilt, eta)
-        return alpha * uproj + (1 - alpha) * ufilt
-    else:
-        return u
-
-
 
 def _vertical_cone(radius):
     """Create a 1D conical filter kernel for vertical filtering."""

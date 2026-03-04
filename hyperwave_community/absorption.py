@@ -23,6 +23,8 @@ from typing import Tuple, Optional, Dict
 import jax
 import jax.numpy as jnp
 
+from ._logging import logger
+
 
 # =============================================================================
 # BAYESIAN-OPTIMIZED ABSORBER PARAMETERS
@@ -456,8 +458,9 @@ def create_absorption_mask(
     
     # Visualize if requested
     if show_plots:
-        _view_absorption_mask_internal(absorption_mask)
-    
+        from .visualization import plot_absorption_mask
+        plot_absorption_mask(absorption_mask)
+
     return absorption_mask
 
 
@@ -537,93 +540,3 @@ def rescale_absorption_mask(
     return new_absorption_mask
 
 
-def _view_absorption_mask_internal(
-    absorption_mask: jax.Array,
-    slice_positions: Optional[Tuple[float, float, float]] = None,
-    figsize: Tuple[int, int] = (15, 4),
-    cmap: str = 'grey_r',
-    save_path: Optional[str] = None,
-    show_plot: bool = True
-) -> None:
-    """Visualize the 3D absorption mask for the 'absorbers' component (Ex).
-
-    Plots three slices (XY, XZ, YZ) of the first field component,
-    labeled as 'absorbers'.
-
-    Args:
-        absorption_mask: (3, xx, yy, zz) absorption array. Only index 0 is used.
-        slice_positions: (x_frac, y_frac, z_frac) fractional positions (0–1).
-                         Defaults to center slices.
-        figsize: Figure size (width, height) in inches.
-        cmap: Colormap name.
-        save_path: Optional path to save the figure.
-        show_plot: Whether to display the plot.
-    """
-    import matplotlib.pyplot as plt
-    import matplotlib.gridspec as gridspec
-    import numpy as np
-
-    # Validate input shape
-    if absorption_mask.ndim != 4 or absorption_mask.shape[0] < 1:
-        raise ValueError(
-            f"absorption_mask must be at least 4D with first dimension ≥1, got {absorption_mask.shape}"
-        )
-
-    # Default to center slices
-    if slice_positions is None:
-        slice_positions = (0.5, 0.5, 0.5)
-    x_frac, y_frac, z_frac = slice_positions
-
-    _, xx, yy, zz = absorption_mask.shape
-    x_idx = int(x_frac * (xx - 1))
-    y_idx = int(y_frac * (yy - 1))
-    z_idx = int(z_frac * (zz - 1))
-
-    # Use only the first component and apply square-root scaling
-    data = np.sqrt(np.array(absorption_mask[0]))
-    vmin, vmax = data.min(), data.max()
-
-    # Set up a 1×3 grid
-    fig = plt.figure(figsize=figsize)
-    gs = gridspec.GridSpec(1, 3, figure=fig, wspace=0.3)
-
-    # Descriptions for each slice
-    slice_info = [
-        ('XY', data[:, :, z_idx], (0, xx-1, 0, yy-1), 'X index', 'Y index'),
-        ('XZ', data[:, y_idx, :], (0, xx-1, 0, zz-1), 'X index', 'Z index'),
-        ('YZ', data[x_idx, :, :], (0, yy-1, 0, zz-1), 'Y index', 'Z index'),
-    ]
-
-    for i, (name, slice_data, extent, xlabel, ylabel) in enumerate(slice_info):
-        ax = fig.add_subplot(gs[0, i])
-        im = ax.imshow(
-            slice_data.T,
-            origin='upper',
-            cmap=cmap,
-            vmin=vmin,
-            vmax=vmax,
-            extent=extent,
-            aspect='equal'
-        )
-        ax.set_title(f'absorbers: {name} slice')
-        ax.set_xlabel(xlabel)
-        ax.set_ylabel(ylabel)
-
-        # Colorbar with α label in a larger font
-        cbar = plt.colorbar(im, ax=ax, shrink=0.8)
-        cbar.set_label(r'$\sqrt{\alpha}$', fontsize=12)
-        cbar.ax.tick_params(labelsize=12)
-
-    fig.suptitle(
-        f'3D Absorbers Mask slices at {slice_positions}',
-        fontsize=14, fontweight='bold'
-    )
-
-    if save_path:
-        plt.savefig(save_path, dpi=150, bbox_inches='tight')
-        print(f"Saved plot to: {save_path}")
-
-    if show_plot:
-        plt.show()
-    else:
-        plt.close(fig)

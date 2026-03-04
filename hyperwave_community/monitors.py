@@ -10,10 +10,10 @@ Field data format: (N_freq, 6, Nx, Ny, Nz) where the 6 components are:
 
 import jax.numpy as jnp
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
 from typing import Tuple, Optional, Dict, List, Union
 from dataclasses import dataclass
+
+from ._logging import logger
 
 
 @dataclass
@@ -347,264 +347,6 @@ def mode_coupling_efficiency(
     return eff_linear, eff_dB
 
 
-def view_monitors(structure, monitors: Union[List, 'MonitorSet'], monitor_mapping: Optional[Dict[str, int]] = None,
-                 axis: str = "z", position: Optional[int] = None,
-                 figsize: Tuple[int, int] = (12, 8), show_structure: bool = True,
-                 alpha_structure: float = 0.3, alpha_monitors: float = 0.7,
-                 source_position: Optional[int] = None, absorber_boundary = None) -> None:
-    """Visualize monitor positions overlaid on structure cross-sections.
-
-    This function creates a visualization showing where monitors are positioned
-    relative to the photonic structure. It displays monitor outlines only where
-    they are actually intersected by the viewing plane, avoiding visual clutter
-    from monitors that lie entirely within the plane.
-
-    Args:
-        structure: Structure object containing permittivity distribution.
-            Must have a `permittivity` attribute with shape (components, nx, ny, nz).
-        monitors: Either a MonitorSet object or a List of Monitor objects.
-            If MonitorSet, the mapping is extracted automatically.
-            If List, uses monitor_mapping parameter for names.
-        monitor_mapping: Optional dictionary mapping monitor names to indices.
-            Only used when monitors is a List. Ignored when monitors is a MonitorSet.
-        axis: Viewing axis for the cross-section slice ('x', 'y', or 'z').
-            - 'x': Shows YZ plane (Y horizontal, Z vertical)
-            - 'y': Shows XZ plane (X horizontal, Z vertical)  
-            - 'z': Shows XY plane (X horizontal, Y vertical)
-        position: Position along the specified axis for the slice. If None,
-            uses the middle position along that axis.
-        figsize: Figure size as (width, height) tuple.
-        show_structure: Whether to display the structure permittivity as background.
-        alpha_structure: Transparency level for structure display (0.0-1.0).
-        alpha_monitors: Transparency level for monitor outlines (0.0-1.0).
-        source_position: Optional X-position of the source plane to visualize.
-        absorber_boundary: Optional absorption mask from hyperwave.absorption.create_absorption_mask 
-            with shape (3, xx, yy, zz) representing Ex, Ey, Ez absorption coefficients.
-    
-    Returns:
-        None. Displays the plot using matplotlib.
-        
-    Note:
-        - Only monitors that extend in the viewing direction are shown
-        - Monitors with thickness=1 in the viewing direction are not displayed
-        - Z axis is always oriented vertically with 0 at top
-        - Monitor coordinates assume hyperwave coordinate system conventions
-        
-    Example:
-        >>> from hyperwave.structure import create_structure
-        >>> from hyperwave.monitors import Monitor, create_waveguide_monitors
-        >>>
-        >>> # Create structure
-        >>> structure = create_structure(layers)
-        >>>
-        >>> # Method 1: Using MonitorSet (recommended)
-        >>> monitor_set = create_waveguide_monitors(structure, monitor_type='both')
-        >>> view_monitors(structure, monitor_set, axis="z", position=100)
-        >>>
-        >>> # Method 2: Using separate list and mapping (legacy)
-        >>> monitors = [
-        ...     Monitor(shape=(20, 20, 5), offset=(10, 10, 50)),
-        ...     Monitor(shape=(20, 20, 5), offset=(10, 10, 150))
-        ... ]
-        >>> monitor_mapping = {'reflection': 0, 'transmission': 1}
-        >>> view_monitors(structure, monitors, monitor_mapping, axis="z", position=100)
-    """
-    # Handle MonitorSet input
-    if isinstance(monitors, MonitorSet):
-        monitor_list = monitors.monitors
-        monitor_mapping = monitors.mapping
-    else:
-        monitor_list = monitors
-        # Use provided mapping or default to None
-
-    structure_shape = structure.permittivity.shape[1:]  # Skip components dimension
-    Lx, Ly, Lz = structure_shape
-    
-    if position is None:
-        if axis == 'x':
-            position = Lx // 2
-        elif axis == 'y':
-            position = Ly // 2
-        elif axis == 'z':
-            position = Lz // 2
-    
-    fig, ax = plt.subplots(figsize=figsize)
-    
-    if show_structure:
-        eps_array = structure.permittivity
-        eps_real = jnp.real(eps_array[0])
-        
-        if axis == 'x':
-            structure_slice = eps_real[position, :, :]
-            extent = [0, Ly, Lz, 0]
-            xlabel, ylabel = 'Y (cells)', 'Z (cells)'
-        elif axis == 'y':
-            structure_slice = eps_real[:, position, :]
-            extent = [0, Lx, Lz, 0]
-            xlabel, ylabel = 'X (cells)', 'Z (cells)'
-        elif axis == 'z':
-            structure_slice = eps_real[:, :, position]
-            extent = [0, Lx, Ly, 0]
-            xlabel, ylabel = 'X (cells)', 'Y (cells)'
-        
-        ax.imshow(structure_slice.T, extent=extent,
-                      cmap='PuOr', alpha=alpha_structure, aspect='auto', origin='upper')
-    
-    monitor_colors = ['red', 'blue', 'green', 'orange', 'purple', 'brown', 'pink', 'gray']
-    
-    for i, monitor in enumerate(monitor_list):
-        monitor_shape = monitor.shape
-        monitor_offset = monitor.offset
-
-        monitor_name = None
-        if monitor_mapping:
-            for name, idx in monitor_mapping.items():
-                if idx == i:
-                    monitor_name = name
-                    break
-        
-        if monitor_name is None:
-            monitor_name = f"Monitor {i}"
-        
-        # Convert monitor coordinates to absolute positions
-        # Offsets are corner-based (direct array indices) to match solve._get
-        mx_start = monitor_offset[0]
-        my_start = monitor_offset[1]
-        mz_start = monitor_offset[2]
-
-        mx_end = mx_start + monitor_shape[0]
-        my_end = my_start + monitor_shape[1]
-        mz_end = mz_start + monitor_shape[2]
-        
-        # Only show monitors that are actually cut by the viewing plane
-        # Skip monitors that have thickness=1 in the viewing direction
-        intersects = False
-        rect_params = None
-        
-        if axis == 'x':
-            if monitor_shape[0] > 1 and mx_start <= position <= mx_end:
-                intersects = True
-                rect_params = {
-                    'xy': (my_start, mz_start),
-                    'width': my_end - my_start,
-                    'height': mz_end - mz_start
-                }
-        elif axis == 'y':
-            if monitor_shape[1] > 1 and my_start <= position <= my_end:
-                intersects = True
-                rect_params = {
-                    'xy': (mx_start, mz_start),
-                    'width': mx_end - mx_start,
-                    'height': mz_end - mz_start
-                }
-        elif axis == 'z':
-            if mz_start <= position < mz_start + monitor_shape[2]:
-                intersects = True
-                rect_params = {
-                    'xy': (mx_start, my_start),
-                    'width': mx_end - mx_start,
-                    'height': my_end - my_start
-                }
-        
-        if intersects and rect_params:
-            color = monitor_colors[i % len(monitor_colors)]
-            
-            # Create label with shape and offset info
-            label_text = f"{monitor_name} | Shape: {monitor_shape} | Offset: {monitor_offset}"
-            
-            rect = patches.Rectangle(
-                rect_params['xy'], 
-                rect_params['width'], 
-                rect_params['height'],
-                linewidth=3, 
-                edgecolor=color, 
-                facecolor='none',
-                label=label_text
-            )
-            ax.add_patch(rect)
-            
-            # Add label on plot
-            text_x = rect_params['xy'][0] + rect_params['width'] + 5
-            text_y = rect_params['xy'][1] + rect_params['height'] / 2
-                
-            ax.text(text_x, text_y, monitor_name, 
-                   ha='left', va='center', fontsize=10, 
-                   fontweight='bold', color=color)
-    
-    # Add source plane visualization if provided
-    if source_position is not None:
-        source_color = 'yellow'
-        source_linewidth = 4
-        
-        if axis == 'x' and source_position == position:
-            # Source plane is at the current X slice - show as full YZ plane outline
-            ax.axhline(y=0, color=source_color, linewidth=source_linewidth, 
-                      linestyle='--', alpha=0.8, label='Source Plane')
-            ax.axhline(y=Lz, color=source_color, linewidth=source_linewidth, 
-                      linestyle='--', alpha=0.8)
-            ax.axvline(x=0, color=source_color, linewidth=source_linewidth, 
-                      linestyle='--', alpha=0.8)
-            ax.axvline(x=Ly, color=source_color, linewidth=source_linewidth, 
-                      linestyle='--', alpha=0.8)
-        elif axis == 'y':
-            # Show source plane as vertical line at X position
-            ax.axvline(x=source_position, color=source_color, linewidth=source_linewidth,
-                      linestyle='--', alpha=0.8, label=f'Source Plane (X={source_position})')
-        elif axis == 'z':
-            # Show source plane as vertical line at X position
-            ax.axvline(x=source_position, color=source_color, linewidth=source_linewidth,
-                      linestyle='--', alpha=0.8, label=f'Source Plane (X={source_position})')
-    
-    # Add absorber boundary visualization if provided
-    if absorber_boundary is not None:
-        # Expect absorption mask shape (3, xx, yy, zz) from create_absorption_mask
-        if absorber_boundary.ndim != 4 or absorber_boundary.shape[0] != 3:
-            raise ValueError(f"absorber_boundary must have shape (3, xx, yy, zz), got {absorber_boundary.shape}")
-        
-        # Use first component (Ex) for visualization
-        absorber_3d = absorber_boundary[0]  # Shape: (xx, yy, zz)
-        absorber_slice = None
-        
-        if axis == 'x':
-            if position < absorber_3d.shape[0]:
-                absorber_slice = absorber_3d[position, :, :]
-        elif axis == 'y':
-            if position < absorber_3d.shape[1]:
-                absorber_slice = absorber_3d[:, position, :]
-        elif axis == 'z':
-            if position < absorber_3d.shape[2]:
-                absorber_slice = absorber_3d[:, :, position]
-        
-        if absorber_slice is not None:
-            # Create absorber overlay - show regions where absorption > threshold
-            absorber_threshold = 1e-6
-            absorber_mask = absorber_slice > absorber_threshold
-            
-            if jnp.sum(absorber_mask) > 0:  # Only show if there are absorbing regions
-                # Use square root scaling for better visualization (like the absorption module)
-                absorber_overlay = jnp.sqrt(absorber_slice)
-                absorber_overlay = jnp.where(absorber_mask, absorber_overlay, 0.0)
-                
-                # Overlay absorber regions in red with transparency
-                ax.imshow(absorber_overlay.T, extent=extent, cmap='Reds',
-                         alpha=0.4, aspect='auto', vmin=0, vmax=jnp.max(absorber_overlay), origin='upper')
-                
-                # Add legend entry for absorbers
-                ax.plot([], [], 's', color='red', alpha=0.4, markersize=10, 
-                       label='Absorber Regions')
-    
-    ax.set_xlabel(xlabel)
-    ax.set_ylabel(ylabel)
-    title = f'Monitor Positions ({axis.upper()} slice at {position}) | Structure: {Lx}×{Ly}×{Lz}'
-    ax.set_title(title, fontsize=14, fontweight='bold')
-    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), ncol=2, fontsize=10)
-    ax.grid(True, alpha=0.3)
-    ax.set_aspect('equal')
-    
-    plt.tight_layout()
-    plt.show()
-
-
 def reconstruct_monitorset_from_recipe(recipe: List[Dict]) -> 'MonitorSet':
     """Reconstruct a MonitorSet from a recipe.
 
@@ -818,9 +560,6 @@ class MonitorSet:
              source_position: Optional[int] = None, absorber_boundary = None) -> None:
         """Visualize monitors in this set overlaid on structure cross-sections.
 
-        This is a convenience method that calls view_monitors() with this MonitorSet.
-        See view_monitors() for full documentation of visualization options.
-
         Args:
             structure: Structure object containing permittivity distribution.
             axis: Viewing axis for the cross-section slice ('x', 'y', or 'z').
@@ -837,9 +576,11 @@ class MonitorSet:
             >>> monitor_set = MonitorSet()
             >>> monitor_set.view(structure, axis='z', position=100)
         """
-        view_monitors(structure, self, None, axis, position, figsize,
-                     show_structure, alpha_structure, alpha_monitors,
-                     source_position, absorber_boundary)
+        from .visualization import plot_monitor_layout
+        return plot_monitor_layout(self, structure=structure, axis=axis, position=position,
+                                   figsize=figsize, show_structure=show_structure,
+                                   alpha_structure=alpha_structure, alpha_monitors=alpha_monitors,
+                                   source_position=source_position, absorber_boundary=absorber_boundary)
 
     def add_monitors_at_position(
         self,
@@ -1288,9 +1029,9 @@ def add_monitors_at_position(
         )
 
         if verbose:
-            print(f"Detected {len(waveguides)} features along Y at X={position}")
+            logger.debug(f"Detected {len(waveguides)} features along Y at X={position}")
             if waveguides and 'z_core' in waveguides[0]:
-                print(f"  Auto-detected waveguide core at Z={waveguides[0]['z_core']}")
+                logger.debug(f"  Auto-detected waveguide core at Z={waveguides[0]['z_core']}")
 
         for i, wg in enumerate(waveguides):
             # Calculate monitor extent based on waveguide width
@@ -1334,7 +1075,7 @@ def add_monitors_at_position(
             added_names.append(name)
 
             if verbose:
-                print(f"  Added '{name}': Y=[{y_start}, {y_start+y_height}], width={wg['width']}px")
+                logger.debug(f"  Added '{name}': Y=[{y_start}, {y_start+y_height}], width={wg['width']}px")
 
     elif axis == 'y':
         # XZ plane monitors at Y position - detect along X
@@ -1349,9 +1090,9 @@ def add_monitors_at_position(
         )
 
         if verbose:
-            print(f"Detected {len(waveguides)} features along X at Y={position}")
+            logger.debug(f"Detected {len(waveguides)} features along X at Y={position}")
             if waveguides and 'z_core' in waveguides[0]:
-                print(f"  Auto-detected waveguide core at Z={waveguides[0]['z_core']}")
+                logger.debug(f"  Auto-detected waveguide core at Z={waveguides[0]['z_core']}")
 
         for i, wg in enumerate(waveguides):
             # Calculate monitor extent based on waveguide width
@@ -1394,7 +1135,7 @@ def add_monitors_at_position(
             added_names.append(name)
 
             if verbose:
-                print(f"  Added '{name}': X=[{x_start}, {x_start+x_width}], width={wg['width']}px")
+                logger.debug(f"  Added '{name}': X=[{x_start}, {x_start+x_width}], width={wg['width']}px")
 
     elif axis == 'z':
         # XY plane monitors at Z position - detect along Y (most common)
@@ -1409,7 +1150,7 @@ def add_monitors_at_position(
         )
 
         if verbose:
-            print(f"Detected {len(waveguides)} features along Y at Z={position}")
+            logger.debug(f"Detected {len(waveguides)} features along Y at Z={position}")
 
         for i, wg in enumerate(waveguides):
             # For Z-plane monitors, typically want full X extent
@@ -1428,7 +1169,7 @@ def add_monitors_at_position(
             added_names.append(name)
 
             if verbose:
-                print(f"  Added '{name}': Y=[{wg['start']}, {wg['end']}]")
+                logger.debug(f"  Added '{name}': Y=[{wg['start']}, {wg['end']}]")
 
     else:
         raise ValueError(f"axis must be 'x', 'y', or 'z', got {axis}")
@@ -1436,7 +1177,7 @@ def add_monitors_at_position(
     # Handle case where no waveguides detected
     if not waveguides:
         if verbose:
-            print("  Warning: No features detected, adding fallback monitor")
+            logger.debug("  Warning: No features detected, adding fallback monitor")
 
         # Calculate Z dimension based on height_factor for X and Y axis monitors
         if axis != 'z':
