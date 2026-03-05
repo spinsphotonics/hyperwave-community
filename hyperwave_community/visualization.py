@@ -364,17 +364,18 @@ def plot_monitors(
     cols = min(max(n_ports, 1), 2)
     port_rows = max(1, (n_ports + cols - 1) // cols) if n_ports > 0 else 0
 
-    # Compute height ratios: port rows get equal height, field rows scale by aspect
+    # Compute height ratios: port rows get equal height,
+    # field rows scale by their data aspect ratio so the full-width
+    # subplot preserves correct proportions via aspect="auto".
     height_ratios = [1.0] * port_rows
     field_aspects = []
     for name in field_names:
         data = np.asarray(results["monitor_data"][name])
         field_2d, _, _ = _extract_field_2d(data, component, freq_idx)
-        h, w = field_2d.shape[1], field_2d.shape[0]
-        field_aspects.append(h / w if w > 0 else 0.5)
+        h, w = field_2d.shape[0], field_2d.shape[1]
+        field_aspects.append(w / h if h > 0 else 0.5)
     for aspect in field_aspects:
-        # Scale relative to port row height so the field plot width matches the grid
-        height_ratios.append(aspect * cols / 1.0)
+        height_ratios.append(1.0 / aspect)
 
     total_rows = port_rows + n_fields
     if total_rows == 0:
@@ -412,7 +413,7 @@ def plot_monitors(
         ax = fig.add_subplot(gs[row, :])
         data = np.asarray(results["monitor_data"][name])
         field_2d, xlabel, ylabel = _extract_field_2d(data, component, freq_idx)
-        im = ax.imshow(field_2d.T, cmap=cmap, origin="upper", aspect="equal")
+        im = ax.imshow(field_2d.T, cmap=cmap, origin="upper", aspect="auto")
         ax.set_title(f"{name} - {component} (freq {freq_idx})", fontsize=13, fontweight="medium")
         ax.set_xlabel(xlabel, fontsize=11)
         ax.set_ylabel(ylabel, fontsize=11)
