@@ -146,7 +146,6 @@ results = hwc.simulate(
     monitors_recipe=monitors.recipe,
     mode_info=mode_info,
     simulation_steps=20000,
-    add_absorption=False,
     absorption_widths=abs_widths,
     absorption_coeff=abs_coeff,
 )
