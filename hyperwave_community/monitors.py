@@ -748,6 +748,28 @@ def create_port_monitors(
         prefix = input_label_prefix if is_input else output_label_prefix
         label = f"{prefix}{port.name}"
 
+        # Clamp monitor x-position to stay outside absorber regions.
+        # The source is placed at the absorber boundary, so monitors must
+        # be at least (absorber_width + monitor_thickness) from each edge
+        # to measure power in the clean waveguide region.
+        abs_x = absorption_widths[0]
+        x_min_allowed = abs_x + monitor_thickness
+        x_max_allowed = Lx - abs_x - monitor_thickness
+        if is_input and x_struct < x_min_allowed:
+            logger.warning(
+                "Monitor %s x=%d is inside absorber region (ends at %d). "
+                "Clamping to x=%d.",
+                label, x_struct, abs_x, x_min_allowed,
+            )
+            x_struct = x_min_allowed
+        elif not is_input and x_struct > x_max_allowed:
+            logger.warning(
+                "Monitor %s x=%d is inside absorber region (starts at %d). "
+                "Clamping to x=%d.",
+                label, x_struct, Lx - abs_x, x_max_allowed,
+            )
+            x_struct = x_max_allowed
+
         monitor_specs.append({
             "label": label,
             "x": x_struct,
