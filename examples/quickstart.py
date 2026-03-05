@@ -12,7 +12,7 @@
 # %% Installation
 # pip install hyperwave-community gdsfactory
 
-# %% Imports
+# %% Imports and Configuration
 import hyperwave_community as hwc
 import gdsfactory as gf
 import numpy as np
@@ -23,13 +23,20 @@ hwc.set_verbose(True)
 PDK = gf.gpdk.get_generic_pdk()
 PDK.activate()
 
+RESOLUTION_UM = 0.02          # 20 nm grid spacing
+N_CORE = 3.48                 # Silicon refractive index at 1550 nm
+N_CLAD = 1.45                 # SiO2 cladding
+WL_UM = 1.55                  # Wavelength
+WG_HEIGHT_UM = 0.22           # Waveguide core height
+TOTAL_HEIGHT_UM = 4.0         # Total stack height
+PADDING = (100, 100, 0, 0)   # (left, right, top, bottom) in theta pixels
+
 
 # %% Step 1: Load Component
 #
 # Load a 2x2 MMI with S-bends from gdsfactory and extend ports so the mode
 # source and monitors sit inside straight waveguide sections.
 
-RESOLUTION_UM = 0.02          # 20 nm grid spacing
 EXTENSION_LENGTH = 2.0        # Extend ports by 2 um
 
 gf_device = gf.components.mmi2x2_with_sbend()
@@ -46,18 +53,12 @@ theta, device_info = hwc.component_to_theta(
 # Apply density filtering, then stack cladding and waveguide layers into
 # a 3D permittivity volume.
 
-N_CORE = 3.48                  # Silicon refractive index at 1550 nm
-N_CLAD = 1.45                  # SiO2 cladding
 eps_core = N_CORE ** 2
 eps_clad = N_CLAD ** 2
-
-PADDING = (100, 100, 0, 0)    # (left, right, top, bottom) in theta pixels
 
 density_core = hwc.density(theta=theta, pad_width=PADDING, radius=3)
 density_clad = hwc.density(theta=jnp.zeros_like(theta), pad_width=PADDING, radius=5)
 
-WG_HEIGHT_UM = 0.22
-TOTAL_HEIGHT_UM = 4.0
 wg_cells = max(1, int(np.round(WG_HEIGHT_UM / RESOLUTION_UM)))
 clad_cells = int(np.round((TOTAL_HEIGHT_UM - WG_HEIGHT_UM) / 2 / RESOLUTION_UM))
 
@@ -70,9 +71,7 @@ structure = hwc.create_structure(
     vertical_radius=2,
 )
 
-_, Lx, Ly, Lz = structure.permittivity.shape
 z_wg_center = clad_cells + wg_cells // 2
-
 hwc.plot_structure(structure, axis="z", position=z_wg_center)
 
 
@@ -80,8 +79,10 @@ hwc.plot_structure(structure, axis="z", position=z_wg_center)
 #
 # Add adiabatic absorbers at grid edges to prevent reflections.
 
+_, Lx, Ly, Lz = structure.permittivity.shape
+
 abs_params = hwc.absorber_params(
-    wavelength_um=1.55,
+    wavelength_um=WL_UM,
     dx_um=RESOLUTION_UM,
     structure_dimensions=(Lx, Ly, Lz),
 )
@@ -101,44 +102,19 @@ hwc.plot_absorption_mask(absorber)
 # %% Step 4: Mode Source
 #
 # Solve for the fundamental TE mode at the input waveguide.
-# We detect the waveguide location at the source plane and constrain
-# the mode solver to that region (2x expanded) so it finds the correct
-# guided mode rather than a slab mode.
+# The SDK automatically detects the waveguide cross-section at the
+# source plane and constrains the mode solver to that region.
 
-WL_UM = 1.55
 wl_cells = WL_UM / RESOLUTION_UM
 freq_band = (2 * jnp.pi / wl_cells, 2 * jnp.pi / wl_cells, 1)
-
-source_pos_x = abs_widths[0]
-
-# Auto-detect waveguide at source plane
-temp_monitors = hwc.MonitorSet()
-temp_monitors.add_monitors_at_position(
-    structure=structure, axis="x", position=source_pos_x, label="detect",
-)
-wg = temp_monitors.monitors[0]
-
-# Expand 2x around detected waveguide so mode field decays to zero at edges
-y_center = wg.offset[1] + wg.shape[1] // 2
-z_center = wg.offset[2] + wg.shape[2] // 2
-y_min = max(0, y_center - wg.shape[1])
-y_max = min(Ly, y_center + wg.shape[1])
-z_min = max(0, z_center - wg.shape[2])
-z_max = min(Lz, z_center + wg.shape[2])
 
 source_field, source_offset, mode_info = hwc.create_mode_source(
     structure=structure,
     freq_band=freq_band,
     mode_num=0,
     propagation_axis="x",
-    source_position=source_pos_x,
-    perpendicular_bounds=(y_min, y_max),
-    z_bounds=(z_min, z_max),
+    source_position=abs_widths[0],
 )
-
-# Trim to mode region (reduces data sent to cloud)
-source_field = source_field[:, :, :, y_min:y_max, z_min:z_max]
-source_offset = (source_pos_x, y_min, z_min)
 
 hwc.plot_mode(
     mode_field=mode_info["field"],
@@ -150,40 +126,20 @@ hwc.plot_mode(
 
 # %% Step 5: Monitors
 #
-# Place field monitors at each port. Names starting with "Input_" and
-# "Output_" are recognized by analyze_transmission.
+# Place field monitors at each port. The SDK reads port positions from the
+# gdsfactory component and creates appropriately sized, non-overlapping monitors.
 
-monitors = hwc.MonitorSet()
-
-y_pad_struct = PADDING[0] // 2
-bbox = device_info["bounding_box_um"]
-x_min_um, y_min_um = bbox[0], bbox[1]
-theta_res = device_info["theta_resolution_um"]
-
-MONITOR_THICKNESS = 5
-MONITOR_HALF = 35
-
-for port in gf_device.ports:
-    px_um, py_um = port.center
-    x_struct = int((px_um - x_min_um) / theta_res / 2) + PADDING[2] // 2
-    y_struct = int((py_um - y_min_um) / theta_res / 2) + y_pad_struct
-
-    label = f"Input_{port.name}" if abs(port.orientation % 360 - 180) < 1 else f"Output_{port.name}"
-
-    monitors.add(
-        hwc.Monitor(
-            shape=(MONITOR_THICKNESS, 2 * MONITOR_HALF, 2 * MONITOR_HALF),
-            offset=(x_struct, y_struct - MONITOR_HALF, z_wg_center - MONITOR_HALF),
-        ),
-        label,
-    )
-
-# Full XY plane for field visualization
-monitors.add(hwc.Monitor(shape=(Lx, Ly, 1), offset=(0, 0, z_wg_center)), "xy_mid")
+monitors = hwc.create_port_monitors(
+    component=gf_device,
+    structure=structure,
+    device_info=device_info,
+    padding=PADDING,
+    absorption_widths=abs_widths,
+)
 
 hwc.plot_monitor_layout(
     structure.permittivity, monitors,
-    axis="z", position=z_wg_center, source_position=source_pos_x,
+    axis="z", position=z_wg_center, source_position=abs_widths[0],
 )
 
 
