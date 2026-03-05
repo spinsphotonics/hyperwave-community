@@ -583,6 +583,7 @@ def plot_structure(
     show_conductivity: bool = True,
     axis: Optional[str] = None,
     position: Optional[int] = None,
+    view_mode: str = "2d",
     figsize=None,
     show: bool = True,
     save_path: Optional[str] = None,
@@ -591,6 +592,8 @@ def plot_structure(
 
     When *axis* is ``None`` the default dual-view is shown (XY at mid-Z and
     XZ at mid-Y). When an axis is specified a single slice is produced.
+    When *view_mode* is ``"3d"``, three orthogonal cross-sections are shown
+    on matplotlib 3D axes.
 
     Args:
         permittivity: Array with shape ``(3, nx, ny, nz)`` or a ``Structure``
@@ -601,6 +604,7 @@ def plot_structure(
         show_conductivity: Show conductivity panel(s).
         axis: ``'x'``, ``'y'``, ``'z'``, or *None* for default dual view.
         position: Slice position along the chosen axis.
+        view_mode: ``"2d"`` (default) or ``"3d"`` for a 3D orthogonal view.
         figsize: Figure size (auto-computed if *None*).
         show: Whether to call ``plt.show()``.
         save_path: If given, save the figure.
@@ -627,6 +631,12 @@ def plot_structure(
 
     nx, ny, nz = perm_arr.shape[1], perm_arr.shape[2], perm_arr.shape[3]
     cmap_p, cmap_c = "PuOr", "plasma"
+
+    if view_mode == "3d":
+        return _plot_structure_3d_mpl(
+            perm_arr, nx, ny, nz, cmap_p,
+            figsize=figsize, show=show, save_path=save_path,
+        )
 
     def _get_slice(arr, ax, pos):
         if ax == "x":
@@ -971,6 +981,65 @@ def plot_gds(
 # ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
+
+def _plot_structure_3d_mpl(perm_arr, nx, ny, nz, cmap, *, figsize=None, show=True, save_path=None):
+    """Render three orthogonal permittivity cross-sections on a 3D matplotlib axis."""
+    import matplotlib.pyplot as plt
+    from matplotlib import cm
+    from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
+
+    if figsize is None:
+        figsize = (10, 8)
+
+    fig = plt.figure(figsize=figsize, constrained_layout=True)
+    ax = fig.add_subplot(111, projection="3d")
+
+    eps = np.real(perm_arr[0])
+    vmin, vmax = float(eps.min()), float(eps.max())
+    norm = plt.Normalize(vmin=vmin, vmax=vmax)
+    colormap = cm.get_cmap(cmap)
+
+    mid_x, mid_y, mid_z = nx // 2, ny // 2, nz // 2
+
+    # XY slice at mid-Z
+    Y_xy, X_xy = np.meshgrid(np.arange(ny), np.arange(nx))
+    Z_xy = np.full_like(X_xy, mid_z, dtype=float)
+    sl_xy = eps[:, :, mid_z]
+    ax.plot_surface(X_xy, Y_xy, Z_xy, facecolors=colormap(norm(sl_xy)),
+                    rstride=1, cstride=1, shade=False, alpha=0.7)
+
+    # XZ slice at mid-Y
+    Z_xz, X_xz = np.meshgrid(np.arange(nz), np.arange(nx))
+    Y_xz = np.full_like(X_xz, mid_y, dtype=float)
+    sl_xz = eps[:, mid_y, :]
+    ax.plot_surface(X_xz, Y_xz, Z_xz, facecolors=colormap(norm(sl_xz)),
+                    rstride=1, cstride=1, shade=False, alpha=0.7)
+
+    # YZ slice at mid-X
+    Z_yz, Y_yz = np.meshgrid(np.arange(nz), np.arange(ny))
+    X_yz = np.full_like(Y_yz, mid_x, dtype=float)
+    sl_yz = eps[mid_x, :, :]
+    ax.plot_surface(X_yz, Y_yz, Z_yz, facecolors=colormap(norm(sl_yz)),
+                    rstride=1, cstride=1, shade=False, alpha=0.7)
+
+    ax.set_xlabel("X (cells)", fontsize=11)
+    ax.set_ylabel("Y (cells)", fontsize=11)
+    ax.set_zlabel("Z (cells)", fontsize=11)
+    ax.set_title("3D Structure (orthogonal cross-sections)", fontsize=13, fontweight="medium")
+
+    mappable = cm.ScalarMappable(norm=norm, cmap=colormap)
+    fig.colorbar(mappable, ax=ax, shrink=0.6, label="Permittivity")
+
+    _apply_branding(fig)
+
+    if save_path:
+        fig.savefig(save_path, dpi=150, bbox_inches="tight")
+    if show:
+        plt.show()
+        plt.close(fig)
+        return None
+    return fig
+
 
 def _collapse_to_2d(field_3d):
     """Reduce a 3D field to 2D for display, returning (array, xlabel, ylabel).
