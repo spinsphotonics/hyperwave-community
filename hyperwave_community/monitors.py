@@ -755,11 +755,13 @@ def create_port_monitors(
             "half_extent": monitor_half_extent,
         })
 
-    # Detect and resolve y-axis collisions
+    # Detect and resolve y-axis collisions (only between monitors at similar x)
     monitor_specs.sort(key=lambda m: m["y"])
     for i in range(len(monitor_specs) - 1):
         a = monitor_specs[i]
         b = monitor_specs[i + 1]
+        if abs(a["x"] - b["x"]) > 2 * monitor_thickness:
+            continue
         a_top = a["y"] + a["half_extent"]
         b_bottom = b["y"] - b["half_extent"]
         if a_top > b_bottom:
