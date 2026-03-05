@@ -70,6 +70,71 @@ def create_mode_source(
     # Get full structure dimensions
     _, full_x_size, full_y_size, full_z_size = structure.permittivity.shape
 
+    # Auto-detect waveguide bounds if not provided
+    if perpendicular_bounds is None or z_bounds is None:
+        from .monitors import _detect_waveguides
+
+        if propagation_axis == 'x':
+            waveguides = _detect_waveguides(
+                structure, x_position=source_position, z_position=None, axis='y'
+            )
+            if waveguides:
+                wg = waveguides[0]
+                if perpendicular_bounds is None:
+                    y_center = wg['center']
+                    y_expand = wg['width']
+                    perpendicular_bounds = (
+                        max(0, y_center - y_expand),
+                        min(full_y_size, y_center + y_expand),
+                    )
+                    logger.info(
+                        "Auto-detected waveguide at y=%d (width=%d), "
+                        "using perpendicular_bounds=(%d, %d)",
+                        wg['center'], wg['width'],
+                        perpendicular_bounds[0], perpendicular_bounds[1],
+                    )
+                if z_bounds is None and 'z_core' in wg:
+                    z_center = wg['z_core']
+                    z_expand = wg['width']
+                    z_bounds = (
+                        max(0, z_center - z_expand),
+                        min(full_z_size, z_center + z_expand),
+                    )
+                    logger.info(
+                        "Auto-detected z_core=%d, using z_bounds=(%d, %d)",
+                        z_center, z_bounds[0], z_bounds[1],
+                    )
+        else:  # propagation_axis == 'y'
+            waveguides = _detect_waveguides(
+                structure, y_position=source_position, z_position=None, axis='x'
+            )
+            if waveguides:
+                wg = waveguides[0]
+                if perpendicular_bounds is None:
+                    x_center = wg['center']
+                    x_expand = wg['width']
+                    perpendicular_bounds = (
+                        max(0, x_center - x_expand),
+                        min(full_x_size, x_center + x_expand),
+                    )
+                    logger.info(
+                        "Auto-detected waveguide at x=%d (width=%d), "
+                        "using perpendicular_bounds=(%d, %d)",
+                        wg['center'], wg['width'],
+                        perpendicular_bounds[0], perpendicular_bounds[1],
+                    )
+                if z_bounds is None and 'z_core' in wg:
+                    z_center = wg['z_core']
+                    z_expand = wg['width']
+                    z_bounds = (
+                        max(0, z_center - z_expand),
+                        min(full_z_size, z_center + z_expand),
+                    )
+                    logger.info(
+                        "Auto-detected z_core=%d, using z_bounds=(%d, %d)",
+                        z_center, z_bounds[0], z_bounds[1],
+                    )
+
     # Process Z bounds (applies to both propagation directions)
     z_min, z_max = z_bounds if z_bounds else (0, full_z_size)
 
@@ -171,8 +236,23 @@ def create_mode_source(
     # Create full source field (E and H components)
     source_field = jnp.concatenate([mode_E_field, jnp.zeros_like(mode_E_field)], axis=1)
 
-    # source_offset points to where this source should be placed in the structure.
-    # When padded to full size, offset is (source_pos, 0, 0) since positioning is baked in.
+    # Auto-trim: if bounds were used, trim source field to just the bounds region
+    # This reduces data sent to cloud
+    if perpendicular_bounds is not None or z_bounds is not None:
+        if propagation_axis == 'x':
+            y_min_used = perpendicular_bounds[0] if perpendicular_bounds else 0
+            y_max_used = perpendicular_bounds[1] if perpendicular_bounds else full_y_size
+            z_min_used = z_bounds[0] if z_bounds else 0
+            z_max_used = z_bounds[1] if z_bounds else full_z_size
+            source_field = source_field[:, :, :, y_min_used:y_max_used, z_min_used:z_max_used]
+            source_offset = (source_position, y_min_used, z_min_used)
+        else:
+            x_min_used = perpendicular_bounds[0] if perpendicular_bounds else 0
+            x_max_used = perpendicular_bounds[1] if perpendicular_bounds else full_x_size
+            z_min_used = z_bounds[0] if z_bounds else 0
+            z_max_used = z_bounds[1] if z_bounds else full_z_size
+            source_field = source_field[:, :, x_min_used:x_max_used, :, z_min_used:z_max_used]
+            source_offset = (x_min_used, source_position, z_min_used)
 
     mode_info = {'field': mode_E_field, 'beta': beta, 'error': err}
 

@@ -76,6 +76,7 @@ from .monitors import (
     get_field_intensity,
     get_electric_field_intensity,
     get_magnetic_field_intensity,
+    create_port_monitors,
 )
 
 # Import source functions
@@ -205,6 +206,7 @@ __all__ = [
     "get_field_intensity",
     "get_electric_field_intensity",
     "get_magnetic_field_intensity",
+    "create_port_monitors",
 
     # Sources
     "create_mode_source",
