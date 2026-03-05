@@ -82,7 +82,7 @@ def create_mode_source(
                 wg = waveguides[0]
                 if perpendicular_bounds is None:
                     y_center = wg['center']
-                    y_expand = wg['width']
+                    y_expand = 2 * wg['width']
                     perpendicular_bounds = (
                         max(0, y_center - y_expand),
                         min(full_y_size, y_center + y_expand),
@@ -95,7 +95,7 @@ def create_mode_source(
                     )
                 if z_bounds is None and 'z_core' in wg:
                     z_center = wg['z_core']
-                    z_expand = wg['width']
+                    z_expand = 2 * wg['width']
                     z_bounds = (
                         max(0, z_center - z_expand),
                         min(full_z_size, z_center + z_expand),
@@ -112,7 +112,7 @@ def create_mode_source(
                 wg = waveguides[0]
                 if perpendicular_bounds is None:
                     x_center = wg['center']
-                    x_expand = wg['width']
+                    x_expand = 2 * wg['width']
                     perpendicular_bounds = (
                         max(0, x_center - x_expand),
                         min(full_x_size, x_center + x_expand),
@@ -125,7 +125,7 @@ def create_mode_source(
                     )
                 if z_bounds is None and 'z_core' in wg:
                     z_center = wg['z_core']
-                    z_expand = wg['width']
+                    z_expand = 2 * wg['width']
                     z_bounds = (
                         max(0, z_center - z_expand),
                         min(full_z_size, z_center + z_expand),
