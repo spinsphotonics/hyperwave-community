@@ -248,6 +248,21 @@ def plot_mode(
         xlabel, ylabel = "X (cells)", "Z (cells)"
 
     component_names = ["Ex", "Ey", "Ez"]
+
+    # Auto-crop to the region where the mode energy is concentrated.
+    total_mag = np.sqrt(sum(np.abs(mode_slice[i]) ** 2 for i in range(3)))
+    threshold = 0.01 * float(np.max(total_mag))
+    nonzero = np.argwhere(total_mag > threshold)
+    if len(nonzero) > 0:
+        margin = max(5, int(0.1 * max(total_mag.shape)))
+        r_min = max(0, int(nonzero[:, 0].min()) - margin)
+        r_max = min(total_mag.shape[0], int(nonzero[:, 0].max()) + margin + 1)
+        c_min = max(0, int(nonzero[:, 1].min()) - margin)
+        c_max = min(total_mag.shape[1], int(nonzero[:, 1].max()) + margin + 1)
+    else:
+        r_min, r_max = 0, total_mag.shape[0]
+        c_min, c_max = 0, total_mag.shape[1]
+
     fig, axes = plt.subplots(1, 3, figsize=figsize, constrained_layout=True)
     fig.suptitle(
         f"Mode {mode_num} E-field profile (beta = {beta_val:.4f})",
@@ -256,9 +271,9 @@ def plot_mode(
     )
 
     for i, (ax, comp) in enumerate(zip(axes, component_names)):
-        mag = np.abs(mode_slice[i])
+        mag = np.abs(mode_slice[i])[r_min:r_max, c_min:c_max]
         vmax = float(np.max(mag)) or 1.0
-        im = ax.imshow(mag.T, cmap="viridis", origin="upper", vmin=0, vmax=vmax, aspect="auto")
+        im = ax.imshow(mag.T, cmap="viridis", origin="upper", vmin=0, vmax=vmax, aspect="equal")
         ax.set_xlabel(xlabel, fontsize=11)
         ax.set_ylabel(ylabel, fontsize=11)
         ax.set_title(f"{comp} magnitude", fontsize=13, fontweight="medium")
@@ -312,9 +327,25 @@ def plot_monitors(
     import matplotlib.pyplot as plt
 
     comp_map = {"Ex": 0, "Ey": 1, "Ez": 2, "Hx": 3, "Hy": 4, "Hz": 5}
-    figures = []
+    names = list(results["monitor_names"])
+    n_monitors = len(names)
 
-    for name in results["monitor_names"]:
+    if n_monitors == 0:
+        return None
+
+    # Compute grid dimensions (prefer 2 columns)
+    cols = min(n_monitors, 2)
+    rows = max(1, (n_monitors + cols - 1) // cols)
+    fig_w, fig_h = figsize
+    fig, axes = plt.subplots(
+        rows, cols,
+        figsize=(fig_w * cols, fig_h * rows),
+        constrained_layout=True,
+        squeeze=False,
+    )
+
+    for plot_idx, name in enumerate(names):
+        ax = axes[plot_idx // cols][plot_idx % cols]
         data = np.asarray(results["monitor_data"][name])
 
         # Extract field
@@ -338,7 +369,6 @@ def plot_monitors(
 
         field_2d, xlabel, ylabel = _collapse_to_2d(field_3d)
 
-        fig, ax = plt.subplots(figsize=figsize, constrained_layout=True)
         im = ax.imshow(field_2d.T, cmap=cmap, origin="upper", aspect="auto")
         ax.set_title(f"{name} - {component} (freq {freq_idx})", fontsize=13, fontweight="medium")
         ax.set_xlabel(xlabel, fontsize=11)
@@ -346,18 +376,19 @@ def plot_monitors(
         ax.grid(False)
         fig.colorbar(im, ax=ax, shrink=0.8)
 
-        _apply_branding(fig)
-        figures.append(fig)
+    # Hide unused axes
+    for idx in range(n_monitors, rows * cols):
+        axes[idx // cols][idx % cols].set_visible(False)
 
-        if save_path:
-            stem, ext = _split_save_path(save_path)
-            fig.savefig(f"{stem}_{name}{ext}", dpi=150, bbox_inches="tight")
+    _apply_branding(fig)
 
-        if show:
-            plt.show()
-            plt.close(fig)
-
-    return None if show else figures
+    if save_path:
+        fig.savefig(save_path, dpi=150, bbox_inches="tight")
+    if show:
+        plt.show()
+        plt.close(fig)
+        return None
+    return fig
 
 
 # ---------------------------------------------------------------------------
@@ -490,9 +521,11 @@ def plot_monitor_layout(
         fontsize=13,
         fontweight="medium",
     )
-    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.06), ncol=2, fontsize=9)
+    ax.legend(loc="upper right", ncol=1, fontsize=8)
     ax.grid(True, alpha=0.2, linewidth=0.5)
     ax.set_aspect("equal")
+
+    fig.set_tight_layout(True)
 
     _apply_branding(fig)
 
@@ -513,7 +546,7 @@ def plot_absorption_mask(
     absorption_mask,
     *,
     figsize: Tuple[int, int] = (15, 5),
-    cmap: str = "Greys_r",
+    cmap: str = "Greys",
     show: bool = True,
     save_path: Optional[str] = None,
 ):
@@ -616,7 +649,7 @@ def plot_theta(
     return fig
 
 # ---------------------------------------------------------------------------
-# Structure (permittivity / conductivity)
+# Structure (permittivity)
 # ---------------------------------------------------------------------------
 
 def plot_structure(
@@ -624,7 +657,7 @@ def plot_structure(
     conductivity=None,
     *,
     show_permittivity: bool = True,
-    show_conductivity: bool = True,
+    show_conductivity: bool = False,
     axis: Optional[str] = None,
     position: Optional[int] = None,
     view_mode: str = "2d",
@@ -632,7 +665,7 @@ def plot_structure(
     show: bool = True,
     save_path: Optional[str] = None,
 ):
-    """Plot structure permittivity and/or conductivity cross-sections.
+    """Plot structure permittivity cross-sections.
 
     When *axis* is ``None`` the default dual-view is shown (XY at mid-Z and
     XZ at mid-Y). When an axis is specified a single slice is produced.
@@ -642,10 +675,7 @@ def plot_structure(
     Args:
         permittivity: Array with shape ``(3, nx, ny, nz)`` or a ``Structure``
             object (the ``.permittivity`` attribute is used).
-        conductivity: Optional array of the same shape.  If *permittivity* is
-            a ``Structure``, conductivity is read from it automatically.
-        show_permittivity: Show permittivity panel(s).
-        show_conductivity: Show conductivity panel(s).
+        conductivity: Deprecated, ignored.
         axis: ``'x'``, ``'y'``, ``'z'``, or *None* for default dual view.
         position: Slice position along the chosen axis.
         view_mode: ``"2d"`` (default) or ``"3d"`` for a 3D orthogonal view.
@@ -661,20 +691,12 @@ def plot_structure(
     # Accept a Structure object
     if hasattr(permittivity, "permittivity"):
         struct = permittivity
-        cond_arr = np.asarray(struct.conductivity)
         perm_arr = np.asarray(struct.permittivity)
     else:
         perm_arr = np.asarray(permittivity)
-        cond_arr = np.asarray(conductivity) if conductivity is not None else None
-
-    if not show_permittivity and not show_conductivity:
-        raise ValueError("At least one of show_permittivity or show_conductivity must be True")
-
-    if cond_arr is None:
-        show_conductivity = False
 
     nx, ny, nz = perm_arr.shape[1], perm_arr.shape[2], perm_arr.shape[3]
-    cmap_p, cmap_c = "PuOr", "plasma"
+    cmap_p = "PuOr"
 
     if view_mode == "3d":
         return _plot_structure_3d_mpl(
@@ -696,47 +718,27 @@ def plot_structure(
         if position is None:
             position = {"x": nx, "y": ny, "z": nz}[axis] // 2
 
-        n_panels = int(show_permittivity) + int(show_conductivity)
         if figsize is None:
-            figsize = (6 * n_panels, 5)
-        fig, axes_arr = plt.subplots(1, n_panels, figsize=figsize, constrained_layout=True, squeeze=False)
-        axes_flat = axes_arr.ravel()
+            figsize = (6, 5)
+        fig, ax_obj = plt.subplots(figsize=figsize, constrained_layout=True)
 
-        idx = 0
-        if show_permittivity:
-            sl, xlab, ylab = _get_slice(perm_arr, axis, position)
-            _plot_slice(axes_flat[idx], sl, cmap_p, perm_arr.min(), perm_arr.max(),
-                        f"Permittivity: {xlab}-{ylab} at {axis}={position}", xlab, ylab, fig)
-            idx += 1
-        if show_conductivity:
-            sl, xlab, ylab = _get_slice(cond_arr, axis, position)
-            _plot_slice(axes_flat[idx], sl, cmap_c, cond_arr.min(), cond_arr.max(),
-                        f"Conductivity: {xlab}-{ylab} at {axis}={position}", xlab, ylab, fig)
+        sl, xlab, ylab = _get_slice(perm_arr, axis, position)
+        _plot_slice(ax_obj, sl, cmap_p, perm_arr.min(), perm_arr.max(),
+                    f"Permittivity: {xlab}-{ylab} at {axis}={position}", xlab, ylab, fig)
     else:
         # Default dual view
         mid_z = nz // 2
         mid_y = ny // 2
-        n_rows = int(show_permittivity) + int(show_conductivity)
         if figsize is None:
-            figsize = (12, 5 * n_rows)
-        fig, axes_arr = plt.subplots(n_rows, 2, figsize=figsize, constrained_layout=True, squeeze=False)
+            figsize = (12, 5)
+        fig, axes_arr = plt.subplots(1, 2, figsize=figsize, constrained_layout=True, squeeze=False)
 
-        row = 0
-        if show_permittivity:
-            _plot_slice(axes_arr[row, 0], perm_arr[0, :, :, mid_z], cmap_p,
-                        perm_arr.min(), perm_arr.max(),
-                        f"Permittivity: x-y at z={mid_z}", "x", "y", fig)
-            _plot_slice(axes_arr[row, 1], perm_arr[0, :, mid_y, :], cmap_p,
-                        perm_arr.min(), perm_arr.max(),
-                        f"Permittivity: x-z at y={mid_y}", "x", "z", fig)
-            row += 1
-        if show_conductivity:
-            _plot_slice(axes_arr[row, 0], cond_arr[0, :, :, mid_z], cmap_c,
-                        cond_arr.min(), cond_arr.max(),
-                        f"Conductivity: x-y at z={mid_z}", "x", "y", fig)
-            _plot_slice(axes_arr[row, 1], cond_arr[0, :, mid_y, :], cmap_c,
-                        cond_arr.min(), cond_arr.max(),
-                        f"Conductivity: x-z at y={mid_y}", "x", "z", fig)
+        _plot_slice(axes_arr[0, 0], perm_arr[0, :, :, mid_z], cmap_p,
+                    perm_arr.min(), perm_arr.max(),
+                    f"Permittivity: x-y at z={mid_z}", "x", "y", fig)
+        _plot_slice(axes_arr[0, 1], perm_arr[0, :, mid_y, :], cmap_p,
+                    perm_arr.min(), perm_arr.max(),
+                    f"Permittivity: x-z at y={mid_y}", "x", "z", fig)
 
     _apply_branding(fig)
 
@@ -903,23 +905,6 @@ def plot_structure_3d(
             surface_count=1,
         ))
 
-    if cond_arr is not None:
-        cond_values = cond_arr[0]
-        cmin, cmax = float(cond_values.min()), float(cond_values.max())
-        if cmax > cmin:
-            cond_iso = np.linspace(cmin, cmax, n_isosurfaces + 2)[1:-1]
-            for i, iso in enumerate(cond_iso):
-                fig.add_trace(go.Isosurface(
-                    x=X.flatten(), y=Y.flatten(), z=Z.flatten(),
-                    value=cond_values.flatten(),
-                    isomin=float(iso) - 0.01, isomax=float(iso) + 0.01,
-                    opacity=0.4,
-                    colorscale="Plasma",
-                    name=f"sigma {float(iso):.3f}",
-                    showscale=(i == 0),
-                    surface_count=1,
-                ))
-
     fig.update_layout(
         title=dict(text="3D Structure", x=0.5, font=dict(size=14)),
         scene=dict(
@@ -1027,50 +1012,74 @@ def plot_gds(
 # ---------------------------------------------------------------------------
 
 def _plot_structure_3d_mpl(perm_arr, nx, ny, nz, cmap, *, figsize=None, show=True, save_path=None):
-    """Render three orthogonal permittivity cross-sections on a 3D matplotlib axis."""
+    """Render a volumetric 3D view of the device structure using isosurfaces."""
     import matplotlib.pyplot as plt
     from matplotlib import cm
-    from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
+    from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
     if figsize is None:
         figsize = (10, 8)
 
+    eps = np.real(perm_arr[0])  # shape (nx, ny, nz)
+
+    # Downsample to at most ~80 cells per axis for performance.
+    max_cells = 80
+    factors = [max(1, s // max_cells) for s in eps.shape]
+    if any(f > 1 for f in factors):
+        from scipy.ndimage import zoom
+        ds = zoom(eps, [1.0 / f for f in factors], order=1)
+    else:
+        ds = eps
+
+    # Threshold: midpoint between cladding (low eps) and core (high eps).
+    eps_min, eps_max = float(ds.min()), float(ds.max())
+    threshold = (eps_min + eps_max) / 2.0
+
     fig = plt.figure(figsize=figsize, constrained_layout=True)
     ax = fig.add_subplot(111, projection="3d")
 
-    eps = np.real(perm_arr[0])
-    vmin, vmax = float(eps.min()), float(eps.max())
-    norm = plt.Normalize(vmin=vmin, vmax=vmax)
-    colormap = cm.get_cmap(cmap)
+    try:
+        from skimage.measure import marching_cubes
+        verts, faces, _, _ = marching_cubes(ds, level=threshold)
+        # Scale vertices back to original grid coordinates.
+        scale = np.array([factors[0], factors[1], factors[2]], dtype=float)
+        verts = verts * scale
+        mesh = Poly3DCollection(
+            verts[faces],
+            alpha=0.7,
+            edgecolor=(0.2, 0.2, 0.2, 0.15),
+            linewidth=0.1,
+        )
+        mesh.set_facecolor("#4a90d9")
+        ax.add_collection3d(mesh)
+    except Exception:
+        # Fallback: voxel plot of high-permittivity regions.
+        vox_max = 40
+        vox_factors = [max(1, s // vox_max) for s in eps.shape]
+        if any(f > 1 for f in vox_factors):
+            from scipy.ndimage import zoom as _zoom
+            vox = _zoom(eps, [1.0 / f for f in vox_factors], order=1)
+        else:
+            vox = eps
+        vox_min, vox_max_val = float(vox.min()), float(vox.max())
+        vox_thresh = (vox_min + vox_max_val) / 2.0
+        mask = vox > vox_thresh
+        colors = np.empty(mask.shape, dtype=object)
+        colors[mask] = "#4a90d9"
+        ax.voxels(mask, facecolors=colors, edgecolor=(0.3, 0.3, 0.3, 0.1), alpha=0.7)
 
-    mid_x, mid_y, mid_z = nx // 2, ny // 2, nz // 2
-
-    # XY slice at mid-Z
-    Y_xy, X_xy = np.meshgrid(np.arange(ny), np.arange(nx))
-    Z_xy = np.full_like(X_xy, mid_z, dtype=float)
-    sl_xy = eps[:, :, mid_z]
-    ax.plot_surface(X_xy, Y_xy, Z_xy, facecolors=colormap(norm(sl_xy)),
-                    rstride=1, cstride=1, shade=False, alpha=0.7)
-
-    # XZ slice at mid-Y
-    Z_xz, X_xz = np.meshgrid(np.arange(nz), np.arange(nx))
-    Y_xz = np.full_like(X_xz, mid_y, dtype=float)
-    sl_xz = eps[:, mid_y, :]
-    ax.plot_surface(X_xz, Y_xz, Z_xz, facecolors=colormap(norm(sl_xz)),
-                    rstride=1, cstride=1, shade=False, alpha=0.7)
-
-    # YZ slice at mid-X
-    Z_yz, Y_yz = np.meshgrid(np.arange(nz), np.arange(ny))
-    X_yz = np.full_like(Y_yz, mid_x, dtype=float)
-    sl_yz = eps[mid_x, :, :]
-    ax.plot_surface(X_yz, Y_yz, Z_yz, facecolors=colormap(norm(sl_yz)),
-                    rstride=1, cstride=1, shade=False, alpha=0.7)
-
+    ax.set_xlim(0, nx)
+    ax.set_ylim(0, ny)
+    ax.set_zlim(0, nz)
     ax.set_xlabel("X (cells)", fontsize=11)
     ax.set_ylabel("Y (cells)", fontsize=11)
     ax.set_zlabel("Z (cells)", fontsize=11)
-    ax.set_title("3D Structure (orthogonal cross-sections)", fontsize=13, fontweight="medium")
+    ax.set_title("3D Structure", fontsize=13, fontweight="medium")
 
+    # Colorbar showing permittivity range.
+    vmin, vmax = float(eps.min()), float(eps.max())
+    norm = plt.Normalize(vmin=vmin, vmax=vmax)
+    colormap = cm.get_cmap(cmap)
     mappable = cm.ScalarMappable(norm=norm, cmap=colormap)
     fig.colorbar(mappable, ax=ax, shrink=0.6, label="Permittivity")
 
@@ -1109,7 +1118,7 @@ def _collapse_to_2d(field_3d):
 
 def _plot_slice(ax, data, cmap, vmin, vmax, title, xlabel, ylabel, fig):
     """Render a single 2D slice onto an axis."""
-    im = ax.imshow(data.T, cmap=cmap, vmin=vmin, vmax=vmax, origin="upper", aspect="auto")
+    im = ax.imshow(data.T, cmap=cmap, vmin=vmin, vmax=vmax, origin="upper", aspect="equal")
     ax.set_title(title, fontsize=13, fontweight="medium")
     ax.set_xlabel(xlabel, fontsize=11)
     ax.set_ylabel(ylabel, fontsize=11)
