@@ -325,6 +325,7 @@ def plot_monitors(
         List of matplotlib ``Figure`` objects (one per monitor).
     """
     import matplotlib.pyplot as plt
+    import matplotlib.gridspec as gridspec
 
     comp_map = {"Ex": 0, "Ey": 1, "Ez": 2, "Hx": 3, "Hy": 4, "Hz": 5}
     names = list(results["monitor_names"])
@@ -333,22 +334,7 @@ def plot_monitors(
     if n_monitors == 0:
         return None
 
-    # Compute grid dimensions (prefer 2 columns)
-    cols = min(n_monitors, 2)
-    rows = max(1, (n_monitors + cols - 1) // cols)
-    fig_w, fig_h = figsize
-    fig, axes = plt.subplots(
-        rows, cols,
-        figsize=(fig_w * cols, fig_h * rows),
-        constrained_layout=True,
-        squeeze=False,
-    )
-
-    for plot_idx, name in enumerate(names):
-        ax = axes[plot_idx // cols][plot_idx % cols]
-        data = np.asarray(results["monitor_data"][name])
-
-        # Extract field
+    def _extract_field_2d(data, component, freq_idx):
         if component in comp_map:
             field_3d = data[freq_idx, comp_map[component]]
         elif component == "|E|":
@@ -362,13 +348,52 @@ def plot_monitors(
             )
         else:
             raise ValueError(f"Unknown component: {component}")
-
-        # For complex data, take magnitude
         if np.iscomplexobj(field_3d):
             field_3d = np.abs(field_3d)
+        return _collapse_to_2d(field_3d)
 
-        field_2d, xlabel, ylabel = _collapse_to_2d(field_3d)
+    # Separate port monitors from field slice monitors (like xy_mid)
+    port_names = [n for n in names if not n.startswith("xy_") and not n.startswith("xz_") and not n.startswith("yz_")]
+    field_names = [n for n in names if n.startswith("xy_") or n.startswith("xz_") or n.startswith("yz_")]
 
+    fig_w, fig_h = figsize
+
+    # Build layout: port monitors in 2-col grid, field slices full-width below
+    n_ports = len(port_names)
+    n_fields = len(field_names)
+    cols = min(max(n_ports, 1), 2)
+    port_rows = max(1, (n_ports + cols - 1) // cols) if n_ports > 0 else 0
+
+    # Compute height ratios: port rows get equal height, field rows scale by aspect
+    height_ratios = [1.0] * port_rows
+    field_aspects = []
+    for name in field_names:
+        data = np.asarray(results["monitor_data"][name])
+        field_2d, _, _ = _extract_field_2d(data, component, freq_idx)
+        h, w = field_2d.shape[1], field_2d.shape[0]
+        field_aspects.append(h / w if w > 0 else 0.5)
+    for aspect in field_aspects:
+        # Scale relative to port row height so the field plot width matches the grid
+        height_ratios.append(aspect * cols / 1.0)
+
+    total_rows = port_rows + n_fields
+    if total_rows == 0:
+        return None
+
+    fig = plt.figure(figsize=(fig_w * cols, fig_h * sum(height_ratios)))
+    gs = gridspec.GridSpec(
+        total_rows, cols,
+        figure=fig,
+        height_ratios=height_ratios,
+        hspace=0.3,
+        wspace=0.3,
+    )
+
+    # Plot port monitors in 2-column grid
+    for plot_idx, name in enumerate(port_names):
+        ax = fig.add_subplot(gs[plot_idx // cols, plot_idx % cols])
+        data = np.asarray(results["monitor_data"][name])
+        field_2d, xlabel, ylabel = _extract_field_2d(data, component, freq_idx)
         im = ax.imshow(field_2d.T, cmap=cmap, origin="upper", aspect="equal")
         ax.set_title(f"{name} - {component} (freq {freq_idx})", fontsize=13, fontweight="medium")
         ax.set_xlabel(xlabel, fontsize=11)
@@ -376,9 +401,23 @@ def plot_monitors(
         ax.grid(False)
         fig.colorbar(im, ax=ax, shrink=0.8)
 
-    # Hide unused axes
-    for idx in range(n_monitors, rows * cols):
-        axes[idx // cols][idx % cols].set_visible(False)
+    # Hide unused port grid cells
+    for idx in range(n_ports, port_rows * cols):
+        ax = fig.add_subplot(gs[idx // cols, idx % cols])
+        ax.set_visible(False)
+
+    # Plot field slice monitors full-width below
+    for field_idx, name in enumerate(field_names):
+        row = port_rows + field_idx
+        ax = fig.add_subplot(gs[row, :])
+        data = np.asarray(results["monitor_data"][name])
+        field_2d, xlabel, ylabel = _extract_field_2d(data, component, freq_idx)
+        im = ax.imshow(field_2d.T, cmap=cmap, origin="upper", aspect="equal")
+        ax.set_title(f"{name} - {component} (freq {freq_idx})", fontsize=13, fontweight="medium")
+        ax.set_xlabel(xlabel, fontsize=11)
+        ax.set_ylabel(ylabel, fontsize=11)
+        ax.grid(False)
+        fig.colorbar(im, ax=ax, shrink=0.8)
 
     _apply_branding(fig)
 
