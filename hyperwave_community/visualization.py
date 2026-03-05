@@ -369,7 +369,7 @@ def plot_monitors(
 
         field_2d, xlabel, ylabel = _collapse_to_2d(field_3d)
 
-        im = ax.imshow(field_2d.T, cmap=cmap, origin="upper", aspect="auto")
+        im = ax.imshow(field_2d.T, cmap=cmap, origin="upper", aspect="equal")
         ax.set_title(f"{name} - {component} (freq {freq_idx})", fontsize=13, fontweight="medium")
         ax.set_xlabel(xlabel, fontsize=11)
         ax.set_ylabel(ylabel, fontsize=11)
