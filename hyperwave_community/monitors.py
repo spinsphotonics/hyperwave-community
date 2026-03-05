@@ -8,6 +8,8 @@ Field data format: (N_freq, 6, Nx, Ny, Nz) where the 6 components are:
 [Ex, Ey, Ez, Hx, Hy, Hz]
 """
 
+import warnings
+
 import jax.numpy as jnp
 import numpy as np
 from typing import Tuple, Optional, Dict, List, Union
@@ -641,6 +643,13 @@ class MonitorSet:
             ... )
             >>> print(f"Added {len(names)} monitors: {names}")
         """
+        warnings.warn(
+            "add_monitors_at_position() is deprecated. "
+            "Use create_port_monitors() for gdsfactory designs or "
+            "monitors.add(Monitor(...), name) for manual placement.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         # Call the module-level function with this MonitorSet
         return add_monitors_at_position(
             self, structure, axis, position,
@@ -665,6 +674,133 @@ class MonitorSet:
                 'offset': monitor.offset
             })
         return recipe_list
+
+
+def create_port_monitors(
+    component,
+    structure,
+    device_info: dict,
+    padding: tuple,
+    absorption_widths: tuple,
+    monitor_thickness: int = 5,
+    monitor_half_extent: int = 35,
+    z_wg_center: Optional[int] = None,
+    input_label_prefix: str = "Input_",
+    output_label_prefix: str = "Output_",
+) -> 'MonitorSet':
+    """Create monitors at all ports of a gdsfactory component.
+
+    Converts gdsfactory port positions to structure pixel coordinates and
+    creates appropriately sized monitors. Automatically detects Input vs
+    Output based on port orientation. Detects and resolves monitor collisions
+    by shrinking overlapping monitors.
+
+    Always includes an xy_mid visualization plane monitor.
+
+    Args:
+        component: gdsfactory component with .ports attribute.
+        structure: Structure object with permittivity attribute.
+        device_info: Dict from component_to_theta() containing
+            'bounding_box_um' and 'theta_resolution_um'.
+        padding: (left, right, top, bottom) padding used in density().
+        absorption_widths: Tuple from absorber_params() for grid dimensions.
+        monitor_thickness: Thickness along propagation axis (pixels). Default 5.
+        monitor_half_extent: Half-size in y and z (pixels). Default 35.
+        z_wg_center: Z position of waveguide center. If None, auto-detects
+            from structure by finding z with highest permittivity contrast.
+        input_label_prefix: Prefix for input port monitors. Default "Input_".
+        output_label_prefix: Prefix for output port monitors. Default "Output_".
+
+    Returns:
+        MonitorSet with monitors at each port plus an xy_mid plane.
+    """
+    import warnings as _warnings
+
+    # Get structure dimensions
+    if len(structure.permittivity.shape) == 4:
+        _, Lx, Ly, Lz = structure.permittivity.shape
+    else:
+        Lx, Ly, Lz = structure.permittivity.shape
+
+    # Auto-detect z_wg_center if not provided
+    if z_wg_center is None:
+        eps = structure.permittivity
+        if len(eps.shape) == 4:
+            eps = eps[0]
+        z_variance = jnp.var(eps, axis=(0, 1))
+        z_wg_center = int(jnp.argmax(z_variance))
+        logger.info("Auto-detected z_wg_center=%d", z_wg_center)
+
+    # Extract coordinate mapping from device_info
+    bbox = device_info["bounding_box_um"]
+    x_min_um, y_min_um = bbox[0], bbox[1]
+    theta_res = device_info["theta_resolution_um"]
+    y_pad_struct = padding[0] // 2
+
+    # Build monitor specs from ports
+    monitor_specs = []
+    for port in component.ports:
+        px_um, py_um = port.center
+        x_struct = int((px_um - x_min_um) / theta_res / 2) + padding[2] // 2
+        y_struct = int((py_um - y_min_um) / theta_res / 2) + y_pad_struct
+
+        is_input = abs(port.orientation % 360 - 180) < 1
+        prefix = input_label_prefix if is_input else output_label_prefix
+        label = f"{prefix}{port.name}"
+
+        monitor_specs.append({
+            "label": label,
+            "x": x_struct,
+            "y": y_struct,
+            "half_extent": monitor_half_extent,
+        })
+
+    # Detect and resolve y-axis collisions
+    monitor_specs.sort(key=lambda m: m["y"])
+    for i in range(len(monitor_specs) - 1):
+        a = monitor_specs[i]
+        b = monitor_specs[i + 1]
+        a_top = a["y"] + a["half_extent"]
+        b_bottom = b["y"] - b["half_extent"]
+        if a_top > b_bottom:
+            midpoint = (a["y"] + b["y"]) // 2
+            old_half_a = a["half_extent"]
+            old_half_b = b["half_extent"]
+            a["half_extent"] = midpoint - a["y"]
+            b["half_extent"] = b["y"] - midpoint
+            a["half_extent"] = max(5, a["half_extent"])
+            b["half_extent"] = max(5, b["half_extent"])
+            logger.warning(
+                "Monitors %s and %s were auto-shrunk to avoid overlap "
+                "(%d -> %d and %d -> %d pixels half-extent). "
+                "If transmission looks wrong, manually adjust with "
+                "monitors.remove(name) and monitors.add(...).",
+                a["label"], b["label"],
+                old_half_a, a["half_extent"],
+                old_half_b, b["half_extent"],
+            )
+
+    # Create MonitorSet
+    monitors = MonitorSet()
+    for spec in monitor_specs:
+        y_half = spec["half_extent"]
+        z_half = min(monitor_half_extent, z_wg_center, Lz - z_wg_center)
+        shape = (monitor_thickness, 2 * y_half, 2 * z_half)
+        offset = (spec["x"], spec["y"] - y_half, z_wg_center - z_half)
+        offset = (
+            max(0, min(offset[0], Lx - shape[0])),
+            max(0, offset[1]),
+            max(0, offset[2]),
+        )
+        monitors.add(Monitor(shape=shape, offset=offset), spec["label"])
+
+    # Always add xy_mid visualization plane
+    monitors.add(
+        Monitor(shape=(Lx, Ly, 1), offset=(0, 0, z_wg_center)),
+        "xy_mid",
+    )
+
+    return monitors
 
 
 # =============================================================================
@@ -981,6 +1117,13 @@ def add_monitors_at_position(
         ... )
         >>> print(f"Added {len(names)} monitors: {names}")
     """
+    warnings.warn(
+        "add_monitors_at_position() is deprecated. "
+        "Use create_port_monitors() for gdsfactory designs or "
+        "monitors.add(Monitor(...), name) for manual placement.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     # Get structure dimensions
     if len(structure.permittivity.shape) == 4:
         _, x_dim, y_dim, z_dim = structure.permittivity.shape
