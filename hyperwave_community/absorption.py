@@ -359,6 +359,73 @@ def rescale_absorption_mask(
     return new_absorption_mask
 
 
+# Baseline values from Bayesian optimization at 20nm/1.55um
+_BASELINE_RESOLUTION_NM = 20.0
+_BASELINE_WAVELENGTH_UM = 1.55
+_BASELINE_ABSORBER_WIDTH = 82  # cells at 20nm resolution
+_BASELINE_ABSORBER_COEFF = 0.0006173770394704579
+
+
+def get_optimized_absorber_params(
+    resolution_nm: float = 20.0,
+    wavelength_um: float = 1.55,
+    structure_dimensions: Tuple[int, int, int] = None,
+) -> Dict[str, any]:
+    """Get Bayesian-optimized absorber parameters scaled for given resolution.
+
+    Returns absorber width and coefficient values based on Bayesian optimization
+    results, automatically scaled to the target resolution. The baseline values
+    were optimized at 20nm resolution for 1.55um wavelength.
+
+    Args:
+        resolution_nm: Grid resolution in nanometers (default: 20nm).
+        wavelength_um: Wavelength in micrometers (default: 1.55um).
+            Currently used for reference only; future versions may include
+            wavelength-dependent scaling.
+        structure_dimensions: Optional (Lx, Ly, Lz) structure dimensions.
+            If provided, returns absorption_widths tuple scaled to structure.
+            If None, returns the base absorber_width value.
+
+    Returns:
+        Dictionary containing:
+            - absorber_width: Base absorber width in cells (x-direction)
+            - absorber_coeff: Absorption coefficient
+            - absorption_widths: (x, y, z) tuple if structure_dimensions provided
+            - baseline_info: Dict with baseline optimization parameters
+    """
+    scale = resolution_nm / _BASELINE_RESOLUTION_NM
+
+    scaled_width = int(round(_BASELINE_ABSORBER_WIDTH / scale))
+    scaled_coeff = _BASELINE_ABSORBER_COEFF / (scale ** 2)
+
+    result = {
+        'absorber_width': scaled_width,
+        'absorber_coeff': scaled_coeff,
+        'baseline_info': {
+            'resolution_nm': _BASELINE_RESOLUTION_NM,
+            'wavelength_um': _BASELINE_WAVELENGTH_UM,
+            'width': _BASELINE_ABSORBER_WIDTH,
+            'coeff': _BASELINE_ABSORBER_COEFF,
+        }
+    }
+
+    if structure_dimensions is not None:
+        Lx, Ly, Lz = structure_dimensions
+        abs_x = min(scaled_width, Lx // 4)
+        abs_y = min(scaled_width // 2, Ly // 4)
+        abs_z = min(scaled_width // 2, Lz // 4)
+
+        abs_x = max(abs_x, 20)
+        abs_y = max(abs_y, 20)
+        abs_z = max(abs_z, 20)
+
+        result['absorption_widths'] = (abs_x, abs_y, abs_z)
+        logger.info("Absorber: widths=(%d, %d, %d), coeff=%.6f",
+                    abs_x, abs_y, abs_z, scaled_coeff)
+
+    return result
+
+
 def absorber_params(
     wavelength_um: float,
     dx_um: float,

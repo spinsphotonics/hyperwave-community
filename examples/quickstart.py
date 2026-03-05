@@ -75,13 +75,12 @@ hwc.plot_structure(structure, view_mode="3d")
 
 _, Lx, Ly, Lz = structure.permittivity.shape
 
-abs_params = hwc.absorber_params(
-    wavelength_um=WL_UM,
-    dx_um=RESOLUTION_UM,
+abs_params = hwc.get_optimized_absorber_params(
+    resolution_nm=RESOLUTION_UM * 1000,
     structure_dimensions=(Lx, Ly, Lz),
 )
-abs_widths = tuple(abs_params["absorption_widths"])
-abs_coeff = abs_params["abs_coeff"]
+abs_widths = abs_params["absorption_widths"]
+abs_coeff = abs_params["absorber_coeff"]
 
 absorber = hwc.create_absorption_mask(
     grid_shape=(Lx, Ly, Lz),
