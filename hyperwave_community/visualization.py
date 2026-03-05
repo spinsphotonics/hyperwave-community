@@ -111,6 +111,7 @@ def plot_convergence(
     if show:
         plt.show()
         plt.close(fig)
+        return None
     return fig
 
 
@@ -200,6 +201,7 @@ def plot_fields(
     if show:
         plt.show()
         plt.close(fig)
+        return None
     return fig
 
 
@@ -270,6 +272,7 @@ def plot_mode(
     if show:
         plt.show()
         plt.close(fig)
+        return None
     return fig
 
 
@@ -354,7 +357,7 @@ def plot_monitors(
             plt.show()
             plt.close(fig)
 
-    return figures
+    return None if show else figures
 
 
 # ---------------------------------------------------------------------------
@@ -498,6 +501,7 @@ def plot_monitor_layout(
     if show:
         plt.show()
         plt.close(fig)
+        return None
     return fig
 
 
@@ -563,6 +567,7 @@ def plot_absorption_mask(
     if show:
         plt.show()
         plt.close(fig)
+        return None
     return fig
 
 
@@ -686,6 +691,7 @@ def plot_structure(
     if show:
         plt.show()
         plt.close(fig)
+        return None
     return fig
 
 
@@ -780,6 +786,7 @@ def plot_simulation_overview(
     if show:
         plt.show()
         plt.close(fig)
+        return None
     return fig
 
 
@@ -957,6 +964,7 @@ def plot_gds(
     if show:
         plt.show()
         plt.close(fig)
+        return None
     return fig
 
 

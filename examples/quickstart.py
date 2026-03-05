@@ -73,7 +73,7 @@ structure = hwc.create_structure(
 _, Lx, Ly, Lz = structure.permittivity.shape
 z_wg_center = clad_cells + wg_cells // 2
 
-hwc.plot_structure(structure, axis="z", position=z_wg_center);
+hwc.plot_structure(structure, axis="z", position=z_wg_center)
 
 
 # %% Step 3: Absorbing Boundaries
@@ -95,7 +95,7 @@ absorber = hwc.create_absorption_mask(
 )
 structure.conductivity = jnp.zeros_like(structure.conductivity) + absorber
 
-hwc.plot_absorption_mask(absorber);
+hwc.plot_absorption_mask(absorber)
 
 
 # %% Step 4: Mode Source
@@ -145,7 +145,7 @@ hwc.plot_mode(
     beta=mode_info["beta"],
     mode_num=0,
     propagation_axis="x",
-);
+)
 
 
 # %% Step 5: Monitors
@@ -184,7 +184,7 @@ monitors.add(hwc.Monitor(shape=(Lx, Ly, 1), offset=(0, 0, z_wg_center)), "xy_mid
 hwc.plot_monitor_layout(
     structure.permittivity, monitors,
     axis="z", position=z_wg_center, source_position=source_pos_x,
-);
+)
 
 
 # %% Step 6: Simulate
@@ -219,6 +219,6 @@ transmission = hwc.analyze_transmission(
     results, input_monitor="Input_o1", direction="x",
 )
 
-hwc.plot_monitors(results, component="Hz");
+hwc.plot_monitors(results, component="Hz")
 
-hwc.export_csv(transmission, "quickstart_transmission.csv");
+hwc.export_csv(transmission, "quickstart_transmission.csv")
