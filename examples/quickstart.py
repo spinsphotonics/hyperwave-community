@@ -10,7 +10,6 @@
 # 3. Run a cloud GPU simulation and analyze transmission
 
 # %% Installation
-# pip install hyperwave-community gdsfactory
 
 # %% Imports and Configuration
 import hyperwave_community as hwc
@@ -33,8 +32,6 @@ PADDING = (100, 100, 0, 0)   # (left, right, top, bottom) in theta pixels
 
 
 # %% Step 1: Load Component
-# Load a 2x2 MMI with S-bends from gdsfactory and extend ports so the mode
-# source and monitors sit inside straight waveguide sections.
 
 EXTENSION_LENGTH = 2.0        # Extend ports by 2 um
 
@@ -46,20 +43,10 @@ theta, device_info = hwc.component_to_theta(
     resolution=RESOLUTION_UM,
 )
 
-import matplotlib.pyplot as plt
-plt.figure(figsize=(10, 4))
-plt.imshow(np.array(theta).T, cmap="gray", origin="lower", aspect="equal")
-plt.title("2D Layout (theta)")
-plt.colorbar(label="Material density")
-plt.xlabel("x (cells)")
-plt.ylabel("y (cells)")
-plt.tight_layout()
-plt.show()
+hwc.plot_theta(theta)
 
 
 # %% Step 2: Build 3D Structure
-# Apply density filtering, then stack cladding and waveguide layers into
-# a 3D permittivity volume.
 
 eps_core = N_CORE ** 2
 eps_clad = N_CLAD ** 2
@@ -81,11 +68,12 @@ structure = hwc.create_structure(
 
 z_wg_center = clad_cells + wg_cells // 2
 hwc.plot_structure(structure, axis="z", position=z_wg_center)
+_, _, ny, _ = structure.permittivity.shape
+hwc.plot_structure(structure, axis="y", position=ny // 2)
 hwc.plot_structure(structure, view_mode="3d")
 
 
 # %% Step 3: Absorbing Boundaries
-# Add adiabatic absorbers at grid edges to prevent reflections.
 
 _, Lx, Ly, Lz = structure.permittivity.shape
 
@@ -108,9 +96,6 @@ hwc.plot_absorption_mask(absorber)
 
 
 # %% Step 4: Mode Source
-# Solve for the fundamental TE mode at the input waveguide.
-# The SDK automatically detects the waveguide cross-section at the
-# source plane and constrains the mode solver to that region.
 
 wl_cells = WL_UM / RESOLUTION_UM
 freq_band = (2 * jnp.pi / wl_cells, 2 * jnp.pi / wl_cells, 1)
@@ -132,8 +117,6 @@ hwc.plot_mode(
 
 
 # %% Step 5: Monitors
-# Place field monitors at each port. The SDK reads port positions from the
-# gdsfactory component and creates appropriately sized, non-overlapping monitors.
 
 monitors = hwc.create_port_monitors(
     component=gf_device,
@@ -150,8 +133,6 @@ hwc.plot_monitor_layout(
 
 
 # %% Step 6: Simulate
-# Configure your API key and run the simulation on cloud GPU.
-# Sign up at https://spinsphotonics.com/signup to get your key.
 
 try:
     from google.colab import userdata

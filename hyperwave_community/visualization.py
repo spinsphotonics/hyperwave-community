@@ -571,6 +571,50 @@ def plot_absorption_mask(
     return fig
 
 
+
+
+# ---------------------------------------------------------------------------
+# Theta (2D layout)
+# ---------------------------------------------------------------------------
+
+def plot_theta(
+    theta,
+    *,
+    figsize: Tuple[int, int] = (10, 4),
+    show: bool = True,
+    save_path: Optional[str] = None,
+):
+    """Plot a 2D density layout (theta).
+
+    Args:
+        theta: 2D array of material densities.
+        figsize: Figure size.
+        show: Whether to call ``plt.show()``.
+        save_path: If given, save the figure.
+
+    Returns:
+        The matplotlib ``Figure``.
+    """
+    import matplotlib.pyplot as plt
+
+    fig, ax = plt.subplots(figsize=figsize, constrained_layout=True)
+    im = ax.imshow(np.asarray(theta).T, cmap="gray", origin="lower", aspect="equal")
+    ax.set_title("2D Layout (theta)", fontsize=13, fontweight="medium")
+    ax.set_xlabel("x (cells)", fontsize=11)
+    ax.set_ylabel("y (cells)", fontsize=11)
+    cbar = fig.colorbar(im, ax=ax)
+    cbar.set_label("Material density", fontsize=11)
+
+    _apply_branding(fig)
+
+    if save_path:
+        fig.savefig(save_path, dpi=150, bbox_inches="tight")
+    if show:
+        plt.show()
+        plt.close(fig)
+        return None
+    return fig
+
 # ---------------------------------------------------------------------------
 # Structure (permittivity / conductivity)
 # ---------------------------------------------------------------------------

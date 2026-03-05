@@ -88,6 +88,7 @@ from .simulate import create_mode_source
 
 # Import visualization functions
 from .visualization import (
+    plot_theta,
     plot_convergence,
     plot_fields,
     plot_mode,
@@ -213,6 +214,7 @@ __all__ = [
     "generate_gaussian_source",
 
     # Visualization
+    "plot_theta",
     "plot_convergence",
     "plot_fields",
     "plot_mode",
