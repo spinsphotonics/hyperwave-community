@@ -19,25 +19,20 @@ Getting Started
 1. :doc:`installation` - Install the package and get an API key
 2. :doc:`workflows/local_workflow` - **Start here**: step-by-step tutorial with full control
 3. :doc:`workflows/api_workflow` - Single-call workflow for integration into existing systems
-4. :doc:`workflows/inverse_design` - Gradient-based topology optimization tutorial
+4. :doc:`workflows/inverse_design` - Inverse design optimization tutorial
 
 .. toctree::
    :maxdepth: 1
    :caption: Getting Started
 
    installation
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Workflows
-
    workflows/index
 
 .. toctree::
-   :maxdepth: 1
-   :caption: Inverse Design
+   :maxdepth: 2
+   :caption: User Guide
 
-   workflows/inverse_design
+   user_guide/index
 
 .. toctree::
    :maxdepth: 1
@@ -52,7 +47,6 @@ Getting Started
    convergence
    gpu_options
    getting_started/colab_secrets
-   user_guide/index
 
 Indices and tables
 ==================
