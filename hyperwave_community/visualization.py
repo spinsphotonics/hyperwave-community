@@ -1014,7 +1014,6 @@ def plot_gds(
 def _plot_structure_3d_mpl(perm_arr, nx, ny, nz, cmap, *, figsize=None, show=True, save_path=None):
     """Render a volumetric 3D view of the device structure using isosurfaces."""
     import matplotlib.pyplot as plt
-    from matplotlib import cm
     from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
     if figsize is None:
@@ -1076,12 +1075,28 @@ def _plot_structure_3d_mpl(perm_arr, nx, ny, nz, cmap, *, figsize=None, show=Tru
     ax.set_zlabel("Z (cells)", fontsize=11)
     ax.set_title("3D Structure", fontsize=13, fontweight="medium")
 
-    # Colorbar showing permittivity range.
-    vmin, vmax = float(eps.min()), float(eps.max())
-    norm = plt.Normalize(vmin=vmin, vmax=vmax)
-    colormap = cm.get_cmap(cmap)
-    mappable = cm.ScalarMappable(norm=norm, cmap=colormap)
-    fig.colorbar(mappable, ax=ax, shrink=0.6, label="Permittivity")
+    # Semi-transparent cladding bounding box.
+    box_verts = np.array([
+        [0, 0, 0], [nx, 0, 0], [nx, ny, 0], [0, ny, 0],  # bottom
+        [0, 0, nz], [nx, 0, nz], [nx, ny, nz], [0, ny, nz],  # top
+    ], dtype=float)
+    faces_idx = [
+        [0, 1, 2, 3],  # bottom
+        [4, 5, 6, 7],  # top
+        [0, 1, 5, 4],  # front
+        [2, 3, 7, 6],  # back
+        [0, 3, 7, 4],  # left
+        [1, 2, 6, 5],  # right
+    ]
+    box_faces = [[box_verts[i] for i in face] for face in faces_idx]
+    cladding = Poly3DCollection(
+        box_faces,
+        alpha=0.12,
+        facecolor="#c8a882",
+        edgecolor=(0.6, 0.5, 0.4, 0.3),
+        linewidth=0.5,
+    )
+    ax.add_collection3d(cladding)
 
     _apply_branding(fig)
 

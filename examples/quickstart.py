@@ -68,8 +68,6 @@ structure = hwc.create_structure(
 
 z_wg_center = clad_cells + wg_cells // 2
 hwc.plot_structure(structure, axis="z", position=z_wg_center)
-_, _, ny, _ = structure.permittivity.shape
-hwc.plot_structure(structure, axis="y", position=ny // 2)
 hwc.plot_structure(structure, view_mode="3d")
 
 
