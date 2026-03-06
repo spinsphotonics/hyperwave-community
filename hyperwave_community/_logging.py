@@ -27,56 +27,88 @@ def set_debug(debug=True):
     logger.setLevel(logging.DEBUG if debug else logging.WARNING)
 
 
+def _has_nvidia_gpu() -> bool:
+    """Check if an NVIDIA GPU is physically present via nvidia-smi."""
+    import subprocess
+    try:
+        subprocess.check_output(["nvidia-smi"], stderr=subprocess.DEVNULL)
+        return True
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        return False
+
+
+def _ensure_jax_installed(need_gpu: bool):
+    """Install the correct jaxlib variant if JAX cannot see the expected device."""
+    import subprocess
+    import sys
+
+    try:
+        import jax
+        if need_gpu:
+            try:
+                if jax.devices("gpu"):
+                    return
+            except RuntimeError:
+                pass
+        else:
+            return
+    except ImportError:
+        pass
+
+    package = "jax[cuda12]" if need_gpu else "jax[cpu]"
+    logger.info("Installing %s...", package)
+    subprocess.check_call(
+        [sys.executable, "-m", "pip", "install", "-q", package],
+        stdout=subprocess.DEVNULL,
+    )
+    import importlib
+    if "jax" in sys.modules:
+        importlib.reload(sys.modules["jax"])
+
+
 def set_device(mode: str = "auto"):
     """Configure JAX compute device.
 
-    Call this before any JAX operations (e.g. before creating structures).
+    Ensures the correct ``jaxlib`` variant is installed, then sets the
+    default JAX device. Call before any JAX operations.
 
     Args:
-        mode: ``"auto"`` (default) uses GPU if available, falls back to CPU.
+        mode: ``"auto"`` (default) detects GPU via ``nvidia-smi`` and
+            installs/uses CUDA jaxlib when available, CPU otherwise.
             ``"cpu"`` forces CPU-only. ``"gpu"`` forces GPU (raises if
-            unavailable).
+            no NVIDIA GPU is found).
 
     Raises:
-        RuntimeError: If ``mode="gpu"`` but no GPU is found.
+        RuntimeError: If ``mode="gpu"`` but no NVIDIA GPU is present.
         ValueError: If *mode* is not one of ``"auto"``, ``"cpu"``, ``"gpu"``.
     """
-    import jax
+    import warnings
+    warnings.filterwarnings(
+        "ignore",
+        message="An NVIDIA GPU may be present.*CUDA-enabled jaxlib is not installed",
+        module="jax",
+    )
 
     mode = mode.lower().strip()
     if mode not in ("auto", "cpu", "gpu"):
         raise ValueError(f"mode must be 'auto', 'cpu', or 'gpu', got '{mode}'")
 
-    if mode == "cpu":
-        jax.config.update("jax_default_device", jax.devices("cpu")[0])
-        logger.info("Device: CPU (forced)")
-        return
+    has_gpu = _has_nvidia_gpu()
 
-    gpu_devices = jax.devices("gpu") if _has_gpu() else []
+    if mode == "gpu" and not has_gpu:
+        raise RuntimeError(
+            "mode='gpu' but no NVIDIA GPU found (nvidia-smi failed)."
+        )
 
-    if mode == "gpu":
-        if not gpu_devices:
-            raise RuntimeError(
-                "mode='gpu' but no GPU found. Install jaxlib with CUDA support "
-                "or use mode='auto' for CPU fallback."
-            )
+    need_gpu = (mode == "gpu") or (mode == "auto" and has_gpu)
+    _ensure_jax_installed(need_gpu)
+
+    import jax
+
+    if need_gpu:
+        gpu_devices = jax.devices("gpu")
         jax.config.update("jax_default_device", gpu_devices[0])
-        logger.info(f"Device: GPU ({gpu_devices[0]})")
-        return
-
-    # auto
-    if gpu_devices:
-        jax.config.update("jax_default_device", gpu_devices[0])
-        logger.info(f"Device: GPU ({gpu_devices[0]})")
+        logger.info("Device: GPU (%s)", gpu_devices[0])
     else:
         jax.config.update("jax_default_device", jax.devices("cpu")[0])
-        logger.info("Device: CPU (no GPU found)")
-
-
-def _has_gpu() -> bool:
-    """Check if JAX can see any GPU devices."""
-    try:
-        import jax
-        return len(jax.devices("gpu")) > 0
-    except RuntimeError:
-        return False
+        logger.info("Device: CPU")
