@@ -708,8 +708,8 @@ def create_port_monitors(
         monitor_half_extent: Half-size in y and z (pixels). Default 35.
         z_wg_center: Z position of waveguide center. If None, auto-detects
             from structure by finding z with highest permittivity contrast.
-        input_label_prefix: Prefix for input port monitors. Default "Input_".
-        output_label_prefix: Prefix for output port monitors. Default "Output_".
+        input_label_prefix: Prefix for input port monitors. Default ``"Input_"``.
+        output_label_prefix: Prefix for output port monitors. Default ``"Output_"``.
 
     Returns:
         MonitorSet with monitors at each port plus an xy_mid plane.
