@@ -12,6 +12,8 @@ Modules:
     metasurface: Metasurface pattern utilities
     data_io: GDS file import/export and visualization
     api_client: API configuration and authentication
+    visualization: Plotting functions for structures, fields, and monitors
+    _logging: Logging configuration
 
 Quick Start:
     >>> import hyperwave_community as hwc
@@ -52,7 +54,6 @@ __version__ = "0.1.0"
 from .structure import (
     density,
     create_structure,
-    view_structure,
     Layer,
     Structure,
     recipe_from_params,
@@ -61,8 +62,8 @@ from .structure import (
 # Import absorption functions
 from .absorption import (
     absorber_params,
-    create_absorption_mask,
     get_optimized_absorber_params,
+    create_absorption_mask,
 )
 
 # Import monitor functions
@@ -76,16 +77,33 @@ from .monitors import (
     get_field_intensity,
     get_electric_field_intensity,
     get_magnetic_field_intensity,
-    view_monitors,
+    create_port_monitors,
 )
 
 # Import source functions
 from .sources import (
-    create_gaussian_source,
     generate_gaussian_source,
 )
 # create_mode_source is in simulate.py (uses mode solver)
 from .simulate import create_mode_source
+
+# Import visualization functions
+from .visualization import (
+    plot_theta,
+    plot_convergence,
+    plot_fields,
+    plot_mode,
+    plot_monitors,
+    plot_monitor_layout,
+    plot_absorption_mask,
+    plot_structure,
+    plot_simulation_overview,
+    plot_structure_3d,
+    plot_gds,
+)
+
+# Import logging configuration
+from ._logging import set_verbose, set_debug, set_device
 
 # Import API client functions (SDK-style interface)
 from .api_client import (
@@ -122,10 +140,6 @@ from .api_client import (
     list_components,
     get_component_params,
     preview_component,
-    # Granular workflow functions
-    load_component,
-    build_recipe_from_theta,
-    build_monitors_local,
 )
 
 # Import metasurface utilities
@@ -137,19 +151,57 @@ from .metasurface import (
 # Import data I/O functions
 from .data_io import (
     generate_gds_from_density,
-    view_gds,
     gds_to_theta,
     component_to_theta,
+    save_results,
+    load_results,
 )
 
-
-# Import simulation utilities (local versions, for backwards compatibility)
-# Note: We import these with explicit names to avoid shadowing the api_client.simulate function
-from .simulate import simulate as simulate_local
-from .simulate import quick_view_monitors
-
-# Re-import simulate from api_client to ensure it's not shadowed by the module import above
+# Import simulate from api_client (the cloud GPU version)
 from .api_client import simulate, mode_convert  # noqa: F401
+
+
+# Deprecation shims for renamed functions
+def view_structure(*args, **kwargs):
+    import warnings
+    warnings.warn("view_structure is deprecated, use plot_structure", DeprecationWarning, stacklevel=2)
+    from .visualization import plot_structure
+    return plot_structure(*args, **kwargs)
+
+
+def view_monitors(*args, **kwargs):
+    import warnings
+    warnings.warn("view_monitors is deprecated, use plot_monitor_layout", DeprecationWarning, stacklevel=2)
+    from .visualization import plot_monitor_layout
+    return plot_monitor_layout(*args, **kwargs)
+
+
+def view_gds(*args, **kwargs):
+    import warnings
+    warnings.warn("view_gds is deprecated, use plot_gds", DeprecationWarning, stacklevel=2)
+    from .visualization import plot_gds
+    return plot_gds(*args, **kwargs)
+
+
+def export_csv(*args, **kwargs):
+    raise ImportError("export_csv has been removed. Use hwc.save_results(results, 'output.npz') instead.")
+
+
+def simulate_local(*args, **kwargs):
+    raise ImportError("simulate_local has been removed. Use hwc.simulate() for cloud GPU simulation.")
+
+
+def load_component(*args, **kwargs):
+    raise ImportError("load_component has been removed. Use hwc.component_to_theta() instead.")
+
+
+def build_recipe_from_theta(*args, **kwargs):
+    raise ImportError("build_recipe_from_theta has been removed. Use structure.extract_recipe() instead.")
+
+
+def build_monitors_local(*args, **kwargs):
+    raise ImportError("build_monitors_local has been removed. Use hwc.create_port_monitors() or hwc.MonitorSet() instead.")
+
 
 # Define public API
 __all__ = [
@@ -159,15 +211,14 @@ __all__ = [
     # Structure
     "density",
     "create_structure",
-    "view_structure",
     "Layer",
     "Structure",
     "recipe_from_params",
 
     # Absorption
     "absorber_params",
-    "create_absorption_mask",
     "get_optimized_absorber_params",
+    "create_absorption_mask",
 
     # Monitors
     "Monitor",
@@ -179,12 +230,29 @@ __all__ = [
     "get_field_intensity",
     "get_electric_field_intensity",
     "get_magnetic_field_intensity",
-    "view_monitors",
+    "create_port_monitors",
 
     # Sources
     "create_mode_source",
-    "create_gaussian_source",
     "generate_gaussian_source",
+
+    # Visualization
+    "plot_theta",
+    "plot_convergence",
+    "plot_fields",
+    "plot_mode",
+    "plot_monitors",
+    "plot_monitor_layout",
+    "plot_absorption_mask",
+    "plot_structure",
+    "plot_simulation_overview",
+    "plot_structure_3d",
+    "plot_gds",
+
+    # Logging & Config
+    "set_verbose",
+    "set_debug",
+    "set_device",
 
     # Metasurface
     "create_circle_array",
@@ -192,9 +260,10 @@ __all__ = [
 
     # Data I/O
     "generate_gds_from_density",
-    "view_gds",
     "gds_to_theta",
     "component_to_theta",
+    "save_results",
+    "load_results",
 
     # API - Configuration
     "configure_api",
@@ -221,7 +290,7 @@ __all__ = [
     "compute_monitor_power",
     "get_field_intensity_2d",
 
-    # Visualization functions
+    # Visualization functions (API)
     "visualize_structure",
     "visualize_mode_source",
 
@@ -238,15 +307,11 @@ __all__ = [
     "get_component_params",
     "preview_component",
 
-    # Granular workflow functions
-    "load_component",
-    "build_recipe_from_theta",
-    "build_monitors_local",
-
     # Mode conversion (cloud GPU)
     "mode_convert",
 
-    # Simulation utilities
-    "simulate_local",
-    "quick_view_monitors",
+    # Deprecated (use plot_* equivalents)
+    "view_structure",
+    "view_monitors",
+    "view_gds",
 ]

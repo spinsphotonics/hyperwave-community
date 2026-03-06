@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 project = 'Hyperwave Community'
-copyright = '2025, SPINS Photonics'
+copyright = '2025-2026, SPINS Photonics'
 author = 'SPINS Photonics'
 release = '0.1.0'
 

@@ -9,6 +9,7 @@ from functools import partial
 import math
 from typing import Tuple, Union, List
 from dataclasses import dataclass
+from ._logging import logger
 
 import jax
 import jax.numpy as jnp
@@ -83,11 +84,11 @@ class Layer:
         # Just validate that values are reasonable (not extremely out of range)
         # Skip validation during JAX tracing (autodiff) to avoid concretization errors
         try:
+            import warnings
             density_min = float(jnp.min(self.density_pattern))
             density_max = float(jnp.max(self.density_pattern))
             if density_min < -0.1 or density_max > 1.1:
-                print(f"Warning: Density pattern values significantly outside [0, 1]: [{density_min:.6f}, {density_max:.6f}]")
-                print("This may indicate an issue with the density filtering or optimization. Consider checking your parameters.")
+                warnings.warn(f"Density pattern values significantly outside [0, 1]: [{density_min:.6f}, {density_max:.6f}]. This may indicate an issue with the density filtering or optimization. Consider checking your parameters.")
         except Exception:
             # Skip validation during JAX tracing (happens during autodiff)
             # This catches TracerBoolConversionError and ConcretizationTypeError
@@ -272,32 +273,25 @@ class Structure:
         return self.permittivity.shape
 
 
-    def view(self, show_permittivity: bool = True, show_conductivity: bool = True,
-             cmap_permittivity: str = "PuOr", cmap_conductivity: str = "plasma",
-             axis: str = None, position: int = None) -> None:
-        """Visualize structure using view_structure function.
+    def view(self, **kwargs) -> None:
+        """Visualize structure.
 
-        Args:
-            show_permittivity: Whether to show permittivity.
-            show_conductivity: Whether to show conductivity.
-            cmap_permittivity: Colormap for permittivity.
-            cmap_conductivity: Colormap for conductivity.
-            axis: Optional axis to slice along ('x', 'y', or 'z').
-            position: Optional position along the specified axis.
+        .. deprecated::
+            Use ``hyperwave_community.plot_structure()`` instead.
         """
-        view_structure(self, show_permittivity=show_permittivity,
-                      show_conductivity=show_conductivity,
-                      cmap_permittivity=cmap_permittivity,
-                      cmap_conductivity=cmap_conductivity,
-                      axis=axis, position=position)
+        import warnings
+        warnings.warn("Structure.view() is deprecated, use hwc.plot_structure(structure, ...)", DeprecationWarning, stacklevel=2)
+        from .visualization import plot_structure
+        return plot_structure(self, **kwargs)
 
-    def list_layers(self) -> None:
-        """Print human-readable description of the structure's layers."""
-        print("Layer Stack Description:")
-        print("=" * 50)
+    def list_layers(self) -> str:
+        """Return human-readable description of the structure's layers."""
+        lines = []
+        lines.append("Layer Stack Description:")
+        lines.append("=" * 50)
 
         for i, layer in enumerate(self.layers_info):
-            print(f"\nLayer {i}:")
+            lines.append(f"\nLayer {i}:")
 
             # Get density pattern info
             density_shape = layer.density_pattern.shape
@@ -305,8 +299,8 @@ class Structure:
             density_max = float(layer.density_pattern.max())
             density_mean = float(layer.density_pattern.mean())
 
-            print(f"  Density shape: {density_shape[0]} × {density_shape[1]}")
-            print(f"  Density range: [{density_min:.3f}, {density_max:.3f}] (mean: {density_mean:.3f})")
+            lines.append(f"  Density shape: {density_shape[0]} x {density_shape[1]}")
+            lines.append(f"  Density range: [{density_min:.3f}, {density_max:.3f}] (mean: {density_mean:.3f})")
 
             # Describe the pattern type
             if density_max == density_min:
@@ -320,29 +314,30 @@ class Structure:
                 pattern_desc = "binary pattern"
             else:
                 pattern_desc = "grayscale pattern"
-            print(f"  Pattern type: {pattern_desc}")
+            lines.append(f"  Pattern type: {pattern_desc}")
 
             # Permittivity info
             perm_values = layer.permittivity_values
             if isinstance(perm_values, (list, tuple)):
-                print(f"  Permittivity: {perm_values[0]:.2f} → {perm_values[1]:.2f} (interpolated)")
+                lines.append(f"  Permittivity: {perm_values[0]:.2f} -> {perm_values[1]:.2f} (interpolated)")
             else:
-                print(f"  Permittivity: {perm_values:.2f} (uniform)")
+                lines.append(f"  Permittivity: {perm_values:.2f} (uniform)")
 
             # Conductivity info
             cond_values = layer.conductivity_values
             if isinstance(cond_values, (list, tuple)):
                 if cond_values[1] > 0:
-                    print(f"  Conductivity: {cond_values[0]:.3f} → {cond_values[1]:.3f} (interpolated)")
+                    lines.append(f"  Conductivity: {cond_values[0]:.3f} -> {cond_values[1]:.3f} (interpolated)")
             elif cond_values > 0:
-                print(f"  Conductivity: {cond_values:.3f} (uniform)")
+                lines.append(f"  Conductivity: {cond_values:.3f} (uniform)")
 
             # Thickness
-            print(f"  Thickness: {layer.layer_thickness} pixels")
+            lines.append(f"  Thickness: {layer.layer_thickness} pixels")
 
-        print("\n" + "=" * 50)
-        print(f"Total thickness: {self.permittivity.shape[3]} pixels")
-        print(f"Lateral size: {self.permittivity.shape[1]} × {self.permittivity.shape[2]} pixels")
+        lines.append("\n" + "=" * 50)
+        lines.append(f"Total thickness: {self.permittivity.shape[3]} pixels")
+        lines.append(f"Lateral size: {self.permittivity.shape[1]} x {self.permittivity.shape[2]} pixels")
+        return "\n".join(lines)
 
     def __repr__(self) -> str:
         """String representation of the Structure."""
@@ -403,8 +398,193 @@ def _project(u, eta):
     return jnp.where(_boundary_cell(u - eta), u, (jnp.sign(u - eta) + 1) / 2)
 
 
-@partial(jax.jit, static_argnames=["radius"])
-def _density_pjz_internal(u, radius, alpha, eta):
+def _inflection(u, c):
+    """Gradient-based edge detector for fabrication loss computation.
+
+    Detects inflection points (edges) in the density field by computing the
+    squared gradient magnitude and applying an exponential decay.
+
+    Args:
+        u: 2D density field.
+        c: Controls the sensitivity of inflection detection.
+
+    Returns:
+        2D array of inflection weights in [0, 1], where values near 0
+        indicate strong edges and values near 1 indicate flat regions.
+    """
+    u = jnp.pad(u, 1, "edge")
+    gu2 = (jnp.square(u[2:, 1:-1] - u[:-2, 1:-1]) +
+           jnp.square(u[1:-1, 2:] - u[1:-1, :-2]))
+    return jnp.exp(-c * gu2)
+
+
+def _geom_loss(uproj, ufilt, c, eta_lo, eta_hi):
+    """Fabrication penalty for minimum feature size violations.
+
+    Penalizes features that are too small by combining inflection detection
+    with threshold violations. The loss is non-zero only where the filtered
+    density violates the eta_lo/eta_hi bounds at edge locations.
+
+    Args:
+        uproj: Projected (binarized) density field.
+        ufilt: Filtered density field.
+        c: Controls inflection detection sensitivity.
+        eta_lo: Lower threshold for void-phase feature size control.
+        eta_hi: Upper threshold for solid-phase feature size control.
+
+    Returns:
+        2D array of per-pixel fabrication loss values.
+    """
+    uinfl = _inflection(ufilt, c)
+    return (uproj * uinfl * jnp.square(jnp.minimum(0, ufilt - eta_hi)) +
+            (1 - uproj) * uinfl * jnp.square(jnp.minimum(0, eta_lo - ufilt)))
+
+
+@partial(jax.jit, static_argnames=["min_solid_pixels", "min_void_pixels"])
+def morphological_fab_loss(density, min_solid_pixels, min_void_pixels=None):
+    """Fabrication loss via soft morphological erosion/dilation.
+
+    Penalizes solid features narrower than min_solid_pixels and
+    void gaps narrower than min_void_pixels. Uses max-pooling
+    (differentiable in JAX) for both erosion (-max(-x)) and dilation.
+
+    Supports asymmetric constraints where min CD != min gap.
+
+    Best applied to the filtered (pre-projection) density so that
+    gradients flow through the smooth field. At alpha=1.0, the
+    projected density is binary and has near-zero gradients.
+
+    Args:
+        density: 2D density field in [0, 1]. For gradient flow,
+            pass the filtered density (alpha=0) not the projected one.
+        min_solid_pixels: Minimum solid feature size in pixels.
+            E.g., min_solid_pixels=8 at 12.5nm = 100nm min CD.
+        min_void_pixels: Minimum void (gap) size in pixels.
+            If None, uses min_solid_pixels (symmetric).
+            E.g., min_void_pixels=12 at 12.5nm = 150nm min gap.
+
+    Returns:
+        2D array of per-pixel fabrication loss values (non-negative).
+    """
+    if min_void_pixels is None:
+        min_void_pixels = min_solid_pixels
+
+    # Solid-phase penalty via erosion with solid kernel
+    ks_s = 2 * min_solid_pixels + 1
+    d_neg_padded = jnp.pad(-density, min_solid_pixels, mode='edge')
+    eroded = -jax.lax.reduce_window(
+        d_neg_padded, -jnp.inf, jax.lax.max,
+        (ks_s, ks_s), (1, 1), 'VALID')
+    solid_penalty = density * jnp.square(jnp.maximum(0, density - eroded))
+
+    # Void-phase penalty via dilation with void kernel
+    ks_v = 2 * min_void_pixels + 1
+    d_padded = jnp.pad(density, min_void_pixels, mode='edge')
+    dilated = jax.lax.reduce_window(
+        d_padded, -jnp.inf, jax.lax.max,
+        (ks_v, ks_v), (1, 1), 'VALID')
+    void_penalty = (1 - density) * jnp.square(jnp.maximum(0, dilated - density))
+
+    return solid_penalty + void_penalty
+
+
+def _soft_erode(u, radius, beta=20.0):
+    """Differentiable soft erosion using smooth minimum (log-sum-exp).
+
+    Approximates morphological erosion with a circular structuring element.
+    Uses negative-temperature log-sum-exp as a smooth approximation of min:
+      soft_min(x1,...,xn) = -1/beta * log(mean(exp(-beta * xi)))
+
+    As beta -> inf, approaches true (hard) min. beta=20 is a practical default
+    that gives good gradient flow while closely tracking the binary result.
+
+    On binary {0,1} inputs with beta>=20, this matches hard erosion to >99%.
+
+    Based on: Guzzi et al., "Differentiable Soft Morphological Filters,"
+    MICCAI 2024. Boolean AND -> product generalized via log-sum-exp for
+    numerical stability with large structuring elements.
+
+    Args:
+        u: 2D array in [0, 1].
+        radius: Radius of circular structuring element in pixels.
+        beta: Temperature parameter. Higher = sharper (closer to hard min).
+    Returns:
+        Eroded 2D array, same shape as u.
+    """
+    r = int(radius)
+    # Build circular structuring element offsets
+    offsets = []
+    for dy in range(-r, r + 1):
+        for dx in range(-r, r + 1):
+            if dx * dx + dy * dy <= radius * radius:
+                offsets.append((dy, dx))
+
+    padded = jnp.pad(u, r, mode='edge')
+    # Gather all neighbor values: shape (n_neighbors, H, W)
+    neighbors = jnp.stack([
+        padded[r + dy:r + dy + u.shape[0], r + dx:r + dx + u.shape[1]]
+        for dy, dx in offsets
+    ], axis=0)
+
+    # Smooth min via negative log-sum-exp
+    exp_neg = jnp.exp(-beta * neighbors)
+    result = -jnp.log(jnp.mean(exp_neg, axis=0) + 1e-30) / beta
+    return jnp.clip(result, 0.0, 1.0)
+
+
+def _soft_dilate(u, radius, beta=20.0):
+    """Differentiable soft dilation: 1 - soft_erode(1 - u, radius, beta)."""
+    return 1.0 - _soft_erode(1.0 - u, radius, beta)
+
+
+def _soft_open(u, radius, beta=20.0):
+    """Differentiable soft morphological opening: erode then dilate."""
+    return _soft_dilate(_soft_erode(u, radius, beta), radius, beta)
+
+
+def soft_morphological_fab_loss(theta, solid_radius, void_radius=None, beta=20.0):
+    """Fabrication loss via differentiable soft morphological opening.
+
+    Measures how much the design changes under morphological opening with
+    the given structuring element radii. A design that satisfies minimum
+    feature size constraints is invariant under opening, so the loss is zero.
+
+    Loss = mean((theta - open_solid(theta))^2) + mean((1-theta - open_void(1-theta))^2)
+
+    Based on Hagg & Wadbro (2018): a binary design has min feature size D
+    iff it is morphologically open w.r.t. structuring element of diameter D.
+    Differentiable via Guzzi et al. (MICCAI 2024) smooth morphological ops.
+
+    Unlike morphological_fab_loss (which uses max-pool and pushes theta to
+    gray at alpha=1.0), this approach is exact on binary inputs and does NOT
+    fight binarization -- the opened version of a compliant binary field is
+    the same binary field.
+
+    Args:
+        theta: 2D array in [0, 1]. Can be binary or soft.
+        solid_radius: Min solid feature radius in pixels.
+        void_radius: Min void feature radius in pixels. If None, uses solid_radius.
+        beta: Temperature for smooth min/max. Higher = sharper.
+    Returns:
+        Scalar fab loss (non-negative). Zero iff all features satisfy constraints.
+    """
+    if void_radius is None:
+        void_radius = solid_radius
+
+    # Solid phase: features that are too narrow get eroded away then not restored
+    opened_solid = _soft_open(theta, solid_radius, beta)
+    solid_loss = jnp.mean(jnp.square(theta - opened_solid))
+
+    # Void phase: gaps that are too narrow
+    opened_void = _soft_open(1.0 - theta, void_radius, beta)
+    void_loss = jnp.mean(jnp.square((1.0 - theta) - opened_void))
+
+    return solid_loss + void_loss
+
+
+@partial(jax.jit, static_argnames=["radius", "return_loss"])
+def _density_pjz_internal(u, radius, alpha, eta, c=1.0, eta_lo=0.25,
+                          eta_hi=0.75, return_loss=False):
     """Internal JIT-compiled density filtering function.
 
     This implements the three-field scheme for density filtering.
@@ -416,9 +596,15 @@ def _density_pjz_internal(u, radius, alpha, eta):
         # Apply projection for binarization
         uproj = _project(ufilt, eta)
         # Combine filtered and projected densities based on alpha
-        return alpha * uproj + (1 - alpha) * ufilt
+        d = alpha * uproj + (1 - alpha) * ufilt
+        if return_loss:
+            loss = _geom_loss(uproj, ufilt, c, eta_lo, eta_hi)
+            return d, loss
+        return d
     else:
         # No filtering requested (radius=0), return input
+        if return_loss:
+            return u, jnp.zeros_like(u)
         return u
 
 
@@ -430,11 +616,12 @@ def density(
     pad_width: Union[int, Tuple[int, int, int, int]] = 0,
     alpha: float = 0.0,
     radius: float = 8.0,
-    c: float = 1e3,
+    c: float = 1.0,
     eta: float = 0.5,
-    eta_lo: float = 0.0,
-    eta_hi: float = 1.0,
-) -> jnp.ndarray:
+    eta_lo: float = 0.25,
+    eta_hi: float = 0.75,
+    return_loss: bool = False,
+) -> Union[jnp.ndarray, Tuple[jnp.ndarray, jnp.ndarray]]:
     """Convert raw optimization variables to density field with filtering.
 
     This function takes raw optimization variables and converts them into a proper
@@ -466,16 +653,22 @@ def density(
             Default: 0.0 (no binarization).
         radius: Radius for density filtering (controls minimum feature size).
             Set to 0 to skip filtering. Default: 8.0.
-        c: Controls the detection of inflection points. Default: 1e3.
+        c: Controls the detection of inflection points for fabrication loss. Default: 1.0.
         eta: Threshold value used to binarize the density. Default: 0.5.
-        eta_lo: Controls minimum feature size of void-phase features. Default: 0.0.
-        eta_hi: Controls minimum feature size of density=1 features. Default: 1.0.
+        eta_lo: Controls minimum feature size of void-phase features. Default: 0.25.
+        eta_hi: Controls minimum feature size of density=1 features. Default: 0.75.
+        return_loss: If True, also return the per-pixel fabrication loss array.
+            Default: False.
 
     Returns:
-        Density field with proper structure and constraints.
-        Shape is (nx + 2*pad_width, ny + 2*pad_width). This function enforces
-        even spatial dimensions by trimming the last row/column of `theta` if
-        needed so downstream Yee-grid operations work without errors.
+        If return_loss is False (default): density field array of shape
+        (nx + 2*pad_width, ny + 2*pad_width).
+        If return_loss is True: tuple of (density, loss) where both arrays have
+        the same shape. The loss quantifies minimum feature size violations.
+
+        This function enforces even spatial dimensions by trimming the last
+        row/column of `theta` if needed so downstream Yee-grid operations
+        work without errors.
 
     Raises:
         ValueError: If parameters are outside valid ranges or if output contains NaN/Inf.
@@ -572,14 +765,24 @@ def density(
     # Apply density filtering for minimum feature size constraints
     # This implements the "three-field" scheme from topology optimization
     # Use the internal helper function
-    d = _density_pjz_internal(u, radius, alpha_array, eta)
-    
+    result = _density_pjz_internal(u, radius, alpha_array, eta, c, eta_lo,
+                                   eta_hi, return_loss=return_loss)
+
+    if return_loss:
+        d, loss = result
+    else:
+        d = result
+
     # Check for NaN/Inf in output
     if jnp.any(jnp.isnan(d)):
         raise ValueError("Output contains NaN values. Check input and parameters.")
     if jnp.any(~jnp.isfinite(d)):
         raise ValueError("Output contains non-finite values (Inf or -Inf). Check input and parameters.")
-    
+
+    logger.info("Density: %s", d.shape)
+
+    if return_loss:
+        return d, loss
     return d
 
 
@@ -774,13 +977,17 @@ def create_structure(layers: List[Layer], vertical_radius: float = 5.0) -> Struc
     }
     
     # Return enhanced Structure object
-    return Structure(
+    s = Structure(
         permittivity=permittivity_distribution,
         conductivity=conductivity_distribution,
         layers_info=layers.copy(),  # Store original layers for reconstruction
         construction_params=construction_params,
         metadata=metadata
     )
+    _, Lx, Ly, Lz = permittivity_distribution.shape
+    logger.info("Structure: %d x %d x %d = %s cells",
+                Lx, Ly, Lz, f"{Lx * Ly * Lz:,}")
+    return s
 
 
 
@@ -891,193 +1098,6 @@ def reconstruct_structure_from_recipe(recipe: dict) -> Structure:
 
 
 
-# =============================================================================
-# Visualization functions
-# =============================================================================
-
-
-
-def view_structure(structure, show_permittivity=True, show_conductivity=True,
-                  cmap_permittivity="PuOr", cmap_conductivity="plasma",
-                  axis=None, position=None):
-    """Plot structure permittivity and/or conductivity distributions using matplotlib.
-
-    This function creates visualizations of the structure's permittivity and/or conductivity
-    fields. Can show either a single cross-section or default dual view.
-
-    Args:
-        structure: Structure object containing permittivity and conductivity arrays.
-        show_permittivity: Whether to display permittivity plots (default: True).
-        show_conductivity: Whether to display conductivity plots (default: True).
-        cmap_permittivity: Colormap for permittivity plots (default: "PuOr").
-        cmap_conductivity: Colormap for conductivity plots (default: "plasma").
-        axis: Axis to slice along ('x', 'y', or 'z'). If None, shows default dual view (XY at middle Z, XZ at middle Y).
-        position: Position along the specified axis to slice at. If None and axis is specified, uses middle position.
-    
-    Examples:
-        >>> structure = create_structure(layers)
-        >>> view_structure(structure)  # Show both permittivity and conductivity
-        >>> view_structure(structure, show_conductivity=False)  # Only permittivity
-        >>> view_structure(structure, show_permittivity=False)  # Only conductivity
-        >>> view_structure(structure, axis='z', position=50)  # XY slice at z=50
-        >>> view_structure(structure, show_permittivity=True, show_conductivity=False, axis='y', position=100)  # XZ permittivity slice at y=100
-    """
-    try:
-        import matplotlib.pyplot as plt
-    except ImportError:
-        raise ImportError("matplotlib is required for plotting. Install with: pip install matplotlib")
-    
-    # Validate inputs
-    if not isinstance(structure, Structure):
-        raise TypeError(f"structure must be a Structure object, got {type(structure)}")
-    
-    if not show_permittivity and not show_conductivity:
-        raise ValueError("At least one of show_permittivity or show_conductivity must be True")
-    
-    # Extract arrays from structure
-    p = structure.permittivity
-    c = structure.conductivity
-    
-    if axis is None:
-        # Default behavior: show dual view (XY at middle Z, XZ at middle Y)
-        middle_z = p.shape[3] // 2  # nz is the vertical dimension (shape[3])
-        middle_y = p.shape[2] // 2  # ny is the horizontal dimension (shape[2])
-        
-        if show_permittivity and show_conductivity:
-            # Show both permittivity and conductivity
-            fig, axes = plt.subplots(2, 2, figsize=(12, 10))
-            
-            # Permittivity plots
-            im1 = axes[0, 0].imshow(p[0, :, :, middle_z].T, cmap=cmap_permittivity, vmin=p.min(), vmax=p.max())
-            axes[0, 0].set_title(f"Permittivity: x-y plane at z={middle_z} (eps_x)")
-            axes[0, 0].set_xlabel("x")
-            axes[0, 0].set_ylabel("y")
-            plt.colorbar(im1, ax=axes[0, 0])
-            
-            im2 = axes[0, 1].imshow(p[0, :, middle_y, :].T, cmap=cmap_permittivity, vmin=p.min(), vmax=p.max())
-            axes[0, 1].set_title(f"Permittivity: x-z plane at y={middle_y} (eps_x)")
-            axes[0, 1].set_xlabel("x")
-            axes[0, 1].set_ylabel("z")
-            plt.colorbar(im2, ax=axes[0, 1])
-
-            # Conductivity plots
-            im3 = axes[1, 0].imshow(c[0, :, :, middle_z].T, cmap=cmap_conductivity, vmin=c.min(), vmax=c.max())
-            axes[1, 0].set_title(f"Conductivity: x-y plane at z={middle_z} (sigma_x)")
-            axes[1, 0].set_xlabel("x")
-            axes[1, 0].set_ylabel("y")
-            plt.colorbar(im3, ax=axes[1, 0])
-
-            im4 = axes[1, 1].imshow(c[0, :, middle_y, :].T, cmap=cmap_conductivity, vmin=c.min(), vmax=c.max())
-            axes[1, 1].set_title(f"Conductivity: x-z plane at y={middle_y} (sigma_x)")
-            axes[1, 1].set_xlabel("x")
-            axes[1, 1].set_ylabel("z")
-            plt.colorbar(im4, ax=axes[1, 1])
-            
-        elif show_permittivity:
-            # Show only permittivity
-            fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-            
-            im1 = axes[0].imshow(p[0, :, :, middle_z].T, cmap=cmap_permittivity, vmin=p.min(), vmax=p.max())
-            axes[0].set_title(f"Permittivity: x-y plane at z={middle_z} (eps_x)")
-            axes[0].set_xlabel("x")
-            axes[0].set_ylabel("y")
-            plt.colorbar(im1, ax=axes[0])
-            
-            im2 = axes[1].imshow(p[0, :, middle_y, :].T, cmap=cmap_permittivity, vmin=p.min(), vmax=p.max())
-            axes[1].set_title(f"Permittivity: x-z plane at y={middle_y} (eps_x)")
-            axes[1].set_xlabel("x")
-            axes[1].set_ylabel("z")
-            plt.colorbar(im2, ax=axes[1])
-            
-        else:  # show_conductivity only
-            # Show only conductivity
-            fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-            
-            im1 = axes[0].imshow(c[0, :, :, middle_z].T, cmap=cmap_conductivity, vmin=c.min(), vmax=c.max())
-            axes[0].set_title(f"Conductivity: x-y plane at z={middle_z} (sigma_x)")
-            axes[0].set_xlabel("x")
-            axes[0].set_ylabel("y")
-            plt.colorbar(im1, ax=axes[0])
-            
-            im2 = axes[1].imshow(c[0, :, middle_y, :].T, cmap=cmap_conductivity, vmin=c.min(), vmax=c.max())
-            axes[1].set_title(f"Conductivity: x-z plane at y={middle_y} (sigma_x)")
-            axes[1].set_xlabel("x")
-            axes[1].set_ylabel("z")
-            plt.colorbar(im2, ax=axes[1])
-            
-    else:
-        # Single slice mode
-        if axis not in ['x', 'y', 'z']:
-            raise ValueError(f"axis must be 'x', 'y', or 'z', got {axis}")
-        
-        # Determine position if not specified
-        if position is None:
-            if axis == 'x':
-                position = p.shape[1] // 2  # middle x
-            elif axis == 'y':
-                position = p.shape[2] // 2  # middle y
-            elif axis == 'z':
-                position = p.shape[3] // 2  # middle z
-        
-        # Extract slice and determine plot properties
-        if axis == 'x':
-            p_slice = p[0, position, :, :]  # YZ plane
-            c_slice = c[0, position, :, :]  # YZ plane
-            plane_name = "y-z"
-            xlabel, ylabel = "y", "z"
-        elif axis == 'y':
-            p_slice = p[0, :, position, :]  # XZ plane
-            c_slice = c[0, :, position, :]  # XZ plane
-            plane_name = "x-z"
-            xlabel, ylabel = "x", "z"
-        elif axis == 'z':
-            p_slice = p[0, :, :, position]  # XY plane
-            c_slice = c[0, :, :, position]  # XY plane
-            plane_name = "x-y"
-            xlabel, ylabel = "x", "y"
-        
-        if show_permittivity and show_conductivity:
-            # Show both permittivity and conductivity
-            fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-            
-            im1 = axes[0].imshow(p_slice.T, cmap=cmap_permittivity, vmin=p.min(), vmax=p.max(), origin='upper')
-            axes[0].set_title(f"Permittivity: {plane_name} plane at {axis}={position} (eps_x)")
-            axes[0].set_xlabel(xlabel)
-            axes[0].set_ylabel(ylabel)
-            plt.colorbar(im1, ax=axes[0])
-            
-            im2 = axes[1].imshow(c_slice.T, cmap=cmap_conductivity, vmin=c.min(), vmax=c.max(), origin='upper')
-            axes[1].set_title(f"Conductivity: {plane_name} plane at {axis}={position} (sigma_x)")
-            axes[1].set_xlabel(xlabel)
-            axes[1].set_ylabel(ylabel)
-            plt.colorbar(im2, ax=axes[1])
-            
-        elif show_permittivity:
-            # Show only permittivity
-            fig, ax = plt.subplots(1, 1, figsize=(8, 6))
-            
-            im = ax.imshow(p_slice.T, cmap=cmap_permittivity, vmin=p.min(), vmax=p.max(), origin='upper')
-            ax.set_title(f"Permittivity: {plane_name} plane at {axis}={position} (eps_x)")
-            ax.set_xlabel(xlabel)
-            ax.set_ylabel(ylabel)
-            plt.colorbar(im, ax=ax)
-            
-        else:  # show_conductivity only
-            # Show only conductivity
-            fig, ax = plt.subplots(1, 1, figsize=(8, 6))
-            
-            im = ax.imshow(c_slice.T, cmap=cmap_conductivity, vmin=c.min(), vmax=c.max(), origin='upper')
-            ax.set_title(f"Conductivity: {plane_name} plane at {axis}={position} (sigma_x)")
-            ax.set_xlabel(xlabel)
-            ax.set_ylabel(ylabel)
-            plt.colorbar(im, ax=ax)
-    
-    plt.tight_layout()
-    
-    # Only show plot if using an interactive backend
-    if plt.get_backend() != 'Agg':
-        plt.show() 
-
 
 # =============================================================================
 # INTERNAL HELPER FUNCTIONS
@@ -1097,22 +1117,16 @@ def density_pjz(u, radius, alpha, c=1.0, eta=0.5, eta_lo=0.25, eta_hi=0.75):
         u: Variable array with values within [0, 1].
         radius: Radius of the conical filter used to blur u.
         alpha: Binarization control parameter [0, 1].
-        c: Controls the detection of inflection points (unused).
+        c: Controls the detection of inflection points.
         eta: Threshold value used to binarize the density.
-        eta_lo: Controls minimum feature size of void-phase features (unused).
-        eta_hi: Controls minimum feature size of density=1 features (unused).
+        eta_lo: Controls minimum feature size of void-phase features.
+        eta_hi: Controls minimum feature size of density=1 features.
 
     Returns:
-        Density field after filtering and binarization.
+        Tuple of (density, loss) arrays, both of shape (xx, yy).
     """
-    # Note: c, eta_lo, eta_hi are not used in the current implementation
-    # They are kept for backward compatibility
-    if radius > 0:
-        ufilt = _filter(u, radius)
-        uproj = _project(ufilt, eta)
-        return alpha * uproj + (1 - alpha) * ufilt
-    else:
-        return u
+    return _density_pjz_internal(u, radius, alpha, eta, c, eta_lo, eta_hi,
+                                 return_loss=True)
 
 
 
