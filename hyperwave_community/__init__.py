@@ -103,7 +103,7 @@ from .visualization import (
 )
 
 # Import logging configuration
-from ._logging import set_verbose, set_debug
+from ._logging import set_verbose, set_debug, set_device
 
 # Import API client functions (SDK-style interface)
 from .api_client import (
@@ -153,7 +153,8 @@ from .data_io import (
     generate_gds_from_density,
     gds_to_theta,
     component_to_theta,
-    export_csv,
+    save_results,
+    load_results,
 )
 
 # Import simulate from api_client (the cloud GPU version)
@@ -228,9 +229,10 @@ __all__ = [
     "plot_structure_3d",
     "plot_gds",
 
-    # Logging
+    # Logging & Config
     "set_verbose",
     "set_debug",
+    "set_device",
 
     # Metasurface
     "create_circle_array",
@@ -240,7 +242,8 @@ __all__ = [
     "generate_gds_from_density",
     "gds_to_theta",
     "component_to_theta",
-    "export_csv",
+    "save_results",
+    "load_results",
 
     # API - Configuration
     "configure_api",

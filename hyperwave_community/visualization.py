@@ -6,6 +6,7 @@ import so the module is importable without a display backend.
 
 from __future__ import annotations
 
+import os
 from typing import Optional, Tuple
 
 import numpy as np
@@ -307,7 +308,8 @@ def plot_monitors(
 ):
     """Quick view of each monitor's field data.
 
-    Produces one figure per monitor with a 2D slice of the chosen component.
+    Produces two separate figures: port monitors in a 2-column grid,
+    and field slice monitors (xy_mid, xz_mid, etc.) full-width below.
 
     Args:
         results: Dict returned by ``simulate()`` with keys
@@ -316,13 +318,13 @@ def plot_monitors(
             or ``'all'`` (total intensity).
         freq_idx: Frequency index.
         cmap: Matplotlib colormap.
-        figsize: Per-monitor figure size.
+        figsize: Per-subplot figure size (width, height).
         show: Whether to call ``plt.show()``.
-        save_path: If given, save the last figure. For multiple monitors
-            the path is suffixed with the monitor name.
+        save_path: If given, saves with ``_ports`` / ``_fields`` suffixes.
 
     Returns:
-        List of matplotlib ``Figure`` objects (one per monitor).
+        When ``show=False``: tuple of (ports_fig, fields_fig), or a single
+        Figure if only one category exists. ``None`` when ``show=True``.
     """
     import matplotlib.pyplot as plt
     import matplotlib.gridspec as gridspec
@@ -357,78 +359,90 @@ def plot_monitors(
     field_names = [n for n in names if n.startswith("xy_") or n.startswith("xz_") or n.startswith("yz_")]
 
     fig_w, fig_h = figsize
-
-    # Build layout: port monitors in 2-col grid, field slices full-width below
     n_ports = len(port_names)
     n_fields = len(field_names)
-    cols = min(max(n_ports, 1), 2)
-    port_rows = max(1, (n_ports + cols - 1) // cols) if n_ports > 0 else 0
+    figs = []
 
-    # Compute height ratios: port rows get equal height,
-    # field rows scale by their data aspect ratio so the full-width
-    # subplot preserves correct proportions via aspect="auto".
-    height_ratios = [1.0] * port_rows
-    field_aspects = []
-    for name in field_names:
-        data = np.asarray(results["monitor_data"][name])
-        field_2d, _, _ = _extract_field_2d(data, component, freq_idx)
-        h, w = field_2d.shape[0], field_2d.shape[1]
-        field_aspects.append(w / h if h > 0 else 0.5)
-    for aspect in field_aspects:
-        height_ratios.append(1.0 / aspect)
+    # --- Figure 1: Port monitors in 2-column grid ---
+    if n_ports > 0:
+        cols = min(n_ports, 2)
+        port_rows = (n_ports + cols - 1) // cols
+        fig_ports = plt.figure(figsize=(fig_w * cols, fig_h * port_rows))
+        gs_ports = gridspec.GridSpec(
+            port_rows, cols,
+            figure=fig_ports,
+            hspace=0.3,
+            wspace=0.3,
+        )
+        for plot_idx, name in enumerate(port_names):
+            ax = fig_ports.add_subplot(gs_ports[plot_idx // cols, plot_idx % cols])
+            data = np.asarray(results["monitor_data"][name])
+            field_2d, xlabel, ylabel = _extract_field_2d(data, component, freq_idx)
+            im = ax.imshow(field_2d.T, cmap=cmap, origin="upper", aspect="equal")
+            ax.set_title(f"{name} - {component} (freq {freq_idx})", fontsize=13, fontweight="medium")
+            ax.set_xlabel(xlabel, fontsize=11)
+            ax.set_ylabel(ylabel, fontsize=11)
+            ax.grid(False)
+            fig_ports.colorbar(im, ax=ax, shrink=0.8)
+        for idx in range(n_ports, port_rows * cols):
+            ax = fig_ports.add_subplot(gs_ports[idx // cols, idx % cols])
+            ax.set_visible(False)
+        _apply_branding(fig_ports)
+        if save_path:
+            base, ext = os.path.splitext(save_path)
+            fig_ports.savefig(f"{base}_ports{ext}", dpi=150, bbox_inches="tight")
+        if show:
+            plt.show()
+        figs.append(fig_ports)
 
-    total_rows = port_rows + n_fields
-    if total_rows == 0:
+    # --- Figure 2: Field slice monitors (xy_mid, xz_mid, etc.) ---
+    if n_fields > 0:
+        # Compute true aspect ratios from data to size the figure correctly
+        field_data_shapes = []
+        for name in field_names:
+            data = np.asarray(results["monitor_data"][name])
+            field_2d, _, _ = _extract_field_2d(data, component, freq_idx)
+            field_data_shapes.append((field_2d.shape[0], field_2d.shape[1]))
+        total_fig_w = fig_w * 2
+        total_fig_h = 0
+        field_height_ratios = []
+        for (dw, dh) in field_data_shapes:
+            ratio = dh / dw if dw > 0 else 0.5
+            field_height_ratios.append(ratio)
+            total_fig_h += total_fig_w * ratio
+        total_fig_h += fig_h * 0.3 * (n_fields - 1)  # spacing
+        fig_fields = plt.figure(figsize=(total_fig_w, max(total_fig_h, fig_h)))
+        gs_fields = gridspec.GridSpec(
+            n_fields, 1,
+            figure=fig_fields,
+            height_ratios=field_height_ratios,
+            hspace=0.3,
+        )
+        for field_idx, name in enumerate(field_names):
+            ax = fig_fields.add_subplot(gs_fields[field_idx, 0])
+            data = np.asarray(results["monitor_data"][name])
+            field_2d, xlabel, ylabel = _extract_field_2d(data, component, freq_idx)
+            im = ax.imshow(field_2d.T, cmap=cmap, origin="upper", aspect="equal")
+            ax.set_title(f"{name} - {component} (freq {freq_idx})", fontsize=13, fontweight="medium")
+            ax.set_xlabel(xlabel, fontsize=11)
+            ax.set_ylabel(ylabel, fontsize=11)
+            ax.grid(False)
+            fig_fields.colorbar(im, ax=ax, shrink=0.8)
+        _apply_branding(fig_fields)
+        if save_path:
+            base, ext = os.path.splitext(save_path)
+            fig_fields.savefig(f"{base}_fields{ext}", dpi=150, bbox_inches="tight")
+        if show:
+            plt.show()
+        figs.append(fig_fields)
+
+    if not figs:
         return None
-
-    fig = plt.figure(figsize=(fig_w * cols, fig_h * sum(height_ratios)))
-    gs = gridspec.GridSpec(
-        total_rows, cols,
-        figure=fig,
-        height_ratios=height_ratios,
-        hspace=0.3,
-        wspace=0.3,
-    )
-
-    # Plot port monitors in 2-column grid
-    for plot_idx, name in enumerate(port_names):
-        ax = fig.add_subplot(gs[plot_idx // cols, plot_idx % cols])
-        data = np.asarray(results["monitor_data"][name])
-        field_2d, xlabel, ylabel = _extract_field_2d(data, component, freq_idx)
-        im = ax.imshow(field_2d.T, cmap=cmap, origin="upper", aspect="equal")
-        ax.set_title(f"{name} - {component} (freq {freq_idx})", fontsize=13, fontweight="medium")
-        ax.set_xlabel(xlabel, fontsize=11)
-        ax.set_ylabel(ylabel, fontsize=11)
-        ax.grid(False)
-        fig.colorbar(im, ax=ax, shrink=0.8)
-
-    # Hide unused port grid cells
-    for idx in range(n_ports, port_rows * cols):
-        ax = fig.add_subplot(gs[idx // cols, idx % cols])
-        ax.set_visible(False)
-
-    # Plot field slice monitors full-width below
-    for field_idx, name in enumerate(field_names):
-        row = port_rows + field_idx
-        ax = fig.add_subplot(gs[row, :])
-        data = np.asarray(results["monitor_data"][name])
-        field_2d, xlabel, ylabel = _extract_field_2d(data, component, freq_idx)
-        im = ax.imshow(field_2d.T, cmap=cmap, origin="upper", aspect="auto")
-        ax.set_title(f"{name} - {component} (freq {freq_idx})", fontsize=13, fontweight="medium")
-        ax.set_xlabel(xlabel, fontsize=11)
-        ax.set_ylabel(ylabel, fontsize=11)
-        ax.grid(False)
-        fig.colorbar(im, ax=ax, shrink=0.8)
-
-    _apply_branding(fig)
-
-    if save_path:
-        fig.savefig(save_path, dpi=150, bbox_inches="tight")
     if show:
-        plt.show()
-        plt.close(fig)
+        for f in figs:
+            plt.close(f)
         return None
-    return fig
+    return tuple(figs) if len(figs) > 1 else figs[0]
 
 
 # ---------------------------------------------------------------------------
@@ -1110,6 +1124,7 @@ def _plot_structure_3d_mpl(perm_arr, nx, ny, nz, cmap, *, figsize=None, show=Tru
     ax.set_xlim(0, nx)
     ax.set_ylim(0, ny)
     ax.set_zlim(0, nz)
+    ax.set_box_aspect([nx, ny, nz])
     ax.set_xlabel("X (cells)", fontsize=11)
     ax.set_ylabel("Y (cells)", fontsize=11)
     ax.set_zlabel("Z (cells)", fontsize=11)
