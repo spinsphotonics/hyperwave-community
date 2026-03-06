@@ -17,7 +17,7 @@ Quick Start
 
    import hyperwave_community as hwc
 
-   hwc.set_device()   # auto-detects GPU/CPU, installs correct JAX
+   hwc.set_device("auto")   # auto-detects GPU/CPU, installs correct JAX
    hwc.set_verbose(True)
 
 .. note::

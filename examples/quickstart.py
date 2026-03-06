@@ -17,15 +17,16 @@ import gdsfactory as gf
 import numpy as np
 import jax.numpy as jnp
 
+hwc.set_device("auto")
 hwc.set_verbose(True)
 
 PDK = gf.gpdk.get_generic_pdk()
 PDK.activate()
 
-RESOLUTION_UM = 0.02          # 20 nm grid spacing
+WL_UM = 1.55                  # Wavelength
 N_CORE = 3.48                 # Silicon refractive index at 1550 nm
 N_CLAD = 1.45                 # SiO2 cladding
-WL_UM = 1.55                  # Wavelength
+RESOLUTION_UM = 0.02          # 20 nm grid spacing
 WG_HEIGHT_UM = 0.22           # Waveguide core height
 TOTAL_HEIGHT_UM = 4.0         # Total stack height
 PADDING = (100, 100, 0, 0)   # (left, right, top, bottom) in theta pixels
@@ -150,6 +151,8 @@ results = hwc.simulate(
     absorption_coeff=abs_coeff,
 )
 
+hwc.save_results(results, "quickstart_results.npz")
+
 
 # %% Step 7: Analyze Results
 
@@ -158,5 +161,3 @@ transmission = hwc.analyze_transmission(
 )
 
 hwc.plot_monitors(results, component="Hz")
-
-hwc.export_csv(transmission, "quickstart_transmission.csv")
