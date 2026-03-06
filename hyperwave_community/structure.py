@@ -276,10 +276,13 @@ class Structure:
     def view(self, **kwargs) -> None:
         """Visualize structure.
 
-        This method has moved to the SDK.
-        Use hyperwave_community.visualization.plot_structure instead.
+        .. deprecated::
+            Use ``hyperwave_community.plot_structure()`` instead.
         """
-        raise NotImplementedError("Use hyperwave_community.visualization.plot_structure instead")
+        import warnings
+        warnings.warn("Structure.view() is deprecated, use hwc.plot_structure(structure, ...)", DeprecationWarning, stacklevel=2)
+        from .visualization import plot_structure
+        return plot_structure(self, **kwargs)
 
     def list_layers(self) -> str:
         """Return human-readable description of the structure's layers."""

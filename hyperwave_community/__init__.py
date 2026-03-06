@@ -183,6 +183,26 @@ def view_gds(*args, **kwargs):
     return plot_gds(*args, **kwargs)
 
 
+def export_csv(*args, **kwargs):
+    raise ImportError("export_csv has been removed. Use hwc.save_results(results, 'output.npz') instead.")
+
+
+def simulate_local(*args, **kwargs):
+    raise ImportError("simulate_local has been removed. Use hwc.simulate() for cloud GPU simulation.")
+
+
+def load_component(*args, **kwargs):
+    raise ImportError("load_component has been removed. Use hwc.component_to_theta() instead.")
+
+
+def build_recipe_from_theta(*args, **kwargs):
+    raise ImportError("build_recipe_from_theta has been removed. Use structure.extract_recipe() instead.")
+
+
+def build_monitors_local(*args, **kwargs):
+    raise ImportError("build_monitors_local has been removed. Use hwc.create_port_monitors() or hwc.MonitorSet() instead.")
+
+
 # Define public API
 __all__ = [
     # Version
