@@ -548,7 +548,7 @@ def gds_to_theta(
         'background_value': background_value,
     }
 
-    logger.info("Component: %s", comp_name)
+    logger.info("Component: %s", cell.name)
     logger.info("  Theta shape: %s, Device size: %.1f x %.1f um",
                 theta_jax.shape, width, height)
 
@@ -607,7 +607,7 @@ def component_to_theta(
         Requires gdsfactory to be installed: pip install gdsfactory
     """
     try:
-        import gdsfactory as gf
+        import gdsfactory as gf  # noqa: F401
     except ImportError:
         raise ImportError("gdsfactory is required for component_to_theta. Install with: pip install gdsfactory")
 

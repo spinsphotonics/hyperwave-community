@@ -1005,7 +1005,7 @@ def reconstruct_structure_from_recipe(recipe: dict) -> Structure:
     """
     layers_info = recipe['layers_info']
     construction_params = recipe['construction_params']
-    metadata = recipe['metadata']
+    _metadata = recipe['metadata']
     unique_densities = recipe['unique_densities']  # Deduplicated density arrays
 
     # Rebuild the structure using the original layers and parameters
@@ -1029,7 +1029,6 @@ def reconstruct_structure_from_recipe(recipe: dict) -> Structure:
             # Check if it's a uniform pattern or full array
             if isinstance(density_data, dict) and density_data.get('type') == 'uniform':
                 # Reconstruct uniform density from scalar value
-                import numpy as np
                 density_pattern = jnp.full(density_data['shape'], density_data['value'])
             else:
                 # Full array stored

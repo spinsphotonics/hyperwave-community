@@ -714,7 +714,6 @@ def create_port_monitors(
     Returns:
         MonitorSet with monitors at each port plus an xy_mid plane.
     """
-    import warnings as _warnings
 
     # Get structure dimensions
     if len(structure.permittivity.shape) == 4:

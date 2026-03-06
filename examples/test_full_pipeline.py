@@ -143,12 +143,12 @@ hwc.plot_monitor_layout(
     show=False,
 )
 
-print(f"\n=== Pre-sim summary ===")
+print("\n=== Pre-sim summary ===")
 print(f"Grid: {Lx} x {Ly} x {Lz} = {Lx * Ly * Lz:,} cells")
-print(f"Pre-sim checks: PASS")
+print("Pre-sim checks: PASS")
 
 # %% API + Simulate (minimal steps)
-import os
+import os  # noqa: E402
 try:
     from google.colab import userdata
     hwc.configure_api(api_key=userdata.get("HYPERWAVE_API_KEY"))

@@ -1,5 +1,5 @@
 import jax.numpy as jnp
-from typing import Optional, Tuple
+from typing import Tuple
 from functools import partial
 import numpy as np
 

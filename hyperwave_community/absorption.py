@@ -19,7 +19,7 @@ The new inward padding approach:
 - Boundary regions: quadratic absorption profiles at grid edges
 """
 
-from typing import Tuple, Optional, Dict
+from typing import Tuple, Dict
 import jax
 import jax.numpy as jnp
 from ._logging import logger

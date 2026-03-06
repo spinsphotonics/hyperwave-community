@@ -23,14 +23,13 @@
 # %% Imports + Verbose Logging
 
 import jax.numpy as jnp
-import numpy as np
 import hyperwave_community as hwc
 
 # Enable verbose logging so you can see what the SDK is doing at each step.
 # set_debug() would add even more detail, useful for troubleshooting.
 hwc.set_verbose()
 
-import matplotlib
+import matplotlib  # noqa: E402
 matplotlib.use("Agg")
 
 
@@ -54,7 +53,7 @@ matplotlib.use("Agg")
 #   fiber_angle:   Angle of the fiber relative to vertical (degrees). Standard
 #                  packaging uses 8-15 degrees to avoid back-reflections.
 
-import gdsfactory as gf
+import gdsfactory as gf  # noqa: E402
 gf.gpdk.PDK.activate()
 
 gc = gf.components.grating_coupler_rectangular(
@@ -392,7 +391,7 @@ results = hwc.simulate(
     gpu_type="B200",
 )
 
-print(f"\nSimulation complete!")
+print("\nSimulation complete!")
 print(f"  GPU time: {results.get('sim_time', 'N/A')} seconds")
 print(f"  Converged: {results.get('converged', 'N/A')}")
 print(f"  Convergence step: {results.get('convergence_step', 'N/A')}")
@@ -428,7 +427,7 @@ transmission = hwc.analyze_transmission(
     print_results=True,
 )
 
-print(f"\nPower budget:")
+print("\nPower budget:")
 print(f"  Total transmission: {transmission['total_transmission']:.4f}")
 print(f"  Excess loss: {transmission['excess_loss_dB']:.2f} dB")
 

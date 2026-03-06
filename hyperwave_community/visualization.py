@@ -840,8 +840,6 @@ def plot_simulation_overview(
     abs_np = np.asarray(absorption_mask)
 
     z_mid = perm_np.shape[3] // 2
-    y_mid = perm_np.shape[2] // 2
-
     # Derived quantities
     perm_xy = np.real(perm_np[0, :, :, z_mid])
     abs_xy = abs_np[0, :, :, z_mid]
@@ -932,11 +930,11 @@ def plot_structure_3d(
     # Accept Structure
     if hasattr(permittivity, "permittivity"):
         struct = permittivity
-        cond_arr = np.asarray(struct.conductivity) if conductivity is None else np.asarray(conductivity)
+        _cond_arr = np.asarray(struct.conductivity) if conductivity is None else np.asarray(conductivity)
         perm_arr = np.asarray(struct.permittivity)
     else:
         perm_arr = np.asarray(permittivity)
-        cond_arr = np.asarray(conductivity) if conductivity is not None else None
+        _cond_arr = np.asarray(conductivity) if conductivity is not None else None
 
     nx, ny, nz = perm_arr.shape[1], perm_arr.shape[2], perm_arr.shape[3]
     X, Y, Z = np.meshgrid(np.arange(nx), np.arange(ny), np.arange(nz), indexing="ij")
