@@ -39,7 +39,8 @@ def _has_nvidia_gpu() -> bool:
 
 def _ensure_jax_installed(need_gpu: bool):
     """Install the correct jaxlib variant if JAX cannot see the expected device."""
-    import subprocess, sys
+    import subprocess
+    import sys
 
     try:
         import jax
