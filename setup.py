@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="hyperwave-community",
-    version="0.1.0",
+    version="0.1.1",
     author="Hyperwave Team",
     author_email="support@spinsphotonics.com",
     description="Open-source photonics simulation toolkit with GPU-accelerated FDTD via cloud API",
