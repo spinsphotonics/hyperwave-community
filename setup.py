@@ -42,6 +42,7 @@ setup(
         "docs": [
             "sphinx>=8.0",
             "pydata-sphinx-theme",
+            "sphinx-autodoc-typehints",
         ],
     },
 )
