@@ -1,5 +1,5 @@
-Building Simulations
-====================
+Set Up Simulation
+=================
 
 Functions for converting GDS layouts to simulation-ready 3D structures
 with sources, monitors, and absorbing boundaries.

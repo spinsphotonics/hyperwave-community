@@ -713,6 +713,16 @@ def create_port_monitors(
 
     Returns:
         MonitorSet with monitors at each port plus an xy_mid plane.
+
+    Example::
+
+        monitors = hwc.create_port_monitors(
+            component=gf_device,
+            structure=structure,
+            device_info=device_info,
+            padding=PADDING,
+            absorption_widths=abs_widths,
+        )
     """
 
     # Get structure dimensions

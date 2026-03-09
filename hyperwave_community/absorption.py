@@ -221,19 +221,14 @@ def create_absorption_mask(
         - Quadratic profile ensures adiabatic (slowly-varying) transitions
         - Works in full 3D with proper field component offsets
 
-    Example:
-        >>> import jax.numpy as jnp
-        >>> from hyperwave.absorption import create_absorption_mask
-        >>>
-        >>> # Create absorption mask with inward padding
-        >>> grid_shape = (100, 80, 60)  # (xx, yy, zz)
-        >>> absorption_widths = (10, 8, 6)  # (x_pad, y_pad, z_pad)
-        >>> absorption_coeff = 1e-1
-        >>>
-        >>> mask = create_absorption_mask(grid_shape, absorption_widths, absorption_coeff)
-        >>> print(f"Grid shape: {grid_shape}")
-        >>> print(f"Absorption mask shape: {mask.shape}")
-        >>> print(f"Center region size: {grid_shape[0] - 2*absorption_widths[0]} x {grid_shape[1] - 2*absorption_widths[1]} x {grid_shape[2] - 2*absorption_widths[2]}")
+    Example::
+
+        absorber = hwc.create_absorption_mask(
+            grid_shape=(Lx, Ly, Lz),
+            absorption_widths=abs_widths,
+            absorption_coeff=abs_coeff,
+        )
+        structure.conductivity = jnp.zeros_like(structure.conductivity) + absorber
     """
     # Input validation
     if not isinstance(grid_shape, tuple) or len(grid_shape) != 3:
@@ -392,6 +387,15 @@ def get_optimized_absorber_params(
             - absorber_coeff: Absorption coefficient
             - absorption_widths: (x, y, z) tuple if structure_dimensions provided
             - baseline_info: Dict with baseline optimization parameters
+
+    Example::
+
+        abs_params = hwc.get_optimized_absorber_params(
+            resolution_nm=RESOLUTION_UM * 1000,
+            structure_dimensions=(Lx, Ly, Lz),
+        )
+        abs_widths = abs_params["absorption_widths"]
+        abs_coeff = abs_params["absorber_coeff"]
     """
     scale = resolution_nm / _BASELINE_RESOLUTION_NM
 

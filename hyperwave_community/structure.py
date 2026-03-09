@@ -39,25 +39,10 @@ class Layer:
           densities afterwards and make them odd-sized, instantiating a `Layer` will raise
           a clear ValueError.
         
-    Example:
-        >>> import jax.numpy as jnp
-        >>> from hyperwave.structure import Layer
-        >>> 
-        >>> # Create a simple layer with default conductivity (0.0)
-        >>> density_pattern = jnp.ones((20, 20))
-        >>> layer = Layer(
-        ...     density_pattern=density_pattern,
-        ...     permittivity_values=(1.0, 12.0),  # Air to silicon
-        ...     layer_thickness=10
-        ... )
-        >>> 
-        >>> # Create a layer with custom conductivity
-        >>> layer_with_conductivity = Layer(
-        ...     density_pattern=density_pattern,
-        ...     permittivity_values=(1.0, 12.0),
-        ...     layer_thickness=10,
-        ...     conductivity_values=(0.0, 0.1),   # Low to medium conductivity
-        ... )
+    Example::
+
+        hwc.Layer(density_pattern=density_clad, permittivity_values=eps_clad, layer_thickness=clad_cells)
+        hwc.Layer(density_pattern=density_core, permittivity_values=(eps_clad, eps_core), layer_thickness=wg_cells)
     """
     density_pattern: jnp.ndarray
     permittivity_values: Union[Tuple[float, float], float]
@@ -674,30 +659,10 @@ def density(
         ValueError: If parameters are outside valid ranges or if output contains NaN/Inf.
         TypeError: If input types are incorrect.
 
-    Example:
-        >>> import jax.numpy as jnp
-        >>> from hyperwave.structure import density
-        >>>
-        >>> # Create raw optimization variables for any device
-        >>> theta = jnp.random.random((50, 50))
-        >>>
-        >>> # Generate density field with uniform padding
-        >>> density_field = density(
-        ...     theta=theta,
-        ...     pad_width=10,  # 10 pixels on all sides
-        ...     alpha=0.8,
-        ...     radius=3.0
-        ... )
-        >>> print(f"Density field shape: {density_field.shape}")
-        >>>
-        >>> # Or use custom padding (left, right, top, bottom)
-        >>> density_field = density(
-        ...     theta=theta,
-        ...     pad_width=(5, 10, 15, 20),  # Different padding on each side
-        ...     alpha=0.8,
-        ...     radius=3.0
-        ... )
-        >>> print(f"Density field shape: {density_field.shape}")
+    Example::
+
+        density_core = hwc.density(theta=theta, pad_width=PADDING, radius=3)
+        density_clad = hwc.density(theta=jnp.zeros_like(theta), pad_width=PADDING, radius=5)
 
     Note:
         This function replaces the separate density_pjz function, incorporating
@@ -858,34 +823,16 @@ def create_structure(layers: List[Layer], vertical_radius: float = 5.0) -> Struc
         - construction_params: Parameters used in construction
         - metadata: Additional reconstruction information
         
-    Example:
-        >>> import jax.numpy as jnp
-        >>> from hyperwave.structure import Layer, create_structure
-        >>> 
-        >>> # Create layers
-        >>> layer1 = Layer(
-        ...     density_pattern=jnp.ones((20, 20)),
-        ...     permittivity_values=(1.0, 12.0),
-        ...     conductivity_values=(0.0, 0.1),
-        ...     layer_thickness=10
-        ... )
-        >>> layer2 = Layer(
-        ...     density_pattern=jnp.zeros((20, 20)),
-        ...     permittivity_values=(12.0, 1.0),
-        ...     conductivity_values=(0.1, 0.0),
-        ...     layer_thickness=5
-        ... )
-        >>> 
-        >>> # Create enhanced structure with metadata
-        >>> structure = create_structure([layer1, layer2])  # Uses default vertical_radius=5.0
-        >>> 
-        >>> # Traditional access (backward compatible)
-        >>> eps, cond = structure  # Tuple unpacking still works
-        >>> print(f"Permittivity shape: {structure.permittivity.shape}")
-        >>> 
-        >>> # New Modal workflow
-        >>> recipe = structure.extract_recipe()
-        >>> # recipe can now be sent to Modal for lightweight reconstruction
+    Example::
+
+        structure = hwc.create_structure(
+            layers=[
+                hwc.Layer(density_pattern=density_clad, permittivity_values=eps_clad, layer_thickness=clad_cells),
+                hwc.Layer(density_pattern=density_core, permittivity_values=(eps_clad, eps_core), layer_thickness=wg_cells),
+                hwc.Layer(density_pattern=density_clad, permittivity_values=eps_clad, layer_thickness=clad_cells),
+            ],
+            vertical_radius=2,
+        )
     """
     # Validate inputs
     if not isinstance(layers, list):

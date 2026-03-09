@@ -591,17 +591,12 @@ def component_to_theta(
             - 'bounding_box_um': Bounding box coordinates in micrometers
             - 'layer': Layer that was extracted
 
-    Examples:
-        >>> import gdsfactory as gf
-        >>> from hyperwave.data_io import component_to_theta
-        >>>
-        >>> # Create component first
-        >>> coupler = gf.components.coupler(gap=0.236, length=20.0)
-        >>> theta, info = component_to_theta(coupler, resolution=0.05)
-        >>>
-        >>> # Or with a ring resonator
-        >>> ring = gf.components.ring(radius=10.0)
-        >>> theta, info = component_to_theta(ring, resolution=0.1)
+    Example::
+
+        theta, device_info = hwc.component_to_theta(
+            component=gf_extended,
+            resolution=RESOLUTION_UM,
+        )
 
     Note:
         Requires gdsfactory to be installed: pip install gdsfactory
@@ -727,10 +722,9 @@ def save_results(results: dict, path: str = "results.npz") -> str:
     Returns:
         Absolute path of the saved file.
 
-    Examples:
-        >>> results = hwc.simulate(...)
-        >>> hwc.save_results(results, "my_sim.npz")
-        >>> loaded = hwc.load_results("my_sim.npz")
+    Example::
+
+        hwc.save_results(results, "quickstart_results.npz")
     """
     arrays = {}
 
@@ -778,9 +772,9 @@ def load_results(path: str) -> dict:
     Returns:
         Dict matching the ``simulate()`` return format.
 
-    Examples:
-        >>> results = hwc.load_results("my_sim.npz")
-        >>> hwc.plot_monitors(results, component="Hz")
+    Example::
+
+        results = hwc.load_results("quickstart_results.npz")
     """
     data = np.load(path, allow_pickle=False)
 

@@ -234,6 +234,15 @@ def plot_mode(
 
     Returns:
         The matplotlib ``Figure``.
+
+    Example::
+
+        hwc.plot_mode(
+            mode_field=mode_info["field"],
+            beta=mode_info["beta"],
+            mode_num=0,
+            propagation_axis="x",
+        )
     """
     import matplotlib.pyplot as plt
 
@@ -325,6 +334,10 @@ def plot_monitors(
     Returns:
         When ``show=False``: tuple of (ports_fig, fields_fig), or a single
         Figure if only one category exists. ``None`` when ``show=True``.
+
+    Example::
+
+        hwc.plot_monitors(results, component="Hz")
     """
     import matplotlib.pyplot as plt
     import matplotlib.gridspec as gridspec
@@ -475,6 +488,13 @@ def plot_monitor_layout(
 
     Returns:
         The matplotlib ``Figure``.
+
+    Example::
+
+        hwc.plot_monitor_layout(
+            structure.permittivity, monitors,
+            axis="z", position=z_wg_center, source_position=abs_widths[0],
+        )
     """
     import matplotlib.pyplot as plt
     import matplotlib.patches as patches
@@ -616,6 +636,10 @@ def plot_absorption_mask(
 
     Returns:
         The matplotlib ``Figure``.
+
+    Example::
+
+        hwc.plot_absorption_mask(absorber)
     """
     import matplotlib.pyplot as plt
 
@@ -681,6 +705,10 @@ def plot_theta(
 
     Returns:
         The matplotlib ``Figure``.
+
+    Example::
+
+        hwc.plot_theta(theta)
     """
     import matplotlib.pyplot as plt
 
@@ -739,6 +767,11 @@ def plot_structure(
 
     Returns:
         The matplotlib ``Figure``.
+
+    Example::
+
+        hwc.plot_structure(structure, axis="z", position=z_wg_center)
+        hwc.plot_structure(structure, view_mode="3d")
     """
     import matplotlib.pyplot as plt
 
