@@ -15,6 +15,10 @@ def set_verbose(verbose=True):
 
     When enabled, shows progress messages during simulation,
     optimization, and other long-running operations.
+
+    Example::
+
+        hwc.set_verbose(True)
     """
     logger.setLevel(logging.INFO if verbose else logging.WARNING)
 
@@ -81,6 +85,10 @@ def set_device(mode: str = "auto"):
     Raises:
         RuntimeError: If ``mode="gpu"`` but no NVIDIA GPU is present.
         ValueError: If *mode* is not one of ``"auto"``, ``"cpu"``, ``"gpu"``.
+
+    Example::
+
+        hwc.set_device("auto")
     """
     import warnings
     warnings.filterwarnings(

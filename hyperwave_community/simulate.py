@@ -55,6 +55,16 @@ def create_mode_source(
             - source_field: Array of shape (num_freqs, 6, spatial_dims...)
             - source_offset: (x, y, z) CORNER position for source placement
             - mode_info: Dict with 'field', 'beta', and 'error'
+
+    Example::
+
+        source_field, source_offset, mode_info = hwc.create_mode_source(
+            structure=structure,
+            freq_band=freq_band,
+            mode_num=0,
+            propagation_axis="x",
+            source_position=abs_widths[0],
+        )
     """
     # Check if mode solver is available
     if not MODE_SOLVER_AVAILABLE:

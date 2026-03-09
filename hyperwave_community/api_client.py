@@ -397,10 +397,11 @@ def configure_api(api_key: Optional[str] = None, api_url: Optional[str] = None,
         ValueError: If no API key is provided and HYPERWAVE_API_KEY is not set.
         RuntimeError: If API key validation fails.
 
-    Example:
-        >>> import hyperwave_community as hwc
-        >>> account = hwc.configure_api(api_key='your-key-here')
-        >>> print(f"Welcome {account['name']}! Credits: {account['credits_balance']}")
+    Example::
+
+        hwc.configure_api(api_key=userdata.get("HYPERWAVE_API_KEY"))
+        # or
+        hwc.configure_api(api_key=os.environ.get("HYPERWAVE_API_KEY"))
     """
     global _API_CONFIG
 
@@ -1223,27 +1224,19 @@ def simulate(
             - converged: Whether simulation converged early
             - convergence_step: Step at which convergence was reached (if applicable)
 
-    Example:
-        >>> # Create structure locally
-        >>> structure = hwc.create_structure(layers=[...])
-        >>> structure_recipe = structure.extract_recipe()
-        >>>
-        >>> # Create source locally
-        >>> source_field, source_offset, mode_info = hwc.create_mode_source(...)
-        >>>
-        >>> # Create monitors locally
-        >>> monitors = hwc.MonitorSet()
-        >>> monitors.add_monitors_at_position(...)
-        >>> monitors_recipe = monitors.recipe
-        >>>
-        >>> # Run on cloud GPU
-        >>> results = hwc.simulate(
-        ...     structure_recipe=structure_recipe,
-        ...     source_field=source_field,
-        ...     source_offset=source_offset,
-        ...     freq_band=freq_band,
-        ...     monitors_recipe=monitors_recipe,
-        ... )
+    Example::
+
+        results = hwc.simulate(
+            structure_recipe=structure.extract_recipe(),
+            source_field=source_field,
+            source_offset=source_offset,
+            freq_band=freq_band,
+            monitors_recipe=monitors.recipe,
+            mode_info=mode_info,
+            simulation_steps=20000,
+            absorption_widths=abs_widths,
+            absorption_coeff=abs_coeff,
+        )
     """
     # Use provided api_key or fall back to configured one
     effective_api_key = api_key or _API_CONFIG.get('api_key')
@@ -2111,6 +2104,12 @@ def analyze_transmission(
             - 'transmissions': Dict mapping monitor name to transmission value
             - 'total_transmission': Sum of all output transmissions
             - 'excess_loss_dB': Excess loss in dB (10*log10(total))
+
+    Example::
+
+        transmission = hwc.analyze_transmission(
+            results, input_monitor="Input_o1", direction="x",
+        )
     """
     monitor_data = results.get('monitor_data', {})
     monitor_shapes = results.get('monitor_data_shapes', {})
