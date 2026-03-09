@@ -8,6 +8,7 @@ Structure
 ---------
 
 .. autofunction:: hyperwave_community.component_to_theta
+.. autofunction:: hyperwave_community.gds_to_theta
 
 .. autofunction:: hyperwave_community.density
 
@@ -33,3 +34,9 @@ Monitors
 --------
 
 .. autofunction:: hyperwave_community.create_port_monitors
+
+.. autoclass:: hyperwave_community.Monitor
+   :members:
+
+.. autoclass:: hyperwave_community.MonitorSet
+   :members:
