@@ -555,6 +555,7 @@ def gds_to_theta(
         'background_value': background_value,
     }
 
+    logger.info("Component: %s", cell.name)
     logger.info("  Theta: %s, Device: %.1f x %.1f um", theta_jax.shape, width, height)
 
     return theta_jax, info
@@ -663,6 +664,8 @@ def component_to_theta(
         if len(points) < 3:
             continue
 
+        # gdsfactory's each_point_hull() returns integer-nm database units
+        # divided by 1000, so coordinates are already nm-precise (no rounding needed)
         points = np.array(points)
 
         # Convert to pixel coordinates
