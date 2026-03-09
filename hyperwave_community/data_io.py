@@ -397,8 +397,9 @@ def gds_to_theta(
 
     Args:
         gds_filepath: Path to the GDS file to convert.
-        resolution: Grid resolution in micrometers per pixel. Default 0.05 (50nm).
-            Smaller values give higher resolution but larger arrays.
+        resolution: Grid resolution in micrometers per pixel in the final STRUCTURE.
+            Default 0.05 (50nm). Note: theta array will be generated at 2x this
+            resolution since theta is downsampled by 2 during structure creation.
         layer: Specific layer to extract. If None, uses most common layer.
             Can be integer or tuple (layer, datatype).
         waveguide_value: Value for waveguide regions. Default 1.0.
@@ -409,7 +410,8 @@ def gds_to_theta(
         - theta: JAX array with shape (ny, nx) containing waveguide and
             background values.
         - info: Dictionary with metadata including 'gds_file', 'cell_name',
-            'shape', 'resolution', 'physical_size_um' (width, height),
+            'shape', 'theta_resolution_um', 'structure_resolution_um',
+            'physical_size_um' (width, height),
             'bounding_box_um' (x_min, y_min, x_max, y_max), 'layer',
             'num_polygons', 'waveguide_value', 'background_value'.
 
@@ -422,9 +424,8 @@ def gds_to_theta(
         The rasterization uses matplotlib.path for polygon filling which is
         accurate but can be slow for complex polygons.
     """
-    # Convert resolution from nm to μm for internal calculations
-    # Resolution is already in micrometers
-    resolution_um = resolution
+    # Use half the resolution for theta since it gets downsampled by 2 in structure creation
+    theta_resolution = resolution / 2.0
 
     # Read the GDS file
     library = gdstk.read_gds(gds_filepath)
@@ -483,14 +484,16 @@ def gds_to_theta(
         raise ValueError("No valid polygons found")
 
     all_points = np.array(all_points)
+    # Round to nm precision to match KLayout integer-nm storage
+    all_points = np.round(all_points * 1000) / 1000
     x_min, y_min = all_points.min(axis=0)
     x_max, y_max = all_points.max(axis=0)
 
     # Calculate grid dimensions
     width = x_max - x_min
     height = y_max - y_min
-    nx = int(np.ceil(width / resolution_um))
-    ny = int(np.ceil(height / resolution_um))
+    nx = int(np.ceil(width / theta_resolution))
+    ny = int(np.ceil(height / theta_resolution))
 
     # Initialize theta array with background value
     theta_array = np.full((ny, nx), background_value, dtype=np.float32)
@@ -503,9 +506,12 @@ def gds_to_theta(
         if len(points) < 3:
             continue
 
+        # Round to nm precision to match KLayout integer-nm storage
+        points = np.round(points * 1000) / 1000
+
         # Shift to origin and convert to pixels
         points_shifted = points - [x_min, y_min]
-        points_pixels = points_shifted / resolution_um
+        points_pixels = points_shifted / theta_resolution
 
         # Create path for point-in-polygon test
         path = Path(points_pixels)
@@ -539,7 +545,8 @@ def gds_to_theta(
         'gds_file': gds_filepath,
         'cell_name': cell.name,
         'shape': theta_jax.shape,  # Now (x, y)
-        'resolution': resolution,
+        'theta_resolution_um': theta_resolution,
+        'structure_resolution_um': resolution,
         'physical_size_um': (width, height),  # (x_size, y_size)
         'bounding_box_um': (x_min, y_min, x_max, y_max),
         'layer': used_layer,
@@ -548,9 +555,7 @@ def gds_to_theta(
         'background_value': background_value,
     }
 
-    logger.info("Component: %s", cell.name)
-    logger.info("  Theta shape: %s, Device size: %.1f x %.1f um",
-                theta_jax.shape, width, height)
+    logger.info("  Theta: %s, Device: %.1f x %.1f um", theta_jax.shape, width, height)
 
     return theta_jax, info
 
@@ -673,12 +678,18 @@ def component_to_theta(
         y_min_px = max(0, int(np.floor(points_pixels[:, 1].min())))
         y_max_px = min(ny, int(np.ceil(points_pixels[:, 1].max())))
 
-        # Fill pixels inside polygon
-        for y in range(y_min_px, y_max_px):
-            for x in range(x_min_px, x_max_px):
-                # Check if pixel center is inside polygon
-                if path.contains_point([x + 0.5, y + 0.5]):
-                    theta_array[y, x] = waveguide_value
+        # Create a grid of points to test
+        x_coords = np.arange(x_min_px, x_max_px) + 0.5
+        y_coords = np.arange(y_min_px, y_max_px) + 0.5
+        xx, yy = np.meshgrid(x_coords, y_coords)
+        points_to_test = np.column_stack([xx.ravel(), yy.ravel()])
+
+        # Test all points at once
+        inside = path.contains_points(points_to_test)
+        inside_mask = inside.reshape(len(y_coords), len(x_coords))
+
+        # Update theta array
+        theta_array[y_min_px:y_max_px, x_min_px:x_max_px][inside_mask] = waveguide_value
 
     # Convert to JAX array and transpose to (x, y) format for hyperwave
     # theta_array is (ny, nx), we need (nx, ny) = (x, y)
