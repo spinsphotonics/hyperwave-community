@@ -557,17 +557,11 @@ class MonitorSet:
         """
         return self.monitors, self.mapping
 
-    def view(self, structure=None, **kwargs) -> None:
-        """Visualize monitors in this set overlaid on structure cross-sections.
-
-        Convenience wrapper around
-        :func:`hyperwave_community.visualization.plot_monitor_layout`.
-        """
-        from .visualization import plot_monitor_layout
-        if structure is None:
-            raise ValueError("structure is required: monitors.view(structure=structure)")
-        permittivity = structure.permittivity if hasattr(structure, 'permittivity') else structure
-        return plot_monitor_layout(permittivity, self, **kwargs)
+    def view(self, **kwargs) -> None:
+        """Deprecated. Use hyperwave_community.visualization.plot_monitor_layout instead."""
+        raise NotImplementedError(
+            "Use hyperwave_community.visualization.plot_monitor_layout instead"
+        )
 
     def add_monitors_at_position(
         self,
