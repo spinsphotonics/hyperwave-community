@@ -54,6 +54,7 @@ __version__ = "0.1.0"
 from .structure import (
     density,
     create_structure,
+    structure_spec_from_layers,
     Layer,
     Structure,
     recipe_from_params,
@@ -211,6 +212,7 @@ __all__ = [
     # Structure
     "density",
     "create_structure",
+    "structure_spec_from_layers",
     "Layer",
     "Structure",
     "recipe_from_params",

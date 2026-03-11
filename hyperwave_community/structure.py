@@ -751,6 +751,52 @@ def density(
     return d
 
 
+def structure_spec_from_layers(
+    layers: List[Layer],
+    vertical_radius: float = 0.0,
+    design_layer: Union[int, List[int], None] = None,
+    density_radius: int = 0,
+    density_alpha: float = 0.0,
+) -> dict:
+    """Build a structure_spec dict from a list of Layer objects.
+
+    Args:
+        layers: Layer objects (same list passed to ``create_structure``).
+        vertical_radius: Vertical blur radius for subpixel averaging.
+        design_layer: Index (or list of indices) of the design layer(s).
+            Only design layers get nonzero ``density_radius`` / ``density_alpha``.
+            If ``None``, no layer gets density parameters.
+        density_radius: Density filter radius for design layer(s).
+        density_alpha: Density projection alpha for design layer(s).
+
+    Returns:
+        Dictionary with ``layers_info`` and ``construction_params``, ready to
+        pass to ``run_optimization``.
+    """
+    if isinstance(design_layer, int):
+        design_indices = {design_layer}
+    elif design_layer is not None:
+        design_indices = set(design_layer)
+    else:
+        design_indices = set()
+
+    layers_info = []
+    for i, layer in enumerate(layers):
+        pv = layer.permittivity_values
+        info = {
+            'permittivity_values': [float(v) for v in pv] if isinstance(pv, tuple) else float(pv),
+            'layer_thickness': float(layer.layer_thickness),
+            'density_radius': density_radius if i in design_indices else 0,
+            'density_alpha': density_alpha if i in design_indices else 0,
+        }
+        layers_info.append(info)
+
+    return {
+        'layers_info': layers_info,
+        'construction_params': {'vertical_radius': vertical_radius},
+    }
+
+
 # =============================================================================
 # Permittivity computation functions
 # =============================================================================
