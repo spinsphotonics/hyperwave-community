@@ -4,9 +4,7 @@ Tests GDS generation and theta round-tripping.
 Requires gdstk and skimage.
 """
 
-import pytest
 import numpy as np
-import jax.numpy as jnp
 import os
 import tempfile
 
@@ -65,6 +63,36 @@ class TestGenerateGds:
             )
             assert os.path.exists(path)
             assert os.path.getsize(path) > 0
+        finally:
+            os.unlink(path)
+
+    def test_gds_to_theta_resolution_and_info(self):
+        """gds_to_theta should apply 2x resolution factor and return correct info keys."""
+        density_arr = np.zeros((100, 100))
+        density_arr[25:75, 25:75] = 1.0
+        resolution = 0.050
+
+        with tempfile.NamedTemporaryFile(suffix='.gds', delete=False) as f:
+            path = f.name
+        try:
+            generate_gds_from_density(
+                density_array=density_arr,
+                level=0.5,
+                output_filename=path,
+                resolution=resolution,
+            )
+            theta, info = gds_to_theta(path, resolution=resolution)
+
+            # Info dict should have the new resolution keys
+            assert 'theta_resolution_um' in info
+            assert 'structure_resolution_um' in info
+            assert info['theta_resolution_um'] == resolution / 2.0
+            assert info['structure_resolution_um'] == resolution
+
+            # Theta should be 2x larger than structure would be
+            assert theta.ndim == 2
+            assert theta.shape[0] > 0
+            assert theta.shape[1] > 0
         finally:
             os.unlink(path)
 

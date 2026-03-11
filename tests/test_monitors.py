@@ -5,7 +5,6 @@ Tests Monitor, MonitorSet, S_from_slice, and field analysis functions.
 
 import pytest
 import jax.numpy as jnp
-import numpy as np
 
 from hyperwave_community.monitors import (
     Monitor,

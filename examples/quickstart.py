@@ -1,0 +1,163 @@
+# %% [markdown]
+# # Hyperwave Quickstart: 2x2 MMI with S-Bends
+#
+# Simulate a 2x2 multimode interference coupler using gdsfactory for layout
+# and Hyperwave for cloud-accelerated 3D FDTD.
+#
+# **What you'll learn:**
+# 1. Convert a gdsfactory component to a simulation-ready structure
+# 2. Set up mode sources, monitors, and absorbing boundaries
+# 3. Run a cloud GPU simulation and analyze transmission
+
+# %% Installation
+
+# %% Imports and Configuration
+import hyperwave_community as hwc
+import gdsfactory as gf
+import numpy as np
+import jax.numpy as jnp
+
+hwc.set_device("auto")
+hwc.set_verbose(True)
+
+PDK = gf.gpdk.get_generic_pdk()
+PDK.activate()
+
+WL_UM = 1.55                  # Wavelength
+N_CORE = 3.48                 # Silicon refractive index at 1550 nm
+N_CLAD = 1.45                 # SiO2 cladding
+RESOLUTION_UM = 0.02          # 20 nm grid spacing
+WG_HEIGHT_UM = 0.22           # Waveguide core height
+TOTAL_HEIGHT_UM = 4.0         # Total stack height
+PADDING = (100, 100, 0, 0)   # (left, right, top, bottom) in theta pixels
+
+
+# %% Step 1: Load Component
+
+EXTENSION_LENGTH = 2.0        # Extend ports by 2 um
+
+gf_device = gf.components.mmi2x2_with_sbend()
+gf_extended = gf.c.extend_ports(gf_device, length=EXTENSION_LENGTH)
+
+theta, device_info = hwc.component_to_theta(
+    component=gf_extended,
+    resolution=RESOLUTION_UM,
+)
+
+hwc.plot_theta(theta)
+
+
+# %% Step 2: Build 3D Structure
+
+eps_core = N_CORE ** 2
+eps_clad = N_CLAD ** 2
+
+density_core = hwc.density(theta=theta, pad_width=PADDING, radius=3)
+density_clad = hwc.density(theta=jnp.zeros_like(theta), pad_width=PADDING, radius=5)
+
+wg_cells = max(1, int(np.round(WG_HEIGHT_UM / RESOLUTION_UM)))
+clad_cells = int(np.round((TOTAL_HEIGHT_UM - WG_HEIGHT_UM) / 2 / RESOLUTION_UM))
+
+structure = hwc.create_structure(
+    layers=[
+        hwc.Layer(density_pattern=density_clad, permittivity_values=eps_clad, layer_thickness=clad_cells),
+        hwc.Layer(density_pattern=density_core, permittivity_values=(eps_clad, eps_core), layer_thickness=wg_cells),
+        hwc.Layer(density_pattern=density_clad, permittivity_values=eps_clad, layer_thickness=clad_cells),
+    ],
+    vertical_radius=2,
+)
+
+z_wg_center = clad_cells + wg_cells // 2
+hwc.plot_structure(structure, axis="z", position=z_wg_center)
+hwc.plot_structure(structure, view_mode="3d")
+
+
+# %% Step 3: Absorbing Boundaries
+
+_, Lx, Ly, Lz = structure.permittivity.shape
+
+abs_params = hwc.get_optimized_absorber_params(
+    resolution_nm=RESOLUTION_UM * 1000,
+    structure_dimensions=(Lx, Ly, Lz),
+)
+abs_widths = abs_params["absorption_widths"]
+abs_coeff = abs_params["absorber_coeff"]
+
+absorber = hwc.create_absorption_mask(
+    grid_shape=(Lx, Ly, Lz),
+    absorption_widths=abs_widths,
+    absorption_coeff=abs_coeff,
+)
+structure.conductivity = jnp.zeros_like(structure.conductivity) + absorber
+
+hwc.plot_absorption_mask(absorber)
+
+
+# %% Step 4: Mode Source
+
+wl_cells = WL_UM / RESOLUTION_UM
+freq_band = (2 * jnp.pi / wl_cells, 2 * jnp.pi / wl_cells, 1)
+
+source_field, source_offset, mode_info = hwc.create_mode_source(
+    structure=structure,
+    freq_band=freq_band,
+    mode_num=0,
+    propagation_axis="x",
+    source_position=abs_widths[0],
+)
+
+hwc.plot_mode(
+    mode_field=mode_info["field"],
+    beta=mode_info["beta"],
+    mode_num=0,
+    propagation_axis="x",
+)
+
+
+# %% Step 5: Monitors
+
+monitors = hwc.create_port_monitors(
+    component=gf_device,
+    structure=structure,
+    device_info=device_info,
+    padding=PADDING,
+    absorption_widths=abs_widths,
+)
+
+hwc.plot_monitor_layout(
+    structure.permittivity, monitors,
+    axis="z", position=z_wg_center, source_position=abs_widths[0],
+)
+
+
+# %% Step 6: Simulate
+
+try:
+    from google.colab import userdata
+    hwc.configure_api(api_key=userdata.get("HYPERWAVE_API_KEY"))
+except ImportError:
+    import os
+    hwc.configure_api(api_key=os.environ.get("HYPERWAVE_API_KEY"))
+
+results = hwc.simulate(
+    structure_recipe=structure.extract_recipe(),
+    source_field=source_field,
+    source_offset=source_offset,
+    freq_band=freq_band,
+    monitors_recipe=monitors.recipe,
+    mode_info=mode_info,
+    simulation_steps=20000,
+    absorption_widths=abs_widths,
+    absorption_coeff=abs_coeff,
+)
+
+hwc.save_results(results, "quickstart_results.npz")
+
+
+# %% Step 7: Analyze Results
+
+transmission = hwc.analyze_transmission(
+    results, input_monitor="Input_o1", direction="x",
+)
+
+hwc.plot_monitors(results, component="Hz")

@@ -3,7 +3,6 @@
 Tests absorber parameter computation and absorption mask creation.
 """
 
-import pytest
 import jax.numpy as jnp
 
 from hyperwave_community.absorption import (
@@ -86,7 +85,6 @@ class TestCreateAbsorptionMask:
             grid_shape=(50, 50, 50),
             absorption_widths=(10, 10, 10),
             absorption_coeff=0.001,
-            show_plots=False,
         )
         assert mask.shape == (3, 50, 50, 50)
 
@@ -96,7 +94,6 @@ class TestCreateAbsorptionMask:
             grid_shape=(100, 100, 100),
             absorption_widths=(20, 20, 20),
             absorption_coeff=0.001,
-            show_plots=False,
         )
         # Center region should be zero
         center = mask[:, 40:60, 40:60, 40:60]
@@ -108,7 +105,6 @@ class TestCreateAbsorptionMask:
             grid_shape=(100, 100, 100),
             absorption_widths=(20, 20, 20),
             absorption_coeff=0.001,
-            show_plots=False,
         )
         # Edge should have absorption
         edge_values = mask[:, 0, 50, 50]
@@ -120,7 +116,6 @@ class TestCreateAbsorptionMask:
             grid_shape=(50, 50, 50),
             absorption_widths=(10, 10, 10),
             absorption_coeff=0.001,
-            show_plots=False,
         )
         assert jnp.all(mask >= 0)
 
@@ -130,7 +125,6 @@ class TestCreateAbsorptionMask:
             grid_shape=(60, 60, 60),
             absorption_widths=(15, 15, 15),
             absorption_coeff=0.001,
-            show_plots=False,
         )
         # Check x-symmetry for first component
         left = mask[0, :, 30, 30]

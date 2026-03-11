@@ -1,21 +1,19 @@
 """Test WebSocket interruption: start 5-step optimization, cancel after step 1."""
 import os
-import sys
-import signal
 import functools
 from datetime import datetime
 from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
 
-import matplotlib
+import matplotlib  # noqa: E402
 matplotlib.use('Agg')
 
 print = functools.partial(__builtins__.__dict__["print"], flush=True)
 
-import hyperwave_community as hwc
-import numpy as np
-import jax.numpy as jnp
-import time
+import hyperwave_community as hwc  # noqa: E402
+import numpy as np  # noqa: E402
+import jax.numpy as jnp  # noqa: E402
+import time  # noqa: E402
 
 _run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
 print(f"=== test_interruption.py  run={_run_id} ===")
@@ -78,10 +76,10 @@ design_layers = [
 
 structure_spec = {
     'layers_info': [{
-        'permittivity_values': [float(v) for v in l.permittivity_values] if isinstance(l.permittivity_values, tuple) else float(l.permittivity_values),
-        'layer_thickness': float(l.layer_thickness),
+        'permittivity_values': [float(v) for v in layer.permittivity_values] if isinstance(layer.permittivity_values, tuple) else float(layer.permittivity_values),
+        'layer_thickness': float(layer.layer_thickness),
         'density_radius': 0, 'density_alpha': 0,
-    } for l in design_layers],
+    } for layer in design_layers],
     'construction_params': {'vertical_radius': 0},
 }
 
@@ -111,7 +109,7 @@ source_offset = (0, 0, source_z)
 input_power = float(np.mean(input_power))
 
 # Mode (simplified - use local solver)
-from hyperwave_community.mode_solver import mode as hwc_mode
+from hyperwave_community.mode_solver import mode as hwc_mode  # noqa: E402
 small_x_theta = 40
 theta_mode = np.zeros((small_x_theta, theta_Ly), dtype=np.float32)
 theta_mode[:, theta_Ly // 2 - wg_hw_theta : theta_Ly // 2 + wg_hw_theta] = 1.0
@@ -207,7 +205,7 @@ for step_result in hwc.run_optimization(
 
     if len(results) >= 1:
         print(f"\n=== INTERRUPTING after step {len(results)} ===")
-        print(f"Breaking out of generator (this should close WebSocket and cancel GPU task)")
+        print("Breaking out of generator (this should close WebSocket and cancel GPU task)")
         break
 
 elapsed = time.time() - t_opt_start

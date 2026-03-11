@@ -1,23 +1,20 @@
 """Test script: all notebook code cells combined. Run to find bugs."""
 import os
-import pickle
 import functools
 from datetime import datetime
 from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
 
-import matplotlib
+import matplotlib  # noqa: E402
 matplotlib.use('Agg')
 
 print = functools.partial(__builtins__.__dict__["print"], flush=True)
 
 # === Imports ===
-import hyperwave_community as hwc
-import numpy as np
-import jax.numpy as jnp
-import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
-import time
+import hyperwave_community as hwc  # noqa: E402
+import numpy as np  # noqa: E402
+import jax.numpy as jnp  # noqa: E402
+import time  # noqa: E402
 
 _run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
 print(f"=== test_notebook.py  run={_run_id} ===")
@@ -25,7 +22,6 @@ print(f"=== test_notebook.py  run={_run_id} ===")
 hwc.configure_api(api_key=os.environ['HYPERWAVE_API_KEY'])
 
 # === Step 1: Physical parameters ===
-import math
 
 n_si = 3.48
 n_sio2 = 1.44
@@ -134,10 +130,10 @@ def build_recipe(layers):
     return hwc.recipe_from_params(
         grid_shape=np.array(layers[0].density_pattern).shape,
         layers=[{
-            'density': np.array(l.density_pattern),
-            'permittivity': l.permittivity_values,
-            'thickness': l.layer_thickness,
-        } for l in layers],
+            'density': np.array(layer.density_pattern),
+            'permittivity': layer.permittivity_values,
+            'thickness': layer.layer_thickness,
+        } for layer in layers],
         vertical_radius=0,
     )
 
@@ -172,7 +168,7 @@ est = hwc.estimate_cost(structure_shape=(3, Lx, Ly, Lz), max_steps=1000, gpu_typ
 if est:
     print(f"Source gen estimate: {est['estimated_seconds']:.0f}s, {est['estimated_credits']:.4f} credits")
 
-print(f"Generating Gaussian source on cloud GPU...")
+print("Generating Gaussian source on cloud GPU...")
 t0 = time.time()
 source_field, input_power = hwc.generate_gaussian_source(
     sim_shape=(Lx, Ly, Lz),
@@ -236,7 +232,7 @@ print(f"Cropped eps for mode solve: {eps_crop.shape}")
 
 eps_4d = jnp.stack([jnp.array(eps_crop)] * 3, axis=0)[:, jnp.newaxis, :, :]
 
-from hyperwave_community.mode_solver import mode as hwc_mode
+from hyperwave_community.mode_solver import mode as hwc_mode  # noqa: E402
 mode_E, beta_arr, _ = hwc_mode(
     freq_band=freq_band,
     permittivity=eps_4d,
@@ -290,7 +286,7 @@ est = hwc.estimate_cost(structure_shape=(3, Lx, Ly, Lz), max_steps=10000, gpu_ty
 if est:
     print(f"Forward sim estimate: {est['estimated_seconds']:.0f}s, {est['estimated_credits']:.4f} credits")
 
-print(f"Running forward simulation...")
+print("Running forward simulation...")
 t0 = time.time()
 fwd_results = None
 for attempt in range(3):
@@ -324,11 +320,11 @@ if fwd_results is not None:
 # === Step 9: Optimization ===
 structure_spec = {
     'layers_info': [{
-        'permittivity_values': [float(v) for v in l.permittivity_values] if isinstance(l.permittivity_values, tuple) else float(l.permittivity_values),
-        'layer_thickness': float(l.layer_thickness),
+        'permittivity_values': [float(v) for v in layer.permittivity_values] if isinstance(layer.permittivity_values, tuple) else float(layer.permittivity_values),
+        'layer_thickness': float(layer.layer_thickness),
         'density_radius': 0,
         'density_alpha': 0,
-    } for l in design_layers],
+    } for layer in design_layers],
     'construction_params': {'vertical_radius': 0},
 }
 
@@ -428,7 +424,7 @@ est = hwc.estimate_cost(structure_shape=(3, Lx, Ly, Lz), max_steps=10000, gpu_ty
 if est:
     print(f"Verification sim estimate: {est['estimated_seconds']:.0f}s, {est['estimated_credits']:.4f} credits")
 
-print(f"Running verification forward sim...")
+print("Running verification forward sim...")
 t0 = time.time()
 opt_results = None
 for attempt in range(3):

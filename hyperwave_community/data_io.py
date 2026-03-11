@@ -17,8 +17,9 @@ import jax.numpy as jnp
 import gdstk
 from skimage import measure
 import os
-import matplotlib.pyplot as plt
+from matplotlib.path import Path
 from typing import Optional, Union, Tuple, Dict, Any
+from ._logging import logger
 
 
 # =============================================================================
@@ -223,10 +224,6 @@ def _split_contours_at_artifacts(contours):
                 clean_contours.append(clean_contour)
                 total_artifacts_removed += len(artifact_indices)
 
-    # Single summary print at the end
-    if total_artifacts_removed > 0:
-        print(f"Processed {len(contours)} contours: removed {total_artifacts_removed} artifacts")
-
     return clean_contours
 
 
@@ -380,101 +377,6 @@ def generate_gds_from_density(
     return os.path.abspath(output_filename)
 
 
-# =============================================================================
-# Visualization Function
-# =============================================================================
-
-def view_gds(gds_filepath: str, density_array: np.ndarray = None, figsize: tuple = (12, 6)):
-    """Visualize GDS file contents with optional density comparison.
-
-    Reads a GDS file and plots the polygons it contains. If the original
-    density array is provided, displays both side-by-side for comparison.
-    The visualization shows the full domain including cladding regions.
-
-    Args:
-        gds_filepath: Path to the GDS file to visualize.
-        density_array: Optional original density array for comparison.
-        figsize: Figure size as (width, height) tuple.
-
-    Returns:
-        Matplotlib figure object containing the visualization.
-
-    Note:
-        Polygons are displayed with semi-transparent blue fill and no edge
-        outline. The full domain is shown including cladding regions when
-        density array is provided. The density array uses grayscale colormap.
-    """
-    # Read the GDS file
-    lib_verify = gdstk.read_gds(gds_filepath)
-    cell_verify = lib_verify.top_level()[0]
-
-    # Get polygons from the cell
-    polygons = cell_verify.get_polygons()
-
-    print(f"GDS file: {gds_filepath}")
-    print(f"Number of polygons in GDS: {len(polygons)}")
-
-    # Create figure with subplots if density is provided
-    if density_array is not None:
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=figsize)
-
-        # Plot original density array
-        im = ax1.imshow(density_array, cmap='gray', origin='upper',
-                        extent=[0, density_array.shape[1], 0, density_array.shape[0]])
-        ax1.set_title(f'Original Density ({density_array.shape[0]}×{density_array.shape[1]} pixels)')
-        ax1.set_xlabel('X (pixels)')
-        ax1.set_ylabel('Y (pixels)')
-        ax1.grid(True, alpha=0.3)
-        plt.colorbar(im, ax=ax1, label='Density')
-
-        ax = ax2
-    else:
-        fig, ax = plt.subplots(figsize=(figsize[0]/2, figsize[1]))
-
-    # Plot the GDS polygons
-    for poly in polygons:
-        # gdstk.Polygon objects have a .points attribute
-        points = poly.points
-        poly_patch = plt.Polygon(points, alpha=0.7, edgecolor='none',
-                                 facecolor='blue', linewidth=0)
-        ax.add_patch(poly_patch)
-
-    # Set axis limits to show full domain
-    # Always use density array dimensions if provided to show full domain including cladding
-    if density_array is not None:
-        # Show the full domain extent
-        ax.set_xlim(0, density_array.shape[1])
-        ax.set_ylim(0, density_array.shape[0])
-    else:
-        # If no density array, try to infer reasonable bounds from polygons
-        if polygons:
-            all_x = []
-            all_y = []
-            for poly in polygons:
-                points = poly.points
-                all_x.extend(points[:, 0])
-                all_y.extend(points[:, 1])
-
-            # Use actual polygon bounds with 1-pixel margin
-            if all_x and all_y:
-                # Fixed 1-pixel margin, not percentage-based
-                margin = 1
-                ax.set_xlim(min(all_x) - margin, max(all_x) + margin)
-                ax.set_ylim(min(all_y) - margin, max(all_y) + margin)
-        else:
-            # Default view if no reference
-            ax.set_xlim(0, 100)
-            ax.set_ylim(0, 100)
-
-    ax.set_aspect('equal')
-    ax.set_xlabel('X (GDS units)')
-    ax.set_ylabel('Y (GDS units)')
-    ax.set_title(f'GDS Polygons ({len(polygons)} polygons)')
-    ax.grid(True, alpha=0.3)
-
-    plt.tight_layout()
-    return fig
-
 
 # =============================================================================
 # GDS to Theta Array Conversion
@@ -495,8 +397,9 @@ def gds_to_theta(
 
     Args:
         gds_filepath: Path to the GDS file to convert.
-        resolution: Grid resolution in micrometers per pixel. Default 0.05 (50nm).
-            Smaller values give higher resolution but larger arrays.
+        resolution: Grid resolution in micrometers per pixel in the final STRUCTURE.
+            Default 0.05 (50nm). Note: theta array will be generated at 2x this
+            resolution since theta is downsampled by 2 during structure creation.
         layer: Specific layer to extract. If None, uses most common layer.
             Can be integer or tuple (layer, datatype).
         waveguide_value: Value for waveguide regions. Default 1.0.
@@ -507,7 +410,8 @@ def gds_to_theta(
         - theta: JAX array with shape (ny, nx) containing waveguide and
             background values.
         - info: Dictionary with metadata including 'gds_file', 'cell_name',
-            'shape', 'resolution', 'physical_size_um' (width, height),
+            'shape', 'theta_resolution_um', 'structure_resolution_um',
+            'physical_size_um' (width, height),
             'bounding_box_um' (x_min, y_min, x_max, y_max), 'layer',
             'num_polygons', 'waveguide_value', 'background_value'.
 
@@ -520,11 +424,8 @@ def gds_to_theta(
         The rasterization uses matplotlib.path for polygon filling which is
         accurate but can be slow for complex polygons.
     """
-    from matplotlib.path import Path
-
-    # Convert resolution from nm to μm for internal calculations
-    # Resolution is already in micrometers
-    resolution_um = resolution
+    # Use half the resolution for theta since it gets downsampled by 2 in structure creation
+    theta_resolution = resolution / 2.0
 
     # Read the GDS file
     library = gdstk.read_gds(gds_filepath)
@@ -583,14 +484,16 @@ def gds_to_theta(
         raise ValueError("No valid polygons found")
 
     all_points = np.array(all_points)
+    # Round to nm precision to match KLayout integer-nm storage
+    all_points = np.round(all_points * 1000) / 1000
     x_min, y_min = all_points.min(axis=0)
     x_max, y_max = all_points.max(axis=0)
 
     # Calculate grid dimensions
     width = x_max - x_min
     height = y_max - y_min
-    nx = int(np.ceil(width / resolution_um))
-    ny = int(np.ceil(height / resolution_um))
+    nx = int(np.ceil(width / theta_resolution))
+    ny = int(np.ceil(height / theta_resolution))
 
     # Initialize theta array with background value
     theta_array = np.full((ny, nx), background_value, dtype=np.float32)
@@ -603,9 +506,12 @@ def gds_to_theta(
         if len(points) < 3:
             continue
 
+        # Round to nm precision to match KLayout integer-nm storage
+        points = np.round(points * 1000) / 1000
+
         # Shift to origin and convert to pixels
         points_shifted = points - [x_min, y_min]
-        points_pixels = points_shifted / resolution_um
+        points_pixels = points_shifted / theta_resolution
 
         # Create path for point-in-polygon test
         path = Path(points_pixels)
@@ -633,16 +539,14 @@ def gds_to_theta(
     # theta_array is (ny, nx), we need (nx, ny) = (x, y)
     theta_jax = jnp.array(theta_array.T)
 
-    # Print summary
-    print(f"Extracted {len(polygons)} polygons from GDS file")
-
     # Prepare metadata
     # physical_size_um is (x_size, y_size) = (width, height)
     info = {
         'gds_file': gds_filepath,
         'cell_name': cell.name,
         'shape': theta_jax.shape,  # Now (x, y)
-        'resolution': resolution,
+        'theta_resolution_um': theta_resolution,
+        'structure_resolution_um': resolution,
         'physical_size_um': (width, height),  # (x_size, y_size)
         'bounding_box_um': (x_min, y_min, x_max, y_max),
         'layer': used_layer,
@@ -650,6 +554,9 @@ def gds_to_theta(
         'waveguide_value': waveguide_value,
         'background_value': background_value,
     }
+
+    logger.info("Component: %s", cell.name)
+    logger.info("  Theta: %s, Device: %.1f x %.1f um", theta_jax.shape, width, height)
 
     return theta_jax, info
 
@@ -690,27 +597,20 @@ def component_to_theta(
             - 'bounding_box_um': Bounding box coordinates in micrometers
             - 'layer': Layer that was extracted
 
-    Examples:
-        >>> import gdsfactory as gf
-        >>> from hyperwave.data_io import component_to_theta
-        >>>
-        >>> # Create component first
-        >>> coupler = gf.components.coupler(gap=0.236, length=20.0)
-        >>> theta, info = component_to_theta(coupler, resolution=0.05)
-        >>>
-        >>> # Or with a ring resonator
-        >>> ring = gf.components.ring(radius=10.0)
-        >>> theta, info = component_to_theta(ring, resolution=0.1)
+    Example::
+
+        theta, device_info = hwc.component_to_theta(
+            component=gf_extended,
+            resolution=RESOLUTION_UM,
+        )
 
     Note:
         Requires gdsfactory to be installed: pip install gdsfactory
     """
     try:
-        import gdsfactory as gf
+        import gdsfactory as gf  # noqa: F401
     except ImportError:
         raise ImportError("gdsfactory is required for component_to_theta. Install with: pip install gdsfactory")
-
-    from matplotlib.path import Path
 
     # Use the component directly
     comp = component
@@ -734,8 +634,6 @@ def component_to_theta(
         # Use first available layer
         used_layer = list(all_polygons.keys())[0]
         polygons = all_polygons[used_layer]
-        if len(all_polygons) > 1:
-            print(f"Multiple layers found: {list(all_polygons.keys())}. Using layer {used_layer}")
 
     # Get bounding box
     bbox = comp.bbox()
@@ -766,6 +664,8 @@ def component_to_theta(
         if len(points) < 3:
             continue
 
+        # gdsfactory's each_point_hull() returns integer-nm database units
+        # divided by 1000, so coordinates are already nm-precise (no rounding needed)
         points = np.array(points)
 
         # Convert to pixel coordinates
@@ -781,12 +681,18 @@ def component_to_theta(
         y_min_px = max(0, int(np.floor(points_pixels[:, 1].min())))
         y_max_px = min(ny, int(np.ceil(points_pixels[:, 1].max())))
 
-        # Fill pixels inside polygon
-        for y in range(y_min_px, y_max_px):
-            for x in range(x_min_px, x_max_px):
-                # Check if pixel center is inside polygon
-                if path.contains_point([x + 0.5, y + 0.5]):
-                    theta_array[y, x] = waveguide_value
+        # Create a grid of points to test
+        x_coords = np.arange(x_min_px, x_max_px) + 0.5
+        y_coords = np.arange(y_min_px, y_max_px) + 0.5
+        xx, yy = np.meshgrid(x_coords, y_coords)
+        points_to_test = np.column_stack([xx.ravel(), yy.ravel()])
+
+        # Test all points at once
+        inside = path.contains_points(points_to_test)
+        inside_mask = inside.reshape(len(y_coords), len(x_coords))
+
+        # Update theta array
+        theta_array[y_min_px:y_max_px, x_min_px:x_max_px][inside_mask] = waveguide_value
 
     # Convert to JAX array and transpose to (x, y) format for hyperwave
     # theta_array is (ny, nx), we need (nx, ny) = (x, y)
@@ -806,4 +712,116 @@ def component_to_theta(
         'background_value': background_value,
     }
 
+    logger.info("Component: %s", comp_name)
+    logger.info("  Theta: %s, Device: %.1f x %.1f um",
+                theta_jax.shape, width, height)
+
     return theta_jax, info
+
+# =============================================================================
+# Results I/O (NPZ)
+# =============================================================================
+
+def save_results(results: dict, path: str = "results.npz") -> str:
+    """Save simulation results to a compressed .npz file.
+
+    Stores all monitor field arrays, monitor names, and simulation metadata
+    so results can be reloaded for analysis without re-running the simulation.
+
+    Args:
+        results: Dict returned by ``simulate()`` with keys like
+            ``'monitor_data'``, ``'monitor_names'``, ``'sim_time'``, etc.
+        path: Destination file path (default "results.npz").
+
+    Returns:
+        Absolute path of the saved file.
+
+    Example::
+
+        hwc.save_results(results, "quickstart_results.npz")
+    """
+    arrays = {}
+
+    # Store each monitor's field data as a separate array
+    monitor_data = results.get("monitor_data", {})
+    if isinstance(monitor_data, dict):
+        for name, arr in monitor_data.items():
+            arrays[f"monitor__{name}"] = np.asarray(arr)
+
+    # Store monitor names list
+    monitor_names = results.get("monitor_names", {})
+    if isinstance(monitor_names, dict):
+        arrays["_monitor_names"] = np.array(list(monitor_names.keys()))
+
+    # Store scalar metadata as a structured array
+    meta = {}
+    for key in ("sim_time", "performance", "converged", "convergence_step"):
+        if key in results:
+            val = results[key]
+            meta[key] = val if val is not None else -1
+    if meta:
+        arrays["_metadata"] = np.array(
+            [tuple(meta.values())],
+            dtype=[(k, float) for k in meta],
+        )
+
+    # Store dimensions and freq_band as arrays
+    if "dimensions" in results:
+        arrays["_dimensions"] = np.asarray(results["dimensions"])
+    if "freq_band" in results:
+        arrays["_freq_band"] = np.asarray(results["freq_band"])
+
+    np.savez_compressed(path, **arrays)
+    return os.path.abspath(path)
+
+
+def load_results(path: str) -> dict:
+    """Load simulation results from a .npz file saved by ``save_results``.
+
+    Reconstructs the same dict structure returned by ``simulate()``.
+
+    Args:
+        path: Path to the .npz file.
+
+    Returns:
+        Dict matching the ``simulate()`` return format.
+
+    Example::
+
+        results = hwc.load_results("quickstart_results.npz")
+    """
+    data = np.load(path, allow_pickle=False)
+
+    monitor_data = {}
+    monitor_names = {}
+    for key in data.files:
+        if key.startswith("monitor__"):
+            name = key[len("monitor__"):]
+            monitor_data[name] = data[key]
+
+    if "_monitor_names" in data:
+        for idx, name in enumerate(data["_monitor_names"]):
+            monitor_names[str(name)] = idx
+
+    results = {
+        "monitor_data": monitor_data,
+        "monitor_names": monitor_names,
+    }
+
+    if "_metadata" in data:
+        meta = data["_metadata"]
+        for field_name in meta.dtype.names:
+            val = float(meta[field_name][0])
+            if field_name == "converged":
+                results[field_name] = bool(val)
+            elif field_name == "convergence_step":
+                results[field_name] = int(val) if val >= 0 else None
+            else:
+                results[field_name] = val
+
+    if "_dimensions" in data:
+        results["dimensions"] = data["_dimensions"].tolist()
+    if "_freq_band" in data:
+        results["freq_band"] = tuple(data["_freq_band"].tolist())
+
+    return results

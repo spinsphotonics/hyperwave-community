@@ -10,12 +10,9 @@ from hyperwave_community import ConvergenceConfig
 import json
 import time
 import threading
-import io
-import sys
 from pathlib import Path
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
-import matplotlib.pyplot as plt
 
 hwc.configure_api(api_key="9e293a83-feb0-4275-b6f0-540ba935b4bb")
 print(hwc.get_account_info())
@@ -261,7 +258,7 @@ failures_all = {p: r for p, r in all_results.items() if r.get("status") == "fail
 if successes_all and failures_all:
     best = max(successes_all.items(), key=lambda x: x[0])
     worst = min(failures_all.items(), key=lambda x: x[0])
-    print(f"\nH100 (80GB) bracket:")
+    print("\nH100 (80GB) bracket:")
     print(f"  Last success: pad={best[0]} -> {best[1]['voxels_M']}M voxels")
     print(f"  First OOM:    pad={worst[0]} -> {worst[1]['voxels_M']}M voxels")
     bpv_upper = 80e9 / (best[1]['voxels'] )
