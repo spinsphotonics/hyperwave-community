@@ -557,13 +557,17 @@ class MonitorSet:
         """
         return self.monitors, self.mapping
 
-    def view(self, *args, **kwargs) -> None:
+    def view(self, structure=None, **kwargs) -> None:
         """Visualize monitors in this set overlaid on structure cross-sections.
 
-        This method has been moved to the SDK visualization module.
-        Use hyperwave_community.visualization.plot_monitor_layout instead.
+        Convenience wrapper around
+        :func:`hyperwave_community.visualization.plot_monitor_layout`.
         """
-        raise NotImplementedError("Use hyperwave_community.visualization.plot_monitor_layout instead")
+        from .visualization import plot_monitor_layout
+        if structure is None:
+            raise ValueError("structure is required: monitors.view(structure=structure)")
+        permittivity = structure.permittivity if hasattr(structure, 'permittivity') else structure
+        return plot_monitor_layout(permittivity, self, **kwargs)
 
     def add_monitors_at_position(
         self,
