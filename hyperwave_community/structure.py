@@ -1065,27 +1065,39 @@ def reconstruct_structure_from_recipe(recipe: dict) -> Structure:
         actual_cond_sum = float(jnp.sum(reconstructed.conductivity))
         actual_shape = reconstructed.permittivity.shape
 
-        eps_error = abs(actual_eps_sum - expected_eps_sum)
+        # Shape mismatch is a hard error (indicates structural problem)
+        if actual_shape != expected_shape:
+            raise ValueError(f"Shape reconstruction failed: {actual_shape} vs {expected_shape}")
 
-        # Use relative tolerance for large values
+        # Checksum validation uses warnings instead of errors.
+        # Checksums can differ across JAX versions, CPU vs GPU, and package versions
+        # because create_structure uses floating-point operations (convolutions,
+        # subpixel averaging) that are not bit-reproducible across platforms.
+        eps_error = abs(actual_eps_sum - expected_eps_sum)
         eps_rel_error = eps_error / max(abs(expected_eps_sum), 1.0)
 
-        # Special handling for conductivity
+        if expected_eps_sum != 0.0 and eps_rel_error > 5e-3:
+            import warnings
+            warnings.warn(
+                f"Permittivity checksum mismatch: {actual_eps_sum} vs {expected_eps_sum} "
+                f"(relative error: {eps_rel_error:.4f}). This is expected when the recipe "
+                f"was created on a different platform or package version.",
+                stacklevel=2,
+            )
+
         if expected_cond_sum > 0 and actual_cond_sum == 0:
-            # Skip conductivity validation - absorption will be added separately
             pass
         else:
             cond_error = abs(actual_cond_sum - expected_cond_sum)
             cond_rel_error = cond_error / max(abs(expected_cond_sum), 1.0)
-            if cond_rel_error > 5e-3:  # Relative tolerance of 0.5%
-                raise ValueError(f"Conductivity reconstruction failed: checksum mismatch {actual_cond_sum} vs {expected_cond_sum}")
-
-        # Skip validation if checksum is 0.0 (not computed during recipe creation)
-        if expected_eps_sum != 0.0 and eps_rel_error > 5e-3:  # Relative tolerance of 0.5%
-            raise ValueError(f"Permittivity reconstruction failed: checksum mismatch {actual_eps_sum} vs {expected_eps_sum}")
-
-        if actual_shape != expected_shape:
-            raise ValueError(f"Shape reconstruction failed: {actual_shape} vs {expected_shape}")
+            if cond_rel_error > 5e-3:
+                import warnings
+                warnings.warn(
+                    f"Conductivity checksum mismatch: {actual_cond_sum} vs {expected_cond_sum} "
+                    f"(relative error: {cond_rel_error:.4f}). This is expected when the recipe "
+                    f"was created on a different platform or package version.",
+                    stacklevel=2,
+                )
 
     return reconstructed
 
