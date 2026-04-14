@@ -1167,7 +1167,16 @@ def run_simulation(
 
     except requests.exceptions.HTTPError as e:
         _handle_api_error(e, "run_simulation")
-        raise RuntimeError(f"Simulation failed: {e}") from e
+        detail = ""
+        if e.response is not None:
+            try:
+                detail = e.response.json().get("detail", e.response.text[:500])
+            except Exception:
+                detail = e.response.text[:500] if e.response.text else ""
+        msg = f"Simulation failed: {e}"
+        if detail:
+            msg += f"\nServer detail: {detail}"
+        raise RuntimeError(msg) from e
     except requests.exceptions.RequestException as e:
         raise RuntimeError(f"Simulation request failed: {e}") from e
 
@@ -1290,20 +1299,21 @@ def simulate(
 
     endpoint = "/early_stopping" if use_early_stopping else "/simulate"
 
-    # Build request body
+    # Build request body (use _to_json_serializable for fields that may contain
+    # JAX/numpy scalars so json.dumps doesn't choke on them)
     body = {
         "structure_recipe": _to_json_serializable(structure_recipe),
         "source_field_b64": source_field_b64,
         "source_field_shape": source_field_shape,
-        "source_offset": list(source_offset),
-        "freq_band": list(freq_band),
+        "source_offset": _to_json_serializable(list(source_offset)),
+        "freq_band": _to_json_serializable(list(freq_band)),
         "monitors": _to_json_serializable(monitors_recipe),
-        "max_steps": simulation_steps,
-        "check_every_n": conv_config.check_every_n if conv_config else check_every_n,
-        "source_ramp_periods": source_ramp_periods,
+        "max_steps": int(simulation_steps),
+        "check_every_n": int(conv_config.check_every_n if conv_config else check_every_n),
+        "source_ramp_periods": float(source_ramp_periods),
         "gpu_type": gpu_type,
         "add_absorption": add_absorption,
-        "absorption_widths": list(absorption_widths),
+        "absorption_widths": _to_json_serializable(list(absorption_widths)),
         "absorption_coeff": float(absorption_coeff),
     }
 
@@ -1347,8 +1357,8 @@ def simulate(
                 break
             except requests.exceptions.HTTPError as retry_err:
                 status = retry_err.response.status_code if retry_err.response is not None else 0
-                if status in (502, 503, 504) and attempt < max_retries - 1:
-                    logger.warning("Service temporarily unavailable (HTTP %d). Will retry.", status)
+                if status in (500, 502, 503, 504) and attempt < max_retries - 1:
+                    logger.warning("Server error (HTTP %d). Will retry.", status)
                     _last_error = retry_err
                     continue
                 raise
@@ -1401,7 +1411,17 @@ def simulate(
 
     except requests.exceptions.HTTPError as e:
         _handle_api_error(e, "simulation")
-        raise RuntimeError(f"Simulation failed: {e}") from e
+        # Extract server error detail if available (gateway returns JSON with "detail" field)
+        detail = ""
+        if e.response is not None:
+            try:
+                detail = e.response.json().get("detail", e.response.text[:500])
+            except Exception:
+                detail = e.response.text[:500] if e.response.text else ""
+        msg = f"Simulation failed: {e}"
+        if detail:
+            msg += f"\nServer detail: {detail}"
+        raise RuntimeError(msg) from e
     except requests.exceptions.RequestException as e:
         raise RuntimeError(f"Simulation request failed: {e}") from e
 
@@ -2558,8 +2578,8 @@ def compute_adjoint_gradient(
                 break
             except requests.exceptions.HTTPError as retry_err:
                 status = retry_err.response.status_code if retry_err.response is not None else 0
-                if status in (502, 503, 504) and attempt < max_retries - 1:
-                    logger.warning("Service temporarily unavailable (HTTP %d). Will retry.", status)
+                if status in (500, 502, 503, 504) and attempt < max_retries - 1:
+                    logger.warning("Server error (HTTP %d). Will retry.", status)
                     _last_error = retry_err
                     continue
                 raise
