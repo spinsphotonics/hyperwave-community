@@ -102,22 +102,23 @@ plt.show()
 
 ## Cost Information
 
-| Step | Function | Cost |
-|------|----------|------|
-| 1 | `configure_api()` | Free |
-| 2 | `build_recipe()` | Free |
-| 3 | `build_monitors()` | Free |
-| 4 | `compute_freq_band()` | Free |
-| 5 | `solve_mode_source()` | Free |
-| 6 | `run_simulation()` | **Credits ($25/hr)** |
-| 7 | `analyze_transmission()` | Free |
-| 8 | `get_field_intensity_2d()` | Free |
+| Step | Function                   | Cost                 |
+| ---- | -------------------------- | -------------------- |
+| 1    | `configure_api()`          | Free                 |
+| 2    | `build_recipe()`           | Free                 |
+| 3    | `build_monitors()`         | Free                 |
+| 4    | `compute_freq_band()`      | Free                 |
+| 5    | `solve_mode_source()`      | Free                 |
+| 6    | `run_simulation()`         | **Credits ($25/hr)** |
+| 7    | `analyze_transmission()`   | Free                 |
+| 8    | `get_field_intensity_2d()` | Free                 |
 
 Only Step 6 (`run_simulation`) consumes credits. All simulations run on NVIDIA B200 GPUs at $25 per compute hour (1 credit = $25 = 1 hour). All other steps run on CPU and are free.
 
 ## Convergence Options
 
 Simple presets for early stopping:
+
 - `"quick"` - Fast, 2 stability checks at 2000 step intervals
 - `"default"` - Balanced, 3 stability checks at 1000 step intervals
 - `"thorough"` - Conservative, 5 stability checks, min 5000 steps

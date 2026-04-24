@@ -1,18 +1,9 @@
 {
   "gpu_type": "B200",
-  "padding": [
-    400,
-    400,
-    0,
-    0
-  ],
+  "padding": [400, 400, 0, 0],
   "timestamp": "2026-02-07T12:24:16.169151",
   "probe_steps": 5000,
-  "dimensions": [
-    1800,
-    650,
-    199
-  ],
+  "dimensions": [1800, 650, 199],
   "voxels": 232830000,
   "voxels_M": 232.8,
   "estimated_cost": {

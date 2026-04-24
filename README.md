@@ -216,6 +216,7 @@ print(f"Loss: {loss:.4f} ({loss_dB:.2f} dB)")
 The `examples/` directory will contain complete tutorials as Jupyter notebooks for different use cases. These notebooks are designed to run in Google Colab or local Jupyter environments.
 
 Coming soon:
+
 - Waveguide simulation with mode sources
 - Metasurface design with Gaussian beam illumination
 - GDS import/export workflows
@@ -226,58 +227,67 @@ Coming soon:
 ### What Runs Locally vs API
 
 **Local (CPU):**
+
 - Structure design (`create_structure`, `density`)
 - Absorption masks (`create_absorption_mask`)
 - Monitor configuration (`MonitorSet`)
 - Mode source generation (`create_mode_source`) - eigenvalue solver
 
 **API (GPU):**
+
 - FDTD simulation (`simulate`) - main compute workload
 - Gaussian source generation (`create_gaussian_source`) - requires FDTD
 
 ### Execution Summary
 
-| Operation | Where it runs | Notes |
-|-----------|---------------|-------|
-| Structure creation | Local | Pure geometry |
-| Mode solver | Local | Eigenvalue decomposition |
-| Gaussian source | API | Requires FDTD |
-| FDTD simulation | API | Main compute workload |
+| Operation          | Where it runs | Notes                    |
+| ------------------ | ------------- | ------------------------ |
+| Structure creation | Local         | Pure geometry            |
+| Mode solver        | Local         | Eigenvalue decomposition |
+| Gaussian source    | API           | Requires FDTD            |
+| FDTD simulation    | API           | Main compute workload    |
 
 ## API Reference
 
 ### Structure
+
 - `density(theta, radius, alpha)` - Apply density filtering
 - `create_structure(layers, vertical_radius)` - Create 3D structure from layers
 - `Layer(density_pattern, permittivity_values, layer_thickness)` - Layer specification
 
 ### Absorption
+
 - `create_absorption_mask(grid_shape, absorption_widths, absorption_coeff)` - Create adiabatic absorber
 - `get_optimized_absorber_params(resolution_nm, wavelength_um, structure_dimensions)` - Get Bayesian-optimized absorber parameters scaled for your resolution
 
 ### Sources
+
 - `mode(freq_band, permittivity, axis, mode_num)` - Low-level mode solver
 - `create_mode_source(structure, freq_band, ...)` - Generate modal source
 - `create_gaussian_source(structure_shape, ...)` - Generate Gaussian source (API)
 
 ### Monitors
+
 - `MonitorSet()` - Container for field monitors
 - `add_monitors_at_position(structure, axis, position, label)` - Auto-place monitors
 - `S_from_slice(field_slice)` - Calculate Poynting vector
 
 ### Data I/O
+
 - `generate_gds_from_density(density_array, ...)` - Export density to GDS file
 - `view_gds(gds_filepath, ...)` - Visualize GDS file contents
 - `gds_to_theta(gds_filepath, ...)` - Import GDS file to theta array
 - `component_to_theta(component, ...)` - Convert gdsfactory component to theta
 
 ### Simulation
+
 - `simulate(structure, source_field, ..., api_key=None)` - Run FDTD simulation on GPU via API
 - `generate_gaussian_source(structure_shape, ..., api_key=None)` - Generate Gaussian source via API
 
 ## Requirements
 
 ### Core Dependencies
+
 - Python ≥ 3.9
 - JAX ≥ 0.4.0 (CPU-only is sufficient)
 - NumPy ≥ 1.20.0
@@ -288,6 +298,7 @@ Coming soon:
 - scikit-image ≥ 0.19.0 (contour extraction)
 
 ### Optional Dependencies
+
 - gdsfactory ≥ 7.0.0 (for `component_to_theta()` function)
   - Install with: `pip install hyperwave-community[gdsfactory]`
 

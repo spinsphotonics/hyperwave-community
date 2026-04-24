@@ -2,35 +2,16 @@
   "gpu_type": "H100",
   "category": "validation",
   "label": "pad_100",
-  "padding": [
-    100,
-    100,
-    0,
-    0
-  ],
+  "padding": [100, 100, 0, 0],
   "timestamp": "2026-02-07T02:53:05.072258",
   "status": "success",
-  "dimensions": [
-    1800,
-    350,
-    199
-  ],
+  "dimensions": [1800, 350, 199],
   "voxels": 125370000,
   "voxels_M": 125.4,
-  "monitor_names": [
-    "Input_o1",
-    "Input_o2",
-    "Output_o3",
-    "Output_o4",
-    "xy_mid"
-  ],
+  "monitor_names": ["Input_o1", "Input_o2", "Output_o3", "Output_o4", "xy_mid"],
   "absorber_width": 82,
   "absorber_coeff": 0.0006173770394704579,
-  "absorption_widths": [
-    82,
-    41,
-    41
-  ],
+  "absorption_widths": [82, 41, 41],
   "estimated_cost": null,
   "sim_time": 113.94238948822021,
   "total_time": 274.29935908317566,

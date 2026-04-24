@@ -171,6 +171,9 @@ JOURNAL.md
 examples/*_dev.ipynb
 examples/getting_started_api.ipynb
 
+# Binary output files
+*.npz
+
 # macOS
 .DS_Store
 

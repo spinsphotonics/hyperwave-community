@@ -1,18 +1,9 @@
 {
   "gpu_type": "H200",
-  "padding": [
-    100,
-    100,
-    0,
-    0
-  ],
+  "padding": [100, 100, 0, 0],
   "timestamp": "2026-02-07T12:16:12.045961",
   "probe_steps": 5000,
-  "dimensions": [
-    1800,
-    350,
-    199
-  ],
+  "dimensions": [1800, 350, 199],
   "voxels": 125370000,
   "voxels_M": 125.4,
   "estimated_cost": {

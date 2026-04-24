@@ -26,18 +26,23 @@ hyperwave-community/
 ## Module Breakdown
 
 ### sources.py (19 KB)
+
 **Public Functions:**
+
 - `mode(freq_band, permittivity, axis, mode_num, ...)` - Eigenvalue-based mode solver
 - `create_mode_source(structure, freq_band, mode_num, ...)` - Generate modal sources for waveguides
 - `create_gaussian_source(structure_shape, conductivity_boundary, ...)` - Generate Gaussian sources (API call)
 
 **Classes:**
+
 - `FreqBand` - NamedTuple for frequency band specification
 
 **Execution:** Mode solver runs locally on CPU (~100ms-5s), Gaussian sources via API
 
 ### structure.py (53 KB)
+
 **Public Functions:**
+
 - `density(theta, radius, alpha, ...)` - Apply density filtering to design patterns
 - `create_structure(layers, vertical_radius)` - Build 3D structures from 2D layers
 - `reconstruct_structure_from_recipe(recipe)` - Deserialize structures
@@ -45,17 +50,22 @@ hyperwave-community/
 - `view_density(density, cmap)` - Visualize 2D density patterns
 
 **Classes:**
+
 - `Layer` - Layer specification (density, permittivity, thickness)
 - `Structure` - 3D photonic structure container
 
 ### absorption.py (16 KB)
+
 **Public Functions:**
+
 - `create_absorption_mask(grid_shape, absorption_widths, absorption_coeff, ...)` - Generate PML boundaries
 
 **Execution:** Pure geometry operations, runs locally
 
 ### monitors.py (49 KB)
+
 **Public Functions:**
+
 - `S_from_slice(field_slice)` - Calculate Poynting vector from field data
 - `power_from_a_box(field, Lx, Ly, Lz, ...)` - Calculate net power flux
 - `get_field_slice(field, axis, position)` - Extract 2D field slices
@@ -67,24 +77,30 @@ hyperwave-community/
 - `add_monitors_at_position(structure, axis, position, ...)` - Auto-place monitors with waveguide detection
 
 **Classes:**
+
 - `Monitor` - Monitor configuration dataclass
 - `MonitorSet` - Container for managing multiple monitors
 
 ### metasurface.py (2.8 KB)
+
 **Public Functions:**
+
 - `create_circle_array(size, radius)` - Generate single circular pattern
 - `create_circle_grid(radius, edge_separation, nx_circles, ny_circles, ...)` - Generate grid of circles
 
 **Execution:** Pure geometry operations, runs locally
 
 ### data_io.py (30 KB)
+
 **Public Functions:**
+
 - `generate_gds_from_density(density_array, level, output_filename, ...)` - Export density to GDS II format
 - `view_gds(gds_filepath, density_array, ...)` - Visualize GDS file with optional comparison
 - `gds_to_theta(gds_filepath, resolution, layer, ...)` - Import GDS file to theta array
 - `component_to_theta(component, resolution, layer, ...)` - Convert gdsfactory component to theta
 
 **Dependencies:**
+
 - gdstk (GDS file I/O)
 - scikit-image (contour extraction)
 - gdsfactory (optional, for component_to_theta)
@@ -92,7 +108,9 @@ hyperwave-community/
 **Execution:** File I/O and visualization, runs locally
 
 ### api_client.py (14 KB)
+
 **Public Functions:**
+
 - `configure_api(api_key, api_url)` - Set API credentials and endpoint
 - `simulate(structure, source_field, monitors, ...)` - Run FDTD simulation on GPU
 - `generate_gaussian_source(structure_shape, ...)` - Generate Gaussian source on GPU
@@ -104,6 +122,7 @@ hyperwave-community/
 ## What's NOT Included (Stays Private)
 
 From `solve.py`:
+
 - ❌ `multi_freq()` - Full FDTD solver
 - ❌ `mem_efficient_multi_freq()` - Memory-efficient FDTD
 - ❌ `gaussian_source()` - Gaussian with FDTD
@@ -111,9 +130,11 @@ From `solve.py`:
 - ❌ `wave_equation_error()` - Wave equation error calculation
 
 From `simulate.py`:
+
 - ❌ `simulate()` - Main simulation wrapper (uses API instead)
 
 From `simulate_modal.py` and `gaussian_source_modal.py`:
+
 - ❌ All Modal GPU integration code
 
 ## API Endpoints Required
@@ -121,25 +142,31 @@ From `simulate_modal.py` and `gaussian_source_modal.py`:
 The community package expects these endpoints to exist:
 
 ### POST /simulate
+
 **Request:**
+
 - structure_recipe (JSON)
 - source_field_b64 (base64 encoded numpy)
 - source_offset, freq_band, monitors
 - Simulation parameters
 
 **Response:**
+
 - monitor_data_b64 (dict of base64 arrays)
 - convergence data
 - powers, transmissions
 - performance metrics
 
 ### POST /generate_gaussian_source
+
 **Request:**
+
 - structure_shape
 - conductivity_boundary_b64
 - freq_band, source_z_pos, polarization
 
 **Response:**
+
 - source_field_b64
 - source_power, source_position
 - timing metrics
@@ -235,6 +262,7 @@ results = hwc.simulate(
 ## Dependencies
 
 **Required:**
+
 - jax >= 0.4.0 (CPU-only sufficient)
 - jaxlib >= 0.4.0
 - numpy >= 1.20.0
@@ -245,21 +273,25 @@ results = hwc.simulate(
 - scikit-image >= 0.19.0 (contour extraction)
 
 **Optional:**
+
 - gdsfactory >= 7.0.0 (for component_to_theta)
   - Install with: `pip install hyperwave-community[gdsfactory]`
 
 **Optional (dev):**
+
 - pytest, pytest-cov
 - black, flake8, mypy
 
 ## Testing
 
 Create tests in `tests/` directory:
+
 ```bash
 pytest tests/
 ```
 
 Consider testing:
+
 - Mode solver accuracy
 - Structure creation
 - API client serialization

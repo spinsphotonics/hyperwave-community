@@ -1,27 +1,27 @@
 /* Custom CSS for SPINS Photonics blue theme (pydata-sphinx-theme) */
 
 :root {
-    --pst-color-primary: #1E88E5;
-    --pst-color-primary-highlight: #42A5F5;
+  --pst-color-primary: #1e88e5;
+  --pst-color-primary-highlight: #42a5f5;
 }
 
 .bd-sidebar .current a {
-    border-bottom-color: #1E88E5 !important;
+  border-bottom-color: #1e88e5 !important;
 }
 
 .bd-sidebar .active > a {
-    border-bottom-color: #1E88E5 !important;
+  border-bottom-color: #1e88e5 !important;
 }
 
 .bd-sidebar .active > .nav-link,
 .bd-sidebar .active > a {
-    border-left-color: #1E88E5 !important;
+  border-left-color: #1e88e5 !important;
 }
 
 a {
-    color: #1976D2;
+  color: #1976d2;
 }
 
 a:hover {
-    color: #1565C0;
+  color: #1565c0;
 }

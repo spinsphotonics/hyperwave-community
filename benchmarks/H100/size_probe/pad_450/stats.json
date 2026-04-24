@@ -1,17 +1,8 @@
 {
   "gpu_type": "H100",
-  "padding": [
-    450,
-    450,
-    0,
-    0
-  ],
+  "padding": [450, 450, 0, 0],
   "timestamp": "2026-02-07T12:41:07.285682",
-  "dimensions": [
-    1800,
-    700,
-    199
-  ],
+  "dimensions": [1800, 700, 199],
   "voxels": 250740000,
   "voxels_M": 250.7,
   "status": "failed_simulation",
