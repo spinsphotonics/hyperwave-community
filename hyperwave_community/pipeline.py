@@ -36,30 +36,25 @@ def optimize(
     fab_eta_hi: Optional[float] = None,
     gpu_type: str = "B200",
     api_key: Optional[str] = None,
-):
+) -> OptimizationResult:
     """Run an optimization phase on cloud GPU.
 
-    Generator that yields per-step results. Break out of the loop to
-    cancel the GPU job early (only charged for completed steps).
+    Runs the optimization loop, prints progress per step, and returns
+    the final result. Press Ctrl+C to cancel early -- the GPU job is
+    stopped and you only pay for completed steps. The partial result
+    is still returned.
 
     Usage:
-        # Stream results, can break early
-        for step in hwc.optimize(device, source, mode, n_steps=100):
-            print(f"Step {step['step']}: {step['efficiency']*100:.2f}%")
-            if step['efficiency'] > 0.75:
-                break  # cancels GPU, refunds remaining credits
+        result = hwc.optimize(device, source, mode,
+                              phase="freeform", n_steps=100)
+        # Prints: Step 1/100: efficiency=0.00%  time=604s
+        #         Step 2/100: efficiency=1.44%  time=603s
+        #         ...
+        # Press Ctrl+C to stop early
 
-        # The last yielded step has the final Design
-        design = step['design']  # pass to next phase or surgery
-
-    Each yielded dict contains:
-        step: int - Current step number
-        efficiency: float - Coupling efficiency (0-1)
-        loss: float - Loss value
-        fab_loss: float or None - Fabrication loss (dfm/recovery)
-        time: float - Wall time for this step (seconds)
-        design: Design - Current Design state (thetas, efficiency, phase)
-        is_final: bool - True on the last step
+        result.design    # Design object for next phase
+        result.history   # per-step metrics
+        result.save("./checkpoints/my_run")
 
     Args:
         device: GridInfo from LayerStack.build(), or a dict with
@@ -84,8 +79,8 @@ def optimize(
         gpu_type: GPU type (default "B200").
         api_key: API key (overrides configured key).
 
-    Yields:
-        dict with step results including a Design object.
+    Returns:
+        OptimizationResult with .design, .history, .save().
     """
     from hyperwave_community.api_client import (
         _API_CONFIG, encode_array, decode_array, _handle_api_error,
@@ -258,7 +253,9 @@ def optimize(
     ping_thread = threading.Thread(target=_pinger, daemon=True)
     ping_thread.start()
 
-    current_thetas = (initial_design.thetas if initial_design else {})
+    history = []
+    current_thetas = (dict(initial_design.thetas) if initial_design else {})
+    cancelled = False
 
     try:
         while True:
@@ -276,6 +273,14 @@ def optimize(
                 step_num = msg.get("step", 0)
                 eff = msg.get("efficiency", 0.0)
 
+                history.append({
+                    "step": step_num,
+                    "efficiency": eff,
+                    "loss": msg.get("loss", 0.0),
+                    "fab_loss": msg.get("fab_loss"),
+                    "time": msg.get("step_time", 0.0),
+                })
+
                 # Decode thetas if present
                 if "theta_b64" in msg and isinstance(msg["theta_b64"], dict):
                     current_thetas = {
@@ -285,24 +290,17 @@ def optimize(
                 elif "theta_b64" in msg and isinstance(msg["theta_b64"], str):
                     current_thetas = {"design": decode_array(msg["theta_b64"])}
 
-                yield {
-                    "step": step_num,
-                    "efficiency": eff,
-                    "loss": msg.get("loss", 0.0),
-                    "fab_loss": msg.get("fab_loss"),
-                    "time": msg.get("step_time", 0.0),
-                    "is_final": msg.get("is_final", False),
-                    "design": Design(
-                        thetas=dict(current_thetas),
-                        density_filter_radius=density_filter_radius,
-                        efficiency=eff,
-                        phase=phase,
-                        step=step_num,
-                    ),
-                }
+                eff_db = -10 * np.log10(max(eff, 1e-10))
+                print(f"Step {step_num:3d}/{n_steps}: "
+                      f"efficiency={eff*100:6.2f}% ({eff_db:.2f} dB)  "
+                      f"time={msg.get('step_time', 0):.0f}s",
+                      flush=True)
 
-    except GeneratorExit:
-        pass  # user broke out, closing WS cancels GPU
+    except KeyboardInterrupt:
+        cancelled = True
+        n_done = len(history)
+        print(f"\nCancelled after {n_done} steps. "
+              f"Completed steps are kept, GPU job stopped.", flush=True)
 
     finally:
         stop_ping.set()
@@ -312,6 +310,51 @@ def optimize(
             ws.close()
         except Exception:
             pass
+
+    # Build result from collected history
+    final_eff = history[-1]["efficiency"] if history else 0.0
+    final_step = history[-1]["step"] if history else 0
+
+    design = Design(
+        thetas=current_thetas,
+        density_filter_radius=density_filter_radius,
+        efficiency=final_eff,
+        phase=phase,
+        step=final_step,
+    )
+
+    efficiencies = [h["efficiency"] for h in history]
+    best_idx = int(np.argmax(efficiencies)) if efficiencies else 0
+    best_eff = efficiencies[best_idx] if efficiencies else 0.0
+    best_step = history[best_idx]["step"] if history else 0
+
+    schedule_config = {
+        "phase": phase,
+        "density_filter_radius": density_filter_radius,
+        "disk_radius": disk_radius,
+    }
+    if beta_init is not None:
+        schedule_config["beta_init"] = beta_init
+    if beta_max is not None:
+        schedule_config["beta_max"] = beta_max
+    if learning_rate is not None:
+        schedule_config["learning_rate"] = learning_rate
+
+    elapsed = _time.time() - t0
+    if not cancelled:
+        print(f"\nCompleted {len(history)} steps in {elapsed:.0f}s. "
+              f"Best: {best_eff*100:.2f}% at step {best_step}.", flush=True)
+
+    return OptimizationResult(
+        design=design,
+        history=history,
+        phase=phase,
+        n_steps=len(history),
+        best_efficiency=best_eff,
+        best_step=best_step,
+        schedule_config=schedule_config,
+        n_steps_planned=n_steps,
+    )
 
 
 # ---------------------------------------------------------------------------
