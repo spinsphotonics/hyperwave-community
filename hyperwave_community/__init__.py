@@ -161,6 +161,29 @@ from .data_io import (
 # Import simulate from api_client (the cloud GPU version)
 from .api_client import simulate, mode_convert  # noqa: F401
 
+# --- New inverse design API ---
+# Objectives: safe expression tree loss functions (no code execution)
+from . import objectives
+from .objectives import Objective
+
+# Types: Design flows between phases, results wrap outputs
+from .types import Design, OptimizationResult, DrcReport
+
+# Layer stack builder
+from .layer_stack import LayerStack
+
+# Waveguide mode solver (local)
+from .waveguide_mode import solve_waveguide_mode
+
+# Pipeline functions (surgery/drc/gds are local, optimize calls cloud)
+from .pipeline import surgery, check_drc, export_gds
+
+# Checkpoint save/load (local only)
+from .checkpoint import save_checkpoint, load_checkpoint, list_checkpoints
+
+# Pipeline visualization
+from .visualization import plot_phase_summary, plot_pipeline_summary
+
 
 # Deprecation shims for renamed functions
 def view_structure(*args, **kwargs):

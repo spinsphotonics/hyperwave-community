@@ -1232,3 +1232,100 @@ def _split_save_path(path: str):
     import os
     base, ext = os.path.splitext(path)
     return base, ext or ".png"
+
+
+# ---------------------------------------------------------------------------
+# Pipeline visualization
+# ---------------------------------------------------------------------------
+
+def plot_phase_summary(results, title=None, show_fields=False, figsize=(10, 4),
+                       show=True, save_path=None):
+    """Plot efficiency vs step for a single optimization phase.
+
+    Args:
+        results: OptimizationResult from optimize().
+        title: Plot title. Defaults to phase name.
+        show_fields: If True, show final density alongside curve.
+        figsize: Figure size.
+        show: Whether to display the plot.
+        save_path: If provided, save to this path.
+    """
+    import matplotlib.pyplot as plt
+
+    efficiencies = [h.get("efficiency", 0) * 100 for h in results.history]
+    steps = [h.get("step", i) for i, h in enumerate(results.history)]
+
+    if show_fields:
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=figsize)
+    else:
+        fig, ax1 = plt.subplots(1, 1, figsize=figsize)
+
+    ax1.plot(steps, efficiencies, "b-", linewidth=1.5)
+    ax1.set_xlabel("Step")
+    ax1.set_ylabel("Efficiency (%)")
+    ax1.set_title(title or results.phase.capitalize())
+    ax1.grid(True, alpha=0.3)
+    if efficiencies:
+        ax1.axhline(max(efficiencies), color="r", linestyle="--", alpha=0.5,
+                     label=f"Best: {max(efficiencies):.1f}%")
+        ax1.legend()
+
+    if show_fields and hasattr(results.design, "theta"):
+        ax2.imshow(results.design.theta.T, origin="lower", cmap="viridis",
+                   vmin=0, vmax=1)
+        ax2.set_title("Final density")
+        ax2.set_xlabel("x (px)")
+        ax2.set_ylabel("y (px)")
+
+    plt.tight_layout()
+    if save_path:
+        base, ext = _split_save_path(save_path)
+        plt.savefig(f"{base}{ext}", dpi=150, bbox_inches="tight")
+    if show:
+        plt.show()
+    else:
+        plt.close()
+
+
+def plot_pipeline_summary(phases, labels=None, figsize=(12, 4),
+                          show=True, save_path=None):
+    """Plot efficiency across multiple phases on a single timeline.
+
+    Args:
+        phases: List of OptimizationResult objects.
+        labels: List of phase labels. Defaults to result.phase.
+        figsize: Figure size.
+        show: Whether to display.
+        save_path: If provided, save to this path.
+    """
+    import matplotlib.pyplot as plt
+
+    if labels is None:
+        labels = [r.phase.capitalize() for r in phases]
+
+    fig, ax = plt.subplots(1, 1, figsize=figsize)
+    colors = ["#2563eb", "#7c3aed", "#d97706", "#059669"]
+    step_offset = 0
+
+    for i, (result, label) in enumerate(zip(phases, labels)):
+        efficiencies = [h.get("efficiency", 0) * 100 for h in result.history]
+        steps = [step_offset + h.get("step", j) for j, h in enumerate(result.history)]
+        color = colors[i % len(colors)]
+        ax.plot(steps, efficiencies, color=color, linewidth=1.5, label=label)
+        if steps:
+            step_offset = steps[-1]
+
+    ax.set_xlabel("Total steps")
+    ax.set_ylabel("Efficiency (%)")
+    ax.set_title("Pipeline Summary")
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+
+    plt.tight_layout()
+    if save_path:
+        base, ext = _split_save_path(save_path)
+        plt.savefig(f"{base}{ext}", dpi=150, bbox_inches="tight")
+    if show:
+        plt.show()
+    else:
+        plt.close()
