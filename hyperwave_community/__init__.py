@@ -176,7 +176,7 @@ from .layer_stack import LayerStack
 from .waveguide_mode import solve_waveguide_mode
 
 # Pipeline functions (surgery/drc/gds are local, optimize calls cloud)
-from .pipeline import surgery, check_drc, export_gds
+from .pipeline import optimize, surgery, check_drc, export_gds
 
 # Checkpoint save/load (local only)
 from .checkpoint import save_checkpoint, load_checkpoint, list_checkpoints
