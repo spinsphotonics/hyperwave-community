@@ -84,10 +84,20 @@ class LayerStack:
             index: Refractive index of the material.
             design_layer: If True, this layer has optimizable design variables.
             initial_value: Initial theta value for design layers (0-1).
-            density_eta: Projection threshold for this layer (0.5=balanced).
-                Higher eta = more void = wider gaps. Use 0.55-0.60 for
-                layers with wider gap requirements (e.g. Cisco W2/W3).
+            density_eta: Projection threshold for this layer. Controls the
+                solid/void balance in the Heaviside projection:
+                  0.50 = balanced (equal solid and void). Default, safe.
+                  0.55-0.60 = wider gaps (use for layers with larger min
+                              gap spec, e.g. Cisco W2/W3 at 150nm gap).
+                  0.45-0.50 = wider features (for layers needing thicker
+                              solid regions).
+                Must be in [0.45, 0.75]. Values outside this range produce
+                degenerate projections.
         """
+        if not 0.45 <= density_eta <= 0.75:
+            raise ValueError(
+                f"density_eta must be in [0.45, 0.75], got {density_eta}. "
+                f"Use 0.5 for balanced, 0.55-0.60 for wider gaps.")
         self._layers.append(_LayerSpec(
             name=name, thickness=thickness, index=index,
             design_layer=design_layer, initial_value=initial_value,
