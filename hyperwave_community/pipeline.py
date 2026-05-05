@@ -240,13 +240,15 @@ def optimize(
     ws.settimeout(600)
 
     stop_ping = threading.Event()
+    ws_lock = threading.Lock()
 
     def _pinger():
         while not stop_ping.is_set():
             stop_ping.wait(30)
             if not stop_ping.is_set():
                 try:
-                    ws.send(json.dumps({"type": "ping"}))
+                    with ws_lock:
+                        ws.send(json.dumps({"type": "ping"}))
                 except Exception:
                     break
 
@@ -301,6 +303,11 @@ def optimize(
         n_done = len(history)
         print(f"\nCancelled after {n_done} steps. "
               f"Completed steps are kept, GPU job stopped.", flush=True)
+        try:
+            with ws_lock:
+                ws.send(json.dumps({"type": "cancel"}))
+        except Exception:
+            pass
 
     finally:
         stop_ping.set()
