@@ -453,28 +453,80 @@ def check_drc(
     design: Design,
     disk_radius: int = 3,
     pixel_size: float = 0.0175,
-) -> DrcReport:
+    fab_rules: Optional[Dict[str, Dict[str, int]]] = None,
+):
     """Run design rule check via morphological opening.
 
-    Checks minimum feature size (CD) and minimum gap. Runs locally
-    on CPU, no credits charged.
+    Runs locally on CPU, no credits charged.
+
+    Single-layer (simple):
+        drc = check_drc(design, disk_radius=3)
+        drc.passed  # True/False
+
+    Multi-layer with per-layer rules:
+        drc = check_drc(design, fab_rules={
+            "W1": {"cd_radius": 4, "gap_radius": 4},
+            "W2": {"cd_radius": 4, "gap_radius": 6},
+        })
+        drc["W1"].passed
+        drc["W2"].gap_pct
 
     Args:
         design: Design to check.
-        disk_radius: Morphological disk radius in pixels.
+        disk_radius: Default morphological disk radius (used when
+            fab_rules not provided, or as fallback for missing layers).
         pixel_size: Physical pixel size in um.
+        fab_rules: Per-layer fab rules. Dict of layer_name -> dict with
+            optional keys: cd_radius, gap_radius (default to disk_radius).
 
     Returns:
-        DrcReport with violation counts, percentages, and pass/fail.
+        DrcReport if single-layer or no fab_rules.
+        Dict[str, DrcReport] if fab_rules provided (keyed by layer name).
     """
+    if fab_rules is not None:
+        results = {}
+        for name in design.layer_names:
+            rules = fab_rules.get(name, {})
+            cd_r = rules.get("cd_radius", disk_radius)
+            gap_r = rules.get("gap_radius", disk_radius)
+            results[name] = _check_drc_layer(
+                design, name, cd_r, gap_r, pixel_size)
+        return results
+
+    if len(design.layer_names) == 1:
+        name = design.layer_names[0]
+        return _check_drc_layer(design, name, disk_radius, disk_radius, pixel_size)
+
+    # Multi-layer without fab_rules: check each with same radius
+    import warnings
+    warnings.warn(
+        f"Design has {len(design.layer_names)} layers but no fab_rules provided. "
+        f"Using disk_radius={disk_radius} for all layers. "
+        f"Pass fab_rules={{...}} for per-layer DRC specs.",
+        stacklevel=2,
+    )
+    results = {}
+    for name in design.layer_names:
+        results[name] = _check_drc_layer(
+            design, name, disk_radius, disk_radius, pixel_size)
+    return results
+
+
+def _check_drc_layer(
+    design: Design,
+    layer_name: str,
+    cd_radius: int,
+    gap_radius: int,
+    pixel_size: float,
+) -> DrcReport:
+    """Check DRC for a single layer with separate CD and gap radii."""
     from skimage.morphology import disk, opening
     from hyperwave_community.structure import density
-
-    name = design.layer_names[0]
-    theta = design.thetas[name]
-    mask = design.design_mask(name)
-
     import jax.numpy as jnp
+
+    theta = design.thetas[layer_name]
+    mask = design.design_mask(layer_name)
+
     d = np.array(density(jnp.array(theta), radius=float(design.density_filter_radius)))
     binary = (d >= 0.5).astype(bool)
     binary_design = binary & mask
@@ -484,14 +536,18 @@ def check_drc(
     d_vals = d[mask]
     binarization_score = float(1.0 - np.mean(4 * d_vals * (1 - d_vals)))
 
-    selem = disk(disk_radius)
-    solid_opened = opening(binary_design, selem)
+    # CD violations: solid features smaller than cd_radius
+    cd_selem = disk(cd_radius)
+    solid_opened = opening(binary_design, cd_selem)
     cd_violations = int((binary_design & ~solid_opened).sum())
 
-    void_opened = opening(void_design, selem)
+    # Gap violations: void features smaller than gap_radius
+    gap_selem = disk(gap_radius)
+    void_opened = opening(void_design, gap_selem)
     gap_violations = int((void_design & ~void_opened).sum())
 
-    min_feature_nm = (2 * disk_radius + 1) * pixel_size * 1000
+    min_feature_nm = (2 * cd_radius + 1) * pixel_size * 1000
+    min_gap_nm = (2 * gap_radius + 1) * pixel_size * 1000
     cd_pct = 100.0 * cd_violations / design_pixels if design_pixels > 0 else 0.0
     gap_pct = 100.0 * gap_violations / design_pixels if design_pixels > 0 else 0.0
 
@@ -501,9 +557,9 @@ def check_drc(
         gap_violations=gap_violations,
         gap_pct=gap_pct,
         binarization_score=binarization_score,
-        disk_radius=disk_radius,
+        disk_radius=cd_radius,
         min_feature_nm=min_feature_nm,
-        min_gap_nm=min_feature_nm,
+        min_gap_nm=min_gap_nm,
         design_pixels=design_pixels,
     )
 

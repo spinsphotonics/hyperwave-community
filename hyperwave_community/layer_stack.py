@@ -35,6 +35,7 @@ class _LayerSpec:
     index: float
     design_layer: bool = False
     initial_value: float = 0.5
+    density_eta: float = 0.5
 
 
 @dataclass
@@ -73,6 +74,7 @@ class LayerStack:
         index: float,
         design_layer: bool = False,
         initial_value: float = 0.5,
+        density_eta: float = 0.5,
     ) -> None:
         """Add a layer to the stack.
 
@@ -82,10 +84,14 @@ class LayerStack:
             index: Refractive index of the material.
             design_layer: If True, this layer has optimizable design variables.
             initial_value: Initial theta value for design layers (0-1).
+            density_eta: Projection threshold for this layer (0.5=balanced).
+                Higher eta = more void = wider gaps. Use 0.55-0.60 for
+                layers with wider gap requirements (e.g. Cisco W2/W3).
         """
         self._layers.append(_LayerSpec(
             name=name, thickness=thickness, index=index,
             design_layer=design_layer, initial_value=initial_value,
+            density_eta=density_eta,
         ))
 
     def build(self, nx: Optional[int] = None, ny: Optional[int] = None) -> GridInfo:
@@ -132,6 +138,7 @@ class LayerStack:
                     "eps_range": perm_values,
                     "thickness_px": h_px,
                     "index": spec.index,
+                    "density_eta": spec.density_eta,
                 })
             else:
                 theta = jnp.zeros((nx, ny), dtype=jnp.float32)
