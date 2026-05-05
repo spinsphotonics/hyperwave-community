@@ -36,14 +36,34 @@ def optimize(
     fab_eta_hi: Optional[float] = None,
     gpu_type: str = "B200",
     api_key: Optional[str] = None,
-) -> OptimizationResult:
+):
     """Run an optimization phase on cloud GPU.
+
+    Generator that yields per-step results. Break out of the loop to
+    cancel the GPU job early (only charged for completed steps).
+
+    Usage:
+        # Stream results, can break early
+        for step in hwc.optimize(device, source, mode, n_steps=100):
+            print(f"Step {step['step']}: {step['efficiency']*100:.2f}%")
+            if step['efficiency'] > 0.75:
+                break  # cancels GPU, refunds remaining credits
+
+        # The last yielded step has the final Design
+        design = step['design']  # pass to next phase or surgery
+
+    Each yielded dict contains:
+        step: int - Current step number
+        efficiency: float - Coupling efficiency (0-1)
+        loss: float - Loss value
+        fab_loss: float or None - Fabrication loss (dfm/recovery)
+        time: float - Wall time for this step (seconds)
+        design: Design - Current Design state (thetas, efficiency, phase)
+        is_final: bool - True on the last step
 
     Args:
         device: GridInfo from LayerStack.build(), or a dict with
-            design_layers, freq_band, source_offset, recipe_params,
-            absorption_widths, absorption_coeff, output_monitor_pos,
-            output_monitor_shape, design_xy_range, max_steps, check_every_n.
+            design_layers, freq_band, source_offset, recipe_params, etc.
         source: Source field array.
         mode: Target mode field array.
         objective: Objective expression tree (from hwc.objectives).
@@ -64,8 +84,8 @@ def optimize(
         gpu_type: GPU type (default "B200").
         api_key: API key (overrides configured key).
 
-    Returns:
-        OptimizationResult with .design and .history.
+    Yields:
+        dict with step results including a Design object.
     """
     from hyperwave_community.api_client import (
         _API_CONFIG, encode_array, decode_array, _handle_api_error,
@@ -87,11 +107,9 @@ def optimize(
 
     # Extract device info
     if hasattr(device, 'design_layers_info'):
-        # GridInfo from LayerStack.build()
         design_layers_raw = device.design_layers_info
         freq_band = list(device.freq_band)
         recipe_params = device.recipe_params
-        # These need to be provided separately or have defaults
         source_offset = [0, 0, 0]
         absorption_widths = [70, 35, 17]
         absorption_coeff = 0.00489
@@ -103,7 +121,6 @@ def optimize(
         check_every_n = 500
         enforce_symmetry = False
     else:
-        # Raw dict
         design_layers_raw = device.get('design_layers', [])
         freq_band = list(device.get('freq_band', [0.1, 0.1, 1]))
         recipe_params = device.get('recipe_params', {})
@@ -131,8 +148,9 @@ def optimize(
         for dl in design_layers_raw:
             layer = dict(dl)
             if 'theta' in layer:
-                layer['theta_b64'] = encode_array(np.array(layer.pop('theta')))
-                layer['theta_shape'] = list(np.array(layer.get('theta_b64', '')).shape) if 'theta' in dl else [0]
+                theta_arr = np.array(layer.pop('theta'))
+                layer['theta_b64'] = encode_array(theta_arr)
+                layer['theta_shape'] = list(theta_arr.shape)
             design_layers.append(layer)
 
     # Serialize objective
@@ -186,145 +204,114 @@ def optimize(
         request_data["objective_spec"] = objective_spec
         request_data["objective_arrays_b64"] = objective_arrays_b64
 
-    # WebSocket transport (same pattern as _run_optimization_ws)
-    history = []
-    last_thetas = {}
-
+    # WebSocket transport
     try:
         import websocket as _ws_lib
-
-        headers = {
-            "X-API-Key": effective_api_key,
-            "Content-Type": "application/json",
-        }
-        body = json.dumps(request_data).encode()
-        compressed = gzip.compress(body)
-        if len(compressed) < len(body):
-            headers["Content-Encoding"] = "gzip"
-            body = compressed
-
-        logger.info("Starting pipeline optimize (phase=%s, n_steps=%d)...", phase, n_steps)
-        t0 = _time.time()
-        response = requests.post(
-            f"{API_URL}/pipeline_optimize_start",
-            data=body, headers=headers, timeout=(60, 300))
-        response.raise_for_status()
-        session_id = response.json()["session_id"]
-        logger.info("  Session started in %.1fs: %s...", _time.time() - t0, session_id[:8])
-
-        ws_url = API_URL.replace("https://", "wss://").replace("http://", "ws://")
-        ws_url = f"{ws_url}/inverse_design_ws?session_id={session_id}"
-
-        ws = _ws_lib.create_connection(
-            ws_url, header={"X-API-Key": effective_api_key}, timeout=30)
-        ws.settimeout(600)
-
-        stop_ping = threading.Event()
-
-        def _pinger():
-            while not stop_ping.is_set():
-                stop_ping.wait(30)
-                if not stop_ping.is_set():
-                    try:
-                        ws.send(json.dumps({"type": "ping"}))
-                    except Exception:
-                        break
-
-        ping_thread = threading.Thread(target=_pinger, daemon=True)
-        ping_thread.start()
-
-        try:
-            while True:
-                raw = ws.recv()
-                if not raw:
-                    continue
-                msg = json.loads(raw)
-                msg_type = msg.get("type")
-
-                if msg_type == "error":
-                    raise RuntimeError(msg.get("message", "Server error"))
-                if msg_type == "done":
-                    break
-                if msg_type == "step":
-                    step = msg.get("step", 0)
-                    eff = msg.get("efficiency", 0.0)
-                    history.append({
-                        "step": step,
-                        "efficiency": eff,
-                        "loss": msg.get("loss", 0.0),
-                        "fab_loss": msg.get("fab_loss"),
-                        "time": msg.get("step_time", 0.0),
-                    })
-                    # Decode thetas if present
-                    if "theta_b64" in msg and isinstance(msg["theta_b64"], dict):
-                        last_thetas = {
-                            name: decode_array(b64)
-                            for name, b64 in msg["theta_b64"].items()
-                        }
-                    elif "theta_b64" in msg and isinstance(msg["theta_b64"], str):
-                        last_thetas = {"design": decode_array(msg["theta_b64"])}
-
-                    print(f"Step {step:3d}/{n_steps}: efficiency={eff*100:.2f}%  "
-                          f"time={msg.get('step_time', 0):.0f}s", flush=True)
-
-        finally:
-            stop_ping.set()
-            ping_thread.join(timeout=2)
-            try:
-                ws.close()
-            except Exception:
-                pass
-
     except ImportError:
         raise ImportError(
             "websocket-client required for optimize(). "
             "Install with: pip install websocket-client")
+
+    headers = {
+        "X-API-Key": effective_api_key,
+        "Content-Type": "application/json",
+    }
+    body = json.dumps(request_data).encode()
+    compressed = gzip.compress(body)
+    if len(compressed) < len(body):
+        headers["Content-Encoding"] = "gzip"
+        body = compressed
+
+    logger.info("Starting pipeline optimize (phase=%s, n_steps=%d)...", phase, n_steps)
+    t0 = _time.time()
+
+    try:
+        response = requests.post(
+            f"{API_URL}/pipeline_optimize_start",
+            data=body, headers=headers, timeout=(60, 300))
+        response.raise_for_status()
     except requests.HTTPError as e:
         _handle_api_error(e, "pipeline optimize")
         raise
 
-    # Build result
-    if not last_thetas and initial_design is not None:
-        last_thetas = initial_design.thetas
+    session_id = response.json()["session_id"]
+    logger.info("  Session started in %.1fs: %s...", _time.time() - t0, session_id[:8])
 
-    final_eff = history[-1]["efficiency"] if history else 0.0
-    final_step = history[-1]["step"] if history else 0
+    ws_url = API_URL.replace("https://", "wss://").replace("http://", "ws://")
+    ws_url = f"{ws_url}/inverse_design_ws?session_id={session_id}"
 
-    design = Design(
-        thetas=last_thetas,
-        density_filter_radius=density_filter_radius,
-        efficiency=final_eff,
-        phase=phase,
-        step=final_step,
-    )
+    ws = _ws_lib.create_connection(
+        ws_url, header={"X-API-Key": effective_api_key}, timeout=30)
+    ws.settimeout(600)
 
-    efficiencies = [h["efficiency"] for h in history]
-    best_idx = int(np.argmax(efficiencies)) if efficiencies else 0
-    best_eff = efficiencies[best_idx] if efficiencies else 0.0
-    best_step = history[best_idx]["step"] if history else 0
+    stop_ping = threading.Event()
 
-    schedule_config = {
-        "phase": phase,
-        "density_filter_radius": density_filter_radius,
-        "disk_radius": disk_radius,
-    }
-    if beta_init is not None:
-        schedule_config["beta_init"] = beta_init
-    if beta_max is not None:
-        schedule_config["beta_max"] = beta_max
-    if learning_rate is not None:
-        schedule_config["learning_rate"] = learning_rate
+    def _pinger():
+        while not stop_ping.is_set():
+            stop_ping.wait(30)
+            if not stop_ping.is_set():
+                try:
+                    ws.send(json.dumps({"type": "ping"}))
+                except Exception:
+                    break
 
-    return OptimizationResult(
-        design=design,
-        history=history,
-        phase=phase,
-        n_steps=len(history),
-        best_efficiency=best_eff,
-        best_step=best_step,
-        schedule_config=schedule_config,
-        n_steps_planned=n_steps,
-    )
+    ping_thread = threading.Thread(target=_pinger, daemon=True)
+    ping_thread.start()
+
+    current_thetas = (initial_design.thetas if initial_design else {})
+
+    try:
+        while True:
+            raw = ws.recv()
+            if not raw:
+                continue
+            msg = json.loads(raw)
+            msg_type = msg.get("type")
+
+            if msg_type == "error":
+                raise RuntimeError(msg.get("message", "Server error"))
+            if msg_type == "done":
+                break
+            if msg_type == "step":
+                step_num = msg.get("step", 0)
+                eff = msg.get("efficiency", 0.0)
+
+                # Decode thetas if present
+                if "theta_b64" in msg and isinstance(msg["theta_b64"], dict):
+                    current_thetas = {
+                        name: decode_array(b64)
+                        for name, b64 in msg["theta_b64"].items()
+                    }
+                elif "theta_b64" in msg and isinstance(msg["theta_b64"], str):
+                    current_thetas = {"design": decode_array(msg["theta_b64"])}
+
+                yield {
+                    "step": step_num,
+                    "efficiency": eff,
+                    "loss": msg.get("loss", 0.0),
+                    "fab_loss": msg.get("fab_loss"),
+                    "time": msg.get("step_time", 0.0),
+                    "is_final": msg.get("is_final", False),
+                    "design": Design(
+                        thetas=dict(current_thetas),
+                        density_filter_radius=density_filter_radius,
+                        efficiency=eff,
+                        phase=phase,
+                        step=step_num,
+                    ),
+                }
+
+    except GeneratorExit:
+        pass  # user broke out, closing WS cancels GPU
+
+    finally:
+        stop_ping.set()
+        if ping_thread is not None:
+            ping_thread.join(timeout=2)
+        try:
+            ws.close()
+        except Exception:
+            pass
 
 
 # ---------------------------------------------------------------------------
