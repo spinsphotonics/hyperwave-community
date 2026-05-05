@@ -169,8 +169,8 @@ from .objectives import Objective
 # Types: Design flows between phases, results wrap outputs
 from .types import Design, OptimizationResult, DrcReport
 
-# Layer stack builder
-from .layer_stack import LayerStack
+# Device builder
+from .device import build_device, DeviceConfig
 
 # Waveguide mode solver (local)
 from .waveguide_mode import solve_waveguide_mode

@@ -21,7 +21,7 @@ class Design:
     """
 
     thetas: Dict[str, np.ndarray]
-    density_filter_radius: int
+    density_radii: Dict[str, int]
     efficiency: float = 0.0
     phase: str = ""
     step: int = 0
@@ -41,6 +41,11 @@ class Design:
     @property
     def layer_names(self) -> List[str]:
         return list(self.thetas.keys())
+
+    @property
+    def density_filter_radius(self) -> int:
+        """First layer's density radius (backward compat)."""
+        return next(iter(self.density_radii.values()))
 
     def design_mask(self, layer_name: Optional[str] = None) -> np.ndarray:
         name = layer_name or self.layer_names[0]

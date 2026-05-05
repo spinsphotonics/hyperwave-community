@@ -88,7 +88,7 @@ class TestTypes:
     def test_design_properties(self):
         from hyperwave_community.types import Design
         d = Design(thetas={"etch": np.ones((50, 50), dtype=np.float32)},
-                   density_filter_radius=6, efficiency=0.75)
+                   density_radii={"etch": 6}, efficiency=0.75)
         assert d.shape == (50, 50)
         assert d.layer_names == ["etch"]
         assert d.design_mask().all()
@@ -96,7 +96,7 @@ class TestTypes:
     def test_design_multi_layer(self):
         from hyperwave_community.types import Design
         d = Design(thetas={"etch": np.ones((40, 40)), "slab": np.zeros((40, 40))},
-                   density_filter_radius=4)
+                   density_radii={"etch": 4, "slab": 4})
         assert len(d.layer_names) == 2
 
     def test_drc_report_pass(self):
@@ -125,7 +125,7 @@ class TestSurgery:
         from hyperwave_community.pipeline import surgery
         np.random.seed(42)
         d = Design(thetas={"etch": np.random.rand(80, 80).astype(np.float32)},
-                   density_filter_radius=4)
+                   density_radii={"etch": 4})
         result = surgery(d)
         assert isinstance(result, Design)
         assert result.phase == "surgery"
@@ -135,7 +135,7 @@ class TestSurgery:
         from hyperwave_community.types import Design
         from hyperwave_community.pipeline import surgery
         d = Design(thetas={"etch": np.ones((60, 60), dtype=np.float32)},
-                   density_filter_radius=4)
+                   density_radii={"etch": 4})
         result = surgery(d)
         assert result.removed_islands == 0
         assert result.filled_holes == 0
@@ -147,7 +147,7 @@ class TestCheckDrc:
         from hyperwave_community.pipeline import check_drc
         np.random.seed(42)
         d = Design(thetas={"etch": np.random.rand(80, 80).astype(np.float32)},
-                   density_filter_radius=4)
+                   density_radii={"etch": 4})
         r = check_drc(d, disk_radius=2)
         assert hasattr(r, "cd_pct")
         assert hasattr(r, "passed")
@@ -157,7 +157,7 @@ class TestCheckDrc:
         from hyperwave_community.types import Design
         from hyperwave_community.pipeline import check_drc
         d = Design(thetas={"etch": np.ones((60, 60), dtype=np.float32)},
-                   density_filter_radius=4)
+                   density_radii={"etch": 4})
         r = check_drc(d)
         assert r.passed is True
 
@@ -168,7 +168,7 @@ class TestExportGds:
         from hyperwave_community.pipeline import export_gds
         np.random.seed(42)
         d = Design(thetas={"etch": np.random.rand(60, 60).astype(np.float32)},
-                   density_filter_radius=4)
+                   density_radii={"etch": 4})
         with tempfile.TemporaryDirectory() as td:
             path = export_gds(d, filename=os.path.join(td, "test.gds"))
             assert os.path.exists(path)
@@ -179,27 +179,54 @@ class TestExportGds:
 # LayerStack
 # ---------------------------------------------------------------------------
 
-class TestLayerStack:
+class TestBuildDevice:
     def test_build(self):
-        from hyperwave_community.layer_stack import LayerStack
-        ls = LayerStack(grid=0.035, wavelength=1.55)
-        ls.add_layer("box", thickness=2.0, index=1.44)
-        ls.add_layer("etch", thickness=0.11, index=3.48, design_layer=True)
-        ls.add_layer("clad", thickness=2.0, index=1.44)
-        grid = ls.build(nx=100, ny=100)
-        assert len(grid.shape) == 3
-        assert len(grid.design_layers_info) == 1
-        assert grid.design_layers_info[0]["name"] == "etch"
+        from hyperwave_community.device import build_device
+        device = build_device(
+            layers=[
+                {"name": "box", "thickness": 2.0, "index": 1.44},
+                {"name": "etch", "thickness": 0.11, "index": 3.48,
+                 "design": True, "density_radius": 6},
+                {"name": "clad", "thickness": 2.0, "index": 1.44},
+            ],
+            grid=0.035, wavelength=1.55, nx=100,
+        )
+        assert len(device.shape) == 3
+        assert len(device.design_layers_info) == 1
+        assert device.design_layers_info[0]["name"] == "etch"
+        assert device.design_layers_info[0]["density_radius"] == 6
 
     def test_recipe_params(self):
-        from hyperwave_community.layer_stack import LayerStack
-        ls = LayerStack(grid=0.035, wavelength=1.55)
-        ls.add_layer("clad", thickness=1.0, index=1.44)
-        ls.add_layer("core", thickness=0.22, index=3.48, design_layer=True)
-        ls.add_layer("clad2", thickness=1.0, index=1.44)
-        grid = ls.build(nx=80, ny=80)
-        assert "grid_shape" in grid.recipe_params
-        assert "layers_template" in grid.recipe_params
+        from hyperwave_community.device import build_device
+        device = build_device(
+            layers=[
+                {"name": "clad", "thickness": 1.0, "index": 1.44},
+                {"name": "core", "thickness": 0.22, "index": 3.48,
+                 "design": True, "density_radius": 8},
+                {"name": "clad2", "thickness": 1.0, "index": 1.44},
+            ],
+            grid=0.035, wavelength=1.55, nx=80,
+        )
+        assert "grid_shape" in device.recipe_params
+        assert "layers_template" in device.recipe_params
+
+    def test_density_radius_required(self):
+        from hyperwave_community.device import build_device
+        with pytest.raises(ValueError, match="density_radius is required"):
+            build_device(
+                layers=[{"name": "etch", "thickness": 0.11, "index": 3.48,
+                         "design": True}],
+                grid=0.035, wavelength=1.55, nx=100,
+            )
+
+    def test_density_eta_validated(self):
+        from hyperwave_community.device import build_device
+        with pytest.raises(ValueError, match="density_eta"):
+            build_device(
+                layers=[{"name": "etch", "thickness": 0.11, "index": 3.48,
+                         "design": True, "density_radius": 6, "density_eta": 0.9}],
+                grid=0.035, wavelength=1.55, nx=100,
+            )
 
 
 # ---------------------------------------------------------------------------
@@ -228,7 +255,7 @@ class TestCheckpoint:
         from hyperwave_community.checkpoint import save_checkpoint, load_checkpoint
 
         d = Design(thetas={"etch": np.random.rand(30, 30).astype(np.float32)},
-                   density_filter_radius=6, efficiency=0.5, step=25)
+                   density_radii={"etch": 6}, efficiency=0.5, step=25)
         r = OptimizationResult(design=d, history=[], phase="freeform", n_steps=25,
                                schedule_config={"beta_init": 1.0}, n_steps_planned=100)
         with tempfile.TemporaryDirectory() as td:

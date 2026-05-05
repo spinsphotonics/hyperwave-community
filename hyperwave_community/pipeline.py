@@ -23,7 +23,6 @@ def optimize(
     objective: Any = None,
     phase: str = "freeform",
     n_steps: int = 100,
-    density_filter_radius: int = 6,
     initial_design: Optional[Design] = None,
     input_power: float = 1.0,
     mode_cross_power: Optional[float] = None,
@@ -65,7 +64,7 @@ def optimize(
             If None, uses mode coupling with the provided mode field.
         phase: "freeform", "binarize", "dfm", or "recovery".
         n_steps: Number of optimization steps.
-        density_filter_radius: Conic filter radius in pixels.
+        (density_radius is per-layer, set in build_device layer specs)
         initial_design: Design from a previous phase.
         input_power: Source input power for normalization.
         mode_cross_power: Mode self-overlap power.
@@ -174,7 +173,6 @@ def optimize(
         "output_monitor_pos": output_monitor_pos,
         "output_monitor_shape": output_monitor_shape,
         "design_xy_range": design_xy_range,
-        "density_filter_radius": density_filter_radius,
         "disk_radius": disk_radius,
         "gap_radius": gap_radius,
         "max_steps": max_steps,
@@ -322,9 +320,15 @@ def optimize(
     final_eff = history[-1]["efficiency"] if history else 0.0
     final_step = history[-1]["step"] if history else 0
 
+    # Extract per-layer density radii from device config
+    _density_radii = {}
+    for dl in design_layers_raw:
+        if dl.get("design") or "density_radius" in dl:
+            _density_radii[dl["name"]] = dl.get("density_radius", 6)
+
     design = Design(
         thetas=current_thetas,
-        density_filter_radius=density_filter_radius,
+        density_radii=_density_radii,
         efficiency=final_eff,
         phase=phase,
         step=final_step,
@@ -337,7 +341,6 @@ def optimize(
 
     schedule_config = {
         "phase": phase,
-        "density_filter_radius": density_filter_radius,
         "disk_radius": disk_radius,
     }
     if beta_init is not None:
@@ -397,9 +400,10 @@ def surgery(
 
     for name, theta in design.thetas.items():
         mask = design.design_mask(name)
+        layer_radius = float(design.density_radii.get(name, 6))
 
         import jax.numpy as jnp
-        d = np.array(density(jnp.array(theta), radius=float(design.density_filter_radius)))
+        d = np.array(density(jnp.array(theta), radius=layer_radius))
         binary = (d >= 0.5).astype(np.int32)
         binary_design = binary.copy()
         binary_design[~mask] = 0
@@ -436,7 +440,7 @@ def surgery(
 
     return Design(
         thetas=new_thetas,
-        density_filter_radius=design.density_filter_radius,
+        density_radii=dict(design.density_radii),
         efficiency=design.efficiency,
         phase="surgery",
         step=design.step,
@@ -527,7 +531,8 @@ def _check_drc_layer(
     theta = design.thetas[layer_name]
     mask = design.design_mask(layer_name)
 
-    d = np.array(density(jnp.array(theta), radius=float(design.density_filter_radius)))
+    layer_radius = float(design.density_radii.get(layer_name, 6))
+    d = np.array(density(jnp.array(theta), radius=layer_radius))
     binary = (d >= 0.5).astype(bool)
     binary_design = binary & mask
     void_design = (~binary) & mask
@@ -590,9 +595,11 @@ def export_gds(
     from hyperwave_community.structure import density
     from hyperwave_community.data_io import generate_gds_from_density
 
-    theta = design.theta
+    name = design.layer_names[0]
+    theta = design.thetas[name]
+    layer_radius = float(design.density_radii.get(name, 6))
     import jax.numpy as jnp
-    d = np.array(density(jnp.array(theta), radius=float(design.density_filter_radius)))
+    d = np.array(density(jnp.array(theta), radius=layer_radius))
 
     return generate_gds_from_density(
         density_array=d,
