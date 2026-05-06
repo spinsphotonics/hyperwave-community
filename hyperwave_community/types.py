@@ -91,6 +91,6 @@ class DrcReport:
     def __post_init__(self):
         self.passed = self.cd_pct < 1.0 and self.gap_pct < 1.0
         self.status = (
-            f"PASS (< 1% violations)" if self.passed
+            "PASS (< 1% violations)" if self.passed
             else f"FAIL (CD {self.cd_pct:.1f}%, gap {self.gap_pct:.1f}%)"
         )

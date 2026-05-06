@@ -296,7 +296,7 @@ class TestWaveguideMode:
 class TestCheckpoint:
     def test_round_trip(self):
         from hyperwave_community.types import Design, OptimizationResult
-        from hyperwave_community.checkpoint import save_checkpoint, load_checkpoint
+        from hyperwave_community.checkpoint import load_checkpoint
 
         d = Design(thetas={"etch": np.random.rand(30, 30).astype(np.float32)},
                    density_radii={"etch": 6}, efficiency=0.5, step=25)

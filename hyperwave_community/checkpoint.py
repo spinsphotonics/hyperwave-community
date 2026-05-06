@@ -32,7 +32,6 @@ from __future__ import annotations
 
 import json
 import os
-import pickle
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -247,7 +246,7 @@ def save_checkpoint(
     if ckpt.optimizer_state_bytes:
         print(f"  Optimizer state: saved ({len(ckpt.optimizer_state_bytes)} bytes)")
     else:
-        print(f"  Optimizer state: not saved (will reinitialize on resume)")
+        print("  Optimizer state: not saved (will reinitialize on resume)")
 
     return abs_path
 
@@ -332,7 +331,7 @@ def load_checkpoint(path: str) -> Checkpoint:
     if optimizer_state_bytes:
         print(f"  Optimizer state: loaded ({len(optimizer_state_bytes)} bytes)")
     else:
-        print(f"  Optimizer state: not available (will reinitialize)")
+        print("  Optimizer state: not available (will reinitialize)")
 
     return ckpt
 

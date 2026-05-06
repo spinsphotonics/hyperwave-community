@@ -1,4 +1,5 @@
 """Test script at 25nm resolution: compare with 50nm to verify efficiency < 100%."""
+# ruff: noqa: E402
 import os
 import pickle
 from dotenv import load_dotenv
@@ -11,7 +12,6 @@ import hyperwave_community as hwc
 import numpy as np
 import jax.numpy as jnp
 import math
-import time
 
 hwc.configure_api(api_key=os.environ['HYPERWAVE_API_KEY'])
 
@@ -142,7 +142,7 @@ if os.path.exists(CACHE):
     _c = np.load(CACHE)
     source_field, input_power = _c['source_field'], float(_c['input_power'])
 else:
-    print(f"Generating Gaussian source on cloud GPU...")
+    print("Generating Gaussian source on cloud GPU...")
     source_field, input_power = hwc.generate_gaussian_source(
         sim_shape=(Lx, Ly, Lz),
         frequencies=np.array([freq]),
@@ -314,7 +314,7 @@ print(f"Design monitor: {design_monitor_shape}")
 
 # === Optimization loop ===
 print(f"\nRunning optimization ({NUM_STEPS} steps at {dx*1000:.0f}nm)...")
-print(f"Loss: Mode coupling (maximize efficiency)")
+print("Loss: Mode coupling (maximize efficiency)")
 results = []
 
 for step_result in hwc.run_optimization(
@@ -375,7 +375,7 @@ recipe_best = hwc.recipe_from_params(
 monitors = hwc.MonitorSet()
 monitors.add(hwc.Monitor(shape=(1, Ly, Lz), offset=(output_x, 0, 0)), name='Output_wg_output')
 
-print(f"Running verification forward sim...")
+print("Running verification forward sim...")
 opt_results = hwc.simulate(
     structure_recipe=recipe_best,
     source_field=source_field,
@@ -406,20 +406,20 @@ mode_eff = abs(np.real(I1 * I2)) / (2.0 * input_power * P_mode_cross) * 100
 mode_dB = -10 * np.log10(max(mode_eff / 100, 1e-10))
 print(f"Mode coupling: {mode_eff:.2f}% ({mode_dB:.2f} dB)")
 
-print(f"\n============================================================")
-print(f"COMPARISON SUMMARY")
-print(f"============================================================")
+print("\n============================================================")
+print("COMPARISON SUMMARY")
+print("============================================================")
 print(f"Resolution: {dx*1000:.0f}nm, Steps: {NUM_STEPS}, LR: {LR}")
 print(f"n_eff: {n_eff_mode:.4f}, P_mode_cross: {P_mode_cross:.6f}")
 print(f"Grid: {Lx}x{Ly}x{Lz_recipe} structure, {theta_Lx}x{theta_Ly} theta")
-print(f"")
-print(f"Per-step mode coupling efficiency:")
+print("")
+print("Per-step mode coupling efficiency:")
 for i, r in enumerate(results):
     print(f"  Step {i+1}: {abs(r['loss'])*100:.2f}%  |grad|={r['grad_max']:.3e}")
-print(f"")
-print(f"Verification (independent forward sim):")
+print("")
+print("Verification (independent forward sim):")
 print(f"  Power coupling:  {eff_pct:.2f}%")
 print(f"  Mode coupling:   {mode_eff:.2f}%")
-print(f"============================================================")
+print("============================================================")
 
 print("\n=== ALL CELLS PASSED ===")

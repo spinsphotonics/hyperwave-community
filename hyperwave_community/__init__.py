@@ -339,4 +339,23 @@ __all__ = [
     "view_structure",
     "view_monitors",
     "view_gds",
+
+    # Inverse design pipeline API
+    "objectives",
+    "Objective",
+    "Design",
+    "OptimizationResult",
+    "DrcReport",
+    "build_device",
+    "DeviceConfig",
+    "solve_waveguide_mode",
+    "optimize",
+    "surgery",
+    "check_drc",
+    "export_gds",
+    "save_checkpoint",
+    "load_checkpoint",
+    "list_checkpoints",
+    "plot_phase_summary",
+    "plot_pipeline_summary",
 ]

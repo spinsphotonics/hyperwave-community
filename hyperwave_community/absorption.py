@@ -66,7 +66,7 @@ def _absorption_profiles(numcells: int, width: float, smoothness: float) -> jax.
     pos = jnp.abs(pos - center) - center + width
     
     # Clip negative values to zero (no absorption in the center region)
-    pos = jnp.clip(pos, a_min=0, a_max=None)
+    pos = jnp.clip(pos, min=0)
     
     # Apply quadratic profile: σ(r) = smoothness × r²
     # Quadratic ensures smooth, reflection-free absorption
