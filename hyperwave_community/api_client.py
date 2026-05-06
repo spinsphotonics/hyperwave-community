@@ -2471,22 +2471,12 @@ def compute_adjoint_gradient(
     theta_b64 = encode_array(np.array(theta, dtype=np.float32))
     source_field_b64 = encode_array(np.array(source_field))
 
-    # Custom loss functions via cloudpickle have been removed for security.
-    # Use hwc.objectives expression trees with hwc.optimize() instead.
+    # Serialize custom loss function if provided
     loss_fn_pickle_b64 = None
     if loss_fn is not None:
-        import warnings
-        warnings.warn(
-            "loss_fn parameter is deprecated and no longer supported. "
-            "Custom loss functions via cloudpickle have been removed for security. "
-            "Use hwc.objectives expression trees with hwc.optimize() instead.",
-            DeprecationWarning, stacklevel=2,
-        )
-        raise ValueError(
-            "loss_fn is no longer supported. Use hwc.optimize() with "
-            "hwc.objectives.mode_coupling(), hwc.objectives.power(), or "
-            "custom expression trees instead."
-        )
+        import cloudpickle
+        loss_fn_bytes = cloudpickle.dumps(loss_fn)
+        loss_fn_pickle_b64 = base64.b64encode(loss_fn_bytes).decode('utf-8')
 
     # Prepare mode coupling params if provided
     mode_coupling_params = None
