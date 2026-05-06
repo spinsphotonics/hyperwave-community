@@ -228,6 +228,50 @@ class TestBuildDevice:
                 grid=0.035, wavelength=1.55, nx=100,
             )
 
+    def test_layers_template_format(self):
+        """layers_template must match Modal optimizer's expected format."""
+        from hyperwave_community.device import build_device
+        device = build_device(
+            layers=[
+                {"name": "box", "thickness": 2.0, "index": 1.44},
+                {"name": "etch", "thickness": 0.11, "index": 3.48,
+                 "design": True, "density_radius": 6},
+                {"name": "slab", "thickness": 0.11, "index": 3.48,
+                 "design": True, "density_radius": 6},
+                {"name": "clad", "thickness": 2.0, "index": 1.44},
+            ],
+            grid=0.035, wavelength=1.55, nx=100,
+        )
+        lt = device.recipe_params["layers_template"]
+        assert len(lt) == 4
+
+        # Fixed layers
+        assert lt[0]["layer_type"] == "slab"
+        assert "permittivity" in lt[0]["params"]
+        assert "thickness" in lt[0]["params"]
+        assert lt[3]["layer_type"] == "slab"
+
+        # Design layers indexed sequentially
+        assert lt[1]["layer_type"] == "design_0"
+        assert isinstance(lt[1]["params"]["permittivity"], tuple)
+        assert lt[2]["layer_type"] == "design_1"
+
+    def test_waveguide_mask_custom(self):
+        from hyperwave_community.device import build_device
+        wg = np.zeros((100, 100), dtype=bool)
+        wg[:, 40:60] = True
+        device = build_device(
+            layers=[
+                {"name": "clad", "thickness": 1.0, "index": 1.44},
+                {"name": "etch", "thickness": 0.22, "index": 3.48,
+                 "design": True, "density_radius": 6, "waveguide_mask": wg},
+                {"name": "clad2", "thickness": 1.0, "index": 1.44},
+            ],
+            grid=0.035, wavelength=1.55, nx=100,
+        )
+        mask = device.design_layers_info[0]["waveguide_mask"]
+        assert mask.sum() > 0  # not all zeros
+
 
 # ---------------------------------------------------------------------------
 # Waveguide mode

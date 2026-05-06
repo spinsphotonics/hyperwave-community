@@ -123,15 +123,22 @@ def build_device(
             theta = jnp.full((nx, ny), initial_value, dtype=jnp.float32)
             perm_values = (1.0, eps)
 
-            design_info.append({
+            wg_mask = spec.get("waveguide_mask")
+            if wg_mask is None:
+                wg_mask = np.zeros((nx, ny), dtype=bool)
+            else:
+                wg_mask = np.array(wg_mask, dtype=bool)
+
+            dl_info = {
                 "name": name,
                 "theta": np.array(theta),
                 "z_range": (z_cursor, z_cursor + h_px),
                 "eps_range": perm_values,
                 "density_radius": int(density_radius),
                 "density_eta": float(density_eta),
-                "waveguide_mask": None,
-            })
+                "waveguide_mask": wg_mask,
+            }
+            design_info.append(dl_info)
         else:
             theta = jnp.zeros((nx, ny), dtype=jnp.float32)
             perm_values = eps
@@ -148,19 +155,32 @@ def build_device(
     Ly = structure.permittivity.shape[2]
     Lz = structure.permittivity.shape[3]
 
+    # Build layers_template in the format the deployed Modal optimizer expects:
+    # {"layer_type": "design_N"|"slab", "params": {"permittivity": ..., "thickness": ...}}
     layers_template = []
-    for i, spec in enumerate(layers):
-        lyr = hw_layers[i]
-        if isinstance(lyr.permittivity_values, tuple):
-            pv = [float(v) for v in lyr.permittivity_values]
+    design_idx = 0
+    for spec in layers:
+        is_design = spec.get("design", False)
+        eps = spec["index"] ** 2
+        h_px = int(round(spec["thickness"] / dx))
+
+        if is_design:
+            layers_template.append({
+                "layer_type": f"design_{design_idx}",
+                "params": {
+                    "permittivity": (1.0, float(eps)),
+                    "thickness": h_px,
+                }
+            })
+            design_idx += 1
         else:
-            pv = float(lyr.permittivity_values)
-        layers_template.append({
-            "permittivity_values": pv,
-            "layer_thickness": float(lyr.layer_thickness),
-            "density_radius": 0,
-            "density_alpha": 0,
-        })
+            layers_template.append({
+                "layer_type": "slab",
+                "params": {
+                    "permittivity": float(eps),
+                    "thickness": h_px,
+                }
+            })
 
     recipe_params = {
         "grid_shape": [nx, ny],

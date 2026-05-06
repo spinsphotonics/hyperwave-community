@@ -108,9 +108,9 @@ def optimize(
         absorption_widths = [70, 35, 17]
         absorption_coeff = 0.00489
         output_monitor_pos = [10, 0, 0]
-        output_monitor_shape = [1, device.shape[1], device.shape[2]]
-        design_xy_range = [[0, device.recipe_params['grid_shape'][0]],
-                           [0, device.recipe_params['grid_shape'][1]]]
+        output_monitor_shape = [1, int(device.shape[1]), int(device.shape[2])]
+        design_xy_range = [[0, int(device.recipe_params['grid_shape'][0])],
+                           [0, int(device.recipe_params['grid_shape'][1])]]
         max_steps = 20000
         check_every_n = 500
         enforce_symmetry = False
@@ -128,7 +128,7 @@ def optimize(
         check_every_n = device.get('check_every_n', 500)
         enforce_symmetry = device.get('enforce_symmetry', False)
 
-    # Build design_layers with encoded thetas
+    # Build design_layers with encoded arrays (theta, waveguide_mask)
     design_layers = []
     if initial_design is not None:
         for dl in design_layers_raw:
@@ -137,6 +137,11 @@ def optimize(
             if name in initial_design.thetas:
                 layer['theta_b64'] = encode_array(np.array(initial_design.thetas[name]))
                 layer['theta_shape'] = list(initial_design.thetas[name].shape)
+                layer.pop('theta', None)
+            if 'waveguide_mask' in layer and isinstance(layer['waveguide_mask'], np.ndarray):
+                wm = layer.pop('waveguide_mask')
+                layer['waveguide_mask_b64'] = encode_array(wm.astype(np.float32))
+                layer['waveguide_mask_shape'] = list(wm.shape)
             design_layers.append(layer)
     else:
         for dl in design_layers_raw:
@@ -145,6 +150,15 @@ def optimize(
                 theta_arr = np.array(layer.pop('theta'))
                 layer['theta_b64'] = encode_array(theta_arr)
                 layer['theta_shape'] = list(theta_arr.shape)
+            if 'waveguide_mask' in layer and isinstance(layer['waveguide_mask'], np.ndarray):
+                wm = layer.pop('waveguide_mask')
+                layer['waveguide_mask_b64'] = encode_array(wm.astype(np.float32))
+                layer['waveguide_mask_shape'] = list(wm.shape)
+            # Convert tuples to lists for JSON
+            if 'eps_range' in layer and isinstance(layer['eps_range'], tuple):
+                layer['eps_range'] = list(layer['eps_range'])
+            if 'z_range' in layer and isinstance(layer['z_range'], tuple):
+                layer['z_range'] = list(layer['z_range'])
             design_layers.append(layer)
 
     # Serialize objective
@@ -578,6 +592,7 @@ def export_gds(
     filename: str = "output.gds",
     layer: Tuple[int, int] = (1, 0),
     pixel_size: float = 0.0175,
+    layer_name: Optional[str] = None,
 ) -> str:
     """Export design to GDSII file.
 
@@ -588,6 +603,7 @@ def export_gds(
         filename: Output GDS filename.
         layer: GDS layer tuple (layer_number, datatype).
         pixel_size: Physical pixel size in um.
+        layer_name: Which design layer to export. Defaults to first layer.
 
     Returns:
         Absolute path to the generated GDS file.
@@ -595,7 +611,14 @@ def export_gds(
     from hyperwave_community.structure import density
     from hyperwave_community.data_io import generate_gds_from_density
 
-    name = design.layer_names[0]
+    name = layer_name or design.layer_names[0]
+    if len(design.layer_names) > 1 and layer_name is None:
+        import warnings
+        warnings.warn(
+            f"Multi-layer design, exporting first layer '{name}'. "
+            f"Pass layer_name= to select a specific layer.",
+            stacklevel=2,
+        )
     theta = design.thetas[name]
     layer_radius = float(design.density_radii.get(name, 6))
     import jax.numpy as jnp
