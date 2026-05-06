@@ -35,6 +35,7 @@ def optimize(
     fab_eta_hi: Optional[float] = None,
     gpu_type: str = "B200",
     api_key: Optional[str] = None,
+    **kwargs,
 ) -> OptimizationResult:
     """Run an optimization phase on cloud GPU.
 
@@ -81,6 +82,14 @@ def optimize(
     Returns:
         OptimizationResult with .design, .history, .save().
     """
+    if "density_filter_radius" in kwargs:
+        raise TypeError(
+            "density_filter_radius is no longer a parameter of optimize(). "
+            "Set it per-layer in build_device(): "
+            '{"design": True, "density_radius": 6}')
+    if kwargs:
+        raise TypeError(f"Unexpected keyword arguments: {list(kwargs.keys())}")
+
     from hyperwave_community.api_client import (
         _API_CONFIG, encode_array, decode_array, _handle_api_error,
     )
@@ -337,8 +346,8 @@ def optimize(
     # Extract per-layer density radii from device config
     _density_radii = {}
     for dl in design_layers_raw:
-        if dl.get("design") or "density_radius" in dl:
-            _density_radii[dl["name"]] = dl.get("density_radius", 6)
+        if "density_radius" in dl:
+            _density_radii[dl["name"]] = int(dl["density_radius"])
 
     design = Design(
         thetas=current_thetas,

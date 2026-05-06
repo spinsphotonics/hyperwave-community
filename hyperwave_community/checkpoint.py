@@ -58,7 +58,7 @@ class Checkpoint:
         efficiency: Efficiency at this step.
 
         thetas: Per-layer design variables (layer_name -> 2D array).
-        density_filter_radius: Conic filter radius used.
+        density_radii: Per-layer conic filter radii.
 
         schedule_config: Full schedule parameters used for this run.
             Includes beta_init, beta_max, learning_rate, fab params, etc.
@@ -81,7 +81,7 @@ class Checkpoint:
 
     # Design state
     thetas: Dict[str, np.ndarray]
-    density_filter_radius: int
+    density_radii: Dict[str, int]
 
     # Schedule (for resuming ramps)
     schedule_config: Dict[str, Any]
@@ -123,6 +123,11 @@ class Checkpoint:
     @property
     def layer_names(self) -> List[str]:
         return list(self.thetas.keys())
+
+    @property
+    def density_filter_radius(self) -> int:
+        """First layer's density radius (backward compat)."""
+        return next(iter(self.density_radii.values()))
 
 
 def generate_run_id() -> str:
@@ -181,7 +186,7 @@ def save_checkpoint(
             phase=result.phase,
             efficiency=result.design.efficiency,
             thetas={name: np.array(arr) for name, arr in result.design.thetas.items()},
-            density_filter_radius=result.design.density_filter_radius,
+            density_radii=dict(result.design.density_radii),
             schedule_config=_schedule,
             optimizer_state_bytes=getattr(result, "optimizer_state_bytes", None),
             history=result.history,
@@ -209,7 +214,7 @@ def save_checkpoint(
         "n_steps_planned": ckpt.n_steps_planned,
         "phase": ckpt.phase,
         "efficiency": ckpt.efficiency,
-        "density_filter_radius": ckpt.density_filter_radius,
+        "density_radii": ckpt.density_radii,
         "schedule_config": ckpt.schedule_config,
         "layer_names": ckpt.layer_names,
         "created_at": ckpt.created_at,
@@ -312,7 +317,7 @@ def load_checkpoint(path: str) -> Checkpoint:
         phase=meta["phase"],
         efficiency=meta["efficiency"],
         thetas=thetas,
-        density_filter_radius=meta["density_filter_radius"],
+        density_radii=meta.get("density_radii", {"default": meta.get("density_filter_radius", 6)}),
         schedule_config=meta.get("schedule_config", {}),
         optimizer_state_bytes=optimizer_state_bytes,
         history=history,
