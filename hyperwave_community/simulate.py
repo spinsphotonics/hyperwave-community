@@ -52,7 +52,10 @@ def create_mode_source(
 
     Returns:
         Tuple of (source_field, source_offset, mode_info) where:
-            - source_field: Array of shape (num_freqs, 6, spatial_dims...)
+            - source_field: Array of shape (num_freqs, 6, 1, Ny_crop, Nz_crop).
+              When perpendicular_bounds or z_bounds are provided, the source
+              is returned already cropped to those bounds. Do NOT crop again.
+              The hyperwave core version returns the full domain instead.
             - source_offset: (x, y, z) CORNER position for source placement
             - mode_info: Dict with 'field', 'beta', and 'error'
 
