@@ -1394,6 +1394,8 @@ def simulate(
         if use_stream and stream_response is not None:
             if progress:
                 print("Simulation running... (Ctrl+C to cancel)", flush=True)
+            streamed_monitors_b64 = {}
+            streamed_monitor_shapes = {}
             try:
                 for line in stream_response.iter_lines():
                     if not line:
@@ -1413,8 +1415,15 @@ def simulate(
                             elapsed = event.get("elapsed", 0)
                             pct = 100 * step / max_s if max_s > 0 else 0
                             print(f"\rStep {step}/{max_s} ({pct:.0f}%) - {elapsed:.1f}s elapsed", end="", flush=True)
+                    elif etype == "monitor_data":
+                        name = event["name"]
+                        streamed_monitors_b64[name] = event["data_b64"]
+                        if event.get("shape"):
+                            streamed_monitor_shapes[name] = event["shape"]
                     elif etype == "complete":
                         result = event["result"]
+                        result["monitor_data_b64"] = streamed_monitors_b64
+                        result["monitor_data_shapes"] = streamed_monitor_shapes
                         if progress:
                             print(flush=True)
                     elif etype == "error":
