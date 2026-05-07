@@ -1365,6 +1365,11 @@ def simulate(
                 stream_response = None
             else:
                 raise
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
+            logger.warning("Streaming endpoint unavailable, falling back to sync")
+            if stream_response:
+                stream_response.close()
+            stream_response = None
 
         if use_stream and stream_response is not None:
             if progress:
