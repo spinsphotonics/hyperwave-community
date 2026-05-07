@@ -36,7 +36,9 @@ def solve_waveguide_mode(
         n_core: Core refractive index.
         n_clad: Cladding refractive index.
         wavelength: Operating wavelength in um.
-        mode_number: Which mode to solve for (0 = fundamental).
+        mode_number: Which mode to solve for. For rectangular waveguides:
+            0 = TE0 (fundamental), 1 = TM0, 2 = TE1, 3 = TM1, etc.
+            The exact ordering depends on waveguide geometry.
         propagation_axis: Propagation direction (0=x, 1=y, 2=z).
         cross_section_size: Size of the cross-section grid in pixels.
 

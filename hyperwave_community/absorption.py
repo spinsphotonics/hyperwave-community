@@ -354,11 +354,90 @@ def rescale_absorption_mask(
     return new_absorption_mask
 
 
-# Baseline values from Bayesian optimization at 20nm/1.55um
+# Baseline values from Bayesian optimization at 20nm/1.55um (flat/in-plane devices)
 _BASELINE_RESOLUTION_NM = 20.0
 _BASELINE_WAVELENGTH_UM = 1.55
-_BASELINE_ABSORBER_WIDTH = 82  # cells at 20nm resolution
+_BASELINE_ABSORBER_WIDTH = 82
 _BASELINE_ABSORBER_COEFF = 0.0006173770394704579
+
+
+def _absorber_params_flat(dx_um, structure_dimensions):
+    """2D/flat device absorber (MC, splitter, bend). Isotropic XY, reduced Z."""
+    resolution_nm = dx_um * 1000
+    scale = resolution_nm / _BASELINE_RESOLUTION_NM
+    scaled_width = int(round(_BASELINE_ABSORBER_WIDTH / scale))
+    scaled_coeff = _BASELINE_ABSORBER_COEFF / (scale ** 2)
+
+    Lx, Ly, Lz = structure_dimensions
+    abs_x = min(scaled_width, Lx // 4)
+    abs_y = min(scaled_width // 2, Ly // 4)
+    abs_z = min(scaled_width // 2, Lz // 4)
+    abs_x = max(abs_x, 20)
+    abs_y = max(abs_y, 20)
+    abs_z = max(abs_z, 20)
+
+    return {
+        "absorption_widths": (abs_x, abs_y, abs_z),
+        "abs_coeff": scaled_coeff,
+    }
+
+
+def _absorber_params_grating(wavelength_um, dx_um, structure_dimensions):
+    """3D/grating device absorber (GC, vertical coupler). Power-law from BO."""
+    wl = wavelength_um
+    dx = dx_um
+    abs_xy_um = max(2.1, 0.062 * wl ** 1.389 * dx ** (-0.619))
+    abs_z_um = max(1.4, 1.244 * wl ** 1.758 * dx ** 0.159)
+    abs_coeff = max(1e-4, 2.876 * wl ** (-1.607) * dx ** 2.579)
+
+    Lx, Ly, Lz = structure_dimensions
+    abs_xy = min(int(round(abs_xy_um / dx)), Lx // 4)
+    abs_z = min(int(round(abs_z_um / dx)), Lz // 4)
+
+    return {
+        "absorption_widths": (abs_xy, abs_xy, abs_z),
+        "abs_coeff": abs_coeff,
+    }
+
+
+def absorber_params(
+    wavelength_um: float,
+    dx_um: float,
+    structure_dimensions: Tuple[int, int, int],
+    device_type: str = "flat",
+) -> Dict[str, any]:
+    """Compute absorber parameters for FDTD simulation.
+
+    Two tuners are available:
+
+    - ``"flat"``: For in-plane devices (mode converter, splitter, bend).
+      Uses Bayesian-optimized baseline at 20nm, scaled by resolution.
+      Isotropic XY absorber, reduced Z.
+    - ``"grating"``: For out-of-plane devices (grating coupler, vertical
+      coupler). Uses power-law fits from BO trained on {1310,1550}nm x
+      {25,35,50}nm grids with vertical source excitation.
+
+    Args:
+        wavelength_um: Wavelength in micrometers.
+        dx_um: Grid spacing in micrometers.
+        structure_dimensions: (Lx, Ly, Lz) in grid cells. Required.
+        device_type: ``"flat"`` or ``"grating"``.
+
+    Returns:
+        Dictionary with:
+            - absorption_widths: (x, y, z) int tuple
+            - abs_coeff: Absorption coefficient
+    """
+    if device_type == "flat":
+        result = _absorber_params_flat(dx_um, structure_dimensions)
+    elif device_type == "grating":
+        result = _absorber_params_grating(wavelength_um, dx_um, structure_dimensions)
+    else:
+        raise ValueError(f"device_type must be 'flat' or 'grating', got '{device_type}'")
+
+    logger.info("Absorber (%s): widths=%s, coeff=%.6f",
+                device_type, result["absorption_widths"], result["abs_coeff"])
+    return result
 
 
 def get_optimized_absorber_params(
@@ -366,39 +445,14 @@ def get_optimized_absorber_params(
     wavelength_um: float = 1.55,
     structure_dimensions: Tuple[int, int, int] = None,
 ) -> Dict[str, any]:
-    """Get Bayesian-optimized absorber parameters scaled for given resolution.
-
-    Returns absorber width and coefficient values based on Bayesian optimization
-    results, automatically scaled to the target resolution. The baseline values
-    were optimized at 20nm resolution for 1.55um wavelength.
-
-    Args:
-        resolution_nm: Grid resolution in nanometers (default: 20nm).
-        wavelength_um: Wavelength in micrometers (default: 1.55um).
-            Currently used for reference only; future versions may include
-            wavelength-dependent scaling.
-        structure_dimensions: Optional (Lx, Ly, Lz) structure dimensions.
-            If provided, returns absorption_widths tuple scaled to structure.
-            If None, returns the base absorber_width value.
-
-    Returns:
-        Dictionary containing:
-            - absorber_width: Base absorber width in cells (x-direction)
-            - absorber_coeff: Absorption coefficient
-            - absorption_widths: (x, y, z) tuple if structure_dimensions provided
-            - baseline_info: Dict with baseline optimization parameters
-
-    Example::
-
-        abs_params = hwc.get_optimized_absorber_params(
-            resolution_nm=RESOLUTION_UM * 1000,
-            structure_dimensions=(Lx, Ly, Lz),
-        )
-        abs_widths = abs_params["absorption_widths"]
-        abs_coeff = abs_params["absorber_coeff"]
-    """
+    """Deprecated. Use ``absorber_params(device_type="flat")`` instead."""
+    import warnings
+    warnings.warn(
+        "get_optimized_absorber_params() is deprecated. "
+        "Use absorber_params(wavelength_um, dx_um, structure_dimensions, "
+        "device_type='flat') instead.",
+        DeprecationWarning, stacklevel=2)
     scale = resolution_nm / _BASELINE_RESOLUTION_NM
-
     scaled_width = int(round(_BASELINE_ABSORBER_WIDTH / scale))
     scaled_coeff = _BASELINE_ABSORBER_COEFF / (scale ** 2)
 
@@ -414,75 +468,9 @@ def get_optimized_absorber_params(
     }
 
     if structure_dimensions is not None:
-        Lx, Ly, Lz = structure_dimensions
-        abs_x = min(scaled_width, Lx // 4)
-        abs_y = min(scaled_width // 2, Ly // 4)
-        abs_z = min(scaled_width // 2, Lz // 4)
-
-        abs_x = max(abs_x, 20)
-        abs_y = max(abs_y, 20)
-        abs_z = max(abs_z, 20)
-
-        result['absorption_widths'] = (abs_x, abs_y, abs_z)
-        logger.info("Absorber: widths=(%d, %d, %d), coeff=%.6f",
-                    abs_x, abs_y, abs_z, scaled_coeff)
-
-    return result
-
-
-def absorber_params(
-    wavelength_um: float,
-    dx_um: float,
-    structure_dimensions: Tuple[int, int, int] = None,
-) -> Dict[str, any]:
-    """Compute absorber parameters from wavelength and grid spacing.
-
-    Uses power-law fits to Bayesian-optimized results with minimum floors
-    derived from validated simulation defaults. The BO was trained on
-    {1310, 1550}nm x {25, 35, 50}nm configs (100 trials each).
-
-    The Z-direction fit (R2=0.676) and coefficient fit (R2=0.887) are
-    reliable. The XY fit (R2=0.133) is floored at 2.1 um because the
-    BO training setup (straight-down source) did not exercise lateral
-    absorption sufficiently.
-
-    Args:
-        wavelength_um: Wavelength in micrometers (e.g. 1.31 or 1.55).
-        dx_um: Grid spacing in micrometers (e.g. 0.025 for 25nm).
-        structure_dimensions: Optional (Lx, Ly, Lz) in grid cells.
-            If provided, returns integer absorption_widths capped at 25%
-            of each dimension.
-
-    Returns:
-        Dictionary with:
-            - abs_xy_um: XY absorber width in micrometers
-            - abs_z_um: Z absorber width in micrometers
-            - abs_coeff: Absorption coefficient
-            - absorption_widths: (x, y, z) int tuple (if structure_dimensions given)
-    """
-    wl = wavelength_um
-    dx = dx_um
-
-    # Power-law fits: param = a * wl^b * dx^c
-    # From v2 BO (straight-down source, 100 trials, 6 configs)
-    # Floors match the simulate() defaults at 35nm: (60, 40, 40) / 1e-4
-    abs_xy_um = max(2.1, 0.062 * wl ** 1.389 * dx ** (-0.619))
-    abs_z_um = max(1.4, 1.244 * wl ** 1.758 * dx ** 0.159)
-    abs_coeff = max(1e-4, 2.876 * wl ** (-1.607) * dx ** 2.579)
-
-    result = {
-        "abs_xy_um": abs_xy_um,
-        "abs_z_um": abs_z_um,
-        "abs_coeff": abs_coeff,
-    }
-
-    if structure_dimensions is not None:
-        Lx, Ly, Lz = structure_dimensions
-        abs_xy = min(int(round(abs_xy_um / dx)), Lx // 4)
-        abs_z = min(int(round(abs_z_um / dx)), Lz // 4)
-        result["absorption_widths"] = (abs_xy, abs_xy, abs_z)
-        logger.info("Absorber: widths=(%d, %d, %d), coeff=%.6f",
-                    abs_xy, abs_xy, abs_z, abs_coeff)
+        dx_um = resolution_nm / 1000.0
+        flat = _absorber_params_flat(dx_um, structure_dimensions)
+        result['absorption_widths'] = flat['absorption_widths']
 
     return result
 

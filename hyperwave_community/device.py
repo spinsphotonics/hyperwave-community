@@ -43,6 +43,86 @@ class DeviceConfig:
     freq_band: Tuple[float, float, int]
     pixel_size: float
     grid: float
+    vertical_radius: int = 2
+
+    def get_source_config(
+        self,
+        layer_name: str,
+        waveguide_y_center: Optional[float] = None,
+        waveguide_y_width: Optional[float] = None,
+        x_position: Optional[int] = None,
+        mode_pad: int = 15,
+    ) -> Dict[str, Any]:
+        """Compute mode source bounds from device geometry.
+
+        Returns a dict with perpendicular_bounds, z_bounds, and
+        source_position ready to pass to create_mode_source().
+
+        Args:
+            layer_name: Design layer name (e.g. "sin", "etch").
+            waveguide_y_center: Waveguide center in um. If None, uses
+                the center stored in the layer spec from build_device().
+            waveguide_y_width: Waveguide width in um. If None, uses
+                the width stored in the layer spec from build_device().
+            x_position: Source x position in permittivity pixels.
+                If None, defaults to 5 pixels past the absorber width.
+            mode_pad: Padding around the waveguide for mode solve (pixels).
+
+        Returns:
+            Dict with: source_position, perpendicular_bounds, z_bounds
+        """
+        dl = None
+        for d in self.design_layers_info:
+            if d["name"] == layer_name:
+                dl = d
+                break
+        if dl is None:
+            raise ValueError(f"Layer '{layer_name}' not found in design_layers_info")
+
+        Ly = self.shape[1]
+        Lz = self.shape[2]
+        z_start, z_end = dl["z_range"]
+        z_mid = (z_start + z_end) // 2
+        wg_height_px = z_end - z_start
+
+        if waveguide_y_center is None:
+            waveguide_y_center = dl.get("waveguide_y_center_px")
+        else:
+            waveguide_y_center = int(round(waveguide_y_center / self.grid))
+        if waveguide_y_width is None:
+            waveguide_y_width = dl.get("waveguide_y_width_px")
+        else:
+            waveguide_y_width = int(round(waveguide_y_width / self.grid))
+
+        if waveguide_y_center is None or waveguide_y_width is None:
+            raise ValueError(
+                f"Layer '{layer_name}': waveguide_y_center and waveguide_y_width "
+                f"not set. Pass them to build_device() in the layer spec or "
+                f"provide them directly to get_source_config().")
+
+        y_half = waveguide_y_width // 2
+        yl = max(0, waveguide_y_center - y_half - mode_pad)
+        yh = min(Ly, waveguide_y_center + y_half + mode_pad)
+        zl = max(0, z_mid - wg_height_px // 2 - mode_pad)
+        zh = min(Lz, z_mid + wg_height_px // 2 + mode_pad)
+
+        if yl >= yh:
+            raise ValueError(
+                f"Waveguide center ({waveguide_y_center}px) is outside "
+                f"grid Y bounds (0-{Ly}px).")
+        if zl >= zh:
+            raise ValueError(
+                f"Layer z_range ({dl['z_range']}) produces invalid "
+                f"z_bounds ({zl}, {zh}).")
+
+        if x_position is None:
+            x_position = min(75, self.shape[0] - 10)
+
+        return {
+            "source_position": x_position,
+            "perpendicular_bounds": (yl, yh),
+            "z_bounds": (zl, zh),
+        }
 
 
 def build_device(
@@ -51,6 +131,7 @@ def build_device(
     wavelength: float,
     nx: int,
     ny: Optional[int] = None,
+    vertical_radius: int = 2,
 ) -> DeviceConfig:
     """Build a device configuration from layer specifications.
 
@@ -72,11 +153,17 @@ def build_device(
                   0.50 = balanced (default, safe)
                   0.55-0.60 = wider gaps (for larger min gap specs)
                 Default 0.5.
+            waveguide_width (float): Waveguide width in um (optional).
+                Used by get_source_config() to compute mode solve bounds.
+            waveguide_y_center (float): Waveguide center Y position in um
+                (optional). Defaults to center of the Y dimension.
         grid: FDTD grid spacing in um (permittivity voxel size).
             E.g. 0.035 for 35nm. Theta grid = grid/2.
         wavelength: Operating wavelength in um.
         nx: X dimension in theta pixels (2x FDTD grid).
         ny: Y dimension in theta pixels. Defaults to nx.
+        vertical_radius: Vertical blur radius at layer interfaces (pixels).
+            Smooths permittivity transitions between layers. Default 2.
 
     Returns:
         DeviceConfig to pass to optimize().
@@ -129,6 +216,17 @@ def build_device(
             else:
                 wg_mask = np.array(wg_mask, dtype=bool)
 
+            wg_width_um = spec.get("waveguide_width")
+            wg_y_center_um = spec.get("waveguide_y_center")
+            wg_y_center_px = None
+            wg_y_width_px = None
+            if wg_width_um is not None:
+                wg_y_width_px = int(round(wg_width_um / dx))
+                if wg_y_center_um is not None:
+                    wg_y_center_px = int(round(wg_y_center_um / dx))
+                else:
+                    wg_y_center_px = (ny // 2) // 2
+
             dl_info = {
                 "name": name,
                 "theta": np.array(theta),
@@ -137,6 +235,8 @@ def build_device(
                 "density_radius": int(density_radius),
                 "density_eta": float(density_eta),
                 "waveguide_mask": wg_mask,
+                "waveguide_y_center_px": wg_y_center_px,
+                "waveguide_y_width_px": wg_y_width_px,
             }
             design_info.append(dl_info)
         else:
@@ -150,7 +250,7 @@ def build_device(
         ))
         z_cursor += h_px
 
-    structure = create_structure(layers=hw_layers, vertical_radius=0)
+    structure = create_structure(layers=hw_layers, vertical_radius=vertical_radius)
     Lx = structure.permittivity.shape[1]
     Ly = structure.permittivity.shape[2]
     Lz = structure.permittivity.shape[3]
@@ -195,4 +295,5 @@ def build_device(
         freq_band=freq_band,
         pixel_size=pixel_size,
         grid=dx,
+        vertical_radius=vertical_radius,
     )

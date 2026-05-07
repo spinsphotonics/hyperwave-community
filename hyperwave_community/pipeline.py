@@ -12,6 +12,24 @@ import numpy as np
 from hyperwave_community.types import Design, DrcReport, OptimizationResult
 
 
+def compute_mode_cross_power(mode_field: np.ndarray) -> float:
+    """Compute mode self-overlap power from a mode field array.
+
+    Args:
+        mode_field: Mode field with shape (n_freq, 6, ...) or (n_freq, 3, ...).
+            If 3 components (E only), returns 1.0 as fallback.
+
+    Returns:
+        Scalar mode cross power |Re(sum(E x H*)_x)|.
+    """
+    if mode_field.shape[1] < 6:
+        return 1.0
+    e = mode_field[0, :3]
+    h = mode_field[0, 3:]
+    cross = np.cross(e, np.conj(h), axis=0)
+    return float(np.abs(np.real(np.sum(cross[0]))))
+
+
 # ---------------------------------------------------------------------------
 # optimize() - cloud GPU
 # ---------------------------------------------------------------------------
@@ -89,6 +107,11 @@ def optimize(
             '{"design": True, "density_radius": 6}')
     if kwargs:
         raise TypeError(f"Unexpected keyword arguments: {list(kwargs.keys())}")
+
+    if mode_cross_power is None:
+        mode_cross_power = compute_mode_cross_power(np.array(mode))
+        if mode_cross_power == 0.0:
+            mode_cross_power = 1.0
 
     from hyperwave_community.api_client import (
         _API_CONFIG, encode_array, decode_array, _handle_api_error,

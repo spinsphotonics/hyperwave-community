@@ -288,6 +288,133 @@ class TestWaveguideMode:
         assert mode_field.ndim == 5
         assert 2.0 < n_eff < 3.5
 
+    def test_higher_order_te1(self):
+        from hyperwave_community.waveguide_mode import solve_waveguide_mode
+        mf0, neff0 = solve_waveguide_mode(
+            grid=0.030, waveguide_width=2.0, waveguide_height=0.4,
+            n_core=2.0, n_clad=1.44, wavelength=1.55,
+            mode_number=0, cross_section_size=80,
+        )
+        mf2, neff2 = solve_waveguide_mode(
+            grid=0.030, waveguide_width=2.0, waveguide_height=0.4,
+            n_core=2.0, n_clad=1.44, wavelength=1.55,
+            mode_number=2, cross_section_size=80,
+        )
+        assert neff0 > neff2, "TE0 should have higher n_eff than TE1"
+        assert neff2 > 1.44, "TE1 should be guided (n_eff > n_clad)"
+
+
+# ---------------------------------------------------------------------------
+# SDK gap fixes
+# ---------------------------------------------------------------------------
+
+class TestVerticalRadius:
+    def test_build_device_vertical_radius(self):
+        from hyperwave_community.device import build_device
+        device = build_device(
+            layers=[
+                {"name": "clad", "thickness": 1.0, "index": 1.44},
+                {"name": "core", "thickness": 0.22, "index": 3.48,
+                 "design": True, "density_radius": 4},
+                {"name": "clad2", "thickness": 1.0, "index": 1.44},
+            ],
+            grid=0.035, wavelength=1.55, nx=100,
+            vertical_radius=2,
+        )
+        assert device.vertical_radius == 2
+
+    def test_default_vertical_radius_is_2(self):
+        from hyperwave_community.device import build_device
+        device = build_device(
+            layers=[
+                {"name": "clad", "thickness": 1.0, "index": 1.44},
+                {"name": "core", "thickness": 0.22, "index": 3.48,
+                 "design": True, "density_radius": 4},
+                {"name": "clad2", "thickness": 1.0, "index": 1.44},
+            ],
+            grid=0.035, wavelength=1.55, nx=100,
+        )
+        assert device.vertical_radius == 2
+
+
+class TestGetSourceConfig:
+    def test_returns_bounds(self):
+        from hyperwave_community.device import build_device
+        device = build_device(
+            layers=[
+                {"name": "clad", "thickness": 2.5, "index": 1.44},
+                {"name": "sin", "thickness": 0.4, "index": 2.0,
+                 "design": True, "density_radius": 8,
+                 "waveguide_width": 2.0},
+                {"name": "clad2", "thickness": 2.5, "index": 1.44},
+            ],
+            grid=0.030, wavelength=1.55, nx=200, ny=200,
+        )
+        cfg = device.get_source_config("sin", x_position=50)
+        assert "source_position" in cfg
+        assert "perpendicular_bounds" in cfg
+        assert "z_bounds" in cfg
+        yl, yh = cfg["perpendicular_bounds"]
+        assert yh > yl
+        zl, zh = cfg["z_bounds"]
+        assert zh > zl
+
+    def test_missing_waveguide_width_raises(self):
+        from hyperwave_community.device import build_device
+        device = build_device(
+            layers=[
+                {"name": "clad", "thickness": 1.0, "index": 1.44},
+                {"name": "core", "thickness": 0.22, "index": 3.48,
+                 "design": True, "density_radius": 4},
+                {"name": "clad2", "thickness": 1.0, "index": 1.44},
+            ],
+            grid=0.035, wavelength=1.55, nx=100,
+        )
+        with pytest.raises(ValueError, match="waveguide_y_center"):
+            device.get_source_config("core")
+
+
+class TestAbsorberParams:
+    def test_flat_device(self):
+        from hyperwave_community.absorption import absorber_params
+        ap = absorber_params(1.55, 0.030, (932, 366, 179), device_type="flat")
+        assert "absorption_widths" in ap
+        assert "abs_coeff" in ap
+        assert len(ap["absorption_widths"]) == 3
+        assert ap["abs_coeff"] > 0
+
+    def test_grating_device(self):
+        from hyperwave_community.absorption import absorber_params
+        ap = absorber_params(1.55, 0.030, (932, 366, 179), device_type="grating")
+        assert "absorption_widths" in ap
+        assert "abs_coeff" in ap
+        assert ap["abs_coeff"] > 0
+
+    def test_flat_vs_grating_differ(self):
+        from hyperwave_community.absorption import absorber_params
+        flat = absorber_params(1.55, 0.030, (932, 366, 179), device_type="flat")
+        grating = absorber_params(1.55, 0.030, (932, 366, 179), device_type="grating")
+        assert flat["absorption_widths"] != grating["absorption_widths"]
+
+    def test_invalid_device_type(self):
+        from hyperwave_community.absorption import absorber_params
+        with pytest.raises(ValueError):
+            absorber_params(1.55, 0.030, (100, 100, 100), device_type="invalid")
+
+
+class TestComputeModeCrossPower:
+    def test_six_component_mode(self):
+        from hyperwave_community.pipeline import compute_mode_cross_power
+        mf = np.random.randn(1, 6, 1, 20, 20).astype(np.complex64)
+        p = compute_mode_cross_power(mf)
+        assert p > 0
+
+    def test_three_component_fallback(self):
+        from hyperwave_community.pipeline import compute_mode_cross_power
+        mf = np.random.randn(1, 3, 1, 20, 20).astype(np.complex64)
+        p = compute_mode_cross_power(mf)
+        assert p == 1.0
+
 
 # ---------------------------------------------------------------------------
 # Checkpoint
