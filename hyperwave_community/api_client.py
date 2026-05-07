@@ -1396,6 +1396,7 @@ def simulate(
                 print("Simulation running... (Ctrl+C to cancel)", flush=True)
             streamed_monitors_b64 = {}
             streamed_monitor_shapes = {}
+            _chunk_buffers = {}
             try:
                 for line in stream_response.iter_lines():
                     if not line:
@@ -1420,6 +1421,18 @@ def simulate(
                         streamed_monitors_b64[name] = event["data_b64"]
                         if event.get("shape"):
                             streamed_monitor_shapes[name] = event["shape"]
+                    elif etype == "monitor_data_chunk":
+                        name = event["name"]
+                        total = event["total_chunks"]
+                        idx = event["chunk_index"]
+                        if name not in _chunk_buffers:
+                            _chunk_buffers[name] = [""] * total
+                        _chunk_buffers[name][idx] = event["data_b64"]
+                        if event.get("shape"):
+                            streamed_monitor_shapes[name] = event["shape"]
+                        if all(_chunk_buffers[name]):
+                            streamed_monitors_b64[name] = "".join(_chunk_buffers[name])
+                            del _chunk_buffers[name]
                     elif etype == "complete":
                         result = event["result"]
                         result["monitor_data_b64"] = streamed_monitors_b64
