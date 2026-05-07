@@ -1005,12 +1005,22 @@ def run_simulation(
         "Content-Type": "application/json"
     }
 
+    import gzip as _gzip
+    body_bytes = json.dumps(body).encode()
+    compressed_body = _gzip.compress(body_bytes)
+    if len(compressed_body) < len(body_bytes):
+        headers["Content-Encoding"] = "gzip"
+        request_data = compressed_body
+    else:
+        request_data = body_bytes
+    del body_bytes
+
     try:
         # Call appropriate endpoint
         logger.info("Calling %s API...", endpoint)
         response = requests.post(
             f"{API_URL}{endpoint}",
-            json=body,
+            data=request_data,
             headers=headers,
             timeout=600  # 10 minute timeout for long simulations
         )
@@ -1336,6 +1346,16 @@ def simulate(
         "Content-Type": "application/json"
     }
 
+    import gzip as _gzip
+    body_bytes = json.dumps(body).encode()
+    compressed_body = _gzip.compress(body_bytes)
+    if len(compressed_body) < len(body_bytes):
+        headers["Content-Encoding"] = "gzip"
+        request_data = compressed_body
+    else:
+        request_data = body_bytes
+    del body_bytes
+
     try:
         result = None
         cancelled = False
@@ -1346,7 +1366,7 @@ def simulate(
         try:
             stream_response = requests.post(
                 f"{API_URL}/simulate_stream",
-                json=body,
+                data=request_data,
                 headers=headers,
                 stream=True,
                 timeout=1800,
@@ -1437,7 +1457,7 @@ def simulate(
                     logger.info("Calling %s API...", endpoint)
                     sync_response = requests.post(
                         f"{API_URL}{endpoint}",
-                        json=body,
+                        data=request_data,
                         headers=headers,
                         timeout=1800,
                     )
