@@ -1201,6 +1201,7 @@ def simulate(
     api_key: Optional[str] = None,
     convergence: Optional[str] = "default",
     gpu_type: str = "B200",
+    progress: bool = True,
 ) -> Optional[Dict[str, Any]]:
     """Run FDTD simulation on cloud GPU using structure recipe and monitors recipe.
 
@@ -1336,41 +1337,121 @@ def simulate(
     }
 
     try:
-        max_retries = 3
-        retry_delay = 10
-        _last_error = None
+        result = None
+        cancelled = False
 
-        for attempt in range(max_retries):
+        # --- Attempt SSE streaming via /simulate_stream ---
+        stream_response = None
+        use_stream = False
+        try:
+            stream_response = requests.post(
+                f"{API_URL}/simulate_stream",
+                json=body,
+                headers=headers,
+                stream=True,
+                timeout=1800,
+            )
+            if stream_response.status_code == 404:
+                stream_response.close()
+                stream_response = None
+            else:
+                stream_response.raise_for_status()
+                use_stream = True
+        except requests.exceptions.HTTPError as e:
+            status = e.response.status_code if e.response is not None else 0
+            if status == 404:
+                if stream_response:
+                    stream_response.close()
+                stream_response = None
+            else:
+                raise
+
+        if use_stream and stream_response is not None:
+            if progress:
+                print("Simulation running... (Ctrl+C to cancel)", flush=True)
             try:
-                if attempt > 0:
-                    logger.info("Retry %d/%d after %ds...", attempt, max_retries - 1, retry_delay)
-                    time.sleep(retry_delay)
-                    retry_delay *= 2
-                logger.info("Calling %s API...", endpoint)
-                response = requests.post(
-                    f"{API_URL}{endpoint}",
-                    json=body,
-                    headers=headers,
-                    timeout=1800
-                )
-                response.raise_for_status()
-                break
-            except requests.exceptions.HTTPError as retry_err:
-                status = retry_err.response.status_code if retry_err.response is not None else 0
-                if status in (500, 502, 503, 504) and attempt < max_retries - 1:
-                    logger.warning("Server error (HTTP %d). Will retry.", status)
-                    _last_error = retry_err
-                    continue
-                raise
-            except requests.exceptions.ReadTimeout as retry_err:
-                if attempt < max_retries - 1:
-                    logger.warning("Request timed out. Will retry.")
-                    _last_error = retry_err
-                    continue
-                raise
+                for line in stream_response.iter_lines():
+                    if not line:
+                        continue
+                    line_str = line.decode("utf-8") if isinstance(line, bytes) else line
+                    if not line_str.startswith("data: "):
+                        continue
+                    data_str = line_str[6:]
+                    if data_str == "[DONE]":
+                        break
+                    event = json.loads(data_str)
+                    etype = event.get("type")
+                    if etype == "progress":
+                        if progress:
+                            step = event.get("step", 0)
+                            max_s = event.get("max_steps", simulation_steps)
+                            elapsed = event.get("elapsed", 0)
+                            pct = 100 * step / max_s if max_s > 0 else 0
+                            print(f"\rStep {step}/{max_s} ({pct:.0f}%) - {elapsed:.1f}s elapsed", end="", flush=True)
+                    elif etype == "complete":
+                        result = event["result"]
+                        if progress:
+                            print(flush=True)
+                    elif etype == "error":
+                        raise RuntimeError(f"Simulation error: {event.get('message', 'Unknown error')}")
+            except KeyboardInterrupt:
+                stream_response.close()
+                cancelled = True
+                if progress:
+                    print("\nSimulation cancelled.", flush=True)
+                if result is None:
+                    return {
+                        "cancelled": True,
+                        "monitor_data": {},
+                        "monitor_names": {},
+                        "sim_time": 0,
+                        "performance": 0,
+                        "converged": False,
+                        "convergence_step": None,
+                        "dimensions": dimensions,
+                        "freq_band": freq_band,
+                    }
+            finally:
+                if stream_response:
+                    stream_response.close()
 
-        result = response.json()
+            if result is None:
+                raise RuntimeError("Simulation stream ended without a complete event")
 
+        else:
+            # --- Fallback: sync POST to /early_stopping or /simulate ---
+            max_retries = 3
+            retry_delay = 10
+
+            for attempt in range(max_retries):
+                try:
+                    if attempt > 0:
+                        logger.info("Retry %d/%d after %ds...", attempt, max_retries - 1, retry_delay)
+                        time.sleep(retry_delay)
+                        retry_delay *= 2
+                    logger.info("Calling %s API...", endpoint)
+                    sync_response = requests.post(
+                        f"{API_URL}{endpoint}",
+                        json=body,
+                        headers=headers,
+                        timeout=1800,
+                    )
+                    sync_response.raise_for_status()
+                    break
+                except requests.exceptions.HTTPError as retry_err:
+                    status = retry_err.response.status_code if retry_err.response is not None else 0
+                    if status in (500, 502, 503, 504) and attempt < max_retries - 1:
+                        logger.warning("Server error (HTTP %d). Will retry.", status)
+                        continue
+                    raise
+                except requests.exceptions.ReadTimeout:
+                    if attempt < max_retries - 1:
+                        logger.warning("Request timed out. Will retry.")
+                        continue
+                    raise
+            result = sync_response.json()
+
+        # --- Post-processing (same for streaming and sync paths) ---
         sim_time = result.get("sim_time", 0)
         total_time = time.time() - start_time
         converged = result.get("converged", False)
@@ -1379,7 +1460,6 @@ def simulate(
         if converged:
             logger.info("  Converged at step %d", result.get('convergence_step', 0))
 
-        # Decode monitor data
         monitor_data_raw = result.get("monitor_data_b64", {})
         monitor_shapes = result.get("monitor_data_shapes", {})
         monitor_data = {}
@@ -1395,10 +1475,9 @@ def simulate(
                     except Exception as e:
                         logger.warning("Failed to decode monitor %s: %s", name, e)
 
-        # Build monitor_names dict (name -> index for compatibility with quick_view_monitors)
         monitor_names = {name: i for i, name in enumerate(monitor_data.keys())}
 
-        return {
+        out = {
             "monitor_data": monitor_data,
             "monitor_names": monitor_names,
             "sim_time": sim_time,
@@ -1408,10 +1487,12 @@ def simulate(
             "dimensions": dimensions,
             "freq_band": freq_band,
         }
+        if cancelled:
+            out["cancelled"] = True
+        return out
 
     except requests.exceptions.HTTPError as e:
         _handle_api_error(e, "simulation")
-        # Extract server error detail if available (gateway returns JSON with "detail" field)
         detail = ""
         if e.response is not None:
             try:
