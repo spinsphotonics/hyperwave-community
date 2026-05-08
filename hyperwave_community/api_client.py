@@ -371,7 +371,7 @@ def preview_component(
 # Global API configuration
 _API_CONFIG = {
     'api_key': None,
-    'api_url': 'https://hyperwave-gateway-staging.up.railway.app',
+    'api_url': 'https://hyperwave-gateway-production.up.railway.app',
     'gateway_url': None,
 }
 
