@@ -1390,6 +1390,16 @@ def simulate(
             if stream_response:
                 stream_response.close()
             stream_response = None
+        except KeyboardInterrupt:
+            if stream_response:
+                stream_response.close()
+            if progress:
+                print("\nSimulation cancelled.", flush=True)
+            return {
+                "cancelled": True, "monitor_data": {}, "monitor_names": {},
+                "sim_time": 0, "performance": 0, "converged": False,
+                "convergence_step": None, "dimensions": dimensions, "freq_band": freq_band,
+            }
 
         if use_stream and stream_response is not None:
             if progress:
@@ -1442,22 +1452,13 @@ def simulate(
                     elif etype == "error":
                         raise RuntimeError(f"Simulation error: {event.get('message', 'Unknown error')}")
             except KeyboardInterrupt:
-                stream_response.close()
-                cancelled = True
                 if progress:
                     print("\nSimulation cancelled.", flush=True)
-                if result is None:
-                    return {
-                        "cancelled": True,
-                        "monitor_data": {},
-                        "monitor_names": {},
-                        "sim_time": 0,
-                        "performance": 0,
-                        "converged": False,
-                        "convergence_step": None,
-                        "dimensions": dimensions,
-                        "freq_band": freq_band,
-                    }
+                return {
+                    "cancelled": True, "monitor_data": {}, "monitor_names": {},
+                    "sim_time": 0, "performance": 0, "converged": False,
+                    "convergence_step": None, "dimensions": dimensions, "freq_band": freq_band,
+                }
             finally:
                 if stream_response:
                     stream_response.close()
