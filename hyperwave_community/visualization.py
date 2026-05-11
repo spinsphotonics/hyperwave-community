@@ -931,6 +931,111 @@ def plot_simulation_overview(
     return fig
 
 
+def plot_structure_slice(
+    layers,
+    *,
+    axis: str = "xz",
+    position: Optional[int] = None,
+    figsize=None,
+    show: bool = True,
+    save_path: Optional[str] = None,
+    cmap: str = "coolwarm",
+):
+    """Plot a 2D cross-section of a layer stack WITHOUT materializing the full 3D array.
+
+    Computes only the requested slice from the layer definitions, using O(nx*nz)
+    or O(nx*ny) memory instead of O(nx*ny*nz). For large devices this can be
+    1000x less memory than ``plot_structure(create_structure(layers))``.
+
+    Args:
+        layers: List of ``Layer`` objects (same as passed to ``create_structure``),
+            ordered bottom-to-top.
+        axis: ``"xz"`` for XZ cross-section at a given y (default),
+            ``"xy"`` for XY cross-section at a given z.
+        position: Slice position in pixels. For ``"xz"``: y index (default mid-y).
+            For ``"xy"``: z index (default mid-z of the full stack).
+        figsize: Figure size (auto if None).
+        show: Whether to call ``plt.show()``.
+        save_path: If given, save the figure.
+        cmap: Colormap name.
+
+    Returns:
+        The matplotlib ``Figure``.
+
+    Example::
+
+        layers = [clad, etch_layer, slab_layer, box, substrate]
+        hwc.plot_structure_slice(layers)  # XZ at mid-Y
+        hwc.plot_structure_slice(layers, axis="xy", position=z_etch)  # XY at etch
+    """
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    layer_info = []
+    for layer in layers:
+        d = np.asarray(layer.density_pattern)
+        pv = layer.permittivity_values
+        h = int(np.ceil(layer.layer_thickness))
+        if isinstance(pv, (tuple, list)):
+            eps_lo, eps_hi = float(pv[0]), float(pv[1])
+        else:
+            eps_lo = eps_hi = float(pv)
+        layer_info.append((d, eps_lo, eps_hi, h))
+
+    dnx, dny = layer_info[0][0].shape
+    total_z = sum(h for _, _, _, h in layer_info)
+
+    if axis == "xz":
+        mid_y = position if position is not None else dny // 2
+        slc = np.zeros((dnx, total_z))
+        z = 0
+        for density, eps_lo, eps_hi, h in layer_info:
+            col = density[:, mid_y]
+            for zi in range(h):
+                slc[:, z + zi] = eps_lo + (eps_hi - eps_lo) * col
+            z += h
+
+        if figsize is None:
+            figsize = (max(8, dnx / 150), max(3, total_z / 40))
+        fig, ax = plt.subplots(figsize=figsize)
+        im = ax.imshow(slc.T, origin="lower", aspect="auto", cmap=cmap)
+        ax.set_xlabel("x (px)")
+        ax.set_ylabel("z (px)")
+        ax.set_title(f"XZ cross-section at y={mid_y}")
+        plt.colorbar(im, ax=ax, label="permittivity")
+
+    elif axis == "xy":
+        z_target = position if position is not None else total_z // 2
+        z = 0
+        slc = None
+        for density, eps_lo, eps_hi, h in layer_info:
+            if z_target >= z and z_target < z + h:
+                slc = eps_lo + (eps_hi - eps_lo) * density
+                break
+            z += h
+        if slc is None:
+            slc = np.full((dnx, dny), layer_info[-1][1])
+
+        if figsize is None:
+            figsize = (max(6, dnx / 200), max(6, dny / 200))
+        fig, ax = plt.subplots(figsize=figsize)
+        im = ax.imshow(slc.T, origin="lower", aspect="auto", cmap=cmap)
+        ax.set_xlabel("x (px)")
+        ax.set_ylabel("y (px)")
+        ax.set_title(f"XY cross-section at z={z_target}")
+        plt.colorbar(im, ax=ax, label="permittivity")
+
+    else:
+        raise ValueError(f"axis must be 'xz' or 'xy', got '{axis}'")
+
+    plt.tight_layout()
+    if save_path:
+        fig.savefig(save_path, dpi=150, bbox_inches="tight")
+    if show:
+        plt.show()
+    return fig
+
+
 # ---------------------------------------------------------------------------
 # 3D structure (plotly)
 # ---------------------------------------------------------------------------
