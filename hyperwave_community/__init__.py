@@ -48,7 +48,7 @@ Quick Start:
     ... )
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.2"
 
 # Import core structure functions
 from .structure import (
@@ -170,7 +170,7 @@ from .objectives import Objective
 from .types import Design, OptimizationResult, DrcReport
 
 # Device builder
-from .device import build_device, DeviceConfig
+from .device import build_device  # deprecated, use optimize(layers=..., theta=...) directly
 
 # Waveguide mode solver (local)
 from .waveguide_mode import solve_waveguide_mode
@@ -346,8 +346,7 @@ __all__ = [
     "Design",
     "OptimizationResult",
     "DrcReport",
-    "build_device",
-    "DeviceConfig",
+    "build_device",  # deprecated
     "solve_waveguide_mode",
     "optimize",
     "surgery",

@@ -51,18 +51,21 @@ class Layer:
     
     def __post_init__(self):
         """Validate layer parameters after initialization."""
-        # Validate density_pattern
+        # Validate density_pattern (auto-convert numpy arrays)
         if not isinstance(self.density_pattern, jnp.ndarray):
-            raise TypeError(f"density_pattern must be a jax.numpy.ndarray, got {type(self.density_pattern)}")
+            try:
+                object.__setattr__(self, 'density_pattern', jnp.asarray(self.density_pattern))
+            except Exception:
+                raise TypeError(f"density_pattern must be array-like, got {type(self.density_pattern)}")
         if self.density_pattern.ndim != 2:
             raise ValueError(f"density_pattern must be a 2D array, got shape {self.density_pattern.shape}")
 
-        # Enforce even spatial dimensions with a check
+        # Auto-trim to even spatial dimensions (required for FDTD grid symmetry)
         nx, ny = self.density_pattern.shape
-        if nx % 2 != 0:
-            raise ValueError(f"dimension {nx} is not even. Make sure all dimensions are even")
-        if ny % 2 != 0:
-            raise ValueError(f"dimension {ny} is not even. Make sure all dimensions are even")
+        if nx % 2 != 0 or ny % 2 != 0:
+            new_nx = nx - (nx % 2)
+            new_ny = ny - (ny % 2)
+            object.__setattr__(self, 'density_pattern', self.density_pattern[:new_nx, :new_ny])
         
         # Allow density pattern values to slightly exceed [0, 1] due to filtering
         # The density filter provides soft bounding, and hard clipping creates gradient discontinuities
@@ -673,9 +676,12 @@ def density(
         by geometric constraints." Computer Methods in Applied Mechanics and
         Engineering 293 (2015): 266-282.
     """
-    # Type checks
+    # Type checks (auto-convert numpy arrays)
     if not isinstance(theta, jnp.ndarray):
-        raise TypeError(f"theta must be a jax.numpy.ndarray, got {type(theta)}")
+        try:
+            theta = jnp.asarray(theta)
+        except Exception:
+            raise TypeError(f"theta must be array-like, got {type(theta)}")
     if theta.ndim != 2:
         raise ValueError(f"theta must be a 2D array, got shape {theta.shape}")
 

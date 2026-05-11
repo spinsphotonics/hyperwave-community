@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="hyperwave-community",
-    version="0.2.1",
+    version="0.2.2",
     author="Hyperwave Team",
     author_email="support@spinsphotonics.com",
     description="Open-source photonics simulation toolkit with GPU-accelerated FDTD via cloud API",
@@ -43,6 +43,9 @@ setup(
             "sphinx>=8.0",
             "pydata-sphinx-theme",
             "sphinx-autodoc-typehints",
+        ],
+        "agent": [
+            "fastmcp>=2.0.0",
         ],
     },
 )
