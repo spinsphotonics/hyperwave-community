@@ -936,10 +936,24 @@ def plot_structure_slice(
     *,
     axis: str = "xz",
     position: Optional[int] = None,
+    xlim: Optional[Tuple[int, int]] = None,
+    ylim: Optional[Tuple[int, int]] = None,
+    zlim: Optional[Tuple[int, int]] = None,
+    vmin: Optional[float] = None,
+    vmax: Optional[float] = None,
     figsize=None,
+    title: Optional[str] = None,
+    xlabel: Optional[str] = None,
+    ylabel: Optional[str] = None,
+    colorbar: bool = True,
+    colorbar_label: str = "permittivity",
+    aspect: str = "auto",
     show: bool = True,
     save_path: Optional[str] = None,
+    save_dpi: int = 150,
     cmap: str = "coolwarm",
+    ax=None,
+    return_data: bool = False,
 ):
     """Plot a 2D cross-section of a layer stack WITHOUT materializing the full 3D array.
 
@@ -951,22 +965,46 @@ def plot_structure_slice(
         layers: List of ``Layer`` objects (same as passed to ``create_structure``),
             ordered bottom-to-top.
         axis: ``"xz"`` for XZ cross-section at a given y (default),
-            ``"xy"`` for XY cross-section at a given z.
-        position: Slice position in pixels. For ``"xz"``: y index (default mid-y).
-            For ``"xy"``: z index (default mid-z of the full stack).
-        figsize: Figure size (auto if None).
+            ``"xy"`` for XY cross-section at a given z,
+            ``"yz"`` for YZ cross-section at a given x.
+        position: Slice position in pixels along the sliced axis.
+            Defaults to the midpoint.
+        xlim: ``(x_min, x_max)`` pixel range to display on x-axis.
+        ylim: ``(y_min, y_max)`` pixel range to display on y-axis.
+        zlim: ``(z_min, z_max)`` pixel range to display on z-axis.
+        vmin: Min permittivity value for colormap. Auto if None.
+        vmax: Max permittivity value for colormap. Auto if None.
+        figsize: Figure size tuple. Auto-computed if None.
+        title: Plot title. Auto-generated if None.
+        xlabel: X-axis label. Auto if None.
+        ylabel: Y-axis label. Auto if None.
+        colorbar: Whether to show the colorbar.
+        colorbar_label: Label for the colorbar.
+        aspect: Aspect ratio for imshow (``"auto"`` or ``"equal"``).
         show: Whether to call ``plt.show()``.
-        save_path: If given, save the figure.
-        cmap: Colormap name.
+        save_path: If given, save the figure to this path.
+        save_dpi: DPI for saved figure.
+        cmap: Matplotlib colormap name.
+        ax: Existing matplotlib Axes to plot on. Creates new figure if None.
+        return_data: If True, also return the 2D slice array.
 
     Returns:
-        The matplotlib ``Figure``.
+        The matplotlib ``Figure``, or ``(Figure, ndarray)`` if ``return_data=True``.
 
     Example::
 
         layers = [clad, etch_layer, slab_layer, box, substrate]
-        hwc.plot_structure_slice(layers)  # XZ at mid-Y
-        hwc.plot_structure_slice(layers, axis="xy", position=z_etch)  # XY at etch
+        hwc.plot_structure_slice(layers)
+        hwc.plot_structure_slice(layers, axis="xz", zlim=(80, 100), cmap="viridis")
+        hwc.plot_structure_slice(layers, axis="xy", position=z_etch, xlim=(200, 800))
+
+        # Plot on existing axes for subplots
+        fig, axes = plt.subplots(1, 2)
+        hwc.plot_structure_slice(layers, axis="xz", ax=axes[0], show=False)
+        hwc.plot_structure_slice(layers, axis="xy", position=z, ax=axes[1])
+
+        # Get raw data
+        fig, data = hwc.plot_structure_slice(layers, return_data=True, show=False)
     """
     import matplotlib.pyplot as plt
     import numpy as np
@@ -995,14 +1033,10 @@ def plot_structure_slice(
                 slc[:, z + zi] = eps_lo + (eps_hi - eps_lo) * col
             z += h
 
-        if figsize is None:
-            figsize = (max(8, dnx / 150), max(3, total_z / 40))
-        fig, ax = plt.subplots(figsize=figsize)
-        im = ax.imshow(slc.T, origin="lower", aspect="auto", cmap=cmap)
-        ax.set_xlabel("x (px)")
-        ax.set_ylabel("z (px)")
-        ax.set_title(f"XZ cross-section at y={mid_y}")
-        plt.colorbar(im, ax=ax, label="permittivity")
+        auto_title = f"XZ cross-section at y={mid_y}"
+        auto_xlabel, auto_ylabel = "x (px)", "z (px)"
+        auto_figsize = (max(8, dnx / 150), max(3, total_z / 40))
+        display_xlim, display_ylim = xlim, zlim
 
     elif axis == "xy":
         z_target = position if position is not None else total_z // 2
@@ -1016,23 +1050,54 @@ def plot_structure_slice(
         if slc is None:
             slc = np.full((dnx, dny), layer_info[-1][1])
 
-        if figsize is None:
-            figsize = (max(6, dnx / 200), max(6, dny / 200))
-        fig, ax = plt.subplots(figsize=figsize)
-        im = ax.imshow(slc.T, origin="lower", aspect="auto", cmap=cmap)
-        ax.set_xlabel("x (px)")
-        ax.set_ylabel("y (px)")
-        ax.set_title(f"XY cross-section at z={z_target}")
-        plt.colorbar(im, ax=ax, label="permittivity")
+        auto_title = f"XY cross-section at z={z_target}"
+        auto_xlabel, auto_ylabel = "x (px)", "y (px)"
+        auto_figsize = (max(6, dnx / 200), max(6, dny / 200))
+        display_xlim, display_ylim = xlim, ylim
+
+    elif axis == "yz":
+        mid_x = position if position is not None else dnx // 2
+        slc = np.zeros((dny, total_z))
+        z = 0
+        for density, eps_lo, eps_hi, h in layer_info:
+            col = density[mid_x, :]
+            for zi in range(h):
+                slc[:, z + zi] = eps_lo + (eps_hi - eps_lo) * col
+            z += h
+
+        auto_title = f"YZ cross-section at x={mid_x}"
+        auto_xlabel, auto_ylabel = "y (px)", "z (px)"
+        auto_figsize = (max(8, dny / 150), max(3, total_z / 40))
+        display_xlim, display_ylim = ylim, zlim
 
     else:
-        raise ValueError(f"axis must be 'xz' or 'xy', got '{axis}'")
+        raise ValueError(f"axis must be 'xz', 'xy', or 'yz', got '{axis}'")
 
-    plt.tight_layout()
+    own_fig = ax is None
+    if own_fig:
+        fig, ax = plt.subplots(figsize=figsize or auto_figsize)
+    else:
+        fig = ax.get_figure()
+
+    im = ax.imshow(slc.T, origin="lower", aspect=aspect, cmap=cmap, vmin=vmin, vmax=vmax)
+    ax.set_xlabel(xlabel or auto_xlabel)
+    ax.set_ylabel(ylabel or auto_ylabel)
+    ax.set_title(title or auto_title)
+    if colorbar:
+        plt.colorbar(im, ax=ax, label=colorbar_label)
+    if display_xlim:
+        ax.set_xlim(display_xlim)
+    if display_ylim:
+        ax.set_ylim(display_ylim)
+
+    if own_fig:
+        plt.tight_layout()
     if save_path:
-        fig.savefig(save_path, dpi=150, bbox_inches="tight")
+        fig.savefig(save_path, dpi=save_dpi, bbox_inches="tight")
     if show:
         plt.show()
+    if return_data:
+        return fig, slc
     return fig
 
 
