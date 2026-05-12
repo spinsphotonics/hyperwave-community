@@ -947,7 +947,7 @@ def plot_structure_slice(
     ylabel: Optional[str] = None,
     colorbar: bool = True,
     colorbar_label: str = "permittivity",
-    aspect: str = "auto",
+    aspect: str = "equal",
     show: bool = True,
     save_path: Optional[str] = None,
     save_dpi: int = 150,
