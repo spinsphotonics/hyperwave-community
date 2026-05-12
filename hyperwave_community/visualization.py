@@ -947,7 +947,7 @@ def plot_structure_slice(
     ylabel: Optional[str] = None,
     colorbar: bool = True,
     colorbar_label: str = "permittivity",
-    aspect: str = "equal",
+    aspect: Optional[str] = None,
     show: bool = True,
     save_path: Optional[str] = None,
     save_dpi: int = 150,
@@ -1087,6 +1087,12 @@ def plot_structure_slice(
     # first layer (typically air) is at top -- natural cross-section view
     if axis in ("xz", "yz"):
         slc = slc[:, ::-1]
+
+    # Auto-select aspect: "auto" when zooming (so zoomed region fills the figure),
+    # "equal" when showing the full view (so pixels are square)
+    if aspect is None:
+        is_zoomed = (xlim is not None or ylim is not None or zlim is not None)
+        aspect = "auto" if is_zoomed else "equal"
 
     own_fig = ax is None
     if own_fig:
