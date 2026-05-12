@@ -1035,7 +1035,11 @@ def plot_structure_slice(
 
         auto_title = f"XZ cross-section at y={mid_y}"
         auto_xlabel, auto_ylabel = "x (px)", "z (px)"
-        auto_figsize = (max(8, dnx / 150), max(3, total_z / 40))
+        # Effective display range (after xlim/zlim crops)
+        ew = (xlim[1] - xlim[0]) if xlim else dnx
+        eh = (zlim[1] - zlim[0]) if zlim else total_z
+        ratio = ew / max(1, eh)
+        auto_figsize = (min(16, max(6, ratio * 3)), 3)
         display_xlim, display_ylim = xlim, zlim
 
     elif axis == "xy":
@@ -1052,7 +1056,10 @@ def plot_structure_slice(
 
         auto_title = f"XY cross-section at z={z_target}"
         auto_xlabel, auto_ylabel = "x (px)", "y (px)"
-        auto_figsize = (max(6, dnx / 200), max(6, dny / 200))
+        ew = (xlim[1] - xlim[0]) if xlim else dnx
+        eh = (ylim[1] - ylim[0]) if ylim else dny
+        ratio = ew / max(1, eh)
+        auto_figsize = (max(5, min(10, ratio * 6)), 6)
         display_xlim, display_ylim = xlim, ylim
 
     elif axis == "yz":
@@ -1067,7 +1074,10 @@ def plot_structure_slice(
 
         auto_title = f"YZ cross-section at x={mid_x}"
         auto_xlabel, auto_ylabel = "y (px)", "z (px)"
-        auto_figsize = (max(8, dny / 150), max(3, total_z / 40))
+        ew = (ylim[1] - ylim[0]) if ylim else dny
+        eh = (zlim[1] - zlim[0]) if zlim else total_z
+        ratio = ew / max(1, eh)
+        auto_figsize = (min(16, max(6, ratio * 3)), 3)
         display_xlim, display_ylim = ylim, zlim
 
     else:
