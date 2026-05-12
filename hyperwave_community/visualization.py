@@ -951,7 +951,7 @@ def plot_structure_slice(
     show: bool = True,
     save_path: Optional[str] = None,
     save_dpi: int = 150,
-    cmap: str = "coolwarm",
+    cmap: str = "PuOr",
     ax=None,
     return_data: bool = False,
 ):
@@ -1073,6 +1073,11 @@ def plot_structure_slice(
     else:
         raise ValueError(f"axis must be 'xz', 'xy', or 'yz', got '{axis}'")
 
+    # Flip z-axis so last layer (typically substrate) is at bottom,
+    # first layer (typically air) is at top -- natural cross-section view
+    if axis in ("xz", "yz"):
+        slc = slc[:, ::-1]
+
     own_fig = ax is None
     if own_fig:
         fig, ax = plt.subplots(figsize=figsize or auto_figsize)
@@ -1096,6 +1101,10 @@ def plot_structure_slice(
         fig.savefig(save_path, dpi=save_dpi, bbox_inches="tight")
     if show:
         plt.show()
+        plt.close(fig)
+        if return_data:
+            return None, slc
+        return None
     if return_data:
         return fig, slc
     return fig
