@@ -691,44 +691,227 @@ def plot_absorption_mask(
 def plot_theta(
     theta,
     *,
-    figsize: Tuple[int, int] = (10, 4),
+    cmap: str = "gray",
+    vmin: Optional[float] = None,
+    vmax: Optional[float] = None,
+    title: Optional[str] = "2D Layout (theta)",
+    xlabel: Optional[str] = "x (cells)",
+    ylabel: Optional[str] = "y (cells)",
+    colorbar: bool = True,
+    colorbar_label: str = "Material density",
+    aspect: str = "equal",
+    xlim: Optional[Tuple[int, int]] = None,
+    ylim: Optional[Tuple[int, int]] = None,
+    figsize: Optional[Tuple[int, int]] = None,
+    ax=None,
     show: bool = True,
     save_path: Optional[str] = None,
+    save_dpi: int = 150,
+    return_data: bool = False,
 ):
-    """Plot a 2D density layout (theta).
+    """Plot a 2D density layout (theta or density).
 
     Args:
         theta: 2D array of material densities.
-        figsize: Figure size.
+        cmap: Matplotlib colormap name.
+        vmin: Min value for colormap. Auto if None.
+        vmax: Max value for colormap. Auto if None.
+        title: Plot title. None to hide.
+        xlabel: X-axis label. None to hide.
+        ylabel: Y-axis label. None to hide.
+        colorbar: Whether to show colorbar.
+        colorbar_label: Label for colorbar.
+        aspect: ``"equal"`` (square pixels) or ``"auto"`` (stretch to fill).
+        xlim: ``(x_min, x_max)`` pixel range to display.
+        ylim: ``(y_min, y_max)`` pixel range to display.
+        figsize: Figure size. Auto if None.
+        ax: Existing matplotlib Axes to plot on.
         show: Whether to call ``plt.show()``.
         save_path: If given, save the figure.
+        save_dpi: DPI for saved figure.
+        return_data: If True, also return the 2D array.
 
     Returns:
-        The matplotlib ``Figure``.
+        The matplotlib ``Figure``, or ``(Figure, ndarray)`` if return_data.
 
     Example::
 
         hwc.plot_theta(theta)
+        hwc.plot_theta(density, cmap="viridis", vmin=0, vmax=1, title="Filtered density")
+        hwc.plot_theta(theta, xlim=(200, 800), ylim=(400, 600), aspect="auto")
     """
     import matplotlib.pyplot as plt
 
-    fig, ax = plt.subplots(figsize=figsize, constrained_layout=True)
-    im = ax.imshow(np.asarray(theta).T, cmap="gray", origin="lower", aspect="equal")
-    ax.set_title("2D Layout (theta)", fontsize=13, fontweight="medium")
-    ax.set_xlabel("x (cells)", fontsize=11)
-    ax.set_ylabel("y (cells)", fontsize=11)
-    cbar = fig.colorbar(im, ax=ax)
-    cbar.set_label("Material density", fontsize=11)
+    data = np.asarray(theta)
+    own_fig = ax is None
+    if own_fig:
+        if figsize is None:
+            nx, ny = data.shape
+            ratio = nx / max(1, ny)
+            figsize = (max(6, min(12, ratio * 6)), 6)
+        fig, ax = plt.subplots(figsize=figsize, constrained_layout=True)
+    else:
+        fig = ax.get_figure()
 
-    _apply_branding(fig)
+    im = ax.imshow(data.T, cmap=cmap, origin="lower", aspect=aspect, vmin=vmin, vmax=vmax)
+    if title:
+        ax.set_title(title, fontsize=13, fontweight="medium")
+    if xlabel:
+        ax.set_xlabel(xlabel, fontsize=11)
+    if ylabel:
+        ax.set_ylabel(ylabel, fontsize=11)
+    if colorbar:
+        cbar = fig.colorbar(im, ax=ax)
+        cbar.set_label(colorbar_label, fontsize=11)
+    if xlim:
+        ax.set_xlim(xlim)
+    if ylim:
+        ax.set_ylim(ylim)
+
+    if own_fig:
+        _apply_branding(fig)
 
     if save_path:
-        fig.savefig(save_path, dpi=150, bbox_inches="tight")
+        fig.savefig(save_path, dpi=save_dpi, bbox_inches="tight")
     if show:
         plt.show()
         plt.close(fig)
+        if return_data:
+            return None, data
         return None
+    if return_data:
+        return fig, data
     return fig
+
+
+def animate_optimization(
+    thetas,
+    *,
+    layer: Optional[str] = None,
+    steps: Optional[List[int]] = None,
+    step_stride: int = 1,
+    cmap: str = "viridis",
+    vmin: float = 0.0,
+    vmax: float = 1.0,
+    title_fn=None,
+    figsize: Optional[Tuple[int, int]] = None,
+    interval: int = 200,
+    colorbar: bool = True,
+    save_path: Optional[str] = None,
+    save_dpi: int = 100,
+    show: bool = True,
+):
+    """Create an animation (GIF) of theta evolution during optimization.
+
+    Args:
+        thetas: List of 2D arrays (one per step), OR a dict mapping step
+            numbers to 2D arrays, OR a list of file paths to ``.npy`` files.
+        layer: If thetas is a dict of dicts (multi-layer), which layer to show.
+        steps: Specific step indices to include. None = all.
+        step_stride: Show every Nth step (e.g. 5 = every 5th). Ignored if steps is set.
+        cmap: Colormap.
+        vmin: Min value for colormap.
+        vmax: Max value for colormap.
+        title_fn: Callable ``(step_idx, total) -> str`` for frame titles.
+            Default shows "Step {i}/{total}".
+        figsize: Figure size. Auto if None.
+        interval: Milliseconds between frames.
+        colorbar: Show colorbar.
+        save_path: Save as GIF/MP4. Extension determines format.
+        save_dpi: DPI for saved animation.
+        show: Whether to display in notebook (uses HTML for inline display).
+
+    Returns:
+        The matplotlib ``FuncAnimation`` object.
+
+    Example::
+
+        # From optimization result
+        hwc.animate_optimization(result.history, layer="etch")
+
+        # From list of arrays
+        hwc.animate_optimization([theta_step0, theta_step10, theta_step50])
+
+        # Every 5th step, save as GIF
+        hwc.animate_optimization(thetas, step_stride=5, save_path="opt.gif")
+
+        # Custom frame titles
+        hwc.animate_optimization(thetas,
+            title_fn=lambda i, n: f"Iteration {i*10}/{n*10} | eta={effs[i]:.1%}")
+    """
+    import matplotlib.pyplot as plt
+    from matplotlib.animation import FuncAnimation
+
+    # Normalize thetas to a list of 2D arrays
+    if isinstance(thetas, dict):
+        sorted_keys = sorted(thetas.keys())
+        frames = [np.asarray(thetas[k]) for k in sorted_keys]
+    elif isinstance(thetas, list) and len(thetas) > 0:
+        if isinstance(thetas[0], (str, bytes)):
+            frames = [np.load(p) for p in thetas]
+        else:
+            frames = [np.asarray(t) for t in thetas]
+    else:
+        raise ValueError("thetas must be a list of arrays, dict, or list of file paths")
+
+    # Handle multi-layer (each frame is a dict)
+    if isinstance(frames[0], dict):
+        if layer is None:
+            layer = list(frames[0].keys())[0]
+        frames = [np.asarray(f[layer]) for f in frames]
+
+    # Select steps
+    if steps is not None:
+        frames = [frames[i] for i in steps if i < len(frames)]
+    elif step_stride > 1:
+        frames = frames[::step_stride]
+
+    n_frames = len(frames)
+    if n_frames == 0:
+        raise ValueError("No frames to animate")
+
+    nx, ny = frames[0].shape
+    if figsize is None:
+        ratio = nx / max(1, ny)
+        figsize = (max(5, min(10, ratio * 5)), 5)
+
+    if title_fn is None:
+        title_fn = lambda i, n: f"Step {i + 1}/{n}"
+
+    fig, ax = plt.subplots(figsize=figsize)
+    im = ax.imshow(frames[0].T, cmap=cmap, origin="lower", aspect="equal",
+                   vmin=vmin, vmax=vmax)
+    ax.set_xlabel("x (px)")
+    ax.set_ylabel("y (px)")
+    ttl = ax.set_title(title_fn(0, n_frames))
+    if colorbar:
+        fig.colorbar(im, ax=ax)
+    fig.tight_layout()
+
+    def update(frame_idx):
+        im.set_data(frames[frame_idx].T)
+        ttl.set_text(title_fn(frame_idx, n_frames))
+        return [im, ttl]
+
+    anim = FuncAnimation(fig, update, frames=n_frames, interval=interval, blit=True)
+
+    if save_path:
+        if save_path.endswith(".gif"):
+            anim.save(save_path, writer="pillow", dpi=save_dpi)
+        else:
+            anim.save(save_path, dpi=save_dpi)
+        print(f"Saved animation to {save_path} ({n_frames} frames)")
+
+    if show:
+        try:
+            from IPython.display import HTML, display
+            display(HTML(anim.to_jshtml()))
+        except ImportError:
+            plt.show()
+        plt.close(fig)
+        return None
+
+    return anim
 
 # ---------------------------------------------------------------------------
 # Structure (permittivity)
