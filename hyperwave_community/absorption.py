@@ -383,16 +383,22 @@ def _absorber_params_flat(dx_um, structure_dimensions):
 
 
 def _absorber_params_grating(wavelength_um, dx_um, structure_dimensions):
-    """3D/grating device absorber (GC, vertical coupler). Power-law from BO."""
+    """3D/grating device absorber (GC, vertical coupler).
+
+    Calibrated against 13 validated GC runs on 220nm SOI at 35nm grid
+    (devices/cleo_conference/gc_220soi/).  The z-absorber and coefficient
+    are much larger than flat devices because the tilted beam needs strong
+    vertical absorption.
+    """
     wl = wavelength_um
     dx = dx_um
-    abs_xy_um = max(2.1, 0.062 * wl ** 1.389 * dx ** (-0.619))
-    abs_z_um = max(1.4, 1.244 * wl ** 1.758 * dx ** 0.159)
-    abs_coeff = max(1e-4, 2.876 * wl ** (-1.607) * dx ** 2.579)
+    abs_xy_um = max(2.0, 0.062 * wl ** 1.389 * dx ** (-0.619))
+    abs_z_um = max(3.0, 2.760 * wl ** 1.758 * dx ** 0.159)
+    abs_coeff = max(1e-3, 23.0 * wl ** (-1.607) * dx ** 2.579)
 
     Lx, Ly, Lz = structure_dimensions
     abs_xy = min(int(round(abs_xy_um / dx)), Lx // 4)
-    abs_z = min(int(round(abs_z_um / dx)), Lz // 4)
+    abs_z = min(int(round(abs_z_um / dx)), Lz // 3)
 
     return {
         "absorption_widths": (abs_xy, abs_xy, abs_z),

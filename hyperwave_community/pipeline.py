@@ -35,9 +35,12 @@ def compute_mode_cross_power(mode_field: np.ndarray) -> float:
 # ---------------------------------------------------------------------------
 
 def optimize(
-    device: Any,
-    source: np.ndarray,
-    mode: np.ndarray,
+    layers: Any = None,
+    theta: Optional[Dict[str, np.ndarray]] = None,
+    grid: Optional[float] = None,
+    wavelength: Optional[float] = None,
+    source: Optional[np.ndarray] = None,
+    mode: Optional[np.ndarray] = None,
     objective: Any = None,
     phase: str = "freeform",
     n_steps: int = 100,
@@ -53,37 +56,28 @@ def optimize(
     fab_eta_hi: Optional[float] = None,
     gpu_type: str = "B200",
     api_key: Optional[str] = None,
-    **kwargs,
+    device: Any = None,
 ) -> OptimizationResult:
     """Run an optimization phase on cloud GPU.
 
-    Runs the optimization loop, prints progress per step, and returns
-    the final result. Press Ctrl+C to cancel early -- the GPU job is
-    stopped and you only pay for completed steps. The partial result
-    is still returned.
-
-    Usage:
-        result = hwc.optimize(device, source, mode,
-                              phase="freeform", n_steps=100)
-        # Prints: Step 1/100: efficiency=0.00%  time=604s
-        #         Step 2/100: efficiency=1.44%  time=603s
-        #         ...
-        # Press Ctrl+C to stop early
-
-        result.design    # Design object for next phase
-        result.history   # per-step metrics
-        result.save("./checkpoints/my_run")
+    The standard pipeline:
+        theta -> density(theta, radius) -> Layer -> create_structure (for viz)
+        Then: optimize(layers=..., theta=..., grid=..., wavelength=...,
+                       source=..., mode=..., phase=..., n_steps=...)
 
     Args:
-        device: GridInfo from LayerStack.build(), or a dict with
-            design_layers, freq_band, source_offset, recipe_params, etc.
+        layers: Layer stack as list of dicts. Each dict has name, thickness,
+            index. Design layers also have: design=True, density_radius.
+        theta: Initial design variables per layer, e.g. {"etch": np.array(...)}.
+            If None, uses initial_value from layer specs (default 0.5).
+        grid: FDTD grid spacing in um.
+        wavelength: Operating wavelength in um.
         source: Source field array.
         mode: Target mode field array.
         objective: Objective expression tree (from hwc.objectives).
             If None, uses mode coupling with the provided mode field.
         phase: "freeform", "binarize", "dfm", or "recovery".
         n_steps: Number of optimization steps.
-        (density_radius is per-layer, set in build_device layer specs)
         initial_design: Design from a previous phase.
         input_power: Source input power for normalization.
         mode_cross_power: Mode self-overlap power.
@@ -96,17 +90,60 @@ def optimize(
         fab_eta_hi: Override void detection eta.
         gpu_type: GPU type (default "B200").
         api_key: API key (overrides configured key).
+        device: (Deprecated) DeviceConfig from build_device(). Use layers=
+            and theta= instead.
 
     Returns:
         OptimizationResult with .design, .history, .save().
     """
-    if "density_filter_radius" in kwargs:
+    # Handle backward compat: if device= passed, use old path
+    if device is not None:
+        if hasattr(device, 'design_layers_info'):
+            # DeviceConfig object
+            pass
+        elif isinstance(device, dict):
+            pass
+        else:
+            raise TypeError(f"Unsupported device type: {type(device)}")
+    elif layers is not None:
+        # New path: construct DeviceConfig from primitives
+        from hyperwave_community.device import _build_device_from_specs
+
+        if source is None or mode is None:
+            raise ValueError("source and mode are required")
+        if grid is None or wavelength is None:
+            raise ValueError("grid and wavelength are required")
+
+        # Determine nx, ny from theta or layer specs
+        nx = ny = None
+        if theta:
+            first_theta = next(iter(theta.values()))
+            nx, ny = first_theta.shape
+        else:
+            raise ValueError(
+                "theta is required. Create your design variables with "
+                "np.full((nx, ny), 0.5) and pass as theta={'layer_name': array}")
+
+        device = _build_device_from_specs(
+            layers=layers, grid=grid, wavelength=wavelength,
+            nx=nx, ny=ny,
+        )
+
+        # Override theta in device with user-provided theta
+        if theta:
+            for dl in device.design_layers_info:
+                if dl["name"] in theta:
+                    dl["theta"] = np.array(theta[dl["name"]])
+    else:
         raise TypeError(
-            "density_filter_radius is no longer a parameter of optimize(). "
-            "Set it per-layer in build_device(): "
-            '{"design": True, "density_radius": 6}')
-    if kwargs:
-        raise TypeError(f"Unexpected keyword arguments: {list(kwargs.keys())}")
+            "Pass layers= and theta= to define the device. Example:\n"
+            "  hwc.optimize(\n"
+            "      layers=[{'name':'box','thickness':2.0,'index':1.44}, ...],\n"
+            "      theta={'etch': np.full((nx,ny), 0.5)},\n"
+            "      grid=0.035, wavelength=1.55,\n"
+            "      source=source_field, mode=mode_field,\n"
+            "      phase='freeform', n_steps=100)"
+        )
 
     if mode_cross_power is None:
         mode_cross_power = compute_mode_cross_power(np.array(mode))

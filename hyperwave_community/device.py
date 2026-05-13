@@ -125,7 +125,7 @@ class DeviceConfig:
         }
 
 
-def build_device(
+def _build_device_from_specs(
     layers: List[Dict[str, Any]],
     grid: float,
     wavelength: float,
@@ -297,3 +297,13 @@ def build_device(
         grid=dx,
         vertical_radius=vertical_radius,
     )
+
+
+def build_device(*args, **kwargs) -> DeviceConfig:
+    """Deprecated. Use optimize(layers=..., theta=...) directly."""
+    import warnings
+    warnings.warn(
+        "build_device() is deprecated. Pass layers= and theta= to optimize() directly.",
+        DeprecationWarning, stacklevel=2,
+    )
+    return _build_device_from_specs(*args, **kwargs)

@@ -76,13 +76,11 @@ def generate_gaussian_source(
     wavelength_um: float = None,
     dx_um: float = None,
     gpu_type: str = "B200",
-) -> Tuple[np.ndarray, np.ndarray]:
+) -> Tuple[np.ndarray, np.ndarray, dict]:
     """Generate a Gaussian beam source via cloud GPU FDTD simulation.
 
     Runs FDTD in free space on a cloud GPU, then computes the wave equation
-    error locally to produce a clean unidirectional source field.  This is
-    the cloud-compatible replacement for ``create_gaussian_source`` which
-    requires the full hyperwave solver package.
+    error locally to produce a clean unidirectional source field.
 
     Args:
         sim_shape: Simulation domain (Lx, Ly, Lz) in structure grid pixels.
@@ -108,8 +106,13 @@ def generate_gaussian_source(
         gpu_type: Cloud GPU type (``"B200"``, ``"H100"``, etc.).
 
     Returns:
-        ``(source_field, input_power)`` where *source_field* has shape
-        ``(N_freq, 6, Lx, Ly, 1)`` and *input_power* has shape ``(N_freq,)``.
+        ``(source_field, input_power, fields)`` where:
+        - *source_field*: ``(N_freq, 6, Lx, Ly, 1)`` processed source.
+        - *input_power*: ``(N_freq,)`` power per frequency.
+        - *fields*: dict with raw monitor data for visualization.
+          Always contains ``'xy'`` ``(N, 6, Lx, Ly, 4)``.
+          Contains ``'xz'`` ``(N, 6, Lx, 1, Lz)`` when ``|phi| < 45``,
+          otherwise ``'yz'`` ``(N, 6, 1, Ly, Lz)``.
     """
     from .structure import recipe_from_params
     from .api_client import simulate as api_simulate
@@ -179,15 +182,27 @@ def generate_gaussian_source(
         vertical_radius=0.0,
     )
 
-    # ----- Monitor at source plane (z-thickness = 4 for wave equation error) -----
+    # ----- Monitors -----
     z_offset = max(int(source_pos[2]) - 1, 0)
-    monitors_recipe = [{
-        'name': 'Output_source_plane',
-        'shape': (Lx, Ly, 4),
-        'offset': (0, 0, z_offset),
-    }]
-    # NOTE: Monitor must be named 'Output_*' for the /early_stopping endpoint.
-    # We use convergence="full" below to bypass early stopping for source gen.
+    monitors_recipe = [
+        {
+            'name': 'Output_source_plane',
+            'shape': (Lx, Ly, 4),
+            'offset': (0, 0, z_offset),
+        },
+    ]
+    if abs(phi) < 45:
+        monitors_recipe.append({
+            'name': 'Output_xz',
+            'shape': (Lx, 1, Lz),
+            'offset': (0, Ly // 2, 0),
+        })
+    else:
+        monitors_recipe.append({
+            'name': 'Output_yz',
+            'shape': (1, Ly, Lz),
+            'offset': (Lx // 2, 0, 0),
+        })
 
     # ----- Frequency band -----
     freq_min = float(np.min(frequencies))
@@ -208,34 +223,40 @@ def generate_gaussian_source(
         absorption_widths=absorption_widths,
         absorption_coeff=absorption_coeff,
         gpu_type=gpu_type,
-        convergence="full",
+        convergence="default",
     )
 
     # ----- Post-process: wave equation error -----
     field = np.array(response['monitor_data']['Output_source_plane'])  # (N, 6, Lx, Ly, 4)
 
-    # Zero out field components that aren't part of the source plane
-    # (same masking as the reference implementation)
     field[:, (0, 1, 5), :, :, :2] = 0
     field[:, (2, 3, 4), :, :, :1] = 0
 
     error = _wave_equation_error_free_space(field, frequencies)
-
-    # Extract error at source z (index 1 within the 4-pixel slab)
     err_plane = error[:, :, :, :, 1:2]  # (N, 6, Lx, Ly, 1)
 
-    # Swap E and H components to create source field
     swap_idx = np.array([3, 4, 5, 0, 1, 2])
     err_src_field = err_plane[:, swap_idx, :, :, :]
-
-    # Zero out z-components (Ez, Hz)
     err_src_field[:, 2, :, :, :] = 0.0
     err_src_field[:, 5, :, :, :] = 0.0
 
-    # ----- Compute input power -----
     input_power = np.abs(np.array(get_power_through_plane(
         field=jnp.array(err_src_field), axis='z', position=0
     )))
 
-    return err_src_field.astype(np.complex64), input_power
+    # ----- Extract cross-section field data -----
+    fields = {}
+    fields['xy'] = np.array(
+        response['monitor_data']['Output_source_plane']
+    )  # (N, 6, Lx, Ly, 4)
+    if 'Output_xz' in response['monitor_data']:
+        fields['xz'] = np.array(
+            response['monitor_data']['Output_xz']
+        )  # (N, 6, Lx, 1, Lz)
+    if 'Output_yz' in response['monitor_data']:
+        fields['yz'] = np.array(
+            response['monitor_data']['Output_yz']
+        )  # (N, 6, 1, Ly, Lz)
+
+    return err_src_field.astype(np.complex64), input_power, fields
 
