@@ -103,6 +103,7 @@ from .visualization import (
     plot_simulation_overview,
     plot_structure_3d,
     plot_gds,
+    show_device_3d,
 )
 
 # Import logging configuration
@@ -277,6 +278,7 @@ __all__ = [
     "plot_simulation_overview",
     "plot_structure_3d",
     "plot_gds",
+    "show_device_3d",
 
     # Logging & Config
     "set_verbose",
