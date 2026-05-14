@@ -456,17 +456,23 @@ def optimize(
 
 def surgery(
     design: Design,
-    min_feature_size: float = 0.105,
+    min_area_nm2: float = 30_000,
     pixel_size: float = 0.0175,
+    min_feature_size: float = None,
 ) -> Design:
     """Remove small features and fill small holes.
 
     Non-differentiable cleanup step. Runs locally on CPU, no credits.
+    Scans the binarized density for solid islands and interior holes
+    smaller than ``min_area_nm2`` and removes/fills them.
 
     Args:
         design: Design to clean up.
-        min_feature_size: Minimum feature size in um.
+        min_area_nm2: Minimum feature area in nm^2. Solid islands and
+            interior holes below this area are removed or filled.
+            Default: 30,000 nm^2.
         pixel_size: Physical pixel size in um.
+        min_feature_size: Deprecated. Use ``min_area_nm2`` instead.
 
     Returns:
         New Design with cleaned thetas and surgery metadata.
@@ -474,7 +480,15 @@ def surgery(
     from scipy import ndimage
     from hyperwave_community.structure import density
 
-    min_area_px = int(np.pi * (min_feature_size / pixel_size / 2) ** 2)
+    if min_feature_size is not None:
+        import warnings
+        warnings.warn(
+            "min_feature_size is deprecated. Use min_area_nm2 instead.",
+            DeprecationWarning, stacklevel=2)
+        min_area_px = int(np.pi * (min_feature_size / pixel_size / 2) ** 2)
+    else:
+        px_nm = pixel_size * 1000
+        min_area_px = int(round(min_area_nm2 / (px_nm ** 2)))
     min_area_px = max(min_area_px, 1)
 
     new_thetas = {}
