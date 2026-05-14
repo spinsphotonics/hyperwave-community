@@ -298,12 +298,14 @@ def optimize(
         headers["Content-Encoding"] = "gzip"
         body = compressed
 
+    GATEWAY_URL = _API_CONFIG.get('gateway_url') or API_URL
+
     logger.info("Starting pipeline optimize (phase=%s, n_steps=%d)...", phase, n_steps)
     t0 = _time.time()
 
     try:
         response = requests.post(
-            f"{API_URL}/pipeline_optimize_start",
+            f"{GATEWAY_URL}/pipeline_optimize_start",
             data=body, headers=headers, timeout=(60, 300))
         response.raise_for_status()
     except requests.HTTPError as e:
@@ -313,7 +315,7 @@ def optimize(
     session_id = response.json()["session_id"]
     logger.info("  Session started in %.1fs: %s...", _time.time() - t0, session_id[:8])
 
-    ws_url = API_URL.replace("https://", "wss://").replace("http://", "ws://")
+    ws_url = GATEWAY_URL.replace("https://", "wss://").replace("http://", "ws://")
     ws_url = f"{ws_url}/inverse_design_ws?session_id={session_id}"
 
     ws = _ws_lib.create_connection(

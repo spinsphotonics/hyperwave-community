@@ -372,7 +372,7 @@ def preview_component(
 _API_CONFIG = {
     'api_key': None,
     'api_url': 'https://hyperwave-gateway-production.up.railway.app',
-    'gateway_url': None,
+    'gateway_url': 'https://spinsphotonics--hyperwave-api-fastapi-app.modal.run',
 }
 
 
