@@ -1760,6 +1760,21 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None):
         bscore = 1.0 - float(np.mean(4 * density * (1 - density)))
         mode = "contour" if bscore > 0.8 else "slab"
 
+    # Generate base64-encoded density texture for slab mode
+    texture_b64 = None
+    if mode == "slab":
+        import io
+        import base64
+        import matplotlib.cm as cm
+        from PIL import Image
+
+        rgba = cm.viridis(density)  # (nx, ny, 4) float 0-1
+        rgba_uint8 = (rgba * 255).astype(np.uint8)
+        img = Image.fromarray(rgba_uint8)
+        buf = io.BytesIO()
+        img.save(buf, format="PNG")
+        texture_b64 = base64.b64encode(buf.getvalue()).decode()
+
     if mode == "contour":
         from skimage.measure import find_contours
         padded = np.pad(density, 1, mode="constant", constant_values=0)
@@ -1790,14 +1805,19 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None):
             continue
         is_design = layer.get("is_design", False)
 
-        polygon_layers.append({
+        layer_data = {
             "layer_name": layer["name"],
             "z_min": z_min,
             "z_max": z_max,
             "material": mat_key,
             "refractive_index": float(layer["index"]),
             "paths": design_paths if is_design else slab_rect,
-        })
+        }
+        # Attach density texture for design layers in slab mode
+        if is_design and texture_b64 is not None:
+            layer_data["texture_b64"] = texture_b64
+            layer_data["texture_size"] = [int(nx), int(ny)]
+        polygon_layers.append(layer_data)
 
     # Build port/monitor list
     ports = []
