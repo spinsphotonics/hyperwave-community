@@ -1727,39 +1727,22 @@ _MATERIAL_ALIAS = {
 }
 
 
-def show_device_3d(density, layers, pixel_size):
+def show_device_3d(density, layers, pixel_size, mode="auto"):
     """Emit geometry data for the standalone UI 3D device viewer.
-
-    Extracts smooth contour outlines from a 2D density array, packages them
-    with the layer stack, and prints a ``__GEOMETRY_UPDATE__`` message that
-    the frontend detects and forwards to the Three.js viewer.
 
     Args:
         density: 2D numpy array (nx, ny) with values in [0, 1].
-        layers: list of dicts, each with keys:
-
-            - ``name`` (str): display name, e.g. ``"SiN"``
-            - ``thickness`` (float): layer thickness in um
-            - ``material`` (str): material id (``"silicon"``, ``"sin"``,
-              ``"sio2"``, ``"air"``, etc.)
-            - ``index`` (float): refractive index
-            - ``z_min`` (float): bottom z coordinate in um
-            - ``is_design`` (bool, optional): True for design layers that use
-              the density contours; False/absent for slab layers that are
-              rendered as full rectangles.
-
-        pixel_size: um per pixel (scales density grid coords to um).
-
-    The function prints a single line to stdout::
-
-        __GEOMETRY_UPDATE__{"polygons": [...], "ports": [], "bounds": {...}}
-
-    The frontend strips this line from visible output and sends the JSON
-    payload to ``GDSFactoryDevice3D``.
+        layers: list of dicts with keys: name, thickness, material, index.
+            Design layers also have ``is_design=True``.
+        pixel_size: um per pixel.
+        mode: ``"auto"`` (default), ``"contour"``, or ``"slab"``.
+            - ``"contour"``: extract smooth contours at level 0.5 (for
+              binary/near-binary density).
+            - ``"slab"``: render the design layer as a full rectangle
+              (for grayscale/initial density).
+            - ``"auto"``: use contour if binarization > 0.8, else slab.
     """
     import json
-
-    from skimage.measure import find_contours
 
     density = np.asarray(density, dtype=float)
     if density.ndim != 2:
@@ -1769,24 +1752,29 @@ def show_device_3d(density, layers, pixel_size):
     x_max = nx * pixel_size
     y_max = ny * pixel_size
 
-    # Pad by 1 pixel so contours close at array edges
-    padded = np.pad(density, 1, mode="constant", constant_values=0)
-    raw_contours = find_contours(padded, 0.5)
+    # Auto-detect mode from binarization score
+    if mode == "auto":
+        bscore = 1.0 - float(np.mean(4 * density * (1 - density)))
+        mode = "contour" if bscore > 0.8 else "slab"
 
-    # Undo padding offset and scale to um
-    design_paths = []
-    for contour in raw_contours:
-        # contour has shape (N, 2) in (row, col) order
-        path = (contour - 1.0) * pixel_size
-        # Convert to list of [x, y] pairs (row -> x, col -> y)
-        path_list = [[float(pt[0]), float(pt[1])] for pt in path]
-        if len(path_list) >= 3:
-            design_paths.append(path_list)
+    # Extract design layer paths
+    if mode == "contour":
+        from skimage.measure import find_contours
+        padded = np.pad(density, 1, mode="constant", constant_values=0)
+        raw_contours = find_contours(padded, 0.5)
+        design_paths = []
+        for contour in raw_contours:
+            path = (contour - 1.0) * pixel_size
+            path_list = [[float(pt[0]), float(pt[1])] for pt in path]
+            if len(path_list) >= 3:
+                design_paths.append(path_list)
+    else:
+        # Slab mode: full rectangle for the design layer
+        design_paths = [[[0, 0], [x_max, 0], [x_max, y_max], [0, y_max]]]
 
-    # Full-extent rectangle for slab layers
+    # Full-extent rectangle for cladding (same for both modes)
     slab_rect = [[[0, 0], [x_max, 0], [x_max, y_max], [0, y_max]]]
 
-    # Compute z positions by stacking layers bottom-up
     polygon_layers = []
     z_cursor = 0.0
     for layer in layers:
@@ -1798,8 +1786,11 @@ def show_device_3d(density, layers, pixel_size):
         z_max = z_min + thickness
         z_cursor = z_max
 
-        # Skip air layers
-        if mat_key == "air":
+        # Skip air and cladding (SiO2) layers.
+        # The 3D viewer renders its own transparent cladding box via
+        # the showCladding prop, so emitting SiO2 as extruded polygons
+        # makes them look like thick opaque blocks.
+        if mat_key in ("air", "sio2"):
             continue
         is_design = layer.get("is_design", False)
 
