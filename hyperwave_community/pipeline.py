@@ -151,10 +151,9 @@ def optimize(
             mode_cross_power = 1.0
 
     from hyperwave_community.api_client import (
-        _API_CONFIG, encode_array, decode_array, _handle_api_error,
+        _API_CONFIG, encode_array, decode_array,
     )
     from hyperwave_community._logging import logger
-    import requests
     import json
     import gzip
     import threading
@@ -288,38 +287,38 @@ def optimize(
             "websocket-client required for optimize(). "
             "Install with: pip install websocket-client")
 
-    headers = {
-        "X-API-Key": effective_api_key,
-        "Content-Type": "application/json",
-    }
     body = json.dumps(request_data).encode()
     compressed = gzip.compress(body)
-    if len(compressed) < len(body):
-        headers["Content-Encoding"] = "gzip"
-        body = compressed
 
     GATEWAY_URL = _API_CONFIG.get('gateway_url') or API_URL
 
     logger.info("Starting pipeline optimize (phase=%s, n_steps=%d)...", phase, n_steps)
     t0 = _time.time()
 
-    try:
-        response = requests.post(
-            f"{GATEWAY_URL}/pipeline_optimize_start",
-            data=body, headers=headers, timeout=(60, 300))
-        response.raise_for_status()
-    except requests.HTTPError as e:
-        _handle_api_error(e, "pipeline optimize")
-        raise
-
-    session_id = response.json()["session_id"]
-    logger.info("  Session started in %.1fs: %s...", _time.time() - t0, session_id[:8])
-
+    # Unified WebSocket: send request payload as the first message
     ws_url = GATEWAY_URL.replace("https://", "wss://").replace("http://", "ws://")
-    ws_url = f"{ws_url}/inverse_design_ws?session_id={session_id}"
+    ws_url = f"{ws_url}/pipeline_optimize_ws"
 
     ws = _ws_lib.create_connection(
-        ws_url, header={"X-API-Key": effective_api_key}, timeout=30)
+        ws_url, header={"X-API-Key": effective_api_key}, timeout=60)
+
+    # Send request payload (binary if compressed is smaller, text otherwise)
+    if len(compressed) < len(body):
+        ws.send_binary(compressed)
+    else:
+        ws.send(body.decode())
+
+    # Wait for server ack
+    ack_raw = ws.recv()
+    ack = json.loads(ack_raw)
+    if ack.get("type") == "error":
+        ws.close()
+        raise RuntimeError(ack.get("message", "Server error during startup"))
+    if ack.get("type") != "started":
+        ws.close()
+        raise RuntimeError(f"Unexpected ack from server: {ack}")
+
+    logger.info("  Session started in %.1fs (unified WS)", _time.time() - t0)
     ws.settimeout(600)
 
     stop_ping = threading.Event()
