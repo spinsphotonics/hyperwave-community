@@ -1727,7 +1727,7 @@ _MATERIAL_ALIAS = {
 }
 
 
-def show_device_3d(density, layers, pixel_size, mode="auto"):
+def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None):
     """Emit geometry data for the standalone UI 3D device viewer.
 
     Args:
@@ -1736,11 +1736,15 @@ def show_device_3d(density, layers, pixel_size, mode="auto"):
             Design layers also have ``is_design=True``.
         pixel_size: um per pixel.
         mode: ``"auto"`` (default), ``"contour"``, or ``"slab"``.
-            - ``"contour"``: extract smooth contours at level 0.5 (for
-              binary/near-binary density).
-            - ``"slab"``: render the design layer as a full rectangle
-              (for grayscale/initial density).
-            - ``"auto"``: use contour if binarization > 0.8, else slab.
+            - ``"contour"``: extract smooth contours at level 0.5 (binary).
+            - ``"slab"``: render design layer as full rectangle (grayscale).
+            - ``"auto"``: contour if binarization > 0.8, else slab.
+        monitors: optional list of dicts with keys:
+            - ``name`` (str): e.g. ``"Input_te0"``, ``"Output_te1"``
+            - ``x`` (float): x position in um
+            - ``y`` (float): y center in um
+            - ``width`` (float): monitor width in um
+            - ``orientation`` (float): angle in degrees (0=along y, 90=along x)
     """
     import json
 
@@ -1752,12 +1756,10 @@ def show_device_3d(density, layers, pixel_size, mode="auto"):
     x_max = nx * pixel_size
     y_max = ny * pixel_size
 
-    # Auto-detect mode from binarization score
     if mode == "auto":
         bscore = 1.0 - float(np.mean(4 * density * (1 - density)))
         mode = "contour" if bscore > 0.8 else "slab"
 
-    # Extract design layer paths
     if mode == "contour":
         from skimage.measure import find_contours
         padded = np.pad(density, 1, mode="constant", constant_values=0)
@@ -1769,10 +1771,8 @@ def show_device_3d(density, layers, pixel_size, mode="auto"):
             if len(path_list) >= 3:
                 design_paths.append(path_list)
     else:
-        # Slab mode: full rectangle for the design layer
         design_paths = [[[0, 0], [x_max, 0], [x_max, y_max], [0, y_max]]]
 
-    # Full-extent rectangle for cladding (same for both modes)
     slab_rect = [[[0, 0], [x_max, 0], [x_max, y_max], [0, y_max]]]
 
     polygon_layers = []
@@ -1799,9 +1799,22 @@ def show_device_3d(density, layers, pixel_size, mode="auto"):
             "paths": design_paths if is_design else slab_rect,
         })
 
+    # Build port/monitor list
+    ports = []
+    if monitors:
+        for m in monitors:
+            is_input = m["name"].lower().startswith("input")
+            ports.append({
+                "name": m["name"],
+                "center": [float(m["x"]), float(m["y"])],
+                "width": float(m.get("width", y_max * 0.8)),
+                "orientation": float(m.get("orientation", 0)),
+                "layer": "WG" if is_input else "WG",
+            })
+
     data = {
         "polygons": polygon_layers,
-        "ports": [],
+        "ports": ports,
         "bounds": {
             "x_min": 0,
             "x_max": float(x_max),
