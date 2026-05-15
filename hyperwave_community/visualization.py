@@ -1786,11 +1786,7 @@ def show_device_3d(density, layers, pixel_size, mode="auto"):
         z_max = z_min + thickness
         z_cursor = z_max
 
-        # Skip air and cladding (SiO2) layers.
-        # The 3D viewer renders its own transparent cladding box via
-        # the showCladding prop, so emitting SiO2 as extruded polygons
-        # makes them look like thick opaque blocks.
-        if mat_key in ("air", "sio2"):
+        if mat_key == "air":
             continue
         is_design = layer.get("is_design", False)
 
