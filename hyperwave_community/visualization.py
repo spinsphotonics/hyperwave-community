@@ -1828,13 +1828,28 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
                 merged = _merge_polys(cells[0].get_polygons()) if cells else []
                 merged_per_level.append(merged)
 
+        # Clip region: bounding box of the innermost level (design area only)
+        clip_rect = None
+        if merged_per_level[-1]:
+            all_pts = np.vstack([np.asarray(p.points if hasattr(p, 'points') else p) for p in merged_per_level[-1]])
+            margin = pixel_size * 2
+            clip_rect = _gdstk.rectangle(
+                (all_pts[:, 0].min() - margin, all_pts[:, 1].min() - margin),
+                (all_pts[:, 0].max() + margin, all_pts[:, 1].max() + margin),
+            )
+
         density_contours = []
         for i, level in enumerate(levels):
             outer = merged_per_level[i]
             if not outer:
                 continue
+            if clip_rect:
+                outer = _gdstk.boolean(outer, [clip_rect], "and")
             if i + 1 < len(levels) and merged_per_level[i + 1]:
-                ring = _gdstk.boolean(outer, merged_per_level[i + 1], "not")
+                inner = merged_per_level[i + 1]
+                if clip_rect:
+                    inner = _gdstk.boolean(inner, [clip_rect], "and")
+                ring = _gdstk.boolean(outer, inner, "not")
             else:
                 ring = outer
             ring_paths = _gds_to_viewer_paths(ring)
