@@ -1768,12 +1768,10 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None):
         import matplotlib.cm as cm
         from PIL import Image
 
-        from matplotlib.colors import LinearSegmentedColormap
-        metal_cmap = LinearSegmentedColormap.from_list(
-            "metal", ["#1a1a2e", "#4a5568", "#a0aec0", "#e2e8f0"]
-        )
-        rgba = metal_cmap(density)  # (nx, ny, 4) float 0-1
-        rgba_uint8 = (rgba * 255).astype(np.uint8)
+        sin_rgb = np.array([212, 198, 134], dtype=np.float64) / 255.0
+        sio2_rgb = np.array([224, 232, 240], dtype=np.float64) / 255.0
+        rgb = sio2_rgb + density[..., None] * (sin_rgb - sio2_rgb)
+        rgba_uint8 = (np.concatenate([rgb, np.ones((*density.shape, 1))], axis=-1) * 255).astype(np.uint8)
         img = Image.fromarray(rgba_uint8)
         buf = io.BytesIO()
         img.save(buf, format="PNG")
