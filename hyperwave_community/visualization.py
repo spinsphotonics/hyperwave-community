@@ -1789,29 +1789,37 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
         import tempfile
         from .data_io import generate_gds_from_density
         import gdstk as _gdstk
-        density_contours = []
-        for level in [0.3, 0.5, 0.7]:
+
+        def _merge_polys(polys):
+            if len(polys) <= 1:
+                return polys
+            result = [polys[0]]
+            for p in polys[1:]:
+                result = _gdstk.boolean(result, [p], "or")
+            return result
+
+        levels = [0.2, 0.4, 0.6, 0.8]
+        merged_per_level = []
+        for level in levels:
             with tempfile.NamedTemporaryFile(suffix=".gds", delete=True) as tmp:
                 generate_gds_from_density(density, level=level, output_filename=tmp.name, resolution=pixel_size)
                 lib = _gdstk.read_gds(tmp.name)
                 cells = lib.top_level()
-                if cells:
-                    raw_polys = cells[0].get_polygons()
-                    if len(raw_polys) > 1:
-                        merged = raw_polys[0]
-                        for p in raw_polys[1:]:
-                            merged = _gdstk.boolean(
-                                [merged] if not isinstance(merged, list) else merged,
-                                [p], "or"
-                            )
-                        if isinstance(merged, list):
-                            level_paths = _gds_to_viewer_paths(merged)
-                        else:
-                            level_paths = _gds_to_viewer_paths([merged])
-                    else:
-                        level_paths = _gds_to_viewer_paths(raw_polys)
-                    if level_paths:
-                        density_contours.append({"level": level, "paths": level_paths})
+                merged = _merge_polys(cells[0].get_polygons()) if cells else []
+                merged_per_level.append(merged)
+
+        density_contours = []
+        for i, level in enumerate(levels):
+            outer = merged_per_level[i]
+            if not outer:
+                continue
+            if i + 1 < len(levels) and merged_per_level[i + 1]:
+                ring = _gdstk.boolean(outer, merged_per_level[i + 1], "not")
+            else:
+                ring = outer
+            ring_paths = _gds_to_viewer_paths(ring)
+            if ring_paths:
+                density_contours.append({"level": level, "paths": ring_paths})
     else:
         density_contours = []
         from skimage.measure import find_contours
