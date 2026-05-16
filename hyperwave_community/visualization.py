@@ -1773,12 +1773,13 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
     texture_b64 = base64.b64encode(buf.getvalue()).decode()
 
     # GDS polygons: clean fabrication geometry from gdstk
+    # GDS convention swaps X/Y relative to density array, so swap back
     if gds_polygons is not None:
         contour_paths = []
         for poly in gds_polygons:
             pts = np.asarray(poly.points if hasattr(poly, 'points') else poly)
             if pts.ndim == 2 and len(pts) >= 3:
-                contour_paths.append([[float(p[0]), float(p[1])] for p in pts])
+                contour_paths.append([[float(p[1]), float(p[0])] for p in pts])
         design_paths = contour_paths
     else:
         from skimage.measure import find_contours
