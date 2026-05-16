@@ -1756,40 +1756,41 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None):
     x_max = nx * pixel_size
     y_max = ny * pixel_size
 
+    # Always generate density texture (SiN/SiO2 colors with alpha)
+    import io
+    import base64
+    from PIL import Image
+
+    sin_rgb = np.array([212, 198, 134], dtype=np.float64) / 255.0
+    sio2_rgb = np.array([224, 232, 240], dtype=np.float64) / 255.0
+    d = density.T
+    rgb = sio2_rgb + d[..., None] * (sin_rgb - sio2_rgb)
+    alpha = 0.15 + 0.85 * d
+    rgba = np.concatenate([rgb, alpha[..., None]], axis=-1)
+    rgba_uint8 = (rgba * 255).astype(np.uint8)
+    img = Image.fromarray(rgba_uint8)
+    buf = io.BytesIO()
+    img.save(buf, format="PNG")
+    texture_b64 = base64.b64encode(buf.getvalue()).decode()
+
+    # Always compute contour paths for binarized view
+    from skimage.measure import find_contours
+    padded = np.pad(density, 1, mode="constant", constant_values=0)
+    raw_contours = find_contours(padded, 0.5)
+    contour_paths = []
+    for contour in raw_contours:
+        path = (contour - 1.0) * pixel_size
+        path_list = [[float(pt[0]), float(pt[1])] for pt in path]
+        if len(path_list) >= 3:
+            contour_paths.append(path_list)
+
+    # Choose which paths to use for the primary 3D extrude
     if mode == "auto":
         bscore = 1.0 - float(np.mean(4 * density * (1 - density)))
         mode = "contour" if bscore > 0.8 else "slab"
 
-    # Generate base64-encoded density texture for slab mode
-    texture_b64 = None
-    if mode == "slab":
-        import io
-        import base64
-        import matplotlib.cm as cm
-        from PIL import Image
-
-        sin_rgb = np.array([212, 198, 134], dtype=np.float64) / 255.0
-        sio2_rgb = np.array([224, 232, 240], dtype=np.float64) / 255.0
-        d = density.T
-        rgb = sio2_rgb + d[..., None] * (sin_rgb - sio2_rgb)
-        alpha = 0.15 + 0.85 * d
-        rgba = np.concatenate([rgb, alpha[..., None]], axis=-1)
-        rgba_uint8 = (rgba * 255).astype(np.uint8)
-        img = Image.fromarray(rgba_uint8)
-        buf = io.BytesIO()
-        img.save(buf, format="PNG")
-        texture_b64 = base64.b64encode(buf.getvalue()).decode()
-
     if mode == "contour":
-        from skimage.measure import find_contours
-        padded = np.pad(density, 1, mode="constant", constant_values=0)
-        raw_contours = find_contours(padded, 0.5)
-        design_paths = []
-        for contour in raw_contours:
-            path = (contour - 1.0) * pixel_size
-            path_list = [[float(pt[0]), float(pt[1])] for pt in path]
-            if len(path_list) >= 3:
-                design_paths.append(path_list)
+        design_paths = contour_paths
     else:
         design_paths = [[[0, 0], [x_max, 0], [x_max, y_max], [0, y_max]]]
 
@@ -1818,10 +1819,10 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None):
             "refractive_index": float(layer["index"]),
             "paths": design_paths if is_design else slab_rect,
         }
-        # Attach density texture for design layers in slab mode
-        if is_design and texture_b64 is not None:
+        if is_design:
             layer_data["texture_b64"] = texture_b64
             layer_data["texture_size"] = [int(nx), int(ny)]
+            layer_data["contour_paths"] = contour_paths
         polygon_layers.append(layer_data)
 
     # Build port/monitor list
