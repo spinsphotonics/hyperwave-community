@@ -1877,6 +1877,12 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
             layer_data["contour_paths"] = contour_paths
             if density_contours:
                 layer_data["density_contours"] = density_contours
+            max_verts = 200
+            sx = max(1, nx // max_verts)
+            sy = max(1, ny // max_verts)
+            ds = density[::sx, ::sy]
+            layer_data["heightmap"] = ds.tolist()
+            layer_data["heightmap_size"] = [int(ds.shape[0]), int(ds.shape[1])]
         polygon_layers.append(layer_data)
 
     # Build port/monitor list
