@@ -1796,8 +1796,20 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
                 lib = _gdstk.read_gds(tmp.name)
                 cells = lib.top_level()
                 if cells:
-                    level_polys = cells[0].get_polygons()
-                    level_paths = _gds_to_viewer_paths(level_polys)
+                    raw_polys = cells[0].get_polygons()
+                    if len(raw_polys) > 1:
+                        merged = raw_polys[0]
+                        for p in raw_polys[1:]:
+                            merged = _gdstk.boolean(
+                                [merged] if not isinstance(merged, list) else merged,
+                                [p], "or"
+                            )
+                        if isinstance(merged, list):
+                            level_paths = _gds_to_viewer_paths(merged)
+                        else:
+                            level_paths = _gds_to_viewer_paths([merged])
+                    else:
+                        level_paths = _gds_to_viewer_paths(raw_polys)
                     if level_paths:
                         density_contours.append({"level": level, "paths": level_paths})
     else:
