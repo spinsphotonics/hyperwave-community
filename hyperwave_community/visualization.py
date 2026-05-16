@@ -1775,13 +1775,24 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None):
     # Always compute contour paths for binarized view
     from skimage.measure import find_contours
     padded = np.pad(density, 1, mode="constant", constant_values=0)
-    raw_contours = find_contours(padded, 0.5)
-    contour_paths = []
-    for contour in raw_contours:
-        path = (contour - 1.0) * pixel_size
-        path_list = [[float(pt[0]), float(pt[1])] for pt in path]
-        if len(path_list) >= 3:
-            contour_paths.append(path_list)
+
+    def _contours_at(level):
+        raw = find_contours(padded, level)
+        paths = []
+        for c in raw:
+            p = (c - 1.0) * pixel_size
+            pl = [[float(pt[0]), float(pt[1])] for pt in p]
+            if len(pl) >= 3:
+                paths.append(pl)
+        return paths
+
+    contour_paths = _contours_at(0.5)
+    density_contours = [
+        {"level": 0.2, "paths": _contours_at(0.2)},
+        {"level": 0.4, "paths": _contours_at(0.4)},
+        {"level": 0.6, "paths": _contours_at(0.6)},
+        {"level": 0.8, "paths": _contours_at(0.8)},
+    ]
 
     # Choose which paths to use for the primary 3D extrude
     if mode == "auto":
@@ -1822,6 +1833,7 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None):
             layer_data["texture_b64"] = texture_b64
             layer_data["texture_size"] = [int(nx), int(ny)]
             layer_data["contour_paths"] = contour_paths
+            layer_data["density_contours"] = density_contours
         polygon_layers.append(layer_data)
 
     # Build port/monitor list
