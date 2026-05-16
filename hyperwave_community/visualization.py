@@ -1840,22 +1840,12 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
 
         density_contours = []
         for i, level in enumerate(levels):
-            outer = merged_per_level[i]
-            if not outer:
+            polys = merged_per_level[i]
+            if not polys:
                 continue
-            if clip_rect:
-                outer = _gdstk.boolean(outer, [clip_rect], "and")
-            if i + 1 < len(levels) and merged_per_level[i + 1]:
-                inner = merged_per_level[i + 1]
-                if clip_rect:
-                    inner = _gdstk.boolean(inner, [clip_rect], "and")
-                ring = _gdstk.boolean(outer, inner, "not")
-            else:
-                ring = outer
-            ring = _merge_polys(ring)
-            ring_paths = _gds_to_viewer_paths(ring)
-            if ring_paths:
-                density_contours.append({"level": level, "paths": ring_paths})
+            level_paths = _gds_to_viewer_paths(polys)
+            if level_paths:
+                density_contours.append({"level": level, "paths": level_paths})
     else:
         density_contours = []
         from skimage.measure import find_contours
