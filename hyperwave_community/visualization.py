@@ -1805,21 +1805,21 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
         contour_paths = _gds_to_viewer_paths(gds_polygons)
         design_paths = contour_paths
 
-        # Multi-level GDS contours for freeform 3D gradient
-        import tempfile
-        from .data_io import generate_gds_from_density
-        import gdstk as _gdstk
-        levels = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+        # Multi-level smooth contours for freeform 3D gradient
+        from skimage.measure import find_contours as _fc
+        _pad = np.pad(density, 1, mode="constant", constant_values=0)
+        levels = [0.2, 0.4, 0.6, 0.8]
         density_contours = []
         for level in levels:
-            with tempfile.NamedTemporaryFile(suffix=".gds", delete=True) as tmp:
-                generate_gds_from_density(density, level=level, output_filename=tmp.name, resolution=pixel_size)
-                lib = _gdstk.read_gds(tmp.name)
-                cells = lib.top_level()
-                if cells:
-                    level_paths = _gds_to_viewer_paths(cells[0].get_polygons())
-                    if level_paths:
-                        density_contours.append({"level": level, "paths": level_paths})
+            raw = _fc(_pad, level)
+            level_paths = []
+            for c in raw:
+                p = (c - 1.0) * pixel_size
+                pl = [[float(pt[0]), float(pt[1])] for pt in p]
+                if len(pl) >= 3:
+                    level_paths.append(pl)
+            if level_paths:
+                density_contours.append({"level": level, "paths": level_paths})
     else:
         density_contours = []
         from skimage.measure import find_contours
