@@ -1805,21 +1805,32 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
         contour_paths = _gds_to_viewer_paths(gds_polygons)
         design_paths = contour_paths
 
-        # Multi-level GDS contours for freeform 3D gradient
-        import tempfile
-        from .data_io import generate_gds_from_density
+        # Multi-level contours: high-res find_contours + gdstk boolean for holes
+        from skimage.measure import find_contours as _fc
         import gdstk as _gdstk
+        from .data_io import _build_containment_hierarchy, _is_clockwise
+        _pad_d = np.pad(density, 1, mode="constant", constant_values=0)
         levels = [0.2, 0.4, 0.6, 0.8]
         density_contours = []
         for level in levels:
-            with tempfile.NamedTemporaryFile(suffix=".gds", delete=True) as tmp:
-                generate_gds_from_density(density, level=level, output_filename=tmp.name, resolution=pixel_size)
-                lib = _gdstk.read_gds(tmp.name)
-                cells = lib.top_level()
-                if cells:
-                    level_paths = _gds_to_viewer_paths(cells[0].get_polygons())
-                    if level_paths:
-                        density_contours.append({"level": level, "paths": level_paths})
+            raw = _fc(_pad_d, level)
+            if not raw:
+                continue
+            gds_polys = [_gdstk.Polygon((c[:, ::-1] - 1) * pixel_size) for c in raw if len(c) >= 3]
+            roots, hierarchy = _build_containment_hierarchy(raw)
+            final = []
+            for root_idx in roots:
+                result = [gds_polys[root_idx]]
+                children = list(hierarchy[root_idx])
+                while children:
+                    child_idx = children.pop(0)
+                    op = "not" if not _is_clockwise(raw[child_idx]) else "or"
+                    result = _gdstk.boolean(result, [gds_polys[child_idx]], op)
+                    children.extend(hierarchy[child_idx])
+                final.extend(result)
+            level_paths = _gds_to_viewer_paths(final)
+            if level_paths:
+                density_contours.append({"level": level, "paths": level_paths})
     else:
         density_contours = []
         from skimage.measure import find_contours
