@@ -1780,6 +1780,17 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
                 paths.append([[float(p[1]), y_max - float(p[0])] for p in pts])
         return paths
 
+    # Smooth contour at 0.5 for clean 2D outline
+    from skimage.measure import find_contours as _find_contours
+    _padded = np.pad(density, 1, mode="constant", constant_values=0)
+    _raw = _find_contours(_padded, 0.5)
+    smooth_contour = []
+    for c in _raw:
+        p = (c - 1.0) * pixel_size
+        pl = [[float(pt[0]), float(pt[1])] for pt in p]
+        if len(pl) >= 3:
+            smooth_contour.append(pl)
+
     # GDS polygons: clean fabrication geometry from gdstk
     if gds_polygons is not None:
         contour_paths = _gds_to_viewer_paths(gds_polygons)
@@ -1875,6 +1886,7 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
             layer_data["texture_b64"] = texture_b64
             layer_data["texture_size"] = [int(nx), int(ny)]
             layer_data["contour_paths"] = contour_paths
+            layer_data["smooth_contour"] = smooth_contour
             if density_contours:
                 layer_data["density_contours"] = density_contours
             max_verts = 200
