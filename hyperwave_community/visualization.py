@@ -1818,7 +1818,7 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
                 result = _gdstk.boolean(result, [p], "or")
             return result
 
-        levels = [0.2, 0.4, 0.6, 0.8]
+        levels = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
         merged_per_level = []
         for level in levels:
             with tempfile.NamedTemporaryFile(suffix=".gds", delete=True) as tmp:
