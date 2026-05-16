@@ -1772,16 +1772,36 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
     img.save(buf, format="PNG")
     texture_b64 = base64.b64encode(buf.getvalue()).decode()
 
-    # GDS polygons: clean fabrication geometry from gdstk
-    # GDS convention swaps X/Y relative to density array, so swap back
-    if gds_polygons is not None:
-        contour_paths = []
-        for poly in gds_polygons:
+    def _gds_to_viewer_paths(gds_polys):
+        paths = []
+        for poly in gds_polys:
             pts = np.asarray(poly.points if hasattr(poly, 'points') else poly)
             if pts.ndim == 2 and len(pts) >= 3:
-                contour_paths.append([[float(p[1]), y_max - float(p[0])] for p in pts])
+                paths.append([[float(p[1]), y_max - float(p[0])] for p in pts])
+        return paths
+
+    # GDS polygons: clean fabrication geometry from gdstk
+    if gds_polygons is not None:
+        contour_paths = _gds_to_viewer_paths(gds_polygons)
         design_paths = contour_paths
+
+        # Multi-level GDS contours for freeform 3D gradient
+        import tempfile
+        from .data_io import generate_gds_from_density
+        import gdstk as _gdstk
+        density_contours = []
+        for level in [0.3, 0.5, 0.7]:
+            with tempfile.NamedTemporaryFile(suffix=".gds", delete=True) as tmp:
+                generate_gds_from_density(density, level=level, output_filename=tmp.name, resolution=pixel_size)
+                lib = _gdstk.read_gds(tmp.name)
+                cells = lib.top_level()
+                if cells:
+                    level_polys = cells[0].get_polygons()
+                    level_paths = _gds_to_viewer_paths(level_polys)
+                    if level_paths:
+                        density_contours.append({"level": level, "paths": level_paths})
     else:
+        density_contours = []
         from skimage.measure import find_contours
         padded = np.pad(density, 1, mode="constant", constant_values=0)
 
@@ -1835,6 +1855,8 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
             layer_data["texture_b64"] = texture_b64
             layer_data["texture_size"] = [int(nx), int(ny)]
             layer_data["contour_paths"] = contour_paths
+            if density_contours:
+                layer_data["density_contours"] = density_contours
         polygon_layers.append(layer_data)
 
     # Build port/monitor list
