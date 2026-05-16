@@ -1772,7 +1772,9 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None):
         sio2_rgb = np.array([224, 232, 240], dtype=np.float64) / 255.0
         d = density.T
         rgb = sio2_rgb + d[..., None] * (sin_rgb - sio2_rgb)
-        rgba_uint8 = (np.concatenate([rgb, np.ones((*d.shape, 1))], axis=-1) * 255).astype(np.uint8)
+        alpha = 0.15 + 0.85 * d
+        rgba = np.concatenate([rgb, alpha[..., None]], axis=-1)
+        rgba_uint8 = (rgba * 255).astype(np.uint8)
         img = Image.fromarray(rgba_uint8)
         buf = io.BytesIO()
         img.save(buf, format="PNG")
