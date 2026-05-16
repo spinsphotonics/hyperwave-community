@@ -1852,6 +1852,7 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
                 ring = _gdstk.boolean(outer, inner, "not")
             else:
                 ring = outer
+            ring = _merge_polys(ring)
             ring_paths = _gds_to_viewer_paths(ring)
             if ring_paths:
                 density_contours.append({"level": level, "paths": ring_paths})
