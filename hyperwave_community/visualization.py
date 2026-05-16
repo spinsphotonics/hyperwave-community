@@ -1786,7 +1786,7 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
         for poly in gds_polys:
             pts = np.asarray(poly.points if hasattr(poly, 'points') else poly)
             if pts.ndim == 2 and len(pts) >= 3:
-                paths.append([[float(p[1]), y_max - float(p[0])] for p in pts])
+                paths.append([[float(p[1]), float(p[0])] for p in pts])
         return paths
 
     # Smooth contour at 0.5 for clean 2D outline
