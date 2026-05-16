@@ -1727,7 +1727,7 @@ _MATERIAL_ALIAS = {
 }
 
 
-def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None):
+def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_polygons=None):
     """Emit geometry data for the standalone UI 3D device viewer.
 
     Args:
@@ -1772,37 +1772,38 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None):
     img.save(buf, format="PNG")
     texture_b64 = base64.b64encode(buf.getvalue()).decode()
 
-    # Always compute contour paths for binarized view
-    from skimage.measure import find_contours
-    padded = np.pad(density, 1, mode="constant", constant_values=0)
-
-    def _contours_at(level):
-        raw = find_contours(padded, level)
-        paths = []
-        for c in raw:
-            p = (c - 1.0) * pixel_size
-            pl = [[float(pt[0]), float(pt[1])] for pt in p]
-            if len(pl) >= 3:
-                paths.append(pl)
-        return paths
-
-    contour_paths = _contours_at(0.5)
-    density_contours = [
-        {"level": 0.2, "paths": _contours_at(0.2)},
-        {"level": 0.4, "paths": _contours_at(0.4)},
-        {"level": 0.6, "paths": _contours_at(0.6)},
-        {"level": 0.8, "paths": _contours_at(0.8)},
-    ]
-
-    # Choose which paths to use for the primary 3D extrude
-    if mode == "auto":
-        bscore = 1.0 - float(np.mean(4 * density * (1 - density)))
-        mode = "contour" if bscore > 0.8 else "slab"
-
-    if mode == "contour":
+    # GDS polygons: clean fabrication geometry from gdstk
+    if gds_polygons is not None:
+        contour_paths = []
+        for poly in gds_polygons:
+            pts = np.asarray(poly.points if hasattr(poly, 'points') else poly)
+            if pts.ndim == 2 and len(pts) >= 3:
+                contour_paths.append([[float(p[0]), float(p[1])] for p in pts])
         design_paths = contour_paths
     else:
-        design_paths = [[[0, 0], [x_max, 0], [x_max, y_max], [0, y_max]]]
+        from skimage.measure import find_contours
+        padded = np.pad(density, 1, mode="constant", constant_values=0)
+
+        def _contours_at(level):
+            raw = find_contours(padded, level)
+            paths = []
+            for c in raw:
+                p = (c - 1.0) * pixel_size
+                pl = [[float(pt[0]), float(pt[1])] for pt in p]
+                if len(pl) >= 3:
+                    paths.append(pl)
+            return paths
+
+        contour_paths = _contours_at(0.5)
+
+        if mode == "auto":
+            bscore = 1.0 - float(np.mean(4 * density * (1 - density)))
+            mode = "contour" if bscore > 0.8 else "slab"
+
+        if mode == "contour":
+            design_paths = contour_paths
+        else:
+            design_paths = [[[0, 0], [x_max, 0], [x_max, y_max], [0, y_max]]]
 
     slab_rect = [[[0, 0], [x_max, 0], [x_max, y_max], [0, y_max]]]
 
@@ -1833,7 +1834,6 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None):
             layer_data["texture_b64"] = texture_b64
             layer_data["texture_size"] = [int(nx), int(ny)]
             layer_data["contour_paths"] = contour_paths
-            layer_data["density_contours"] = density_contours
         polygon_layers.append(layer_data)
 
     # Build port/monitor list
