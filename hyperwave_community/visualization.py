@@ -1805,45 +1805,19 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
         contour_paths = _gds_to_viewer_paths(gds_polygons)
         design_paths = contour_paths
 
-        # Multi-level GDS contours for freeform 3D gradient
-        import tempfile
-        from .data_io import generate_gds_from_density
-        import gdstk as _gdstk
-
-        def _merge_polys(polys):
-            if len(polys) <= 1:
-                return polys
-            result = [polys[0]]
-            for p in polys[1:]:
-                result = _gdstk.boolean(result, [p], "or")
-            return result
-
+        # Multi-level contours for freeform 3D gradient (smooth find_contours)
+        from skimage.measure import find_contours as _fc
+        _pad = np.pad(density, 1, mode="constant", constant_values=0)
         levels = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
-        merged_per_level = []
-        for level in levels:
-            with tempfile.NamedTemporaryFile(suffix=".gds", delete=True) as tmp:
-                generate_gds_from_density(density, level=level, output_filename=tmp.name, resolution=pixel_size)
-                lib = _gdstk.read_gds(tmp.name)
-                cells = lib.top_level()
-                merged = _merge_polys(cells[0].get_polygons()) if cells else []
-                merged_per_level.append(merged)
-
-        # Clip region: bounding box of the innermost level (design area only)
-        clip_rect = None
-        if merged_per_level[-1]:
-            all_pts = np.vstack([np.asarray(p.points if hasattr(p, 'points') else p) for p in merged_per_level[-1]])
-            margin = pixel_size * 2
-            clip_rect = _gdstk.rectangle(
-                (all_pts[:, 0].min() - margin, all_pts[:, 1].min() - margin),
-                (all_pts[:, 0].max() + margin, all_pts[:, 1].max() + margin),
-            )
-
         density_contours = []
-        for i, level in enumerate(levels):
-            polys = merged_per_level[i]
-            if not polys:
-                continue
-            level_paths = _gds_to_viewer_paths(polys)
+        for level in levels:
+            raw = _fc(_pad, level)
+            level_paths = []
+            for c in raw:
+                p = (c - 1.0) * pixel_size
+                pl = [[float(pt[0]), float(pt[1])] for pt in p]
+                if len(pl) >= 3:
+                    level_paths.append(pl)
             if level_paths:
                 density_contours.append({"level": level, "paths": level_paths})
     else:
