@@ -1772,6 +1772,15 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
     img.save(buf, format="PNG")
     texture_b64 = base64.b64encode(buf.getvalue()).decode()
 
+    # Binary texture: crisp threshold at 0.5
+    d_bin = (d >= 0.5).astype(np.float64)
+    rgb_bin = sin_rgb * np.ones_like(rgb)
+    rgba_bin = (np.concatenate([rgb_bin, d_bin[..., None]], axis=-1) * 255).astype(np.uint8)
+    img_bin = Image.fromarray(rgba_bin)
+    buf_bin = io.BytesIO()
+    img_bin.save(buf_bin, format="PNG")
+    binary_texture_b64 = base64.b64encode(buf_bin.getvalue()).decode()
+
     def _gds_to_viewer_paths(gds_polys):
         paths = []
         for poly in gds_polys:
@@ -1884,6 +1893,7 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
         }
         if is_design:
             layer_data["texture_b64"] = texture_b64
+            layer_data["binary_texture_b64"] = binary_texture_b64
             layer_data["texture_size"] = [int(nx), int(ny)]
             layer_data["contour_paths"] = contour_paths
             layer_data["smooth_contour"] = smooth_contour
