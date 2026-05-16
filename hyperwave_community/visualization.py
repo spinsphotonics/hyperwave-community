@@ -1807,9 +1807,11 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
 
         # Multi-level contours: high-res find_contours + gdstk boolean for holes
         from skimage.measure import find_contours as _fc
+        from scipy.ndimage import gaussian_filter
         import gdstk as _gdstk
         from .data_io import _build_containment_hierarchy, _is_clockwise
-        _pad_d = np.pad(density, 1, mode="constant", constant_values=0)
+        _smoothed = gaussian_filter(density, sigma=3)
+        _pad_d = np.pad(_smoothed, 1, mode="constant", constant_values=0)
         levels = [0.2, 0.4, 0.6, 0.8]
         density_contours = []
         for level in levels:
