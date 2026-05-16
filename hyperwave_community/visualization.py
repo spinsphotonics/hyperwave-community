@@ -1781,6 +1781,12 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
     img_bin.save(buf_bin, format="PNG")
     binary_texture_b64 = base64.b64encode(buf_bin.getvalue()).decode()
 
+    def _merge_gds(polys):
+        import gdstk as _gk
+        if len(polys) <= 1:
+            return list(polys)
+        return _gk.boolean(list(polys), [], "or")
+
     def _gds_to_viewer_paths(gds_polys):
         paths = []
         for poly in gds_polys:
@@ -1802,35 +1808,29 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
 
     # GDS polygons: clean fabrication geometry from gdstk
     if gds_polygons is not None:
-        contour_paths = _gds_to_viewer_paths(gds_polygons)
+        contour_paths = _gds_to_viewer_paths(_merge_gds(list(gds_polygons)))
         design_paths = contour_paths
 
-        # Multi-level contours: high-res find_contours + gdstk boolean for holes
+        # Multi-level smooth contours for freeform 3D gradient
         from skimage.measure import find_contours as _fc
-        from scipy.ndimage import gaussian_filter
-        import gdstk as _gdstk
-        from .data_io import _build_containment_hierarchy, _is_clockwise
-        _smoothed = gaussian_filter(density, sigma=3)
-        _pad_d = np.pad(_smoothed, 1, mode="constant", constant_values=0)
+        _pad = np.pad(density, 1, mode="constant", constant_values=0)
         levels = [0.2, 0.4, 0.6, 0.8]
         density_contours = []
         for level in levels:
-            raw = _fc(_pad_d, level)
-            if not raw:
-                continue
-            gds_polys = [_gdstk.Polygon((c[:, ::-1] - 1) * pixel_size) for c in raw if len(c) >= 3]
-            roots, hierarchy = _build_containment_hierarchy(raw)
-            final = []
-            for root_idx in roots:
-                result = [gds_polys[root_idx]]
-                children = list(hierarchy[root_idx])
-                while children:
-                    child_idx = children.pop(0)
-                    op = "not" if not _is_clockwise(raw[child_idx]) else "or"
-                    result = _gdstk.boolean(result, [gds_polys[child_idx]], op)
-                    children.extend(hierarchy[child_idx])
-                final.extend(result)
-            level_paths = _gds_to_viewer_paths(final)
+            raw = _fc(_pad, level)
+            level_paths = []
+            for c in raw:
+                # Skip hole contours (negative signed area = clockwise winding)
+                area = 0.0
+                for j in range(len(c)):
+                    k = (j + 1) % len(c)
+                    area += c[j][0] * c[k][1] - c[k][0] * c[j][1]
+                if area > 0:
+                    continue
+                p = (c - 1.0) * pixel_size
+                pl = [[float(pt[0]), float(pt[1])] for pt in p]
+                if len(pl) >= 3:
+                    level_paths.append(pl)
             if level_paths:
                 density_contours.append({"level": level, "paths": level_paths})
     else:
