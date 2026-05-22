@@ -230,71 +230,24 @@ class TestOutputRouting:
 
 
 class TestSummaryOutput:
-    """Tests for the human-readable summary output."""
+    """Tests for non-UI output (skipped message)."""
 
-    def test_contains_layer_counts(self, basic_inputs, capsys):
-        """Summary mentions total layer count and design count."""
+    def test_prints_skipped_message(self, basic_inputs, capsys):
+        """Non-UI mode prints a short skip notice."""
         density, layers, pixel_size = basic_inputs
         show_device_3d(density, layers, pixel_size, output="summary")
         out = capsys.readouterr().out
-        # "3 layers, 1 design"
-        assert "3 layers" in out
-        assert "1 design" in out
+        assert "skipped" in out
+        assert "standalone UI" in out
 
-    def test_contains_bounds_dimensions(self, basic_inputs, capsys):
-        """Summary includes the physical size in um."""
+    def test_no_json_in_summary(self, basic_inputs, capsys):
+        """Non-UI mode should NOT contain JSON or base64 data."""
         density, layers, pixel_size = basic_inputs
         show_device_3d(density, layers, pixel_size, output="summary")
         out = capsys.readouterr().out
-        nx, ny = density.shape
-        x_size = nx * pixel_size
-        y_size = ny * pixel_size
-        assert f"{x_size:.2f}" in out
-        assert f"{y_size:.2f}" in out
-
-    def test_contains_layer_names_and_materials(self, basic_inputs, capsys):
-        """Summary lists each layer name and material."""
-        density, layers, pixel_size = basic_inputs
-        show_device_3d(density, layers, pixel_size, output="summary")
-        out = capsys.readouterr().out
-        assert "box" in out
-        assert "sin" in out
-        assert "clad" in out
-        assert "sio2" in out
-
-    def test_design_tag_present(self, basic_inputs, capsys):
-        """Summary marks design layers with [design]."""
-        density, layers, pixel_size = basic_inputs
-        show_device_3d(density, layers, pixel_size, output="summary")
-        out = capsys.readouterr().out
-        assert "[design]" in out
-
-    def test_monitor_names_in_summary(self, basic_inputs, sample_monitors, capsys):
-        """Summary includes monitor names when monitors are provided."""
-        density, layers, pixel_size = basic_inputs
-        show_device_3d(density, layers, pixel_size, monitors=sample_monitors, output="summary")
-        out = capsys.readouterr().out
-        assert "Input_te0" in out
-        assert "Output_te1" in out
-        assert "monitor(s)" in out
-
-    def test_standalone_ui_notice(self, basic_inputs, capsys):
-        """Summary contains the standalone UI availability notice."""
-        density, layers, pixel_size = basic_inputs
-        show_device_3d(density, layers, pixel_size, output="summary")
-        out = capsys.readouterr().out
-        assert "(3D viewer available in standalone UI)" in out
-
-    def test_no_base64_in_summary(self, basic_inputs, capsys):
-        """Summary should NOT contain base64 data or massive JSON blobs."""
-        density, layers, pixel_size = basic_inputs
-        show_device_3d(density, layers, pixel_size, output="summary")
-        out = capsys.readouterr().out
-        # Base64 PNG starts with iVBOR... and is typically very long
+        assert "__GEOMETRY_UPDATE__" not in out
         assert "texture_b64" not in out
-        assert "iVBOR" not in out
-        # Should be relatively short (under 1000 chars)
-        assert len(out) < 1000
+        assert len(out) < 200
 
 
 # ---------------------------------------------------------------------------

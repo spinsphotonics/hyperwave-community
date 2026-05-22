@@ -1960,19 +1960,6 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
     if emit_ui:
         print("__GEOMETRY_UPDATE__" + json.dumps(data))
     else:
-        n_layers = len(polygon_layers)
-        design_layers = [l for l in polygon_layers if "texture_b64" in l]
-        n_design = len(design_layers)
-        x_size = data["bounds"]["x_max"]
-        y_size = data["bounds"]["y_max"]
-        n_ports = len(ports)
-        parts = [f"show_device_3d: {n_layers} layers, {n_design} design, {x_size:.2f} x {y_size:.2f} um"]
-        for pl in polygon_layers:
-            tag = " [design]" if "texture_b64" in pl else ""
-            parts.append(f"  {pl['layer_name']}: {pl['material']}, {pl['z_max'] - pl['z_min']:.3f} um{tag}")
-        if n_ports:
-            parts.append(f"  {n_ports} monitor(s): {', '.join(p['name'] for p in ports)}")
-        parts.append("  (3D viewer available in standalone UI)")
-        print("\n".join(parts))
+        print("show_device_3d: skipped (standalone UI only)")
 
     return data
