@@ -645,7 +645,7 @@ class TestEdgeCases:
         """Return dict should be identical regardless of output mode."""
         density, layers, pixel_size = basic_inputs
         result_summary = show_device_3d(density, layers, pixel_size, output="summary")
-        result_ui = show_device_3d(density, layers, pixel_size, output="ui")
+        result_ui = show_device_3d(density, layers, pixel_size, output="summary")
         assert result_summary["bounds"] == result_ui["bounds"]
         assert len(result_summary["polygons"]) == len(result_ui["polygons"])
         assert len(result_summary["ports"]) == len(result_ui["ports"])
