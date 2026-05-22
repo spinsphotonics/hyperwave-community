@@ -1727,7 +1727,7 @@ _MATERIAL_ALIAS = {
 }
 
 
-def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_polygons=None):
+def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_polygons=None, output="auto"):
     """Emit geometry data for the standalone UI 3D device viewer.
 
     Args:
@@ -1745,6 +1745,14 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
             - ``y`` (float): y center in um
             - ``width`` (float): monitor width in um
             - ``orientation`` (float): angle in degrees (0=along y, 90=along x)
+        output: ``"auto"`` (default), ``"ui"``, or ``"summary"``.
+            - ``"auto"``: emit JSON if HYPERWAVE_STANDALONE_UI env var is set,
+              otherwise print a human-readable summary.
+            - ``"ui"``: always emit the raw JSON marker.
+            - ``"summary"``: always print a human-readable summary.
+
+    Returns:
+        dict: Geometry payload with keys ``polygons``, ``ports``, ``bounds``.
     """
     import json
 
@@ -1788,11 +1796,27 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
         return _gk.boolean(list(polys), [], "or")
 
     def _gds_to_viewer_paths(gds_polys):
+        from shapely.geometry import Polygon as _ShapelyPoly
+        from shapely.validation import make_valid as _make_valid
         paths = []
         for poly in gds_polys:
             pts = np.asarray(poly.points if hasattr(poly, 'points') else poly)
-            if pts.ndim == 2 and len(pts) >= 3:
-                paths.append([[float(p[1]), float(p[0])] for p in pts])
+            if pts.ndim != 2 or len(pts) < 3:
+                continue
+            sp = _ShapelyPoly(pts)
+            if not sp.is_valid:
+                sp = _make_valid(sp)
+            geoms = [sp] if sp.geom_type == "Polygon" else list(getattr(sp, "geoms", []))
+            for g in geoms:
+                if g.geom_type != "Polygon" or g.area < 0.001:
+                    continue
+                # Simplify complex polygons to help THREE.js triangulation
+                if len(g.exterior.coords) > 500:
+                    g = g.simplify(pixel_size * 0.5, preserve_topology=True)
+                    if g.geom_type != "Polygon" or g.area < 0.001:
+                        continue
+                coords = list(g.exterior.coords)[:-1]
+                paths.append([[float(p[1]), float(p[0])] for p in coords])
         return paths
 
     # Smooth contour at 0.5 for clean 2D outline
@@ -1924,4 +1948,31 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
         },
     }
 
-    print("__GEOMETRY_UPDATE__" + json.dumps(data))
+    if output == "auto":
+        emit_ui = os.environ.get("HYPERWAVE_STANDALONE_UI") == "1"
+    elif output == "ui":
+        emit_ui = True
+    elif output == "summary":
+        emit_ui = False
+    else:
+        raise ValueError(f"output must be 'auto', 'ui', or 'summary', got {output!r}")
+
+    if emit_ui:
+        print("__GEOMETRY_UPDATE__" + json.dumps(data))
+    else:
+        n_layers = len(polygon_layers)
+        design_layers = [l for l in polygon_layers if "texture_b64" in l]
+        n_design = len(design_layers)
+        x_size = data["bounds"]["x_max"]
+        y_size = data["bounds"]["y_max"]
+        n_ports = len(ports)
+        parts = [f"show_device_3d: {n_layers} layers, {n_design} design, {x_size:.2f} x {y_size:.2f} um"]
+        for pl in polygon_layers:
+            tag = " [design]" if "texture_b64" in pl else ""
+            parts.append(f"  {pl['layer_name']}: {pl['material']}, {pl['z_max'] - pl['z_min']:.3f} um{tag}")
+        if n_ports:
+            parts.append(f"  {n_ports} monitor(s): {', '.join(p['name'] for p in ports)}")
+        parts.append("  (3D viewer available in standalone UI)")
+        print("\n".join(parts))
+
+    return data

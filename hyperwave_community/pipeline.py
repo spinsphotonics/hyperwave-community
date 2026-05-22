@@ -295,30 +295,73 @@ def optimize(
     logger.info("Starting pipeline optimize (phase=%s, n_steps=%d)...", phase, n_steps)
     t0 = _time.time()
 
-    # Unified WebSocket: send request payload as the first message
-    ws_url = GATEWAY_URL.replace("https://", "wss://").replace("http://", "ws://")
-    ws_url = f"{ws_url}/pipeline_optimize_ws"
+    ws = None
+    _used_fallback = False
 
-    ws = _ws_lib.create_connection(
-        ws_url, header={"X-API-Key": effective_api_key}, timeout=60)
+    # Try unified WebSocket first, fall back to 2-step POST+WS
+    try:
+        ws_url = GATEWAY_URL.replace("https://", "wss://").replace("http://", "ws://")
+        ws_url = f"{ws_url}/pipeline_optimize_ws"
+        ws = _ws_lib.create_connection(
+            ws_url, header={"X-API-Key": effective_api_key}, timeout=60)
+        if len(compressed) < len(body):
+            ws.send_binary(compressed)
+        else:
+            ws.send(body.decode())
+        ack_raw = ws.recv()
+        ack = json.loads(ack_raw)
+        if ack.get("type") == "error":
+            ws.close()
+            raise RuntimeError(ack.get("message", "Server error during startup"))
+        if ack.get("type") != "started":
+            ws.close()
+            raise RuntimeError(f"Unexpected ack from server: {ack}")
+        logger.info("  Session started in %.1fs (unified WS)", _time.time() - t0)
+    except (OSError, _ws_lib.WebSocketException, ConnectionError, TimeoutError) as e:
+        logger.warning("  Unified WS failed (%s), falling back to 2-step flow...", e)
+        _used_fallback = True
+        if ws is not None:
+            try:
+                ws.close()
+            except Exception:
+                pass
 
-    # Send request payload (binary if compressed is smaller, text otherwise)
-    if len(compressed) < len(body):
-        ws.send_binary(compressed)
-    else:
-        ws.send(body.decode())
+        import requests as _requests
+        headers = {
+            "X-API-Key": effective_api_key,
+            "Content-Type": "application/json",
+        }
+        post_body = body
+        if len(compressed) < len(body):
+            headers["Content-Encoding"] = "gzip"
+            post_body = compressed
 
-    # Wait for server ack
-    ack_raw = ws.recv()
-    ack = json.loads(ack_raw)
-    if ack.get("type") == "error":
-        ws.close()
-        raise RuntimeError(ack.get("message", "Server error during startup"))
-    if ack.get("type") != "started":
-        ws.close()
-        raise RuntimeError(f"Unexpected ack from server: {ack}")
+        # Step 1: POST to get session_id (try gateway, fall back to api_url)
+        fallback_urls = list(dict.fromkeys([GATEWAY_URL, API_URL]))
+        session_id = None
+        for base_url in fallback_urls:
+            try:
+                resp = _requests.post(
+                    f"{base_url}/pipeline_optimize_start",
+                    data=post_body, headers=headers, timeout=(60, 300))
+                resp.raise_for_status()
+                session_id = resp.json().get("session_id")
+                if not session_id:
+                    raise ValueError("Server returned empty session_id")
+                logger.info("  POST session=%s... via %s (%.1fs)",
+                            session_id[:8], base_url.split("//")[1][:30], _time.time() - t0)
+                break
+            except Exception as post_err:
+                if base_url == fallback_urls[-1]:
+                    raise RuntimeError(f"All endpoints failed. Last error: {post_err}") from post_err
+                logger.warning("  POST to %s failed (%s), trying next...", base_url[:40], post_err)
 
-    logger.info("  Session started in %.1fs (unified WS)", _time.time() - t0)
+        # Step 2: WebSocket to stream results
+        fb_ws_url = base_url.replace("https://", "wss://").replace("http://", "ws://")
+        fb_ws_url = f"{fb_ws_url}/inverse_design_ws?session_id={session_id}"
+        ws = _ws_lib.create_connection(
+            fb_ws_url, header={"X-API-Key": effective_api_key}, timeout=30)
+        logger.info("  Fallback WS connected in %.1fs", _time.time() - t0)
     ws.settimeout(600)
 
     stop_ping = threading.Event()
