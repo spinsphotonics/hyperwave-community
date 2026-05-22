@@ -1960,6 +1960,6 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
     if emit_ui:
         print("__GEOMETRY_UPDATE__" + json.dumps(data))
     else:
-        print("show_device_3d: skipped (available in HyperWave Studio at https://studio.spinsphotonics.com)")
+        print("show_device_3d: skipped (requires HyperWave standalone UI)")
 
     return data
