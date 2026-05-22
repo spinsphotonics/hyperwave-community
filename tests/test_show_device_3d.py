@@ -238,7 +238,7 @@ class TestSummaryOutput:
         show_device_3d(density, layers, pixel_size, output="summary")
         out = capsys.readouterr().out
         assert "skipped" in out
-        assert "standalone UI" in out
+        assert "HyperWave Studio" in out
 
     def test_no_json_in_summary(self, basic_inputs, capsys):
         """Non-UI mode should NOT contain JSON or base64 data."""
