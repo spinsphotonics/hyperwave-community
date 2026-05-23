@@ -96,15 +96,24 @@ def optimize(
     Returns:
         OptimizationResult with .design, .history, .save().
     """
-    # Handle backward compat: if device= passed, use old path
+    # Handle backward compat: old positional call optimize(device_dict, source, mode, ...)
+    # maps to layers=device_dict, theta=source, grid=mode. Detect by checking if
+    # layers is a dict (old device_dict) rather than a list (new layer specs).
     if device is not None:
         if hasattr(device, 'design_layers_info'):
-            # DeviceConfig object
             pass
         elif isinstance(device, dict):
             pass
         else:
             raise TypeError(f"Unsupported device type: {type(device)}")
+    elif layers is not None and isinstance(layers, dict) and 'design_layers' in layers:
+        # Old-style: optimize(device_dict, source_field, mode_field, ...)
+        device = layers
+        source = theta if source is None else source
+        mode = grid if mode is None else mode
+        layers = None
+        theta = None
+        grid = None
     elif layers is not None:
         # New path: construct DeviceConfig from primitives
         from hyperwave_community.device import _build_device_from_specs
@@ -172,15 +181,18 @@ def optimize(
         design_layers_raw = device.design_layers_info
         freq_band = list(device.freq_band)
         recipe_params = device.recipe_params
-        source_offset = [0, 0, 0]
+        Lx = int(device.shape[0])
+        Ly = int(device.shape[1])
+        Lz = int(device.shape[2])
         absorption_widths = [70, 35, 17]
         absorption_coeff = 0.00489
-        output_monitor_pos = [10, 0, 0]
-        output_monitor_shape = [1, int(device.shape[1]), int(device.shape[2])]
+        source_offset = [absorption_widths[0] + 5, 0, 0]
+        output_monitor_pos = [Lx - absorption_widths[0] - 10, 0, 0]
+        output_monitor_shape = [1, Ly, Lz]
         design_xy_range = [[0, int(device.recipe_params['grid_shape'][0])],
                            [0, int(device.recipe_params['grid_shape'][1])]]
-        max_steps = 20000
-        check_every_n = 500
+        max_steps = 15000
+        check_every_n = 1000
         enforce_symmetry = False
     else:
         design_layers_raw = device.get('design_layers', [])
