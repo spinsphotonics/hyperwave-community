@@ -110,10 +110,15 @@ def _patch_config_and_device():
     fake_device.freq_band = [0.1, 0.1, 1]
     fake_device.recipe_params = {"grid_shape": [_NX, _NY]}
     fake_device.shape = [_NX, _NY, 40]
+    fake_device.grid = _GRID
+
+    fake_abs = {"absorption_widths": (10, 5, 5), "abs_coeff": 0.001}
 
     with patch("hyperwave_community.api_client._API_CONFIG", new=fake_config), \
          patch("hyperwave_community.device._build_device_from_specs",
-               return_value=fake_device):
+               return_value=fake_device), \
+         patch("hyperwave_community.absorption.absorber_params",
+               return_value=fake_abs):
         yield
 
 
@@ -344,3 +349,98 @@ def test_keyboard_interrupt_partial_results(mock_create_conn, mock_post):
 
     # WS should be closed
     assert ws._closed
+
+
+# ===================================================================
+# 8. Heartbeat timeout after max silent heartbeats
+# ===================================================================
+
+@patch("websocket.create_connection")
+def test_heartbeat_timeout_raises(mock_create_conn):
+    """If ws.recv() times out 41 consecutive times, raise RuntimeError."""
+    import websocket as _ws_lib
+
+    class TimeoutWebSocket(MockWebSocket):
+        def __init__(self):
+            super().__init__([_STARTED_MSG])
+            self._ack_sent = False
+
+        def recv(self):
+            if not self._ack_sent:
+                self._ack_sent = True
+                return super().recv()
+            raise _ws_lib.WebSocketTimeoutException("timed out")
+
+    ws = TimeoutWebSocket()
+    mock_create_conn.return_value = ws
+
+    with pytest.raises(RuntimeError, match="No response from GPU"):
+        _call_optimize(n_steps=3)
+
+    assert ws._closed
+
+
+# ===================================================================
+# 9. Heartbeat resets counter on real message
+# ===================================================================
+
+@patch("websocket.create_connection")
+def test_heartbeat_resets_on_message(mock_create_conn):
+    """Heartbeat counter resets on a real message. Without reset, 35+35=70 > 40 threshold."""
+    import websocket as _ws_lib
+
+    class TwoBatchTimeoutWebSocket(MockWebSocket):
+        def __init__(self):
+            super().__init__([_STARTED_MSG])
+            self._ack_sent = False
+            self._timeout_count = 0
+            self._phase = 0  # 0=timeouts, 1=step, 2=timeouts, 3=done
+
+        def recv(self):
+            if not self._ack_sent:
+                self._ack_sent = True
+                return super().recv()
+            self._timeout_count += 1
+            if self._phase == 0 and self._timeout_count <= 35:
+                raise _ws_lib.WebSocketTimeoutException("timed out")
+            if self._phase == 0:
+                self._phase = 1
+                self._timeout_count = 0
+                return json.dumps(_STEP_MSG)
+            if self._phase == 1:
+                self._phase = 2
+            if self._phase == 2 and self._timeout_count <= 35:
+                raise _ws_lib.WebSocketTimeoutException("timed out")
+            return json.dumps(_DONE_MSG)
+
+    ws = TwoBatchTimeoutWebSocket()
+    mock_create_conn.return_value = ws
+
+    result = _call_optimize(n_steps=1)
+    assert len(result.history) == 1
+    assert result.history[0]["efficiency"] == 0.5
+
+
+# ===================================================================
+# 10. Multi-layer theta_b64 dict in step messages
+# ===================================================================
+
+@patch("websocket.create_connection")
+def test_multilayer_theta_b64_dict(mock_create_conn):
+    """Step messages with theta_b64 as dict should decode all layers."""
+    theta_b64_dict = {
+        "etch": _THETA_B64,
+        "slab": _THETA_B64,
+    }
+    step_msg = {"type": "step", "step": 1, "efficiency": 0.5,
+                "loss": 0.1, "theta_b64": theta_b64_dict, "step_time": 1.0}
+
+    ws = MockWebSocket([_STARTED_MSG, step_msg, _DONE_MSG])
+    mock_create_conn.return_value = ws
+
+    result = _call_optimize(n_steps=1)
+    assert "etch" in result.design.thetas
+    assert "slab" in result.design.thetas
+    expected = np.full((_NX, _NY), 0.5, dtype=np.float32)
+    np.testing.assert_array_equal(result.design.thetas["etch"], expected)
+    np.testing.assert_array_equal(result.design.thetas["slab"], expected)

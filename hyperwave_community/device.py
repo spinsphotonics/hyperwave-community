@@ -182,8 +182,24 @@ def _build_device_from_specs(
     hw_layers = []
     design_info = []
     z_cursor = 0
+    _eps_clad_cache = {}
 
-    for spec in layers:
+    def _infer_eps_clad(spec, idx, layers):
+        """Infer cladding permittivity for a design layer from adjacent layers."""
+        explicit = spec.get("cladding_index")
+        if explicit is not None:
+            return explicit ** 2
+        for adj in [idx - 1, idx + 1]:
+            if 0 <= adj < len(layers) and not layers[adj].get("design", False):
+                return layers[adj]["index"] ** 2
+        import warnings
+        warnings.warn(
+            f"Layer '{spec['name']}': no adjacent non-design layer found. "
+            f"Using eps_clad=1.0 (vacuum). Set cladding_index in the layer "
+            f"spec to override.", stacklevel=3)
+        return 1.0
+
+    for i, spec in enumerate(layers):
         name = spec["name"]
         thickness = spec["thickness"]
         index = spec["index"]
@@ -208,7 +224,9 @@ def _build_device_from_specs(
                     f"got {density_eta}.")
 
             theta = jnp.full((nx, ny), initial_value, dtype=jnp.float32)
-            perm_values = (1.0, eps)
+            eps_clad = _infer_eps_clad(spec, i, layers)
+            _eps_clad_cache[i] = eps_clad
+            perm_values = (eps_clad, eps)
 
             wg_mask = spec.get("waveguide_mask")
             if wg_mask is None:
@@ -259,16 +277,17 @@ def _build_device_from_specs(
     # {"layer_type": "design_N"|"slab", "params": {"permittivity": ..., "thickness": ...}}
     layers_template = []
     design_idx = 0
-    for spec in layers:
+    for i, spec in enumerate(layers):
         is_design = spec.get("design", False)
         eps = spec["index"] ** 2
         h_px = int(round(spec["thickness"] / dx))
 
         if is_design:
+            eps_clad_t = _eps_clad_cache.get(i, _infer_eps_clad(spec, i, layers))
             layers_template.append({
                 "layer_type": f"design_{design_idx}",
                 "params": {
-                    "permittivity": (1.0, float(eps)),
+                    "permittivity": (float(eps_clad_t), float(eps)),
                     "thickness": h_px,
                 }
             })

@@ -57,6 +57,14 @@ def optimize(
     gpu_type: str = "B200",
     api_key: Optional[str] = None,
     device: Any = None,
+    absorption_widths: Optional[Tuple] = None,
+    absorption_coeff: Optional[float] = None,
+    source_offset: Optional[Tuple] = None,
+    design_xy_range: Optional[Any] = None,
+    output_monitor_pos: Optional[Tuple] = None,
+    output_monitor_shape: Optional[Tuple] = None,
+    enforce_symmetry: Optional[bool] = None,
+    device_type: str = "flat",
 ) -> OptimizationResult:
     """Run an optimization phase on cloud GPU.
 
@@ -92,6 +100,19 @@ def optimize(
         api_key: API key (overrides configured key).
         device: (Deprecated) DeviceConfig from build_device(). Use layers=
             and theta= instead.
+        absorption_widths: Override absorber widths (x, y, z). Auto-computed
+            via absorber_params() if not provided.
+        absorption_coeff: Override absorption coefficient.
+        source_offset: Source field placement (x, y, z) in permittivity pixels.
+            Required when using layers= path.
+        design_xy_range: Design region [[x0,x1],[y0,y1]] in permittivity
+            coordinates. Auto-computed from theta if not provided.
+        output_monitor_pos: Output monitor position. Auto-computed if not
+            provided.
+        output_monitor_shape: Output monitor shape. Auto-computed if not
+            provided.
+        enforce_symmetry: Enforce diagonal symmetry during optimization.
+        device_type: "flat" or "grating" for absorber_params().
 
     Returns:
         OptimizationResult with .design, .history, .save().
@@ -184,29 +205,76 @@ def optimize(
         Lx = int(device.shape[0])
         Ly = int(device.shape[1])
         Lz = int(device.shape[2])
-        absorption_widths = [70, 35, 17]
-        absorption_coeff = 0.00489
-        source_offset = [absorption_widths[0] + 5, 0, 0]
-        output_monitor_pos = [Lx - absorption_widths[0] - 10, 0, 0]
-        output_monitor_shape = [1, Ly, Lz]
-        design_xy_range = [[0, int(device.recipe_params['grid_shape'][0])],
-                           [0, int(device.recipe_params['grid_shape'][1])]]
+
+        # Auto-compute absorption params if not provided
+        if absorption_widths is None or absorption_coeff is None:
+            from hyperwave_community.absorption import absorber_params as _absorber_params
+            _wl = wavelength if wavelength is not None else (
+                2 * np.pi / device.freq_band[0] * device.grid)
+            _ap = _absorber_params(
+                wavelength_um=_wl, dx_um=device.grid,
+                structure_dimensions=(Lx, Ly, Lz),
+                device_type=device_type)
+            if absorption_widths is None:
+                absorption_widths = list(_ap["absorption_widths"])
+            if absorption_coeff is None:
+                absorption_coeff = _ap["abs_coeff"]
+
+        if source_offset is None:
+            source_offset = [int(absorption_widths[0]) + 5, 0, 0]
+        else:
+            source_offset = list(source_offset)
+
+        if output_monitor_pos is None:
+            output_monitor_pos = [Lx - int(absorption_widths[0]) - 10, 0, 0]
+        else:
+            output_monitor_pos = list(output_monitor_pos)
+
+        if output_monitor_shape is None:
+            output_monitor_shape = [1, Ly, Lz]
+        else:
+            output_monitor_shape = list(output_monitor_shape)
+
+        if design_xy_range is None:
+            design_xy_range = [[0, Lx], [0, Ly]]
+        else:
+            design_xy_range = [list(r) for r in design_xy_range]
+
         max_steps = 15000
         check_every_n = 1000
-        enforce_symmetry = False
+        if enforce_symmetry is None:
+            enforce_symmetry = False
     else:
         design_layers_raw = device.get('design_layers', [])
         freq_band = list(device.get('freq_band', [0.1, 0.1, 1]))
         recipe_params = device.get('recipe_params', {})
-        source_offset = list(device.get('source_offset', [0, 0, 0]))
-        absorption_widths = list(device.get('absorption_widths', [70, 35, 17]))
-        absorption_coeff = device.get('absorption_coeff', 0.00489)
-        output_monitor_pos = list(device.get('output_monitor_pos', [10, 0, 0]))
-        output_monitor_shape = list(device.get('output_monitor_shape', [1, 1, 1]))
-        design_xy_range = [list(r) for r in device.get('design_xy_range', [[0, 1], [0, 1]])]
+        # Kwargs override device_dict values
+        if source_offset is None:
+            source_offset = list(device.get('source_offset', [0, 0, 0]))
+        else:
+            source_offset = list(source_offset)
+        if absorption_widths is None:
+            absorption_widths = list(device.get('absorption_widths', [70, 35, 17]))
+        else:
+            absorption_widths = list(absorption_widths)
+        if absorption_coeff is None:
+            absorption_coeff = device.get('absorption_coeff', 0.00489)
+        if output_monitor_pos is None:
+            output_monitor_pos = list(device.get('output_monitor_pos', [10, 0, 0]))
+        else:
+            output_monitor_pos = list(output_monitor_pos)
+        if output_monitor_shape is None:
+            output_monitor_shape = list(device.get('output_monitor_shape', [1, 1, 1]))
+        else:
+            output_monitor_shape = list(output_monitor_shape)
+        if design_xy_range is None:
+            design_xy_range = [list(r) for r in device.get('design_xy_range', [[0, 1], [0, 1]])]
+        else:
+            design_xy_range = [list(r) for r in design_xy_range]
         max_steps = device.get('max_steps', 20000)
         check_every_n = device.get('check_every_n', 500)
-        enforce_symmetry = device.get('enforce_symmetry', False)
+        if enforce_symmetry is None:
+            enforce_symmetry = device.get('enforce_symmetry', False)
 
     # Build design_layers with encoded arrays (theta, waveguide_mask)
     design_layers = []
@@ -308,7 +376,6 @@ def optimize(
     t0 = _time.time()
 
     ws = None
-    _used_fallback = False
 
     # Try unified WebSocket first, fall back to 2-step POST+WS
     try:
@@ -331,7 +398,6 @@ def optimize(
         logger.info("  Session started in %.1fs (unified WS)", _time.time() - t0)
     except (OSError, _ws_lib.WebSocketException, ConnectionError, TimeoutError) as e:
         logger.warning("  Unified WS failed (%s), falling back to 2-step flow...", e)
-        _used_fallback = True
         if ws is not None:
             try:
                 ws.close()
@@ -374,7 +440,7 @@ def optimize(
         ws = _ws_lib.create_connection(
             fb_ws_url, header={"X-API-Key": effective_api_key}, timeout=30)
         logger.info("  Fallback WS connected in %.1fs", _time.time() - t0)
-    ws.settimeout(600)
+    ws.settimeout(30)
 
     stop_ping = threading.Event()
     ws_lock = threading.Lock()
@@ -393,12 +459,32 @@ def optimize(
     ping_thread.start()
 
     history = []
-    current_thetas = (dict(initial_design.thetas) if initial_design else {})
+    if initial_design is not None:
+        current_thetas = dict(initial_design.thetas)
+    elif theta and isinstance(theta, dict):
+        current_thetas = {k: np.array(v) for k, v in theta.items()}
+    else:
+        current_thetas = {dl["name"]: np.array(dl.get("theta", np.array([])))
+                          for dl in design_layers_raw if "theta" in dl}
     cancelled = False
+
+    _heartbeat_count = 0
+    _max_silent_heartbeats = 40  # 40 x 30s = 20 min max between messages
 
     try:
         while True:
-            raw = ws.recv()
+            try:
+                raw = ws.recv()
+            except _ws_lib.WebSocketTimeoutException:
+                _heartbeat_count += 1
+                if _heartbeat_count > _max_silent_heartbeats:
+                    raise RuntimeError(
+                        f"No response from GPU after {_heartbeat_count * 30}s. "
+                        f"The job may have failed silently.")
+                elapsed = int(_time.time() - t0)
+                print(f"  Waiting for GPU... ({elapsed}s elapsed)", flush=True)
+                continue
+            _heartbeat_count = 0
             if not raw:
                 continue
             msg = json.loads(raw)

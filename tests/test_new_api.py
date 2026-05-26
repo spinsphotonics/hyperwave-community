@@ -374,6 +374,111 @@ class TestGetSourceConfig:
             device.get_source_config("core")
 
 
+class TestCladdingInference:
+    """Tests for eps_clad inference from adjacent layers."""
+
+    def test_standard_3layer_stack(self):
+        from hyperwave_community.device import build_device
+        device = build_device(
+            layers=[
+                {"name": "box", "thickness": 2.0, "index": 1.44},
+                {"name": "etch", "thickness": 0.22, "index": 3.48,
+                 "design": True, "density_radius": 6},
+                {"name": "clad", "thickness": 2.0, "index": 1.44},
+            ],
+            grid=0.035, wavelength=1.55, nx=100,
+        )
+        dl = device.design_layers_info[0]
+        assert dl["eps_range"] == pytest.approx((1.44**2, 3.48**2), rel=1e-4)
+
+    def test_explicit_cladding_index_overrides(self):
+        from hyperwave_community.device import build_device
+        device = build_device(
+            layers=[
+                {"name": "box", "thickness": 2.0, "index": 1.44},
+                {"name": "etch", "thickness": 0.22, "index": 3.48,
+                 "design": True, "density_radius": 6, "cladding_index": 1.0},
+                {"name": "clad", "thickness": 2.0, "index": 1.44},
+            ],
+            grid=0.035, wavelength=1.55, nx=100,
+        )
+        dl = device.design_layers_info[0]
+        assert dl["eps_range"] == pytest.approx((1.0, 3.48**2), rel=1e-4)
+
+    def test_two_design_layers_different_cladding(self):
+        from hyperwave_community.device import build_device
+        device = build_device(
+            layers=[
+                {"name": "clad_top", "thickness": 1.0, "index": 1.44},
+                {"name": "sin", "thickness": 0.4, "index": 2.0,
+                 "design": True, "density_radius": 4},
+                {"name": "gap", "thickness": 0.2, "index": 1.44},
+                {"name": "si", "thickness": 0.22, "index": 3.48,
+                 "design": True, "density_radius": 4},
+                {"name": "box", "thickness": 2.0, "index": 1.44},
+            ],
+            grid=0.035, wavelength=1.55, nx=100,
+        )
+        sin_dl = [d for d in device.design_layers_info if d["name"] == "sin"][0]
+        si_dl = [d for d in device.design_layers_info if d["name"] == "si"][0]
+        assert sin_dl["eps_range"][0] == pytest.approx(1.44**2, rel=1e-4)
+        assert si_dl["eps_range"][0] == pytest.approx(1.44**2, rel=1e-4)
+
+    def test_adjacent_design_layers_infer_from_further_neighbor(self):
+        from hyperwave_community.device import build_device
+        device = build_device(
+            layers=[
+                {"name": "box", "thickness": 2.0, "index": 1.44},
+                {"name": "layer1", "thickness": 0.22, "index": 3.48,
+                 "design": True, "density_radius": 4},
+                {"name": "layer2", "thickness": 0.22, "index": 2.0,
+                 "design": True, "density_radius": 4},
+                {"name": "clad", "thickness": 2.0, "index": 1.44},
+            ],
+            grid=0.035, wavelength=1.55, nx=100,
+        )
+        l1 = [d for d in device.design_layers_info if d["name"] == "layer1"][0]
+        l2 = [d for d in device.design_layers_info if d["name"] == "layer2"][0]
+        assert l1["eps_range"][0] == pytest.approx(1.44**2, rel=1e-4)
+        assert l2["eps_range"][0] == pytest.approx(1.44**2, rel=1e-4)
+
+    def test_all_design_layers_warns_and_falls_back(self):
+        import warnings
+        from hyperwave_community.device import build_device
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            device = build_device(
+                layers=[
+                    {"name": "a", "thickness": 0.22, "index": 3.48,
+                     "design": True, "density_radius": 4},
+                    {"name": "b", "thickness": 0.22, "index": 2.0,
+                     "design": True, "density_radius": 4},
+                ],
+                grid=0.035, wavelength=1.55, nx=100,
+            )
+        clad_warnings = [x for x in w if "no adjacent non-design layer" in str(x.message)]
+        assert len(clad_warnings) >= 2
+        for dl in device.design_layers_info:
+            assert dl["eps_range"][0] == pytest.approx(1.0, rel=1e-4)
+
+    def test_layers_template_matches_design_info(self):
+        from hyperwave_community.device import build_device
+        device = build_device(
+            layers=[
+                {"name": "box", "thickness": 2.0, "index": 1.44},
+                {"name": "etch", "thickness": 0.22, "index": 3.48,
+                 "design": True, "density_radius": 6},
+                {"name": "clad", "thickness": 2.0, "index": 1.44},
+            ],
+            grid=0.035, wavelength=1.55, nx=100,
+        )
+        lt = device.recipe_params["layers_template"]
+        design_lt = [l for l in lt if l["layer_type"].startswith("design_")]
+        dl = device.design_layers_info[0]
+        assert design_lt[0]["params"]["permittivity"] == pytest.approx(
+            tuple(dl["eps_range"]), rel=1e-4)
+
+
 class TestAbsorberParams:
     def test_flat_device(self):
         from hyperwave_community.absorption import absorber_params
