@@ -472,9 +472,16 @@ def test_startup_timeout_retries_then_succeeds(mock_create_conn, mock_post):
     assert "/pipeline_optimize_ws" in mock_create_conn.call_args_list[0][0][0]
     assert "/pipeline_optimize_ws" in mock_create_conn.call_args_list[1][0][0]
 
-    # Backoff slept at least once, and the timed-out socket was closed.
-    assert mock_sleep.called
+    # Backoff slept exactly once with the first exponential delay (2s), and the
+    # timed-out socket was closed.
+    from hyperwave_community.pipeline import _STARTUP_BACKOFF_BASE
+    mock_sleep.assert_called_once_with(_STARTUP_BACKOFF_BASE)
     assert first_ws._closed
+
+    # The original payload was resent verbatim, exactly once, on the retry.
+    assert len(first_ws._sent) == 1
+    assert len(good_ws._sent) == 1
+    assert first_ws._sent == good_ws._sent
 
     # No POST fallback was used (this is a startup retry, not a connection error).
     mock_post.assert_not_called()
@@ -502,12 +509,17 @@ def test_startup_timeout_exhausts_retries_raises(mock_create_conn, mock_post):
         MockWebSocket([dict(timeout_ack)]) for _ in range(_MAX_STARTUP_RETRIES + 1)
     ]
 
-    with patch("time.sleep"):
+    from hyperwave_community.pipeline import _STARTUP_BACKOFF_BASE
+    with patch("time.sleep") as mock_sleep:
         with pytest.raises(RuntimeError, match="timed out"):
             _call_optimize()
 
     # Exactly initial attempt + N retries.
     assert mock_create_conn.call_count == _MAX_STARTUP_RETRIES + 1
+    # Backoff is exponential 2/4/8s: one sleep per retry, none after the final
+    # failed attempt.
+    expected = [_STARTUP_BACKOFF_BASE * (2 ** i) for i in range(_MAX_STARTUP_RETRIES)]
+    assert [c.args[0] for c in mock_sleep.call_args_list] == expected
     # Startup retry never falls back to POST.
     mock_post.assert_not_called()
 
@@ -534,5 +546,87 @@ def test_genuine_server_error_does_not_retry(mock_create_conn, mock_post):
 
     # Only one connection attempt -- no retry, no backoff.
     assert mock_create_conn.call_count == 1
+    mock_sleep.assert_not_called()
+    mock_post.assert_not_called()
+
+
+# ===================================================================
+# 14. Transient PRE-DISPATCH siblings (not the literal "timed out") also retry
+# ===================================================================
+
+@pytest.mark.parametrize("transient_msg", [
+    "Error calling Cloud Function: upstream request timeout",   # upstream 504 body
+    "All connection attempts failed",                            # httpx ConnectError
+    "4 DEADLINE_EXCEEDED: Deadline exceeded",                    # gRPC deadline
+    "Server disconnected without sending a response.",           # httpx disconnect
+    "Timed out waiting for request payload",                     # payload-receive timeout
+])
+@patch("requests.post")
+@patch("websocket.create_connection")
+def test_startup_retries_on_transient_siblings(mock_create_conn, mock_post, transient_msg):
+    """Pre-dispatch transients other than the literal 'Request ... timed out'
+    string are equally safe to retry (same pre-dispatch billing/validate path)."""
+    err_ack = {"type": "error", "message": transient_msg}
+    first_ws = MockWebSocket([dict(err_ack)])
+    good_ws = MockWebSocket([_STARTED_MSG, _STEP_MSG, _DONE_MSG])
+    mock_create_conn.side_effect = [first_ws, good_ws]
+
+    with patch("time.sleep") as mock_sleep:
+        result = _call_optimize()
+
+    assert mock_create_conn.call_count == 2           # reconnected and retried
+    assert mock_sleep.call_count == 1
+    mock_post.assert_not_called()                     # not a connection-error fallback
+    assert len(result.history) == 1
+
+
+# ===================================================================
+# 15. Non-transient billing rejection raises immediately, no retry
+# ===================================================================
+
+@patch("requests.post")
+@patch("websocket.create_connection")
+def test_insufficient_credits_not_retried(mock_create_conn, mock_post):
+    """A billing rejection carries no transient signature -> raise on attempt 1,
+    no backoff, no second connection (don't burn 14s retrying a hard 'no')."""
+    err_ack = {"type": "error",
+               "message": "Insufficient credits. Purchase at spinsphotonics.com"}
+    mock_create_conn.side_effect = [
+        MockWebSocket([dict(err_ack)]),
+        MockWebSocket([_STARTED_MSG, _STEP_MSG, _DONE_MSG]),  # must never be used
+    ]
+
+    with patch("time.sleep") as mock_sleep:
+        with pytest.raises(RuntimeError, match="Insufficient credits"):
+            _call_optimize()
+
+    assert mock_create_conn.call_count == 1
+    mock_sleep.assert_not_called()
+    mock_post.assert_not_called()
+
+
+# ===================================================================
+# 16. Malformed (non-JSON) startup ack closes the socket and fails fast
+# ===================================================================
+
+@patch("requests.post")
+@patch("websocket.create_connection")
+def test_malformed_startup_ack_raises_and_closes(mock_create_conn, mock_post):
+    """A non-JSON first frame must not leak the socket and must not be retried
+    (it is a protocol error, not a transient)."""
+    class BadAckWebSocket(MockWebSocket):
+        def recv(self):
+            return "<html>502 Bad Gateway</html>"  # not JSON
+
+    ws = BadAckWebSocket([])
+    mock_create_conn.side_effect = [ws,
+                                    MockWebSocket([_STARTED_MSG, _STEP_MSG, _DONE_MSG])]
+
+    with patch("time.sleep") as mock_sleep:
+        with pytest.raises(RuntimeError, match="Malformed startup ack"):
+            _call_optimize()
+
+    assert mock_create_conn.call_count == 1   # not retried
+    assert ws._closed                          # socket closed, not leaked
     mock_sleep.assert_not_called()
     mock_post.assert_not_called()
