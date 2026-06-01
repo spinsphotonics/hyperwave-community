@@ -444,3 +444,95 @@ def test_multilayer_theta_b64_dict(mock_create_conn):
     expected = np.full((_NX, _NY), 0.5, dtype=np.float32)
     np.testing.assert_array_equal(result.design.thetas["etch"], expected)
     np.testing.assert_array_equal(result.design.thetas["slab"], expected)
+
+
+# ===================================================================
+# 11. Startup ack is a transient "timed out" error -> retry, then succeed
+# ===================================================================
+
+@patch("requests.post")
+@patch("websocket.create_connection")
+def test_startup_timeout_retries_then_succeeds(mock_create_conn, mock_post):
+    """A startup ack of {'type':'error','message':'...timed out'} is a transient
+    gateway/cold-start timeout. optimize() should reconnect and retry the full
+    connect+send+ack sequence (with backoff) rather than failing the call."""
+    from hyperwave_community.pipeline import _MAX_STARTUP_RETRIES
+
+    timeout_ack = {"type": "error", "message": "Request to Cloud Function timed out"}
+    first_ws = MockWebSocket([dict(timeout_ack)])
+    good_ws = MockWebSocket([_STARTED_MSG, _STEP_MSG, _DONE_MSG])
+    mock_create_conn.side_effect = [first_ws, good_ws]
+
+    # Patch sleep so the test does not actually wait for backoff.
+    with patch("time.sleep") as mock_sleep:
+        result = _call_optimize()
+
+    # Reconnected once: two create_connection calls, both to the unified WS.
+    assert mock_create_conn.call_count == 2
+    assert "/pipeline_optimize_ws" in mock_create_conn.call_args_list[0][0][0]
+    assert "/pipeline_optimize_ws" in mock_create_conn.call_args_list[1][0][0]
+
+    # Backoff slept at least once, and the timed-out socket was closed.
+    assert mock_sleep.called
+    assert first_ws._closed
+
+    # No POST fallback was used (this is a startup retry, not a connection error).
+    mock_post.assert_not_called()
+
+    # The retry produced a normal result.
+    assert len(result.history) == 1
+    assert result.history[0]["efficiency"] == 0.5
+    assert _MAX_STARTUP_RETRIES >= 1
+
+
+# ===================================================================
+# 12. Startup timeout that never clears -> raise after exhausting retries
+# ===================================================================
+
+@patch("requests.post")
+@patch("websocket.create_connection")
+def test_startup_timeout_exhausts_retries_raises(mock_create_conn, mock_post):
+    """If every startup attempt times out, optimize() must give up after
+    _MAX_STARTUP_RETRIES retries and raise (not loop forever)."""
+    from hyperwave_community.pipeline import _MAX_STARTUP_RETRIES
+
+    timeout_ack = {"type": "error", "message": "Request to Cloud Function timed out"}
+    # Enough timed-out sockets to cover every attempt (1 initial + N retries).
+    mock_create_conn.side_effect = [
+        MockWebSocket([dict(timeout_ack)]) for _ in range(_MAX_STARTUP_RETRIES + 1)
+    ]
+
+    with patch("time.sleep"):
+        with pytest.raises(RuntimeError, match="timed out"):
+            _call_optimize()
+
+    # Exactly initial attempt + N retries.
+    assert mock_create_conn.call_count == _MAX_STARTUP_RETRIES + 1
+    # Startup retry never falls back to POST.
+    mock_post.assert_not_called()
+
+
+# ===================================================================
+# 13. Genuine (non-timeout) server error still raises immediately, no retry
+# ===================================================================
+
+@patch("requests.post")
+@patch("websocket.create_connection")
+def test_genuine_server_error_does_not_retry(mock_create_conn, mock_post):
+    """A non-timeout error (e.g. bad request) must NOT be retried -- it should
+    raise immediately on the first attempt. Guards the retry from masking real
+    server errors. (Complements test_server_error_no_fallback.)"""
+    error_ack = {"type": "error", "message": "bad request: invalid phase"}
+    mock_create_conn.side_effect = [
+        MockWebSocket([dict(error_ack)]),
+        MockWebSocket([_STARTED_MSG, _STEP_MSG, _DONE_MSG]),  # must never be used
+    ]
+
+    with patch("time.sleep") as mock_sleep:
+        with pytest.raises(RuntimeError, match="bad request: invalid phase"):
+            _call_optimize()
+
+    # Only one connection attempt -- no retry, no backoff.
+    assert mock_create_conn.call_count == 1
+    mock_sleep.assert_not_called()
+    mock_post.assert_not_called()

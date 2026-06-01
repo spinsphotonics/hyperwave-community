@@ -34,6 +34,22 @@ def compute_mode_cross_power(mode_field: np.ndarray) -> float:
 # optimize() - cloud GPU
 # ---------------------------------------------------------------------------
 
+# Startup-timeout retry: when the gateway's billing/validate call exceeds its
+# own timeout during session startup, it returns an error ack reading
+# "...timed out". At that point the GPU job has NOT been dispatched, so
+# reconnecting is safe and cannot create a duplicate run. Such transient
+# timeouts are retried with exponential backoff; genuine server errors are not.
+_MAX_STARTUP_RETRIES = 3
+_STARTUP_BACKOFF_BASE = 2.0  # seconds between attempts: 2, 4, 8
+
+
+def _is_transient_startup_timeout(message: str) -> bool:
+    """True if a startup-ack error message indicates a transient timeout
+    (gateway / Cloud Function cold-start) that is safe to retry, as opposed to a
+    genuine server error (e.g. "bad request: invalid phase") that must not be."""
+    return "timed out" in (message or "").lower()
+
+
 def optimize(
     layers: Any = None,
     theta: Optional[Dict[str, np.ndarray]] = None,
@@ -377,27 +393,49 @@ def optimize(
 
     ws = None
 
-    # Try unified WebSocket first, fall back to 2-step POST+WS
-    try:
-        ws_url = GATEWAY_URL.replace("https://", "wss://").replace("http://", "ws://")
-        ws_url = f"{ws_url}/pipeline_optimize_ws"
-        ws = _ws_lib.create_connection(
-            ws_url, header={"X-API-Key": effective_api_key}, timeout=60)
-        if len(compressed) < len(body):
-            ws.send_binary(compressed)
-        else:
-            ws.send(body.decode())
-        ack_raw = ws.recv()
-        ack = json.loads(ack_raw)
-        if ack.get("type") == "error":
-            ws.close()
-            raise RuntimeError(ack.get("message", "Server error during startup"))
-        if ack.get("type") != "started":
-            ws.close()
-            raise RuntimeError(f"Unexpected ack from server: {ack}")
-        logger.info("  Session started in %.1fs (unified WS)", _time.time() - t0)
-    except (OSError, _ws_lib.WebSocketException, ConnectionError, TimeoutError) as e:
-        logger.warning("  Unified WS failed (%s), falling back to 2-step flow...", e)
+    # Try the unified WebSocket first, falling back to the 2-step POST+WS flow
+    # on connection-level failures. A transient gateway/cold-start timeout at the
+    # startup ack is retried with exponential backoff (see
+    # _is_transient_startup_timeout / _MAX_STARTUP_RETRIES); genuine server
+    # errors are raised immediately.
+    _unified_started = False
+    _conn_err = None
+    for _attempt in range(_MAX_STARTUP_RETRIES + 1):
+        try:
+            ws_url = GATEWAY_URL.replace("https://", "wss://").replace("http://", "ws://")
+            ws_url = f"{ws_url}/pipeline_optimize_ws"
+            ws = _ws_lib.create_connection(
+                ws_url, header={"X-API-Key": effective_api_key}, timeout=60)
+            if len(compressed) < len(body):
+                ws.send_binary(compressed)
+            else:
+                ws.send(body.decode())
+            ack_raw = ws.recv()
+            ack = json.loads(ack_raw)
+            if ack.get("type") == "error":
+                ws.close()
+                _err_msg = ack.get("message", "Server error during startup")
+                if _is_transient_startup_timeout(_err_msg) and _attempt < _MAX_STARTUP_RETRIES:
+                    _backoff = _STARTUP_BACKOFF_BASE * (2 ** _attempt)
+                    logger.warning(
+                        "  Startup timed out (%s); retrying in %.0fs (attempt %d/%d)...",
+                        _err_msg, _backoff, _attempt + 1, _MAX_STARTUP_RETRIES)
+                    _time.sleep(_backoff)
+                    continue
+                raise RuntimeError(_err_msg)
+            if ack.get("type") != "started":
+                ws.close()
+                raise RuntimeError(f"Unexpected ack from server: {ack}")
+            logger.info("  Session started in %.1fs (unified WS)", _time.time() - t0)
+            _unified_started = True
+            break
+        except (OSError, _ws_lib.WebSocketException, ConnectionError, TimeoutError) as e:
+            _conn_err = e
+            break
+
+    if not _unified_started:
+        # Unified WS hit a connection-level failure -> 2-step POST + WS fallback.
+        logger.warning("  Unified WS failed (%s), falling back to 2-step flow...", _conn_err)
         if ws is not None:
             try:
                 ws.close()
