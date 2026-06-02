@@ -34,6 +34,60 @@ def compute_mode_cross_power(mode_field: np.ndarray) -> float:
 # optimize() - cloud GPU
 # ---------------------------------------------------------------------------
 
+# Startup retry: the gateway emits an error ack for several transient,
+# PRE-DISPATCH failures during session startup (billing/validate cold-start,
+# the gateway->Cloud Function hop hitting an upstream 5xx/connect hiccup, or a
+# payload-receive timeout). SAFETY: in the gateway's /pipeline_optimize_ws
+# handler EVERY startup error ack is sent BEFORE the Modal GPU job is dispatched
+# (see hyperwave-cloud app.py: validate/error-ack at ~5467/5510/5516, dispatch
+# at ~5567, "started" ack at ~5604). So a reconnect on any of these acks cannot
+# create a duplicate GPU run. Post-dispatch errors arrive only via the streaming
+# loop (NOT this startup ack) and are never retried here. Genuine errors
+# (invalid api key, insufficient credits, gzip/validation/bad request, auth)
+# match none of the signatures below and still raise immediately.
+_MAX_STARTUP_RETRIES = 3
+_STARTUP_BACKOFF_BASE = 2.0  # seconds between attempts: 2, 4, 8
+
+# Substrings (case-insensitive) marking a transient, retry-safe startup ack.
+# Grounded in the real strings hyperwave-cloud emits (app.py make_authorized_request
+# + the /pipeline_optimize_ws startup): "Request to Cloud Function timed out"
+# (httpx timeout), "Error calling Cloud Function: upstream request timeout" /
+# DEADLINE_EXCEEDED (upstream 5xx body), "All connection attempts failed" /
+# "Server disconnected without sending a response." (httpx connect/disconnect),
+# and "Timed out waiting for request payload". A rare false positive only costs
+# the backoff delay before failing -- never a wrong result.
+_TRANSIENT_STARTUP_SIGNATURES = (
+    "timed out",
+    "timeout",
+    "deadline exceeded",
+    "connection attempts failed",
+    "server disconnected",
+    "service unavailable",
+    "temporarily unavailable",
+)
+
+
+def _is_transient_startup_timeout(message: str) -> bool:
+    """True if a startup-ack error message indicates a transient, pre-dispatch
+    failure (gateway/Cloud Function cold-start, upstream 5xx/connect hiccup, or
+    payload-receive timeout) that is safe to retry. Genuine server errors
+    (bad request, invalid phase, invalid api key, insufficient credits) match
+    none of the signatures and still raise immediately on the first attempt."""
+    m = (message or "").lower()
+    return any(sig in m for sig in _TRANSIENT_STARTUP_SIGNATURES)
+
+
+def _safe_close(ws) -> None:
+    """Close a websocket, swallowing any error. A close() that raised would be
+    caught by the connect-error handler and could hijack a transient-timeout
+    retry into the POST fallback (losing the precise error); guarding it keeps
+    the retry path deterministic."""
+    try:
+        ws.close()
+    except Exception:
+        pass
+
+
 def optimize(
     layers: Any = None,
     theta: Optional[Dict[str, np.ndarray]] = None,
@@ -377,27 +431,58 @@ def optimize(
 
     ws = None
 
-    # Try unified WebSocket first, fall back to 2-step POST+WS
-    try:
-        ws_url = GATEWAY_URL.replace("https://", "wss://").replace("http://", "ws://")
-        ws_url = f"{ws_url}/pipeline_optimize_ws"
-        ws = _ws_lib.create_connection(
-            ws_url, header={"X-API-Key": effective_api_key}, timeout=60)
-        if len(compressed) < len(body):
-            ws.send_binary(compressed)
-        else:
-            ws.send(body.decode())
-        ack_raw = ws.recv()
-        ack = json.loads(ack_raw)
-        if ack.get("type") == "error":
-            ws.close()
-            raise RuntimeError(ack.get("message", "Server error during startup"))
-        if ack.get("type") != "started":
-            ws.close()
-            raise RuntimeError(f"Unexpected ack from server: {ack}")
-        logger.info("  Session started in %.1fs (unified WS)", _time.time() - t0)
-    except (OSError, _ws_lib.WebSocketException, ConnectionError, TimeoutError) as e:
-        logger.warning("  Unified WS failed (%s), falling back to 2-step flow...", e)
+    # Try the unified WebSocket first, falling back to the 2-step POST+WS flow
+    # on connection-level failures. A transient gateway/cold-start timeout at the
+    # startup ack is retried with exponential backoff (see
+    # _is_transient_startup_timeout / _MAX_STARTUP_RETRIES); genuine server
+    # errors are raised immediately.
+    _unified_started = False
+    _conn_err = None
+    for _attempt in range(_MAX_STARTUP_RETRIES + 1):
+        try:
+            ws_url = GATEWAY_URL.replace("https://", "wss://").replace("http://", "ws://")
+            ws_url = f"{ws_url}/pipeline_optimize_ws"
+            ws = _ws_lib.create_connection(
+                ws_url, header={"X-API-Key": effective_api_key}, timeout=60)
+            if len(compressed) < len(body):
+                ws.send_binary(compressed)
+            else:
+                ws.send(body.decode())
+            ack_raw = ws.recv()
+            try:
+                ack = json.loads(ack_raw)
+            except (ValueError, TypeError):
+                # Non-JSON / empty first frame (e.g. a clean close or proxy
+                # frame). Close to avoid leaking the socket and fail fast --
+                # this is a protocol error, not a retryable transient.
+                _safe_close(ws)
+                raise RuntimeError(
+                    "Malformed startup ack from server (not JSON): "
+                    f"{repr(ack_raw)[:200]}")
+            if ack.get("type") == "error":
+                _safe_close(ws)
+                _err_msg = ack.get("message", "Server error during startup")
+                if _is_transient_startup_timeout(_err_msg) and _attempt < _MAX_STARTUP_RETRIES:
+                    _backoff = _STARTUP_BACKOFF_BASE * (2 ** _attempt)
+                    logger.warning(
+                        "  Transient startup error (%s); retrying in %.0fs (attempt %d/%d)...",
+                        _err_msg, _backoff, _attempt + 1, _MAX_STARTUP_RETRIES)
+                    _time.sleep(_backoff)
+                    continue
+                raise RuntimeError(_err_msg)
+            if ack.get("type") != "started":
+                _safe_close(ws)
+                raise RuntimeError(f"Unexpected ack from server: {ack}")
+            logger.info("  Session started in %.1fs (unified WS)", _time.time() - t0)
+            _unified_started = True
+            break
+        except (OSError, _ws_lib.WebSocketException, ConnectionError, TimeoutError) as e:
+            _conn_err = e
+            break
+
+    if not _unified_started:
+        # Unified WS hit a connection-level failure -> 2-step POST + WS fallback.
+        logger.warning("  Unified WS failed (%s), falling back to 2-step flow...", _conn_err)
         if ws is not None:
             try:
                 ws.close()
