@@ -2801,7 +2801,13 @@ def run_optimization(
     gpu_type: str = "B200",
     api_key: Optional[str] = None,
 ) -> 'Generator[Dict[str, Any], None, None]':
-    """Run optimization loop on cloud GPU.
+    """[RETIRED -- use hwc.optimize(layers=, theta=)] Legacy single-layer cloud optimizer.
+
+    This API is no longer available: its GPU backend (the structure_spec
+    streaming function behind /inverse_design_start) was never deployed, so
+    calling it raises RuntimeError. Migrate to hwc.optimize(layers=..., theta=...),
+    which runs the same adjoint inverse design on the maintained multilayer GPU
+    backend. The documentation below is retained for reference during migration.
 
     Sends all optimization parameters in a single request. The cloud GPU
     runs the full loop (forward + adjoint FDTD per step, Adam updates) and
@@ -2862,7 +2868,7 @@ def run_optimization(
             - is_final (bool): True on the last step.
 
     Raises:
-        ValueError: If no loss specification is provided.
+        RuntimeError: Always. This API is retired; use hwc.optimize() instead.
 
     Example:
         >>> results = []
@@ -2890,6 +2896,19 @@ def run_optimization(
         ... except KeyboardInterrupt:
         ...     print(f"Stopped after {len(results)} steps.")
     """
+    # RETIRED: the cloud backend for run_optimization() (the structure_spec
+    # streaming function behind /inverse_design_start) was never deployed, so
+    # this path cannot run and previously failed with a Modal lookup error and
+    # "No optimization steps completed". Fail loudly and point to optimize().
+    raise RuntimeError(
+        "hwc.run_optimization() has been retired and its cloud backend is no "
+        "longer available. Use hwc.optimize(layers=..., theta=...) instead, "
+        "which runs the same adjoint inverse design on the maintained GPU "
+        "backend. For a single design layer, pass a one-layer design stack (a "
+        "layer with design=True) plus your initial theta. See the "
+        "hwc.optimize() docstring or the inverse design tutorial for migration."
+    )
+
     import json
 
     effective_api_key = api_key or _API_CONFIG.get('api_key')

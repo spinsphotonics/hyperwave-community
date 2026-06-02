@@ -539,3 +539,52 @@ class TestCheckpoint:
             loaded = load_checkpoint(path)
             np.testing.assert_array_equal(loaded.thetas["etch"], d.thetas["etch"])
             assert loaded.schedule_config["beta_init"] == 1.0
+
+
+# ---------------------------------------------------------------------------
+# run_optimization() is retired (legacy single-layer cloud API)
+# ---------------------------------------------------------------------------
+
+class TestRunOptimizationRetired:
+    """The legacy run_optimization() cloud path is dead: its GPU backend
+    (the structure_spec streaming function behind /inverse_design_start) was
+    never deployed. It must now fail loudly and point users to optimize()."""
+
+    def _minimal_kwargs(self):
+        return dict(
+            theta=np.zeros((4, 4), dtype=np.float32),
+            source_field=np.zeros((1, 6, 1, 4, 1), dtype=np.complex64),
+            source_offset=(0, 0, 0),
+            freq_band=(0.1, 0.1, 1),
+            structure_spec={},
+            loss_monitor_shape=(1, 4, 1), loss_monitor_offset=(0, 0, 0),
+            design_monitor_shape=(4, 4, 1), design_monitor_offset=(0, 0, 0),
+            mode_field=np.zeros((1, 6, 1, 4, 1), dtype=np.complex64),
+            input_power=1.0, mode_cross_power=1.0,
+        )
+
+    def test_run_optimization_raises_on_use(self):
+        """Iterating the generator raises RuntimeError mentioning optimize()."""
+        from hyperwave_community.api_client import run_optimization
+        gen = run_optimization(**self._minimal_kwargs())
+        with pytest.raises(RuntimeError, match="optimize"):
+            next(gen)
+
+    def test_message_is_actionable(self):
+        """Error says it is retired and names the replacement optimize() call."""
+        from hyperwave_community.api_client import run_optimization
+        with pytest.raises(RuntimeError) as exc:
+            list(run_optimization(**self._minimal_kwargs()))
+        msg = str(exc.value).lower()
+        assert ("retired" in msg) or ("no longer" in msg)
+        assert "optimize(" in msg
+
+    def test_retired_before_any_network_or_validation(self):
+        """Must raise before touching API config / network -- works with no key
+        configured and even with an otherwise-invalid loss spec."""
+        from hyperwave_community.api_client import run_optimization
+        kwargs = self._minimal_kwargs()
+        kwargs.pop("mode_field"); kwargs.pop("input_power"); kwargs.pop("mode_cross_power")
+        # No loss spec at all would normally ValueError; retirement preempts it.
+        with pytest.raises(RuntimeError, match="optimize"):
+            next(run_optimization(**kwargs))
