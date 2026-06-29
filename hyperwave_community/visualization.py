@@ -1727,7 +1727,7 @@ _MATERIAL_ALIAS = {
 }
 
 
-def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_polygons=None, output="auto"):
+def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_polygons=None, source=None, output="auto"):
     """Emit geometry data for the standalone UI 3D device viewer.
 
     Args:
@@ -1745,6 +1745,33 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
             - ``y`` (float): y center in um
             - ``width`` (float): monitor width in um
             - ``orientation`` (float): angle in degrees (0=along y, 90=along x)
+        source: optional dict describing an input fiber drawn as a tilted
+            cylinder plus a downward beam arrow. Keys:
+            - ``center`` ([float, float]): landing point (x, y) on the device, um
+            - ``z_top`` (float): top of the fiber above the device, um
+            - ``polar_deg`` (float): tilt from vertical (surface normal), degrees
+            - ``azimuth_deg`` (float): in-plane direction, degrees
+              (0 = +x, 90 = +y, 225 = toward -x,-y)
+            - ``length`` (float): fiber length, um
+            - ``radius`` (float): fiber radius, um
+            - ``label`` (str, optional): text label drawn near the fiber
+            The beam direction (pointing down toward the device) is
+            ``(sin(polar)cos(azimuth), sin(polar)sin(azimuth), -cos(polar))``.
+
+            Example::
+
+                show_device_3d(
+                    density, layers, pixel_size,
+                    source={
+                        "center": [x_max / 2, y_max / 2],
+                        "z_top": 5.0,
+                        "polar_deg": 5.5,
+                        "azimuth_deg": 225,
+                        "length": 6.0,
+                        "radius": 0.5,
+                        "label": "fiber 8 deg (5.5 deg oxide)",
+                    },
+                )
         output: ``"auto"`` (default), ``"ui"``, or ``"summary"``.
             - ``"auto"``: emit JSON if HYPERWAVE_STANDALONE_UI env var is set,
               otherwise print a human-readable summary.
@@ -1947,6 +1974,9 @@ def show_device_3d(density, layers, pixel_size, mode="auto", monitors=None, gds_
             "y_max": float(y_max),
         },
     }
+
+    if source is not None:
+        data["source"] = source
 
     if output == "auto":
         emit_ui = os.environ.get("HYPERWAVE_STANDALONE_UI") == "1"
