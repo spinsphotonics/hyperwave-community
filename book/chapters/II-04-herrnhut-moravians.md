@@ -165,44 +165,45 @@ these mission principles, not a merely practical arrangement.[^27]
 
 The decision to send anyone at all rested with the whole Herrnhut congregation, tested through
 what the Brethren called "the Lot" — a drawing of texts understood as putting a question directly
-to God. The occasion was, in Spangenberg's words, that "God moved the hearts of two brethren to
-agree together before the Lord, that they would undertake a voyage to St. Thomas," after a
-baptized West Indian slave in Copenhagen, Antony Ulrich, told Zinzendorf of his sister and brother
-still enslaved there and "ardently wished that his sister... might also be instructed in the way
-of life."[^29] A full year passed between the volunteers' letter and the congregation's decision
-to permit them to go.[^30] For Leonard Dober himself, the Lot gave the deciding word: "Let the lad
-go, for the Lord is with him."[^31] His companion was David Nitschmann, a carpenter by trade;
-Dober himself was, by trade, a potter.[^32]
+to God. The occasion, Spangenberg records, was that a baptized West Indian slave in Copenhagen,
+whom Hutton's later narrative names Antony Ulrich, told Zinzendorf of a sister still enslaved in
+St Thomas who longed to be instructed in the Christian faith; upon hearing this, in Spangenberg's
+own words, "God moved the hearts of two brethren to agree together before the Lord, that they
+would undertake a voyage to St. Thomas"[^28] — the two brethren being Leonard Dober and, initially,
+a companion who in the end did not go. A full year passed between the volunteers' letter and the
+congregation's decision to permit them to go.[^29] For Dober himself, the Lot gave the deciding
+word: "Let the lad go, for the Lord is with him."[^30] His eventual companion was David
+Nitschmann, a carpenter by trade; Dober himself was, by trade, a potter.[^31]
 
 At three o'clock in the morning of 21 August 1732, the two men set out; Zinzendorf, who had spent
-the whole night in prayer, drove them part of the way in his own carriage.[^33] They carried no
+the whole night in prayer, drove them part of the way in his own carriage.[^32] They carried no
 formal written instructions beyond the Count's charge "to do all in the Spirit of Jesus Christ,"
 and about thirty shillings between them, expecting to support themselves by their trades once they
-arrived.[^34] Pressed in Copenhagen on how they meant to live among the slaves of St Thomas,
-Nitschmann answered simply, "We shall work... as slaves among the slaves."[^35] "For fifty years,"
+arrived.[^33] Pressed in Copenhagen on how they meant to live among the slaves of St Thomas,
+Nitschmann answered simply, "We shall work... as slaves among the slaves."[^34] "For fifty years"
 the mission that followed "laboured in the West Indies without any aid from any other religious
 denomination," eventually establishing churches in St Thomas, St Croix, St John, Jamaica, Antigua,
 Barbados, and St Kitts, and reporting "13,000 baptized converts before a missionary from any other
-Church arrived on the scene."[^36]
+Church arrived on the scene."[^35]
 
 The cost was severe. "In St. Thomas alone, during the first fifty years, one hundred and sixty
-missionaries died."[^37] On St Croix, of an original party of eighteen Brethren sent in 1734, ten
+missionaries died."[^36] On St Croix, of an original party of eighteen Brethren sent in 1734, ten
 died, including Tobias Leupold; of eleven more who arrived the following year, seven more died of
-fever, leaving three survivors of twenty-nine sent.[^38] Dober himself, left to work alone in St
-Thomas for fifteen months before a companion arrived, "nearly died of starvation."[^39]
+fever, leaving three survivors of twenty-nine sent.[^37] Dober himself, left to work alone in St
+Thomas for fifteen months before a companion arrived, "nearly died of starvation."[^38]
 
 ## Fruit
 
 Leonard Dober (dates and further career beyond this chapter's period not established from sources
 read this session), a joiner and potter from Württemberg, was the first Herrnhut missionary
 chosen by Lot; he toiled alone in St Thomas for fifteen months, nearly starving, before help
-arrived.[^40] David Nitschmann, a carpenter from Zauchtenthal in Moravia, sailed with Dober in
+arrived.[^39] David Nitschmann, a carpenter from Zauchtenthal in Moravia, sailed with Dober in
 1732 and was later consecrated a bishop of the Brethren's church so that he could ordain
-missionaries in the field.[^41] Frederick (Friedrich) Martin received a written ordination from
-Bishop Nitschmann to minister among the converts in St Thomas.[^42] Count Nikolaus Ludwig von
+missionaries in the field.[^40] Frederick (Friedrich) Martin received a written ordination from
+Bishop Nitschmann to minister among the converts in St Thomas.[^41] Count Nikolaus Ludwig von
 Zinzendorf, lord of the manor at Herrnhut, issued the community's 1727 governing documents,
 personally examined Dober's readiness before the Lot was cast, and drove the first two
-missionaries part of the way to Copenhagen himself.[^43] No source fetched this session records a
+missionaries part of the way to Copenhagen himself.[^42] No source fetched this session records a
 woman among the named founders of the mission in this period; this gap, like the others noted
 above, is left open rather than filled by inference.
 
