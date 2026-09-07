@@ -47,11 +47,11 @@ It was the knowledge of facts such as those mentioned in the last chapter that l
 
 [...]
 
-We had come in contact also, in connection with our evangelistic work in Great Britain and America, with large numbers of Christian young men, some of whom had been converted to God in the revivals of 1859 and subsequent years, and who were filled with love and zeal, longing to give their lives to the service of Christ, but for whose service in the gospel there seemed to be little opening in these Christian lands.
+We had come in contact also, in connection with our evange- listic work in Great Britain and America, with large numbers of Christian young men, some of whom had been converted to God in the revivals of 1859 and subsequent years, and who were filled with love and zeal, longing to give their lives to the service of Christ, but for whose service in the gospel there seemed to be little opening in these Christian lands.
 
 [...]
 
-Did any army consisting of officers only ever march to victory? were not rank and file required as well? And did not the mission army need such, hundreds and thousands of them? Was it essential that all, or even the great majority, of missionaries should be scholarly gentlemen, who would expect and require a good income of £300 to £500 a year?
+Did any army consisting of officers only ever march to victory ? were not rank and file required as well ? And did not the mission army need such, hundreds and thousands of them ? Was it essential that all, or even the great majority, of missionaries should be scholarly gentlemen, who would expect and require a good income of ^300 to ^500 a year?
 
 [...]
 
@@ -63,7 +63,7 @@ We did not think that it would be desirable to teach them classics and mathemati
 
 [...]
 
-We had none! And it added to the difficulty of the position that we belonged to no one denomination of the Church in particular, and so had no ready-made constituency to depend upon.
+We had none ! And it added to the difficulty of the position that we belonged to no one denomination of the Church in particular, and so had no ready-made constituency to depend upon.
 
 [...]
 
@@ -79,25 +79,29 @@ but thirty-two were selected and received during the first year, who had all bee
 
 [...]
 
-Some of these belonged to the Church of England, others were Presbyterians, Independents, Baptists, or Wesleyans, As to nationality, two were French, one was a Russian, one a Hindu, one a Syrian, several were Scotch and Irish, and there were Englishmen from all parts of the country. They varied in age and in attainments; some had unmistakable gifts as preachers, and all had more or less of this essential qualification.
+Some of these belonged to the Church of England, others were Presbyterians, Independents, Baptists, or Wesleyans, As to nationality, two were French, one was a Russian, one a Hindu, one a Syrian, several were Scotch and Irish, and there were Englishmen from all parts of the country. They varied in age and in attainments ; some had unmistakable gifts as preachers, and all had more or less of this essential qualification.
 
 [...]
 
 [On the Institute's admission practice, from a later chapter of the same book:]
 
-Applications for admission to the Institute reach us also from many who do not appear to us to be in any way suited for mission service; these are simply declined. All applicants who appear likely to be useful, and who are well recommended, are received on probation; but full admission to the privileges of our training house is only accorded after a month or two of actual experience of the individual.
+Applications for admission to the Institute reach us also from many who do not appear to us to be in any way suited for mission service ; these are simply declined. All applicants who appear likely to be useful, and who are well recommended, are received on probation ; but full admission to the privileges of our training house is only accorded after a month or two of actual experience of the individual.
 
-We seek sincere piety and true consecration of spirit, in the first place, natural ability and force of character and general vigour of mind and body next, and acquired ability and educational attainments last. The more a man has of these of course the better; but they can be gained by patient and persevering study, and one object of our Institute is to afford the opportunity for this. No training can give a man either grace or strength of character; and we consequently look for these indispensable requisites before accepting an applicant.
+We seek sincere piety and true consecration of spirit, in the first place, natural ability and force of character and general vigour of mind and body next, and acquired ability and educational attainments last. The more a man has of these of course the better ; but they can be gained by patient and persevering study, and one object of our Institute is to afford the opportunity for this. No training can give a man either grace or strength of character ; and we con- sequently look for these indispensable requisites before accepting an applicant.
 
 [...]
 
-The most recent addition to the Institute has been A FEMALE BRANCH for training young women for the mission field. It often happened that our students were engaged to be married, and, as we felt that every missionary's wife ought herself to be a missionary, not only in heart, but in actual practical suitability, it seemed wise and right to offer the young sisters advantages and opportunities for self-improvement and practice similar to those we had provided for their future husbands.
+The most recent addition to the Institute has been
+A FEMALE BRANCH
+for training young women for the mission field. It often happened that our students were engaged to be married, and, as we felt that every missionary's wife ought herself to be a missionary, not only in heart, but in actual practical suitability, it seemed wise and right to offer the young sisters advantages and opportunities for self- improvement and practice similar to those we had provided for their future husbands.
 
 [...]
 
 [On the course of study, from the Tutor's Report printed later in the same book:]
 
-The Rev. Anson J. Towell, our headmaster, wrote as to that third year: During the year now closing the men have made no small progress in the various studies of the house, and their mental and moral and social development has been of a satisfactory kind and measure.
+The Rev. Anson J. Towell, our headmaster, wrote as to that third year :
+
+During the year now closing the men have made no small progress in the various studies of the house, and their mental and moral and social development has been of a satisfactory kind and measure.
 
 The Bible-classes have trained them in the habit of seeking, at the very fountain of all truth, the principles of Christian life and work. They have used all helps to ascertain the precise meaning of words and phrases, and when they have once got to know the mind of the Spirit, they have held fast the precious doctrine as a golden treasure.
 
@@ -107,13 +111,20 @@ In the classes for Greek and Hebrew the men have made some fair progress. They h
 
 [...]
 
-The general discipline and training of the men, the house-work and the practice of useful arts, has proved highly beneficial in many ways. There is, first of all, the acquisition of many habits that will be of great advantage to them in foreign fields, where to know how to do a piece of work is of essential importance.
+The general discipline and training of the men, the house-work and the practice
+
+of useful arts, has proved highly beneficial in many ways. There is, first of all,
+the acquisition of many habits that will be of great advantage to them in foreign
+fields, where to know how to do a piece of work is of essential importance.
 
 [...]
 
 [On the rule of daily life, from a sketch of a day at Cliff College printed later in the same book:]
 
-This morning they breakfasted, as usual, at 7.30. At 8 o'clock they gathered with the whole household for reading [...] and then I expounded [...], after which two of our number led in prayer. The whole work of the Institute was laid before God in earnest supplication, those of our number now crossing the Atlantic, those just starting for Brazil, those leaving next week for South Africa, all our missionary brethren being specially remembered.
+This morning they breakfasted, as usual, at 7.30. At 8 o'clock they gathered with the whole household for reading [...] and then I expounded [...], after which two of our number led in prayer. The whole work of the Institute
+was laid before God in earnest supplication, those of our number now crossing the
+Atlantic, those just starting for Brazil, those leaving next week for South Africa,
+all our missionary brethren being specially remembered.
 
 At 9 o'clock the gong sounded for studies, and since then I have scarcely heard a sound except the voices of the birds
 
@@ -125,7 +136,7 @@ Then at 6 o'clock in the evening, after tea, all will again be gathered in the c
 
 [Returning to Chapter II's own close:]
 
-We knew that it was the design of God that it should be the same in the rearing of His spiritual sanctuary, the temple of living stones; that in the Church there were "diversities of gifts, but the same Spirit."
+We knew that it was the design of God that it should be the same in the rearing of His spiritual sanctuary, the temple of living stones ; that in the Church there were " diversities of gifts, but the same Spirit " ;
 
 [...]
 

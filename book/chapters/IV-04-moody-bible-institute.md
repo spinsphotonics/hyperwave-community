@@ -295,8 +295,7 @@ field C8.
 [^24]: Camp, *Brief Historical Sketch*, pp. 3-4; Moody, *Life of Dwight L. Moody*, ch. XXX
 (building description surrounding quote_id moody-bible-institute-q010).
 [^25]: Camp, *Brief Historical Sketch*, pp. 18-19; faculty roster.
-[^26]: Moody, *Life of Dwight L. Moody*, ch. XXX (letter to a New York friend, immediately
-preceding the "Three special classes" passage, quote_id moody-bible-institute-q008).
+[^26]: Moody, *Life of Dwight L. Moody*, ch. XXX; quote_id moody-bible-institute-q018.
 [^27]: Moody, *Life of Dwight L. Moody*, ch. XXX (letter to "Miss Strong," 16 December 1895).
 [^28]: Camp, *Brief Historical Sketch*, pp. 16-17; quote_id moody-bible-institute-q017.
 [^29]: Moody, *Life of Dwight L. Moody*, ch. XXX; quote_id moody-bible-institute-q001.
