@@ -226,3 +226,34 @@ read of the primary source.
 - Not resolved this pass. Used in procedures/WP-11-15.md as a stated range with a note to check
   Appendix B/WP-09 for the verified number, rather than picking a winner.
 - Related procedure: P-WP11-15 (Drain and fill the coolant)
+
+## WP-10 Torque specs and fitment numbers (2026-09-07)
+
+### C-015: Spark plug torque source's own generation label doesn't match GD3
+- The only source giving a specific numeric spark plug torque with full procedure text
+  (S-WP10-F, hfitinfo.com "Ignition Coil and Spark Plug Removal/Installation") files itself
+  under hfitinfo's own "Second generation (2007-2026)" repair-manual bucket — not the "First
+  generation (2001-2008)" bucket this project otherwise uses for the GD3 (2007-2008 US Fit).
+- A second, independent source (S-WP10-E, a JustAnswer Q&A) names a "2007 Honda Fit" (which IS
+  GD3) directly and cites the identical number (13 lbf-ft / 18 N-m), so the VALUE is not really
+  in dispute — the open question is only whether the two Fit generations' L15A-family SOHC
+  engines share the exact same spark plug thread/torque spec, which was not independently
+  confirmed by a document naming GD3/2008/first-generation explicitly for this specific number.
+- Not resolved this pass. F-WP10-004 uses 13 lbf-ft (18 N-m) at Confidence: medium rather than
+  high, with this caution stated on the card itself.
+- Related fact card: F-WP10-004
+
+### C-016: Caliper slide-pin torque's second-best corroborating source names the wrong generation
+- F-WP10-007 (caliper slide/guide pin torque) has one clean GD3-relevant source (S-WP10-B,
+  FitFreak.net, front ~26 lbf-ft / rear 17 lbf-ft) and one additional source giving a very
+  similar front figure (~25 lbf-ft), but that second source (S-WP10-K, JustAnswer) is explicitly
+  about a "2015 Honda Fit" — the third-generation GK chassis, a different car from the GD3 per
+  D2/D8.
+- The two numbers (25 vs. 26 lbf-ft) are close enough that they may reflect the same real
+  fastener spec carried across Fit generations, but D8 does not allow treating a GK-only source
+  as confirmation for a GD3 fact, so S-WP10-K was NOT counted as the second independent Tier 4
+  source required by RESEARCH_PLAN.md Section 3 for the front slide-pin figure.
+- Not resolved this pass. F-WP10-007's front slide-pin value is recorded as single-GD3-sourced,
+  low confidence, rather than upgraded using the GK source; S-WP10-K is kept on file as context
+  only, not cited as a Fact Card source.
+- Related fact card: F-WP10-007

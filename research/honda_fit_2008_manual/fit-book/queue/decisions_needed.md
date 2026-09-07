@@ -89,3 +89,25 @@ error at all.
    collision by taking the number back.
 4. This does not change any fact or procedure content already written; it only changes how new
    Source Card files are numbered going forward, to stop silent data loss between concurrent WPs.
+
+**Update from WP-10's own pass (2026-09-07):** confirmed the collision ADAPT-3 describes, from the
+other side. WP-10 independently drafted 11 new source cards and, working from a stale directory
+listing, numbered them S-028 through S-038 — overwriting WP-08's, WP-11's (a second time, after
+their own S-WP11-A..G recovery had already happened — meaning the plain S-028..034 slots were
+apparently reused a third time by something in between), and WP-21's superseded numeric slots.
+Per point 3 above, WP-10 (as the agent noticing the collision this time) renamed its own 11 cards
+out of the shared counter to `sources/S-WP10-A.md` through `S-WP10-K.md`, and restored
+`sources/S-028.md` through `S-035.md` to the last-known-good content recoverable from git history
+(`git show <commit>:<path>`) — S-028/034 to WP-11's content (hfitinfo repair-manual mirror;
+rear drum brake DIY), S-030/031/032 to WP-08's content (Edmunds/CarGurus; FTC Used Car Rule;
+Progressive/Autotrader), S-033/035 to WP-21's fuse-box.info content (WP-21 itself already points
+its own citations at `S-WP21-A` instead, so this restoration is a courtesy, not a required fix).
+**Still open, NOT fixed by this pass (out of WP-10's scope):** WP-08's own ledger note claims its
+5 new source cards were "S-028 (NHTSA recalls VIN tool), S-029 (KBB), S-030 (Edmunds/CarGurus),
+S-031 (FTC Used Car Rule), S-032 (Progressive/Autotrader PPI checklist)" — but the earliest
+recoverable git history for S-028/S-029 already shows WP-11's content there, not an NHTSA-VIN-tool
+or KBB card. This means WP-08's own S-028/S-029 source cards were already lost to an earlier,
+unlogged collision before this session's git history begins, and `facts/WP-08.md`'s citations to
+S-028/S-029 currently point to the wrong (WP-11) content. A future pass on WP-08 should re-verify
+and, if needed, re-source its NHTSA-VIN-tool (Chapter 18/20) and KBB pricing (Chapter 20) citations
+under fresh `S-WP08-<letter>` names rather than the bare counter.
