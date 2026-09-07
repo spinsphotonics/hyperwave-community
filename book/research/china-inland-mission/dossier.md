@@ -175,14 +175,12 @@ sentences are cited [SECONDARY].
   held in East London; these are Broomhall's own narrative statements, [SECONDARY:
   jubileechinamis00broouoft, pp. 34, 39], not separately formalized as quote records this
   session.
-- **L4 Discipline: rules and penalties** (PO): The Directors hold "the power of summarily
-  terminating the connection of any worker with the Mission" in any case "of sufficient
-  gravity," though they "would, of course, act with all possible consideration." Financial
-  penalties (refund of outfit and passage money on a sliding scale by year of service) attach to
-  voluntary retirement within five years, and specifically to retirement occasioned by violating
-  the marriage-deferral rule. [cim-q010; the summary-dismissal clause itself is in Article 11 of
-  principlespracti00chin_0, not separately formalized as a quote record this session — see
-  discrepancies.md]
+- **L4 Discipline: rules and penalties** (PO): "Should any occasion of sufficient gravity ever
+  arise, the Directors have the power of summarily terminating the connection of any worker with
+  the Mission, in which case they would, of course, act with all possible consideration."
+  [cim-q029] Financial penalties (refund of outfit and passage money on a sliding scale by year
+  of service) attach to voluntary retirement within five years, and specifically to retirement
+  occasioned by violating the marriage-deferral rule. [cim-q010]
 - **L5 Dress, conduct, recreation rules** (PO): Probationers are required, alongside language
   study, to "[wear] the native dress" — the rule-document's own OCR text renders this phrase
   corruptly as "woap tho native dregs," which is quoted here exactly as it appears in the
