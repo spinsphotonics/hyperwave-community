@@ -1,0 +1,13 @@
+{
+  "quote_id": "<slug>-q001",
+  "document_id": "<document_id from sources.csv>",
+  "page": "<page marker exactly as in the text file, e.g. p. 12 or img. 7>",
+  "text": "<exact text copied from the text/ file, no changes>",
+  "before": "<the 20 words immediately before the quote in the text file>",
+  "after": "<the 20 words immediately after the quote in the text file>",
+  "language": "<la|fr|de|en|nl|other>",
+  "translation": "<if not English: literal translation, or empty>",
+  "translation_source": "<document_id of a published translation, or NEW-DRAFT, or empty>",
+  "fields": ["F6", "M1"],
+  "epigraph_candidate": false
+}
