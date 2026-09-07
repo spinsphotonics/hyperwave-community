@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Humble Beginnings | From the Vault</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://fromthevault.wheaton.edu/xmlrpc.php">
+
+<script type="text/javascript">
+  WebFontConfig = {"google":{"families":["EB+Garamond:r:latin,latin-ext","Open+Sans:r,i,b,bi:latin,latin-ext"]},"api_url":"https:\/\/fonts-api.wp.com\/css"};
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = '/wp-content/plugins/custom-fonts/js/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+	})();
+</script><style id="jetpack-custom-fonts-css">.wf-active body, .wf-active button, .wf-active input, .wf-active select, .wf-active textarea{font-family:"Open Sans",sans-serif}.wf-active blockquote{font-family:"Open Sans",sans-serif}.wf-active button, .wf-active input[type="button"], .wf-active input[type="reset"], .wf-active input[type="submit"]{font-family:"Open Sans",sans-serif}.wf-active .widget_search .search-field{font-family:"Open Sans",sans-serif}.wf-active .widget_search .search-submit{font-family:"Open Sans",sans-serif}.wf-active #infinite-handle span{font-family:"Open Sans",sans-serif}.wf-active h1{font-family:"EB Garamond",serif;font-weight:400;font-style:normal}.wf-active h2{font-family:"EB Garamond",serif;font-weight:400;font-style:normal}.wf-active h3{font-family:"EB Garamond",serif;font-weight:400;font-style:normal}.wf-active h4{font-family:"EB Garamond",serif;font-style:normal;font-weight:400}.wf-active h5{font-family:"EB Garamond",serif;font-style:normal;font-weight:400}.wf-active h6{font-family:"EB Garamond",serif;font-weight:400;font-style:normal}.wf-active .widget-title{font-family:"EB Garamond",serif;font-weight:400;font-style:normal}.wf-active .entry-title{font-family:"EB Garamond",serif;font-weight:400;font-style:normal}.wf-active .page-title{font-weight:400;font-style:normal}.wf-active .format-aside .entry-title, .wf-active .format-quote .entry-title{font-style:normal;font-weight:400}.wf-active .site-title{font-weight:400;font-family:"EB Garamond",serif;font-style:normal}.wf-active .site-description{font-family:"EB Garamond",serif;font-weight:400;font-style:normal}.wf-active .comments-title{font-weight:400;font-style:normal}</style>
+<meta name='robots' content='max-image-preview:large' />
+
+<!-- Async WordPress.com Remote Login -->
+<script id="wpcom_remote_login_js">
+var wpcom_remote_login_extra_auth = '';
+function wpcom_remote_login_remove_dom_node_id( element_id ) {
+	var dom_node = document.getElementById( element_id );
+	if ( dom_node ) { dom_node.parentNode.removeChild( dom_node ); }
+}
+function wpcom_remote_login_remove_dom_node_classes( class_name ) {
+	var dom_nodes = document.querySelectorAll( '.' + class_name );
+	for ( var i = 0; i < dom_nodes.length; i++ ) {
+		dom_nodes[ i ].parentNode.removeChild( dom_nodes[ i ] );
+	}
+}
+function wpcom_remote_login_final_cleanup() {
+	wpcom_remote_login_remove_dom_node_classes( "wpcom_remote_login_msg" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_key" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_validate" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_js" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_request_access_iframe" );
+	wpcom_remote_login_remove_dom_node_id( "wpcom_request_access_styles" );
+}
+
+// Watch for messages back from the remote login
+window.addEventListener( "message", function( e ) {
+	if ( e.origin === "https://r-login.wordpress.com" ) {
+		var data = {};
+		try {
+			data = JSON.parse( e.data );
+		} catch( e ) {
+			wpcom_remote_login_final_cleanup();
+			return;
+		}
+
+		if ( data.msg === 'LOGIN' ) {
+			// Clean up the login check iframe
+			wpcom_remote_login_remove_dom_node_id( "wpcom_remote_login_key" );
+
+			var id_regex = new RegExp( /^[0-9]+$/ );
+			var token_regex = new RegExp( /^.*|.*|.*$/ );
+			if (
+				token_regex.test( data.token )
+				&& id_regex.test( data.wpcomid )
+			) {
+				// We have everything we need to ask for a login
+				var script = document.createElement( "script" );
+				script.setAttribute( "id", "wpcom_remote_login_validate" );
+				script.src = '/remote-login.php?wpcom_remote_login=validate'
+					+ '&wpcomid=' + data.wpcomid
+					+ '&token=' + encodeURIComponent( data.token )
+					+ '&host=' + window.location.protocol
+					+ '//' + window.location.hostname
+					+ '&postid=5723'
+					+ '&is_singular=1';
+				document.body.appendChild( script );
+			}
+
+			return;
+		}
+
+		// Safari ITP, not logged in, so redirect
+		if ( data.msg === 'LOGIN-REDIRECT' ) {
+			window.location = 'https://wordpress.com/log-in?redirect_to=' + window.location.href;
+			return;
+		}
+
+		// Safari ITP, storage access failed, remove the request
+		if ( data.msg === 'LOGIN-REMOVE' ) {
+			var css_zap = 'html { -webkit-transition: margin-top 1s; transition: margin-top 1s; } /* 9001 */ html { margin-top: 0 !important; } * html body { margin-top: 0 !important; } @media screen and ( max-width: 782px ) { html { margin-top: 0 !important; } * html body { margin-top: 0 !important; } }';
+			var style_zap = document.createElement( 'style' );
+			style_zap.type = 'text/css';
+			style_zap.appendChild( document.createTextNode( css_zap ) );
+			document.body.appendChild( style_zap );
+
+			var e = document.getElementById( 'wpcom_request_access_iframe' );
+			e.parentNode.removeChild( e );
+
+			document.cookie = 'wordpress_com_login_access=denied; path=/; max-age=31536000';
+
+			return;
+		}
+
+		// Safari ITP
+		if ( data.msg === 'REQUEST_ACCESS' ) {
+			console.log( 'request access: safari' );
+
+			// Check ITP iframe enable/disable knob
+			if ( wpcom_remote_login_extra_auth !== 'safari_itp_iframe' ) {
+				return;
+			}
+
+			// If we are in a "private window" there is no ITP.
+			var private_window = false;
+			try {
+				var opendb = window.openDatabase( null, null, null, null );
+			} catch( e ) {
+				private_window = true;
+			}
+
+			if ( private_window ) {
+				console.log( 'private window' );
+				return;
+			}
+
+			var iframe = document.createElement( 'iframe' );
+			iframe.id = 'wpcom_request_access_iframe';
+			iframe.setAttribute( 'scrolling', 'no' );
+			iframe.setAttribute( 'sandbox', 'allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-top-navigation-by-user-activation' );
+			iframe.src = 'https://r-login.wordpress.com/remote-login.php?wpcom_remote_login=request_access&origin=' + encodeURIComponent( data.origin ) + '&wpcomid=' + encodeURIComponent( data.wpcomid );
+
+			var css = 'html { -webkit-transition: margin-top 1s; transition: margin-top 1s; } /* 9001 */ html { margin-top: 46px !important; } * html body { margin-top: 46px !important; } @media screen and ( max-width: 660px ) { html { margin-top: 71px !important; } * html body { margin-top: 71px !important; } #wpcom_request_access_iframe { display: block; height: 71px !important; } } #wpcom_request_access_iframe { border: 0px; height: 46px; position: fixed; top: 0; left: 0; width: 100%; min-width: 100%; z-index: 99999; background: #23282d; } ';
+
+			var style = document.createElement( 'style' );
+			style.type = 'text/css';
+			style.id = 'wpcom_request_access_styles';
+			style.appendChild( document.createTextNode( css ) );
+			document.body.appendChild( style );
+
+			document.body.appendChild( iframe );
+		}
+
+		if ( data.msg === 'DONE' ) {
+			wpcom_remote_login_final_cleanup();
+		}
+	}
+}, false );
+
+// Inject the remote login iframe after the page has had a chance to load
+// more critical resources
+window.addEventListener( "DOMContentLoaded", function( e ) {
+	var iframe = document.createElement( "iframe" );
+	iframe.style.display = "none";
+	iframe.setAttribute( "scrolling", "no" );
+	iframe.setAttribute( "id", "wpcom_remote_login_key" );
+	iframe.src = "https://r-login.wordpress.com/remote-login.php"
+		+ "?wpcom_remote_login=key"
+		+ "&origin=aHR0cHM6Ly9mcm9tdGhldmF1bHQud2hlYXRvbi5lZHU%3D"
+		+ "&wpcomid=154953109"
+		+ "&time=" + Math.floor( Date.now() / 1000 );
+	document.body.appendChild( iframe );
+}, false );
+</script>
+<link rel='dns-prefetch' href='//s0.wp.com' />
+<link rel='dns-prefetch' href='//widgets.wp.com' />
+<link rel='dns-prefetch' href='//wordpress.com' />
+<link rel='dns-prefetch' href='//fonts-api.wp.com' />
+<link rel="alternate" type="application/rss+xml" title="From the Vault &raquo; Feed" href="https://fromthevault.wheaton.edu/feed/" />
+<link rel="alternate" type="application/rss+xml" title="From the Vault &raquo; Comments Feed" href="https://fromthevault.wheaton.edu/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="From the Vault &raquo; Humble Beginnings Comments Feed" href="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/feed/" />
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+		/* ]]> */
+	</script>
+	<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-2-1' href='/_static/??-eJxtzN0KQEAQQOEXssaKcCHPsq1Jy+xPZjavL1JKLr86HTiSsjEIBgGfVaK8uMCwoiRjt8fAOYCPcyZk2JGM4KxSZPmotMwF/B/Jbfh+b1355EfdddWg26av1xMpeTR5&cssminify=yes' type='text/css' media='all' />
+<style id="wp-emoji-styles-inline-css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-break:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style^=border-color],[style*=";border-color"],[style*="; border-color"]){border-style:solid}html :where([style^=border-top-color],[style*=";border-top-color"],[style*="; border-top-color"]){border-top-style:solid}html :where([style^=border-right-color],[style*=";border-right-color"],[style*="; border-right-color"]){border-right-style:solid}html :where([style^=border-bottom-color],[style*=";border-bottom-color"],[style*="; border-bottom-color"]){border-bottom-style:solid}html :where([style^=border-left-color],[style*=";border-left-color"],[style*="; border-left-color"]){border-left-style:solid}html :where([style^=border-width],[style*=";border-width"],[style*="; border-width"]){border-style:solid}html :where([style^=border-top-width],[style*=";border-top-width"],[style*="; border-top-width"]){border-top-style:solid}html :where([style^=border-right-width],[style*=";border-right-width"],[style*="; border-right-width"]){border-right-style:solid}html :where([style^=border-bottom-width],[style*=";border-bottom-width"],[style*="; border-bottom-width"]){border-bottom-style:solid}html :where([style^=border-left-width],[style*=";border-left-width"],[style*="; border-left-width"]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=/wp-content/plugins/gutenberg-core/v23.9.0/build/styles/block-library/common.min.css */
+</style>
+<style id="wp-block-group-inline-css">
+.wp-block-group{box-sizing:border-box}:where(.wp-block-group.wp-block-group-is-layout-constrained){position:relative}
+/*# sourceURL=/wp-content/plugins/gutenberg-core/v23.9.0/build/styles/block-library/group/style.min.css */
+</style>
+<style id="wp-block-quote-inline-css">
+.wp-block-quote{box-sizing:border-box;overflow-wrap:break-word}.wp-block-quote.is-large:where(:not(.is-style-plain)),.wp-block-quote.is-style-large:where(:not(.is-style-plain)){margin-bottom:1em;padding:0 1em}.wp-block-quote.is-large:where(:not(.is-style-plain)) p,.wp-block-quote.is-style-large:where(:not(.is-style-plain)) p{font-size:1.5em;font-style:italic;line-height:1.6}.wp-block-quote.is-large:where(:not(.is-style-plain)) cite,.wp-block-quote.is-large:where(:not(.is-style-plain)) footer,.wp-block-quote.is-style-large:where(:not(.is-style-plain)) cite,.wp-block-quote.is-style-large:where(:not(.is-style-plain)) footer{font-size:1.125em;text-align:right}.wp-block-quote>cite{display:block}
+/*# sourceURL=/wp-content/plugins/gutenberg-core/v23.9.0/build/styles/block-library/quote/style.min.css */
+</style>
+<style id="wp-block-social-links-inline-css">
+.wp-block-social-links{background:none;box-sizing:border-box;margin-left:0;padding-left:0;padding-right:0;text-indent:0}.wp-block-social-links .wp-social-link a,.wp-block-social-links .wp-social-link a:hover{border-bottom:0;box-shadow:none;text-decoration:none}.wp-block-social-links .wp-social-link svg{height:1em;width:1em}.wp-block-social-links .wp-social-link span:not(.screen-reader-text){font-size:.65em;margin-left:.5em;margin-right:.5em}.wp-block-social-links.has-small-icon-size{font-size:16px}.wp-block-social-links,.wp-block-social-links.has-normal-icon-size{font-size:24px}.wp-block-social-links.has-large-icon-size{font-size:36px}.wp-block-social-links.has-huge-icon-size{font-size:48px}.wp-block-social-links.aligncenter{display:flex;justify-content:center}.wp-block-social-links.alignright{justify-content:flex-end}.wp-block-social-link{border-radius:9999px;display:block}@media not (prefers-reduced-motion){.wp-block-social-link{transition:transform .1s ease}}.wp-block-social-link{height:auto}.wp-block-social-link a{align-items:center;display:flex;line-height:0}.wp-block-social-link:hover{transform:scale(1.1)}.wp-block-social-links .wp-block-social-link.wp-social-link{display:inline-block;margin:0;padding:0}.wp-block-social-links .wp-block-social-link.wp-social-link .wp-block-social-link-anchor,.wp-block-social-links .wp-block-social-link.wp-social-link .wp-block-social-link-anchor svg,.wp-block-social-links .wp-block-social-link.wp-social-link .wp-block-social-link-anchor:active,.wp-block-social-links .wp-block-social-link.wp-social-link .wp-block-social-link-anchor:hover,.wp-block-social-links .wp-block-social-link.wp-social-link .wp-block-social-link-anchor:visited{fill:currentColor;color:currentColor}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link{background-color:#f0f0f0;color:#444}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-amazon{background-color:#f90;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-bandcamp{background-color:#1ea0c3;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-behance{background-color:#0757fe;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-bluesky{background-color:#0a7aff;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-codepen{background-color:#1e1f26;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-deviantart{background-color:#02e49b;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-discord{background-color:#5865f2;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-dribbble{background-color:#e94c89;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-dropbox{background-color:#4280ff;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-etsy{background-color:#f45800;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-facebook{background-color:#0866ff;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-fivehundredpx{background-color:#000;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-flickr{background-color:#0461dd;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-foursquare{background-color:#e65678;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-github{background-color:#24292d;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-goodreads{background-color:#eceadd;color:#382110}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-google{background-color:#ea4434;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-gravatar{background-color:#1d4fc4;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-instagram{background-color:#f00075;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-lastfm{background-color:#e21b24;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-linkedin{background-color:#0d66c2;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-mastodon{background-color:#3288d4;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-medium{background-color:#000;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-meetup{background-color:#f6405f;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-patreon{background-color:#000;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-pinterest{background-color:#e60122;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-pocket{background-color:#ef4155;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-reddit{background-color:#ff4500;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-skype{background-color:#0478d7;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-snapchat{stroke:#000;background-color:#fefc00;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-soundcloud{background-color:#ff5600;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-spotify{background-color:#1bd760;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-telegram{background-color:#2aabee;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-threads{background-color:#000;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-tiktok{background-color:#000;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-tumblr{background-color:#011835;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-twitch{background-color:#6440a4;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-twitter{background-color:#1da1f2;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-vimeo{background-color:#1eb7ea;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-vk{background-color:#4680c2;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-wordpress{background-color:#3499cd;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-whatsapp{background-color:#25d366;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-x{background-color:#000;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-yelp{background-color:#d32422;color:#fff}:where(.wp-block-social-links:not(.is-style-logos-only)) .wp-social-link-youtube{background-color:red;color:#fff}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link{background:none}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link svg{height:1.25em;width:1.25em}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-amazon{color:#f90}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-bandcamp{color:#1ea0c3}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-behance{color:#0757fe}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-bluesky{color:#0a7aff}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-codepen{color:#1e1f26}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-deviantart{color:#02e49b}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-discord{color:#5865f2}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-dribbble{color:#e94c89}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-dropbox{color:#4280ff}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-etsy{color:#f45800}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-facebook{color:#0866ff}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-fivehundredpx{color:#000}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-flickr{color:#0461dd}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-foursquare{color:#e65678}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-github{color:#24292d}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-goodreads{color:#382110}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-google{color:#ea4434}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-gravatar{color:#1d4fc4}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-instagram{color:#f00075}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-lastfm{color:#e21b24}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-linkedin{color:#0d66c2}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-mastodon{color:#3288d4}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-medium{color:#000}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-meetup{color:#f6405f}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-patreon{color:#000}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-pinterest{color:#e60122}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-pocket{color:#ef4155}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-reddit{color:#ff4500}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-skype{color:#0478d7}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-snapchat{stroke:#000;color:#fff}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-soundcloud{color:#ff5600}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-spotify{color:#1bd760}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-telegram{color:#2aabee}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-threads{color:#000}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-tiktok{color:#000}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-tumblr{color:#011835}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-twitch{color:#6440a4}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-twitter{color:#1da1f2}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-vimeo{color:#1eb7ea}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-vk{color:#4680c2}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-whatsapp{color:#25d366}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-wordpress{color:#3499cd}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-x{color:#000}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-yelp{color:#d32422}:where(.wp-block-social-links.is-style-logos-only) .wp-social-link-youtube{color:red}.wp-block-social-links.is-style-pill-shape .wp-social-link{width:auto}:root :where(.wp-block-social-links .wp-social-link a){padding:.25em}:root :where(.wp-block-social-links.is-style-logos-only .wp-social-link a){padding:0}:root :where(.wp-block-social-links.is-style-pill-shape .wp-social-link a){padding-left:.6666666667em;padding-right:.6666666667em}.wp-block-social-links:not(.has-icon-color):not(.has-icon-background-color) .wp-social-link-snapchat .wp-block-social-link-label{color:#000}
+/*# sourceURL=/wp-content/plugins/gutenberg-core/v23.9.0/build/styles/block-library/social-links/style.min.css */
+</style>
+<style id="wp-block-image-inline-css">
+.wp-block-image>a,.wp-block-image>figure>a{display:inline-block}.wp-block-image img{box-sizing:border-box;height:auto;max-width:100%;vertical-align:bottom}@media not (prefers-reduced-motion){.wp-block-image img.hide{visibility:hidden}.wp-block-image img.show{animation:show-content-image .4s}}.wp-block-image[style*=border-radius] img,.wp-block-image[style*=border-radius]>a{border-radius:inherit}.wp-block-image.has-custom-border img{box-sizing:border-box}.wp-block-image.aligncenter{text-align:center}.wp-block-image.alignfull>a,.wp-block-image.alignwide>a{width:100%}.wp-block-image.alignfull img,.wp-block-image.alignwide img{height:auto;width:100%}.wp-block-image .aligncenter,.wp-block-image .alignleft,.wp-block-image .alignright,.wp-block-image.aligncenter,.wp-block-image.alignleft,.wp-block-image.alignright{display:table}.wp-block-image .aligncenter>figcaption,.wp-block-image .alignleft>figcaption,.wp-block-image .alignright>figcaption,.wp-block-image.aligncenter>figcaption,.wp-block-image.alignleft>figcaption,.wp-block-image.alignright>figcaption{caption-side:bottom;display:table-caption}.wp-block-image .alignleft{float:left;margin:.5em 1em .5em 0}.wp-block-image .alignright{float:right;margin:.5em 0 .5em 1em}.wp-block-image .aligncenter{margin-left:auto;margin-right:auto}.wp-block-image :where(figcaption){margin-bottom:1em;margin-top:.5em}.wp-block-image.is-style-circle-mask img{border-radius:9999px}@supports ((-webkit-mask-image:none) or (mask-image:none)) or (-webkit-mask-image:none){.wp-block-image.is-style-circle-mask img{border-radius:0;-webkit-mask-image:url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"/></svg>');mask-image:url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"/></svg>');mask-mode:alpha;-webkit-mask-position:center;mask-position:center;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:contain;mask-size:contain}}:root :where(.wp-block-image.is-style-rounded img,.wp-block-image .is-style-rounded img){border-radius:9999px}.wp-block-image figure{margin:0}.wp-lightbox-container{display:flex;flex-direction:column;position:relative}.wp-lightbox-container img{cursor:zoom-in}.wp-lightbox-container img:hover+button{opacity:1}.wp-lightbox-container button{align-items:center;backdrop-filter:blur(16px) saturate(180%);background-color:rgba(90,90,90,.25);border:none;border-radius:4px;cursor:zoom-in;display:flex;height:20px;justify-content:center;opacity:0;padding:0;position:absolute;right:16px;text-align:center;top:16px;width:20px;z-index:100}@media not (prefers-reduced-motion){.wp-lightbox-container button{transition:opacity .2s ease}}.wp-lightbox-container button:focus-visible{outline:3px auto rgba(90,90,90,.25);outline:3px auto -webkit-focus-ring-color;outline-offset:3px}.wp-lightbox-container button:hover{cursor:pointer;opacity:1}.wp-lightbox-container button:focus{opacity:1}.wp-lightbox-container button:focus,.wp-lightbox-container button:hover,.wp-lightbox-container button:not(:hover):not(:active):not(.has-background){background-color:rgba(90,90,90,.25);border:none}.wp-lightbox-overlay{box-sizing:border-box;cursor:zoom-out;height:100vh;left:0;overflow:hidden;position:fixed;top:0;visibility:hidden;width:100%;z-index:100000}.wp-lightbox-overlay .wp-lightbox-close-button{align-items:center;cursor:pointer;display:flex;font-family:inherit;gap:8px;justify-content:center;line-height:1;min-height:40px;min-width:40px;padding:0 4px;position:absolute;right:calc(env(safe-area-inset-right) + 16px);top:calc(env(safe-area-inset-top) + 16px);z-index:5000000}.wp-lightbox-overlay .wp-lightbox-close-button:focus,.wp-lightbox-overlay .wp-lightbox-close-button:hover,.wp-lightbox-overlay .wp-lightbox-close-button:not(:hover):not(:active):not(.has-background){background:none;border:none}.wp-lightbox-overlay .wp-lightbox-close-button:has(.wp-lightbox-close-text:not([hidden])) .wp-lightbox-close-icon svg{height:1em;width:1em}.wp-lightbox-overlay .wp-lightbox-close-icon svg{display:block}.wp-lightbox-overlay .wp-lightbox-navigation-button-next,.wp-lightbox-overlay .wp-lightbox-navigation-button-prev{align-items:center;bottom:16px;cursor:pointer;display:flex;font-family:inherit;gap:4px;justify-content:center;line-height:1;min-height:40px;min-width:40px;padding:0 8px;position:absolute;z-index:2000002}.wp-lightbox-overlay .wp-lightbox-navigation-button-next[hidden],.wp-lightbox-overlay .wp-lightbox-navigation-button-prev[hidden]{display:none}@media (min-width:960px){.wp-lightbox-overlay .wp-lightbox-navigation-button-next,.wp-lightbox-overlay .wp-lightbox-navigation-button-prev{bottom:50%;transform:translateY(-50%)}}.wp-lightbox-overlay .wp-lightbox-navigation-button-next:focus,.wp-lightbox-overlay .wp-lightbox-navigation-button-next:hover,.wp-lightbox-overlay .wp-lightbox-navigation-button-next:not(:hover):not(:active):not(.has-background),.wp-lightbox-overlay .wp-lightbox-navigation-button-prev:focus,.wp-lightbox-overlay .wp-lightbox-navigation-button-prev:hover,.wp-lightbox-overlay .wp-lightbox-navigation-button-prev:not(:hover):not(:active):not(.has-background){background:none;border:none;padding:0 8px}.wp-lightbox-overlay .wp-lightbox-navigation-button-next:has(.wp-lightbox-navigation-text:not([hidden])) .wp-lightbox-navigation-icon svg,.wp-lightbox-overlay .wp-lightbox-navigation-button-prev:has(.wp-lightbox-navigation-text:not([hidden])) .wp-lightbox-navigation-icon svg{display:block;height:1.5em;width:1.5em}.wp-lightbox-overlay .wp-lightbox-navigation-button-prev{left:calc(env(safe-area-inset-left) + 16px)}.wp-lightbox-overlay .wp-lightbox-navigation-button-next{right:calc(env(safe-area-inset-right) + 16px)}.wp-lightbox-overlay .wp-lightbox-navigation-icon svg{vertical-align:middle}.wp-lightbox-overlay .lightbox-image-container{height:var(--wp--lightbox-container-height);left:50%;overflow:hidden;position:absolute;top:50%;transform:translate(-50%,-50%);transform-origin:top left;width:var(--wp--lightbox-container-width);z-index:2000001}.wp-lightbox-overlay .wp-block-image{align-items:center;box-sizing:border-box;display:flex;height:100%;justify-content:center;margin:0;position:relative;transform-origin:0 0;width:100%;z-index:3000000}.wp-lightbox-overlay .wp-block-image img{height:var(--wp--lightbox-image-height);min-height:var(--wp--lightbox-image-height);min-width:var(--wp--lightbox-image-width);width:var(--wp--lightbox-image-width)}.wp-lightbox-overlay .wp-block-image figcaption{display:none}.wp-lightbox-overlay button{background:none;border:none}.wp-lightbox-overlay .scrim{background-color:#fff;height:100%;opacity:.9;position:absolute;width:100%;z-index:2000000}.wp-lightbox-overlay.active{visibility:visible}@media not (prefers-reduced-motion){.wp-lightbox-overlay.active{animation:turn-on-visibility .25s both}.wp-lightbox-overlay.active img{animation:turn-on-visibility .35s both}.wp-lightbox-overlay.show-closing-animation:not(.active){animation:turn-off-visibility .35s both}.wp-lightbox-overlay.show-closing-animation:not(.active) img{animation:turn-off-visibility .25s both}.wp-lightbox-overlay.zoom.active{animation:none;opacity:1;visibility:visible}.wp-lightbox-overlay.zoom.active .lightbox-image-container{animation:lightbox-zoom-in .4s}.wp-lightbox-overlay.zoom.active .lightbox-image-container img{animation:none}.wp-lightbox-overlay.zoom.active .scrim{animation:turn-on-visibility .4s forwards}.wp-lightbox-overlay.zoom.show-closing-animation:not(.active){animation:none}.wp-lightbox-overlay.zoom.show-closing-animation:not(.active) .lightbox-image-container{animation:lightbox-zoom-out .4s}.wp-lightbox-overlay.zoom.show-closing-animation:not(.active) .lightbox-image-container img{animation:none}.wp-lightbox-overlay.zoom.show-closing-animation:not(.active) .scrim{animation:turn-off-visibility .4s forwards}}@keyframes show-content-image{0%{visibility:hidden}99%{visibility:hidden}to{visibility:visible}}@keyframes turn-on-visibility{0%{opacity:0}to{opacity:1}}@keyframes turn-off-visibility{0%{opacity:1;visibility:visible}99%{opacity:0;visibility:visible}to{opacity:0;visibility:hidden}}@keyframes lightbox-zoom-in{0%{transform:translate(calc((-100vw + var(--wp--lightbox-scrollbar-width))/2 + var(--wp--lightbox-initial-left-position)),calc(-50vh + var(--wp--lightbox-initial-top-position))) scale(var(--wp--lightbox-scale))}to{transform:translate(-50%,-50%) scale(1)}}@keyframes lightbox-zoom-out{0%{transform:translate(-50%,-50%) scale(1);visibility:visible}99%{visibility:visible}to{transform:translate(calc((-100vw + var(--wp--lightbox-scrollbar-width))/2 + var(--wp--lightbox-initial-left-position)),calc(-50vh + var(--wp--lightbox-initial-top-position))) scale(var(--wp--lightbox-scale));visibility:hidden}}
+/*# sourceURL=/wp-content/plugins/gutenberg-core/v23.9.0/build/styles/block-library/image/style.min.css */
+</style>
+<style id="wp-block-paragraph-inline-css">
+.is-small-text{font-size:.875em}.is-regular-text{font-size:1em}.is-large-text{font-size:2.25em}.is-larger-text{font-size:3em}.has-drop-cap:not(:focus):first-letter{float:left;font-size:8.4em;font-style:normal;font-weight:100;line-height:.68;margin:.05em .1em 0 0;text-transform:uppercase}body.rtl .has-drop-cap:not(:focus):first-letter{float:none;margin-left:.1em}p.has-drop-cap.has-background{overflow:hidden}:root :where(p.has-background){padding:1.25em 2.375em}:where(p.has-text-color:not(.has-link-color)) a{color:inherit}p.has-text-align-left[style*="writing-mode:vertical-lr"],p.has-text-align-right[style*="writing-mode:vertical-rl"]{rotate:180deg}
+/*# sourceURL=/wp-content/plugins/gutenberg-core/v23.9.0/build/styles/block-library/paragraph/style.min.css */
+</style>
+<style id="wp-block-library-inline-css-extra">
+.has-text-align-justify {
+	text-align:justify;
+}
+.has-text-align-justify{text-align:justify;}
+/*# sourceURL=wp-block-library-inline-css */
+</style>
+
+<style id="classic-theme-styles-inline-css">
+.wp-block-button__link{background-color:#32373c;border-radius:9999px;box-shadow:none;color:#fff;font-size:1.125em;padding:calc(.667em + 2px) calc(1.333em + 2px);text-decoration:none}.wp-block-file__button{background:#32373c;color:#fff}.wp-block-accordion-heading{margin:0}.wp-block-accordion-heading__toggle{background-color:inherit!important;color:inherit!important}.wp-block-accordion-heading__toggle:not(:focus-visible){outline:none}.wp-block-accordion-heading__toggle:focus,.wp-block-accordion-heading__toggle:hover{background-color:inherit!important;border:none;box-shadow:none;color:inherit;padding:var(--wp--preset--spacing--20,1em) 0;text-decoration:none}.wp-block-accordion-heading__toggle:focus-visible{outline:auto;outline-offset:0}.wp-block-tab:not(.has-text-color){color:inherit!important}.wp-block-tab:not(.has-background){background-color:inherit!important}.wp-block-tab:focus,.wp-block-tab:hover{text-decoration:none}.wp-block-tab:focus-visible{outline:auto;outline-offset:0}
+/*# sourceURL=/wp-content/plugins/gutenberg-core/v23.9.0/build/styles/block-library/classic.min.css */
+</style>
+
+<style id="coblocks-inline-format-inline-css">
+.uppercase{text-transform:uppercase}
+/*# sourceURL=coblocks-inline-format-inline-css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-12-1' href='/_static/??-eJx9jEEOAiEQBD/kQECjeDC+ZWEnijIwYWA3/l72op689KFTVXplCCU3zE1z6reYRYfiUwlP0VYZpwxIJE4IFRd10HOU9iFA2iuhCiI7/ROiDt9WxfETT20jCOc4YUIa2D9t5eGA91xRBMZS7ATtPkTZvCtdzNEZt7f2fHq8Afl7R7w=&cssminify=yes' type='text/css' media='all' />
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--font-family--albert-sans: 'Albert Sans', sans-serif;--wp--preset--font-family--alegreya: Alegreya, serif;--wp--preset--font-family--arvo: Arvo, serif;--wp--preset--font-family--bodoni-moda: 'Bodoni Moda', serif;--wp--preset--font-family--bricolage-grotesque: 'Bricolage Grotesque', sans-serif;--wp--preset--font-family--cabin: Cabin, sans-serif;--wp--preset--font-family--chivo: Chivo, sans-serif;--wp--preset--font-family--commissioner: Commissioner, sans-serif;--wp--preset--font-family--cormorant: Cormorant, serif;--wp--preset--font-family--courier-prime: 'Courier Prime', monospace;--wp--preset--font-family--crimson-pro: 'Crimson Pro', serif;--wp--preset--font-family--dm-mono: 'DM Mono', monospace;--wp--preset--font-family--dm-sans: 'DM Sans', sans-serif;--wp--preset--font-family--dm-serif-display: 'DM Serif Display', serif;--wp--preset--font-family--domine: Domine, serif;--wp--preset--font-family--eb-garamond: 'EB Garamond', serif;--wp--preset--font-family--epilogue: Epilogue, sans-serif;--wp--preset--font-family--fahkwang: Fahkwang, sans-serif;--wp--preset--font-family--figtree: Figtree, sans-serif;--wp--preset--font-family--fira-sans: 'Fira Sans', sans-serif;--wp--preset--font-family--fjalla-one: 'Fjalla One', sans-serif;--wp--preset--font-family--fraunces: Fraunces, serif;--wp--preset--font-family--gabarito: Gabarito, system-ui;--wp--preset--font-family--ibm-plex-mono: 'IBM Plex Mono', monospace;--wp--preset--font-family--ibm-plex-sans: 'IBM Plex Sans', sans-serif;--wp--preset--font-family--ibarra-real-nova: 'Ibarra Real Nova', serif;--wp--preset--font-family--instrument-serif: 'Instrument Serif', serif;--wp--preset--font-family--inter: Inter, sans-serif;--wp--preset--font-family--josefin-sans: 'Josefin Sans', sans-serif;--wp--preset--font-family--jost: Jost, sans-serif;--wp--preset--font-family--libre-baskerville: 'Libre Baskerville', serif;--wp--preset--font-family--libre-franklin: 'Libre Franklin', sans-serif;--wp--preset--font-family--literata: Literata, serif;--wp--preset--font-family--lora: Lora, serif;--wp--preset--font-family--merriweather: Merriweather, serif;--wp--preset--font-family--montserrat: Montserrat, sans-serif;--wp--preset--font-family--newsreader: Newsreader, serif;--wp--preset--font-family--noto-sans-mono: 'Noto Sans Mono', sans-serif;--wp--preset--font-family--nunito: Nunito, sans-serif;--wp--preset--font-family--open-sans: 'Open Sans', sans-serif;--wp--preset--font-family--overpass: Overpass, sans-serif;--wp--preset--font-family--pt-serif: 'PT Serif', serif;--wp--preset--font-family--petrona: Petrona, serif;--wp--preset--font-family--piazzolla: Piazzolla, serif;--wp--preset--font-family--playfair-display: 'Playfair Display', serif;--wp--preset--font-family--plus-jakarta-sans: 'Plus Jakarta Sans', sans-serif;--wp--preset--font-family--poppins: Poppins, sans-serif;--wp--preset--font-family--raleway: Raleway, sans-serif;--wp--preset--font-family--roboto: Roboto, sans-serif;--wp--preset--font-family--roboto-slab: 'Roboto Slab', serif;--wp--preset--font-family--rubik: Rubik, sans-serif;--wp--preset--font-family--rufina: Rufina, serif;--wp--preset--font-family--sora: Sora, sans-serif;--wp--preset--font-family--source-sans-3: 'Source Sans 3', sans-serif;--wp--preset--font-family--source-serif-4: 'Source Serif 4', serif;--wp--preset--font-family--space-mono: 'Space Mono', monospace;--wp--preset--font-family--syne: Syne, sans-serif;--wp--preset--font-family--texturina: Texturina, serif;--wp--preset--font-family--urbanist: Urbanist, sans-serif;--wp--preset--font-family--work-sans: 'Work Sans', sans-serif;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}.wp-block-button{--wp--preset--dimension--25: 25%;--wp--preset--dimension--50: 50%;--wp--preset--dimension--75: 75%;--wp--preset--dimension--100: 100%;}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}.has-albert-sans-font-family{font-family: var(--wp--preset--font-family--albert-sans) !important;}.has-alegreya-font-family{font-family: var(--wp--preset--font-family--alegreya) !important;}.has-arvo-font-family{font-family: var(--wp--preset--font-family--arvo) !important;}.has-bodoni-moda-font-family{font-family: var(--wp--preset--font-family--bodoni-moda) !important;}.has-bricolage-grotesque-font-family{font-family: var(--wp--preset--font-family--bricolage-grotesque) !important;}.has-cabin-font-family{font-family: var(--wp--preset--font-family--cabin) !important;}.has-chivo-font-family{font-family: var(--wp--preset--font-family--chivo) !important;}.has-commissioner-font-family{font-family: var(--wp--preset--font-family--commissioner) !important;}.has-cormorant-font-family{font-family: var(--wp--preset--font-family--cormorant) !important;}.has-courier-prime-font-family{font-family: var(--wp--preset--font-family--courier-prime) !important;}.has-crimson-pro-font-family{font-family: var(--wp--preset--font-family--crimson-pro) !important;}.has-dm-mono-font-family{font-family: var(--wp--preset--font-family--dm-mono) !important;}.has-dm-sans-font-family{font-family: var(--wp--preset--font-family--dm-sans) !important;}.has-dm-serif-display-font-family{font-family: var(--wp--preset--font-family--dm-serif-display) !important;}.has-domine-font-family{font-family: var(--wp--preset--font-family--domine) !important;}.has-eb-garamond-font-family{font-family: var(--wp--preset--font-family--eb-garamond) !important;}.has-epilogue-font-family{font-family: var(--wp--preset--font-family--epilogue) !important;}.has-fahkwang-font-family{font-family: var(--wp--preset--font-family--fahkwang) !important;}.has-figtree-font-family{font-family: var(--wp--preset--font-family--figtree) !important;}.has-fira-sans-font-family{font-family: var(--wp--preset--font-family--fira-sans) !important;}.has-fjalla-one-font-family{font-family: var(--wp--preset--font-family--fjalla-one) !important;}.has-fraunces-font-family{font-family: var(--wp--preset--font-family--fraunces) !important;}.has-gabarito-font-family{font-family: var(--wp--preset--font-family--gabarito) !important;}.has-ibm-plex-mono-font-family{font-family: var(--wp--preset--font-family--ibm-plex-mono) !important;}.has-ibm-plex-sans-font-family{font-family: var(--wp--preset--font-family--ibm-plex-sans) !important;}.has-ibarra-real-nova-font-family{font-family: var(--wp--preset--font-family--ibarra-real-nova) !important;}.has-instrument-serif-font-family{font-family: var(--wp--preset--font-family--instrument-serif) !important;}.has-inter-font-family{font-family: var(--wp--preset--font-family--inter) !important;}.has-josefin-sans-font-family{font-family: var(--wp--preset--font-family--josefin-sans) !important;}.has-jost-font-family{font-family: var(--wp--preset--font-family--jost) !important;}.has-libre-baskerville-font-family{font-family: var(--wp--preset--font-family--libre-baskerville) !important;}.has-libre-franklin-font-family{font-family: var(--wp--preset--font-family--libre-franklin) !important;}.has-literata-font-family{font-family: var(--wp--preset--font-family--literata) !important;}.has-lora-font-family{font-family: var(--wp--preset--font-family--lora) !important;}.has-merriweather-font-family{font-family: var(--wp--preset--font-family--merriweather) !important;}.has-montserrat-font-family{font-family: var(--wp--preset--font-family--montserrat) !important;}.has-newsreader-font-family{font-family: var(--wp--preset--font-family--newsreader) !important;}.has-noto-sans-mono-font-family{font-family: var(--wp--preset--font-family--noto-sans-mono) !important;}.has-nunito-font-family{font-family: var(--wp--preset--font-family--nunito) !important;}.has-open-sans-font-family{font-family: var(--wp--preset--font-family--open-sans) !important;}.has-overpass-font-family{font-family: var(--wp--preset--font-family--overpass) !important;}.has-pt-serif-font-family{font-family: var(--wp--preset--font-family--pt-serif) !important;}.has-petrona-font-family{font-family: var(--wp--preset--font-family--petrona) !important;}.has-piazzolla-font-family{font-family: var(--wp--preset--font-family--piazzolla) !important;}.has-playfair-display-font-family{font-family: var(--wp--preset--font-family--playfair-display) !important;}.has-plus-jakarta-sans-font-family{font-family: var(--wp--preset--font-family--plus-jakarta-sans) !important;}.has-poppins-font-family{font-family: var(--wp--preset--font-family--poppins) !important;}.has-raleway-font-family{font-family: var(--wp--preset--font-family--raleway) !important;}.has-roboto-font-family{font-family: var(--wp--preset--font-family--roboto) !important;}.has-roboto-slab-font-family{font-family: var(--wp--preset--font-family--roboto-slab) !important;}.has-rubik-font-family{font-family: var(--wp--preset--font-family--rubik) !important;}.has-rufina-font-family{font-family: var(--wp--preset--font-family--rufina) !important;}.has-sora-font-family{font-family: var(--wp--preset--font-family--sora) !important;}.has-source-sans-3-font-family{font-family: var(--wp--preset--font-family--source-sans-3) !important;}.has-source-serif-4-font-family{font-family: var(--wp--preset--font-family--source-serif-4) !important;}.has-space-mono-font-family{font-family: var(--wp--preset--font-family--space-mono) !important;}.has-syne-font-family{font-family: var(--wp--preset--font-family--syne) !important;}.has-texturina-font-family{font-family: var(--wp--preset--font-family--texturina) !important;}.has-urbanist-font-family{font-family: var(--wp--preset--font-family--urbanist) !important;}.has-work-sans-font-family{font-family: var(--wp--preset--font-family--work-sans) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-14-1' href='/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/sun/jetpack_vendor/automattic/jetpack-mu-wpcom/src/build/verbum-comments/verbum-comments.css?m=1785880900i&cssminify=yes' type='text/css' media='all' />
+<link rel='stylesheet' id='verbum-gutenberg-css-css' href='https://widgets.wp.com/verbum-block-editor/block-editor.css?ver=1771405207' media='all' />
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-16-1' href='/_static/??/wp-content/mu-plugins/comment-likes/css/comment-likes.css,/i/noticons/noticons.css?m=1436783281j&cssminify=yes' type='text/css' media='all' />
+<link rel='stylesheet' id='hemingway-rewritten-fonts-css' href='https://fonts-api.wp.com/css?family=Raleway%3A400%2C300%2C700%7CLato%3A400%2C700%2C400italic%2C700italic&#038;subset=latin%2Clatin-ext' media='all' />
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-18-1' href='/_static/??-eJyFjkEOwiAQRS8kTruoXRmPYigZkQoDYYaQ3l5qXNRo6u6/zLyfDzUpE0mQBOSOARlSmaAlR7bqRWWs2Um7A8vi8WiYD7CRQlHJF+uIYUZJ2jzeDFwIro4MWCTMrgn8O351/hmydr7GqJpMDHuTMk4+2hYttK8N7kkWo/LRaHGRPkDdvHZ5VS/h3I9jf+rGoRvmJ3fXepc=&cssminify=yes' type='text/css' media='all' />
+<style id="hemingway-rewritten-style-inline-css">
+.byline { clip: rect(1px, 1px, 1px, 1px); height: 1px; position: absolute; overflow: hidden; width: 1px; }
+/*# sourceURL=hemingway-rewritten-style-inline-css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='print-css-19-1' href='/wp-content/mu-plugins/global-print/global-print.css?m=1465851035i&cssminify=yes' type='text/css' media='print' />
+<style id="jetpack-global-styles-frontend-style-inline-css">
+:root { --font-headings: unset; --font-base: unset; --font-headings-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif; --font-base-default: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;}
+/*# sourceURL=jetpack-global-styles-frontend-style-inline-css */
+</style>
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-22-1' href='/_static/??-eJyNjcsKAjEMRX/ImhmUURfip0inLW3GNCmmQfx7H7gRN+7ugcs5cGsuCPfEHaq5RpaRFZbUmw+XD4MaQ5VolBS0+GuKPsb7eyLndVBdwd+iM3KA2ZAiqAT05Eiy6Bf8KHtJ9RkvW8gks6fX4VSP426/mQ7TMA7LA38FSqA=&cssminify=yes' type='text/css' media='all' />
+<script id="jetpack_related-posts-js-extra">
+var related_posts_js_options = {"post_heading":"h4"};
+//# sourceURL=jetpack_related-posts-js-extra
+</script>
+<script id="wpcom-actionbar-placeholder-js-extra">
+var actionbardata = {"siteID":"154953109","postID":"5723","siteURL":"https://fromthevault.wheaton.edu","xhrURL":"https://fromthevault.wheaton.edu/wp-admin/admin-ajax.php","nonce":"634d7729f3","isLoggedIn":"","statusMessage":"","subsEmailDefault":"instantly","proxyScriptUrl":"https://s0.wp.com/wp-content/js/wpcom-proxy-request.js?m=1513050504i&amp;ver=20211021","shortlink":"https://wp.me/pauanH-1uj","i18n":{"followedText":"New posts from this site will now appear in your \u003Ca href=\"https://wordpress.com/reader\"\u003EReader\u003C/a\u003E","foldBar":"Collapse this bar","unfoldBar":"Expand this bar","shortLinkCopied":"Shortlink copied to clipboard."}};
+//# sourceURL=wpcom-actionbar-placeholder-js-extra
+</script>
+<script id="jetpack-mu-wpcom-settings-js-before">
+var JETPACK_MU_WPCOM_SETTINGS = {"assetsUrl":"https://s0.wp.com/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/sun/jetpack_vendor/automattic/jetpack-mu-wpcom/src/build/"};
+//# sourceURL=jetpack-mu-wpcom-settings-js-before
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/_static/??/wp-content/mu-plugins/jetpack-plugin/sun/_inc/build/related-posts/related-posts.min.js,/wp-content/js/rlt-proxy.js?m=1755011788j'></script>
+<script id="rlt-proxy-js-after">
+	rltInitialize( {"token":null,"iframeOrigins":["https:\/\/widgets.wp.com"]} );
+//# sourceURL=rlt-proxy-js-after
+</script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://bgcarchivesblog.wordpress.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress.com" />
+<link rel="canonical" href="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/" />
+<link rel='shortlink' href='https://wp.me/pauanH-1uj' />
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/?format=json&amp;url=https%3A%2F%2Ffromthevault.wheaton.edu%2F2023%2F12%2F01%2Fhumble-beginnings%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/?format=xml&amp;url=https%3A%2F%2Ffromthevault.wheaton.edu%2F2023%2F12%2F01%2Fhumble-beginnings%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Humble Beginnings" />
+<meta property="og:url" content="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/" />
+<meta property="og:description" content="While December signifies the year&#8217;s end, this last month also marks a significant point of beginning for the stories of the fledging Illinois Institute of 1853 and the emerging Wheaton Colleg…" />
+<meta property="article:published_time" content="2023-12-01T18:20:33+00:00" />
+<meta property="article:modified_time" content="2025-11-08T19:48:45+00:00" />
+<meta property="og:site_name" content="From the Vault" />
+<meta property="og:image" content="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/b14012-antique_closeup.jpg" />
+<meta property="og:image:width" content="800" />
+<meta property="og:image:height" content="513" />
+<meta property="og:image:alt" content="" />
+<meta property="og:locale" content="en_US" />
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom" />
+<meta name="twitter:creator" content="@WheatonArchives" />
+<meta name="twitter:site" content="@WheatonArchives" />
+<meta name="twitter:text:title" content="Humble Beginnings" />
+<meta name="twitter:image" content="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/b14012-antique_closeup.jpg?w=640" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel="search" type="application/opensearchdescription+xml" href="https://fromthevault.wheaton.edu/osd.xml" title="From the Vault" />
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com" />
+<meta name="theme-color" content="#ffffff" />
+<meta name="description" content="While December signifies the year&#039;s end, this last month also marks a significant point of beginning for the stories of the fledging Illinois Institute of 1853 and the emerging Wheaton College of 1860. On December 14, 1853, one-hundred and seventy years ago, the first classes of the Illinois Institute were held in the basement of&hellip;" />
+	<style type="text/css">
+			.site-title a,
+		.site-description {
+			color: #ffffff;
+		}
+				.site-header-image {
+			background-image: url(https://fromthevault.wheaton.edu/wp-content/uploads/2018/11/cropped-005c.jpg);
+		}
+		</style>
+	<style type="text/css" id="custom-colors-css">.comment-metadata a { color: #6D6D6D;}
+.sep { color: #6D6D6D;}
+th,td { border-color: #dddddd;}
+th,td { border-color: rgba( 221, 221, 221, 0.5 );}
+.format-aside .entry-content, blockquote, pre { background-color: #eeeeee;}
+.format-aside .entry-content, blockquote, pre { background-color: rgba( 238, 238, 238, 0.2 );}
+input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],textareali > article.comment,.hentry,.widget ul li,.widget,.site-main .comment-navigation, .site-main .paging-navigation, .site-main .post-navigation,.comment-list > li:first-child > article.comment:first-child,.page-title { border-color: #eeeeee;}
+input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],textareali > article.comment,.hentry,.widget ul li,.widget,.site-main .comment-navigation, .site-main .paging-navigation, .site-main .post-navigation,.comment-list > li:first-child > article.comment:first-child,.page-title { border-color: rgba( 238, 238, 238, 0.5 );}
+.site-title a, .site-title a:visited, #secondary button, #secondary input[type="button"], #secondary input[type="reset"], #secondary input[type="submit"] { color: #FFFFFF;}
+.entry-tags a,.entry-tags a:visited { color: #6D6D6D;}
+.entry-tags a:hover { color: #353535;}
+.featured-image .flag { color: #353535;}
+.site-footer button, .site-footer input[type="button"], .site-footer input[type="reset"], .site-footer input[type="submit"], .widget_search .search-submit { color: #353535;}
+.site-footer button:hover, .site-footer input[type="button"]:hover, .site-footer input[type="reset"]:hover, .site-footer input[type="submit"]:hover, .widget_search .search-submit:hover { color: #353535;}
+button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover { color: #353535;}
+#header-search .search-submit { color: #353535;}
+address { background-color: #f1f1f1;}
+address { background-color: rgba( 241, 241, 241, 0.2 );}
+.entry-content table tbody > tr:nth-child(odd) > td { background-color: #f9f9f9;}
+.entry-content table tbody > tr:nth-child(odd) > td { background-color: rgba( 249, 249, 249, 0.2 );}
+blockquote { color: #000000;}
+.entry-title, .entry-title a,.entry-title a:visited,.comments-title { color: #2D2D2D;}
+.format-quote .entry-content { background-color: #262626;}
+.format-quote .entry-content { background-color: rgba( 38, 38, 38, 0.2 );}
+body, button, input, textarea { color: #444444;}
+.widget-title, th { color: #444444;}
+.comment-author a,.comment-author a:visited { color: #444444;}
+mark, ins { color: #444444;}
+.widget { color: #555555;}
+.jetpack-recipe { border-color: #666666;}
+.jetpack-recipe { border-color: rgba( 102, 102, 102, 0.3 );}
+blockquote cite { color: #666666;}
+.entry-tags a,.entry-tags a:visited { background-color: #767676;}
+.entry-tags a,.entry-tags a:visited { background-color: rgba( 118, 118, 118, 0.4 );}
+.entry-tags a:after { border-right-color: #767676;}
+.entry-tags a:after { border-right-color: rgba( 118, 118, 118, 0.4 );}
+.entry-categories:before { color: #6D6D6D;}
+.wp-caption-text { color: #6D6D6D;}
+.entry-meta, .entry-meta a,.entry-meta a:visited,.page-title,.no-comments { color: #6D6D6D;}
+body,#infinite-footer .container,.entry-tags a:before { background-color: #ffffff;}
+.site-footer button, .site-footer input[type="button"], .site-footer input[type="reset"], .site-footer input[type="submit"], .widget_search .search-submit { background-color: #cf9e38;}
+button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover { background-color: #cf9e38;}
+.widget_search .search-submit { border-color: #cf9e38;}
+.site-footer button:hover, .site-footer input[type="button"]:hover, .site-footer input[type="reset"]:hover, .site-footer input[type="submit"]:hover, .widget_search .search-submit:hover { background-color: #AC8329;}
+.widget_search .search-submit:hover { border-color: #AC8329;}
+.featured-image .flag { background-color: #cf9e38;}
+.jetpack-recipe-title { border-color: #cf9e38;}
+.entry-tags a:hover { background-color: #cf9e38;}
+.entry-tags a:hover:after { border-right-color: #cf9e38;}
+#header-search .search-submit { border-color: #cf9e38;}
+#header-search .search-submit { background-color: #cf9e38;}
+#header-search .search-submit:hover { background-color: #AC8329;}
+#header-search .search-submit:hover { border-color: #AC8329;}
+a,a:visited,a:hover,a:focus,a:active,.entry-title a:hover { color: #8B681C;}
+.site-title a:hover,.site-title a:focus { color: #CF9E38;}
+.site-footer a,.site-footer a:visited,.site-footer a:hover,.site-footer a:focus,.site-footer a:active { color: #CF9E38;}
+.widget-areas a,.widget-areas a:visited,.widget-areas a:hover,.widget-areas a:focus,.widget-areas a:active { color: #CF9E38;}
+#tertiary .widget_eventbrite .eb-calendar-widget .event-list li a:link .eb-event-list-title,
+			#tertiary .widget_eventbrite .eb-calendar-widget .event-list li a:visited .eb-event-list-title,
+			#tertiary .widget_eventbrite .eb-calendar-widget .calendar .current-month,
+			#tertiary .widget_eventbrite .eb-calendar-widget .event-paging,
+			#tertiary .widget_eventbrite th { color: #CF9E38;}
+</style>
+<link rel="icon" href="https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=32" sizes="32x32" />
+<link rel="icon" href="https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=192" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=180" />
+<meta name="msapplication-TileImage" content="https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=270" />
+<link crossorigin='anonymous' rel='stylesheet' id='all-css-0-5' href='/_static/??-eJyNjMEKgzAQBX9IfVpq60X8lGLXRaLJJrhZ/P1SUM8eZxgGeyopSmbJCFYmb7MTxcI5jbQeDDXBxwnh6yOtCt1d4q0i1QK3ByFO5llB4xZN2V/NKf6/IfTNu2sfzbPuXssPrlM6pw==&cssminify=yes' type='text/css' media='all' />
+<style id="jetpack-subscriptions-inline-css">
+#subscribe-email input {
+	width: 95%;
+}
+
+.comment-subscription-form {
+	margin-bottom: 1em;
+}
+
+.comment-subscription-form .subscribe-label {
+	display: inline !important;
+}
+
+/*
+Text meant only for screen readers.
+Provides support for themes that do not bundle this CSS yet.
+@see https://make.wordpress.org/accessibility/2015/02/09/hiding-text-for-screen-readers-with-wordpress-core/
+***********************************/
+.screen-reader-text {
+	border: 0;
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
+	width: 1px;
+	overflow-wrap: normal !important;
+}
+
+/*# sourceURL=/wp-content/mu-plugins/jetpack-plugin/sun/_inc/build/subscriptions/subscriptions.min.css */
+</style>
+<style id="jetpack-block-instagram-gallery-inline-css">
+.wp-block-jetpack-instagram-gallery__grid{align-content:stretch;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-start}.wp-block-jetpack-instagram-gallery__grid .wp-block-jetpack-instagram-gallery__grid-post{box-sizing:border-box;display:block;line-height:0;position:relative}.wp-block-jetpack-instagram-gallery__grid img{height:auto;width:100%}.wp-block-jetpack-instagram-gallery__grid-columns-1 .wp-block-jetpack-instagram-gallery__grid-post{width:100%}.wp-block-jetpack-instagram-gallery__grid-columns-2 .wp-block-jetpack-instagram-gallery__grid-post{width:50%}.wp-block-jetpack-instagram-gallery__grid-columns-3 .wp-block-jetpack-instagram-gallery__grid-post{width:33.33333%}.wp-block-jetpack-instagram-gallery__grid-columns-4 .wp-block-jetpack-instagram-gallery__grid-post{width:25%}.wp-block-jetpack-instagram-gallery__grid-columns-5 .wp-block-jetpack-instagram-gallery__grid-post{width:20%}.wp-block-jetpack-instagram-gallery__grid-columns-6 .wp-block-jetpack-instagram-gallery__grid-post{width:16.66667%}@media(max-width:600px){.wp-block-jetpack-instagram-gallery__grid.is-stacked-on-mobile .wp-block-jetpack-instagram-gallery__grid-post{width:100%}}@supports(display:grid){.wp-block-jetpack-instagram-gallery__grid{display:grid;gap:10px;grid-auto-columns:1fr}@media(max-width:600px){.wp-block-jetpack-instagram-gallery__grid.is-stacked-on-mobile{display:block}.wp-block-jetpack-instagram-gallery__grid.is-stacked-on-mobile .wp-block-jetpack-instagram-gallery__grid-post{padding:var(--latest-instagram-posts-spacing)}}.wp-block-jetpack-instagram-gallery__grid .wp-block-jetpack-instagram-gallery__grid-post{width:auto}.wp-block-jetpack-instagram-gallery__grid .wp-block-jetpack-instagram-gallery__grid-post img{height:100%;object-fit:cover}.wp-block-jetpack-instagram-gallery__grid-columns-1{grid-template-columns:repeat(1,1fr)}.wp-block-jetpack-instagram-gallery__grid-columns-2{grid-template-columns:repeat(2,1fr)}.wp-block-jetpack-instagram-gallery__grid-columns-3{grid-template-columns:repeat(3,1fr)}.wp-block-jetpack-instagram-gallery__grid-columns-4{grid-template-columns:repeat(4,1fr)}.wp-block-jetpack-instagram-gallery__grid-columns-5{grid-template-columns:repeat(5,1fr)}.wp-block-jetpack-instagram-gallery__grid-columns-6{grid-template-columns:repeat(6,1fr)}}@supports(object-fit:cover){.wp-block-jetpack-instagram-gallery__grid-post img{height:100%;object-fit:cover}}
+/*# sourceURL=/wp-content/mu-plugins/jetpack-plugin/sun/_inc/blocks/instagram-gallery/view.css?minify=false */
+</style>
+<style id="core-block-supports-inline-css">
+.wp-container-core-social-links-is-layout-1c7eb588{justify-content:space-between;}
+/*# sourceURL=core-block-supports-inline-css */
+</style>
+
+</head>
+
+<body class="wp-singular post-template-default single single-post postid-5723 single-format-standard wp-theme-pubhemingway-rewritten customizer-styles-applied group-blog jetpack-reblog-enabled author-hidden custom-colors">
+<div id="page" class="hfeed site">
+
+	<header id="masthead" class="site-header" role="banner">
+		<div class="site-header-image">
+			<div class="site-branding-wrapper">
+				<div class="site-branding">
+					<h1 class="site-title"><a href="https://fromthevault.wheaton.edu/" rel="home">From the Vault</a></h1>
+					<h2 class="site-description">Voices from Wheaton Archives &amp; Special Collections</h2>
+				</div>
+			</div>
+		</div>
+	</header><!-- #masthead -->
+	<nav id="site-navigation" class="main-navigation clear" role="navigation">
+		<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><span class="screen-reader-text">Menu</span></button>
+		<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+		<div class="menu-primary-container"><ul id="primary-menu" class="menu"><li id="menu-item-6" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-6"><a href="/">Home</a></li>
+<li id="menu-item-38" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-38"><a href="https://fromthevault.wheaton.edu/about/">About</a></li>
+<li id="menu-item-7" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7"><a href="https://fromthevault.wheaton.edu/connect/">Connect</a></li>
+</ul></div>		<div id="header-search-toggle">
+			<span class="screen-reader-text">Search</span>
+		</div>
+		<div id="header-search">
+			<form role="search" method="get" class="search-form" action="https://fromthevault.wheaton.edu/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form>		</div>
+	</nav><!-- #site-navigation -->
+	<div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+					
+			
+<article id="post-5723" class="post-5723 post type-post status-publish format-standard hentry category-anniversary category-college-archives tag-christian-education tag-illinois-institute tag-jonathan-blanchard tag-wheaton-college">
+	<header class="entry-header">
+					<h1 class="entry-title">Humble Beginnings</h1>				<div class="entry-meta">
+			<span class="posted-on"><a href="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/" rel="bookmark"><time class="entry-date published" datetime="2023-12-01T18:20:33+00:00">December 1, 2023</time><time class="updated" datetime="2025-11-08T19:48:45+00:00">November 8, 2025</time></a></span><span class="byline"><span class="sep"> / </span><span class="author vcard"><a class="url fn n" href="https://fromthevault.wheaton.edu/author/emilybanas9168/">Emily Banas</a></span></span>					</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		
+<p class="wp-block-paragraph">While December signifies the year&#8217;s end, this last month also marks a significant point of beginning for the stories of the fledging Illinois Institute of 1853 and the emerging Wheaton College of 1860.</p>
+
+
+
+<p class="wp-block-paragraph">On December 14, 1853, one-hundred and seventy years ago, the first classes of the Illinois Institute were held in the basement of a incomplete stone building atop a hill in Section 16, Township 39, DuPage County. Only a small town on the Illinois prairie in the close of 1853, the location in the new Milton Township offered the advantage of legislation common to many Midwest townships that enabled the special use of land in section 16 for schools.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="5755" data-permalink="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/b14012-antique_closeup/" data-orig-file="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/b14012-antique_closeup.jpg" data-orig-size="800,513" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="b14012-antique_closeup" data-image-description="" data-image-caption="" data-large-file="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/b14012-antique_closeup.jpg?w=676" width="800" height="513" src="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/b14012-antique_closeup.jpg?w=800" alt="" class="wp-image-5755" srcset="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/b14012-antique_closeup.jpg 800w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/b14012-antique_closeup.jpg?w=150 150w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/b14012-antique_closeup.jpg?w=300 300w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/b14012-antique_closeup.jpg?w=768 768w" sizes="(max-width: 800px) 100vw, 800px" /><figcaption class="wp-element-caption"><em>Sketch of &#8216;Main and White House,&#8217; c. 1863. College Archives Photograph #CA-B14012</em></figcaption></figure>
+
+
+
+<span id="more-5723"></span>
+
+
+
+<p class="wp-block-paragraph">The new school was a project of the Wesleyan Methodist Church, which was formed in 1843 as response to ambivalence over slavery by the Methodist Episcopal Church. First envisioned in the late 1840s at the Illinois Annual Conference of the Wesleyan Methodists, leaders of the new church sought to establish a school where they could educate their children in their reform beliefs, especially the abolitionist fight against slavery. As Rufus Blanchard records in his <a href="https://www.loc.gov/resource/gdcmassbookdig.historyofdupagec01blan/?sp=179&amp;st=image" target="_blank" rel="noreferrer noopener"><em>History of DuPage County</em> (1882)</a>, “Preparations for building began by the founders kneeling in the prairie grass on the summit of the beautiful hill…and dedicated the hill and all that should be upon it to that God in whom trusting they had boldly gone into the thickest of the fight, not only for the freedom of human bodies, but of human souls as well.”</p>
+
+
+<div class="wp-block-image">
+<figure class="alignright size-large"><img data-attachment-id="5749" data-permalink="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/image-12/" data-orig-file="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/image.png" data-orig-size="324,210" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="image" data-image-description="" data-image-caption="" data-large-file="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/image.png?w=324" width="324" height="210" src="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/image.png?w=324" alt="" class="wp-image-5749" srcset="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/image.png 324w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/image.png?w=150 150w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/image.png?w=300 300w" sizes="(max-width: 324px) 100vw, 324px" /><figcaption class="wp-element-caption"><em>The seal of the Illinois Institute, ca. 1853. (<a href="https://archives.wheaton.edu/repositories/2/resources/1073" target="_blank" rel="noreferrer noopener">RG 0-1, Records of the Illinois Institute</a>).</em></figcaption></figure>
+</div>
+
+
+<p class="wp-block-paragraph">The trustees of the new institute purchased the land in Milton Township at the bargain cost of $150 and obtained donations of $3,000 to begin building. Constructed with limestone excavated from a quarry in nearby Batavia and hauled to the site from the train station by Gaius Howard, the stone building eventually measured a respectable forty-five feet by seventy-five and consisted of two stories above the basement. The cost of the structure was about $10,000. Offering both college preparatory courses and a &#8220;common school&#8221; for children, during the first year the student body numbered 140 students, rising to 270 in the second year.</p>
+
+
+
+<p class="wp-block-paragraph">The first instructor and President was Rev. John Cross, who was active in establishing the Underground Railroad across the Midwest. The following year, after Cross left to help begin Amity College in Iowa, Rev. C. F. Winship took the helm, but shortly left to become a missionary in West Africa. Rev. George P. Kimball, fresh from Amity serving with Cross, taught alongside Miss Pierce and Rufus Blanchard until 1855 when, as Rufus Blanchard relates in his county history, Rev. J A. Marling became “Principal of the first collegiate year,” as the Illinois Institute had been chartered by the State of Illinois as a college in 1855. Professor Freeborn Garretson Baker filled in until September 1856 when Rev. Lucius C. Matlack, who had been chosen for president some years before, took on his official role as president.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="5753" data-permalink="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/vf_tuition-2/" data-orig-file="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/vf_tuition-2-3664590629-e1701723492110.jpg" data-orig-size="2659,1437" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="vf_tuition-2" data-image-description="" data-image-caption="" data-large-file="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/vf_tuition-2-3664590629-e1701723492110.jpg?w=676" width="2659" height="1437" src="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/vf_tuition-2-3664590629-e1701723492110.jpg" alt="" class="wp-image-5753" srcset="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/vf_tuition-2-3664590629-e1701723492110.jpg 2659w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/vf_tuition-2-3664590629-e1701723492110.jpg?w=150&amp;h=81 150w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/vf_tuition-2-3664590629-e1701723492110.jpg?w=300&amp;h=162 300w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/vf_tuition-2-3664590629-e1701723492110.jpg?w=768&amp;h=415 768w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/vf_tuition-2-3664590629-e1701723492110.jpg?w=1024&amp;h=553 1024w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/vf_tuition-2-3664590629-e1701723492110.jpg?w=1440&amp;h=778 1440w" sizes="(max-width: 2659px) 100vw, 2659px" /><figcaption class="wp-element-caption"><em>Certificate for five years tuition issued to Joseph Powell in exchange for his certificate of perpetual scholarship at the Illinois Institute, 1860. (Vertical File: Tuition). </em></figcaption></figure>
+
+
+
+<p class="wp-block-paragraph">During the early years of the Illinois Institute the school rested on a solid financial foundation. The founders had secured a permanent endowment fund of $100,000 by the sale of scholarships. However, like many schools of the time, particularly Wesleyan schools, thousands of dollars in pledges went unpaid for scholarships that had been redeemed. The Illinois Institute also began receiving transfer students from other Wesleyan schools, like the Leoni School in Michigan, that were struggling financially. Compounding these internal struggles, shortly after Matlack became president, the United States experienced a significant financial crisis. Matlack did all he could to raise funds for the school but was unsuccessful. The trustees increasingly pressured him to resign as the Institute consumed its endowment and was thousands of dollars in debt. Not wanting to leave the school adrift, Matlack suggested bringing in Jonathan Blanchard who was known as a strong leader and fundraiser – having brought Knox College from the financial brink to solvency. Matlack finally resigned in 1859 noting: “I have no salary, no revenue, and am in debt.”</p>
+
+
+<div class="wp-block-image">
+<figure class="alignleft size-large is-resized"><img data-attachment-id="5730" data-permalink="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/image-3-7/" data-orig-file="https://fromthevault.wheaton.edu/wp-content/uploads/2023/11/image-3.png" data-orig-size="392,611" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="image-3" data-image-description="" data-image-caption="" data-large-file="https://fromthevault.wheaton.edu/wp-content/uploads/2023/11/image-3.png?w=392" loading="lazy" width="392" height="611" src="https://fromthevault.wheaton.edu/wp-content/uploads/2023/11/image-3.png?w=392" alt="" class="wp-image-5730" style="width:248px;height:auto" srcset="https://fromthevault.wheaton.edu/wp-content/uploads/2023/11/image-3.png 392w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/11/image-3.png?w=96 96w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/11/image-3.png?w=192 192w" sizes="auto, (max-width: 392px) 100vw, 392px" /><figcaption class="wp-element-caption"><em>Jonathan Blanchard, College Archives Photograph #CA-A00321</em></figcaption></figure>
+</div>
+
+
+<p class="wp-block-paragraph">In the fall of 1859, the trustees followed Matlack’s counsel and approached Blanchard to accept leadership of the school on the condition that he would continue to support the school’s anti-slavery, temperance, and oath-bound societies beliefs. Blanchard agreed, but stipulated that the charter should be changed so that the trustee board be self-governing and composed as Blanchard saw fit. Despite the less than ideal circumstances, the transition was smooth and the board expanded. The Wheaton College trustee minutes for January 1860 declared “The college hereafter is to be under the control of Orthodox Congregationalists with the cooperation of its founders and our friends, the Wesleyans.”</p>
+
+
+
+<p class="wp-block-paragraph">Jonathan Blanchard first arrived at the Illinois Institute in December of 1859, leaving his wife, Mary Bent Blanchard, and family in Galesburg until the circumstances became more certain. Though the financial footing of the Illinois Institute was rather shaky, Jonathan Blanchard saw a way forward through an old friend of the Institute, Warren L. Wheaton.</p>
+
+
+
+<p class="wp-block-paragraph">Warren Wheaton, along with his brother Jesse, came to the prairie beyond Chicago from Pomfret, Connecticut in the 1830s. Wheaton had served as secretary for the Institute board of trustees and was also a major benefactor to the struggling school. On December 5, 1859, Blanchard wrote to Warren Wheaton about donating fifty acres of prime real estate that was situated south of the campus beyond the railroad toward present-day Illinois and President streets.</p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="5757" data-permalink="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/atlas4/" data-orig-file="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/atlas4.jpg" data-orig-size="2900,2310" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="atlas4" data-image-description="" data-image-caption="" data-large-file="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/atlas4.jpg?w=676" loading="lazy" width="1024" height="815" src="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/atlas4.jpg?w=1024" alt="" class="wp-image-5757" srcset="https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/atlas4.jpg?w=1024 1024w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/atlas4.jpg?w=2048 2048w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/atlas4.jpg?w=150 150w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/atlas4.jpg?w=300 300w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/atlas4.jpg?w=768 768w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/12/atlas4.jpg?w=1440 1440w" sizes="auto, (max-width: 1024px) 100vw, 1024px" /><figcaption class="wp-element-caption"><em>City of Wheaton. DuPage County Combined Atlas, 1874. </em></figcaption></figure>
+
+
+
+<p class="wp-block-paragraph">In the letter, Blanchard plainly outlined his plan to the wealthy landowner:</p>
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph">Now I propose this:</p>
+
+
+
+<p class="wp-block-paragraph">1. Call the College “Wheaton College”&nbsp;and that will at least save your heirs the expense of a good monument;</p>
+
+
+
+<p class="wp-block-paragraph">2. Make your donation of each alternate lot of that land an outright donation to the College.</p>
+
+
+
+<p class="wp-block-paragraph">The College is already a fact and can no more be a failure than your farm can. It may yield more or less in any one year but it will be there.</p>
+<cite><a href="https://archives.wheaton.edu/repositories/2/resources/877" target="_blank" rel="noreferrer noopener">RG 01.01 Jonathan Blanchard Papers</a>, Folder 4-13.</cite></blockquote>
+
+
+
+<p class="wp-block-paragraph">Warren L. Wheaton agreed to the request, with the additional stipulation offered by Blanchard that substantial improvements and building projects in the amount of $25,000 be completed on the donated land within five years.</p>
+
+
+
+<p class="wp-block-paragraph">In January 1860, President Blanchard officially entered upon the duties of his office. As promised, the name of the institution was changed to Wheaton College, and the charter was amended by the Illinois Legislature of 1861. The first class of seven young men, all of them from the regular college course, graduated on July 4, 1860. </p>
+
+
+
+<figure class="wp-block-image size-large"><img data-attachment-id="5734" data-permalink="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/image-4-6/" data-orig-file="https://fromthevault.wheaton.edu/wp-content/uploads/2023/11/image-4.png" data-orig-size="688,598" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="image-4" data-image-description="" data-image-caption="" data-large-file="https://fromthevault.wheaton.edu/wp-content/uploads/2023/11/image-4.png?w=676" loading="lazy" width="688" height="598" src="https://fromthevault.wheaton.edu/wp-content/uploads/2023/11/image-4.png?w=688" alt="" class="wp-image-5734" srcset="https://fromthevault.wheaton.edu/wp-content/uploads/2023/11/image-4.png 688w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/11/image-4.png?w=150 150w, https://fromthevault.wheaton.edu/wp-content/uploads/2023/11/image-4.png?w=300 300w" sizes="auto, (max-width: 688px) 100vw, 688px" /><figcaption class="wp-element-caption"><em>Wheaton College Faculty and Students, 1860. (Left to Right) Top row: Jonathan Blanchard (Intellectual &amp; Moral Philosophy), Oscar F. Lumry (Greek &amp; Latin), George Collier (Mathematics &amp; Natural Philosophy), Freeborn G. Baker (Sacred music). Middle row: G. H. Beecher, A. M. Chadwick, Charles E. Marsh. Bottom row: Harvey Potter, Orvis Ring, J. P. Stoddard, L. N. Stratton.</em> <em>College Archives Photograph #CA-B08980</em>.</figcaption></figure>
+
+
+
+<p class="wp-block-paragraph">Explore more documents related to the Illinois Institute and early Wheaton College history through the <a href="https://archives.wheaton.edu/repositories/2" target="_blank" rel="noreferrer noopener">College Archives</a>. </p>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-twitter-5723"
+				class="share-twitter sd-button share-icon"
+				href="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/?share=twitter"
+				target="_blank"
+				aria-labelledby="sharing-twitter-5723"
+				>
+				<span id="sharing-twitter-5723" hidden>Share on X (Opens in new window)</span>
+				<span>X</span>
+			</a></li><li class="share-facebook"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-facebook-5723"
+				class="share-facebook sd-button share-icon"
+				href="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/?share=facebook"
+				target="_blank"
+				aria-labelledby="sharing-facebook-5723"
+				>
+				<span id="sharing-facebook-5723" hidden>Share on Facebook (Opens in new window)</span>
+				<span>Facebook</span>
+			</a></li><li class="share-print"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-print-5723"
+				class="share-print sd-button share-icon"
+				href="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/#print?share=print"
+				target="_blank"
+				aria-labelledby="sharing-print-5723"
+				>
+				<span id="sharing-print-5723" hidden>Print (Opens in new window)</span>
+				<span>Print</span>
+			</a></li><li class="share-email"><a rel="nofollow noopener noreferrer"
+				data-shared="sharing-email-5723"
+				class="share-email sd-button share-icon"
+				href="mailto:?subject=%5BShared%20Post%5D%20Humble%20Beginnings&#038;body=https%3A%2F%2Ffromthevault.wheaton.edu%2F2023%2F12%2F01%2Fhumble-beginnings%2F&#038;share=email"
+				target="_blank"
+				aria-labelledby="sharing-email-5723"
+				data-email-share-error-title="Do you have email set up?" data-email-share-error-text="If you&#039;re having problems sharing via email, you might not have email set up for your browser. You may need to create a new email yourself." data-email-share-nonce="71947d45be" data-email-share-track-url="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/?share=email">
+				<span id="sharing-email-5723" hidden>Email a link to a friend (Opens in new window)</span>
+				<span>Email</span>
+			</a></li><li class="share-end"></li></ul></div></div></div><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-154953109-5723-6a9e3b44cbb8c' data-src='//widgets.wp.com/likes/index.html?ver=20260907#blog_id=154953109&amp;post_id=5723&amp;origin=bgcarchivesblog.wordpress.com&amp;obj_id=154953109-5723-6a9e3b44cbb8c&amp;domain=fromthevault.wheaton.edu' data-name='like-post-frame-154953109-5723-6a9e3b44cbb8c' data-title='Like or Reblog'><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height: 55px;'><span class='button'><span>Like</span></span> <span class='loading'>Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>
+<div id='jp-relatedposts' class='jp-relatedposts' >
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div></div>			</div><!-- .entry-content -->
+
+	<footer class="entry-meta">
+						<div class="entry-categories">
+					<a href="https://fromthevault.wheaton.edu/category/anniversary/" rel="category tag">Anniversary</a>, <a href="https://fromthevault.wheaton.edu/category/college-archives/" rel="category tag">College Archives</a>				</div>
+					<div class="entry-tags"><a href="https://fromthevault.wheaton.edu/tag/christian-education/" rel="tag">Christian Education</a>, <a href="https://fromthevault.wheaton.edu/tag/illinois-institute/" rel="tag">Illinois Institute</a>, <a href="https://fromthevault.wheaton.edu/tag/jonathan-blanchard/" rel="tag">Jonathan Blanchard</a>, <a href="https://fromthevault.wheaton.edu/tag/wheaton-college/" rel="tag">Wheaton College</a></div>	</footer><!-- .entry-meta -->
+</article><!-- #post-## -->
+
+				<nav class="navigation post-navigation" role="navigation">
+		<h1 class="screen-reader-text">Post navigation</h1>
+		<div class="nav-links">
+			<div class="nav-previous"><a href="https://fromthevault.wheaton.edu/2023/11/15/pages-of-wonder/" rel="prev"><span class="meta-nav">&larr;</span> Pages of Wonder: A Journey Through the William S. Akin Rare Book&nbsp;Collection</a></div><div class="nav-next"><a href="https://fromthevault.wheaton.edu/2024/01/01/new-old-stuff-in-wheaton-archives-amp-special-collections/" rel="next">New Old Stuff in Wheaton Archives &amp; Special&nbsp;Collections <span class="meta-nav">&rarr;</span></a></div>		</div><!-- .nav-links -->
+	</nav><!-- .navigation -->
+	
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a comment <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2023/12/01/humble-beginnings/#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://fromthevault.wheaton.edu/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+
+
+<div class="comment-form__verbum transparent"></div><div class="verbum-form-meta"><input type='hidden' name='comment_post_ID' value='5723' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+
+			<input type="hidden" name="highlander_comment_nonce" id="highlander_comment_nonce" value="6d40dd0292" />
+			<input type="hidden" name="verbum_show_subscription_modal" value="" /></div><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="a1dd1eb559" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="15"/><script>
+document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );
+</script>
+</p></form>	</div><!-- #respond -->
+	
+</div><!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+	<div id="secondary" class="widget-area" role="complementary">
+		<aside id="search-3" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://fromthevault.wheaton.edu/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></aside><aside id="follow_button_widget-3" class="widget widget_follow_button_widget">
+		<a class="wordpress-follow-button" href="https://fromthevault.wheaton.edu" data-blog="154953109" data-lang="en" >Follow From the Vault on WordPress.com</a>
+		<script type="text/javascript">(function(d){ window.wpcomPlatform = {"titles":{"timelines":"Embeddable Timelines","followButton":"Follow Button","wpEmbeds":"WordPress Embeds"}}; var f = d.getElementsByTagName('SCRIPT')[0], p = d.createElement('SCRIPT');p.type = 'text/javascript';p.async = true;p.src = '//widgets.wp.com/platform.js';f.parentNode.insertBefore(p,f);}(document));</script>
+
+		</aside><aside id="blog_subscription-3" class="widget widget_blog_subscription jetpack_subscription_widget"><h1 class="widget-title"><label for="subscribe-field">Follow Blog via Email</label></h1>
+
+			<div class="wp-block-jetpack-subscriptions__container">
+			<form
+				action="https://subscribe.wordpress.com"
+				method="post"
+				accept-charset="utf-8"
+				data-blog="154953109"
+				data-post_access_level="everybody"
+				id="subscribe-blog"
+			>
+				<p>Enter your email address to follow this blog and receive notifications of new posts by email.</p>
+				<p id="subscribe-email">
+					<label
+						id="subscribe-field-label"
+						for="subscribe-field"
+						class="screen-reader-text"
+					>
+						Email Address:					</label>
+
+					<input
+							type="email"
+							name="email"
+							autocomplete="email"
+							
+							style="width: 95%; padding: 1px 10px"
+							placeholder="Email Address"
+							value=""
+							id="subscribe-field"
+							required
+						/>				</p>
+
+				<p id="subscribe-submit"
+									>
+					<input type="hidden" name="action" value="subscribe"/>
+					<input type="hidden" name="blog_id" value="154953109"/>
+					<input type="hidden" name="source" value="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/"/>
+					<input type="hidden" name="sub-type" value="widget"/>
+					<input type="hidden" name="redirect_fragment" value="subscribe-blog"/>
+					<input type="hidden" id="_wpnonce" name="_wpnonce" value="801ed5a9a8" />					<button type="submit"
+													class="wp-block-button__link"
+																	>
+						Follow					</button>
+				</p>
+			</form>
+						</div>
+			
+</aside><aside id="block-12" class="widget widget_block">
+<div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow">
+<div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow"><h1 class="widget-title">Find us on Social Media</h1><div class="wp-widget-group__inner-blocks">
+<p class="wp-block-paragraph"></p>
+		<div class="wp-block-jetpack-instagram-gallery wp-block-jetpack-instagram-gallery__grid wp-block-jetpack-instagram-gallery__grid-columns-3 is-stacked-on-mobile" style="grid-gap: 10px; --latest-instagram-posts-spacing: 10px;">
+					<a
+				class="wp-block-jetpack-instagram-gallery__grid-post"
+				href="https://www.instagram.com/p/Dc4MHJXIOUg/"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				<img
+					alt="Happy Labor Day weekend from the Wheaton Archives &amp; Special Collections!"
+					src="https://scontent-iad6-1.cdninstagram.com/v/t39.30808-6/793868515_1643928754405235_8456619240753852208_n.jpg?stp=dst-jpg_e35_tt6&#038;_nc_cat=102&#038;ccb=7-5&#038;_nc_sid=18de74&#038;efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&#038;_nc_ohc=rQ_neqVxiPYQ7kNvwHnK6Ex&#038;_nc_oc=AdqNhnBx2w2Q4uzzjF08954RhFGoUoKS9LvVzbHy1FO9b2L2TWJD9vq3FZMKSxEFaow&#038;_nc_zt=23&#038;_nc_ht=scontent-iad6-1.cdninstagram.com&#038;edm=ANo9K5cEAAAA&#038;_nc_gid=71SCl6hZVdU38_CCDbYGIw&#038;_nc_tpa=Q5bMBQKCj9bIUBdOpfgykbSaSUij3VbVuDhXvGfRjHmwEYAQRcUnRHA8593owfGtB2Cl5R9ADh2486gRqA&#038;oh=00_AQIpx5secwjFcdgsmscfNwk_rcjBj8TrAV9CpsyIempDxA&#038;oe=6AA40CA6"
+					loading="lazy"
+				/>
+			</a>
+					<a
+				class="wp-block-jetpack-instagram-gallery__grid-post"
+				href="https://www.instagram.com/p/Dci8pKDkRVP/"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				<img
+					alt="As students start their first week of classes, Wheaton Archives &amp; Special Collections looks back at over a century of classroom adventures at Wheaton - from alfresco painting and rhythm gymnastics to geological encounters and electrical experiments. Here&#039;s to another great year! #wheatonarchives #archives #wheatoncollegeil #throwbackthursday"
+					src="https://scontent-iad3-1.cdninstagram.com/v/t39.30808-6/787639418_1635718408559603_6537374098179437079_n.jpg?stp=dst-jpg_e35_tt6&#038;_nc_cat=110&#038;ccb=7-5&#038;_nc_sid=18de74&#038;efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&#038;_nc_ohc=kPwMiUdwFc0Q7kNvwEtw-vl&#038;_nc_oc=Adr99oVY-n2ens9kSgs2LCyCbrU5Mdl5QxB6YS2yLvEvi31GZxCHkHlWMI3Bl2UaEB8&#038;_nc_zt=23&#038;_nc_ht=scontent-iad3-1.cdninstagram.com&#038;edm=ANo9K5cEAAAA&#038;_nc_gid=71SCl6hZVdU38_CCDbYGIw&#038;_nc_tpa=Q5bMBQJSzPwxN5eslKcAOQoeUO4ouejTIOQRPL1zGWYm5Q5vRbdHMyaRGEuebgb7oWQHNpdpTguX6Qzcjg&#038;oh=00_AQK7TH28dB87PyVORU9uLnC1Vddsj5SZoSgQRTppK4YoLA&#038;oe=6AA3F5FB"
+					loading="lazy"
+				/>
+			</a>
+					<a
+				class="wp-block-jetpack-instagram-gallery__grid-post"
+				href="https://www.instagram.com/p/DcTq1YilfF-/"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				<img
+					alt="Earlier this August, archivist Robert (Bob) Shuster retired from Wheaton College after 51 years. From the first days of the Billy Graham Center Archives in 1975, Bob has built, guided, and championed the Archives as a major research collection documenting evangelical global missions and evangelism. This month on the new From the Vault blog post, Wheaton Archives &amp; Special Collections features an interview with Bob reflecting on his five decades of work. Read more at link in bio!"
+					src="https://scontent-iad3-1.cdninstagram.com/v/t39.30808-6/782169231_1630121889119255_7175147519842319636_n.jpg?stp=dst-jpg_e35_tt6&#038;_nc_cat=110&#038;ccb=7-5&#038;_nc_sid=18de74&#038;efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&#038;_nc_ohc=g0_OhHe3r5cQ7kNvwFZPFWj&#038;_nc_oc=AdoiTc79y0Euyj3xjeQcsOS6ud4Q_R3qSG3n0rQ8DrEaefjcbJLa-m2F85tJNR6K3zs&#038;_nc_zt=23&#038;_nc_ht=scontent-iad3-1.cdninstagram.com&#038;edm=ANo9K5cEAAAA&#038;_nc_gid=71SCl6hZVdU38_CCDbYGIw&#038;_nc_tpa=Q5bMBQJgrxwTsoi1MgwiApNCSUOBcjZ3htR501H3YHy74Ecgqyqbwi0GCgriTdRTu_oHan7vBVHRFVBkkw&#038;oh=00_AQIwK5smZiObL8_pVLcIqzSuIdWx4iKeriIE7JZDQV4eOw&#038;oe=6AA41431"
+					loading="lazy"
+				/>
+			</a>
+					<a
+				class="wp-block-jetpack-instagram-gallery__grid-post"
+				href="https://www.instagram.com/p/Db_d7YMIF39/"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				<img
+					alt="The Manuscripts Reading Room and Special Collections will be closed Friday, August 14th, for staff in-service. Regular hours will resume on Monday, August 17th."
+					src="https://scontent-iad3-1.cdninstagram.com/v/t51.82787-15/773074277_18084689645659406_7329609202070758963_n.jpg?stp=dst-jpg_e35_tt6&#038;_nc_cat=104&#038;ccb=7-5&#038;_nc_sid=18de74&#038;efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&#038;_nc_ohc=7neetZE7dm4Q7kNvwEfiCYT&#038;_nc_oc=AdpTb7uBVWJqfi0pS1Cw0eJRnAwLivSU717nxDcF8KDa39mwSSgZnERG0jaoLK7AS0w&#038;_nc_zt=23&#038;_nc_ht=scontent-iad3-1.cdninstagram.com&#038;edm=ANo9K5cEAAAA&#038;_nc_gid=71SCl6hZVdU38_CCDbYGIw&#038;_nc_tpa=Q5bMBQI0ieRPsZBpni2IT9ZwWFBax54PoRZJr_5CuGoT19N_uokvJ-57NyW8QrVcw_FW6mxkPSF2bcALcw&#038;oh=00_AQKaKiRlLoeqdCIbaA9eNEeqdHeKE2ywBdCPWfnyxmkvsQ&#038;oe=6AA40D1B"
+					loading="lazy"
+				/>
+			</a>
+					<a
+				class="wp-block-jetpack-instagram-gallery__grid-post"
+				href="https://www.instagram.com/p/Db6IhONDq9Z/"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				<img
+					alt="A recent look through unprocessed records documenting TEAM (The Evangelical Alliance Mission)&#039;s early-20th century work in Venezuela offered an unexpected tour through the history of paper fastening. Across materials dating from the 1900s through the 1950s, documents were held together with everything from straight pins and string to brass fasteners and staples. "
+					src="https://scontent-iad6-1.cdninstagram.com/v/t39.30808-6/769318128_1620526350078809_5545950821626471778_n.jpg?stp=dst-jpg_e35_tt6&#038;_nc_cat=107&#038;ccb=7-5&#038;_nc_sid=18de74&#038;efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&#038;_nc_ohc=WmTwDcZdWIgQ7kNvwE7zFby&#038;_nc_oc=AdrKoOi3QfPZMl4Baf2OhmNArghTcJcnPvFtdA50hfBIzr4wWbmF4F_HgC1M94ikhyQ&#038;_nc_zt=23&#038;_nc_ht=scontent-iad6-1.cdninstagram.com&#038;edm=ANo9K5cEAAAA&#038;_nc_gid=71SCl6hZVdU38_CCDbYGIw&#038;_nc_tpa=Q5bMBQJY2NDGURcz2hkyMZNzg8FbsE0Md77-P5Vs_mAVbH9c0EW41mskqOEyhNAKBDZXDcBmWpvUglxSTw&#038;oh=00_AQI_Vd1Dtif6d8W0hyHsbNRkTFYvbWAz5F10WQUtJLM3DA&#038;oe=6AA4046E"
+					loading="lazy"
+				/>
+			</a>
+					<a
+				class="wp-block-jetpack-instagram-gallery__grid-post"
+				href="https://www.instagram.com/p/DbognygIJaA/"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				<img
+					alt="We&#039;re hiring! Wheaton Archives &amp; Special Collections is seeking a full-time Processing Archivist. Join us in collecting, preserving, and making accessible Wheaton College’s institutional archives and special collections. Learn more and apply at: https://shorturl.at/hfyHP"
+					src="https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/763925590_18083353853659406_8663057985534759529_n.jpg?stp=dst-jpg_e35_tt6&#038;_nc_cat=109&#038;ccb=7-5&#038;_nc_sid=18de74&#038;efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&#038;_nc_ohc=lSzfMzEGYGsQ7kNvwHYblmG&#038;_nc_oc=AdoelBt64Gd0yYdHLYIhsySguk-0Jqit5KmtprMqA5FRhDutt8-p0a5k1vg96SSPubw&#038;_nc_zt=23&#038;_nc_ht=scontent-iad6-1.cdninstagram.com&#038;edm=ANo9K5cEAAAA&#038;_nc_gid=71SCl6hZVdU38_CCDbYGIw&#038;_nc_tpa=Q5bMBQKDwk6Y-0UPrTRPcM2xF195Jofpkh2CiR1BszcU6UMv-oxGAcxTBN1gnZDc44hvzJHd7zgyFDXvXA&#038;oh=00_AQKX4VEpBfnhItZcEv4MERrJYbeY8UxMtlBqty_GXBn8fw&#038;oe=6AA3F2A6"
+					loading="lazy"
+				/>
+			</a>
+			</div>
+
+	</div></div></div>
+</div></div>
+</aside><aside id="block-14" class="widget widget_block">
+<ul class="wp-block-social-links has-large-icon-size is-horizontal is-content-justification-space-between is-layout-flex wp-container-core-social-links-is-layout-1c7eb588 wp-block-social-links-is-layout-flex"><li class="wp-social-link wp-social-link-twitter wp-block-social-link"><a rel="noopener nofollow" target="_blank" href="https://twitter.com/WheatonArchives" class="wp-block-social-link-anchor"><svg width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M22.23,5.924c-0.736,0.326-1.527,0.547-2.357,0.646c0.847-0.508,1.498-1.312,1.804-2.27 c-0.793,0.47-1.671,0.812-2.606,0.996C18.324,4.498,17.257,4,16.077,4c-2.266,0-4.103,1.837-4.103,4.103 c0,0.322,0.036,0.635,0.106,0.935C8.67,8.867,5.647,7.234,3.623,4.751C3.27,5.357,3.067,6.062,3.067,6.814 c0,1.424,0.724,2.679,1.825,3.415c-0.673-0.021-1.305-0.206-1.859-0.513c0,0.017,0,0.034,0,0.052c0,1.988,1.414,3.647,3.292,4.023 c-0.344,0.094-0.707,0.144-1.081,0.144c-0.264,0-0.521-0.026-0.772-0.074c0.522,1.63,2.038,2.816,3.833,2.85 c-1.404,1.1-3.174,1.756-5.096,1.756c-0.331,0-0.658-0.019-0.979-0.057c1.816,1.164,3.973,1.843,6.29,1.843 c7.547,0,11.675-6.252,11.675-11.675c0-0.178-0.004-0.355-0.012-0.531C20.985,7.47,21.68,6.747,22.23,5.924z"></path></svg><span class="wp-block-social-link-label screen-reader-text">Twitter</span></a></li>
+
+<li class="wp-social-link wp-social-link-facebook wp-block-social-link"><a rel="noopener nofollow" target="_blank" href="https://www.facebook.com/archives.wheaton" class="wp-block-social-link-anchor"><svg width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 2C6.5 2 2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12c0-5.5-4.5-10-10-10z"></path></svg><span class="wp-block-social-link-label screen-reader-text">Facebook</span></a></li>
+
+<li class="wp-social-link wp-social-link-instagram wp-block-social-link"><a rel="noopener nofollow" target="_blank" href="https://www.instagram.com/archives.wheaton/" class="wp-block-social-link-anchor"><svg width="24" height="24" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12,4.622c2.403,0,2.688,0.009,3.637,0.052c0.877,0.04,1.354,0.187,1.671,0.31c0.42,0.163,0.72,0.358,1.035,0.673 c0.315,0.315,0.51,0.615,0.673,1.035c0.123,0.317,0.27,0.794,0.31,1.671c0.043,0.949,0.052,1.234,0.052,3.637 s-0.009,2.688-0.052,3.637c-0.04,0.877-0.187,1.354-0.31,1.671c-0.163,0.42-0.358,0.72-0.673,1.035 c-0.315,0.315-0.615,0.51-1.035,0.673c-0.317,0.123-0.794,0.27-1.671,0.31c-0.949,0.043-1.233,0.052-3.637,0.052 s-2.688-0.009-3.637-0.052c-0.877-0.04-1.354-0.187-1.671-0.31c-0.42-0.163-0.72-0.358-1.035-0.673 c-0.315-0.315-0.51-0.615-0.673-1.035c-0.123-0.317-0.27-0.794-0.31-1.671C4.631,14.688,4.622,14.403,4.622,12 s0.009-2.688,0.052-3.637c0.04-0.877,0.187-1.354,0.31-1.671c0.163-0.42,0.358-0.72,0.673-1.035 c0.315-0.315,0.615-0.51,1.035-0.673c0.317-0.123,0.794-0.27,1.671-0.31C9.312,4.631,9.597,4.622,12,4.622 M12,3 C9.556,3,9.249,3.01,8.289,3.054C7.331,3.098,6.677,3.25,6.105,3.472C5.513,3.702,5.011,4.01,4.511,4.511 c-0.5,0.5-0.808,1.002-1.038,1.594C3.25,6.677,3.098,7.331,3.054,8.289C3.01,9.249,3,9.556,3,12c0,2.444,0.01,2.751,0.054,3.711 c0.044,0.958,0.196,1.612,0.418,2.185c0.23,0.592,0.538,1.094,1.038,1.594c0.5,0.5,1.002,0.808,1.594,1.038 c0.572,0.222,1.227,0.375,2.185,0.418C9.249,20.99,9.556,21,12,21s2.751-0.01,3.711-0.054c0.958-0.044,1.612-0.196,2.185-0.418 c0.592-0.23,1.094-0.538,1.594-1.038c0.5-0.5,0.808-1.002,1.038-1.594c0.222-0.572,0.375-1.227,0.418-2.185 C20.99,14.751,21,14.444,21,12s-0.01-2.751-0.054-3.711c-0.044-0.958-0.196-1.612-0.418-2.185c-0.23-0.592-0.538-1.094-1.038-1.594 c-0.5-0.5-1.002-0.808-1.594-1.038c-0.572-0.222-1.227-0.375-2.185-0.418C14.751,3.01,14.444,3,12,3L12,3z M12,7.378 c-2.552,0-4.622,2.069-4.622,4.622S9.448,16.622,12,16.622s4.622-2.069,4.622-4.622S14.552,7.378,12,7.378z M12,15 c-1.657,0-3-1.343-3-3s1.343-3,3-3s3,1.343,3,3S13.657,15,12,15z M16.804,6.116c-0.596,0-1.08,0.484-1.08,1.08 s0.484,1.08,1.08,1.08c0.596,0,1.08-0.484,1.08-1.08S17.401,6.116,16.804,6.116z"></path></svg><span class="wp-block-social-link-label screen-reader-text">Instagram</span></a></li></ul>
+</aside><aside id="wp_tag_cloud-3" class="widget wp_widget_tag_cloud"><h1 class="widget-title">Tags</h1><a href="https://fromthevault.wheaton.edu/tag/africa-inland-mission/" class="tag-cloud-link tag-link-7852938 tag-link-position-1" style="font-size: 11.783783783784pt;" aria-label="Africa Inland Mission (5 items)">Africa Inland Mission</a>
+<a href="https://fromthevault.wheaton.edu/tag/american-evangelicalism/" class="tag-cloud-link tag-link-84168 tag-link-position-2" style="font-size: 19.981981981982pt;" aria-label="American Evangelicalism (26 items)">American Evangelicalism</a>
+<a href="https://fromthevault.wheaton.edu/tag/american-hymnody/" class="tag-cloud-link tag-link-99902106 tag-link-position-3" style="font-size: 10.774774774775pt;" aria-label="American hymnody (4 items)">American hymnody</a>
+<a href="https://fromthevault.wheaton.edu/tag/art-in-the-archives/" class="tag-cloud-link tag-link-576340512 tag-link-position-4" style="font-size: 12.666666666667pt;" aria-label="Art in the Archives (6 items)">Art in the Archives</a>
+<a href="https://fromthevault.wheaton.edu/tag/billy-graham/" class="tag-cloud-link tag-link-309665 tag-link-position-5" style="font-size: 15.945945945946pt;" aria-label="Billy Graham (12 items)">Billy Graham</a>
+<a href="https://fromthevault.wheaton.edu/tag/billy-sunday/" class="tag-cloud-link tag-link-488198 tag-link-position-6" style="font-size: 10.774774774775pt;" aria-label="Billy Sunday (4 items)">Billy Sunday</a>
+<a href="https://fromthevault.wheaton.edu/tag/campus-ministry/" class="tag-cloud-link tag-link-180545 tag-link-position-7" style="font-size: 9.5135135135135pt;" aria-label="Campus Ministry (3 items)">Campus Ministry</a>
+<a href="https://fromthevault.wheaton.edu/tag/chicago-gospel-tabernacle/" class="tag-cloud-link tag-link-45292468 tag-link-position-8" style="font-size: 8pt;" aria-label="Chicago Gospel Tabernacle (2 items)">Chicago Gospel Tabernacle</a>
+<a href="https://fromthevault.wheaton.edu/tag/chicago-missions/" class="tag-cloud-link tag-link-101130818 tag-link-position-9" style="font-size: 10.774774774775pt;" aria-label="Chicago Missions (4 items)">Chicago Missions</a>
+<a href="https://fromthevault.wheaton.edu/tag/china/" class="tag-cloud-link tag-link-1470 tag-link-position-10" style="font-size: 11.783783783784pt;" aria-label="China (5 items)">China</a>
+<a href="https://fromthevault.wheaton.edu/tag/china-inland-mission/" class="tag-cloud-link tag-link-3995102 tag-link-position-11" style="font-size: 13.297297297297pt;" aria-label="China Inland Mission (7 items)">China Inland Mission</a>
+<a href="https://fromthevault.wheaton.edu/tag/christianity-today/" class="tag-cloud-link tag-link-574070 tag-link-position-12" style="font-size: 8pt;" aria-label="Christianity Today (2 items)">Christianity Today</a>
+<a href="https://fromthevault.wheaton.edu/tag/christmas/" class="tag-cloud-link tag-link-15607 tag-link-position-13" style="font-size: 9.5135135135135pt;" aria-label="Christmas (3 items)">Christmas</a>
+<a href="https://fromthevault.wheaton.edu/tag/consuella-york/" class="tag-cloud-link tag-link-693922374 tag-link-position-14" style="font-size: 8pt;" aria-label="Consuella York (2 items)">Consuella York</a>
+<a href="https://fromthevault.wheaton.edu/tag/elisabeth-elliot/" class="tag-cloud-link tag-link-547141 tag-link-position-15" style="font-size: 15.063063063063pt;" aria-label="Elisabeth Elliot (10 items)">Elisabeth Elliot</a>
+<a href="https://fromthevault.wheaton.edu/tag/evangelism/" class="tag-cloud-link tag-link-8554 tag-link-position-16" style="font-size: 8pt;" aria-label="Evangelism (2 items)">Evangelism</a>
+<a href="https://fromthevault.wheaton.edu/tag/fanny-crosby/" class="tag-cloud-link tag-link-2941022 tag-link-position-17" style="font-size: 9.5135135135135pt;" aria-label="Fanny Crosby (3 items)">Fanny Crosby</a>
+<a href="https://fromthevault.wheaton.edu/tag/george-beverly-shea/" class="tag-cloud-link tag-link-11548941 tag-link-position-18" style="font-size: 13.297297297297pt;" aria-label="George Beverly Shea (7 items)">George Beverly Shea</a>
+<a href="https://fromthevault.wheaton.edu/tag/global-missions/" class="tag-cloud-link tag-link-182235 tag-link-position-19" style="font-size: 22pt;" aria-label="Global Missions (38 items)">Global Missions</a>
+<a href="https://fromthevault.wheaton.edu/tag/harold-lindsell/" class="tag-cloud-link tag-link-28966304 tag-link-position-20" style="font-size: 10.774774774775pt;" aria-label="Harold Lindsell (4 items)">Harold Lindsell</a>
+<a href="https://fromthevault.wheaton.edu/tag/homer-rodeheaver/" class="tag-cloud-link tag-link-38076160 tag-link-position-21" style="font-size: 9.5135135135135pt;" aria-label="Homer Rodeheaver (3 items)">Homer Rodeheaver</a>
+<a href="https://fromthevault.wheaton.edu/tag/international-fellowship-of-evangelical-students/" class="tag-cloud-link tag-link-16892743 tag-link-position-22" style="font-size: 10.774774774775pt;" aria-label="International Fellowship of Evangelical Students (4 items)">International Fellowship of Evangelical Students</a>
+<a href="https://fromthevault.wheaton.edu/tag/intervarsity-christian-fellowship/" class="tag-cloud-link tag-link-4778821 tag-link-position-23" style="font-size: 8pt;" aria-label="InterVarsity Christian Fellowship (2 items)">InterVarsity Christian Fellowship</a>
+<a href="https://fromthevault.wheaton.edu/tag/j-edwin-orr/" class="tag-cloud-link tag-link-786402 tag-link-position-24" style="font-size: 8pt;" aria-label="J. Edwin Orr (2 items)">J. Edwin Orr</a>
+<a href="https://fromthevault.wheaton.edu/tag/jim-elliot/" class="tag-cloud-link tag-link-403480 tag-link-position-25" style="font-size: 13.297297297297pt;" aria-label="Jim Elliot (7 items)">Jim Elliot</a>
+<a href="https://fromthevault.wheaton.edu/tag/john-stott/" class="tag-cloud-link tag-link-298605 tag-link-position-26" style="font-size: 9.5135135135135pt;" aria-label="John Stott (3 items)">John Stott</a>
+<a href="https://fromthevault.wheaton.edu/tag/latin-america/" class="tag-cloud-link tag-link-5839 tag-link-position-27" style="font-size: 10.774774774775pt;" aria-label="Latin America (4 items)">Latin America</a>
+<a href="https://fromthevault.wheaton.edu/tag/latin-america-mission/" class="tag-cloud-link tag-link-20917689 tag-link-position-28" style="font-size: 9.5135135135135pt;" aria-label="Latin America Mission (3 items)">Latin America Mission</a>
+<a href="https://fromthevault.wheaton.edu/tag/lausanne-movement/" class="tag-cloud-link tag-link-14009560 tag-link-position-29" style="font-size: 9.5135135135135pt;" aria-label="Lausanne Movement (3 items)">Lausanne Movement</a>
+<a href="https://fromthevault.wheaton.edu/tag/moody-bible-institute/" class="tag-cloud-link tag-link-1333474 tag-link-position-30" style="font-size: 10.774774774775pt;" aria-label="Moody Bible Institute (4 items)">Moody Bible Institute</a>
+<a href="https://fromthevault.wheaton.edu/tag/moody-church/" class="tag-cloud-link tag-link-1281547 tag-link-position-31" style="font-size: 12.666666666667pt;" aria-label="Moody Church (6 items)">Moody Church</a>
+<a href="https://fromthevault.wheaton.edu/tag/oral-history/" class="tag-cloud-link tag-link-104839 tag-link-position-32" style="font-size: 9.5135135135135pt;" aria-label="Oral history (3 items)">Oral history</a>
+<a href="https://fromthevault.wheaton.edu/tag/overseas-missionary-fellowship/" class="tag-cloud-link tag-link-14467424 tag-link-position-33" style="font-size: 12.666666666667pt;" aria-label="Overseas Missionary Fellowship (6 items)">Overseas Missionary Fellowship</a>
+<a href="https://fromthevault.wheaton.edu/tag/paul-rader/" class="tag-cloud-link tag-link-2583921 tag-link-position-34" style="font-size: 8pt;" aria-label="Paul Rader (2 items)">Paul Rader</a>
+<a href="https://fromthevault.wheaton.edu/tag/prison-ministry/" class="tag-cloud-link tag-link-1137050 tag-link-position-35" style="font-size: 8pt;" aria-label="Prison Ministry (2 items)">Prison Ministry</a>
+<a href="https://fromthevault.wheaton.edu/tag/prohibition/" class="tag-cloud-link tag-link-164162 tag-link-position-36" style="font-size: 8pt;" aria-label="Prohibition (2 items)">Prohibition</a>
+<a href="https://fromthevault.wheaton.edu/tag/radio-evangelism/" class="tag-cloud-link tag-link-58930389 tag-link-position-37" style="font-size: 9.5135135135135pt;" aria-label="Radio Evangelism (3 items)">Radio Evangelism</a>
+<a href="https://fromthevault.wheaton.edu/tag/rare-book-collections/" class="tag-cloud-link tag-link-8380531 tag-link-position-38" style="font-size: 12.666666666667pt;" aria-label="Rare Book Collections (6 items)">Rare Book Collections</a>
+<a href="https://fromthevault.wheaton.edu/tag/ruth-bell-graham/" class="tag-cloud-link tag-link-1274465 tag-link-position-39" style="font-size: 8pt;" aria-label="Ruth Bell Graham (2 items)">Ruth Bell Graham</a>
+<a href="https://fromthevault.wheaton.edu/tag/student-life/" class="tag-cloud-link tag-link-2529 tag-link-position-40" style="font-size: 12.666666666667pt;" aria-label="Student Life (6 items)">Student Life</a>
+<a href="https://fromthevault.wheaton.edu/tag/tom-skinner/" class="tag-cloud-link tag-link-3261638 tag-link-position-41" style="font-size: 11.783783783784pt;" aria-label="Tom Skinner (5 items)">Tom Skinner</a>
+<a href="https://fromthevault.wheaton.edu/tag/torrey-johnson/" class="tag-cloud-link tag-link-62338672 tag-link-position-42" style="font-size: 8pt;" aria-label="Torrey Johnson (2 items)">Torrey Johnson</a>
+<a href="https://fromthevault.wheaton.edu/tag/urbana-student-missions-conference/" class="tag-cloud-link tag-link-122990924 tag-link-position-43" style="font-size: 8pt;" aria-label="Urbana Student Missions Conference (2 items)">Urbana Student Missions Conference</a>
+<a href="https://fromthevault.wheaton.edu/tag/v-raymond-edman/" class="tag-cloud-link tag-link-46129050 tag-link-position-44" style="font-size: 8pt;" aria-label="V. Raymond Edman (2 items)">V. Raymond Edman</a>
+<a href="https://fromthevault.wheaton.edu/tag/virginia-healey-asher/" class="tag-cloud-link tag-link-690889539 tag-link-position-45" style="font-size: 8pt;" aria-label="Virginia Healey Asher (2 items)">Virginia Healey Asher</a>
+<a href="https://fromthevault.wheaton.edu/tag/wheaton-college/" class="tag-cloud-link tag-link-875019 tag-link-position-46" style="font-size: 21.243243243243pt;" aria-label="Wheaton College (33 items)">Wheaton College</a>
+<a href="https://fromthevault.wheaton.edu/tag/womans-union-missionary-society/" class="tag-cloud-link tag-link-439305725 tag-link-position-47" style="font-size: 10.774774774775pt;" aria-label="Woman&#039;s Union Missionary Society (4 items)">Woman&#039;s Union Missionary Society</a>
+<a href="https://fromthevault.wheaton.edu/tag/world-war-ii/" class="tag-cloud-link tag-link-62291 tag-link-position-48" style="font-size: 10.774774774775pt;" aria-label="World War II (4 items)">World War II</a>
+<a href="https://fromthevault.wheaton.edu/tag/youth-evangelism/" class="tag-cloud-link tag-link-7315038 tag-link-position-49" style="font-size: 12.666666666667pt;" aria-label="Youth Evangelism (6 items)">Youth Evangelism</a>
+<a href="https://fromthevault.wheaton.edu/tag/youth-for-christ/" class="tag-cloud-link tag-link-887360 tag-link-position-50" style="font-size: 9.5135135135135pt;" aria-label="Youth for Christ (3 items)">Youth for Christ</a></aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1><form action="https://fromthevault.wheaton.edu" method="get"><label class="screen-reader-text" for="cat">Categories</label><select  name='cat' id='cat' class='postform'>
+	<option value='-1'>Select Category</option>
+	<option class="level-0" value="45210">Anniversary&nbsp;&nbsp;(19)</option>
+	<option class="level-0" value="66432106">Artifact of the Month&nbsp;&nbsp;(50)</option>
+	<option class="level-0" value="86466938">Asian American and Pacific Islander Heritage Month&nbsp;&nbsp;(1)</option>
+	<option class="level-0" value="59824">Behind the Scenes&nbsp;&nbsp;(10)</option>
+	<option class="level-0" value="61332">Black History Month&nbsp;&nbsp;(7)</option>
+	<option class="level-0" value="67149">College Archives&nbsp;&nbsp;(22)</option>
+	<option class="level-0" value="757708671">Evangelism &amp; Missions Archives&nbsp;&nbsp;(80)</option>
+	<option class="level-0" value="497323">Guest Writer&nbsp;&nbsp;(5)</option>
+	<option class="level-0" value="312375">Hispanic Heritage Month&nbsp;&nbsp;(1)</option>
+	<option class="level-0" value="55920176">New Accession&nbsp;&nbsp;(10)</option>
+	<option class="level-0" value="153220">New Collection&nbsp;&nbsp;(9)</option>
+	<option class="level-0" value="16357755">Researcher Profile&nbsp;&nbsp;(8)</option>
+	<option class="level-0" value="399794">Special Collections&nbsp;&nbsp;(19)</option>
+	<option class="level-0" value="788194">Women&#8217;s History Month&nbsp;&nbsp;(9)</option>
+</select>
+</form><script>
+( ( dropdownId ) => {
+	const dropdown = document.getElementById( dropdownId );
+	function onSelectChange() {
+		setTimeout( () => {
+			if ( 'escape' === dropdown.dataset.lastkey ) {
+				return;
+			}
+			if ( dropdown.value && parseInt( dropdown.value ) > 0 && dropdown instanceof HTMLSelectElement ) {
+				dropdown.parentElement.submit();
+			}
+		}, 250 );
+	}
+	function onKeyUp( event ) {
+		if ( 'Escape' === event.key ) {
+			dropdown.dataset.lastkey = 'escape';
+		} else {
+			delete dropdown.dataset.lastkey;
+		}
+	}
+	function onClick() {
+		delete dropdown.dataset.lastkey;
+	}
+	dropdown.addEventListener( 'keyup', onKeyUp );
+	dropdown.addEventListener( 'click', onClick );
+	dropdown.addEventListener( 'change', onSelectChange );
+})( "cat" );
+
+//# sourceURL=WP_Widget_Categories%3A%3Awidget
+</script>
+</aside><aside id="archives-3" class="widget widget_archive"><h1 class="widget-title">Archives</h1>
+			<ul>
+					<li><a href='https://fromthevault.wheaton.edu/2026/08/'>August 2026</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2026/07/'>July 2026</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2026/06/'>June 2026</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2026/05/'>May 2026</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2026/04/'>April 2026</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2026/03/'>March 2026</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2026/02/'>February 2026</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2026/01/'>January 2026</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2025/12/'>December 2025</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2025/11/'>November 2025</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2025/10/'>October 2025</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2025/09/'>September 2025</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2025/08/'>August 2025</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2025/07/'>July 2025</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2025/06/'>June 2025</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2025/05/'>May 2025</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2025/04/'>April 2025</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2025/03/'>March 2025</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2025/02/'>February 2025</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2025/01/'>January 2025</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2024/12/'>December 2024</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2024/11/'>November 2024</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2024/10/'>October 2024</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2024/09/'>September 2024</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2024/08/'>August 2024</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2024/07/'>July 2024</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2024/06/'>June 2024</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2024/05/'>May 2024</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2024/04/'>April 2024</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2024/03/'>March 2024</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2024/02/'>February 2024</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2024/01/'>January 2024</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2023/12/'>December 2023</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2023/11/'>November 2023</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2023/10/'>October 2023</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2023/09/'>September 2023</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2023/08/'>August 2023</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2023/07/'>July 2023</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2023/06/'>June 2023</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2023/05/'>May 2023</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2023/04/'>April 2023</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2023/03/'>March 2023</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2023/02/'>February 2023</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2023/01/'>January 2023</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2022/12/'>December 2022</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2022/11/'>November 2022</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2022/10/'>October 2022</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2022/09/'>September 2022</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2022/08/'>August 2022</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2022/07/'>July 2022</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2022/06/'>June 2022</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2022/05/'>May 2022</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2022/04/'>April 2022</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2022/03/'>March 2022</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2022/02/'>February 2022</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2022/01/'>January 2022</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2021/12/'>December 2021</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2021/11/'>November 2021</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2021/10/'>October 2021</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2021/09/'>September 2021</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2021/08/'>August 2021</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2021/07/'>July 2021</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2021/06/'>June 2021</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2021/05/'>May 2021</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2021/04/'>April 2021</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2021/03/'>March 2021</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2021/02/'>February 2021</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2021/01/'>January 2021</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2020/12/'>December 2020</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2020/11/'>November 2020</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2020/10/'>October 2020</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2020/09/'>September 2020</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2020/08/'>August 2020</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2020/07/'>July 2020</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2020/06/'>June 2020</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2020/05/'>May 2020</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2020/04/'>April 2020</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2020/03/'>March 2020</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2020/02/'>February 2020</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2020/01/'>January 2020</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2019/12/'>December 2019</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2019/11/'>November 2019</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2019/10/'>October 2019</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2019/09/'>September 2019</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2019/08/'>August 2019</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2019/07/'>July 2019</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2019/05/'>May 2019</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2019/04/'>April 2019</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2019/02/'>February 2019</a></li>
+	<li><a href='https://fromthevault.wheaton.edu/2018/11/'>November 2018</a></li>
+			</ul>
+
+			</aside>	</div><!-- #secondary -->
+
+	</div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+				<div class="site-info">
+			<a href="https://wordpress.com/?ref=footer_custom_powered" rel="nofollow">Website Powered by WordPress.com</a>.
+			
+					</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<!--  -->
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/files/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/pub/hemingway-rewritten/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script id="grofiles-cards-js" src="//0.gravatar.com/js/hovercards/hovercards.min.js?ver=202637d1133547e8a1f2801609f51cef12522abe7f6647d869e9fbc974fe356a37e613"></script>
+<script id="wpgroho-js-extra">
+var WPGroHo = {"my_hash":""};
+//# sourceURL=wpgroho-js-extra
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1610363240i'></script>
+
+	<script>
+		// Initialize and attach hovercards to all gravatars
+		( function() {
+			function init() {
+				if ( typeof Gravatar === 'undefined' ) {
+					return;
+				}
+
+				if ( typeof Gravatar.init !== 'function' ) {
+					return;
+				}
+
+				Gravatar.profile_cb = function ( hash, id ) {
+					WPGroHo.syncProfileData( hash, id );
+				};
+
+				Gravatar.my_hash = WPGroHo.my_hash;
+				Gravatar.init(
+					'body',
+					'#wp-admin-bar-my-account',
+					{
+						i18n: {
+							'Edit your profile →': 'Edit your profile →',
+							'View profile →': 'View profile →',
+							'Contact': 'Contact',
+							'Send money': 'Send money',
+							'Sorry, we are unable to load this Gravatar profile.': 'Sorry, we are unable to load this Gravatar profile.',
+							'Gravatar not found.': 'Gravatar not found.',
+							'Too Many Requests.': 'Too Many Requests.',
+							'Internal Server Error.': 'Internal Server Error.',
+							'Is this you?': 'Is this you?',
+							'Claim your free profile.': 'Claim your free profile.',
+							'Email': 'Email',
+							'Home Phone': 'Home Phone',
+							'Work Phone': 'Work Phone',
+							'Cell Phone': 'Cell Phone',
+							'Contact Form': 'Contact Form',
+							'Calendar': 'Calendar',
+						},
+					}
+				);
+			}
+
+			if ( document.readyState !== 'loading' ) {
+				init();
+			} else {
+				document.addEventListener( 'DOMContentLoaded', init );
+			}
+		} )();
+	</script>
+
+		<div style="display:none">
+	</div>
+		<div id="actionbar" dir="ltr" style="display: none;"
+			class="actnbr-pub-hemingway-rewritten actnbr-has-follow actnbr-has-actions">
+		<ul>
+								<li class="actnbr-btn actnbr-hidden">
+						<a class="actnbr-action actnbr-actn-comment" href="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/#respond">
+							<svg class="gridicon gridicons-comment" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M12 16l-5 5v-5H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v9c0 1.1-.9 2-2 2h-7z"/></g></svg>							<span>Comment						</span>
+						</a>
+					</li>
+									<li class="actnbr-btn actnbr-hidden">
+						<a class="actnbr-action actnbr-actn-reblog" href="">
+							<svg class="gridicon gridicons-reblog" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M22.086 9.914L20 7.828V18c0 1.105-.895 2-2 2h-7v-2h7V7.828l-2.086 2.086L14.5 8.5 19 4l4.5 4.5-1.414 1.414zM6 16.172V6h7V4H6c-1.105 0-2 .895-2 2v10.172l-2.086-2.086L.5 15.5 5 20l4.5-4.5-1.414-1.414L6 16.172z"/></g></svg><span>Reblog</span>
+						</a>
+					</li>
+									<li class="actnbr-btn actnbr-hidden">
+								<a class="actnbr-action actnbr-actn-follow " href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path clip-rule="evenodd" d="m4 4.5h12v6.5h1.5v-6.5-1.5h-1.5-12-1.5v1.5 10.5c0 1.1046.89543 2 2 2h7v-1.5h-7c-.27614 0-.5-.2239-.5-.5zm10.5 2h-9v1.5h9zm-5 3h-4v1.5h4zm3.5 1.5h-1v1h1zm-1-1.5h-1.5v1.5 1 1.5h1.5 1 1.5v-1.5-1-1.5h-1.5zm-2.5 2.5h-4v1.5h4zm6.5 1.25h1.5v2.25h2.25v1.5h-2.25v2.25h-1.5v-2.25h-2.25v-1.5h2.25z"  fill-rule="evenodd"></path></svg>
+			<span>Subscribe</span>
+		</a>
+		<a class="actnbr-action actnbr-actn-following  no-display" href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 4.5H4V15C4 15.2761 4.22386 15.5 4.5 15.5H11.5V17H4.5C3.39543 17 2.5 16.1046 2.5 15V3H17.5V12.5H16V4.5ZM5.5 6.5H14.5V8H5.5V6.5ZM5.5 9.5H9.5V11H5.5V9.5ZM12 11H13V12H12V11ZM10.5 9.5H14.5V13.5H10.5V9.5ZM5.5 12H9.5V13.5H5.5V12Z" fill="#008A20"></path><path d="M19.5303 15.0303L15.5 19.0605L12.9697 16.5303L14.0303 15.4697L15.5 16.9395L18.4697 13.9697L19.5303 15.0303Z" fill="#008A20"></path></svg>
+			<span>Subscribed</span>
+		</a>
+							<div class="actnbr-popover tip tip-top-left actnbr-notice" id="follow-bubble">
+							<div class="tip-arrow"></div>
+							<div class="tip-inner actnbr-follow-bubble">
+															<ul>
+											<li class="actnbr-sitename">
+			<a href="https://fromthevault.wheaton.edu">
+				<img loading='lazy' alt='' src='https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=50' srcset='https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=50 1x, https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=75 1.5x, https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=100 2x, https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=150 3x, https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=200 4x' class='avatar avatar-50' height='50' width='50' />				From the Vault			</a>
+		</li>
+										<div class="actnbr-message no-display"></div>
+									<form method="post" action="https://subscribe.wordpress.com" accept-charset="utf-8" style="display: none;">
+																						<div class="actnbr-follow-count">Join 70 other subscribers</div>
+																					<div>
+										<input type="email" name="email" placeholder="Enter your email address" class="actnbr-email-field" aria-label="Enter your email address" />
+										</div>
+										<input type="hidden" name="action" value="subscribe" />
+										<input type="hidden" name="blog_id" value="154953109" />
+										<input type="hidden" name="source" value="https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/" />
+										<input type="hidden" name="sub-type" value="actionbar-follow" />
+										<input type="hidden" id="_wpnonce" name="_wpnonce" value="801ed5a9a8" />										<div class="actnbr-button-wrap">
+											<button type="submit" value="Sign me up">
+												Sign me up											</button>
+										</div>
+									</form>
+									<li class="actnbr-login-nudge">
+										<div>
+											Already have a WordPress.com account? <a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fr-login.wordpress.com%2Fremote-login.php%3Faction%3Dlink%26back%3Dhttps%253A%252F%252Ffromthevault.wheaton.edu%252F2023%252F12%252F01%252Fhumble-beginnings%252F">Log in now.</a>										</div>
+									</li>
+								</ul>
+															</div>
+						</div>
+					</li>
+							<li class="actnbr-ellipsis actnbr-hidden">
+				<svg class="gridicon gridicons-ellipsis" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M7 12c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm12-2c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-7 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2z"/></g></svg>				<div class="actnbr-popover tip tip-top-left actnbr-more">
+					<div class="tip-arrow"></div>
+					<div class="tip-inner">
+						<ul>
+								<li class="actnbr-sitename">
+			<a href="https://fromthevault.wheaton.edu">
+				<img loading='lazy' alt='' src='https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=50' srcset='https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=50 1x, https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=75 1.5x, https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=100 2x, https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=150 3x, https://fromthevault.wheaton.edu/wp-content/uploads/2023/09/wheaton-college-archives.png?w=200 4x' class='avatar avatar-50' height='50' width='50' />				From the Vault			</a>
+		</li>
+								<li class="actnbr-folded-follow">
+										<a class="actnbr-action actnbr-actn-follow " href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path clip-rule="evenodd" d="m4 4.5h12v6.5h1.5v-6.5-1.5h-1.5-12-1.5v1.5 10.5c0 1.1046.89543 2 2 2h7v-1.5h-7c-.27614 0-.5-.2239-.5-.5zm10.5 2h-9v1.5h9zm-5 3h-4v1.5h4zm3.5 1.5h-1v1h1zm-1-1.5h-1.5v1.5 1 1.5h1.5 1 1.5v-1.5-1-1.5h-1.5zm-2.5 2.5h-4v1.5h4zm6.5 1.25h1.5v2.25h2.25v1.5h-2.25v2.25h-1.5v-2.25h-2.25v-1.5h2.25z"  fill-rule="evenodd"></path></svg>
+			<span>Subscribe</span>
+		</a>
+		<a class="actnbr-action actnbr-actn-following  no-display" href="">
+			<svg class="gridicon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 4.5H4V15C4 15.2761 4.22386 15.5 4.5 15.5H11.5V17H4.5C3.39543 17 2.5 16.1046 2.5 15V3H17.5V12.5H16V4.5ZM5.5 6.5H14.5V8H5.5V6.5ZM5.5 9.5H9.5V11H5.5V9.5ZM12 11H13V12H12V11ZM10.5 9.5H14.5V13.5H10.5V9.5ZM5.5 12H9.5V13.5H5.5V12Z" fill="#008A20"></path><path d="M19.5303 15.0303L15.5 19.0605L12.9697 16.5303L14.0303 15.4697L15.5 16.9395L18.4697 13.9697L19.5303 15.0303Z" fill="#008A20"></path></svg>
+			<span>Subscribed</span>
+		</a>
+								</li>
+														<li class="actnbr-signup"><a href="https://wordpress.com/start/">Sign up</a></li>
+							<li class="actnbr-login"><a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fr-login.wordpress.com%2Fremote-login.php%3Faction%3Dlink%26back%3Dhttps%253A%252F%252Ffromthevault.wheaton.edu%252F2023%252F12%252F01%252Fhumble-beginnings%252F">Log in</a></li>
+																<li class="actnbr-shortlink">
+										<a href="https://wp.me/pauanH-1uj">
+											<span class="actnbr-shortlink__text">Copy shortlink</span>
+											<span class="actnbr-shortlink__icon"><svg class="gridicon gridicons-checkmark" height="16" width="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M9 19.414l-6.707-6.707 1.414-1.414L9 16.586 20.293 5.293l1.414 1.414"/></g></svg></span>
+										</a>
+									</li>
+																<li class="flb-report">
+									<a href="https://wordpress.com/abuse/?report_url=https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/" target="_blank" rel="noopener noreferrer">
+										Report this content									</a>
+								</li>
+															<li class="actnbr-reader">
+									<a href="https://wordpress.com/reader/blogs/154953109/posts/5723">
+										View post in Reader									</a>
+								</li>
+															<li class="actnbr-subs">
+									<a href="https://subscribe.wordpress.com/">Manage subscriptions</a>
+								</li>
+																<li class="actnbr-fold"><a href="">Collapse this bar</a></li>
+														</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+<script>
+window.addEventListener( "DOMContentLoaded", function( event ) {
+	var link = document.createElement( "link" );
+	link.href = "/wp-content/mu-plugins/actionbar/actionbar.css?v=20250116";
+	link.type = "text/css";
+	link.rel = "stylesheet";
+	document.head.appendChild( link );
+
+	var script = document.createElement( "script" );
+	script.src = "/wp-content/mu-plugins/actionbar/actionbar.js?v=20250204";
+	document.body.appendChild( script );
+} );
+</script>
+
+			<div id="jp-carousel-loading-overlay" style="display: none;">
+			<div id="jp-carousel-loading-wrapper">
+				<span id="jp-carousel-library-loading"><svg class="jetpack-spinner" width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="46" fill="none" stroke="#ddd" stroke-width="8"/><path d="M 50 4 A 46 46 0 0 1 96 50" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" dur="1.4s" from="0 50 50" to="360 50 50" repeatCount="indefinite"/></path></svg></span>
+			</div>
+		</div>
+		<div class="jp-carousel-overlay" style="display: none;">
+
+		<div class="jp-carousel-container">
+			<!-- The Carousel Swiper -->
+			<div
+				class="jp-carousel-wrap swiper jp-carousel-swiper-container jp-carousel-transitions"
+				itemscope
+				itemtype="https://schema.org/ImageGallery">
+				<div class="jp-carousel swiper-wrapper"></div>
+				<div class="jp-swiper-button-prev swiper-button-prev">
+					<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<mask id="maskPrev" mask-type="alpha" maskUnits="userSpaceOnUse" x="8" y="6" width="9" height="12">
+							<path d="M16.2072 16.59L11.6496 12L16.2072 7.41L14.8041 6L8.8335 12L14.8041 18L16.2072 16.59Z" fill="white"/>
+						</mask>
+						<g mask="url(#maskPrev)">
+							<rect x="0.579102" width="23.8823" height="24" fill="#FFFFFF"/>
+						</g>
+					</svg>
+				</div>
+				<div class="jp-swiper-button-next swiper-button-next">
+					<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<mask id="maskNext" mask-type="alpha" maskUnits="userSpaceOnUse" x="8" y="6" width="8" height="12">
+							<path d="M8.59814 16.59L13.1557 12L8.59814 7.41L10.0012 6L15.9718 12L10.0012 18L8.59814 16.59Z" fill="white"/>
+						</mask>
+						<g mask="url(#maskNext)">
+							<rect x="0.34375" width="23.8822" height="24" fill="#FFFFFF"/>
+						</g>
+					</svg>
+				</div>
+			</div>
+			<!-- The main close buton -->
+			<div class="jp-carousel-close-hint">
+				<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<mask id="maskClose" mask-type="alpha" maskUnits="userSpaceOnUse" x="5" y="5" width="15" height="14">
+						<path d="M19.3166 6.41L17.9135 5L12.3509 10.59L6.78834 5L5.38525 6.41L10.9478 12L5.38525 17.59L6.78834 19L12.3509 13.41L17.9135 19L19.3166 17.59L13.754 12L19.3166 6.41Z" fill="white"/>
+					</mask>
+					<g mask="url(#maskClose)">
+						<rect x="0.409668" width="23.8823" height="24" fill="#FFFFFF"/>
+					</g>
+				</svg>
+			</div>
+			<!-- Image info, comments and meta -->
+			<div class="jp-carousel-info">
+				<div class="jp-carousel-info-footer">
+					<div class="jp-carousel-pagination-container">
+						<div class="jp-swiper-pagination swiper-pagination"></div>
+						<div class="jp-carousel-pagination"></div>
+					</div>
+					<div class="jp-carousel-photo-title-container">
+						<div class="jp-carousel-photo-caption"></div>
+					</div>
+					<div class="jp-carousel-photo-icons-container">
+						<a href="#" class="jp-carousel-icon-btn jp-carousel-icon-info" aria-label="Toggle photo metadata visibility">
+							<span class="jp-carousel-icon">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="maskInfo" mask-type="alpha" maskUnits="userSpaceOnUse" x="2" y="2" width="21" height="20">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M12.7537 2C7.26076 2 2.80273 6.48 2.80273 12C2.80273 17.52 7.26076 22 12.7537 22C18.2466 22 22.7046 17.52 22.7046 12C22.7046 6.48 18.2466 2 12.7537 2ZM11.7586 7V9H13.7488V7H11.7586ZM11.7586 11V17H13.7488V11H11.7586ZM4.79292 12C4.79292 16.41 8.36531 20 12.7537 20C17.142 20 20.7144 16.41 20.7144 12C20.7144 7.59 17.142 4 12.7537 4C8.36531 4 4.79292 7.59 4.79292 12Z" fill="white"/>
+									</mask>
+									<g mask="url(#maskInfo)">
+										<rect x="0.8125" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+							</span>
+						</a>
+												<a href="#" class="jp-carousel-icon-btn jp-carousel-icon-comments" aria-label="Toggle photo comments visibility">
+							<span class="jp-carousel-icon">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="maskComments" mask-type="alpha" maskUnits="userSpaceOnUse" x="2" y="2" width="21" height="20">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M4.3271 2H20.2486C21.3432 2 22.2388 2.9 22.2388 4V16C22.2388 17.1 21.3432 18 20.2486 18H6.31729L2.33691 22V4C2.33691 2.9 3.2325 2 4.3271 2ZM6.31729 16H20.2486V4H4.3271V18L6.31729 16Z" fill="white"/>
+									</mask>
+									<g mask="url(#maskComments)">
+										<rect x="0.34668" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+
+								<span class="jp-carousel-has-comments-indicator" aria-label="This image has comments."></span>
+							</span>
+						</a>
+											</div>
+				</div>
+				<div class="jp-carousel-info-extra">
+					<div class="jp-carousel-info-content-wrapper">
+						<div class="jp-carousel-photo-title-container">
+							<div class="jp-carousel-photo-title"></div>
+						</div>
+						<div class="jp-carousel-comments-wrapper">
+															<div id="jp-carousel-comments-loading">
+									<span>Loading Comments...</span>
+								</div>
+								<div class="jp-carousel-comments"></div>
+								<div id="jp-carousel-comment-form-container">
+									<span id="jp-carousel-comment-form-spinner"><svg class="jetpack-spinner" width="20" height="20" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><circle cx="50" cy="50" r="46" fill="none" stroke="#ddd" stroke-width="8"/><path d="M 50 4 A 46 46 0 0 1 96 50" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" dur="1.4s" from="0 50 50" to="360 50 50" repeatCount="indefinite"/></path></svg></span>
+									<div id="jp-carousel-comment-post-results"></div>
+																														<form id="jp-carousel-comment-form">
+												<label for="jp-carousel-comment-form-comment-field" class="screen-reader-text">Write a Comment...</label>
+												<textarea
+													name="comment"
+													class="jp-carousel-comment-form-field jp-carousel-comment-form-textarea"
+													id="jp-carousel-comment-form-comment-field"
+													placeholder="Write a Comment..."
+												></textarea>
+												<div id="jp-carousel-comment-form-submit-and-info-wrapper">
+													<div id="jp-carousel-comment-form-commenting-as">
+																													<fieldset>
+																<label for="jp-carousel-comment-form-email-field">Email (Required)</label>
+																<input type="text" name="email" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-email-field" />
+															</fieldset>
+															<fieldset>
+																<label for="jp-carousel-comment-form-author-field">Name (Required)</label>
+																<input type="text" name="author" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-author-field" />
+															</fieldset>
+															<fieldset>
+																<label for="jp-carousel-comment-form-url-field">Website</label>
+																<input type="text" name="url" class="jp-carousel-comment-form-field jp-carousel-comment-form-text-field" id="jp-carousel-comment-form-url-field" />
+															</fieldset>
+																											</div>
+													<input
+														type="submit"
+														name="submit"
+														class="jp-carousel-comment-form-button"
+														id="jp-carousel-comment-form-button-submit"
+														value="Post Comment" />
+												</div>
+											</form>
+																											</div>
+													</div>
+						<div class="jp-carousel-image-meta">
+							<div class="jp-carousel-title-and-caption">
+								<div class="jp-carousel-photo-info">
+									<div class="jp-carousel-caption" itemprop="caption description"></div>
+								</div>
+
+								<div class="jp-carousel-photo-description"></div>
+							</div>
+							<a class="jp-carousel-image-download" href="#" aria-label="Download image" target="_blank" style="display: none;">
+								<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="3" y="3" width="19" height="18">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M5.84615 5V19H19.7775V12H21.7677V19C21.7677 20.1 20.8721 21 19.7775 21H5.84615C4.74159 21 3.85596 20.1 3.85596 19V5C3.85596 3.9 4.74159 3 5.84615 3H12.8118V5H5.84615ZM14.802 5V3H21.7677V10H19.7775V6.41L9.99569 16.24L8.59261 14.83L18.3744 5H14.802Z" fill="white"/>
+									</mask>
+									<g mask="url(#mask0)">
+										<rect x="0.870605" width="23.8823" height="24" fill="#FFFFFF"/>
+									</g>
+								</svg>
+								<span class="jp-carousel-download-text"></span>
+							</a>
+							<div class="jp-carousel-image-map" style="display: none;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</div>
+		
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https://fromthevault.wheaton.edu/2023/12/01/humble-beginnings/":5723};
+	</script>
+				
+	<script type="text/javascript">
+		(function () {
+			var wpcom_reblog = {
+				source: 'toolbar',
+
+				toggle_reblog_box_flair: function (obj_id, post_id) {
+
+					// Go to site selector. This will redirect to their blog if they only have one.
+					const postEndpoint = `https://wordpress.com/post`;
+
+					// Ideally we would use the permalink here, but fortunately this will be replaced with the 
+					// post permalink in the editor.
+					const originalURL = `${ document.location.href }?page_id=${ post_id }`; 
+					
+					const url =
+						postEndpoint +
+						'?url=' +
+						encodeURIComponent( originalURL ) +
+						'&is_post_share=true' +
+						'&v=5';
+
+					const redirect = function () {
+						if (
+							! window.open( url, '_blank' )
+						) {
+							location.href = url;
+						}
+					};
+
+					if ( /Firefox/.test( navigator.userAgent ) ) {
+						setTimeout( redirect, 0 );
+					} else {
+						redirect();
+					}
+				},
+			};
+
+			window.wpcom_reblog = wpcom_reblog;
+		})();
+	</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/wp-content/mu-plugins/likes/queuehandler.js?m=1741961244i'></script>
+<script id="wp-hooks-js" src="/wp-content/plugins/gutenberg-core/v23.9.0/build/scripts/hooks/index.min.js?m=1788366818i&#038;ver=f0f188028580e8dc1255"></script>
+<script id="wp-i18n-js" src="/wp-content/plugins/gutenberg-core/v23.9.0/build/scripts/i18n/index.min.js?m=1788366818i&#038;ver=1dfe7db3940c23ea9216"></script>
+<script id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script id="verbum-settings-js-before">
+window.VerbumComments = {"Log in or provide your name and email to leave a reply.":"Log in or provide your name and email to leave a reply.","Log in or provide your name and email to leave a comment.":"Log in or provide your name and email to leave a comment.","Receive web and mobile notifications for posts on this site.":"Receive web and mobile notifications for posts on this site.","Name":"Name","Email (address never made public)":"Email (address never made public)","Website (optional)":"Website (optional)","Leave a reply. (log in optional)":"Leave a reply. (log in optional)","Leave a comment. (log in optional)":"Leave a comment. (log in optional)","Log in to leave a reply.":"Log in to leave a reply.","Log in to leave a comment.":"Log in to leave a comment.","Logged in via %s":"Logged in via %s","Log out":"Log out","Your browser is blocking the cookies needed to log in and comment here. Allow cookies in your privacy settings, then reload the page.":"Your browser is blocking the cookies needed to log in and comment here. Allow cookies in your privacy settings, then reload the page.","Email":"Email","(Address never made public)":"(Address never made public)","Instantly":"Instantly","Daily":"Daily","Reply":"Reply","Comment":"Comment","WordPress":"WordPress","Weekly":"Weekly","Notify me of new posts":"Notify me of new posts","Email me new posts":"Email me new posts","Email me new comments":"Email me new comments","Cancel":"Cancel","Write a comment...":"Write a comment...","Write a reply...":"Write a reply...","Website":"Website","Optional":"Optional","We'll keep you in the loop!":"We'll keep you in the loop!","Loading your comment...":"Loading your comment...","Discover more from":"Discover more from From the Vault","Subscribe now to keep reading and get access to the full archive.":"Subscribe now to keep reading and get access to the full archive.","Continue reading":"Continue reading","Never miss a beat!":"Never miss a beat!","Interested in getting blog post updates? Simply click the button below to stay in the loop!":"Interested in getting blog post updates? Simply click the button below to stay in the loop!","Enter your email address":"Enter your email address","Subscribe":"Subscribe","Comment sent successfully":"Comment sent successfully","Save my name, email, and website in this browser for the next time I comment.":"Save my name, email, and website in this browser for the next time I comment.","hovercardi18n":{"Edit your profile \u2192":"Edit your profile \u2192","View profile \u2192":"View profile \u2192","Contact":"Contact","Send money":"Send money","Gravatar not found.":"Gravatar not found.","This profile is private.":"This profile is private.","Too Many Requests.":"Too Many Requests.","Internal Server Error.":"Internal Server Error.","Sorry, we are unable to load this Gravatar profile.":"Sorry, we are unable to load this Gravatar profile."},"siteId":154953109,"postId":5723,"mustLogIn":false,"requireNameEmail":true,"commentRegistration":false,"connectURL":"https://bgcarchivesblog.wordpress.com/public.api/connect/?action=request\u0026domain=fromthevault.wheaton.edu","logoutURL":"https://bgcarchivesblog.wordpress.com/wp-login.php?action=logout\u0026_wpnonce=07b34f6555","homeURL":"https://fromthevault.wheaton.edu/","subscribeToBlog":true,"subscribeToComment":true,"isJetpackCommentsLoggedIn":false,"jetpackUsername":"","jetpackUserId":0,"jetpackSignature":"","jetpackAvatar":"https://0.gravatar.com/avatar/?s=96\u0026amp;d=identicon\u0026amp;r=G","enableBlocks":true,"enableSubscriptionModal":true,"currentLocale":"en","isJetpackComments":false,"allowedBlocks":["core/paragraph","core/list","core/code","core/list-item","core/quote","core/image","core/embed","core/quote","core/code"],"embedNonce":"d6e5359cc9","verbumBundleUrl":"/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/sun/jetpack_vendor/automattic/jetpack-mu-wpcom/src/features/verbum-comments/dist/index.js","isRTL":false,"vbeCacheBuster":1771405207,"iframeUniqueId":0,"colorScheme":false}
+//# sourceURL=verbum-settings-js-before
+</script>
+<script data-wp-strategy="defer" defer id="verbum-dynamic-loader-js" src="/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/sun/jetpack_vendor/automattic/jetpack-mu-wpcom/src/build/verbum-comments/assets/dynamic-loader.js?m=1772522099i&#038;minify=false&#038;ver=8b5296f9195db92c42e4"></script>
+<script id="comment-like-js-extra">
+var comment_like_text = {"loading":"Loading...","swipeUrl":"https://s0.wp.com/wp-content/mu-plugins/comment-likes/js/lib/swipe.js?m=1382645497i&amp;ver=20131008"};
+//# sourceURL=comment-like-js-extra
+</script>
+<script id="coblocks-loader-js-extra">
+var wpcom_coblocks_js = {"coblocks_masonry_js":"https://s0.wp.com/wp-content/plugins/coblocks/2.18.1-simple-rev.4/dist/js/coblocks-masonry.min.js?m=1681832297i","coblocks_lightbox_js":"https://s0.wp.com/wp-content/plugins/coblocks/2.18.1-simple-rev.4/dist/js/coblocks-lightbox.min.js?m=1681832297i","jquery_core_js":"/wp-includes/js/jquery/jquery.min.js","jquery_migrate_js":"/wp-includes/js/jquery/jquery-migrate.min.js","masonry_js":"/wp-includes/js/masonry.min.js","imagesloaded_js":"/wp-includes/js/imagesloaded.min.js"};
+var coblocksLigthboxData = {"closeLabel":"Close Gallery","leftLabel":"Previous","rightLabel":"Next"};
+//# sourceURL=coblocks-loader-js-extra
+</script>
+<script id="jetpack-carousel-js-extra">
+var jetpackSwiperLibraryPath = {"url":"/wp-content/mu-plugins/jetpack-plugin/sun/_inc/blocks/swiper.js"};
+var jetpackCarouselStrings = {"widths":[370,700,1000,1200,1400,2000],"is_logged_in":"","lang":"en","ajaxurl":"https://fromthevault.wheaton.edu/wp-admin/admin-ajax.php","nonce":"d91f2e73fa","display_exif":"1","display_comments":"1","single_image_gallery":"1","single_image_gallery_media_file":"","background_color":"black","comment":"Comment","post_comment":"Post Comment","write_comment":"Write a Comment...","loading_comments":"Loading Comments...","image_label":"Open image in full-screen.","download_original":"View full size \u003Cspan class=\"photo-size\"\u003E{0}\u003Cspan class=\"photo-size-times\"\u003E\u00d7\u003C/span\u003E{1}\u003C/span\u003E","no_comment_text":"Please be sure to submit some text with your comment.","no_comment_email":"Please provide an email address to comment.","no_comment_author":"Please provide your name to comment.","comment_post_error":"Sorry, but there was an error posting your comment. Please try again later.","comment_approved":"Your comment was approved.","comment_unapproved":"Your comment is in moderation.","camera":"Camera","aperture":"Aperture","shutter_speed":"Shutter Speed","focal_length":"Focal Length","copyright":"Copyright","comment_registration":"0","require_name_email":"1","login_url":"https://bgcarchivesblog.wordpress.com/wp-login.php?redirect_to=https%3A%2F%2Ffromthevault.wheaton.edu%2F2023%2F12%2F01%2Fhumble-beginnings%2F","blog_id":"154953109","meta_data":["camera","aperture","shutter_speed","focal_length","copyright"],"stats_query_args":"blog=154953109&v=wpcom&tz=0&user_id=0&subd=bgcarchivesblog","is_public":"1"};
+//# sourceURL=jetpack-carousel-js-extra
+</script>
+<script id="jetpack-script-data-js-before">
+window.JetpackScriptData = {"site":{"host":"wpcom","is_wpcom_platform":true}};
+//# sourceURL=jetpack-script-data-js-before
+</script>
+<script id="jetpack-blocks-assets-base-url-js-before">
+var Jetpack_Block_Assets_Base_Url="https://s0.wp.com/wp-content/mu-plugins/jetpack-plugin/sun/_inc/blocks/";
+//# sourceURL=jetpack-blocks-assets-base-url-js-before
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/_static/??-eJydkNtOwzAMhl+INJQxWC/QHmVKk7S4OSp2Wvb2BLqWMk3icGd99v9ZNp8ik8GT9sRdZtHmHjxyGZwriFkwGvlwBaoB7/gm+JVqbZAG+UNVH6qaIbhoNUt6rB65AqTZNA8xG4TSqXLgr330ql1ZG3PLSwW+n8S5WKYEVPofkhv47xIvRugFQfhHFg3E8gxvWBdkRtbB2yIBL21W39+WdLTnW6dufj5oikIaVtAUS/DS4Jj90juN2quQuMgUnCACuaYEoibkbQarVogyQSSmBIlfLN7sO5UjLi4pUsio7Tq2gB/OEQbQaWK76n7WLaBLn8OqZI/upX4+7Jtds2+ehndXsvRh'></script>
+<script data-wp-strategy="defer" defer id="jetpack-block-instagram-gallery-js" src="/wp-content/mu-plugins/jetpack-plugin/sun/_inc/blocks/instagram-gallery/view.js?m=1778085426i&#038;minify=false&#038;ver=16.2-a.6"></script>
+<script id="sharing-js-js-extra">
+var sharing_js_options = {"lang":"en","counts":"1","is_stats_active":"1"};
+//# sourceURL=sharing-js-js-extra
+</script>
+<script crossorigin='anonymous' type='text/javascript'  src='/_static/??/wp-content/mu-plugins/carousel-wpcom/carousel-wpcom.js,/wp-content/mu-plugins/jetpack-plugin/sun/_inc/build/sharedaddy/sharing.min.js?m=1787944794j'></script>
+<script id="sharing-js-js-after">
+window.WPCOM_sharing_popups = window.WPCOM_sharing_popups || {};
+window.WPCOM_sharing_popups[ "twitter" ] = "menubar=1,resizable=1,width=600,height=350";
+window.WPCOM_sharing_popups = window.WPCOM_sharing_popups || {};
+window.WPCOM_sharing_popups[ "facebook" ] = "menubar=1,resizable=1,width=600,height=400";
+//# sourceURL=sharing-js-js-after
+</script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/72x72/","ext":".png","svgUrl":"https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/svg/","svgExt":".svg","source":{"concatemoji":"/wp-includes/js/wp-emoji-release.min.js?m=1783090810i&ver=7.1-RC3-63320"}}
+</script>
+<script type="module">
+/*! This file is auto-generated */
+var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof HTMLScriptElement))throw new Error("Element missing: "+e);const r=JSON.parse(t.text),s=(window._wpemojiSettings=r,"wpEmojiSettingsSupports"),o=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(s,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const r=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===r[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,r){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!r(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,r){let a;const s=(a="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),o=(s.textBaseline="top",s.font="600 32px Arial",{});return e.forEach(e=>{o[e]=t(s,e,n,r)}),o}function a(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}r.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(s));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(o),u.toString(),c.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"});const a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=e=>{i(n=e.data),a.terminate(),t(n)})}catch(e){}i(n=f(o,u,c,p))}t(n)}).then(e=>{for(const n in e)r.supports[n]=e[n],r.supports.everything=r.supports.everything&&r.supports[n],"flag"!==n&&(r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&r.supports[n]);var t;r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&!r.supports.flag,r.supports.everything||((t=r.source||{}).concatemoji?a(t.concatemoji):t.wpemoji&&t.twemoji&&(a(t.twemoji),a(t.wpemoji)))});
+//# sourceURL=/wp-includes/js/wp-emoji-loader.min.js
+</script>
+	<iframe src='https://widgets.wp.com/likes/master.html?ver=20260907#ver=20260907' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+	<div id='likes-other-gravatars' role="dialog" aria-hidden="true" tabindex="-1"><div class="likes-text"><span>%d</span></div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+	<script src="//stats.wp.com/w.js?69" defer></script> <script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'154953109','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+		// Prevent sending pageview tracking from WP-Admin pages.
+		_stq.push(['view', {'blog':'154953109','v':'wpcom','tz':'0','user_id':'0','post':'5723','subd':'bgcarchivesblog'}]);
+		_stq.push(['extra', {'crypt':'UE5tW3cvZGRxL09NNmxvT3ZDNHFjbVVXa3pUa0t6W0FXUHZaU1dVYT89fEV5Qi51Wz9zemhVMDRQK1N5NkswaUd2XUl2ZndsYzF0YnAtLnJdb3ZSaTRVZy9uc3w9TyVmSlIxfDM3ait1N3BUWWpIcitoeW9FZXF0K2J5Vy9udkV3akZpLDYvOF9sfk18fmlCbDdBUkVSV09FRGdnWWZ3THY4Lk9VL24wMzR4NEhnbz9hSDVhND9JaCZqSSxnV2VCeTYwSmZURDNweUVSRUlsT34yMkpsOGxVMnk/bVdGN3R5JURFSTNWNX51W1hFTzNoaUVabklDcVRBT2RMMGtmfnBQUk8='}]);
+_stq.push([ 'clickTrackerInit', '154953109', '5723' ]);
+</script>
+<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:1px;width:1px;overflow:hidden;position:absolute;bottom:1px;" alt="" /></noscript>
+<meta id="bilmur" property="bilmur:data" content="" data-provider="wordpress.com" data-service="simple" data-site-tz="Etc/GMT-0" data-custom-props="{&quot;logged_in&quot;:&quot;0&quot;,&quot;wptheme&quot;:&quot;pub\/hemingway-rewritten&quot;,&quot;wptheme_is_block&quot;:&quot;0&quot;}"   >
+		<script defer src="/wp-content/js/bilmur.min.js?i=17&amp;m=202637"></script> 	
+<script>
+(function() {
+	'use strict';
+
+	const fetches = {};
+	const promises = {};
+	const urls = {
+		'wp-polyfill': '/wp-includes/js/dist/vendor/wp-polyfill.min.js?m=1786440387i&ver=3.15.0',
+		'verbum': '/wp-content/mu-plugins/jetpack-mu-wpcom-plugin/sun/jetpack_vendor/automattic/jetpack-mu-wpcom/src/build/verbum-comments/verbum-comments.js?m=1785880900i&minify=false&ver=ecf5cfe8827907d3ea28'
+	};
+	const loaders = {
+		'verbum': () => {
+			fetchExternalScript('wp-polyfill');
+			fetchExternalScript('verbum');
+			promises['wp-polyfill'] = promises['wp-polyfill'] || loadWPScript('wp-polyfill');
+			promises['verbum'] = promises['verbum'] || promises['wp-polyfill'].then( () => loadWPScript('verbum') );
+			return promises['verbum'];
+		},
+		
+	};
+	const scriptExtras = {
+		
+	};
+
+	window.WP_Enqueue_Dynamic_Script = {
+		loadScript: (handle) => {
+			if (!loaders[handle]) {
+				console.error('WP_Enqueue_Dynamic_Script: unregistered script `' + handle + '`.');
+			}
+			return loaders[handle]();
+		}
+	};
+
+	function fetchExternalScript(handle) {
+		if (!urls[handle]) {
+			return Promise.resolve();
+		}
+
+		fetches[handle] = fetches[handle] || fetch(urls[handle], { mode: 'no-cors' });
+		return fetches[handle];
+	}
+
+	function runExtraScript(handle, type, index) {
+		const id = 'wp-enqueue-dynamic-script:' + handle + ':' + type + ':' + (index + 1);
+		const template = document.getElementById(id);
+		if (!template) {
+			return Promise.reject();
+		}
+
+		const script = document.createElement( 'script' );
+		script.innerHTML = template.innerHTML;
+		document.body.appendChild( script );
+		return Promise.resolve();
+	}
+
+	function loadExternalScript(handle) {
+		if (!urls[handle]) {
+			return Promise.resolve();
+		}
+
+		return fetches[handle].then(() => {
+			return new Promise((resolve, reject) => {
+				const script = document.createElement('script');
+				script.onload = () => resolve();
+				script.onerror = (e) => reject(e);
+				script.src = urls[handle];
+				document.body.appendChild(script);
+			});
+		});
+	}
+
+	function loadExtra(handle, pos) {
+		const count = (scriptExtras[handle] && scriptExtras[handle][pos]) || 0;
+		let promise = Promise.resolve();
+
+		for (let i = 0; i < count; i++) {
+			promise = promise.then(() => runExtraScript(handle, pos, i));
+		}
+
+		return promise;
+	}
+
+	function loadWPScript(handle) {
+		// Core loads scripts in this order. See: https://github.com/WordPress/WordPress/blob/a59eb9d39c4fcba834b70c9e8dfd64feeec10ba6/wp-includes/class-wp-scripts.php#L428.
+		return loadExtra(handle, 'translations')
+			.then(() => loadExtra(handle, 'before'))
+			.then(() => loadExternalScript(handle))
+			.then(() => loadExtra(handle, 'after'));
+	}
+} )();
+</script>
+
+</body>
+</html>

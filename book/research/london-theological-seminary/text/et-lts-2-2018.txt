@@ -1,0 +1,13 @@
+DOCUMENT_ID: et-lts-2-2018
+TITLE (as printed): London Theological Seminary
+DATE: n.d. (report on end-of-year service, referencing Principal Robert Strivens; c. 2017-2018)
+LANGUAGE: en
+SOURCE URL/SHELFMARK: see sources.csv row et-lts-2-2018
+EDITION: Evangelical Times online news article; body paywalled behind ET membership signup and could not be fetched by this session. The text below is the page's own meta-description tag, verbatim, genuinely present in the HTML downloaded by curl.
+TRANSCRIPTION METHOD: copied (meta tag only; full article body NOT available in this file)
+TOTAL PAGES: 1 (partial excerpt only)
+WORD COUNT: 75
+RIGHTS: Evangelical Times news article; not researched further. Treat as SECONDARY, short excerpt only.
+
+[[p. 1]]
+London Theological Seminary On the last Saturday in June, London Theological Seminary (LTS) held its end of year thanksgiving service at Kensit Evangelical Church, in Finchley.    The chairman, Bill James from Leamington Spa, presided over the event, which, along with prayer, Scripture reading and hymns, included the three traditional components of this annual event — report, interviews and sermon.    The report was given by Principal Robert Strivens. Though positive, it reflected on the need fo

@@ -1,12 +1,120 @@
 DOCUMENT_ID: laing1848-fbd
 TITLE (as printed): The Buke of Discipline [The First Book of Discipline]
-DATE: 1560 (text; compiled by John Knox and five others; printed in this edition 1848/1864)
+DATE: 1560 (text; compiled by John Knox and five others, at the commission of the Great Council of Scotland dated 29 April 1560; printed in this edition 1848)
 LANGUAGE: en (Scots/English, 16th-century orthography)
-SOURCE URL/SHELFMARK: https://archive.org/details/worksofjohnkn02knox (OCR: https://archive.org/download/worksofjohnkn02knox/worksofjohnkn02knox_djvu.txt)
-EDITION: The Works of John Knox, vol. 2, ed. David Laing (Edinburgh: Bannatyne Club / Wodrow Society, 1848), pp. 183(headnote)-260 (text of "The Buke of Discipline" and subscriptions)
-TRANSCRIPTION METHOD: copied (Internet Archive born-OCR text, verbatim); page markers [[p. N]] inserted by script from running heads "THE BUKE OF DISCIPLINE" + page number; footnote markers (superscript numbers/letters in the original) preserved as printed by the OCR, not corrected
-TOTAL PAGES: pp. 185-260 (approx., per running heads)
-WORD COUNT: 26939
+SOURCE URL/SHELFMARK: https://archive.org/details/worksofjohnkn02knox (OCR text: https://archive.org/download/worksofjohnkn02knox/worksofjohnkn02knox_djvu.txt)
+EDITION: The Works of John Knox, vol. 2, ed. David Laing (Edinburgh: Bannatyne Club / Wodrow Society, 1848), pp. 183 (Preface) - 260 (text of "The Buke of Discipline" and list of subscribers, with Laing's editorial footnotes recording variant readings from MS. 1566, Vautrollier's edition, and the edition of 1621)
+TRANSCRIPTION METHOD: copied (Internet Archive born-digital OCR text of the 1848 printed edition, verbatim, no corrections); page markers [[p. N]] inserted by script matching the printed running heads ("THE BUKE OF DISCIPLINE" / "THE PREFACE" + page number); a [[p. 183]] marker was added by hand at the very start of the file because the running head for the first page of the Preface was not machine-matched (the extract begins mid-page at the section heading itself, which is the true start of page 183 in the printed book)
+TOTAL PAGES: pp. 183-260 (approx., per running heads; Laing's lettered/numbered editorial footnotes on each page, giving variant readings from other editions/MSS, are included in the OCR as printed, interleaved with the main text)
+WORD COUNT: 27539
+
+[[p. 183]]
+THE  PREFACE 
+TO  THE  BUKE  OF  DISCIPLLNE/ 
+
+To    THE   Great    Counsall    of    Scotland    now    admitted 
+TO  [the]  Regiment,  by  the  Providence  of  God,  and 
+
+BY  THE  COMMOUN  CONSENT  OF  THE  EsTAITTIS  THAIROF, 
+YOUR    HONOURIS    HUMBLE     SeRVITOURIS    AND     MiNISTERIS 
+
+OF  Christ  Jesus  within  the  same,  wishe  Grace, 
+Mercy,  and  Peace  from  God  the  Father  of  ourb 
+Lord  Jesus  Christ,  with  the  perpetuall  encrease 
+of  the  Holye  Spirite. 
+
+Frome  youre  Honouris  we  receaved  a  charge,  daittit  at 
+Edinburgh,  xxix  of  Aprile,  in  tlio  yeir  of  God  J°'  V  thre  scoir 
+yeiris,   requyring  and  commanding  us,   in    the    name  of  the 
+
+
+THE    FIRST    AND 
+
+SECOND   BOOKE   OF 
+DISCIPLINE 
+
+Together  with  some 
+
+ACTS  OF  THE  GENERALL 
+
+ASSEMBLIES, 
+
+Clearing  and  confirming  the  same :  And 
+
+AN  ACT  OF  PARLIAMENT. 
+
+ExoD.  25.  9. 
+
+According  lo  all  that  I  shew  thee,  after  the 
+paterne  of  the  Tabernacle,  and  the  paterne 
+0/  all  the  instruments  Vierof,  even  so  shall  yee 
+make  it. 
+
+Printed  Anno  1G21. 
+
+
+'  There  is  no  separate  title  either  in 
+the  MS.  15G6,  or  in  Vautrollier's  edition, 
+which  contains  the  earlier  portion  of  the 
+Book  of  Discipline.  (See  note  1,  page 
+197.)  The  edition  1621,  quoted  in  the 
+foot-notes,  was  published  anonymously 
+by  David  Calderwood  the  historian,  and 
+was  evidently  printed  in  Holland.  A 
+copy  of  the  title-page  is  herewith  an- 
+nexed. It  was  reprmted  in  the  "  Col- 
+lection of  Confessions  of  Faith,"  &c., 
+with  a  separate  title-page,  dated  1721, 
+but  the  volume  ii.  (pp.  515-608.)  con- 
+taining it,  was  not  completed  until 
+1722.  The  Editor  says,  "  This  edition 
+is  according  to  that  which  was  printed 
+in  1621,"  correcting  typographical  er- 
+rors, and  supplying  "  fi-om  other  co- 
+pics  some  words  which  probably  have 
+been  omitted  by  the  printer."     It  is  to 
+
+
+[[p. 184]]
+
+Eternall  God,  as  we  will  ansuer  in  his  presence,  to  committ  to 
+Avriting,  and  in  a  Buke  to  deliver  unto  your  Wisdomes  oure 
+jugementis  tuiching  the  Reformatioun  of  Religioun,  quliilk 
+heirtofore  in  this  Realme,  (as  in  utheris,)  hes  hene  utterlie 
+corrupted.  Upone  the  recept  quhairof,  sa  mony  of  us  as  wer  in 
+this  Toune,  did  convene,  and  in  unitie  of  mynd  do  offer  unto 
+your  Wisdomes  these  Headis  subsequent  for  commoun  ordour 
+and  unifomiitie  to  be  observed  in  this  Realme,  concernyng 
+Doctiyne,  administratioun  of  Sacramentis,  [election  of  Minis- 
+ters, Provision  for  their  sustentation,^]  Ecclesiasticall  Discip- 
+line, and  Policye  of  the  Kirk  :^  Most  humilie  requyring  your 
+lionouris,  that  as  ye  luke  for  participatioun  with  Christ  Jesus, 
+that  natlier  ye  admitt  ony  thing  quhilk  Goddis  plane  word 
+sail  not  approve,  nather  yit  that  ye  sail  reject  suche  ordinances 
+as  equitie,  justice,  and  Goddis  word  do  specific  :  For  as  we  will 
+nott  bynd  your  Wisdomes  to  oure  jugementis,  farther  then  we 
+be  able  to  prove  the  same  by  Goddis  plane  Scripturis  ;  so  must 
+we  most  humblie  crave  of  yow,  evin  as  ye  will  ansuer  in 
+Goddis  presence,  (befoir  quhom  boyth  ye  and  we  must  appeir 
+to  rander  accomptis  of  all  oure  factis,)  that  ye  repudiat  na 
+thing  for  pleasour  nor^  affectioun  of  men,  quhilk  ye  be  not 
+abill  to  improve  by  Goddis  writtin  and  revealled  Word. 
+
+
+be  regretted  that  he  should  not  have  ^  In   Vautr.    edit.,  and    edit.    1621, 
+
+specified  what  "  other  copies"  he  made  "   Church"    is    used    throughout    the 
+
+use  of.   But  one  of  these,  no  doubt,  was  earlier  portion  of  the  Book  of  Discipline 
+
+Spotiswood's,    referred   to  in  note  2,  in  place  of  "  Kirk :"  see  note  2  to  page 
+
+page  181.  201. 
+
+"  Omitted  in  MS.  1566,  but  contained  ^  In  edit.  1621,  "  pleasure  and." 
+
+in  Vautr.  edit,  and  edit.  1621. 
+
 
 [[p. 185]]
 

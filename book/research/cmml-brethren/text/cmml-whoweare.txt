@@ -1,0 +1,410 @@
+DOCUMENT_ID: cmml-whoweare
+TITLE (as printed): Who We Are (CMML website)
+DATE: accessed 2026-09-07 (current live page; CMML copyright line reads "(C) Copyright 2026 Christian Missions In Many Lands, Inc.")
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://www.cmml.us/whoweare
+EDITION: current cmml.us website (institutional self-description, not an archival founding document). 
+TRANSCRIPTION METHOD: copied (HTML converted to plain text with html2text; page fetched via curl)
+TOTAL PAGES: unpaginated (single web page)
+WORD COUNT: 1638
+
+[[p. 1]]
+Skip to main content 
+
+## Menu
+
+  * [Support]()
+
+[Support Missionaries and Ministries](/donate)
+
+Learn about and support missionaries and associated ministries across the globe.
+
+    * [Missionaries](/missionary-search)
+      * [Find a Missionary](https://www.cmml.us/missionary-search)
+      * [On Furlough](/furloughs)
+    * [Associated Ministries](/associated-ministries "Schools, hospitals, institutions, etc.")
+      * [Find an Associated Ministry](https://www.cmml.us/associated-ministries)
+      * [Disaster Updates](/disasterupdates "Sign up to hear about crisis relief updates in Ukraine and Turkey")
+    * [Give](/waystogive "Ways to Give")
+      * [Give Now](/donate "Give a gift online")
+      * [Ways to Give](/waystogive)
+      * [Funds](/funds "Give to special funds managed by CMML")
+      * [Operating Expenses](/cmml-operating-expenses)
+      * [Legacies](/legacy "Include CMML in your estate and financial planning")
+
+  * [Pray](/prayer)
+
+[Missionary Prayer Handbook](/2026mph)
+
+Pray for those commended from assemblies in the United States and Canada serving cross-culturally, plus, pray monthly for the 31 most unreached people groups in 10/40 AFRICA!
+
+    * [Pray Today](/prayer)
+      * [Today's Missionaries](/prayer "Pray for 700+ missionaries in 30 days!")
+      * [Prayer Requests](/prayer#title_bar_299 "Please pray for our missionaries!")
+    * [Prayer Resources](/prayer)
+      * [Missionary Prayer Handbook](/mph "Order your copy today!")
+      * [Mission Prayer Items](/mpi "Subscribe to receive the MPI in your email inbox.")
+      * [Zoom Prayer Meetings](/pray)
+      * [Missions Update Videos](/missionupdates)
+      * [Unreached People Groups](/unreached-people-groups)
+
+  * [Podcast](/podcast)
+  * [Go]()
+
+[Missions Orientation Program](/mop)
+
+Equipping missionaries to thrive on the mission field. 
+
+    * [Serve](/learn-and-engage)
+      * [Commendation](/commendation)
+      * [Mission Opportunities](/opportunities)
+      * [Ambassador Opportunities Abroad](https://www.cmml.us/aoa)
+      * [US Cross-Cultural Opportunities](/crossculturalus "Reach out cross-culturally locally!")
+      * [Volunteer ](/volunteer "Volunteer at CMMML")
+    * [Learn](https://www.cmml.us/learn-and-engage)
+      * [Missions Orientation Program](/mop "MOP")
+      * [Unreached People Groups](/unreached-people-groups)
+      * [Training Recommendations](/training)
+      * [Literature](/literature)
+      * [Missions Pathway](https://cmml-prod.s3.us-east-1.wasabisys.com/2022-05/2022%20Missions%20Pathway.pdf)
+
+  * [Conferences](/conferences)
+
+[56th Annual Fall Conference](/fallconference2026)
+
+Discover how God is working in Central Asia!
+
+    * [Find a Conference](/conferences)
+      * [Upcoming Events](/conferences "Find a CMML conference or event near you!")
+      * [Past Events](/past_events "Watch and listen to presentations from past events")
+      * [Missions Orientation Program](/mop "Missions Orientation Program")
+      * [Reaching Higher](/reachinghigher2025 "A Conference for Young Adults Ages 20-39")
+      * [Nationwide 2026](/nationwide2026)
+    * [26 Below](/26below)
+      * [Northeast](/ne26below2025)
+      * [Midwest](/mw26below2025)
+      * [Southeast](/se26below2025 "New Location!")
+    * [Fall Conference](/fallconference2026)
+      * [2026 Fall Conference](/fallconference2026)
+      * [Registration](https://cmml.jotform.com/form/fallconf26registration)
+      * [Youth Night](/youthnight2026 "Your Role in God's Plan!")
+
+  * [Resources]()
+
+[Missionary Prayer Handbook](/2026mph)
+
+Pray for more than 750 missionaries serving in 90+ countries and the 31-most unreached people groups in 10/40 Africa each month!
+
+    * [Print](/resources)
+      * [Magazine](/magazine)
+      * [Missionary Prayer Handbook](/mph "Pray for 700+ missionaries in over 80 countries!")
+      * [Literature](/literature)
+    * [Digital](/digital)
+      * [CMML Updates](/Updates "Receive updates from CMML!")
+      * [Podcast](/podcast)
+      * [Articles](/articles)
+      * [Videos](/videos)
+      * [Mission Prayer Items](/mpi)
+      * [US Cross-Cultural Ministry](/crossculturalus)
+      * [Unreached People Groups](/unreached-people-groups)
+      * [FAQs](/faqs "Frequently Asked Questions")
+    * [Links & Partners](/links "Connect with our mission partners and like-minded ministries")
+      * [Mission Service Groups](/links#title_and_text_with_background_83)
+      * [Training Partners](/links#title_and_text_with_background_102)
+      * [Missions Partners](/links#title_and_text_with_background_86)
+      * [Financial Partners](/links#title_and_text_with_background_109)
+      * [Resource Partners](/links#title_and_text_with_background_120)
+      * [Senior Living](/links#title_and_text_with_background_123)
+      * [Missions Links](/links#title_and_text_with_background_103)
+
+  * [About]()
+
+[Our History](/our-history)
+
+Learn about the history of CMML and the brethren missions movement.
+
+    * [About CMML](/about)
+      * [Who We Are](/whoweare)
+      * [What We Do](/whatwedo)
+      * [Meet the Team](/meet-team)
+      * [What We Believe](/what-we-believe)
+      * [Our History](/our-history)
+      * [Giving](/waystogive "Ways to give")
+      * [FAQs](/faqs)
+      * [Contact](/contact)
+    * [Guest Home](/guesthome "Guest Home for Missionaries")
+      * [About](/guesthome "Learn about the CMML Missionary Guest Home")
+      * [Reservations](/form/guest-home-reservations)
+    * [Clothing Center](/clothingcenter "New or gently used clothing for full-time workers")
+      * [About](/clothingcenter "About the Clothing Center")
+      * [Donations](/clothingcenter#three_items_with_icons_211 "Sending donations to the Clothing Center")
+      * [Volunteer](/clothing-center-contact)
+
+
+
+
+Christian Missions in Many Lands
+
+Advancing the spread of the Gospel globally
+
+  * [Search __](/site-search)
+  * [__ Give](/donate)
+  * [__Log in](/)
+    * [Missionary Portal](/user/login?current=/whoweare)
+    * [Donor Portal](https://account.raisedonors.com/cmml/login)
+
+
+
+[ ](/)
+
+### Main navigation
+
+  * [Support]()
+
+[Support Missionaries and Ministries](/donate)
+
+Learn about and support missionaries and associated ministries across the globe.
+
+    * [Missionaries](/missionary-search)
+      * [Find a Missionary](https://www.cmml.us/missionary-search)
+      * [On Furlough](/furloughs)
+    * [Associated Ministries](/associated-ministries "Schools, hospitals, institutions, etc.")
+      * [Find an Associated Ministry](https://www.cmml.us/associated-ministries)
+      * [Disaster Updates](/disasterupdates "Sign up to hear about crisis relief updates in Ukraine and Turkey")
+    * [Give](/waystogive "Ways to Give")
+      * [Give Now](/donate "Give a gift online")
+      * [Ways to Give](/waystogive)
+      * [Funds](/funds "Give to special funds managed by CMML")
+      * [Operating Expenses](/cmml-operating-expenses)
+      * [Legacies](/legacy "Include CMML in your estate and financial planning")
+
+  * [Pray](/prayer)
+
+[Missionary Prayer Handbook](/2026mph)
+
+Pray for those commended from assemblies in the United States and Canada serving cross-culturally, plus, pray monthly for the 31 most unreached people groups in 10/40 AFRICA!
+
+    * [Pray Today](/prayer)
+      * [Today's Missionaries](/prayer "Pray for 700+ missionaries in 30 days!")
+      * [Prayer Requests](/prayer#title_bar_299 "Please pray for our missionaries!")
+    * [Prayer Resources](/prayer)
+      * [Missionary Prayer Handbook](/mph "Order your copy today!")
+      * [Mission Prayer Items](/mpi "Subscribe to receive the MPI in your email inbox.")
+      * [Zoom Prayer Meetings](/pray)
+      * [Missions Update Videos](/missionupdates)
+      * [Unreached People Groups](/unreached-people-groups)
+
+  * [Podcast](/podcast)
+  * [Go]()
+
+[Missions Orientation Program](/mop)
+
+Equipping missionaries to thrive on the mission field. 
+
+    * [Serve](/learn-and-engage)
+      * [Commendation](/commendation)
+      * [Mission Opportunities](/opportunities)
+      * [Ambassador Opportunities Abroad](https://www.cmml.us/aoa)
+      * [US Cross-Cultural Opportunities](/crossculturalus "Reach out cross-culturally locally!")
+      * [Volunteer ](/volunteer "Volunteer at CMMML")
+    * [Learn](https://www.cmml.us/learn-and-engage)
+      * [Missions Orientation Program](/mop "MOP")
+      * [Unreached People Groups](/unreached-people-groups)
+      * [Training Recommendations](/training)
+      * [Literature](/literature)
+      * [Missions Pathway](https://cmml-prod.s3.us-east-1.wasabisys.com/2022-05/2022%20Missions%20Pathway.pdf)
+
+  * [Conferences](/conferences)
+
+[56th Annual Fall Conference](/fallconference2026)
+
+Discover how God is working in Central Asia!
+
+    * [Find a Conference](/conferences)
+      * [Upcoming Events](/conferences "Find a CMML conference or event near you!")
+      * [Past Events](/past_events "Watch and listen to presentations from past events")
+      * [Missions Orientation Program](/mop "Missions Orientation Program")
+      * [Reaching Higher](/reachinghigher2025 "A Conference for Young Adults Ages 20-39")
+      * [Nationwide 2026](/nationwide2026)
+    * [26 Below](/26below)
+      * [Northeast](/ne26below2025)
+      * [Midwest](/mw26below2025)
+      * [Southeast](/se26below2025 "New Location!")
+    * [Fall Conference](/fallconference2026)
+      * [2026 Fall Conference](/fallconference2026)
+      * [Registration](https://cmml.jotform.com/form/fallconf26registration)
+      * [Youth Night](/youthnight2026 "Your Role in God's Plan!")
+
+  * [Resources]()
+
+[Missionary Prayer Handbook](/2026mph)
+
+Pray for more than 750 missionaries serving in 90+ countries and the 31-most unreached people groups in 10/40 Africa each month!
+
+    * [Print](/resources)
+      * [Magazine](/magazine)
+        * [Current Issue](/magazine/current)
+        * [Archives](/magazine/archive)
+        * [Subscriptions](/magazine/subscribe)
+      * [Missionary Prayer Handbook](/mph "Pray for 700+ missionaries in over 80 countries!")
+      * [Literature](/literature)
+    * [Digital](/digital)
+      * [CMML Updates](/Updates "Receive updates from CMML!")
+      * [Podcast](/podcast)
+      * [Articles](/articles)
+      * [Videos](/videos)
+      * [Mission Prayer Items](/mpi)
+      * [US Cross-Cultural Ministry](/crossculturalus)
+      * [Unreached People Groups](/unreached-people-groups)
+      * [FAQs](/faqs "Frequently Asked Questions")
+    * [Links & Partners](/links "Connect with our mission partners and like-minded ministries")
+      * [Mission Service Groups](/links#title_and_text_with_background_83)
+      * [Training Partners](/links#title_and_text_with_background_102)
+      * [Missions Partners](/links#title_and_text_with_background_86)
+      * [Financial Partners](/links#title_and_text_with_background_109)
+      * [Resource Partners](/links#title_and_text_with_background_120)
+      * [Senior Living](/links#title_and_text_with_background_123)
+      * [Missions Links](/links#title_and_text_with_background_103)
+
+  * [About]()
+
+[Our History](/our-history)
+
+Learn about the history of CMML and the brethren missions movement.
+
+    * [About CMML](/about)
+      * [Who We Are](/whoweare)
+      * [What We Do](/whatwedo)
+      * [Meet the Team](/meet-team)
+      * [What We Believe](/what-we-believe)
+      * [Our History](/our-history)
+      * [Giving](/waystogive "Ways to give")
+      * [FAQs](/faqs)
+      * [Contact](/contact)
+    * [Guest Home](/guesthome "Guest Home for Missionaries")
+      * [About](/guesthome "Learn about the CMML Missionary Guest Home")
+      * [Reservations](/form/guest-home-reservations)
+    * [Clothing Center](/clothingcenter "New or gently used clothing for full-time workers")
+      * [About](/clothingcenter "About the Clothing Center")
+      * [Donations](/clothingcenter#three_items_with_icons_211 "Sending donations to the Clothing Center")
+      * [Volunteer](/clothing-center-contact)
+
+
+
+
+__
+
+Our Mission
+
+Advancing the spread of the Gospel globally through:
+
+__
+
+Engaged Senders
+
+To support local New Testament assemblies in the US as they assess, prepare, commend, support, and oversee their missionaries
+
+[Learn More](/engagedsenders)
+
+__
+
+Enabled Servants
+
+To provide strategic and practical services that enable missionaries to fulfill the work to which they are commended
+
+[Learn More](/enabledservants)
+
+__
+
+Enthusiastic Supporters
+
+To encourage informed and enthusiastic participation of all generations in global missions
+
+[Learn More](/enthusiasticsupporters)
+
+# Serving US assemblies and their missionaries
+
+CMML Together
+
+Who We Are
+
+Christian Missions in Many Lands, Inc. (CMML) was established in 1921 as a nonprofit, faith-based service organization to serve US missionaries serving in cross-cultural missions overseas. 
+
+Since 1921, CMML has partnered with you and your local assembly to advance the spread of the Gospel globally through engaged senders, enabled servants, and enthusiastic supporters. Together, our goal is to reach the world with the Gospel of Christ. So let’s pray, let’s go, and let’s serve, together.
+
+[ Watch “CMML TOGETHER” (opens in a new window) ](https://youtu.be/lHRssza5R2M)
+
+# 700+ Missionaries. 80+ Countries. One Mission. 
+
+We Are CMML
+
+Who We Are
+
+CMML serves missionaries who are commended by local churches that the US government designates as Plymouth Brethren. Their work is diverse, but their mission is the same: to reach the world for Christ. 
+
+These missionaries are called by the Lord and are commended (sent) by local churches, and they practice faith-based missions, meaning they look to the Lord alone for direction and to supply their financial needs, without contractual links to any agency.
+
+[ Watch “WE ARE CMML” (opens in a new window) ](https://www.youtube.com/watch?v=Nx1BmzaDbNc&t=32s)
+
+# Advancing the spread of the Gospel globally
+
+A Missions Service Organization
+
+Who We Are
+
+As a missions service organization, CMML assists both missionaries serving on the foreign field and their assemblies at home in areas they could not manage alone. CMML serves by facilitating prayer for missionaries; forwarding unsolicited, free-will gifts to them; and sharing information concerning their activities with supporters. As a service organization, CMML does not send or superintend missionaries but simply serves them.
+
+# Rekindle | Equip | Inspire.
+
+Celebrating 100 Years of Service
+
+Who We Are
+
+As we celebrate our 100th anniversary, we desire to recall our missions heritage and rekindle our forerunners' gospel zeal. We desire to reiterate CMML's commitment to worldwide missions through evangelism, discipleship, and church planting by educating to equip those who will send and those who will go out. And we desire to share stories that inspire a new generation to put their hands to the work. 
+
+[ Watch “CMML's 100th Anniversary Virtual Choir: "Facing a Task Unfinished"” (opens in a new window) ](https://www.youtube.com/watch?v=fsHx2Kxo358&list=PLRqReuHN23i9pt3ymplsg3uGkBwSNeqCs&index=2&t=207s)
+
+# The harvest is still plentiful. Join us!
+
+  * [Contact](https://www.cmml.us/contact)
+  * [Jobs](/jobs)
+  * [Volunteer](/volunteer)
+
+
+  * [Conferences](/conferences "Events that challenge and inspire!")
+    * [Register](/conferences)
+    * [Watch On Demand](https://www.youtube.com/cmmlus)
+  * [Missions Magazine](/magazine/archive "Published 11 times a year!")
+    * [Read Now](/magazine/current)
+    * [Manage Subscription](/magazine/subscribe)
+
+
+  * [About CMML](/about)
+    * [Who We Are](/whoweare "Serving Those Who Serve")
+    * [What We Do](/whatwedo)
+    * [Meet the Team](/meet-team)
+    * [What We Believe](/what-we-believe)
+    * [FAQs](/faqs)
+    * [Our History](/our-history)
+
+
+
+__
+
+<https://facebook.com/cmmlus>
+
+__
+
+<https://instagram.com/cmmlus>
+
+__
+
+<https://twitter.com/cmmlus>
+
+__
+
+<https://youtube.com/cmmlus>
+
+(C) Copyright 2026 Christian Missions In Many Lands, Inc.
+
+Site by [One Thing](http://www.onethingweb.com "Site by One Thing")

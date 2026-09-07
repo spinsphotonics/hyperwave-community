@@ -1,0 +1,372 @@
+DOCUMENT_ID: cmml-what-we-believe
+TITLE (as printed): What We Believe / Statement of Faith (CMML website)
+DATE: accessed 2026-09-07 (current live page; CMML copyright line reads "(C) Copyright 2026 Christian Missions In Many Lands, Inc.")
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://www.cmml.us/what-we-believe
+EDITION: current cmml.us website (institutional self-description, not an archival founding document). Statement of Faith explicitly dated: 'Approved by the CMML Board of Directors, 2021.'
+TRANSCRIPTION METHOD: copied (HTML converted to plain text with html2text; page fetched via curl)
+TOTAL PAGES: unpaginated (single web page)
+WORD COUNT: 1553
+
+[[p. 1]]
+Skip to main content 
+
+## Menu
+
+  * [Support]()
+
+[Support Missionaries and Ministries](/donate)
+
+Learn about and support missionaries and associated ministries across the globe.
+
+    * [Missionaries](/missionary-search)
+      * [Find a Missionary](https://www.cmml.us/missionary-search)
+      * [On Furlough](/furloughs)
+    * [Associated Ministries](/associated-ministries "Schools, hospitals, institutions, etc.")
+      * [Find an Associated Ministry](https://www.cmml.us/associated-ministries)
+      * [Disaster Updates](/disasterupdates "Sign up to hear about crisis relief updates in Ukraine and Turkey")
+    * [Give](/waystogive "Ways to Give")
+      * [Give Now](/donate "Give a gift online")
+      * [Ways to Give](/waystogive)
+      * [Funds](/funds "Give to special funds managed by CMML")
+      * [Operating Expenses](/cmml-operating-expenses)
+      * [Legacies](/legacy "Include CMML in your estate and financial planning")
+
+  * [Pray](/prayer)
+
+[Missionary Prayer Handbook](/2026mph)
+
+Pray for those commended from assemblies in the United States and Canada serving cross-culturally, plus, pray monthly for the 31 most unreached people groups in 10/40 AFRICA!
+
+    * [Pray Today](/prayer)
+      * [Today's Missionaries](/prayer "Pray for 700+ missionaries in 30 days!")
+      * [Prayer Requests](/prayer#title_bar_299 "Please pray for our missionaries!")
+    * [Prayer Resources](/prayer)
+      * [Missionary Prayer Handbook](/mph "Order your copy today!")
+      * [Mission Prayer Items](/mpi "Subscribe to receive the MPI in your email inbox.")
+      * [Zoom Prayer Meetings](/pray)
+      * [Missions Update Videos](/missionupdates)
+      * [Unreached People Groups](/unreached-people-groups)
+
+  * [Podcast](/podcast)
+  * [Go]()
+
+[Missions Orientation Program](/mop)
+
+Equipping missionaries to thrive on the mission field. 
+
+    * [Serve](/learn-and-engage)
+      * [Commendation](/commendation)
+      * [Mission Opportunities](/opportunities)
+      * [Ambassador Opportunities Abroad](https://www.cmml.us/aoa)
+      * [US Cross-Cultural Opportunities](/crossculturalus "Reach out cross-culturally locally!")
+      * [Volunteer ](/volunteer "Volunteer at CMMML")
+    * [Learn](https://www.cmml.us/learn-and-engage)
+      * [Missions Orientation Program](/mop "MOP")
+      * [Unreached People Groups](/unreached-people-groups)
+      * [Training Recommendations](/training)
+      * [Literature](/literature)
+      * [Missions Pathway](https://cmml-prod.s3.us-east-1.wasabisys.com/2022-05/2022%20Missions%20Pathway.pdf)
+
+  * [Conferences](/conferences)
+
+[56th Annual Fall Conference](/fallconference2026)
+
+Discover how God is working in Central Asia!
+
+    * [Find a Conference](/conferences)
+      * [Upcoming Events](/conferences "Find a CMML conference or event near you!")
+      * [Past Events](/past_events "Watch and listen to presentations from past events")
+      * [Missions Orientation Program](/mop "Missions Orientation Program")
+      * [Reaching Higher](/reachinghigher2025 "A Conference for Young Adults Ages 20-39")
+      * [Nationwide 2026](/nationwide2026)
+    * [26 Below](/26below)
+      * [Northeast](/ne26below2025)
+      * [Midwest](/mw26below2025)
+      * [Southeast](/se26below2025 "New Location!")
+    * [Fall Conference](/fallconference2026)
+      * [2026 Fall Conference](/fallconference2026)
+      * [Registration](https://cmml.jotform.com/form/fallconf26registration)
+      * [Youth Night](/youthnight2026 "Your Role in God's Plan!")
+
+  * [Resources]()
+
+[Missionary Prayer Handbook](/2026mph)
+
+Pray for more than 750 missionaries serving in 90+ countries and the 31-most unreached people groups in 10/40 Africa each month!
+
+    * [Print](/resources)
+      * [Magazine](/magazine)
+      * [Missionary Prayer Handbook](/mph "Pray for 700+ missionaries in over 80 countries!")
+      * [Literature](/literature)
+    * [Digital](/digital)
+      * [CMML Updates](/Updates "Receive updates from CMML!")
+      * [Podcast](/podcast)
+      * [Articles](/articles)
+      * [Videos](/videos)
+      * [Mission Prayer Items](/mpi)
+      * [US Cross-Cultural Ministry](/crossculturalus)
+      * [Unreached People Groups](/unreached-people-groups)
+      * [FAQs](/faqs "Frequently Asked Questions")
+    * [Links & Partners](/links "Connect with our mission partners and like-minded ministries")
+      * [Mission Service Groups](/links#title_and_text_with_background_83)
+      * [Training Partners](/links#title_and_text_with_background_102)
+      * [Missions Partners](/links#title_and_text_with_background_86)
+      * [Financial Partners](/links#title_and_text_with_background_109)
+      * [Resource Partners](/links#title_and_text_with_background_120)
+      * [Senior Living](/links#title_and_text_with_background_123)
+      * [Missions Links](/links#title_and_text_with_background_103)
+
+  * [About]()
+
+[Our History](/our-history)
+
+Learn about the history of CMML and the brethren missions movement.
+
+    * [About CMML](/about)
+      * [Who We Are](/whoweare)
+      * [What We Do](/whatwedo)
+      * [Meet the Team](/meet-team)
+      * [What We Believe](/what-we-believe)
+      * [Our History](/our-history)
+      * [Giving](/waystogive "Ways to give")
+      * [FAQs](/faqs)
+      * [Contact](/contact)
+    * [Guest Home](/guesthome "Guest Home for Missionaries")
+      * [About](/guesthome "Learn about the CMML Missionary Guest Home")
+      * [Reservations](/form/guest-home-reservations)
+    * [Clothing Center](/clothingcenter "New or gently used clothing for full-time workers")
+      * [About](/clothingcenter "About the Clothing Center")
+      * [Donations](/clothingcenter#three_items_with_icons_211 "Sending donations to the Clothing Center")
+      * [Volunteer](/clothing-center-contact)
+
+
+
+
+Christian Missions in Many Lands
+
+Advancing the spread of the Gospel globally
+
+  * [Search __](/site-search)
+  * [__ Give](/donate)
+  * [__Log in](/)
+    * [Missionary Portal](/user/login?current=/what-we-believe)
+    * [Donor Portal](https://account.raisedonors.com/cmml/login)
+
+
+
+[ ](/)
+
+### Main navigation
+
+  * [Support]()
+
+[Support Missionaries and Ministries](/donate)
+
+Learn about and support missionaries and associated ministries across the globe.
+
+    * [Missionaries](/missionary-search)
+      * [Find a Missionary](https://www.cmml.us/missionary-search)
+      * [On Furlough](/furloughs)
+    * [Associated Ministries](/associated-ministries "Schools, hospitals, institutions, etc.")
+      * [Find an Associated Ministry](https://www.cmml.us/associated-ministries)
+      * [Disaster Updates](/disasterupdates "Sign up to hear about crisis relief updates in Ukraine and Turkey")
+    * [Give](/waystogive "Ways to Give")
+      * [Give Now](/donate "Give a gift online")
+      * [Ways to Give](/waystogive)
+      * [Funds](/funds "Give to special funds managed by CMML")
+      * [Operating Expenses](/cmml-operating-expenses)
+      * [Legacies](/legacy "Include CMML in your estate and financial planning")
+
+  * [Pray](/prayer)
+
+[Missionary Prayer Handbook](/2026mph)
+
+Pray for those commended from assemblies in the United States and Canada serving cross-culturally, plus, pray monthly for the 31 most unreached people groups in 10/40 AFRICA!
+
+    * [Pray Today](/prayer)
+      * [Today's Missionaries](/prayer "Pray for 700+ missionaries in 30 days!")
+      * [Prayer Requests](/prayer#title_bar_299 "Please pray for our missionaries!")
+    * [Prayer Resources](/prayer)
+      * [Missionary Prayer Handbook](/mph "Order your copy today!")
+      * [Mission Prayer Items](/mpi "Subscribe to receive the MPI in your email inbox.")
+      * [Zoom Prayer Meetings](/pray)
+      * [Missions Update Videos](/missionupdates)
+      * [Unreached People Groups](/unreached-people-groups)
+
+  * [Podcast](/podcast)
+  * [Go]()
+
+[Missions Orientation Program](/mop)
+
+Equipping missionaries to thrive on the mission field. 
+
+    * [Serve](/learn-and-engage)
+      * [Commendation](/commendation)
+      * [Mission Opportunities](/opportunities)
+      * [Ambassador Opportunities Abroad](https://www.cmml.us/aoa)
+      * [US Cross-Cultural Opportunities](/crossculturalus "Reach out cross-culturally locally!")
+      * [Volunteer ](/volunteer "Volunteer at CMMML")
+    * [Learn](https://www.cmml.us/learn-and-engage)
+      * [Missions Orientation Program](/mop "MOP")
+      * [Unreached People Groups](/unreached-people-groups)
+      * [Training Recommendations](/training)
+      * [Literature](/literature)
+      * [Missions Pathway](https://cmml-prod.s3.us-east-1.wasabisys.com/2022-05/2022%20Missions%20Pathway.pdf)
+
+  * [Conferences](/conferences)
+
+[56th Annual Fall Conference](/fallconference2026)
+
+Discover how God is working in Central Asia!
+
+    * [Find a Conference](/conferences)
+      * [Upcoming Events](/conferences "Find a CMML conference or event near you!")
+      * [Past Events](/past_events "Watch and listen to presentations from past events")
+      * [Missions Orientation Program](/mop "Missions Orientation Program")
+      * [Reaching Higher](/reachinghigher2025 "A Conference for Young Adults Ages 20-39")
+      * [Nationwide 2026](/nationwide2026)
+    * [26 Below](/26below)
+      * [Northeast](/ne26below2025)
+      * [Midwest](/mw26below2025)
+      * [Southeast](/se26below2025 "New Location!")
+    * [Fall Conference](/fallconference2026)
+      * [2026 Fall Conference](/fallconference2026)
+      * [Registration](https://cmml.jotform.com/form/fallconf26registration)
+      * [Youth Night](/youthnight2026 "Your Role in God's Plan!")
+
+  * [Resources]()
+
+[Missionary Prayer Handbook](/2026mph)
+
+Pray for more than 750 missionaries serving in 90+ countries and the 31-most unreached people groups in 10/40 Africa each month!
+
+    * [Print](/resources)
+      * [Magazine](/magazine)
+        * [Current Issue](/magazine/current)
+        * [Archives](/magazine/archive)
+        * [Subscriptions](/magazine/subscribe)
+      * [Missionary Prayer Handbook](/mph "Pray for 700+ missionaries in over 80 countries!")
+      * [Literature](/literature)
+    * [Digital](/digital)
+      * [CMML Updates](/Updates "Receive updates from CMML!")
+      * [Podcast](/podcast)
+      * [Articles](/articles)
+      * [Videos](/videos)
+      * [Mission Prayer Items](/mpi)
+      * [US Cross-Cultural Ministry](/crossculturalus)
+      * [Unreached People Groups](/unreached-people-groups)
+      * [FAQs](/faqs "Frequently Asked Questions")
+    * [Links & Partners](/links "Connect with our mission partners and like-minded ministries")
+      * [Mission Service Groups](/links#title_and_text_with_background_83)
+      * [Training Partners](/links#title_and_text_with_background_102)
+      * [Missions Partners](/links#title_and_text_with_background_86)
+      * [Financial Partners](/links#title_and_text_with_background_109)
+      * [Resource Partners](/links#title_and_text_with_background_120)
+      * [Senior Living](/links#title_and_text_with_background_123)
+      * [Missions Links](/links#title_and_text_with_background_103)
+
+  * [About]()
+
+[Our History](/our-history)
+
+Learn about the history of CMML and the brethren missions movement.
+
+    * [About CMML](/about)
+      * [Who We Are](/whoweare)
+      * [What We Do](/whatwedo)
+      * [Meet the Team](/meet-team)
+      * [What We Believe](/what-we-believe)
+      * [Our History](/our-history)
+      * [Giving](/waystogive "Ways to give")
+      * [FAQs](/faqs)
+      * [Contact](/contact)
+    * [Guest Home](/guesthome "Guest Home for Missionaries")
+      * [About](/guesthome "Learn about the CMML Missionary Guest Home")
+      * [Reservations](/form/guest-home-reservations)
+    * [Clothing Center](/clothingcenter "New or gently used clothing for full-time workers")
+      * [About](/clothingcenter "About the Clothing Center")
+      * [Donations](/clothingcenter#three_items_with_icons_211 "Sending donations to the Clothing Center")
+      * [Volunteer](/clothing-center-contact)
+
+
+
+
+__
+
+## What We Believe
+
+Statement of Faith
+
+#### 
+
+1\. The Bible, both the Old and New Testament, is given by inspiration of God and is inerrant in its original writings. (II Timothy 3:16-17)
+
+2\. There is One God, invisible and sovereign, eternally existing in Three Persons: Father, Son, and Holy Spirit. (Deuteronomy 6:4, Mark 12:29; Matthew 28:19)
+
+3\. Jesus Christ is God the Son, begotten by the Holy Spirit of the virgin Mary, and born both Man and God. (Luke 1:26-38; John 10:30; Colossians 2:9)
+
+4\. God created the heavens and the earth, and God created people, male and female, in His image. (Genesis 1:1-27)
+
+5\. All people (apart from Jesus Christ) have sinned and fallen short of God's standard, and the result of sin is death. (Romans 3:23; Romans 6:23)
+
+6\. Jesus Christ lived a sinless life, taught and ministered in His years on earth, and His teachings are the moral foundation of our lives. (Matthew 7: 24 – 28)
+
+7\. Jesus Christ died for our sins when crucified on Calvary. (I Corinthians 15:3)
+
+8\. Jesus Christ is raised from the dead; He is ascended into Heaven; He is now seated at the right hand of God, and is Lord of all. (I Corinthians 15:4; Ephesians 1:20; Hebrews 1:3)
+
+9\. We are saved by faith in Christ Jesus, unto eternal life, apart from works or religious observances. There is no way unto salvation except by faith in Christ Jesus. (John 3:16, Acts 4: 10 – 12, Romans 3:21-28; Romans 10:9-10; Ephesians 2:8-9)
+
+10\. The Church is composed of all who are saved by faith in Christ and is made one through the working of the Holy Spirit. (I Corinthians 12:4-31)
+
+11\. The Church is commissioned to preach and spread the Gospel of Jesus Christ throughout the world for the purpose of leading persons to salvation and making disciples. (Matthew 28: 18 – 20; Acts 1: 7, 8).
+
+12\. We await the personal and soon coming of the Lord Jesus and the resurrection of the dead, of the just unto Life, and the unjust unto condemnation. (Acts 1:10-11; John 5:24-29; John 14:1-6; I Thessalonians 4:13-18)
+
+_ _
+
+_Approved by the CMML Board of Directors, 2021_
+
+  * [Contact](https://www.cmml.us/contact)
+  * [Jobs](/jobs)
+  * [Volunteer](/volunteer)
+
+
+  * [Conferences](/conferences "Events that challenge and inspire!")
+    * [Register](/conferences)
+    * [Watch On Demand](https://www.youtube.com/cmmlus)
+  * [Missions Magazine](/magazine/archive "Published 11 times a year!")
+    * [Read Now](/magazine/current)
+    * [Manage Subscription](/magazine/subscribe)
+
+
+  * [About CMML](/about)
+    * [Who We Are](/whoweare "Serving Those Who Serve")
+    * [What We Do](/whatwedo)
+    * [Meet the Team](/meet-team)
+    * [What We Believe](/what-we-believe)
+    * [FAQs](/faqs)
+    * [Our History](/our-history)
+
+
+
+__
+
+<https://facebook.com/cmmlus>
+
+__
+
+<https://instagram.com/cmmlus>
+
+__
+
+<https://twitter.com/cmmlus>
+
+__
+
+<https://youtube.com/cmmlus>
+
+(C) Copyright 2026 Christian Missions In Many Lands, Inc.
+
+Site by [One Thing](http://www.onethingweb.com "Site by One Thing")

@@ -1,0 +1,13 @@
+DOCUMENT_ID: evangelical-times-westminster-fellowship-2014
+TITLE (as printed): Westminster Fellowship
+DATE: 1 January 2014
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://evangelical-times.org/21492/westminster-fellowship (also https://www.evangelical-times.org/westminster-fellowship/)
+EDITION: Evangelical Times online news article by Mostyn Roberts, pastor at Welwyn Evangelical Church
+TRANSCRIPTION METHOD: copied (the article body is paywalled behind an Evangelical Times membership signup and could not be fetched by this session; the text below is the page's own meta-description tag, verbatim, which is visible in the page HTML actually downloaded by curl and is a genuine excerpt of the article's opening sentences, truncated by the site itself with no ellipsis added by this session beyond what the site truncated to)
+TOTAL PAGES: 1 (partial: only the meta-description excerpt was recoverable; the full article text is NOT in this file)
+WORD COUNT: 78
+RIGHTS: Evangelical Times news article (2014); status not researched beyond noting the article itself is paywalled by the publisher. Treat any use as SECONDARY commentary only, short excerpt only.
+
+[[p. 1]]
+After 70 years at Westminster Chapel, the Westminster Fellowship will begin meeting at Westminster Baptist Church, Horseferry Road, from February 2014. The Fellowship is a ministers’ fraternal, open ‘to men exercising ministry in a local church or among the churches’ who give wholehearted agreement to its principles. It was started in 1942 by Dr Martyn Lloyd-Jones, then in his early years at Westminster Chapel, and enjoyed unique growth and blessing under his leadership. The Fellowship is now sm

@@ -1,0 +1,13 @@
+DOCUMENT_ID: et-forty-years-2017
+TITLE (as printed): Education – Forty years of London Seminary
+DATE: 2017 (40th anniversary year)
+LANGUAGE: en
+SOURCE URL/SHELFMARK: see sources.csv row et-forty-years-2017
+EDITION: Evangelical Times online news article; body paywalled behind ET membership signup and could not be fetched by this session. The text below is the page's own meta-description tag, verbatim, genuinely present in the HTML downloaded by curl.
+TRANSCRIPTION METHOD: copied (meta tag only; full article body NOT available in this file)
+TOTAL PAGES: 1 (partial excerpt only)
+WORD COUNT: 80
+RIGHTS: Evangelical Times news article; not researched further. Treat as SECONDARY, short excerpt only.
+
+[[p. 1]]
+London Seminary celebrates 40 years of training men for pastoral ministry this year. Established under the leadership of Martyn Lloyd-Jones and others in 1977, London Theological Seminary (as it then was) had one aim: to prepare men called by God to preach the gospel and pastor Christ’s people. As its constitution puts it, the seminary was to teach the ‘great truths recovered at the Reformation’. Outgoing principal Robert Strivens said, ‘In this 500th anniversary year of the Reformation, we give

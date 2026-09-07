@@ -1,0 +1,826 @@
+DOCUMENT_ID: calvin-psalms-preface
+TITLE (as printed): Commentary on the Book of Psalms; The Author's Preface [John Calvin to the Godly and Ingenious Readers]
+DATE: Latin/French original preface 1557; this English translation 1845-1849
+LANGUAGE: en (translated from Calvin's Latin/French by the translator for the Calvin Translation Society; original composed by Calvin)
+SOURCE URL/SHELFMARK: https://archive.org/details/commentaryonbook01calvuoft (identifier: commentaryonbook01calvuoft)
+EDITION: Commentary on the Book of Psalms, by John Calvin, translated from the original Latin, and collated with the author's French version, vol. 1 (Edinburgh: Calvin Translation Society, 1845-1849). Digitized by the Internet Archive, 2007 (funding: Microsoft Corporation). possible-copyright-status: NOT_IN_COPYRIGHT.
+TRANSCRIPTION METHOD: copied (OCR text as delivered by archive.org's own djvu.txt for this scan; engine/language not stated by the repository; not corrected here). This file transcribes only "The Author's Preface" (the roman-numeral-paginated front matter), not the body commentary on the Psalms themselves, because only the Preface (Calvin's autobiographical account, including his account of Strasbourg) was needed for this dossier.
+TOTAL PAGES: preface only, approx. pp. xxxv-xlix (roman numeral pagination as printed; OCR of some running-head numerals is noisy, see note below)
+WORD COUNT: approximately 6000 words (preface excerpt transcribed)
+
+NOTE ON PAGE MARKERS: this scan's running heads ("THE AUTHOR'S PREFACE" with a roman-numeral page number on the outer margin) were used as page markers, inserted as [[p. n]] immediately before each running-head line as OCR delivered it. OCR misread some numerals (e.g. "xxxvill" for what is almost certainly "xxxviii", "xvii" for what is almost certainly "xlvii"); these are reproduced exactly as OCR produced them, per Procedure F ("do not correct spelling, do not modernize"). Quote records below cite the nearest legible marker.
+
+[[p. xxxv]]
+THE AUTHOR’S PREFACE. 
+
+
+JOHN CALVIN 
+TO THE GODLY AND INGENIOUS READERS, 
+
+
+GREETING, 
+
+
+Ir the reading of these my COMMENTARIES confer as much 
+benefit on the Church of God as I myself have reaped advan- 
+tage from the composition of them, I shall have no reason to 
+regret that I have undertaken this work. Having expound- 
+ed here, in our small school, the Book of Psalms, about three 
+years ago, I thought that I had by this means sufliciently 
+_ discharged my duty, and had resolved not to publish to the 
+world what I had familiarly taught those of my own house- 
+hold. And, in fact, before I had undertaken to expound this 
+book in my lectures, at the request of my brethren, I said 
+what was true, that I had kept away from this subject, 
+because that most faithful teacher of the Church of God, 
+Martin Bucer, had laboured in this field with such singular 
+Jearning, diligence, fidelity, and success, that at least there 
+was not so great need that I should put my hand to the 
+work. And had the Commentaries of Wolphangus Mus- 
+culus at that time been published, I would not have omitted 
+_ todo them justice, by mentioning them in the same way, 
+since he too, in the judgment of good men, has earned no 
+small praise by his diligence and industry in this walk. I 
+had not yet come to the end of the book, when, lo! Iam urged 
+by renewed solicitations not to suffer my lectures, which 
+certain persons had carefully, faithfully, and not without 
+
+
+[[p. xxxvi]]
+XXXVi THE AUTHOR’S PREFACE. 
+
+
+great labour, taken down, to be lost to the world. My pur- 
+pose still remained unaltered ; only I promised what for a long 
+time I had been thinking of, to write something on the 
+subject in the French language, that my countrymen might 
+not be without the means of being enabled to understand so 
+useful a book when perusing it. Whilst I am thinking of 
+making this attempt, suddenly, and contrary to my first 
+design, it occurred to me, by what impulse I know not, to 
+compose in Latin, only as it were in the way of trial, an 
+exposition of one Psalm. When I found that my success 
+corresponded to my desire far beyond what I had ventured 
+to anticipate, I was encouraged, and accordingly began to 
+make the same attempt in a few other Psalms. On perceiy- 
+ing this, my intimate friends, as if in this way they held me 
+bound, urged me with the greater confidence not to desist 
+from my course. One reason which made me comply with 
+their solicitations, and which also had from the commencement 
+induced me to make this first attempt, was an apprehension 
+that at some future period what had been taken down from 
+my lectures, might be published to the world contrary to my 
+wishes, or at least without my knowledge. I can truly say, 
+that I was drawn to execute this work rather from such an 
+apprehension, than led to it from my own free will. At the 
+same time, as I continued to prosecute the work, I began to 
+perceive more distinctly that this was by no means a super- 
+fluous undertaking, and I have also felt from my own indi- 
+vidual experience, that to readers who are not so exercised, 
+I would furnish important assistance in understanding The 
+Psalms. 
+
+The varied and resplendid riches which are contained in 
+this treasury it is no easy matter to express in words; so 
+much so, that I well know that whatever I shall be able 
+to say will be far from approaching the excellence of the 
+subject. But as it is better to give to my readers some 
+taste, however small, of the wonderful advantages they will 
+derive from the study of this book, than to be entirely silent 
+on the point, I may be permitted briefly to advert to a matter, 
+the greatness of which does not admit of being fully unfolded. 
+I have been accustomed to call this book, I think not inap- 
+
+
+
+
+
+[[p. xxxvill]]
+THE AUTHOR’S PREFACE. XXXVill 
+
+
+propriately, “ An Anatomy of all the Parts of the Soul ;” for 
+there is not an emotion of which any one can be conscious 
+that is not here represented as ina mirror. Or rather, the 
+Holy Spirit has here drawn to the life all the griefs, sorrows, 
+fears, doubts, hopes, cares, perplexities, in short, all the dis- 
+tracting emotions with which the minds of men are wont to be 
+agitated. The other parts of Scripture contain the command- 
+ments which God enjoined his servants to announce to us. 
+But here the prophets themselves, seeing they are exhibited 
+to us as speaking to God, and laying open all their inmost 
+thoughts and affections, call, or rather draw, each of us to the 
+examination of himself in particular, in order that none of the 
+many infirmities to which we are subject, and of the many 
+vices with which we abound, may remain concealed. It is 
+certainly a rare and singular advantage, when all lurking 
+places are discovered, and the heart is brought into the light, 
+purged from that most baneful infection, hypocrisy. In 
+I short, as calling upon God is one of the principal means of 
+securing our safety, and as a better and more unerring rule 
+for guiding us in this exercise cannot be found elsewhere 
+‘than in The Psalms, it follows, that in proportion to the profi- 
+. ciency which a man shallhave attained in understanding them, 
+_ will be his knowledge of the most important part of celestial 
+_Aoctrine. Genuine and earnest prayer proceeds first from a 
+
+
+"sense of our need, and next, from faith in the promises of 
+
+
+God. It is by perusing these inspired compositions, that 
+men will be most effectually awakened to a sense of their 
+maladies, and, at the same time, instructed in seeking reme- 
+
+dies for their cure. Ina word, whatever may serve to encou- 
+_ Yage us when we are about to pray to God, is taught us in 
+this book. And not only are the promises of God pre- 
+‘sented to us in it, but oftentimes there is exhibited to us 
+_one standing, as it were, amidst the invitations of God on the 
+one hand, and the impediments of the flesh on the other, 
+girding and preparing himself for prayer: thus teaching 
+‘us, if at any time we are agitated with a variety of doubts, 
+to resist and fight against them, until the soul, freed and 
+disentangled from all these impediments, rise up to God ; 
+and not only so, but even when in the midst of doubts, fears, 
+- and apprehensions, let us put forth our efforts in prayer, 
+VOL, I. d 
+
+
+[[p. xxxvili]]
+XXXVili THE AUTHOR’S PREFACE. 
+
+
+until we experience some consolation which may calm and 
+bring contentment to our minds.’ Although distrust may 
+shut the gate against our prayers, yet we must not allow 
+ourselves to give way, whenever our hearts waver or are agi- 
+tated with inquietude, but must persevere until faith finally 
+come forth victorious from these conflicts. In many places we 
+may perceive the exercise of the servants of God in prayer 
+so fluctuating, that they are almost overwhelmed by the 
+alternate hope of success and apprehension of failure, and 
+gain the prize only by strenuous exertions. We see on the 
+one hand, the flesh manifesting its infirmity; and on the 
+other, faith putting forth its power; and if it is not so valiant 
+and courageous as might be desired, it is at least prepared to 
+fight until by degrees it acquire perfect strength. But as 
+those things which serve to teach us the true method of 
+praying aright will be found scattered through the whole of 
+this Commentary, I will not now stop to treat of topies 
+which it will be necessary afterwards to repeat, nor detain 
+my readers from ~proceeding to the work itself. Only it 
+appeared to me to be requisite to show in passing, that this 
+
+
+' book makes known to us this privilege, which is desirable 
+
+
+above all others—that not only is there opened up to us fami- 
+liar access to God, but also that we have permission and 
+freedom granted us to lay open before him our infirmities, 
+
+
+which we would be ashamed to confess before men. Besides, 
+
+
+there is also here prescribed to us an infallible rule for direct- 
+ing us with respect to the right manner of offering to God 
+the sacrifice of praise, which he declares to be most precious 
+in his sight, and of the sweetest odour. There is no other 
+book in which there is to be found more express and magni- 
+ficent commendations, both of the unparalleled liberality of 
+God towards his Church, and of all his works; there is no 
+other book in which there is recorded so many deliverances, 
+nor one in which the evidences and experiences of the fatherly 
+providence and solicitude which God exercises towards us, 
+are celebrated with such splendour of diction, and yet with 
+the strictest adherence to truth; in short, there is no other 
+
+
+1 Jusqu’i ce que nous sentions quelque allegement qui nous appaise 
+et contente.”—Fr. 
+
+
+
+
+
+
+
+
+[[p. xxxix]]
+THE AUTHOR’S PREFACE. XXXIx 
+
+
+book in which we are more perfectly taught the right manner 
+of praising God, or in which we are more powerfully stirred 
+up to the performance of this religious exercise. Moreover, 
+although The Psalms are replete with all the precepts which 
+serve to frame our life to every part of holiness, piety, and 
+righteousness, yet they will principally teach and train us to 
+bear the cross; and the bearing of the cross is a genuine 
+proof of our obedience, since by doing this, we renounce the 
+guidance of our own affections, and submit ourselves entirely 
+to God, leaving him to govern us, and to dispose of our life 
+according to his will, so that the afflictions which are the 
+bitterest and most severe to our nature, become sweet to us, 
+because they proceed from him. In one word, not only will we 
+here find general commendations of the goodness of God, 
+which may teach men to repose themselves in him alone, and 
+to seek all their happiness solely in him; and which are 
+intended to teach true believers with their whole hearts 
+confidently to look to him for help in all their necessities ; 
+but we will also find that the free remission of sins, which 
+alone reconciles God towards us, and procures for us settled 
+‘peace with him, is so set forth and magnified, as that here 
+there is nothing wanting which relates to the knowledge of 
+eternal salvation. 
+- Now, if my readers derive any fruit and advantage from 
+the labour which I have bestowed in writing these Commen- 
+taries, I would have them to understand that the small 
+- measure of experience which I have had by the conflicts with 
+which the Lord has exercised me, has in no ordinary degree 
+assisted me, not only in applying to present use whatever 
+instruction could be gathered from these divine compositions, 
+but also in more easily comprehending the design of each of 
+the writers. And as David holds the principal place among 
+them, it has greatly aided me in understanding more fully 
+the complaints made by him of the internal afflictions which 
+the Church had to sustain through those who gave them- 
+selves out to be her members, that I had suffered the same 
+
+
++ Et nous acquiert tranquillite de conscience devant luy.”—Fr. “ And 
+Nagas for us tranquillity of conscience before him.” 
+
+
+[[p. xl]]
+xl THE AUTHOR'S PREFACE. 
+
+
+or similar things from the domestic enemies of the Church. 
+For although I follow David at a great distance, and come 
+far short of equalling him; or rather, although in aspiring 
+slowly and with great difficulty to attain to the many virtues 
+in which he excelled, I still feel myself tarnished with the 
+contrary vices; yet if I have any things in common with him, 
+I have no hesitation in comparing myself with him. In 
+reading the instances of his faith, patience, fervour, zeal, 
+and integrity, it has, as it ought, drawn from me unnumbered 
+groans and sighs, that I am so far from approaching them ; 
+but it has, notwithstanding, been of very great advantage to 
+me to behold in him as in a mirror, both the commencement 
+of my calling, and the continued course of my function; so 
+that I know the more assuredly, that whatever that most 
+illustrious king and prophet suffered, was exhibited to me by 
+God as an example for imitation. My condition, no doubt, 
+is much inferior to his, and it is unnecessary for me to stay 
+to show this. But as he was taken from the sheepfold, and 
+elevated to the rank of supreme authority; so God having 
+taken me from my originally obscure and humble condition, 
+has reckoned me worthy of being invested with the honour- 
+able office of a preacher and minister of the gospel. When 
+I was as yet a very little boy, my father had destined me for 
+the study of theology. But afterwards, when he considered 
+that the legal profession commonly raised those who followed 
+it to wealth, this prospect induced him suddenly to change 
+his purpose. Thus it came to pass, that I was withdrawn 
+from the study of philosophy, and was put to the study of 
+law. To this pursuit I endeavoured faithfully to apply 
+myself, in obedience to the will of my father; but God, by the 
+secret guidance of his providence, at length gave a different 
+direction tomy course. And first, since I was too obstinately 
+devoted to the superstitions of Popery to be easily extricated 
+from so profound an abyss of mire, God by a sudden conver- 
+sion subdued and brought my mind to a teachable frame, 
+which was more hardened in such matters than might 
+have been expected from one at my early period of life, 
+
+
+Having thus received some taste and knowledge of true 
+
+
+godliness, I was immediately inflamed with so intense a desire 
+
+
+
+
+
+[[p. xli]]
+THE AUTHOR’S PREFACE. xli 
+
+
+to make progress therein, that although I did not altogether 
+leave off other studies, I yet pursued them with less ardour. 
+I was quite surprised to find that before a year had elapsed, 
+all who had any desire after purer doctrine were continually 
+coming to me to learn, although I myself was as yet but a 
+mere novice and tyro. Being of a disposition somewhat 
+unpolished and bashful, which led me always to love the 
+shade and retirement, I then began to seek some secluded 
+corner where I might be withdrawn from the public view ; 
+but so far from being able to accomplish the object of my 
+desire, all my retreats were like public schools. In short, 
+whilst my one great object was to live in seclusion without 
+being known, God so led me about through different turnings 
+and changes, that he never permitted me to rest in any place, 
+until, in spite of my natural disposition, he brought me forth to 
+public notice. Leaving my native country, France, I in 
+fact retired into Germany, expressly for the purpose of being 
+able there to enjoy in some obscure corner the repose which 
+I had always desired, and which had been so long denied 
+me. But lo! whilst I lay hidden at Basle, and known only 
+to a few people, many faithful and holy persons were burnt 
+alive in France; and the report of these burnings having 
+reached foreign nations, they excited the strongest disappro- 
+bation among a great part of the Germans, whose indigna- 
+tion was kindled against the authors of such tyranny. In 
+-order to allay this indignation, certain wicked and lying 
+pamphlets were circulated, stating, that none were treated 
+with such cruelty but Anabaptists and seditious persons, who, 
+by their perverse ravings and false opinions, were overthrow- 
+ing not only religion but also all civil order. Observing 
+that the object which these instruments of the court aimed at 
+by their disguises, was not only that the disgrace of shedding 
+so much innocent blood might remain buried under the false 
+charges and calumnies which they brought against the holy 
+martyrs after their death, but also, that afterwards they 
+might be able to proceed to the utmost extremity in murder- 
+ing the poor saints without exciting compassion towards them 
+in the breasts of any, it appeared to me, that unless I opposed 
+them to the utmost of my ability, my silence could not be 
+
+
+[[p. xlii]]
+xlii THE AUTHOR'S PREFACE. 
+
+
+vindicated from the charge of cowardice and treachery. 
+This was the consideration which induced me to publish 
+my Institute of the Christian Religion. My objects were, 
+first, to prove that these reports were false and calumnious, 
+and thus to vindicate my brethren, whose death was pre- 
+cious in the sight of the Lord; and next, that as the same 
+cruelties might very soon after be exercised against many 
+unhappy individuals, foreign nations might be touched with 
+at least some compassion towards them and solicitude about 
+them. When it was then published, it was not that copious 
+and laboured work which it now is, but only a small treatise 
+containing a summary of the principal truths of the Christian 
+religion ; and it was published with no other design than 
+that men might know what was the faith held by those whom 
+I saw basely and wickedly defamed by those flagitious and 
+perfidious flatterers. That my object was not to acquire 
+fame, appeared from this, that immediately after I left Basle, 
+and particularly from the fact that nobody there knew that I 
+was the author. 
+
+Wherever else I have gone, I have taken care to conceal 
+that I was the author of that performance ; and I had resolved 
+to continue in the same privacy and obscurity, until at length 
+William Farel detained me at Geneva, not so much by coun- 
+sel and exhortation, as by a dreadful imprecation, which I 
+felt to be as if God had from heaven laid his mighty hand 
+upon me to arrest me. As the most direct road to Stras- 
+burg, to which I then intended to retire, was shut up by the 
+wars, I had resolved to pass quickly by Geneva, without 
+staying longer than a single night in that city. A little 
+before this, Popery had been driven from it by the exertions 
+of the excellent person whom I have named, and Peter 
+Viret ; but matters were not yet brought to a settled state, 
+and the city was divided into unholy and dangerous factions. 
+Then an individual who now basely apostatised and returned 
+to the Papists, discovered me and made me known to others. 
+Upon this, Farel, who burned with an extraordinary zeal to 
+advance the gospel, immediately strained every nerve to 
+detain me. And after having learned that my heart was set 
+upon devoting myself to private studies, for which I wished to 
+
+
+[[p. xliii]]
+THE AUTHOR'S PREFACE. xliii 
+
+
+keepmyself free from other pursuits, and finding that he gained 
+nothing by entreaties, he proceeded to utter an imprecation 
+that God would curse my retirement, and the tranquillity of 
+the studies which I sought, if I should withdraw and refuse 
+to give assistance, when the necessity was so urgent. By 
+this imprecation I was so stricken with terror, that I desisted 
+from the journey which I had undertaken ; but sensible of my 
+natural bashfulness and timidity, I would not bring myself 
+under obligation to discharge any particular office. After 
+that, four months had scarcely elapsed, when, on the one 
+hand, the Anabaptists began to assail us, and, on the other, a 
+certain wicked apostate, who being secretly supported by the 
+influence of some of the magistrates of the city, was thus 
+enabled to give usa great deal oftrouble. At the same time, 
+a succession of dissensions fell out in the city! which strangely 
+afflicted us. Being, as I acknowledge, naturally of a timid, 
+soft, and pusillanimous disposition, I was compelled to 
+encounter these violent tempests as part of my early train- 
+ing; and although I did not sink under them, yet I was not 
+sustained by such greatness of mind, as not to rejoice more 
+than it, became me, when, in consequence of certain com- 
+motions, I was banished from Geneva. 
+
+By this means set at liberty and loosed from the tie of my 
+vocation, I resolved to live in a private station, free from the 
+burden and cares of any public charge, when that most excel- 
+lent servant of Christ, Martin Bucer, employing a similar kind 
+of remonstrance and protestation as that to which Farel had 
+recourse before, drew me back to anewstation. Alarmed by 
+the example of Jonas which he set before me, I still continued 
+in the work of teaching. And although I alwayscontinued like 
+myself, studiously avoiding celebrity ;? yet I wascarried, I know 
+not how, as it were by force to the Imperial assemblies, where, 
+willing or unwilling, I was under the necessity of appearing 
+before the eyes of many. Afterwards, when the Lord having 
+
+
+1 Cependant surveindrent en la ville seditions les unes sur les autres.” — 
+
+
+24 C’est, ascavoir de ne vouloir point apparoistre ou suyvre les grandes 
+assemblees."—F'r. ‘‘ That is, not wishing to appear before, or wait upon, 
+the great assemblies.” 
+
+
+[[p. xliv]]
+xliv THE AUTHOR’S PREFACE. 
+
+
+compassion on this city, had allayed the hurtful agitations 
+and broils which prevailed in it, and by his wonderful power 
+had defeated both the wicked counsels and the sanguinary 
+attempts of the disturbers of the Republic, necessity was 
+imposed upon me of returning to my former charge, contrary 
+to my desire and inclination. The welfare of this church, it 
+is true, lay so near my heart, that for its sake I would not 
+have hesitated to lay down my life; but my timidity neyer- 
+theless suggested to me many reasons for excusing myself 
+from again willingly taking upon my shoulders so heavy a 
+burden. At length, however, a solemn and conscientious 
+regard to my duty, prevailed with me to consent to return to 
+the flock from which I had been torn; but with what grief, 
+tears, great anxiety and distress I did this, the Lord is my 
+best witness, and many godly persons who would have wished 
+to see me delivered from this painful state, had it not been 
+that that which I feared, and which made me give my con- 
+sent, prevented them and shut their mouths. 
+
+Were I to narrate the various conflicts by which the Lord 
+has exercised me since that time, and by what trials he has 
+proved me, it would make a long history. But that 1 may 
+not become tedious to my readers by a waste of words, I 
+shall content myself with repeating briefly what I have 
+touched upon a little before, that in considering the whole 
+course of the life of David,' it seemed to me that by his own 
+footsteps he showed me the way, and from this I have expe- 
+rienced no small consolation. As that holy king was 
+harassed by the Philistines and other foreign enemies with 
+continual wars, while he was much more grievously afflicted 
+by the malice and wickedness of some perfidious men amongst 
+his own people, so I can say as to myself, that I have been 
+assailed on all sides, and have scarcely been able to enjoy 
+repose for a single moment, but have always had to sustain 
+some conflict either from enemies without or within the 
+Church. Satan has made many attempts to overthrow the 
+fabric of this Church; and once it came to this, that I, alto- 
+gether feeble and timorous as I am, was compelled to break 
+and put a stop to his deadly assaults by putting my life in 
+
+
+1 “ Qu’en considerant tout le discours de la vie de David.” —F*. 
+
+
+iE a 
+
+
+\ 
+
+
+[[p. xlv]]
+THE AUTHOR'S PREFACE. xlv 
+
+
+danger, and opposing my person to his blows. Afterwards, 
+for the space of five years, when some wicked libertines were 
+furnished with undue influence, and also some of the common 
+people, corrupted by the allurements and perverse discourse 
+of such persons, desired to obtain the liberty of doing whatever 
+they pleased, without control, I was under the necessity of 
+fighting without ceasing to defend and maintain the disci- 
+pline of the Church. To these irreligious characters and 
+despisers of the heavenly doctrine, it was a matter of entire 
+indifference, although the Church should sink into ruin, pro- 
+vided they obtained what they sought,—the power of acting 
+just as they pleased. Many, too, harassed by poverty and 
+hunger, and others impelled by insatiable ambition or 
+avarice and a desire of dishonest gain, were become so frantic, 
+that they chose rather, by throwing all things into confusion, 
+to involve themselves and us in one common ruin, than to 
+remain quiet by living peaceably and honestly.!. During the 
+whole of this lengthened period, I think that there is scarcely 
+any of the weapons which are forged in the workshop of 
+Satan, which has not been employed by them in order to 
+obtain their object. And at length matters had come to 
+such a state, that an end could be put to their machinations 
+~ in no other way than cutting them off by an ignominious 
+death ; which was indeed a painful and pitiable spectacle to 
+me. They no doubt deserved the severest punishment, but 
+I always rather desired that they might live in prosperity, 
+and continue safe and untouched; which would have been 
+the case had they not been altogether incorrigible, and obsti- 
+nately refused to listen to wholesome admonition. 
+
+The trial of these five years was grievous and hard to bear ; 
+but I experienced not less excruciating pain from the malig- 
+nity of those who ceased not to assail myself and my minis- 
+try with their envenomed calumnies. A great proportion of 
+them, it is true, are so blinded by a passion for slander and 
+detraction, that to their great disgrace, they betray at once 
+their impudence, while others, however crafty and cunning, 
+cannot so cover or disguise themselves as to escape being 
+shamefully convicted and disgraced ; yet when a man has 
+
+
+. ' Que se tenir quois en vivant paisiblement et honnestement.”—Fr. 
+
+
+[[p. xlvi]]
+xlvi THE AUTHOR'S PREFACE. 
+
+
+been a hundred times found innocent of a charge brought 
+against him, and when the charge is again repeated without 
+any cause or occasion, it is an indignity hard to bear. 
+Because I affirm and maintain that the world is managed and 
+governed by the secret providence of God, a multitude of 
+presumptuous men rise up against me, and allege that I 
+represent God as the author of sin. This is so foolish a 
+calumny, that it would of itself quickly come to nothing, did 
+it not meet with persons who have tickled ears, and who take 
+pleasure in feeding upon such discourse. But there are many 
+whose minds are so filled with envy and spleen, or ingrati- 
+tude, or malignity, that there is no falsehood, however pre- 
+posterous, yea, even monstrous, which they do not receive, 
+if it is spoken to them. Others endeayour to overthrow 
+God’s eternal purpose of predestination, by which he distin- 
+guishes between the reprobate and the elect; others take 
+upon them to defend free will; and forthwith many throw 
+themselves into their ranks, not so much through ignorance 
+as by a perversity of zeal which I know not how to charac- 
+terise. If they were open and avowed enemies, who brought 
+these troubles upon me, the thing might in some way be 
+borne. But that those who shroud themselves under the 
+name of brethren, and not only eat Christ’s sacred bread, but 
+also administer it to others, that those, in short, who loudly 
+boast of being preachers of the gospel, should wage such 
+nefarious war against me, how detestable is it? In this mat- 
+ter I may very justly complain with David, “ Yea, mine own 
+familiar friend, in whom I trusted, who did eat of my bread, 
+hath lifted up his heel against me,” (Ps. xli. 9.) “ For it was 
+not an enemy that reproached me; but it was thou, a man 
+mine equal, my guide, and mine acquaintance. We took 
+sweet counsel together, and walked unto the house of God in 
+company,” (Ps. lv, 12, 13, 14.) Others circulated ridiculous 
+reports concerning my treasures ; others, of the extravagant 
+authority and enormous influence which they say I possess; 
+others speak of my delicacies and magnificence. But when 
+a man is content with scanty food and common clothing, 
+and does not require from the humblest more frugality than 
+he shows and practises himself, shall it be said that such an 
+
+
+
+
+
+
+
+
+[[p. xvii]]
+THE AUTHOR'S PREFACE. xvii 
+
+
+one is too sumptuous, and lives in too high a style? As to 
+the power and influence of which they envy me, I wish I 
+could discharge this burden upon them; for they estimate 
+my power by the multitude of affairs, and the vast weight 
+of labours with which I am overwhelmed. And if there are 
+some whom I cannot persuade whilst I am alive that I am not 
+rich, my death at length will prove it. I confess, indeed, 
+that Lam not poor; for I desire nothing more than what I 
+have. All these are invented stories, and there is no colour 
+whatever for any one of them ; but many nevertheless are very 
+easily persuaded of their truth, and applaud them; and the 
+reason is, because the greatest part judge that the only 
+means of cloaking their enormities is to throw all things into 
+disorder, and to confound black and white; and they think 
+that the best and shortest way by which they can obtain full 
+liberty to live with impunity just as they please, is to destroy 
+the authority of Christ’s servants. 
+
+In addition to these, there are “the hypocritical mockers 
+in feasts,” of whom David complains, (Ps. xxxv. 16 ;) and I 
+mean by these not only lick-dish characters, who seek a 
+meal to fill their belly,! but all those who by false reports 
+seek to obtain the favour of the great. Having been long 
+~ accustomed to swallow such wrongs as these, I have become 
+almost hardened ; yet when the insolence of such characters 
+increases, I cannot but sometimes feel my heart wounded 
+with bitter pangs. Nor was it enough that I should be so 
+inhumanly treated by my neighbours. In addition to this, 
+in a distant country towards the frozen ocean, there was 
+raised, 1 know not how, by the frenzy of a few, a storm 
+which afterwards stirred up against me a vast number of 
+persons, who are too much at leisure, and have nothing to 
+do but by their bickering to hinder those who are labouring 
+for the edification of the Church.? I am still speaking of the 
+
+1“ co hh’, . “ps, . 
+
+Sof pte eat ege Ties les frians qui cherchent quelque lippee 
+
+2 Mais encore ce n’estoit pas assez d’estre traitté ainsi inhumainement 
+par mes yoisins, si non qu’en un pays lointain vers la mer glacee le temps 
+se troublast aussi je ne scay comment par la phrenesie d’aucuns, pour puis 
+apres fuire lever contre moy comme un nuee de gens qui sont trop de 
+
+
+loisir et n’ont que faire s'ils ne s’escarmouschent & empescher ceux qui 
+travaillent a edification.” —Fr. 
+
+
+[[p. xlvili]]
+xlvili THE AUTHOR'S PREFACE. 
+
+
+internal enemies of the Church—of those who, boasting 
+mightily of the gospel of Christ, nevertheless rush against 
+me with greater impetuosity than against the open adver- 
+saries of the Church, because I do not embrace their gross 
+and fictitious notion concerning a carnal way of eating Christ 
+in the sacrament; and of whom I may protest, after the 
+example of David, “I am for peace; but when I speak, they 
+are for war,” (Ps. cxx. 7.) Moreover, the cruel ingrati- 
+tude of all of them is manifest in this, that they seruple not 
+to assail both in flank and rear a man who strenuously 
+exerts himself to maintain a cause which they have in com- 
+mon with him, and whom therefore they ought to aid and 
+succour. Certainly, if such persons were possessed of even 
+a small portion of humanity, the fury of the Papists which is 
+directed against me with such unbridled violence, would 
+appease the most implacable animosity which they may bear 
+towards me. But since the condition of David was such, 
+
+
+ate 
+
+
+that though he had deserved well of his own people, he was 
+
+
+nevertheless bitterly hated by many without a cause, as he 
+complains in Ps. lxix. 4, “I restored that which I took not 
+away,” it afforded me no small consolation when I was 
+groundlessly assailed by the hatred of those who ought to 
+have assisted and solaced me, to conform myself to the 
+example of so great and so excellent a person. This know- 
+ledge and experience have been of much service in enabling 
+me to understand The Psalms, so that in my meditations upon 
+them, I did not wander, as it were, in an unknown region. 
+My readers, too, if I mistake not, will observe, that in 
+unfolding the internal affections both of David and of others, 
+I discourse upon them as matters of which I have familiar 
+experience. Moreover, since I have laboured faithfully to 
+open up this treasure for the use of all the people of God, 
+although what I have done has not been equal to my wishes, 
+yet the attempt which I have made deserves to be received 
+with some measure of favour. Still I only ask that each may 
+judge of my labours with justice and candour, according to 
+the advantage and fruit which he shall derive from them, 
+Certainly, as I have said before, in reading these Commen- 
+taries, it will be clearly seen that I have not sought to please, 
+
+
+
+
+
+[[p. xlix]]
+THE AUTHOR’S PREFACE. xlix 
+
+
+unless in so far as I might at the same time be profitable to 
+others. And, therefore, I have not only observed through- 
+out a simple style of teaching, but in order to be removed 
+the farther from all ostentation, I have also generally 
+abstained from refuting the opinions of others, although this 
+presented a more favourable opportunity for plausible display, 
+and of acquiring the applause of those who shall favour my 
+book with a perusal. I have never touched upon opposite 
+opinions, unless where there was reason to fear, that by being 
+silent respecting them, I might leave my readers in doubt 
+and perplexity. At the same time, I am sensible that it 
+would have been much more agreeable to the taste of many, 
+had I heaped together a great mass of materials which has 
+great show, and acquires fame for the writer; but I have felt 
+nothing to be of more importance than to have a regard to 
+the edification of the Church. May God, who has implanted 
+this desire in my heart, grant by his grace that the success 
+may correspond thereto ! 
+
+
+GENEVA, July 22, 1557. 
+
+
+ag Gaht Weak ? -muisn lotion (ei 
+
+
+
+
+
+
+tip ih dailies finch ert hat + fiylies-2 “a 8 
+vd f Deo epee ee tier Syngl Lo exaitee (i ae 
+SOE he OS WEA i fui uarhoes} Me ‘otiite ; 
+
+
+va Raurosts tec Fe pf Lip Bte, a4 mys . Ea | sag 
+CRORE aia Ad ep trogtps oh Lowen vr: 
+
+
+, # (ys 
+
+
+ite 
+
+
+eek tei Y Serbo hy 2 eee 
+
+
+
+
+
+
+
+
+‘uel sie ark SA att 
+
+
+vi 
+fF (if: eud a Le ata Kang vomliga ag 
+
+
+TUE ROBIN Dok ora LeG i J one eae nt 
+PL dred abe re ysl? ‘adh, Aart 7) ris (i Bag 
+
+
+7 rok ab ped Wives heagte sh Dees 
+ey MY tates) ob Bt 
+ft big Led Loaiveg ied ce a 
+
+
+‘ia eee 
+
+
+TC y we * 
+_ 
+
+
+
+
+
+
+
+
+
+
+A iS 
+
+
+a 
+
+
+| BOOK OF PSA 
+
+
+LMS. 
+
+
+
+
+
+i AT AAM EG Ue: 
+
+
+COMMENTARY 
+
+
+UPON 
+
+
+THE BOOK OF PSALMS. 
+
+
+
