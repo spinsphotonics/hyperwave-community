@@ -179,3 +179,34 @@ read of the primary source.
 - Recorded in facts/WP-08.md as F-WP08-016 (KBB), F-WP08-017 (Edmunds/CarGurus), and F-WP08-018
   (reconciliation/reader guidance, not a forced single number).
 - Related fact cards: F-WP08-016, F-WP08-017, F-WP08-018.
+
+## WP-12 Diagnostics (2026-09-07)
+
+### C-013: Honda code P2649 — two sources give different definitions
+- autocodes.com states P2649 is "Rocker Arm Oil Control Solenoid Circuit High Voltage" — the
+  same VTEC oil-control-solenoid family as P2646/P2647 (rocker arm oil PRESSURE SWITCH), used
+  in facts/WP-12.md F-WP12-012.
+- A separate generic code-lookup aggregator (dot.report) surfaced in an early search titled
+  P2649 as "'B' Rocker Arm Actuator System Stuck On (Bank 1)" — a different fault type
+  (a stuck mechanical actuator state, not a solenoid circuit-voltage fault) and a different
+  bank-letter convention ("B" vs. the "A"-only system the Fit's SOHC VTEC uses).
+- Not resolved this pass. F-WP12-012 uses the autocodes.com definition because it is
+  consistent with the same rocker-arm-oil-pressure-switch family already confirmed applicable
+  to this exact car via Honda's own TSB 13-021 (F-WP12-010/011), and because a real FitFreak.net
+  GD3 thread's fix for P2649 (a small O-ring/gasket) matches TSB 13-021's own remedy parts list
+  for this code family — but the dot.report definition was not independently disproven, just
+  not used.
+- Related fact card: F-WP12-012
+
+### C-014: P0420 Fit-specific corroboration is weaker than the other misfire/sensor codes
+- Not a source-vs-source disagreement, but flagged per the plan's spirit of recording
+  weaknesses rather than hiding them: F-WP12-009 (P0420, catalytic converter efficiency) relies
+  on one thread explicitly tagged to the "1st Generation (GD 01-08)" sub-forum, plus a second
+  thread in FitFreak's general "Fit-talk" sub-forum whose exact model year could not be
+  independently confirmed from the snippet alone (it is not GE8-tagged either — it is simply
+  unlabeled by generation).
+- This does not currently contradict anything, so it is not a true "two sources disagree"
+  conflict, but it means F-WP12-009 is weaker than most of the other 19 codes in the same file
+  and should be the first one re-checked if a future session regains fuller access to
+  fitfreak.net.
+- Related fact card: F-WP12-009
