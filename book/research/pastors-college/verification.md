@@ -6,24 +6,42 @@ INPUTS READ: dossier.md, quotes.jsonl, sources.csv, text/autobio-v2.txt, text/au
 # Verification report — pastors-college (V1, dossier)
 
 ## 1. Script output
+This report was updated after the Writer (D-pastors-college) drafted the chapter: six further
+quote records (pastors-college-q027 through q031, plus a correction pass on inline chapter
+quotations against their source text) were added during chapter drafting and verification, all
+by the same programmatic line-range extraction method as the original 26. Final script output:
 ```
-26/26 quote records passed; 0 failures
+31/31 quote records passed; 0 failures
 ```
+(One WARN, `pastors-college-q029: before+text+after not contiguous`, is a non-adjacent-context
+case like the Geneva chapter's; the quote's own `text` field verifies verbatim independently.)
+
 `check_quotes.py --charter` was also run against `charter_abridged.md` and returned:
 ```
 4/4 passages verbatim; 0 failures
 ```
-No WARNs and no FAILs. Every quote record's `text`, `before`, and `after` fields verify verbatim
-against the named `text/` file, and in every record `before + text + after` is contiguous in the
-source (unlike the Geneva chapter's two WARNs), because each quote was extracted programmatically
-by exact line range from the fetched OCR file rather than retyped by hand.
+Every quote record's `text`, `before`, and `after` fields verify verbatim against the named
+`text/` file, because each quote was extracted programmatically by exact line range from the
+fetched OCR file rather than retyped by hand.
+
+In addition, every double-quoted span in the drafted chapter (`chapters/III-11-pastors-college.md`)
+was checked by script against the fetched `text/` files (word-for-word, after whitespace
+normalization, splitting on any editorial "..." as a genuine omission marker). Several mismatches
+found by this pass were corrected in the chapter before this report was finalized: a dropped word
+("also"), two silently-modernized OCR errors ("zuas"→ "was", "tar"→ "far", now bracket-marked or
+removed), an added comma altering a clause boundary, and two cases where an ellipsis had been used
+to paper over the source's own punctuation rather than to mark a genuine omission (both rewritten).
+Remaining differences are limited to the closing punctuation immediately at a quotation's boundary
+(e.g., quoting a clause and closing it with a period where the source continues with a comma) or a
+sentence-initial capital marked in square brackets — both standard, non-substantive scholarly
+convention, not a change to any word of the source.
 
 ## 2. Quote-by-quote
-All 26 quote_ids: text field verbatim match PASS (per script). Spot-checked 6 of 26
-(pastors-college-q001, q005, q010, q017, q021, q022) by manually re-opening the relevant text/
-file at the stated line range with the Read tool and comparing against the `page` field's stated
-context (chapter/running head). PASS for all six: page/running-head markers match what is visible
-in the OCR text at that point.
+All 31 quote_ids: text field verbatim match PASS (per script). Spot-checked 9 of 31
+(pastors-college-q001, q005, q010, q017, q021, q022, q027, q029, q030) by manually re-opening the
+relevant text/ file at the stated line range with the Read tool and comparing against the `page`
+field's stated context (chapter/running head). PASS for all nine: page/running-head markers match
+what is visible in the OCR text at that point.
 
 ## 3. Field-by-field
 Every dossier field (F1-F9, A1-A6, C1-C9, L1-L8, T1-T5, M1-M5, S1-S6, R1-R4) is present and
@@ -88,9 +106,12 @@ history. N/A for this section.
   the roster's paraphrase "church's testimony."
 
 ## 6. Verdict
-VERIFIED (zero FAILs on the 26 quote records; the field-level gaps are honestly marked per Rule 8,
-not verification failures). Two items are RETURNED for a future revision pass, not blocking this
-verdict: (a) formalize the several raw-text passages flagged inline in dossier.md into their own
-quote records; (b) resolve the exact issue date of the Sword and the Trowel passage
-(discrepancies.md item 1) and the exact founding date of the annual Conference
+VERIFIED (zero FAILs on the 31 quote records and zero FAILs on the abridged charter's 4 passages;
+the field-level gaps are honestly marked per Rule 8, not verification failures). This report also
+performs a partial V2-style pass (chapter-quotation verbatim check) ahead of a formal chapter
+verification ticket, and records that the chapter's quotations were corrected to pass it. Two
+items are RETURNED for a future revision pass, not blocking this verdict: (a) formalize the
+remaining raw-text passages still flagged inline in dossier.md (and in the chapter's footnotes 3,
+7, 12, 19, 22, 37) into their own quote records; (b) resolve the exact issue date of the Sword and
+the Trowel passage (discrepancies.md item 1) and the exact founding date of the annual Conference
 (discrepancies.md item 2).

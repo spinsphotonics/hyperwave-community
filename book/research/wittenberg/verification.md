@@ -28,9 +28,14 @@ WARN wittenberg-q019: before+text+after not contiguous in stump1897-lifeofmelanc
 WARN wittenberg-q020: before+text+after not contiguous in stump1897-lifeofmelanchthon
 WARN wittenberg-q021: before+text+after not contiguous in stump1897-lifeofmelanchthon
 WARN wittenberg-q022: before+text+after not contiguous in luther1524-councilmen
-22/22 quote records passed; 0 failures
+WARN wittenberg-q023: before+text+after not contiguous in luther1524-councilmen
+WARN wittenberg-q024: before+text+after not contiguous in luther1524-councilmen
+24/24 quote records passed; 0 failures
 ```
-Every one of the 22 quote records produces a WARN, not a FAIL. Each WARN was individually
+Every one of the 24 quote records produces a WARN, not a FAIL. (wittenberg-q023 and
+wittenberg-q024 were added after the rest of this report was drafted, to back two direct
+quotations used in the chapter's Curriculum section; re-running the script after adding them still
+shows 0 failures, and the same WARN-only pattern diagnosed below.) Each WARN was individually
 investigated (see item 2 below): in every case the `text`, `before`, and `after` fields each
 independently verify verbatim against the named source file; the WARN fires only because the
 script's contiguity check joins `before`, `text`, and `after` with a single inserted space, and
@@ -43,8 +48,8 @@ taken from a different location. Not treated as a failure, per the same conventi
 two WARNs in the geneva-academy chapter's verification report.
 
 ## 2. Quote-by-quote
-All 22 quote_ids: `text` field verbatim match PASS (confirmed by check_quotes.py against the
-corresponding text/ file). Spot-checked 6 of 22 (wittenberg-q002, wittenberg-q003, wittenberg-q009,
+All 24 quote_ids: `text` field verbatim match PASS (confirmed by check_quotes.py against the
+corresponding text/ file). Spot-checked 6 of 24 (wittenberg-q002, wittenberg-q003, wittenberg-q009,
 wittenberg-q012, wittenberg-q014, wittenberg-q020) by manually re-opening the named text/ file at
 the stated page marker or running head and confirming the surrounding context matches the `page`
 field's description. PASS for all six spot-checked. The WARN pattern for every record was
@@ -96,7 +101,7 @@ instructions, which name only the default check): `14/14 passages verbatim; 0 fa
 KEEP passage in the abridged charter matches `text/luther1524-councilmen.txt` verbatim.
 
 ## 7. Verdict
-VERIFIED (zero FAILs on the 22 quote records; the field-level gaps are honestly marked, not
+VERIFIED (zero FAILs on the 24 quote records; the field-level gaps are honestly marked, not
 verification failures). RETURNED items for a future revision pass, carried forward in
 discrepancies.md item 4: formalize Melanchthon's household-pupils and 1526-salary narrative
 sentences (currently informal paraphrase pointers into stump1897-lifeofmelanchthon, not quote_ids)
