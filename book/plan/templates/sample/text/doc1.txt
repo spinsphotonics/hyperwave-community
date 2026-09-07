@@ -1,0 +1,6 @@
+DOCUMENT_ID: doc1
+TITLE (as printed): Sample Statutes
+[[p. 1]]
+The students shall rise at five in the morning and attend prayers before the first lecture of the day begins in the hall.
+[[p. 2]]
+No student shall be admitted without a testimony of his conversion from the church of which he is a member.
