@@ -6,9 +6,17 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Accessory position**: The ignition key position that powers things like the radio and the power outlet without starting the engine.
 
+**Aftermarket**: A part or accessory made by a company other than Honda, instead of by the car's original maker.
+
 **AKI (octane rating)**: The number on a gas pump's label that tells you how well that fuel resists engine knocking; the 2008 Fit needs at least 87 AKI.
 
+**Alignment**: The process of adjusting a car's wheel angles — camber, caster, and toe — so it drives straight, handles predictably, and wears its tires evenly.
+
+**Alignment rack**: A specialized shop machine that measures a car's wheel angles precisely and then adjusts them.
+
 **Alloy wheels**: Wheels made from a lightweight metal blend instead of plain steel; the 2008 Fit's base trim has steel wheels with covers instead.
+
+**Aspect ratio**: The tire's sidewall height, given as a percentage of the tire's width; it is the middle number in a tire size like 195/50R15.
 
 **Auto-down window**: A power window feature where one firm push on the switch lowers the whole window by itself, without you holding the switch down.
 
@@ -20,19 +28,41 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Axle-back exhaust**: A replacement exhaust part that swaps out only the last section, from about the rear axle back to the tailpipe, usually just to change the sound.
 
+**Bill of sale**: The dealer's or private seller's own sales contract for a car, showing the price, taxes, and fees.
+
+**Bleeder screw**: A small screw at each brake that a wrench opens to push old fluid and trapped air out of the brake lines.
+
 **Bolt pattern (lug pattern)**: The number and spacing of the bolt holes on a wheel, which must match the studs on the car for the wheel to bolt on correctly.
 
 **Boost**: Extra air pressure that a turbocharger or supercharger pushes into the engine, above normal air pressure, to help the engine make more power.
 
 **Bore and stroke**: Two engine measurements — how wide each cylinder is (bore) and how far the piston travels inside it (stroke).
 
+**Brake fluid**: The hydraulic fluid that transfers the force from a driver's foot on the pedal to the pads or shoes at each wheel.
+
+**Brake shoes**: The curved parts inside a drum brake that press outward against the inside of the drum to slow the wheel.
+
+**Brake-parts cleaner**: A solvent spray made for cleaning brake dust off brake parts during a pad or drum brake job.
+
 **Break-in period**: The first several hundred miles of driving a new car, when the maker asks you to drive gently so engine parts can settle in properly.
+
+**Breaker bar**: A plain, longer handle with no ratcheting action, used with a socket when a bolt is stuck and needs extra force.
+
+**Buyers Guide**: A federally required window sticker on a used car at a dealer's lot that discloses the car's warranty status and major systems.
+
+**C-clamp**: A tool that pushes a brake caliper's piston back into its housing to make room for new brake pads.
+
+**Cabin air filter**: A filter, also called the dust and pollen filter, that cleans the air coming through a car's heater and air conditioner vents.
+
+**Caliper**: A clamp that squeezes flat brake pads against both sides of a disc brake's rotor to slow the wheel.
 
 **Camber**: How much a tire tilts inward or outward at the top when you look at the car from the front.
 
 **Campaign number**: The specific ID number NHTSA assigns to one safety recall, used to look that exact recall up online.
 
 **Canard**: A small, wing-shaped piece bolted to the front bumper that is meant to press the front of a fast-moving car down slightly.
+
+**CARB (California Air Resources Board)**: The California state agency that adds its own emissions rules on top of federal ones, mainly for cars titled or registered in California.
 
 **CARB EO number**: A number the California Air Resources Board gives to an aftermarket part after testing, showing that part can legally be used on a car driven on public roads in California.
 
@@ -56,6 +86,8 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Childproof lock**: A small lever on a rear door that stops that door from being opened using the inside handle.
 
+**Clean Air Act**: The federal law that sets emissions rules for every car sold in the United States and makes it illegal to remove or disable a car's emissions-control devices.
+
 **Clutch (aftermarket)**: A stronger replacement clutch, built to grip harder than the factory clutch so it can handle more engine power without slipping.
 
 **Coilover**: A shock absorber and spring built together as one adjustable unit, often letting an owner change the car's ride height and how stiff it feels.
@@ -74,17 +106,31 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Cool-down lap**: One slow, gentle lap driven at the end of a track session so the brakes, engine, and transmission cool down gradually instead of being parked while still very hot.
 
+**Cranks but won't start**: A no-start problem where the starter spins the engine at a normal speed, but the engine never fires up and keeps running on its own.
+
 **Cruise control**: A feature that holds the car at a steady speed on its own, so the driver doesn't need to keep a foot on the gas; not included on the 2008 Fit's base trim.
 
 **Curb weight**: How much the empty car weighs with a full tank of gas but no passengers or cargo.
 
 **D3 (gear position)**: An automatic-transmission setting that works like Drive but keeps the transmission from shifting into 4th or 5th gear, useful for engine braking downhill.
 
+**Damper**: The shock absorber inside a coilover, which controls how quickly the spring compresses and rebounds.
+
 **Daytime Running Lights (DRL)**: Lights that turn on by themselves whenever the engine is running, making the car easier to see in daylight; not fitted on the US 2008 Fit.
+
+**Defeat device**: An aftermarket part built mainly to bypass, defeat, or disable a device that controls a car's exhaust emissions, which is illegal to manufacture, sell, or install.
 
 **Destination charge**: A flat fee added to a new car's price to cover shipping it from the factory to the dealer.
 
+**Diagnostic fee**: The charge a repair shop bills for the time it spends finding what is wrong with a car, before any repair is agreed to.
+
 **Diagnostic Trouble Code (DTC)**: A short code the car's computer stores when it detects a problem, which a mechanic reads with a scan tool.
+
+**Differential**: The gearbox part that splits engine power between a car's drive wheels so they can spin at different speeds through a turn.
+
+**Directional tire**: A tire with a tread pattern designed to roll only one way, marked with an arrow on its sidewall.
+
+**Disc brake**: A brake that uses a flat metal disc, called a rotor, spinning with the wheel, squeezed by a caliper to slow it down.
 
 **Displacement**: The total volume swept by all of an engine's cylinders, usually given in liters, which roughly shows how big the engine is.
 
@@ -93,6 +139,10 @@ This glossary defines every technical term used in this book, in one sentence ea
 **DOT brake fluid rating**: A number (like DOT 3, DOT 4, or DOT 5.1) that a federal safety standard uses to set a brake fluid's minimum boiling point; a higher DOT number does not always mean a higher boiling point for every specific product.
 
 **Downpipe (test pipe)**: The section of exhaust pipe right after the turbocharger or catalytic converter; a "test pipe" is a downpipe with the catalytic converter removed, usually meant only for track use.
+
+**Drum brake**: A brake in which a hollow metal drum spins with the wheel while curved brake shoes press outward against the inside of the drum to slow it down.
+
+**Dry boiling point**: The boiling point of fresh, unused brake fluid.
 
 **Dyno (dynamometer)**: A machine that measures how much power an engine or a car's wheels actually produce.
 
@@ -106,6 +156,10 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Emissions control system**: The group of parts that work together to reduce pollution coming out of the engine and exhaust.
 
+**Endorsement (insurance)**: An add-on to an existing insurance policy, sometimes called "custom parts and equipment coverage," that covers modified parts a factory policy would not.
+
+**Engine air filter**: A filter that sits in the engine bay and cleans the air the engine breathes before that air reaches the fuel injection system.
+
 **Engine swap**: Removing a car's original engine and installing a different one, usually to get more power or better reliability.
 
 **EPA (Environmental Protection Agency)**: The US government agency that tests and publishes the official fuel-economy (MPG) numbers for new cars.
@@ -116,9 +170,13 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Final drive ratio**: An extra gear ratio built into the transmission that affects how the engine's speed relates to the wheels' speed in every gear.
 
+**Flat-tip (flathead) screwdriver**: A screwdriver with a flat blade tip, used along with a Phillips screwdriver for the clips and screws on things like an air filter housing.
+
 **Flat-tow**: Towing a car with all four wheels rolling on the ground behind another vehicle; the 2008 Fit's owner's manual does not support this method for either transmission.
 
 **Flatbed towing**: Towing a car by loading all four wheels onto the back of a truck, so none of the car's wheels touch the road.
+
+**Floor jack**: A larger tool on wheels, rated to hold much more weight than a trunk's scissor jack, used to lift a car for jack-stand work in the garage.
 
 **Flywheel**: A heavy spinning disc attached to the engine that smooths out its power pulses; a lighter aftermarket flywheel lets the engine change speed faster.
 
@@ -164,6 +222,8 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Investigation (NHTSA)**: A formal government review into a possible safety defect, which may or may not lead to an official recall.
 
+**Jack stands**: Metal supports slid under a lifted car so its weight rests on solid steel instead of on the jack itself.
+
 **Jacking point**: A specific spot marked on the underside of a car's body where it is safe to place a jack.
 
 **Jump start**: Starting a car with a dead battery by temporarily connecting jumper cables to a charged battery in another vehicle or a portable booster pack.
@@ -174,13 +234,19 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Low beam**: The normal, everyday headlight setting used whenever other traffic is nearby.
 
+**Lug wrench**: A socket that fits a car's wheel nuts, paired with a breaker bar, used any time a wheel is taken off.
+
 **Magic Seat**: Honda's name for the Fit's flexible 60/40-split rear seat, which can fold flat or flip up into several different cargo and passenger layouts.
 
 **Maintenance Minder**: A dashboard system that tracks the car's condition over time and tells you, with a wrench-shaped light and a code, when a specific service is due.
 
 **Malfunction Indicator Lamp (MIL)**: The dashboard light — often called the "check engine light" — that comes on when the emissions-control system detects a problem.
 
+**Milliamp (mA)**: A small unit of electrical current, used to describe how much power a parked car's electrical system draws with everything off.
+
 **MMT**: A manganese-based fuel additive that Honda recommends avoiding where possible because it can cause the check-engine light to come on.
+
+**Modding**: Changing a car from how the factory built it, usually to improve how it handles, stops, sounds, or looks.
 
 **Moderate overlap front test**: A crash test where only part of the front of the car strikes a barrier, similar to many real-world head-on crashes that aren't perfectly centered.
 
@@ -202,7 +268,11 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Odometer**: The gauge that shows the total distance a car has been driven over its whole life.
 
+**Odometer disclosure statement**: The mileage reading at the time of a car's sale, signed by the seller, which federal law requires for most cars under 20 model years old.
+
 **OEM (Original Equipment Manufacturer) part**: A replacement part made by, or to the same standard as, the part the car originally came with from the factory.
+
+**Oil filter wrench**: A tool shaped to grip the round oil filter so it can be twisted loose.
 
 **Overlap crash test**: A type of crash test that hits only part of a vehicle's front end, rather than the whole width, to better match many real-world crashes.
 
@@ -216,7 +286,11 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Powertrain**: The engine, transmission, and connected parts that work together to move the car.
 
+**Pre-purchase inspection (PPI)**: A check of a used car before you buy it, done by you or by a paid independent mechanic, covering the body, tires and brakes, engine bay and underside, interior and electronics, and a test drive.
+
 **Prepared category (SCCA)**: An SCCA autocross category for cars modified well past Street Prepared; an open car (no factory roof) in this category must have a roll bar.
+
+**Ratchet**: A handle that turns a socket over a bolt head in one direction without lifting off between turns.
 
 **Readiness codes**: Internal checks the emissions computer runs to confirm all its own monitoring systems have finished testing; some states check these during an emissions test.
 
@@ -225,6 +299,8 @@ This glossary defines every technical term used in this book, in one sentence ea
 **Redline**: The highest engine speed considered safe to reach; going past it risks damaging the engine.
 
 **Refresh Mode**: A Magic Seat layout where the front seats recline flat to rest, usable only while the car is parked.
+
+**Registration**: The state's record that a car is legally allowed on the road.
 
 **Reverse lockout**: A mechanism in a manual transmission that stops the driver from shifting straight from the highest gear into reverse without pausing.
 
@@ -236,13 +312,19 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Rollover rating**: A safety score estimating how likely a specific vehicle is to roll over in a single-vehicle crash.
 
+**Rotor**: The flat metal disc that spins with the wheel in a disc brake and is squeezed by the caliper's pads to slow the car.
+
 **RPM (revolutions per minute)**: How fast the engine is spinning, shown on the tachometer.
+
+**Rub (tire rub)**: When a tire touches the fender, a suspension part, or a body panel while turning or going over a bump.
 
 **SAE Class S**: A size and type classification for tire chains; the Fit's manual only allows this cable-type chain, and only on the front tires.
 
 **Salt-belt states**: A group of US states where winter road salt is heavily used, which some recalls (like rust or corrosion-related ones) apply to instead of the whole country.
 
 **Security system**: An anti-theft alarm system, standard on the Fit Sport trim only, not on the 2008 US base Fit.
+
+**Self-adjuster (adjuster)**: A small threaded part inside a drum brake that takes up slack as the brake shoes wear down, keeping the brake working correctly without manual adjustment.
 
 **SFI (SFI Foundation)**: A US organization that tests and certifies motorsports safety equipment, such as racing harnesses and helmets, to a set standard.
 
@@ -256,9 +338,15 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Spoiler**: A wing-shaped piece mounted on the trunk or hatch; on a light, slower car this is mostly for looks, though on faster cars it can help push the rear tires down.
 
+**Spring (suspension)**: The coiled metal part that holds a car's weight up and compresses when a wheel hits a bump.
+
 **Spring rate**: A number describing how stiff a spring is, based on how much force it takes to compress it a set distance; a higher number means a stiffer, firmer ride.
 
 **SRS (Supplemental Restraint System)**: The umbrella term for a car's airbags and their related crash sensors, working alongside the seat belts.
+
+**Stage 0**: The step before any performance modification, meaning bringing a car's existing maintenance — fluids, tires, and brakes — up to date before spending money on power, handling, or looks.
+
+**Staggered (fitment)**: A wheel-and-tire setup where the front and rear tires are different sizes on purpose.
 
 **Stainless brake lines**: Brake hoses wrapped in a woven stainless-steel sleeve instead of plain rubber, which resist expanding under hard, repeated braking.
 
@@ -290,9 +378,13 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Tire chain**: A traction device wrapped around a tire to improve grip on snow or ice.
 
+**Title (vehicle title)**: The legal document that proves who owns a car; it should never be left in the glovebox.
+
 **Toe**: How much a car's tires point inward or outward, viewed from above, compared to pointing straight ahead.
 
 **Torque**: A twisting force; for a car this means both the pulling power an engine produces and the exact tightness a bolt or nut must be tightened to.
+
+**Torque wrench**: A tool that tells you exactly how hard you are tightening a bolt, by feel or by a dial, measured in pound-feet or newton-meters.
 
 **Torsion beam**: A simple, solid rear suspension design, used on the Fit, where a single beam connects the two rear wheels instead of letting them move fully independently.
 
@@ -308,6 +400,8 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Turbocharger**: A device powered by the engine's own exhaust gases that forces extra air into the engine to help it make more power.
 
+**Unsprung weight**: The mass of a car's wheels and tires that the springs do not support, since it sits below them and moves with the road surface.
+
 **Utility Mode**: A Magic Seat layout where the rear seatback(s) fold down flat to make a larger, flat cargo floor.
 
 **VDS (Vehicle Descriptor Section)**: The middle part of a VIN that encodes details like the car's platform, engine, and body type.
@@ -315,6 +409,10 @@ This glossary defines every technical term used in this book, in one sentence ea
 **VIN (Vehicle Identification Number)**: A unique 17-character code stamped on every car that identifies its maker, features, and production details.
 
 **Warranty extension**: A manufacturer's decision to cover a specific repair for longer than the original warranty period, usually issued after a known problem turns up.
+
+**Wet boiling point**: The boiling point of brake fluid after it has absorbed a set amount of water, closer to how the fluid behaves after real-world use.
+
+**Wheel chocks**: Wedges placed against a tire that stays on the ground so the car cannot roll while another corner is lifted.
 
 **Wheel nut**: One of the nuts that holds a wheel onto the car; these must be tightened to an exact torque spec, not just "as tight as possible" (also commonly called a lug nut).
 
@@ -330,6 +428,8 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **WMI (World Manufacturer Identifier)**: The first three characters of a VIN, which identify the company and country that built the vehicle.
 
+**Won't crank**: A no-start problem where turning the key to START produces nothing, or only a click or a slow grinding sound, because the starter is not turning the engine over at a normal speed.
+
 **Zone A/B/C recall**: A way NHTSA and automakers roll out some large recalls in stages by region (zone) instead of notifying every owner nationwide at once, often based on local climate or humidity risk.
 
-<!-- Formatted from facts/WP-22-glossary.md, no new content added except during R1 review. 165 terms, alphabetized. No definitions were changed in meaning; only light copy-editing for consistent formatting. Review pass added 3 terms (Street Modified, Modified category (SCCA), Prepared category (SCCA)) that were used undefined in Chapters 56-57; definitions paraphrase F-WP19-004's own summary of these SCCA classes, already cited in those chapters. -->
+<!-- Formatted from facts/WP-22-glossary.md, no new content added except during R1 review. 165 terms, alphabetized. No definitions were changed in meaning; only light copy-editing for consistent formatting. Review pass added 3 terms (Street Modified, Modified category (SCCA), Prepared category (SCCA)) that were used undefined in Chapters 56-57; definitions paraphrase F-WP19-004's own summary of these SCCA classes, already cited in those chapters. R2 completeness pass (glossary-completeness check against all 62 chapters) added 50 more terms that appeared bolded in the chapter text but had no glossary entry (see /home/user/hyperwave-community/research/honda_fit_2008_manual/fit-book/review/glossary_completeness.md for the full list and method); no existing definition's meaning was changed. 215 terms total, alphabetized. -->

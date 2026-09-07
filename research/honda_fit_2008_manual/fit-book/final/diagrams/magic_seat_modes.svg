@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 840" font-family="Verdana, Geneva, sans-serif">
+<title>Magic Seat Modes</title>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L6,3 L0,6 Z" fill="var(--arrow)"/>
+  </marker>
+</defs>
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --panel-bg: #ffffff;
+    --panel-stroke: #d8d3c8;
+    --seat-fill: #dfe6de;
+    --seat-stroke: #4d5c50;
+    --dashed-stroke: #8b8578;
+    --dash-fill: #e7e2d4;
+    --dash-stroke: #6b6255;
+    --floor: #cfc9b8;
+    --arrow: #a13d2c;
+    --highlight: #ffe08a;
+    --heading: #22301f;
+    --muted: #6b6a63;
+    --accent: #6a8a5f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1b1c18;
+      --panel-bg: #24261f;
+      --panel-stroke: #46493c;
+      --seat-fill: #33392f;
+      --seat-stroke: #b9d6ad;
+      --dashed-stroke: #8f8a7a;
+      --dash-fill: #33362c;
+      --dash-stroke: #9aa79c;
+      --floor: #46493c;
+      --arrow: #e2a08a;
+      --highlight: #6a5a2a;
+      --heading: #e7e6dc;
+      --muted: #9b9a8f;
+      --accent: #8fb37f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1b1c18;
+    --panel-bg: #24261f;
+    --panel-stroke: #46493c;
+    --seat-fill: #33392f;
+    --seat-stroke: #b9d6ad;
+    --dashed-stroke: #8f8a7a;
+    --dash-fill: #33362c;
+    --dash-stroke: #9aa79c;
+    --floor: #46493c;
+    --arrow: #e2a08a;
+    --highlight: #6a5a2a;
+    --heading: #e7e6dc;
+    --muted: #9b9a8f;
+    --accent: #8fb37f;
+  }
+  text { font-family: Verdana, Geneva, sans-serif; }
+</style>
+<rect x="0" y="0" width="860" height="840" fill="var(--bg)"/>
+
+<text x="50" y="40" font-size="22" font-weight="700" fill="var(--heading)">The Magic Seat &#8212; Four Modes (2008 Honda Fit, GD3)</text>
+<text x="50" y="62" font-size="12.5" fill="var(--muted)">Chapter 9. Side-view schematics &#8212; dashed outlines show the normal upright seat position for comparison; solid shapes show each mode.</text>
+<text x="50" y="80" font-size="11" fill="var(--muted)">Front of car is at the left of each panel; the tailgate is at the right.</text>
+
+
+<g transform="translate(50,130)">
+  <rect x="-10" y="-46" width="360" height="306" rx="10" fill="var(--panel-bg)" stroke="var(--panel-stroke)" stroke-width="1.5"/>
+  <text x="0" y="-24" font-size="15" font-weight="700" fill="var(--heading)">1. UTILITY MODE</text>
+  <text x="0" y="-8" font-size="10.5" fill="var(--muted)">P-WP05-1 &#8212; fold the rear seat-back flat for cargo</text>
+  <g transform="translate(0,10)">
+    
+
+  <line x1="0" y1="190" x2="340" y2="190" stroke="var(--floor)" stroke-width="4"/>
+  <path d="M 10 60 L 40 70 L 40 190 L 12 190 Z" fill="var(--dash-fill)" stroke="var(--dash-stroke)" stroke-width="1.5" opacity="0.85"/>
+  <text x="6" y="55" font-size="9" fill="var(--muted)">dash</text>
+  <path d="M 232 60 L 332 150 L 332 190" fill="none" stroke="var(--dash-stroke)" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
+  <text x="290" y="55" font-size="9" fill="var(--muted)">tailgate</text>
+
+<rect x="60" y="165" width="55" height="25" rx="4" fill="none" stroke="var(--dashed-stroke)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+<rect x="103" y="70" width="14" height="95" rx="4" fill="none" stroke="var(--dashed-stroke)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+<rect x="170" y="165" width="60" height="25" rx="4" fill="none" stroke="var(--dashed-stroke)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+<rect x="40" y="165" width="55" height="25" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>                 <!-- front cushion, slid forward -->
+<rect x="83" y="70" width="14" height="95" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>                  <!-- front seat-back, upright, slid forward -->
+<rect x="170" y="165" width="60" height="25" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>                <!-- rear cushion, unchanged -->
+<rect x="170" y="150" width="162" height="16" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>               <!-- rear seat-back folded FLAT, level w/ cushion top, to tailgate -->
+<path d="M 225 68 Q 242.5 43 260 152" fill="none" stroke="var(--arrow)" stroke-width="2" marker-end="url(#arrowhead)"/>
+<text x="205" y="60" font-size="9.5" fill="var(--arrow)">folds down</text>
+<text x="20" y="215" font-size="9.5" fill="var(--muted)">front seat</text>
+<text x="20" y="226" font-size="9.5" fill="var(--muted)">slides forward</text>
+
+  </g>
+  <text x="0" y="252" font-size="9" font-style="italic" fill="var(--muted)">Source: procedures/WP-05-1.md</text>
+</g>
+
+<g transform="translate(450,130)">
+  <rect x="-10" y="-46" width="360" height="306" rx="10" fill="var(--panel-bg)" stroke="var(--panel-stroke)" stroke-width="1.5"/>
+  <text x="0" y="-24" font-size="15" font-weight="700" fill="var(--heading)">2. TALL MODE</text>
+  <text x="0" y="-8" font-size="10.5" fill="var(--muted)">P-WP05-2 &#8212; flip the rear cushions up for tall items</text>
+  <g transform="translate(0,10)">
+    
+
+  <line x1="0" y1="190" x2="340" y2="190" stroke="var(--floor)" stroke-width="4"/>
+  <path d="M 10 60 L 40 70 L 40 190 L 12 190 Z" fill="var(--dash-fill)" stroke="var(--dash-stroke)" stroke-width="1.5" opacity="0.85"/>
+  <text x="6" y="55" font-size="9" fill="var(--muted)">dash</text>
+  <path d="M 232 60 L 332 150 L 332 190" fill="none" stroke="var(--dash-stroke)" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
+  <text x="290" y="55" font-size="9" fill="var(--muted)">tailgate</text>
+
+<rect x="60" y="165" width="55" height="25" rx="4" fill="none" stroke="var(--dashed-stroke)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+<rect x="103" y="70" width="14" height="95" rx="4" fill="none" stroke="var(--dashed-stroke)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+<rect x="218" y="70" width="14" height="95" rx="4" fill="none" stroke="var(--dashed-stroke)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+<rect x="60" y="165" width="55" height="25" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>
+<rect x="103" y="70" width="14" height="95" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>
+<rect x="218" y="70" width="14" height="95" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>
+<rect x="198" y="70" width="16" height="95" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>                 <!-- rear cushion flipped UP, against seat-back -->
+<path d="M 200 168 Q 202.0 47 204 72" fill="none" stroke="var(--arrow)" stroke-width="2" marker-end="url(#arrowhead)"/>
+<rect x="150" y="166" width="46" height="22" fill="var(--highlight)" opacity="0.5" stroke="var(--arrow)" stroke-width="1.5" stroke-dasharray="3,2"/>
+<text x="152" y="180" font-size="8.5" fill="var(--heading)">tall item</text>
+<text x="152" y="191" font-size="8.5" fill="var(--heading)">floor space</text>
+<text x="205" y="60" font-size="9.5" fill="var(--arrow)">flips up</text>
+
+  </g>
+  <text x="0" y="252" font-size="9" font-style="italic" fill="var(--muted)">Source: procedures/WP-05-2.md</text>
+</g>
+
+<g transform="translate(50,450)">
+  <rect x="-10" y="-46" width="360" height="306" rx="10" fill="var(--panel-bg)" stroke="var(--panel-stroke)" stroke-width="1.5"/>
+  <text x="0" y="-24" font-size="15" font-weight="700" fill="var(--heading)">3. LONG MODE</text>
+  <text x="0" y="-8" font-size="10.5" fill="var(--muted)">P-WP05-3 &#8212; carry long items, passenger side flattened</text>
+  <g transform="translate(0,10)">
+    
+
+  <line x1="0" y1="190" x2="340" y2="190" stroke="var(--floor)" stroke-width="4"/>
+  <path d="M 10 60 L 40 70 L 40 190 L 12 190 Z" fill="var(--dash-fill)" stroke="var(--dash-stroke)" stroke-width="1.5" opacity="0.85"/>
+  <text x="6" y="55" font-size="9" fill="var(--muted)">dash</text>
+  <path d="M 232 60 L 332 150 L 332 190" fill="none" stroke="var(--dash-stroke)" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
+  <text x="290" y="55" font-size="9" fill="var(--muted)">tailgate</text>
+
+<rect x="60" y="165" width="55" height="25" rx="4" fill="none" stroke="var(--dashed-stroke)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+<rect x="103" y="70" width="14" height="95" rx="4" fill="none" stroke="var(--dashed-stroke)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+<rect x="170" y="165" width="60" height="25" rx="4" fill="none" stroke="var(--dashed-stroke)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+<rect x="218" y="70" width="14" height="95" rx="4" fill="none" stroke="var(--dashed-stroke)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+<rect x="40" y="165" width="55" height="25" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>                 <!-- front cushion, slid forward -->
+<rect x="85" y="150" width="75" height="16" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>                 <!-- front seat-back reclined FORWARD, roughly level -->
+<rect x="160" y="150" width="172" height="16" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>               <!-- rear cushion + folded rear back combined, flat to tailgate -->
+<path d="M 110 68 Q 115.0 43 120 152" fill="none" stroke="var(--arrow)" stroke-width="2" marker-end="url(#arrowhead)"/>
+<text x="60" y="60" font-size="9.5" fill="var(--arrow)">reclines forward</text>
+<text x="60" y="225" font-size="9" fill="var(--muted)">(passenger side only &#8212;</text>
+<text x="60" y="235" font-size="9" fill="var(--muted)">side view simplified)</text>
+
+  </g>
+  <text x="0" y="252" font-size="9" font-style="italic" fill="var(--muted)">Source: procedures/WP-05-3.md (single Tier-4 source, low confidence &#8212; see caption)</text>
+</g>
+
+<g transform="translate(450,450)">
+  <rect x="-10" y="-46" width="360" height="306" rx="10" fill="var(--panel-bg)" stroke="var(--panel-stroke)" stroke-width="1.5"/>
+  <text x="0" y="-24" font-size="15" font-weight="700" fill="var(--heading)">4. REFRESH MODE</text>
+  <text x="0" y="-8" font-size="10.5" fill="var(--muted)">P-WP05-4 &#8212; recline front seats flat to rest (parked only)</text>
+  <g transform="translate(0,10)">
+    
+
+  <line x1="0" y1="190" x2="340" y2="190" stroke="var(--floor)" stroke-width="4"/>
+  <path d="M 10 60 L 40 70 L 40 190 L 12 190 Z" fill="var(--dash-fill)" stroke="var(--dash-stroke)" stroke-width="1.5" opacity="0.85"/>
+  <text x="6" y="55" font-size="9" fill="var(--muted)">dash</text>
+  <path d="M 232 60 L 332 150 L 332 190" fill="none" stroke="var(--dash-stroke)" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
+  <text x="290" y="55" font-size="9" fill="var(--muted)">tailgate</text>
+
+<rect x="60" y="165" width="55" height="25" rx="4" fill="none" stroke="var(--dashed-stroke)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+<rect x="103" y="70" width="14" height="95" rx="4" fill="none" stroke="var(--dashed-stroke)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+<rect x="170" y="165" width="60" height="25" rx="4" fill="none" stroke="var(--dashed-stroke)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+<rect x="218" y="70" width="14" height="95" rx="4" fill="none" stroke="var(--dashed-stroke)" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+<rect x="40" y="165" width="55" height="25" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>                 <!-- front cushion, slid forward -->
+<rect x="95" y="150" width="120" height="16" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>                <!-- front seat-back reclined FLAT -->
+<rect x="170" y="165" width="60" height="25" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>                <!-- rear cushion, unchanged -->
+<rect x="215" y="150" width="117" height="16" rx="4" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2"/>               <!-- rear seat-back also reclined flat -->
+<path d="M 110 68 Q 130.0 43 150 152" fill="none" stroke="var(--arrow)" stroke-width="2" marker-end="url(#arrowhead)"/>
+<path d="M 225 68 Q 245.0 43 265 152" fill="none" stroke="var(--arrow)" stroke-width="2" marker-end="url(#arrowhead)"/>
+<text x="90" y="60" font-size="9.5" fill="var(--arrow)">both recline flat</text>
+
+  </g>
+  <text x="0" y="252" font-size="9" font-style="italic" fill="var(--muted)">Source: procedures/WP-05-4.md</text>
+</g>
+
+
+<text x="50" y="780" font-size="12" font-style="italic" fill="var(--muted)">Caption: The Fit's four Magic Seat cargo/rest configurations, simplified to side-view rectangles, for Chapter 9 (The Magic Seat and Cargo Tricks).</text>
+<text x="50" y="798" font-size="10.5" fill="var(--muted)">Utility, Tall, and Refresh modes are Tier 1 (owner's manual). Long Mode's exact combined sequence is community-reported (single Tier-4 source, low confidence) &#8212; treat it as a starting point, not a manual-verified procedure.</text>
+</svg>

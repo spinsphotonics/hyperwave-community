@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 820" font-family="Verdana, Geneva, sans-serif">
+<title>Jacking Points</title>
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --body-fill: #eef1f0;
+    --body-stroke: #5c6b66;
+    --wheel-fill: #33372f;
+    --point-fill: #a13d2c;
+    --point-stroke: #5f2016;
+    --heading: #22301f;
+    --muted: #6b6a63;
+    --accent: #6a8a5f;
+    --callout-bg: #fff8ec;
+    --callout-stroke: #a13d2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1b1c18;
+      --body-fill: #2b2e29;
+      --body-stroke: #9aa79c;
+      --wheel-fill: #0f100e;
+      --point-fill: #e2a08a;
+      --point-stroke: #f4c9b8;
+      --heading: #e7e6dc;
+      --muted: #9b9a8f;
+      --accent: #8fb37f;
+      --callout-bg: #2f2a1e;
+      --callout-stroke: #e2a08a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1b1c18;
+    --body-fill: #2b2e29;
+    --body-stroke: #9aa79c;
+    --wheel-fill: #0f100e;
+    --point-fill: #e2a08a;
+    --point-stroke: #f4c9b8;
+    --heading: #e7e6dc;
+    --muted: #9b9a8f;
+    --accent: #8fb37f;
+    --callout-bg: #2f2a1e;
+    --callout-stroke: #e2a08a;
+  }
+  text { font-family: Verdana, Geneva, sans-serif; }
+</style>
+<rect x="0" y="0" width="760" height="820" fill="var(--bg)"/>
+
+<text x="40" y="38" font-size="22" font-weight="700" fill="var(--heading)">Jacking Points &#8212; 2008 Honda Fit (base trim, GD3)</text>
+<text x="40" y="60" font-size="12.5" fill="var(--muted)">Chapter 16 (Roadside Emergencies). Generic top-down silhouette &#8212; a schematic, not a photo or exact-scale drawing of this car.</text>
+
+<!-- FRONT / REAR labels -->
+<text x="380" y="92" font-size="13" font-weight="700" text-anchor="middle" fill="var(--accent)">FRONT OF CAR</text>
+<polygon points="380,98 372,112 388,112" fill="var(--accent)"/>
+
+<!-- Car body, top-down, front at top -->
+<g>
+  <rect x="180" y="120" width="200" height="540" rx="46" fill="var(--body-fill)" stroke="var(--body-stroke)" stroke-width="3"/>
+  <!-- windshield hint -->
+  <rect x="205" y="150" width="150" height="46" rx="8" fill="none" stroke="var(--body-stroke)" stroke-width="1.5" opacity="0.6"/>
+  <!-- rear tailgate hint -->
+  <rect x="205" y="560" width="150" height="70" rx="8" fill="none" stroke="var(--body-stroke)" stroke-width="1.5" opacity="0.6"/>
+  <text x="280" y="600" font-size="10.5" text-anchor="middle" fill="var(--muted)" opacity="0.8">tailgate</text>
+</g>
+
+<!-- Wheels -->
+<rect x="140" y="180" width="50" height="100" rx="8" fill="var(--wheel-fill)"/>
+<rect x="370" y="180" width="50" height="100" rx="8" fill="var(--wheel-fill)"/>
+<rect x="140" y="540" width="50" height="100" rx="8" fill="var(--wheel-fill)"/>
+<rect x="370" y="540" width="50" height="100" rx="8" fill="var(--wheel-fill)"/>
+
+<!-- Side labels -->
+<text x="60" y="410" font-size="13" font-weight="700" fill="var(--heading)" transform="rotate(-90 60 410)">DRIVER'S SIDE (US)</text>
+<text x="700" y="410" font-size="13" font-weight="700" fill="var(--heading)" transform="rotate(90 700 410)">PASSENGER'S SIDE</text>
+
+<!-- Jacking point markers: one per corner, on the rocker/sill between the wheels -->
+<!-- Driver-front -->
+<g>
+  <circle cx="180" cy="300" r="11" fill="var(--point-fill)" stroke="var(--point-stroke)" stroke-width="2"/>
+  <text x="180" y="304" font-size="10" text-anchor="middle" fill="#fff">1</text>
+</g>
+<!-- Driver-rear -->
+<g>
+  <circle cx="180" cy="520" r="11" fill="var(--point-fill)" stroke="var(--point-stroke)" stroke-width="2"/>
+  <text x="180" y="524" font-size="10" text-anchor="middle" fill="#fff">2</text>
+</g>
+<!-- Passenger-front -->
+<g>
+  <circle cx="380" cy="300" r="11" fill="var(--point-fill)" stroke="var(--point-stroke)" stroke-width="2"/>
+  <text x="380" y="304" font-size="10" text-anchor="middle" fill="#fff">3</text>
+</g>
+<!-- Passenger-rear -->
+<g>
+  <circle cx="380" cy="520" r="11" fill="var(--point-fill)" stroke="var(--point-stroke)" stroke-width="2"/>
+  <text x="380" y="524" font-size="10" text-anchor="middle" fill="#fff">4</text>
+</g>
+
+<!-- Leader lines and labels for each point -->
+<line x1="180" y1="300" x2="60" y2="270" stroke="var(--point-fill)" stroke-width="1.5"/>
+<text x="55" y="266" font-size="11.5" text-anchor="end" fill="var(--heading)">1&#8201;&#8212;&#8201;Front jacking point (driver's side)</text>
+
+<line x1="180" y1="520" x2="60" y2="480" stroke="var(--point-fill)" stroke-width="1.5"/>
+<text x="55" y="476" font-size="11.5" text-anchor="end" fill="var(--heading)">2&#8201;&#8212;&#8201;Rear jacking point (driver's side)</text>
+
+<line x1="380" y1="300" x2="500" y2="270" stroke="var(--point-fill)" stroke-width="1.5"/>
+<text x="505" y="266" font-size="11.5" text-anchor="start" fill="var(--heading)">3&#8201;&#8212;&#8201;Front jacking point (passenger's side)</text>
+
+<line x1="380" y1="520" x2="500" y2="480" stroke="var(--point-fill)" stroke-width="1.5"/>
+<text x="505" y="476" font-size="11.5" text-anchor="start" fill="var(--heading)">4&#8201;&#8212;&#8201;Rear jacking point (passenger's side)</text>
+
+<!-- Explanatory callout box -->
+<g>
+  <rect x="40" y="680" width="680" height="110" rx="10" fill="var(--callout-bg)" stroke="var(--callout-stroke)" stroke-width="1.5"/>
+  <text x="56" y="702" font-size="12.5" font-weight="700" fill="var(--heading)">What the owner's manual actually says (Fact F-WP07-008):</text>
+  <text x="56" y="722" font-size="11.5" fill="var(--muted)">Each jacking point is marked by a mark molded into the underside of the body, one per wheel/corner.</text>
+  <text x="56" y="740" font-size="11.5" fill="var(--muted)">Use the point nearest the tire you are changing; the jack has a notch that must sit on the point's tab.</text>
+  <text x="56" y="758" font-size="11.5" fill="var(--muted)">The manual does not give a numeric measurement for the exact spot &#8212; find the molded mark on your own</text>
+  <text x="56" y="774" font-size="11.5" fill="var(--muted)">car's rocker panel before jacking. This diagram shows the four corners in general terms only.</text>
+</g>
+
+<text x="40" y="812" font-size="11" font-style="italic" fill="var(--muted)">Caption: Approximate locations of the 2008 Fit's four jacking points (one per wheel), for Chapter 16 (Roadside Emergencies). Source: Fact F-WP07-008.</text>
+</svg>

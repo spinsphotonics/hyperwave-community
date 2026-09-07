@@ -1,0 +1,382 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1142" font-family="Verdana, Geneva, sans-serif">
+<title>Fuse Box Maps</title>
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --panel-bg: #ffffff;
+    --panel-stroke: #d8d3c8;
+    --cell-fill: #eef3ee;
+    --cell-empty: #ececec;
+    --cell-stroke: #9aa79c;
+    --num-color: #2f4f3f;
+    --amp-color: #a13d2c;
+    --label-color: #3a3a36;
+    --muted: #6b6a63;
+    --heading: #22301f;
+    --accent: #6a8a5f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1b1c18;
+      --panel-bg: #24261f;
+      --panel-stroke: #46493c;
+      --cell-fill: #2c3229;
+      --cell-empty: #2a2a26;
+      --cell-stroke: #6d8265;
+      --num-color: #b9d6ad;
+      --amp-color: #e2a08a;
+      --label-color: #d8d6cc;
+      --muted: #9b9a8f;
+      --heading: #e7e6dc;
+      --accent: #8fb37f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1b1c18;
+    --panel-bg: #24261f;
+    --panel-stroke: #46493c;
+    --cell-fill: #2c3229;
+    --cell-empty: #2a2a26;
+    --cell-stroke: #6d8265;
+    --num-color: #b9d6ad;
+    --amp-color: #e2a08a;
+    --label-color: #d8d6cc;
+    --muted: #9b9a8f;
+    --heading: #e7e6dc;
+    --accent: #8fb37f;
+  }
+  text { font-family: Verdana, Geneva, sans-serif; }
+</style>
+<rect x="0" y="0" width="1000" height="1142" fill="var(--bg)"/>
+
+<text x="40" y="40" font-size="24" font-weight="700" fill="var(--heading)">Fuse Box Maps &#8212; 2008 Honda Fit (base trim, GD3)</text>
+<text x="40" y="78" font-size="13" fill="var(--muted)">Appendix D / Chapter 32. Schematic numbered-grid layout, not a photo of the real fuse box lid. Amperages and circuit names are copied from the owner's manual's fuse tables.</text>
+
+<!-- Panel 1: Interior fuse box -->
+<text x="40" y="150" font-size="16" font-weight="700" fill="var(--accent)">1. Interior Fuse Box &#8212; 33 positions</text>
+<text x="40" y="168" font-size="11.5" fill="var(--muted)">Location: behind the driver's coin tray on the dashboard. Turn the coin-tray dial counterclockwise and pull the tray out to reach it. (Fact F-WP21-002)</text>
+<g transform="translate(40,168)">
+<g transform="translate(0,0)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#1</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">10A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Back Up Light</text>
+</g>
+<g transform="translate(154,0)">
+<rect width="148" height="64" rx="6" fill="var(--cell-empty)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#2</text>
+<text x="74.0" y="44.0" font-size="11" font-style="italic" text-anchor="middle" fill="var(--muted)">Not Used</text>
+</g>
+<g transform="translate(308,0)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#3</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">10A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">METER</text>
+</g>
+<g transform="translate(462,0)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#4</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">10A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Turn Light</text>
+</g>
+<g transform="translate(616,0)">
+<rect width="148" height="64" rx="6" fill="var(--cell-empty)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#5</text>
+<text x="74.0" y="44.0" font-size="11" font-style="italic" text-anchor="middle" fill="var(--muted)">Not Used</text>
+</g>
+<g transform="translate(770,0)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#6</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">30A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Front Wipers</text>
+</g>
+<g transform="translate(0,70)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#7</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">10A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">SRS</text>
+</g>
+<g transform="translate(154,70)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#8</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">7.5A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Daytime Running</text>
+<text x="74.0" y="47" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Light (Canada)</text>
+</g>
+<g transform="translate(308,70)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#9</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">20A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Rear Defogger</text>
+</g>
+<g transform="translate(462,70)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#10</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">7.5A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">HAC (Hill-Start</text>
+<text x="74.0" y="47" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Assist)</text>
+</g>
+<g transform="translate(616,70)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#11</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">15A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Fuel Pump</text>
+</g>
+<g transform="translate(770,70)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#12</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">10A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Rear Wiper</text>
+</g>
+<g transform="translate(0,140)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#13</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">10A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">SRS</text>
+</g>
+<g transform="translate(154,140)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#14</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">15A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">IGP (Ignition Power)</text>
+</g>
+<g transform="translate(308,140)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#15</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">20A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">L Rear Pwr Window</text>
+</g>
+<g transform="translate(462,140)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#16</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">20A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">R Rear Pwr Window</text>
+</g>
+<g transform="translate(616,140)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#17</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">20A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">R Front Pwr Window</text>
+</g>
+<g transform="translate(770,140)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#18</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">7.5/10A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">TPMS (if equip.) /</text>
+<text x="74.0" y="47" font-size="9.5" text-anchor="middle" fill="var(--label-color)">DRL (Canada)</text>
+</g>
+<g transform="translate(0,210)">
+<rect width="148" height="64" rx="6" fill="var(--cell-empty)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#19</text>
+<text x="74.0" y="44.0" font-size="11" font-style="italic" text-anchor="middle" fill="var(--muted)">Not Used</text>
+</g>
+<g transform="translate(154,210)">
+<rect width="148" height="64" rx="6" fill="var(--cell-empty)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#20</text>
+<text x="74.0" y="44.0" font-size="11" font-style="italic" text-anchor="middle" fill="var(--muted)">Not Used</text>
+</g>
+<g transform="translate(308,210)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#21</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">20A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Fog Light (if</text>
+<text x="74.0" y="47" font-size="9.5" text-anchor="middle" fill="var(--label-color)">equip.)</text>
+</g>
+<g transform="translate(462,210)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#22</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">10A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Small Light</text>
+</g>
+<g transform="translate(616,210)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#23</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">10A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">LAF Sensor</text>
+</g>
+<g transform="translate(770,210)">
+<rect width="148" height="64" rx="6" fill="var(--cell-empty)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#24</text>
+<text x="74.0" y="44.0" font-size="11" font-style="italic" text-anchor="middle" fill="var(--muted)">Not Used</text>
+</g>
+<g transform="translate(0,280)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#25</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">7.5A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">ABS</text>
+</g>
+<g transform="translate(154,280)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#26</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">7.5A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Radio</text>
+</g>
+<g transform="translate(308,280)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#27</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">15A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">ACC Socket</text>
+</g>
+<g transform="translate(462,280)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#28</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">20A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Power Door Lock</text>
+</g>
+<g transform="translate(616,280)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#29</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">20A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Driver Pwr Window</text>
+</g>
+<g transform="translate(770,280)">
+<rect width="148" height="64" rx="6" fill="var(--cell-empty)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#30</text>
+<text x="74.0" y="44.0" font-size="11" font-style="italic" text-anchor="middle" fill="var(--muted)">Not Used</text>
+</g>
+<g transform="translate(0,350)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#31</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">7.5A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">LAF Sensor</text>
+</g>
+<g transform="translate(154,350)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#32</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">15A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">DBW (Throttle)</text>
+</g>
+<g transform="translate(308,350)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#33</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">15A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Ignition Coil</text>
+</g>
+</g>
+<text x="40" y="616" font-size="12.5" fill="var(--muted)">Gray cells (#2, #5, #19, #20, #24, #30) are empty slots — “Not Used” in the owner's manual (Fact</text>
+<text x="40" y="632" font-size="12.5" fill="var(--muted)">F-WP21-011). Position #18 carries two possible fuse/circuit pairs depending on equipment (TPMS or</text>
+<text x="40" y="648" font-size="12.5" fill="var(--muted)">Canada-market DRL); see Fact F-WP21-014. Positions #27 (ACC Socket) and #26 (Radio) are the two</text>
+<text x="40" y="664" font-size="12.5" fill="var(--muted)">fuses most owners look for first.</text>
+
+<!-- Panel 2: Under-hood fuse box -->
+<text x="40" y="686" font-size="16" font-weight="700" fill="var(--accent)">2. Primary Under-Hood Fuse Box &#8212; 16 positions</text>
+<g transform="translate(40,704)">
+<g transform="translate(0,0)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#1</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">80A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Battery</text>
+</g>
+<g transform="translate(154,0)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#2</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">60A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">EPS (Power Steering)</text>
+</g>
+<g transform="translate(308,0)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#3</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">50A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Ignition</text>
+</g>
+<g transform="translate(462,0)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#4</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">30A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">ABS</text>
+</g>
+<g transform="translate(0,70)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#5</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">40A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Blower Relay</text>
+</g>
+<g transform="translate(154,70)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#6</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">40A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Power Window</text>
+</g>
+<g transform="translate(308,70)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#7</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">30A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">HAC Option</text>
+</g>
+<g transform="translate(462,70)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#8</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">10A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Back Up</text>
+</g>
+<g transform="translate(0,140)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#9</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">30A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Small Light</text>
+</g>
+<g transform="translate(154,140)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#10</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">30A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Cooling Fan</text>
+</g>
+<g transform="translate(308,140)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#11</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">30A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Condenser Fan</text>
+</g>
+<g transform="translate(462,140)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#12</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">20A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">R Headlight</text>
+</g>
+<g transform="translate(0,210)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#13</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">20A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">L Headlight</text>
+</g>
+<g transform="translate(154,210)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#14</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">10A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Hazard</text>
+</g>
+<g transform="translate(308,210)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#15</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">30A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">ABS F/S</text>
+</g>
+<g transform="translate(462,210)">
+<rect width="148" height="64" rx="6" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="1.5"/>
+<text x="6" y="16" font-size="11" font-weight="700" fill="var(--num-color)">#16</text>
+<text x="142" y="16" font-size="11" font-weight="700" text-anchor="end" fill="var(--amp-color)">15A</text>
+<text x="74.0" y="34" font-size="9.5" text-anchor="middle" fill="var(--label-color)">Horn, Stop</text>
+</g>
+</g>
+<text x="40" y="698" font-size="0"> </text>
+
+<!-- Panel 3: Secondary (battery) fuse box, drawn as one large cell -->
+<g transform="translate(710,751.0)">
+  <rect width="260" height="180" rx="10" fill="var(--cell-fill)" stroke="var(--cell-stroke)" stroke-width="2"/>
+  <text x="130.0" y="34" font-size="14" font-weight="700" text-anchor="middle" fill="var(--num-color)">3. Secondary Fuse Box</text>
+  <text x="130.0" y="54" font-size="11.5" text-anchor="middle" fill="var(--muted)">(mounted on the battery)</text>
+  <circle cx="130.0" cy="110" r="42" fill="none" stroke="var(--amp-color)" stroke-width="3"/>
+  <text x="130.0" y="103" font-size="20" font-weight="700" text-anchor="middle" fill="var(--amp-color)">80A</text>
+  <text x="130.0" y="122" font-size="11" text-anchor="middle" fill="var(--label-color)">Battery</text>
+  <text x="130.0" y="150" font-size="10.5" text-anchor="middle" fill="var(--muted)">1 fuse only &#8212; protects</text>
+  <text x="130.0" y="164" font-size="10.5" text-anchor="middle" fill="var(--muted)">the battery circuit itself</text>
+</g>
+
+<text x="40" y="1012" font-size="12.5" fill="var(--muted)">Under-hood box location: engine compartment, driver's side; push the lid tabs to open (Fact</text>
+<text x="40" y="1028" font-size="12.5" fill="var(--muted)">F-WP21-003). Secondary box location: on the battery's positive terminal, in the engine compartment</text>
+<text x="40" y="1044" font-size="12.5" fill="var(--muted)">(Fact F-WP21-004). The vehicle has exactly 3 fuse boxes total (Fact F-WP21-001) — there is no</text>
+<text x="40" y="1060" font-size="12.5" fill="var(--muted)">separate relay map in the owner's manual (Fact F-WP21-015, UNVERIFIED).</text>
+
+<text x="40" y="1102" font-size="12" font-style="italic" fill="var(--muted)">Caption: The three fuse boxes of a 2008 Honda Fit base trim, with every numbered position's amperage and protected circuit, for Chapter 32 (Fuses) and Appendix D.</text>
+<text x="40" y="1120" font-size="10.5" fill="var(--muted)">Source facts: F-WP21-001 through F-WP21-014, and the Interior / Under-hood / Secondary fuse tables in facts/WP-21.md. Amperages shown are stated by the 2008 Fit Owner's Manual (Tier 1) and cross-checked position-by-position against a second source; see facts/WP-21.md for full citations.</text>
+</svg>

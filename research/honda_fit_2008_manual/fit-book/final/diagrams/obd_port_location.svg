@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" font-family="Verdana, Geneva, sans-serif">
+<title>OBD-II Port Location</title>
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --dash-fill: #e7e2d4;
+    --dash-stroke: #6b6255;
+    --seat-fill: #d9d2c0;
+    --seat-stroke: #6b6255;
+    --wheel-stroke: #4a463c;
+    --pedal-fill: #33372f;
+    --port-fill: #a13d2c;
+    --port-stroke: #5f2016;
+    --heading: #22301f;
+    --muted: #6b6a63;
+    --accent: #6a8a5f;
+    --callout-bg: #fff8ec;
+    --callout-stroke: #a13d2c;
+    --floor: #cfc9b8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1b1c18;
+      --dash-fill: #33362c;
+      --dash-stroke: #9aa79c;
+      --seat-fill: #2c2e26;
+      --seat-stroke: #9aa79c;
+      --wheel-stroke: #cfd0c6;
+      --pedal-fill: #0f100e;
+      --port-fill: #e2a08a;
+      --port-stroke: #f4c9b8;
+      --heading: #e7e6dc;
+      --muted: #9b9a8f;
+      --accent: #8fb37f;
+      --callout-bg: #2f2a1e;
+      --callout-stroke: #e2a08a;
+      --floor: #2a2b25;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1b1c18;
+    --dash-fill: #33362c;
+    --dash-stroke: #9aa79c;
+    --seat-fill: #2c2e26;
+    --seat-stroke: #9aa79c;
+    --wheel-stroke: #cfd0c6;
+    --pedal-fill: #0f100e;
+    --port-fill: #e2a08a;
+    --port-stroke: #f4c9b8;
+    --heading: #e7e6dc;
+    --muted: #9b9a8f;
+    --accent: #8fb37f;
+    --callout-bg: #2f2a1e;
+    --callout-stroke: #e2a08a;
+    --floor: #2a2b25;
+  }
+  text { font-family: Verdana, Geneva, sans-serif; }
+</style>
+<rect x="0" y="0" width="760" height="560" fill="var(--bg)"/>
+
+<text x="40" y="36" font-size="22" font-weight="700" fill="var(--heading)">OBD-II Port Location &#8212; 2008 Honda Fit (GD3)</text>
+<text x="40" y="58" font-size="12.5" fill="var(--muted)">Chapter 35 (Diagnostics). Simplified driver's-footwell side view, not a scaled technical drawing.</text>
+
+<!-- Floor -->
+<rect x="20" y="400" width="720" height="16" fill="var(--floor)"/>
+<text x="30" y="430" font-size="11" fill="var(--muted)">floor</text>
+
+<!-- Dash panel (front of car is to the left) -->
+<path d="M 140 120 L 300 150 L 300 400 L 150 400 L 130 200 Z" fill="var(--dash-fill)" stroke="var(--dash-stroke)" stroke-width="2.5"/>
+<text x="190" y="140" font-size="11" fill="var(--muted)">windshield /</text>
+<text x="190" y="155" font-size="11" fill="var(--muted)">dash top</text>
+
+<!-- underside-of-dash shading to show the cavity where the port hides -->
+<rect x="150" y="330" width="150" height="70" fill="none" stroke="var(--dash-stroke)" stroke-width="1" stroke-dasharray="4,3" opacity="0.7"/>
+<text x="155" y="325" font-size="10" fill="var(--muted)" opacity="0.8">underside of dash (open cavity)</text>
+
+<!-- Steering column + wheel -->
+<line x1="255" y1="350" x2="400" y2="230" stroke="var(--wheel-stroke)" stroke-width="10" stroke-linecap="round"/>
+<ellipse cx="420" cy="222" rx="46" ry="16" fill="none" stroke="var(--wheel-stroke)" stroke-width="8" transform="rotate(-18 420 222)"/>
+<text x="430" y="180" font-size="11" fill="var(--muted)">steering wheel</text>
+<text x="330" y="290" font-size="11" fill="var(--muted)">steering column</text>
+
+<!-- Pedals -->
+<rect x="300" y="372" width="26" height="28" rx="4" fill="var(--pedal-fill)"/>
+<rect x="340" y="378" width="24" height="22" rx="4" fill="var(--pedal-fill)"/>
+<text x="285" y="415" font-size="10.5" fill="var(--muted)">brake</text>
+<text x="335" y="415" font-size="10.5" fill="var(--muted)">gas</text>
+
+<!-- Seat -->
+<path d="M 470 150 L 500 150 L 520 260 L 640 260 L 640 400 L 470 400 Z" fill="var(--seat-fill)" stroke="var(--seat-stroke)" stroke-width="2.5"/>
+<text x="530" y="140" font-size="11" fill="var(--muted)">driver's seat</text>
+
+<!-- OBD-II connector marker: small trapezoid connector shape tucked under dash, driver's side, near column base, roughly pedal height -->
+<g>
+  <path d="M 232 345 L 268 345 L 262 372 L 238 372 Z" fill="var(--port-fill)" stroke="var(--port-stroke)" stroke-width="2"/>
+  <circle cx="240" cy="352" r="2" fill="var(--bg)"/>
+  <circle cx="248" cy="352" r="2" fill="var(--bg)"/>
+  <circle cx="256" cy="352" r="2" fill="var(--bg)"/>
+  <circle cx="242" cy="362" r="2" fill="var(--bg)"/>
+  <circle cx="250" cy="362" r="2" fill="var(--bg)"/>
+  <circle cx="258" cy="362" r="2" fill="var(--bg)"/>
+</g>
+
+<!-- Callout -->
+<line x1="250" y1="345" x2="250" y2="240" stroke="var(--port-stroke)" stroke-width="1.5"/>
+<circle cx="250" cy="240" r="3" fill="var(--port-stroke)"/>
+<rect x="60" y="60" width="0" height="0"/>
+<g>
+  <rect x="90" y="200" width="230" height="46" rx="8" fill="var(--callout-bg)" stroke="var(--callout-stroke)" stroke-width="1.5"/>
+  <text x="102" y="220" font-size="11.5" font-weight="700" fill="var(--heading)">OBD-II port (16-pin)</text>
+  <text x="102" y="236" font-size="10.5" fill="var(--muted)">under dash, driver's side</text>
+</g>
+<line x1="205" y1="246" x2="250" y2="330" stroke="var(--port-stroke)" stroke-width="1.5"/>
+
+<!-- Explanatory callout box -->
+<g>
+  <rect x="40" y="450" width="680" height="95" rx="10" fill="var(--callout-bg)" stroke="var(--callout-stroke)" stroke-width="1.5"/>
+  <text x="56" y="470" font-size="12.5" font-weight="700" fill="var(--heading)">What the sources say (Fact F-WP12-001):</text>
+  <text x="56" y="488" font-size="11" fill="var(--muted)">Under the dashboard, driver's side, directly below/left of the steering column &#8212; roughly level with, or a</text>
+  <text x="56" y="504" font-size="11" fill="var(--muted)">little above, the brake and gas pedals. It is usually not labeled and may be tucked against the underside</text>
+  <text x="56" y="520" font-size="11" fill="var(--muted)">of the dash, so crouch down and feel with your hand. The 2008 Fit owner's manual itself does not state this</text>
+  <text x="56" y="536" font-size="11" fill="var(--muted)">location (Section A note) &#8212; this fact is Tier 3, medium confidence, from a directly-read reference site.</text>
+</g>
+
+<text x="40" y="558" font-size="0"> </text>
+</svg>
