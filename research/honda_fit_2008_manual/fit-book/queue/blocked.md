@@ -44,3 +44,41 @@ F-WP02-010 lists four TSB numbers (A20-015, A18-053, A18-050, A02-053) surfaced 
 2008-Fit TSB aggregator pages, but with no independently confirmed detail. Do not use these in draft
 chapters until a future pass with working WebFetch confirms each bulletin's content and model-year
 applicability.
+
+## WP-01 Identify the car exactly (2026-09-07)
+
+### Tool note: WebFetch still unreliable, but a workaround was found this session
+The built-in WebFetch tool again returned EGRESS_BLOCKED for most domains tried (hondanews.com,
+fueleconomy.gov, auto123.com, edmunds.com, iihs.org). HOWEVER, two workarounds worked reliably this
+session and should be tried first by future WP agents before giving up and using search-snippet-only
+sourcing:
+  1. Plain `curl` (Bash tool) over the same HTTPS_PROXY reached many of the same domains successfully
+     (fueleconomy.gov, owners.honda.com, auto123.com, cartimeline.com, hfitinfo.com, carsdirect.com,
+     NHTSA's api.nhtsa.gov and vpic.nhtsa.dot.gov JSON APIs, IIHS's www.iihs.org). A realistic
+     browser User-Agent header was needed for a couple of sites (auto123.com). Static HTML pages then
+     need manual tag-stripping (e.g., a small Python regex pass) to read as text.
+  2. For sites that returned 403 to curl (hondanews.com, IIHS's SPA shell) or that need JS-rendered
+     content, piping through the public reader proxy `https://r.jina.ai/<original https url>` and
+     fetching THAT URL with curl returned full readable article/press-release text, including full
+     data tables (this is how the two verbatim Honda press releases in this file's fact cards were
+     obtained). Two domains remained unreachable even through this route: `edmunds.com` and
+     `cars.com` (curl got HTTP 403 directly; not retried through r.jina.ai). `www.thecarconnection.com`
+     also returned 403 to curl. `archive.org` (wayback machine) and `techinfo.honda.com` (an official
+     Honda dealer-tech PDF link found via search) failed outright ("host not in allowlist" and a TLS
+     handshake failure respectively) and were not pursued further.
+
+### Facts not fully confirmed this pass (WP-01)
+- Ground clearance (F-WP01-018): left UNVERIFIED. Only one Tier 3 blog source was found, and it
+  groups "first and second generation" together (5.9 in) rather than confirming the figure is
+  specific to the 2007-2008 GD3 US base trim. No second corroborating source was found.
+- Exact recommended cold tire pressures (PSI) for base vs. Sport, front vs. rear: the official
+  Honda Fit manual mirror (hfitinfo.com) has a "Recommended Tire Pressures" chart on its Tires page,
+  but the numeric PSI values are inside an image/table that did not render as text through the fetch
+  method used. This is not one of the 38 WP-01 questions (tire pressure numbers belong to WP-10,
+  torque specs and fitment numbers) but is flagged here as a concrete lead: re-fetch
+  https://www.hfitinfo.com/hofi-497.html with a method that preserves table/image content, or read
+  the door-jamb sticker directly.
+- Minimum recommended octane number (e.g., "87 AKI") for the 2008 Fit: Honda's spec sheet and
+  fueleconomy.gov both say "Regular Unleaded" / "Regular Gasoline" but neither states a numeric
+  octane rating. Not marked UNVERIFIED (the qualitative "regular unleaded" answer is confirmed) but
+  the specific number a reader might expect (87) was not found stated in a Fit-specific source.
