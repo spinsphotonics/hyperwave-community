@@ -143,9 +143,9 @@ tabernacle of God among men" — a matter of common life and worship before it w
 mission.[^23] The second, once the mission itself began, is a double rule about the call to go.
 Spangenberg's 1788 account states it plainly, in the translation's own period spelling: the
 Brethren resolved, on the one hand, "never... to any heathen without a call, in which the hand
-God[.] was evident: to them," and, on the other hand, "never to refufe any call among the heathen,
-in which they could perceive the finger of the Lord, though they fhould fee beforehand that fuch a
-call might endanger their lives."[^24]
+[of] God was evident... to them," and, on the other hand, "never to refufe any call among the
+heathen, in which they could perceive the finger of the Lord, though they fhould fee beforehand
+that fuch a call might endanger their lives."[^24]
 
 Spangenberg's account also sets out, in the missionaries' own four numbered "invariable
 principles," what the sending congregation did and did not consider its purpose. The first
@@ -180,10 +180,10 @@ formal written instructions beyond the Count's charge "to do all in the Spirit o
 and about thirty shillings between them, expecting to support themselves by their trades once they
 arrived.[^33] Pressed in Copenhagen on how they meant to live among the slaves of St Thomas,
 Nitschmann answered simply, "We shall work... as slaves among the slaves."[^34] "For fifty years"
-the mission that followed "laboured in the West Indies without any aid from any other religious
-denomination," eventually establishing churches in St Thomas, St Croix, St John, Jamaica, Antigua,
-Barbados, and St Kitts, and reporting "13,000 baptized converts before a missionary from any other
-Church arrived on the scene."[^35]
+the mission that followed "laboured [i]n the West Indies without any aid from any other religious
+denomina[t]ion," eventually establishing churches in St Thomas, St Croix, St John, Jamaica,
+Antigua, Barbados, and St Kitts, and reporting "13,000 baptized converts before a missionary from
+any other Church arrived on the scene."[^35]
 
 The cost was severe. "In St. Thomas alone, during the first fifty years, one hundred and sixty
 missionaries died."[^36] On St Croix, of an original party of eighteen Brethren sent in 1734, ten
@@ -230,13 +230,13 @@ Peucker, Paul. "The 1727 Statutes of Herrnhut." *Journal of Moravian History* 20
 [^1]: Zinzendorf, quoted in J. E. Hutton, *A History of the Moravian Church* (1909), 207-208; quote_id herrnhut-moravians-q009.
 [^2]: Hutton, *Moravian Church*, 197; quote_id herrnhut-moravians-q001.
 [^3]: Hutton, *Moravian Church*, 197; quote_id herrnhut-moravians-q001.
-[^4]: Heitz, quoted in Hutton, *Moravian Church*, 198-199; quote_ids herrnhut-moravians-q002, herrnhut-moravians-q003.
+[^4]: Heitz, quoted in Hutton, *Moravian Church*, 198-199; quote_ids herrnhut-moravians-q002, herrnhut-moravians-q042.
 [^5]: Hutton, *Moravian Church*, 201-205 [SECONDARY narrative]; research/herrnhut-moravians/dossier.md field F7.
 [^6]: Hutton, *Moravian Church*, 206-207; quote_ids herrnhut-moravians-q005, herrnhut-moravians-q036.
 [^7]: Hutton, *Moravian Church*, 207; quote_ids herrnhut-moravians-q006, herrnhut-moravians-q007, herrnhut-moravians-q008.
 [^8]: Hutton, *Moravian Church*, 209; quote_id herrnhut-moravians-q010 (context).
 [^9]: Zinzendorf, quoted in Hutton, *Moravian Church*, 207-208; quote_id herrnhut-moravians-q009.
-[^10]: David Nitschmann, quoted in Hutton, *Moravian Church*, 209-210; quote_id herrnhut-moravians-q010.
+[^10]: David Nitschmann, quoted in Hutton, *Moravian Church*, 209-210; quote_id herrnhut-moravians-q043.
 [^11]: Hutton, *Moravian Church*, 212-213; quote_id herrnhut-moravians-q012.
 [^12]: Hutton, *Moravian Church*, 213; quote_id herrnhut-moravians-q013.
 [^13]: research/herrnhut-moravians/dossier.md field A5 [UNVERIFIED].

@@ -13,15 +13,15 @@ here beyond a passing note.
 
 | Section | Words |
 |---|---|
-| Founding | ~570 |
-| The Charter | (see below, ~1,300 words) |
-| Admission | ~330 |
-| Curriculum | ~660 |
-| Common Life and the Faculty | ~640 |
-| Emphasis | ~560 |
-| Sending | ~410 |
-| Fruit | ~280 |
-| Total (excl. Charter) | ~3,450 |
+| Founding | ~505 |
+| The Charter | (see `charter_abridged.md`, ~1,300 words) |
+| Admission | ~300 |
+| Curriculum | ~470 |
+| Common Life and the Faculty | ~390 |
+| Emphasis | ~350 |
+| Sending | ~260 |
+| Fruit | ~180 |
+| Total (excl. Charter) | ~2,760 |
 
 # Chapter 8: The College of New Jersey (1746)
 
@@ -257,10 +257,16 @@ advancing frontier.[^50]
 **David Caldwell**, D.D. (class of 1761), became "President of the University of North
 Carolina."[^51]
 
+**Oliver Ellsworth** (class of 1766) became "Chief Justice of the United States, and a
+member of the Convention to form a constitution for the United States" — a reminder that,
+even in a College founded "more especially" to supply ministers, the Charter's own
+promise of a "liberal and learned education" reached beyond the pulpit.[^52]
+
 Of the 130 students who graduated during Finley's five-year presidency alone, fifty-nine
-entered the ministry — the great majority of a graduating body that also produced judges,
-college presidents, and, in the following generation, Continental Congressmen and a
-Governor of New Jersey (Maclean's own list names many, not individually quoted here).[^52]
+entered the ministry — most of a graduating body that also produced judges, college
+presidents, and, in the following generation, Continental Congressmen and a Governor of
+New Jersey; Maclean's own list, printed alongside the Finley chapter, names many more not
+individually quoted here.[^53]
 
 ## Sources
 
@@ -364,4 +370,5 @@ Digitized: https://archive.org/details/historyofcollege01macluoft.
 [^49]: Maclean, *History*, Vol. I, 275; cnj-q040.
 [^50]: Maclean, *History*, Vol. I, 274; cnj-q041.
 [^51]: Maclean, *History*, Vol. I, 274; cnj-q042.
-[^52]: Maclean, *History*, Vol. I, 275; cnj-q039.
+[^52]: Maclean, *History*, Vol. I, 275; cnj-q047.
+[^53]: Maclean, *History*, Vol. I, 275; cnj-q039.

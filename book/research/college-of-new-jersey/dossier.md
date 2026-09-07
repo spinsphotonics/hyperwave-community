@@ -314,11 +314,13 @@ and is quoted whole by Maclean.
   Kentucky" in Maclean's list of Finley-era graduates "of the greatest note." [cnj-q041]
 - **R3** David Caldwell, D.D. (class of 1761): "President of the University of North Carolina."
   [cnj-q042]
-- **R4** Of the wider Finley-era graduating body, 130 in all, fifty-nine entered the ministry.
-  [cnj-q039] (No further single named alumnus beyond R1-R3 was selected into a distinct quote
-  record this session; Maclean's graduate list for 1761-1766 alone names dozens more, including
-  future signers, judges, and college presidents, catalogued in text/maclean1877-v1.txt around
-  the Finley-administration chapter but not each individually quoted here.)
+- **R4** Oliver Ellsworth (class of 1766): "Chief Justice of the United States, and a member of
+  the Convention to form a constitution for the United States." [cnj-q047] Of the wider
+  Finley-era graduating body, 130 in all, fifty-nine entered the ministry. [cnj-q039] (No
+  further single named alumnus beyond R1-R4 was selected into a distinct quote record this
+  session; Maclean's graduate list for 1761-1766 alone names dozens more, including future
+  signers, judges, and college presidents, catalogued in text/maclean1877-v1.txt around the
+  Finley-administration chapter but not each individually quoted here.)
 
 ## X — For the chapter
 - **X1 Epigraph candidate**: cnj-q001 ("The chief aim of the founders and early friends of the
