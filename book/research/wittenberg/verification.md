@@ -89,7 +89,13 @@ fact about it. PASS. No other date or number in the dossier conflicts with a ros
 because the roster supplies none to check against for this institution beyond the founding date
 already confirmed.
 
-## 6. Verdict
+## 6. Charter abridgement check
+`templates/check_quotes.py research/wittenberg --charter` was also run against
+`charter_abridged.md` (Procedure B step 8, though not required by this session's task
+instructions, which name only the default check): `14/14 passages verbatim; 0 failures`. Every
+KEEP passage in the abridged charter matches `text/luther1524-councilmen.txt` verbatim.
+
+## 7. Verdict
 VERIFIED (zero FAILs on the 22 quote records; the field-level gaps are honestly marked, not
 verification failures). RETURNED items for a future revision pass, carried forward in
 discrepancies.md item 4: formalize Melanchthon's household-pupils and 1526-salary narrative

@@ -232,7 +232,7 @@ the attainment of these ends, as diligently as others labour from
 motives of simple covetousness, or with a view of making provision
 against future contingencies for themselves or for their families. If
 any object to selling "houses or lands" it remains for themselves to
-distinguish[18] between the motives, which induce them to retain
+distinguish [...] between the motives, which induce them to retain
 their property, and those which induced the "young man" to retain
 his. If they retain it from any private affection unsupported by the
 word of truth, and if it is not their own full conviction--that, in
