@@ -1,0 +1,12 @@
+Source ID: S-WP10-G
+Title: "Torque Settings For Struts" — FitFreak.net thread 29701
+Author/Publisher: FitFreak.net (Unofficial Honda FIT Forums), forum members
+URL: https://www.fitfreak.net/forums/fit-suspension-brake-modifications/29701-torque-settings-struts.html
+Type: forum post
+Tier: 4
+Covers model year 2008 GD3? unclear from title/subforum name alone ("Fit Suspension & Brake Modifications" is not generation-specific)
+Date published: unknown
+Date accessed: 2026-09-07
+Paywalled? no
+Notes: Direct read blocked — fitfreak.net Cloudflare error 1005 (ASN ban), same as S-WP10-B. WebSearch AI-summary reports: front strut has 2 nuts, lower (12x1.25mm, over the bearing) torqued to 25 lb-ft, upper (12x1.25mm) torqued to 33 lb-ft; shock/strut flange nuts (14x1.5mm) torqued to 75 lb-ft; rear upper strut nut (10x1.25mm) torqued to 22 lb-ft. NOT used as a stated fact value in facts/WP-10.md — this is the ONLY source found for these specific numbers despite repeated targeted searches for a second independent source, and RESEARCH_PLAN.md Section 3 requires two independent Tier 4 sources before a community fact can be used. Recorded here as a lead only; F-WP10-008 (strut top nut torque) is UNVERIFIED as a result. A future pass with a working direct fetch of this thread, or a second corroborating source, could upgrade this.
+ID-COLLISION NOTE: See S-WP10-A — originally drafted as "S-034," which collides with a real WP-11 source (rear drum brake DIY guide; restored to sources/S-034.md unchanged).

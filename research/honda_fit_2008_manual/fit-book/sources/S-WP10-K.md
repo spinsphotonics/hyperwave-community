@@ -1,4 +1,4 @@
-Source ID: S-038
+Source ID: S-WP10-K
 Title: "2015 Honda Fit Torque Specs: Ball Joint, Strut, Axle Guide" (JustAnswer Q&A, lvhvf) / "2015 Honda Fit Brake Caliper & Mount Torque Specs FAQ" (JustAnswer Q&A, m27l9)
 Author/Publisher: JustAnswer.com, paid automotive Q&A
 URL: https://www.justanswer.com/honda/lvhvf-2015-honda-fit-lower-balljoint-strut-axle-torque-specs.html ; https://www.justanswer.com/honda/m27l9-2015-honda-fit-brake-caliper-motor-trans-mount-torque.html
@@ -8,4 +8,5 @@ Covers model year 2008 GD3? NO by its own title — both questions are explicitl
 Date published: unknown
 Date accessed: 2026-09-07
 Paywalled? unclear
-Notes: Direct read blocked (Cloudflare). WebSearch AI-summary gives 2015 Fit (GK) figures: front caliper slide/guide bolts ~25 ft-lb, caliper bracket bolts 80 ft-lb, sliding bolts 25 ft-lb. The 80 ft-lb bracket-bolt figure happens to match the GD3-specific value corroborated in F-WP10-005 (S-029/S-030), which is a plausible sign Honda reused the same fastener spec across Fit generations, but per D8 this GK source cannot itself confirm a GD3 fact — it is logged here as context only, not cited as a Source ID on any Fact Card.
+Notes: Direct read blocked (Cloudflare). WebSearch AI-summary gives 2015 Fit (GK) figures: front caliper slide/guide bolts ~25 ft-lb, caliper bracket bolts 80 ft-lb, sliding bolts 25 ft-lb. The 80 ft-lb bracket-bolt figure happens to match the GD3-specific value corroborated in F-WP10-005 (S-WP10-B/S-WP10-C), which is a plausible sign Honda reused the same fastener spec across Fit generations, but per D8 this GK source cannot itself confirm a GD3 fact — it is logged here as context only, not cited as a Source ID on any Fact Card.
+ID-COLLISION NOTE: See S-WP10-A — originally drafted as "S-038" (no collision found; renamed for naming consistency).

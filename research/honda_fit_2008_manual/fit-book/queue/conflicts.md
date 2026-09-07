@@ -210,3 +210,19 @@ read of the primary source.
   and should be the first one re-checked if a future session regains fuller access to
   fitfreak.net.
 - Related fact card: F-WP12-009
+
+## WP-11 Maintenance procedures (2026-09-07)
+
+### C-011: Total engine coolant system capacity
+- The 2008 Fit owner's manual's own Specifications table (S-001/S-023, Tier 1) gives capacity
+  figures in this range for engine coolant: approximately 3.7 to 5.4 L, depending on how the
+  table's columns (M/T vs A/T, "change" vs "total") are read -- the table itself extracts from
+  the PDF with jumbled/interleaved cell order, a caution already noted on S-023's own source
+  card.
+- hfitinfo.com's repair-manual-style "Coolant Replacement" page (S-WP11-A, Tier 3, generation
+  label unconfirmed for GD3) instead gives: M/T model, at coolant change, 4.37 L; A/T model, at
+  coolant change, 4.47 L; after an engine overhaul, 4.86 L (M/T) / 4.96 L (A/T) -- all noticeably
+  higher than the low end of the owner's manual's own range.
+- Not resolved this pass. Used in procedures/WP-11-15.md as a stated range with a note to check
+  Appendix B/WP-09 for the verified number, rather than picking a winner.
+- Related procedure: P-WP11-15 (Drain and fill the coolant)
