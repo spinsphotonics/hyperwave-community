@@ -1,0 +1,113 @@
+STATUS: DONE
+TICKET: B-princeton-seminary
+ROLE: Abridger
+INPUTS READ: text/plan1811.txt (document_id `plan1811`); dossier.md field F5; 01_book_design.md section 6
+
+# Abridged charter — Princeton Theological Seminary (`princeton-seminary`)
+
+**Source document:** *The Plan of a Theological Seminary, Adopted by the General Assembly of the Presbyterian Church in the United States of America, in their Sessions of May last, A.D. 1811; together with the measures taken by them to carry the Plan into effect.* Philadelphia: Jane Aitken, 1811. English. document_id `plan1811`.
+**Translation:** none needed.
+**Full document word count:** 7,966 (raw OCR word count of the fetched Internet Archive transcription, including the closing minutes, agent lists, and donor names).
+**Abridgement word count:** 2,478 (kept text only; excludes bracketed editorial headings and `[...]` cut markers).
+
+## Structure of the full document
+
+| # | Article / section (or first words) | Words (approx.) | KEEP/CUT | Reason code |
+|---|---|---|---|---|
+| 1 | Introduction, opening theological rationale ("Inasmuch as the obtaining of salvation...") | 80 | KEEP | a |
+| 2 | Introduction, "institutions...have been established in all Christian countries" (general historical claim) | 40 | CUT | repeat |
+| 3 | Introduction, the founders' own crisis ("Hence the founders of the Presbyterian Church...loudly and affectingly demanded") | 95 | KEEP | a |
+| 4 | Introduction, "Circumstances also do imperiously dictate..." (restates the crisis) | 45 | CUT | repeat |
+| 5 | Introduction, resolution to found the Seminary and state its design | 130 | KEEP | a |
+| 6 | Introduction, purpose-clause 1 ("It is to form men for the Gospel ministry...") | 76 | KEEP | a |
+| 7 | Introduction, purpose-clause 2 ("adequate supply and succession of...ministers") | 40 | CUT | repeat |
+| 8 | Introduction, purpose-clause 3 ("unite...religion and literature") | 62 | KEEP | a |
+| 9 | Introduction, purpose-clauses 4-5 (defend against infidels/heretics; furnish congregations with pastors) | 65 | CUT | repeat |
+| 10 | Introduction, purpose-clauses 6-8 (promote harmony; found friendships; preserve Church unity) | 90 | CUT | repeat |
+| 11 | Introduction, purpose-clause 9 (bring genius and talent to the Church's service, without expense to the student) | 60 | CUT | repeat (the "without expense" financial principle is summarized in dossier field L6 instead) |
+| 12 | Introduction, purpose-clause 10 (missions: "a nursery for missionaries to the heathen") | 46 | KEEP | a |
+| 13 | Introduction, final purpose-clause (a succession of men ready for every sacrifice) | 83 | KEEP | a |
+| 14 | Article I, Of the General Assembly (patron and source of authority; Board of Directors' composition; power to amend) | 240 | CUT | admin |
+| 15 | Article II, Of the Board of Directors (meetings, quorum, officers, inauguration duty, director's own subscription, inspection and discipline of professors, reports, sermons) | 780 | CUT | admin |
+| 16 | Article III, Of the Professors, Sect. 1 (number and titles of the three professorships) | 70 | KEEP | b/d |
+| 17 | Article III, Sects. 2, 4-9 (ordination requirement, salaries, prayer with lectures, curriculum approval procedure, daily lecture duty, resignation notice, faculty governance and discipline procedure) | 700 | CUT | admin |
+| 18 | Article III, Sect. 3 (professor's doctrinal subscription formula in full) | 200 | CUT | admin (the doctrinal commitment itself is summarized, with a shorter quotation, in dossier field F8; cut here for space under the abridgement's word budget) |
+| 19 | Article III, Sect. 3, 10-12 and remaining sections (dismissal for unsoundness; equal vote; duty to supply preaching) | 120 | CUT | admin/repeat |
+| 20 | Article IV, Of Study and Attainments, Sects. 1-4 (required attainments; three-year minimum course; examination and certificate; professors' duty to fit students for it in three years) | 705 | KEEP | d/g |
+| 21 | Article V, Of Devotion, and Improvement in Practical Piety, full (daily and Lord's-day devotion; admonition; dismissal for want of exemplary religion; professors' charge to cherish personal piety) | 587 | KEEP | e |
+| 22 | Article VI, Of the Students, Sect. 1 (admission testimonials and prior education) | 83 | KEEP | c |
+| 23 | Article VI, Sect. 2 (six-month probation) | 67 | KEEP | e/g |
+| 24 | Article VI, Sect. 3 (hours of study and recreation fixed by the professors) | 45 | CUT | admin (delegates rather than fixes; summarized in dossier field C9) |
+| 25 | Article VI, Sect. 4 (written composition and memorized public recitation schedule) | 91 | KEEP | d |
+| 26 | Article VI, Sects. 5-8 (deference to teachers; obedience; diligence; temperance, dress, and expense) | 123 | KEEP | e |
+| 27 | Article VI, Sect. 9 (the student's own subscribed declaration) | 134 | KEEP | b/c |
+| 28 | Article VI, Sect. 10 (two six-week vacations) | 50 | KEEP | e |
+| 29 | Article VII, Of the Library (deferred article; catalogue, shelving, borrowing rules) | 260 | CUT | admin |
+| 30 | Article VIII, Of the Funds (separate accounting; improvement of funds; named professorships/scholarships; aid to needy students) | 340 | CUT | admin (the aid-to-needy-students principle is summarized in dossier field L6) |
+| 31 | Article IX, Of the Theological Academy (deferred article; a separate satellite institution preparing youth for the Seminary; two-thirds/one-third pupil ratio) | 640 | CUT | admin (a distinct, not-yet-organized companion institution, outside the Seminary proper) |
+| 32 | Closing minutes: committee to confer with the Trustees of the College of New Jersey; location within the Raritan-Potowmac limits; committee membership and instructions | 380 | CUT | admin (summarized, with one quotation, in dossier field F9 and discrepancies.md #3) |
+| 33 | Closing minutes: fundraising resolutions, list of agents by synod, subscription amounts, and donor names | 900 | CUT | names/admin |
+
+## Headnote
+
+*The Plan of a Theological Seminary, Adopted by the General Assembly of the Presbyterian Church in the United States of America, in their Sessions of May last, A.D. 1811; together with the measures taken by them to carry the Plan into effect.* Philadelphia: Jane Aitken, 1811. English; no translation needed; edition used is the Internet Archive's OCR transcription of the copy held by the Princeton Theological Seminary Library (document_id `plan1811`).
+
+## Text
+
+[On the Assembly's purpose in founding the Seminary]
+
+Inasmuch as the obtaining of salvation through Jesus Christ our Lord, to the glory of the eternal God, is the chief object which claims the attention of man ; and considering, that in the attainment of this object the dispensation of the Gospel is principally instrumental ; it is manifestly of the highest importance, that the best means be used to ensure the faithful preaching of the Gospel, and the pure administration of all its ordinances.
+
+[...]
+
+Hence the founders of the Presbyterian Church in the United States of America, did, from its very origin, exert themselves with peculiar zeal to establish and endow colleges, academies, and schools, for the education of youth for the Gospel ministry. So rapid, however, has been the extension of this Church, and so disproportionate, of late, has been the number of ministers educated, to the call which has been made for ministerial service, that some additional and vigorous efforts to increase the supply are loudly and affectingly demanded.
+
+[...]
+
+Influenced by the views and considerations now recited, the General Assembly, after mature deliberation, have resolved, in reliance on the patronage and blessing of the Great Head of the Church, to establish anew Institution, consecrated solely to the education of men for the Gospel ministry, and to be denominated, The Theological Seminary of the Presbyterian Church in the United States of America. And to the intent that the true design of the founders of this institution may be known to the public, both now and in time to come, and especially that this design may, at all times, be distinctly viewed, and sacredly regarded, both by the teachers and the pupils of the Seminary, it is judged proper to make a summary and explicit statement of it.
+
+It is to form men for the Gospel ministry, who shall truly believe, and cordially love, and therefore endeavour to propagate and defend, in its genuineness, simplicity, and fulness, that system of religious belief and practice which is set forth in the Confession of Faith, Catechisms, and Plan of Government and Discipline of the Presbyterian Church ; and thus to perpetuate and extend the influence of true evangelical piety, and Gospel order.
+
+[...]
+
+It is to unite, in those who shall sustain the ministerial office, religion and literature ; that piety of the heart which is the fruit only of the renewing and sanctifying grace of God, with solid learning ; believing that religion without learning, or learning without religion, in the ministers of the Gospel, must ultimately prove injurious to the Church.
+
+[...]
+
+It is to found a nursery for missionaries to the heathen, and to such as are destitute of the stated preaching of the gospel; in which youth may receive that appropriate training which may lay a foundation for their ultimately becoming eminently qualified for missionary work.
+
+It is, finally, to endeavour to raise up a succession of men, at once qualified for and thoroughly devoted to the work of the Gospel ministry ; who, with various endowments, suiting them to different stations in the Church of Christ, may all possess a portion of the spirit of the primitive propagators of the Gospel; prepared to make every sacrifice, to endure every hardship, and to render every service which the promotion of pure and undefiled religion may require.
+
+[...]
+
+[On the professors]
+
+ARTICLE III. Of the Professors. Section 1. The number of the professors in the Seminary shall be increased or diminished, as the Assembly may, from time to time, direct. But when the Seminary shall be completely organized, there shall not be less than three professors : one of Didactic and Polemic Divinity; one of Oriental and Biblical Literature ; and one of Ecclesiastical History and Church Government.
+
+[...]
+
+[On the course of study and attainments]
+
+ARTICLE IV. Of Study and Attainments. As the particular course of study pursued in any Institution will, and perhaps ought to be modified in a considerable degree, by the views and habits of the teachers ; and ought, moreover, to be varied, altered, or extended, as experience may suggest improvements ; it is judged proper to specify, not so precisely the course of study, as the attainments which must be made. Therefore, Sect. 1. Every student, at the close of his course, must have made the following attainments, viz. He must be well skilled in the original languages of the Holy Scriptures. He must be able to explain the principal difficulties which arise in the perusal of the Scriptures, either from erroneous translations, apparent inconsistencies, real obscurities, or objections arising from history, reason, or argument. He must be versed in Jewish and Christian antiquities, which serve to explain and illustrate Scripture. He must have an acquaintance with ancient geography, and with oriental customs, which throw light on the sacred records. — Thus he will have laid the foundation for becoming a sound biblical critic. He must have read and digested the principal arguments and writings relative to what has been called the deistical controversy — Thus will he be qualified to become a defender of the Christian faith. He must be able to support the doctrines of the Confession of Faith and Catechisms, by a ready, pertinent, and abundant quotation of Scripture texts for that purpose. He must have studied, carefully and correctly, Natural, Didactic, Polemic, and Casuistic Theology. He must have a considerable acquaintance with General History and Chronology, and a particular acquaintance with the history of the Christian Church — Thus he will be preparing to become an able and sound divine and casuist. He must have read a considerable number of the best practical writers on the subject of religion. He must have Learned to compose with correctness and readiness in his own language, and to deliver what he has composed to others in a natural and acceptable manner. He must be well acquainted with the several parts, and the proper structure of popular lectures and sermons. He must have composed at least two lectures and four popular sermons, that shall have been approved by the professors. He must have carefully studied the duties of the pastoral care — Thus he will be prepared to become a useful preacher, and a faithful pastor. He must have studied attentively the form of Church Government authorized by the Scriptures, and the administration of it as it has taken place in Protestant Churches. Thus he will be qualified to exercise discipline, and to take part in the government of the Church in all its judicatories. Sect. 2. The period of continuance in the Theological Seminary shall, in no case, be less than three years, previously to an examination for a certificate of approbation. But students may enter the seminary, and enjoy the course of instruction for a shorter time than three years, provided they in all other respects submit to the laws of the Seminary, of which facts they may receive a written declaration from the professors. Sect. 3. Those pupils who have regularly and diligently studied for three years, shall be admitted to an examination on the subjects specified in this article. The examination shall be conducted by the professors, in the presence of the board of directors, or a committee of them ; and if it be passed to the satisfaction of the directors, they who so pass it, shall receive a certificate of the same, signed by the professors, with which they shall be remitted to their several presbyteries, to be disposed of as such presbyteries shall direct. Those who do not pass a satisfactory examination shall remain a longer space in the Seminary. Sect. 4. It shall be the object of the professors to make such arrangements in the instruction of their pupils, as shall be best adapted to enable them, in the space of three years, to be examined with advantage on the subjects specified in this article.
+
+[On devotion and practical piety]
+
+ARTICLE V. Of Devotion, and Improvement in Practical Piety. It ought to be considered as an object of primary importance by every student in the Seminary, to be careful and vigilant not to lose that inward sense of the power of godliness which he may have attained ; but, on the contrary, to grow continually in a spirit of enlightened devotion and fervent piety ; deeply impressed with the recollection that without this, all his other acquisitions will be comparatively of little worth, either to himself, or to the Church of which he is to be a minister. He must remember, too, that this is a species of improvement which must of necessity be left, in a great measure, with himself, as a concern between God and his own soul. It is proper, however, to delineate the path of duty, to express the wishes and expectations of the founders of the Seminary, and to make such requirements as the nature of the subject will permit. Sect. 1. It is expected that every student in the Theological Seminary will spend a portion of time every morning and evening in devout meditation, and self-recollection and examination ; in reading the holy Scriptures, solely with a view to a personal and practical application of the passage read, to his own heart, character, and circumstances ; and in humble fervent prayer and praise to God in secret. The whole of every Lord's day is to be devoted to devotional exercises, either of a social or secret kind. Intellectual pursuits, not immediately connected with devotion or the religion of the heart, are on that day to be forborne. The books to be read are to be of a practical nature. The conversations had with each other are to be chiefly on religious subjects. Associations for prayer and praise, and for religious conference, calculated to promote a growth in grace, are also proper for this day ; subject to such regulations as the professors and directors may see proper to prescribe. It is wished and recommended, that each student should ordinarily set apart one day in a month for special prayer and self-examination in secret, and also that he should, on suitable occasions, attend to the duty of fasting. Sect. 2. If any student shall exhibit, in his general deportment, a levity or indifference in regard to practical religion, though it do not amount to any overt act of irreligion or immorality, it shall be the duty of the professor who may observe it, to admonish him tenderly and faithfully in private, and endeavour to engage him to a more holy temper, and a more exemplary deportment. Sect. 3. If a student, after due admonition, persist in a system of conduct not exemplary in regard to religion, he shall be dismissed from the Seminary. Sect. 4. The professors are particularly charged, by all the proper means in their power, to encourage, cherish, and promote devotion and personal piety among their pupils, by warning and guarding them, on the one hand, against formality and indifference, and on the other, against ostentation and enthusiasm ; by inculcating practical religion in their lectures and recitations ; by taking suitable occasions to converse with their pupils privately on this interesting subject; and by all other means, incapable of being minutely specified, by which they may foster true experimental religion, and unreserved devotedness to God.
+
+[On the students: admission, discipline, the student's own declaration, and vacations]
+
+ARTICLE VI. Of the Students. Section 1. Every student, applying for admission to the Theological Seminary, shall produce satisfactory testimonials that he possesses good natural talents, and is of a prudent and discreet deportment ; that he is in full communion with some regular Church : that he has passed through a regular course of academical study ; or, wanting this, he shall submit himself to an examination in regard to the branches of literature taught in such a course.
+
+Sect. 2. The first six months of every student in the Seminary shall be considered as probationary ; and if, at the end of this period, any student shall appear to the professors not qualified to proceed in his studies, they shall so report him to the board of directors, who, if they are of the same opinion with the professors, shall dismiss him from the Seminary.
+
+[...]
+
+Sect. 4. Every student shall be obliged to write on such theological and other subjects, as may be prescribed to him by the professors. In the first year, every student shall be obliged to produce a written composition on such subjects, at least once in every month ; in the second year, once in three weeks; in the third year, once in two weeks. Once a month each student shall also commit to memory a piece of his own composition, and pronounce it in public, before the professors and students.
+
+Sect. 5. Every student shall not only preserve an exemplary moral character, but shall be expected to treat his teachers with the greatest deference and respect, and all other persons with civility. Sect. 6. Every student shall yield a prompt and ready obedience to all the lawful requisitions of the professors and directors. Sect. 7. Diligence and industry in study shall be considered as indispensable in every student, unless the want of health shall prevent, of which the professors shall take cognizance, and make the suitable allowance. Sect. 8. Strict temperance in meat and drink is expected of every student, with cleanliness and neatness in his dress and habits ; while all excessive expense in clothing is strictly prohibited.
+
+Sect. 9. Every student, before he takes his standing in the Seminary, shall subscribe the following declaration, viz. "Deeply impressed with a sense of the importance of improving in knowledge, prudence, and piety, in my preparation for the Gospel Ministry, I solemnly promise, in a reliance on divine grace, that I will faithfully and diligently attend on all the instructions of this Seminary, and that I will conscientiously and vigilantly observe all the rules and regulations specified in the plan for its instruction and government, so far as the same relate to the students ; and that I will obey all the lawful requisitions, and readily yield to all the wholesome admonitions of the professors and directors of the Seminary, while I shall continue a member of it."
+
+Sect. 10. There shall be two vacations in the Seminary, of six weeks continuance each, in every year. The spring vacation shall commence on the Monday immediately preceding the third Thursday of May. The vacation in the autumn shall commence on the first Wednesday of October.
+
+[...]

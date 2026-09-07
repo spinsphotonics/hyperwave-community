@@ -169,11 +169,10 @@ to God. The occasion, Spangenberg records, was that a baptized West Indian slave
 whom Hutton's later narrative names Antony Ulrich, told Zinzendorf of a sister still enslaved in
 St Thomas who longed to be instructed in the Christian faith; upon hearing this, in Spangenberg's
 own words, "God moved the hearts of two brethren to agree together before the Lord, that they
-would undertake a voyage to St. Thomas"[^28] — the two brethren being Leonard Dober and, initially,
-a companion who in the end did not go. A full year passed between the volunteers' letter and the
-congregation's decision to permit them to go.[^29] For Dober himself, the Lot gave the deciding
-word: "Let the lad go, for the Lord is with him."[^30] His eventual companion was David
-Nitschmann, a carpenter by trade; Dober himself was, by trade, a potter.[^31]
+would undertake a voyage to St. Thomas."[^28] A full year passed between the volunteers' letter
+and the congregation's decision to permit them to go.[^29] For Leonard Dober himself, the Lot gave
+the deciding word: "Let the lad go, for the Lord is with him."[^30] His companion for the voyage
+was David Nitschmann, a carpenter by trade; Dober himself was, by trade, a potter.[^31]
 
 At three o'clock in the morning of 21 August 1732, the two men set out; Zinzendorf, who had spent
 the whole night in prayer, drove them part of the way in his own carriage.[^32] They carried no
@@ -248,26 +247,25 @@ Peucker, Paul. "The 1727 Statutes of Herrnhut." *Journal of Moravian History* 20
 [^18]: Hutton, *Moravian Church*, 214; quote_id herrnhut-moravians-q015.
 [^19]: Zinzendorf, quoted in Hutton, *Moravian Church*, 213-214; quote_id herrnhut-moravians-q014.
 [^20]: Hutton, *Moravian Church*, 210 [SECONDARY narrative; the "unbroken for a hundred years" claim is Hutton's own and is not independently quote-recorded as a primary quotation this session].
-[^21]: Zinzendorf and Dober, quoted in Hutton, *Moravian Church*, 236-237; quote_ids herrnhut-moravians-q018 (context), herrnhut-moravians-q020.
-[^22]: Hutton, *Moravian Church*, 197-206, Spangenberg, *Account*, Section Second §43; quote_id herrnhut-moravians-q004, herrnhut-moravians-q035 (context).
+[^21]: Zinzendorf and Dober, quoted in Hutton, *Moravian Church*, 236-237; quote_ids herrnhut-moravians-q039, herrnhut-moravians-q040.
+[^22]: Hutton, *Moravian Church*, 197-206; quote_id herrnhut-moravians-q004. Spangenberg, *Account* (1788), Section Second §43; quote_id herrnhut-moravians-q041.
 [^23]: Zinzendorf, quoted in Hutton, *Moravian Church*, 207-208; quote_id herrnhut-moravians-q009.
 [^24]: Spangenberg, *Account* (1788), Section Second §28; quote_id herrnhut-moravians-q032.
-[^25]: Spangenberg, *Account* (1788), Section Second §32; quote_id herrnhut-moravians-q033.
-[^26]: Spangenberg, *Account* (1788), Section Second §32; quote_id herrnhut-moravians-q034.
-[^27]: Nitschmann, quoted in Hutton, *Moravian Church*, 238; quote_id herrnhut-moravians-q022.
-[^28]: Hutton, *Moravian Church*, 214; quote_id herrnhut-moravians-q015.
-[^29]: Spangenberg, *Account* (1788), Section Second §25; quote_id herrnhut-moravians-q031. Hutton, *Moravian Church*, 234; quote_ids herrnhut-moravians-q016, herrnhut-moravians-q017.
-[^30]: Spangenberg, *Account* (1788), Section Second §25; quote_id herrnhut-moravians-q031 (context).
-[^31]: Hutton, *Moravian Church*, 237; quote_id herrnhut-moravians-q020.
-[^32]: J. E. Hutton, *A History of Moravian Missions* (1922), 22; quote_ids herrnhut-moravians-q037, herrnhut-moravians-q038.
-[^33]: Hutton, *Moravian Church*, 237; quote_id herrnhut-moravians-q023.
-[^34]: Hutton, *Moravian Church*, 237; quote_id herrnhut-moravians-q021.
-[^35]: Nitschmann, quoted in Hutton, *Moravian Church*, 238; quote_id herrnhut-moravians-q022.
-[^36]: Hutton, *Moravian Church*, 239; quote_ids herrnhut-moravians-q024, herrnhut-moravians-q025.
-[^37]: Hutton, *Moravian Missions* (1922), 48-49; quote_id herrnhut-moravians-q026.
-[^38]: Hutton, *Moravian Missions* (1922), 48; quote_id herrnhut-moravians-q027.
-[^39]: Hutton, *Moravian Missions* (1922), 21; quote_id herrnhut-moravians-q028.
-[^40]: Hutton, *Moravian Missions* (1922), 21-22; quote_ids herrnhut-moravians-q028, herrnhut-moravians-q037.
-[^41]: Hutton, *Moravian Missions* (1922), 22; quote_id herrnhut-moravians-q038. Spangenberg, *Account* (1788), Section Second §27; quote_id herrnhut-moravians-q035.
-[^42]: Spangenberg, *Account* (1788), Section Second §27; quote_id herrnhut-moravians-q035.
-[^43]: Hutton, *Moravian Church*, 206-207, 237; quote_ids herrnhut-moravians-q005, herrnhut-moravians-q006, herrnhut-moravians-q018, herrnhut-moravians-q023.
+[^25]: Spangenberg, *Account* (1788), Section Second §32; quote_ids herrnhut-moravians-q033, herrnhut-moravians-q034.
+[^26]: Nitschmann, quoted in Hutton, *Moravian Church*, 238; quote_id herrnhut-moravians-q022.
+[^27]: Hutton, *Moravian Church*, 214; quote_id herrnhut-moravians-q015.
+[^28]: Spangenberg, *Account* (1788), Section Second §25; quote_id herrnhut-moravians-q031. Hutton, *Moravian Church*, 234; quote_ids herrnhut-moravians-q016, herrnhut-moravians-q017 (for Antony Ulrich's name and the sister's situation, narrated in Hutton but not independently quote-recorded as a direct quotation this session).
+[^29]: Spangenberg, *Account* (1788), Section Second §25; quote_id herrnhut-moravians-q031 (context).
+[^30]: Hutton, *Moravian Church*, 237; quote_id herrnhut-moravians-q020.
+[^31]: J. E. Hutton, *A History of Moravian Missions* (1922), 22; quote_ids herrnhut-moravians-q037, herrnhut-moravians-q038.
+[^32]: Hutton, *Moravian Church*, 237; quote_id herrnhut-moravians-q023.
+[^33]: Hutton, *Moravian Church*, 237; quote_id herrnhut-moravians-q021.
+[^34]: Nitschmann, quoted in Hutton, *Moravian Church*, 238; quote_id herrnhut-moravians-q022.
+[^35]: Hutton, *Moravian Church*, 239; quote_ids herrnhut-moravians-q024, herrnhut-moravians-q025.
+[^36]: Hutton, *Moravian Missions* (1922), 48-49; quote_id herrnhut-moravians-q026.
+[^37]: Hutton, *Moravian Missions* (1922), 48; quote_id herrnhut-moravians-q027.
+[^38]: Hutton, *Moravian Missions* (1922), 21; quote_id herrnhut-moravians-q028.
+[^39]: Hutton, *Moravian Missions* (1922), 21-22; quote_ids herrnhut-moravians-q028, herrnhut-moravians-q037.
+[^40]: Hutton, *Moravian Missions* (1922), 22; quote_id herrnhut-moravians-q038. Spangenberg, *Account* (1788), Section Second §27; quote_id herrnhut-moravians-q035.
+[^41]: Spangenberg, *Account* (1788), Section Second §27; quote_id herrnhut-moravians-q035.
+[^42]: Hutton, *Moravian Church*, 206-207, 237; quote_ids herrnhut-moravians-q005, herrnhut-moravians-q006, herrnhut-moravians-q018, herrnhut-moravians-q023.
