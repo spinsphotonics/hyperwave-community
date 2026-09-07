@@ -1,0 +1,90 @@
+DOCUMENT_ID: pietas-hallensis-1727-selections
+TITLE (as printed): Pietas Hallensis: Or, a publick Demonstration of the Foot-Steps of a Divine Being yet in the World: in an Historical Narration of the Orphan-House, and other Charitable Institutions, at Glaucha near Hall in Saxony. By Augustus Hermannus Franck, Professor of Divinity in the Frederician University of Hall, Pastor of Glaucha, and Director of the Pious Foundations there. Continued to the Beginning of the Year MDCCII, In a Letter to a Friend. And now done out of High-Dutch into English.
+DATE: 1727 (this printing, "Edinburgh, Reprinted and Sold by Mr. James Davidson"; text originally composed by Francke and first published in English, London, 1705, tr. by Anton Wilhelm Boehme)
+LANGUAGE: en (translated from German by A. W. Boehme)
+SOURCE URL/SHELFMARK: https://archive.org/details/bim_eighteenth-century_pietas-hallensis-or-a-_francke-august-hermann_1727 (IIIF page images fetched individually, see raw/page_test_NN.jpg)
+EDITION: 1727 Edinburgh reprint, digitized by the Internet Archive (Boston Public Library / "bim_eighteenth-century" collection)
+TRANSCRIPTION METHOD: MANUAL, by direct visual reading of the IIIF page images (https://iiif.archive.org/iiif/bim_eighteenth-century_pietas-hallensis-or-a-_francke-august-hermann_1727$<leaf>/full/900,/0/default.jpg). NOT copied from the Internet Archive's own OCR (djvu.txt / hOCR), which was tested first and found to run far above a tolerable error rate (see sources.csv, ocr_error_rate for document_id pietas-hallensis-1727-djvu: sampled at roughly 40-60 errors per 100 words on three test pages, i.e. substantially above the 5-per-100 threshold in research protocol Procedure F step 3). The book's plain scan quality is itself poor (faded, bled ink, visible in the page images), which is the underlying cause. Rather than mark the whole document BLOCKED, the Fetcher transcribed by eye, verbatim, only the specific pages listed below, preserving original spelling, capitalization, and italics-as-plain-text exactly as printed (long s "ſ" is here rendered as modern "s" for legibility; no words have been changed, added, or omitted; illegible fragments are marked [illegible]). This is a departure from the template Fetcher procedure (which specifies OCR); it is recorded here for the Verifier's attention. Every word below was read directly from the cited page image, not recalled or paraphrased.
+TOTAL PAGES: selections only (pages 9-15, 61-62, 73-75, 78-79 of the printed pagination; leaves 22-28, 74-75, 86-88, 91-92 of the IIIF sequence, offset = leaf minus 13)
+WORD COUNT: approx. 2,450 (selections only)
+
+[[p. 9]]
+CHAP I.
+
+Of the Rise, Occasion, and Progress of this Undertaking.
+
+AS for the Rise, Occasion, and Progress of the whole Affair, some Account thereof has been communicated to the Publick some Years since, which I shall here summarily repeat, and afterwards bring down the Narrative to the present Time.
+
+'Tis a Custom of long standing, as well in the City as the Suburbs of Hall, to appoint a particular Day every Week, wherein the Poor are ordered to appear together, at the Doors of such charitable Persons, as are disposed to bestow their Benevolence upon them. Now Thursday being set apart for this Purpose in my Neighbourhood, (being Minister at Glaucha) upon this Occasion the Poor flock'd together before my Door, and I caused some Bread to be distributed among them. Whereupon it readily came into my Mind, how happy an Opportunity this might prove, to provide for them also some wholesome Directions out of the Word of God, more nearly concerning them than any outward Alms, as tending to promote the Welfare of their Souls; this Sort of People lying generally under gross Ignorance; whence being void of all Sense of Religion, they betake themselves to an evil and dissolute Course of Life.
+
+[[p. 10]]
+One Day as they gave Attendance at my Door in Expectation of some temporal Supply, I got them all together into the House, and placed the adult Persons on one Side, and the Youth on the other; and then familiarly and obligingly enquired of the Latter, what they understood of the Principles of Christian Religion as they are set down in Luther's Catechism? The elder Persons only attended to my Discourse with the younger. And after I had spent about a Quarter of an Hour in this catechetical Exercise, I concluded with a Prayer; and then according to Custom distributed my Alms among them; telling them withal, that now for the future both Spiritual and Temporal Provisions was designed for them, and exhorting them to meet every Thursday on that Account in my House, which they did accordingly. This Exercise was begun about the Beginning of the Year 1694.
+
+II. Being thus engaged with the Poor, and by that Means perceiving their Ignorance and want of Instruction to be so great, that I scarce knew where to begin the Cultivation of so barren a Soil, in order to plant therein a right Apprehension of Christian Principles, I was then heartily concerned to contrive a [continues p. 11]
+
+[[p. 11]]
+[general Method for removing Obstructions, and making way for better Impressions on their ignorant Minds, being fully convinc'd that such Defects in Matters of Religion, and of a Religious Conduct, whereby so many People debase their Nature even to Brutality, and abandon themselves to the Government of Sensuality, must needs prove a visible Overthrow as well of Religion as of the Common-wealth. And I was made yet more sensible of this, by observing that so many Children, which by Reason of their Parents Poverty are never put to School, and so never get the least Tincture of good Education, remain under the grossest Ignorance: Whereby Licentiousness and Irreligion get the Ascendant over them: And so being fit for no honest Imployment, they will not scruple in Process of Time to commit Theft, Robbery, and other such heinous Crimes, which they make the Objects of their Study and Practice.]
+
+Having determined to put Children to School, defraying the weekly Charges thereof, I observ'd that they were punctual enough in fetching the Money, but either did not frequent the School at all, or when they did, yet gave not the least Sign of Improvement in their Behaviour.
+
+III. Besides this, I was much concerned for poor House-keepers, who forbear to seek Relief by begging abroad. To support whom in some Measure, I bought an Alms-Box; [continues p. 12]
+
+[[p. 12]]
+[and this I caused to be handed about every Week to well disposed Students, and all such as were willing to contribute to so good a Work. And by this Method in a Week's Time I raised about Two Shillings, which I applied to the Relief of the foresaid indigent House-keepers.]
+
+IV. But after we had continued to follow this Practice a little while, this Box seemed to prove a Burden to some, and I collected so little, that it would not countervail the Pains taken about it; especially being offered to none but those that were readily predisposed to Acts of Charity. But most of these were for want of Money uncapable of promoting the Design: And as for the richer Sort, we were not willing to run the Risque of exposing our Box to them; fearing they should refuse to part with the smallest Limb of their Golden Idol; they having never had any true Experience of a self-denying and mortified Course of Life, though some of them now and then might make indeed a plausible Shew of Religious Duties, and pretended to pass for good Christians.
+
+V. So I laid this quite aside, and fix'd a Box in my own Parlour, with these Words written over it, John iii. 17. Whoso hath this World's Good, and seeth his Brother have need, and shutteth up his Bowels of Compassion from him, how dwelleth the Love of God in him? And under it: 2 Cor. ix. 7. Every Man, ac- [continues p. 13]
+
+[[p. 13]]
+[cording as he purposeth in his Heart, so let him give, not grudgingly or of Necessity: For God loveth a chearful Giver.] This was intended for a tacit Admonition to all that came in, to open their Hearts towards the Poor. The Box was put up in the Beginning of the Year 1695.
+
+VI. And thus I was taken up a great while, with contriving effectual Methods to provide for the Poor; and each of 'em hath been blessed in its Degree. One Day before I fixed the aforesaid Box for the Poor in my House, I took the Bible, and as it were by Accident did light on these Words: 2 Cor. ix. 8. God is able to make all Grace abound towards you, that ye always having All-sufficiency in all things, may abound to every good Work. This Sentence made a deep Impression on my Mind, causing me to think: How is God able to make this? I should be glad to help the Poor, had I wherewithal; whereas now I am forced to send many away empty and unrelieved! Some Hours after I received a Letter from a Friend, who heavily complained that he and all his Family were like to perish with Want; saying he would borrow no more, but if any one would for God's Sake make him an Object of his Charity, he should ever retain a grateful Remembrance of it. This minded me afresh of what I had read a little while before, and made still a deeper Impression on me, attended with Sighs and Aspirations. After some De- [continues p. 14]
+
+[[p. 14]]
+[bates in my Mind, I thought on a Project how to relieve effectually this poor Man in his present Want, and yet in a Christian Manner, and without giving the least Trouble to any Person whatsoever.] This then I speedily put in Execution, and the said Family was so successful, as to get within the Compass of one Year, about (a) an Hundred and Fifty Crowns by this Means: And so their falling into extream Poverty was happily prevented. This proved a sufficient Demonstration how God is able to make us abound to every good Work: Which I could not forbear here to mention, because it helps to discover as well the outward Cause which our Undertaking took its Rise from, as the Frame of my Mind which the Lord upheld for carrying on the Work.
+
+VII. About a Quarter of a Year after the Box was set up in my House, a certain Person put into it at one Time, to the Value of Eighteen Shillings Sixpence, English. When I took this into my Hands, I said in full Assurance of Faith: This is a considerable Fund, worthy to be laid out in some important Undertaking, wherefore I'll even take this for the Foundation of a Charity-School. I did not confer with Flesh and Blood about this Affair, but went on with Resolution: And the very same Day caused as many Books to be bought [continues p. 15]
+
+(a) Thirty Pound Sterling English.
+
+[[p. 15]]
+[as cost eight Shillings, and then got] a poor Student to teach the poor Children two Hours in a Day, promising him Twelve Pence a Week (a) for his pains, in hopes the Lord would increase our small Stock; after about two Crowns thus should be spent in the Space of eight Weeks. The poor young Vagrants that we had, readily accepted of these new Books that we offered to them; but of Twenty seven Books that were distributed amongst them, four only came to our Hands again, the rest being kept or sold by the Children, who went away with them and never came near us again.
+
+I was not discouraged by this Disappointment, but having bought more Books with half a Crown that was left of our Stock, I ordered the Children to leave 'em behind when they had learned their Lesson. Afterwards we had a Press made on purpose, out of which they took their Books when they came to School, and when they went away their Books were locked up again: Which ever since hath been the constant Custom in all Charity-Schools.
+
+VIII. A- [continued, not transcribed further]
+
+(a) 'Tis to be observed here, that one English Penny being reduced to German Coin, will answer the value of Sixpence in Germany, so that Twelve Pence English will go as far in that Country as Six Shillings here.
+
+[[p. 61]]
+[...] And this I hope may sufficiently inform an impartial Reader, that as the Work hath been begun in Faith and Reliance upon God, and not in any Trust upon a set Stock of Provisions; so it is still carried on in the same Way, and under the like Difficulties; notwithstanding the small Supplies coming in now and then; having as yet no other Foundation than it has stood upon ever from the Beginning.
+
+[[p. 73]]
+[...] The End we aim at, and the Means we make use of, for obtaining the same, are all of a Piece. Whatever is applied to this Purpose, tends directly to our great End without the least Digression from it. The Means we use are of that Nature, that no Body can find fault with them under any Pretence whatsoever. The Word of God is instilled into the Children from their Youth up, and none dares charge us, no not with the least Insinuation, that these heavenly Oracles are sophisticated either by human Traditions, or other erroneous Mixtures. Unfeigned Faith in our Lord Jesus Christ, is laid for a Foundation, and a real Sense of Godliness attended with a conscientious Behaviour, are the most material Points, to the obtaining whereof our earnest Endeavours are constantly directed.
+
+As near as is possible, such Men are chosen to manage the Work of Inspection and Education, as we can safely rely upon for their Candor and Integrity (as well as Ability) on that Behalf; expecting that they will render themselves worthy Examples both by their Words and their Actions. And if it happens that we unexpectedly mistake in our Election, the Person convicted of any Misdemeanour, is oblig'd to make Room for one that is better qualified. [continues p. 74]
+
+[[p. 74]]
+We prevent also, as much as in us lies, the spreading of infectious Examples amongst the Children, lest they be perverted from the right Way. And we take it very kindly, when any Body assist us with good Advice, how to lay a deeper Foundation of the Principles of true Piety, and of training up Children to them. Now such and the like Things are known so well, that the most malicious cannot deny it to be so.
+
+III. Two Hours are set apart every Day, wherein all Manner of Poor, Blind, Lame, and impotent Persons, both such as live amongst us, and such as come from abroad; as likewise Exiles, and such as have lost their Goods by Fire; and, in a Word, all Sorts of distressed People are carefully instructed in the Principles of Religion, admonished, comforted, and at length supplied with some bodily Relief. And this I think every one will allow to be a Method useful for the publick Good.
+
+IV. Many poor Orphans, for whose Education no Body was in the least concerned, and who otherwise of Necessity had been drawn away into numberless Disorders and most heinous Sins, have been with-held from the dangerous Courses which a Beggar's Life might have exposed them to, and put under good Discipline, and instructed in the Word of God. Whereby in Time they may be- [continues p. 75]
+
+[[p. 75]]
+[come good Christians, and profitable Subjects,] which without Question, must turn to the general Good of the Kingdom.
+
+V. Many Boys of good natural Parts and Endowments, by Reason of which they might be made fit for great Undertakings, lying hitherto buried under the Rubbish of Ignorance, for Want of Education, because of their Parents Poverty, or otherwise, and whose pregnant Genius would enable them to become great Instruments of Mischief to their Country; are now found out, and educated for the common Benefit, to which they may sometime prove useful, by promoting the Good and Advantage, whether of Church or State; which is a Thing that deserves the Applause of every one.
+
+VI. More Free-Schools have been set up by Occasion of such Endeavours, whereby Parents reduced to Want, and unable to put their Children to School, or provide them with necessary Books, have an Opportunity of sending 'em where they may be taught gratis; by Means whereof many a Youth, who would otherwise abandon himself to the Government of sensual and brutish Lusts, is, as it were, pluck'd out of the Jaws of Satan, and instructed in the Principles of Religion, and other useful Learning; so that he himself reapeth the Benefit of the School where he is bred, and the Common-wealth of a well qualified Member.
+
+[[p. 78]]
+[...] XII. A great many Students, partly by being kept under a strict Discipline themselves, partly by being every Day employ'd in teaching the Children, are prepar'd for a skilful Management of Schools up and down in the Country: And having been used to a good and exact Method, they may prove instrumental to effect in some Measure the Reformation of Schools, which is so necessary at this Time; especially if they should happen to get into Parsonages, or Parochial Cures, and [continues p. 79]
+
+[[p. 79]]
+[so come to be intrusted with the particular Inspection of Schools.]
+
+XIII. As the whole University here, has been set up for the real Good of our Church and State, so this general Good is so far advanc'd, by Means of this Undertaking, as the Number of Students in the University has been not a little augmented thereby. Now the Number of Students freely maintain'd in the Hospital amounts to Fifty, Sixty, Seventy, nay, sometimes Eighty altogether at one Time; not to mention those who in Expectation of such a Benefit come hither, which must needs make a considerable Addition to the Number of the Students in Divinity.
+
+XIV. What spiritual Benefits the City of Hall in particular, and Glaucha in the Suburbs, have reapt from this Foundation, is sufficiently known, and no Body can deny, unless those whose Judgments are darkned and corrupted by bitter Envy, or rank Atheism; so as to render them stupidly insensible of a Work, whereby not only many Fatherless Children are brought up to the Glory of God, but also a Way found out whereby poor People, both old and young, in the City and Suburbs, may arrive to a competent Knowledge of Christian Principles, not only by publick, but private Instructions; there being several Schools erected for this Purpose.

@@ -1,0 +1,277 @@
+DOCUMENT_ID: nef1643
+TITLE (as printed): New Englands First Fruits: in respect, first of the conversion of some, conviction of divers, preparation of sundry of the Indians. 2. Of the progresse of learning, in the colledge at Cambridge in Massachusets Bay [excerpt: Part 2, "In respect of the Colledge, and the proceedings of Learning therein," including "Rules, and Precepts that are observed in the Colledge" and "The times and order of their Studies"]
+DATE: 1643 (London)
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://archive.org/details/puritans00mill_0 (djvu OCR of: Perry Miller and Thomas H. Johnson, eds., The Puritans: A Sourcebook of Their Writings [New York: American Book Co., 1938; this scan an early reprinting], pp. 700-704). The editors state this text "is from a copy of the 1643 edition in the New York Public Library, pp. 12-16," collated against Samuel E. Morison's "accurate line-for-line and word-for-word transcription" of the tract in The Founding of Harvard College (1935), Appendix D.
+EDITION: Miller & Johnson, The Puritans (1938), pp. 700-704, itself reprinting the 1643 London pamphlet New Englands First Fruits.
+TRANSCRIPTION METHOD: copied (Internet Archive OCR of the printed anthology page images; not corrected). A separate, independently OCR'd scan of an actual 1643 copy of the pamphlet (archive.org identifier newenglandsfirst00unse) was also fetched (see raw/ and text/nef1643-orig-scan.txt) and its wording checked against this transcription at multiple points (e.g. both read "dreading to leave an illiterate Miniftery"/"illiterate Ministery" at the same place); that scan's OCR error rate was too high for reliable quotation (see sources.csv), so this cleaner anthology transcription is used for all quote records from the "Rules and Precepts" and curriculum schedule.
+TOTAL PAGES: 5 (pp. 700-704 of the anthology; original pamphlet pp. 12-16)
+WORD COUNT: approx. 1750 (this excerpt)
+
+
+[[p. 700]] (running head marker from source line 7; editorial note by Miller & Johnson begins mid-page 699, continues onto 700 below)
+
+thought that the provincial college should serve only the church by 
+training men for the ministry; and the letter of Leonard Hoar to his 
+freshman nephew (see p. 708), written six years later, is warrant enough 
+that a study of the cultural past alone was not thought to advance 
+
+
+[[p. 700]]
+
+
+learning—that a study of the sciences must be cultivated. When at 
+the end of the century President Mather addressed the undergraduates, 
+urging them to search for truth even though the way led through new 
+and disturbing fields of thought (see p. 721), he was enunciating the 
+central theme of Puritan scholarship. Such statements justify the con- 
+clusion that in matters of education the Puritans were leaders not 
+reactionaries, as resolute as they were sincere. 
+
+
+NEW ENGLANDS FIRST FRUITS 
+
+
+[No other colonizers in the English-speaking world have provided 
+for higher education so soon upon their arrival as those in Massachusetts 
+Bay. In October, 1636, the General Court voted £400 “towards a 
+schoale or colledge,’’ and by 1642 the first class of nine members was 
+graduated from Harvard College. In the following year a twenty-six- 
+page tract was published in London: New Englands First Fruits. It 
+pictured attractively the natural resources, the benefits of climate, the 
+opportunities for converting the heathen, and it made a special point 
+of describing the thriving young college. The promoters of New Eng- 
+land took this way to ask for money, and at the same time spread 
+propaganda abroad to counter that which was “‘selling’’? the West 
+Indies. 
+
+The material for the part “In respect of the Colledge, and the pro- 
+ceedings of Learning therein”’ was very likely supplied by Henry Dunster 
+(1609-1659), the young minister who, emigrating in 1640, served the 
+college as President for fourteen years. Its list of rules by which the 
+students lived and its outline of curriculum furnishes important data 
+about the Puritan educational ideal. 
+
+See Worthington C. Ford, ‘“The Authorship of ‘New Englands First 
+Fruits,’’’ Publications of the Massachusetts Historical Society, XLII (1909), 
+259-266. The tract has twice been reprinted in full: Sabin Reprints, 
+Quarto series, No. vii (New York, 1865); Samuel E. Morison, The 
+Founding of Harvard College (Cambridge, 1935), Appendix D (where it is 
+given an accurate line-for-line and word-for-word transcription). See 
+further, ibid., pp. 304, 305. The best brief summary of ““The Beginnings 
+of Higher Education” in America is in Samuel E. Morison, The Puritan 
+Pronaos (New York, 1936), chapter II. 
+
+The text which follows is from a copy of the 1643 edition in the 
+New York Public Library, pp. 12—16.] 
+
+
+[[p. 701]]
+
+
+NEW ENGLANDS FIRST FRUITS: 
+
+
+2. IN RESPECT OF THE COLLEDGE, AND THE PROCEEDINGS 
+OF LEARNING THEREIN. 
+
+
+1. After God had carried us safe to New-England, and wee had 
+builded our houses, provided necessaries for our liveli-hood, rear’d 
+convenient places for Gods worship, and setled the Civill Government: 
+One of the next things we longed for, and looked after was to advance 
+Learning and perpetuate it to Posterity; dreading to leave an illiterate 
+Ministery to the Churches, when our present Ministers shall lie in the 
+Dust. And as wee were thinking and consulting how to effect this great 
+Work; it pleased God to stir up the heart of one Mr. Harvard (a godly 
+Gentleman, and a lover of Learning, there living amongst us) to give 
+the one halfe of his Estate (it being in all about 1700. 1.) towards the 
+erecting of a Colledge, and all his Library: after him another gave 
+300. |. others after them cast in more, and the publique hand of the 
+State added the rest: the Colledge was, by common consent, appointed 
+to be at Cambridge, (a place very pleasant and accommodate) and is 
+called (according to the name of the first founder) Harvard Colledge. 
+
+The Edifice is very faire and comely within and without, having in 
+it a spacious Hall; (where they daily meet at Common Lectures) 
+Exercises, and a large Library with some Bookes to it, the gifts of 
+diverse of our friends, their Chambers and studies also fitted for, and 
+possessed by the Students, and all other roomes of Office necessary 
+and convenient, with all needfull Offices thereto belonging: And by 
+the side of the Colledge a faire Grammar Schoole, for the training up 
+of young Schollars, and fitting of them for Academicall Learning, that 
+still as they are judged ripe, they may be received into the Colledge 
+of this Schoole: Master Corlet is the Mr., who hath very well approved 
+himselfe for his abilities, dexterity and painfulnesse, in teaching and 
+education of the youth under him.! 
+
+Over the Colledge is master Dunster placed, as President, a learned 
+conscionable and industrious man, who hath so trained up, his Pupills 
+in the tongues and Arts,'and so seasoned them with the principles of 
+Divinity and Christianity, that we have to our great comfort, (and in 
+truth) beyond our hopes, beheld their progresse in Learning and god- 
+linesse also; the former of these hath appeared in their publique 
+declamations in Latine and Greeke, and Disputations Logicall and Philo- 
+sophicall, which they have beene wonted (besides their ordinary Exer- 
+cises in the Colledge-Hall) in the audience of the Magistrates, Ministers, 
+and other Schollars, for the probation of their growth in Learning, 
+
+
+[[p. 702]]
+
+
+upon set dayes, constantly once every moneth to make and uphold: 
+The latter hath been manifested in sundry of them by the savoury 
+breathings of their Spirits in their godly conversation. Insomuch that 
+we are confident, if these early blossomes may be cherished and 
+warmed with the influence of the friends of Learning and lovers of this 
+pious worke, they will by the help of God,.come to happy maturity 
+in a short time. 
+
+Over the Colledge are twelve Overseers chosen by the generall 
+Court, six of them are of the Magistrates, the other six of the Ministers, 
+who are to promote the best good of it, and (having a power of influence 
+into all persons in it) are to see that every one be diligent and proficient 
+in his proper place. 
+
+
+2. Rules, and Precepts that are observed in the Colledge. 
+
+
+1. When any Schollar is able to understand Tully,? or such like 
+classical Latine Author extempore, and make and speake true Latine 
+in Verse and Prose, suo ut aiunt Marte; 3 And decline perfectly the Para- 
+digm’s of Nounes and Verbes in the Greek tongue: Let him then and 
+not before be capable of admission into the Colledge. 
+
+2. Let every Student be plainly instructed, and earnestly pressed 
+to consider well, the maine end of his life and studies is, to know God 
+and Iesus Christ which is eternall life, Joh. 17. 3. and therefore to lay 
+Christ in the bottome, as the only foundation of all sound knowledge 
+and Learning. | 
+
+And seeing the Lord only giveth wisedome, Let every one seriously 
+set himselfe by prayer in secret to seeke it of him Prov 2, 3. 
+
+3. Every one shall so exercise himselfe in reading the Scriptures 
+twice a day, that he shall be ready to give such an account of his pro- 
+ficiency therein, both in Theoretticall observations of the Language, and 
+Logick, and in Practicall and spirituall truths, as his Tutor shall require, 
+according to his ability; seeing the entrance of the word giveth light, it 
+giveth understanding to the simple, Psalm. 119. 130. 
+
+4. That they eshewing all profanation of Gods Name, Attributes, 
+Word, Ordinances and times of Worship, doe studie with good con- 
+science, carefully to retaine God, and the love of his truth in their 
+mindes, else let them know, that (notwithstanding their Learning) 
+God may give them up ?o strong delusions, and in the end to a reprobate 
+minde, 2 Thes. 2. 11, 12. Rom. 1. 28. 
+
+5. That they studiously redeeme the time; observe the generall 
+houres appointed for all the Students, and the speciall houres for their 
+owne Classes: and then diligently attend the Lectures, without any 
+
+
+[[p. 703]]
+
+
+disturbance by word or gesture. And if in anything they doubt, they 
+shall enquire, as of their fellowes, so, (in case of Non satisfaction) mod- 
+estly of their Tutors. 
+
+6. None shall under any pretence whatsoever, frequent the company 
+and society of such men as lead an unfit, and dissolute life. 
+
+Nor shall any without his Tutors leave, or (in his absence) the call 
+of Parents or Guardians, goe abroad to other Townes. 
+
+7. Every Schollar shall be present in his Tutors chamber at the 
+7th. houre in the morning, immediately after the sound of the Bell, 
+at his opening the Scripture and prayer, so also at the 5th. houre at 
+night, and then give account of his owne private reading, as aforesaid 
+in Particular the third, and constantly attend Lectures in the Hall at 
+the houres appointed? But if any (without necessary impediment) shall 
+absent himself from prayer or Lectures, he shall bee lyable to Admoni- 
+tion, if he offend above once a weeke. 
+
+8. If any Schollar shall be found to transgresse any of the Lawes 
+of God, or the Schoole, after twice Admonition, he shall be lyable, 
+if not adultus, to correction, if adultus, his name shall be given up to 
+the Overseers of the Colledge, that he may bee admonished at the 
+publick monethly Act. 
+
+
+3. The times and order of their Studies, unlesse experience shall 
+shew cause to alter. 
+The second and third day of the weeke, read Lectures, as followeth. 
+To the first yeare at 8th. of the clock in the morning Logick, the 
+first three quarters, Physicks the last quarter. 
+To the second yeare, at the gth. houre, Ethicks and Politicks, at con- 
+venient distances of time. 
+To the third yeare at the roth. Arithmetick and Geometry, the three 
+first quarters, Astronomy the last. 
+Afternoone. 
+The first yeare disputes at the second houre. 
+The 2d. yeare at the 3d. houre. 
+The 3d. yeare at the 4th. every one in his Art. 
+The 4th. day reads Greeke. 
+To the first yeare the Etymologie and Syntax at the eighth houre. 
+To the ead. at the gth. houre, Prosodia and Dialects. 
+Afternoone. 
+The first yeare at 2d. houre practice the precepts of Grammar in 
+such Authors as have variety of words. 
+
+
+[[p. 704]]
+
+
+The 2d. yeare at 3d. houre practice in Poésy, [with] Nonnus, Duport,* 
+or the like. 
+
+The gd. yeare perfect their Theory before noone, and exercise Style, 
+Composition, Imitation, Epitome, both in Prose and Verse, afternoone. 
+
+
+The fift{h| day reads Hebrew, and the Easterne Tongues. 
+Grammar to the first yeare houre the 8th. 
+To the 2d. Chaldee [1.e. Aramaic] at the gth. houre. 
+To the 3d. Syriack at the roth. houre. 
+
+
+Afternoone. | 
+The first yeare practice in the Bible at the ad. houre. 
+The ad. in Ezra and Dan[i]el at the 3d. houre. 
+The 3d. at the 4th. houre in Trostius > New Testament. 
+
+
+The 6th. day reads Rhetorick to all at the 8th houre. 
+Declamations at the gth. So ordered that every Scholler may de- 
+claime once a moneth. The rest of the day vacat Rhetoricis studiis.© The 
+7th. day reads Divinity Catecheticall at the 8th. houre, Common places at the 
+
+
+gth. houre. 
+Afternoone. 
+
+
+The first houre reads history in the Winter, 
+
+The nature of plants in the Summer 
+
+The summe of every Lecture shall be examined, before the new 
+Lecture be read. 
+
+Every Schollar, that on proofe is found able to read the Originalls 
+of the Old and New Testament into the Latine tongue, and to resolve 
+them Logically; withall being of godly life and conversation; And at 
+any publick Act hath the Approbation of the Overseers and Master 
+~ of the Colledge, is fit to be dignified with his first Degree. 
+
+Every Schollar that giveth up in writing a System, or Synopsis, or 
+summe of Logick, Naturall and Morall Phylosophy, Arithmetick, Geometry 
+and Astronomy: and is ready to defend his Theses or positions: withall 
+skilled in the Originalls as abovesaid: and of godly life & conversa- 
+tion: and so approved by the Overseers and Master of the Colledge, 
+at any publique Act, is fit to be dignified with his 2d. Degree. 
+
+

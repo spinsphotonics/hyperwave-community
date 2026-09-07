@@ -1,0 +1,240 @@
+DOCUMENT_ID: terrill-records-1847
+TITLE (as printed): The Records of a Church of Christ, meeting in Broadmead, Bristol, 1640-1687 (by Edward Terrill, ruling elder); with an Introductory Notice by the editor.
+DATE: manuscript composed by Edward Terrill c.1672-1685 (his own hand ends 1678) and continued to 1687 by others; this printed edition 1847
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://archive.org/details/recorurcho00terr (djvu text: https://archive.org/download/recorurcho00terr/recorurcho00terr_djvu.txt)
+EDITION: ed. Edward Bean Underhill, for the Hanserd Knollys Society (London, 1847). This excerpt is the editor's "Introductory Notice" (pp. xci-xcvi as printed), which narrates and directly quotes Edward Terrill's 1679 deed of gift; it is not itself Terrill's manuscript (which begins after this notice) but is the closest text located this session to the deed's own wording.
+TRANSCRIPTION METHOD: copied (Internet Archive-supplied OCR, engine unstated, _djvu.txt derivative); NOT re-OCR'd or corrected by this session
+TOTAL PAGES: pp. xci-xcvi (Roman-numeral preliminary pagination, as printed / running head "INTRODUCTORY NOTICE")
+WORD COUNT: approx. 1,600 words (this excerpt)
+OCR QUALITY NOTE: OCR is largely legible standard-orthography text (this is an 1847 print, not an 18th-century long-s text). This session did not re-OCR the source.
+SOURCING NOTE: This document is the 1847 editor's narrative, not Terrill's original 1679 deed itself (the deed has not been independently located as a digitized text this session). Passages inside quotation marks in the Introductory Notice are presented by the editor as direct quotations from Terrill's deed and from the Broadmead church's own minute book (e.g. the 5 November 1720 trustees' minute); this dossier treats those quoted-in-quotation-marks passages as primary-adjacent (same treatment given to Borgeaud's quotations of the Genevan Registres in research/geneva-academy/sources.csv), and treats the editor's own surrounding narrative sentences as secondary.
+
+
+INTRODUCTORY   NOTICE. 
+
+
+For  the  singularly  interesting  and  unique  picture  of  the 
+formation,  growth,  and  persecutions  of  the  church  of  Christ, 
+now,  and  for  nearly  two  centuries  past,  meeting  in  Broad- 
+mead,  Bristol,  we  are  indebted  to  one  of  its  ruling  elders, 
+Mr.  Edward  Terrill.  As  a  young  man,  and  while  serving 
+his  apprenticeship  to  a  schoolmaster  in  that  city,  he  was 
+wont  to  attend  the  ministry  of  Mr.  Thomas  Ewins,  then 
+pastor  of  this  rising  community.  The  account  of  his  con- 
+version he  has  left  recorded,  and  it  is  now  transferred  to 
+the  following  pages.  At  the  age  of  twenty-four  he  was 
+baptized,  and  united  to  the  church.  From  that  time  he 
+became  identified  with  all  its  proceedings  and  tribulations, 
+taking  the  most  lively  interest  in  its  concerns,  and  labouring 
+most  assiduously  for  its  prosperity  and  peace.  In  all  things 
+showing  himself  a  pattern  of  good  ivorks  :  in  doctrine  shotting 
+uncorruptness,  gravity,  sincerity,  sound  speech,  that  cannot  be 
+condemned.     Tit.  ii.  7,  8. 
+
+In  the  month  of  February,  1666-7,  he  was  chosen  a  ruling 
+elder,  and  discharged  that  office  with  pious  energy,  and 
+with  the  divine  blessing,  till  his  death  in  1685.  By  his 
+marriage  in  the  year  1668  (Wednesday,  29th  April),  with 
+Mrs.  Dorothy  Heath,  the  daughter  of  Mr.  William  Listun, 
+mentioned  on  page  9  and  elsewhere,  he  became  possessed 
+of  very  considerable  property,  which  was  generously  devoted 
+to  the  defence  of  his  suffering  brethren,  and  to  the  main- 
+
+
+XC11  INTRODUCTORY    NOTICE. 
+
+tenance  of  the  cause  of  God,  during  the  series  of  persecutions 
+which  befell  the  church.  By  a  deed  executed  in  1679  he 
+consecrated  a  large  part,  if  not  the  whole,  of  his  estates,  to 
+the  education  of  young  men  for  the  ministry. 
+
+The  subject  of  an  educated  ministry  had  for  several  years 
+been  agitated  among  the  baptists,  and  it  is  probable  that 
+Mr.  Terrill  was  confirmed  in  his  intention  and  desire  for  an 
+able  and  learned  body  of  pastors,  by  a  circular  letter  issued 
+in  1675,  by  several  of  the  London  ministers,  inviting 
+brethren  to  London,  "  with  a  view  to  form  a  plan  for  an 
+orderly  standing  ministry."  Among  the  subscribers  were 
+the  learned  Daniel  Dyke,  William  Collins,  Henry  Forty, 
+and  William  Kiffin.  The  result  of  this  convention  is  un- 
+known; but  at  the  General  Assembly  in  1689  a  fund  was 
+formed  for  this  purpose,  the  church  under  the  pastoral  care 
+of  Mr.  Andrew  GifFord  sending  thirty  pounds.  Several 
+years  had  yet  to  elapse  before  Mr.  Terrill's  bequests  could 
+become  available  for  the  pressing  wants  of  the  churches. 
+
+"  For  the  glory  of  God,  and  the  propagation  of  the  gospel 
+of  our  Lord  Jesus  Christ,  and  for  the  true  love  and  affection 
+he  hath  and  boareth  unto  the  congregation  of  which  he  is 
+a  member,"  Mr.  Terrill  empowers  his  trustees  to  devote  the 
+proceeds  of  his  estates  to  the  maintenance  of  "  a  holy  learned 
+man,  well  skilled  in  the  tongues,  viz.  Greek  and  Hebrew, 
+and  doth  own  and  practise  the  truth  of  believers'  baptism, 
+as  a  pastor  or  teacher  to  the  congregation."  Three  half 
+days  in  the  week  is  the  tutor  to  employ  in  the  instruction 
+of  some  young  men,  not  exceeding  twelve,  members  of 
+any  baptized  congregation  in  or  about  Bristol,  for  two 
+years  at  the  most.  Ten  pounds  yearly,  to  the  amount  of 
+forty  pounds,  may  be  granted  to  any  student,  whose  friends 
+are  unable  to  support  him ;  if  none  such  appear,  to  be  lent 
+Lo  members  of  the  congregation.  From  a  reserved  portion 
+of  hi.-  property,  he  further  directs  the  trustees  to  pay  £100 
+
+
+INTRODUCTORY    NOTICE.  XC111 
+
+yearly  to  the  pastor  thus  engaged,  and  £13  yearly  to  each 
+of  four  students ;  the  surplus  to  be  for  the  benefit  of  the 
+poor  of  the  congregation. 
+
+From  various  causes,  especially  the  unfitness  of  the  first 
+tutor,  Mr.  Jope,  these  liberal  bequests  did  not  come  into 
+effective  operation  until  the  pastorate  of  Mr.  Bernard  Fosket 
+in  1720.  Mr.  Caleb  Jope  had  settled  at  Broadmead  about 
+1714,  for  the  purpose  of  fulfilling  the  wishes  of  Mr.  Terrill, 
+and  from  some  old  account  books  it  appears  that  he  was 
+paid  from  this  fund  from  1714  to  1719;  but  no  records  exist 
+of  the  proceedings  of  the  church  at  that  time,  and  it  is 
+doubtful  whether  any  steps  were  taken  to  obtain  any  young 
+men  to  educate.  However,  for  several  years,  ten  poor  mem- 
+bers, a  deaconess,  and  the  overseers  appointed  under  the 
+deed,  were  regularly  paid. 
+
+The  admission  of  the  first  pupil  under  Mr.  Fosket 's  tuition 
+is  thus  recorded: — "Upon  the  5th  of  November,  1720, 
+being  the  day  appointed  for  the  meeting  of  the  trustees  and 
+overseers  of  Mr.  Terrill's  estate,  Mr.  Thomas  Rogers,  a 
+member  of  Mr.  Gifford's  church,  was  proposed  as  a  person 
+suitable  for  a  student  under  the  direction  of  brother  Fosket, 
+according  to  Mr.  Terrill's  deed,  and  it  was  requested  that 
+he  might  have  ten  pounds  for  his  maintenance  for  one  year, 
+as  the  deed  directs.  Agreed  he  should  have  the  liberty  of 
+learning,  and  referred  the  other  part  to  the  church's  con- 
+sideration." The  benefaction  was  subsequently  allowed. 
+On  the  same  day,  the  feoffees  and  trustees  directed  the  profits 
+of  the  estate  to  be  paid  to  the  sole  use  of  Mr.  Fosket; 
+under  the  protest,  however,  of  Mr.  Samuel  Hunt,  one  of 
+the  overseers,  that  Mr.  Fosket  "is  not  the  pastor  such 
+as  the  will  appointed  to  have  Mr.  Terrill's  gift."  A  Mr, 
+Peter  Ivitterell  was  the  then  recognized  pastor  of  the 
+church.  In  the  year  1770,  the  Bristol  Education  Society 
+was  formed  through  the  exertions  of  Dr.  Caleb  Evans,  as 
+
+
+XC1V  INTRODUCTORY    NOTICE. 
+
+an  additional  aid  to  Mr.  Terrill's  bequests :  with  which  it 
+continues  united. 
+
+But  Mr.  Terrill's  deep  interest  in  the  welfare  of  the 
+church,  and  the  prosperity  of  Christ's  kingdom,  also  appears 
+in  the  preparation  of  the  narrative  of  its  varied  history 
+during  the  times  of  the  Commonwealth  and  the  Restoration, 
+and  now,  for  the  first  time,  printed.  From  the  incidental 
+reference  on  page  47.  it  would  appear  that  he  commenced 
+the  record  about  the  year  1672.  This  he  continued  from 
+time  to  time,  carefully  collecting  and  arranging  his  materials, 
+till  in  1678  his  handwriting  disappears  from  the  manuscript. 
+It  was  doubtless  at  his  suggestion  that  the  brethren  Boden- 
+ham  and  Davis,  were,  in  1675,  desired  every  Monday  to 
+collect  and  record  the  "affronts  and  abuses"  of  the  preceding 
+week;  which  record,  it  is  probable,  is  the  "Waste  Book" 
+referred  to  by  the  unknown  continuator  of  Mr.  Terrill's 
+narrative,  who  takes  up  the  history  on  page  420,  and  which 
+was  afterwards  continued  from  the  same  "  Waste  Book " 
+by  Mr.  Bernard  Fosket,  from  page  426  to  the  end,  with 
+the  exception  of  a  few  pages  at  the  close.  It  must  be 
+matter  for  regret  that  this  original  document  is  lost,  since 
+it  contained  a  fuller  account  of  the  persecutions  which,  even 
+in  its  abridged  form,  is  of  deep  and  thrilling  interest.  From 
+several  slight  indications  we  deem  it  most  likely  that  much 
+of  it  was  written  by  Mr.  Terrill. 
+
+The  series  of  letters  written  by  Mr.  Hardcastle  during 
+his  second  imprisonment,  may  perhaps  owe  their  origin  to 
+the  necessary  seclusion  of  Mr.  Terrill  from  the  public 
+assemblies  of  the  church,  on  account  of  the  numerous 
+warrants  which  were  issued  for  his  arrest.  During  Mr. 
+Hardcastle's  first  imprisonment,  Mr.  Terrill  by  his  gifts 
+supplied  the  pastor's  absence;  but  now  he  too  must  suffer 
+in  the  same  righteous  cause,  and  the  church  be  deprived  of 
+his   ministerial   labours.     These  letters    are    preserved    in   a 
+
+
+INTRODUCTORY    NOTICE,  XCV 
+
+separate  book,  and  apparently  in  the  handwriting  of  Mr. 
+Terrill.  The  originals  were  perhaps  destroyed  to  prevent 
+their  falling  into  the  hands  of  the  persecutors,  and  their 
+employment  as  a  means  of  further  annoyance  to  the  pastor. 
+
+The  late  Mr.  Isaac  James,  classical  tutor  of  the  Bristol 
+Academy,  gave,  in  the  year  1821,  several  lectures  on  the 
+history  of  Broadmead,  in  the  vestry  of  the  meeting-house, 
+to  the  illustration  of  which  he  had  devoted  much  time  and 
+attention.  For  this  purpose  he  made  a  lengthened  abstract 
+of  these  records,  intending  to  add  to  it  the  results  of  his 
+investigations  into  the  history  of  dissent  in  Bristol.  This 
+manuscript  forms  the  basis  of  the  work  published  in  1840 
+by  Mr.  J.  G.  Fuller,  under  the  title  of  "The  Rise  and 
+Progress  of  Dissent  in  Bristol,  chiefly  in  relation  to  the 
+Broadmead  Church,"  &c.  12mo. 
+
+For  the  manuscript  employed  in  printing  the  present 
+volume,  the  arrangement  of  the  letters,  and  copies  of  the 
+several  documents,  the  Council  of  the  Hanserd  Knollys 
+Society  is  indebted  to  J.  M.  Chandler,  Esq.,  a  deacon  of 
+the  church.  Its  records  he  has  laboriously  investigated  and 
+arranged,  having  purposed  to  publish  a  work  that  should 
+embody  these  papers;  but  which  the  previous  publication 
+of  Mr.  Fuller's  work  prevented.  The  editor  has  also  to 
+express  his  obligations  to  him,  for  the  assistance  he  has  ren- 
+dered during  the  progress  of  the  work  through  the  press. 
+
+Scrupulous  attention  has  been  paid  to  the  accuracy  of  the 
+work,  and  its  entire  conformity  to  the  originals.  Both  the 
+manuscript  copy  and  the  proofs  have  been  compared  with 
+them.  No  changes  in  the  text  have  been  permitted,  except 
+in  the  orthography,  and  the  use  of  the  plural  form  of  the 
+verb  for  the  singular,  wThich  not  unfrequently  occurs.  All 
+explanations  or  additions  are  invariably  placed  in  brackets. 
+There  are  many  references  in  the  margin  of  the  original  to 
+the  contents  of  the   text,   in   the  handwriting   of  the  late 
+
+
+XCV1  INTRODUCTORY    NOTICE. 
+
+Dr.  Ryland,  an  example  of  which  may  be  seen  in  the 
+lithographed  passage  relating  to  Mr.  John  Canne  ;  these  have 
+been  omitted,  as  they  form  no  part  of  the  original  record. 
+The  same  eminent  minister  of  Jesus  Christ  also  continued  in 
+the  heading  of  every  page  the  Greek  and  Hebrew  words 
+with  which  Mr.  Terrill  began  the  manuscript,  but  discon- 
+tinued by  him  in  the  account  of  the  year  1675.  Siryypa^?? 
+'EkkXtjcxiV.    "W  15N 
+
+The  chronology  of  the  author  is  preserved  throughout,  as  it 
+was  thought  that  the  occasional  interspersion  of  the  modern 
+mode  of  computing  the  commencement  of  the  year  would  be 
+sufficient  to  correct  any  misapprehension,  while  the  integrity 
+of  the  record  would  be  maintained.  The  few  obsolete  words 
+occurring  have  been  retained,  the  explanations  being  added  in 
+brackets,  with  one  or  two  exceptions  where  the  meaning 
+could  not  be  discovered. 
+
+The  almost  entire  absence  of  punctuation  in  the  original 
+records  has  rendered  this  part  of  the  editor's  task  most 
+anxious  and  laborious.  He  trusts,  however,  that  but  few 
+instances  will  be  found  in  which  he  has  not  given  the  writer's 
+meaning. 
+
+The  fac-similes  accompanying  the  volume  will  give  a  correct 
+idea  of  the  form  of  the  manuscript,  and  the  care  that  Mr. 
+Terrill  took  in  composing  it.  The  autographs  are  interesting 
+memorials  of  the  excellent  men  who  penned  them.  Although 
+several  original  letters  of  Mr.  Vavasor  Powell  are  among 
+the  papers,  in  none  does  he  sign  his  name  at  length;  his 
+initials  only  can  be  given. 
+
+

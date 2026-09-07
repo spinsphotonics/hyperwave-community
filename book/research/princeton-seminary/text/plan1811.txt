@@ -1,0 +1,1306 @@
+DOCUMENT_ID: plan1811
+TITLE (as printed): The Plan of a Theological Seminary Adopted by the General Assembly of the Presbyterian Church in the United States of America, in their Sessions of May last, A.D. 1811; together with the measures taken by them to carry the Plan into effect
+DATE: 1811 (General Assembly session of May 1811; printed Philadelphia, 1811)
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://archive.org/details/planoftheologica00pres_0
+EDITION: Philadelphia: Printed by Jane Aitken, No. 71, North Third Street, 1811. Copy presented to the Library of Princeton Theological Seminary by John H. Schelde, 12 December 1969 (per archive.org item description).
+TRANSCRIPTION METHOD: copied (Internet Archive OCR, djvu.txt, engine unspecified by IA; English)
+TOTAL PAGES: 26 (pp. 3-26 per printed pagination; unnumbered title leaf and pp. 1-2 preface)
+WORD COUNT: 7966 (raw OCR word count of raw/plan1811_djvu.txt)
+NOTE: Printed page numbers appear in the OCR as standalone lines (e.g. a lone "4", "5", "6" ...) between paragraphs, following the convention of this project's other research folders (e.g. andover-seminary/text/woods1885.txt) of leaving such running heads/folios inline as plain OCR text rather than inserting bracketed markers, since a bracketed marker would break word-for-word verbatim contiguity across a printed page turn that sometimes falls mid-word or mid-sentence in this pamphlet. Page 7 and page 23 folios were not isolated as standalone OCR lines (p.7 is an unnumbered leaf; p.23's numeral was not separated onto its own line by the OCR).
+
+THE  PLAN 
+
+
+OF  A 
+
+
+THEOLOGICAL  SEMINARY 
+
+ADOPTED  BY 
+
+THE  GENERAL  ASSEMBLY 
+
+OF 
+
+THE  PRESBYTERIAN  CHURCH 
+
+IN  T3IE 
+
+UNITED  STATES  OF  AMERICA, 
+
+IN  THEIR  SESSIONS  OF  HAY  LAST, 
+
+A.  D.  1811  i 
+
+TOGETHER  WITH  THE  MEASURES  TAKEN  BY  THEM 
+TO  CARRY  THE  PLAN  INTO  EFFECT. 
+
+
+PHILADELPHIA 
+
+PRINTED  BY  JANE  AITKEN,  NO.  71,  NORTH  THIRD  STREET. 
+
+
+1811 
+
+
+INTRODUCTION, 
+
+
+THE  report  of  the  Committee,  appointed  by  the  last 
+Assembly,  to  draw  up  a  Plan  for  a  Theological  Semina¬ 
+ry,  was  read;  and,  after  being  corrected  and  amended, 
+was  adopted,  except  the  7th  and  9th  articles,  which  were 
+referred  to  the  consideration  of  the  next  Assembly.  It 
+is  as  follows,  viz. 
+
+Inasmuch  as  the  obtaining  of  salvation  through  Jesus 
+Christ  our  Lord,  to  the  glory  of  the  eternal  God,  is  the 
+chief  object  which  claims  the  attention  of  man  ;  and  con¬ 
+sidering,  that  in  the  attainment  of  this  object  the  dispen¬ 
+sation  of  the  Gospel  is  principally  instrumental ;  it  is  ma¬ 
+nifestly  of  the  highest  importance,  that  the  best  means 
+be  used  to  ensure  the  faithful  preaching  of  the  Gospel, 
+and  the  pure  administration  of  all  its  ordinances.  With 
+this  view,  therefore,  institutions  for  the  education  of  youth 
+intended  for  the  holy  ministry,  have  been  established  in 
+all  Christian  countries,  and  have  been  found,  by  long  ex¬ 
+perience,  most  eminently  conducive  to  the  prosperity  of 
+the  Church*  Hence  the  founders  of  the  Presbyterian 
+Church  in  the  United  States  of  America,  did*  from  its 
+very  origin,  exert  themselves  with  peculiar  zeal  to  estsU 
+
+
+4 
+
+
+blish  and  endow  colleges,  academies,  and  schools,  for  the 
+education  of  youth  for  the  Gospel  ministry.  So  rapid, 
+however,  has  been  the  extension  of  this  Church,  and  so 
+disproportionate,  of  late,  has  been  the  number  of  minis¬ 
+ters  educated,  to  the  call  which  has  been  made  for  mi¬ 
+nisterial  service,  that  some  additional  and  vigorous  ef¬ 
+forts  to  increase  the  supply  are  loudly  and  affectingly  de¬ 
+manded.  Circumstances  also  do  imperiously  dictate,  not 
+only  that  the  labourers  in  the  vineyard  of  the  Lord  should 
+be  multiplied,  but  that  they  should  be  more  thoroughly 
+furnished  than  they  have  ordinarily  been  for  the  arduous 
+work  to  which  they  must  be  called.  Influenced  by  the 
+views  and  considerations  now  recited,  the  General  As¬ 
+sembly,  after  mature  deliberation,  have  resolved,  in  re¬ 
+liance  on  the  patronage  and  blessing  of  the  Great  Head 
+of  the  Church,  to  establish  anew  Institution,  consecrated 
+solely  to  the  education  of  men  for  the  Gospel  ministry, 
+and  to  be  denominated,  The  Theological  Seminary  of  the 
+Presbyterian  Church  in  the  United  States  of  America. 
+And  to  the  intent  that  the  true  design  of  the  founders  of 
+this  institution  may  be  known  to  the  public,  both  now 
+and  in  time  to  come,  and  especially  that  this  design  may, 
+at  all  times,  be  distinctly  viewed,  and  sacredly  regarded, 
+both  by  the  teachers  and  the  pupils  of  the  Seminary,  it 
+is  judged  proper  to  make  a  summary  and  explicit  state¬ 
+ment  of  it. 
+
+It  is  to  form  men  for  the  Gospel  ministry,  who  shall 
+truly  believe,  and  cordially  love,  and  therefore  endea¬ 
+vour  to  propagate  and  defend,  in  its  genuineness,  simpli¬ 
+city,  and  fulness,  that  system  of  religious  belief  and  prac¬ 
+tice  which  is  set  forth  in  the  Confession  of  Faith,  Cate¬ 
+chisms,  and  Plan  of  Government  and  Discipline  of  the 
+Presbyterian  Church  ;  and  thus  to  perpetuate  and  extend 
+the  influence  of  true  evangelical  piety,  and  Gospel  order. 
+
+It  is  to  provide  for  the  Church  an  adequate  supply  and 
+succession  of  able  and  faithful  ministers  of  the  New 
+Testament ;  workmen  that  need  not  to  be  ashamed,  being 
+qualified  rightly  to  divide  the  word  of  truth. 
+
+It  is  to  unite,  in  those  who  shall  sustain  the  ministe¬ 
+rial  office,  religion  and  literature  ;  that  piety  of  the  heart 
+which  is  the  fruit  only  of  the  renewing  and  sanctifying 
+grace  of  God,  with  solid  learning ;  believing  that  religion 
+
+
+5 
+
+■without  learning,  or  learning  without  religion,  in  the 
+ministers  of  the  Gospel,  must  ultimately  prove  injurious 
+to  the  Church. 
+
+It  is  to  afford  more  advantages  than  have  hitherto  been 
+usually  possessed  by  the  ministers  of  religion  in  our 
+country,  to  cultivate  both  piety  and  literatuie  in  their 
+preparatory  course  ;  piety,  by  placing  it  in  circumstan¬ 
+ces  favourable  to  its  growth,  and  by  cherishing  and  regu¬ 
+lating  its  ardour ;  literature,  by  affording  favourable  op¬ 
+portunities  for  its  attainment,  and  by  making  its  posses¬ 
+sion  indispensable. 
+
+It  is  to  provide  for  the  Church,  men  who  shall  be 
+able  to  defend  her  faith  against  infidels,  and  her  doc¬ 
+trines  against  heretics. 
+
+It  is  to  furnish  our  congregations  with  enlightened, 
+humble,  zealous,  laborious  pastors,  who  shall  truly  watch 
+for  the  good  of  souls,  and  consider  it  as  their  highest 
+honour  and  happiness  to  win  them  to  the  Saviour,  and 
+to  build  up  their  several  charges  in  holiness  and  peace. 
+
+It  is  to  promote  harmony  and  unity  of  sentiment 
+among  the  ministers  of  our  Church,  by  educating  a 
+large  body  of  them  under  the  same  teachers,  and  in  the 
+same  course  of  study. 
+
+It  is  to  lay  the  foundation  of  early  and  lasting  friend¬ 
+ships,  productive  of  confidence  and  mutual  assistance  in 
+after  life  among  the  ministers  of  religion  ;  which  expe¬ 
+rience  shows  to  be  conducive  not  only  to  personal  happi¬ 
+ness,  but  to  the  perfecting  of  inquiries,  researches,  and 
+publications  advantageous  to  religion. 
+
+It  is  to  preserve  the  unity  of  our  Church,  by  educa¬ 
+ting  her  ministers  in  an  enlightened  attachment,  not  only 
+to  the  same  doctrines,  but  to  the  same  plan  of  govern¬ 
+ment. 
+
+It  is  to  bring  to  the  service  of  the  Church  genius  and 
+talent,  when  united  with  piety,  however  poor  or  obscure 
+may  be  their  possessor,  by  furnishing,  as  far  as  possible, 
+the  means  of  education  and  support,  without  expense  to 
+the  student. 
+
+It  is  to  found  a  nursery  for  missionaries  to  the  heathen, 
+and  to  such  as  are  destitute  of  the  stated  preaching  of 
+the  gospel;  in  which  youth  may  receive  that  appropriate 
+training  which  may  lay  a  foundation  for  their  ultimately 
+becoming  eminently  qualified  for  missionary  work. 
+
+
+6 
+
+
+It  is,  finally,  to  endeavour  to  raise  up  a  succession  of 
+men,  at  once  qualified  for  and  thoroughly  devoted  to  the 
+work  of  the  Gospel  ministry ;  who,  with  various  endow¬ 
+ments,  suiting  them  to  different  stations  in  the  Church  of 
+Christ,  may  all  possess  a  portion  of  the  spirit  of  the  pri¬ 
+mitive  propagators  of  the  Gospel;  prepared  to  make  eve¬ 
+ry  sacrifice,  to  endure  every  hardship,  and  to  render 
+every  service  which  the  promotion  of  pure  and  undefiled 
+religion  may  require. 
+
+
+i 
+
+
+PLAN 
+
+
+OF  A 
+
+THEOLOGICAL  SEMINARY,  &c. 
+
+
+ARTICLE  I. 
+
+Of  the  General  Assembly . 
+
+Section  1.  As  this  Institution  derives  its  origin  from 
+the  General  Assembly,  so  that  body  is  to  be  considered 
+at  all  times  as  its  patron,  and  the  fountain  of  its  powers. 
+The  Assembly  shall,  accordingly,  ultimately  sanction  all 
+its  laws,  direct  its  instructions,  and  appoint  its  principal 
+officers. 
+
+Sect.  2.  The  General  Assembly  shall  choose  a  Board 
+of  Directors,  consisting  of  fourteen  ministers,  and  six 
+ruling  elders,  by  whom  the  Seminary  shall  be  inspected 
+and  conducted.  This  board  of  directors  shall  be  chosen 
+triennially,  except  that  the  General  Assembly  may,  an¬ 
+nually,  when  necessary,  fill  up  the  vacancies  occasioned 
+in  the  board  by  death,  resignation,  or  incapacity  to  serve. 
+
+Sect.  3.  All  professors  of  the  Seminary  shall  be  ap¬ 
+pointed  by  the  Assembly.  But  in  cases  of  necessity,  the 
+board  of  directors  may  employ  a  suitable  person  to  per¬ 
+form  the  duties  of  a  professor,  till  a  meeting  of  the  As¬ 
+sembly  shall  take  place. 
+
+Sect.  4.  The  General  Assembly  shall,  at  all  times,  have 
+the  power  of  adding  to  the  Constitutional  Articles  of  the 
+Seminary,  and  of  abrogating,  altering,  or  amending  them; 
+but,  in  the  exercise  of  this  power,  the  contemplated  ad¬ 
+ditions,  abrogations,  alterations,  or  amendments,  shall, 
+m  every  case,  be  proposed  at  one  Assembly,  and  not 
+adopted  till  the  Assembly  of  the  subsequent  year,  except 
+by  a  unanimous  vote. 
+
+
+8 
+
+
+ARTICLE  II. 
+
+Of  the  Board  of  Directors. 
+
+Section  1.  The  board  of  directors  shall  meet  statedly, 
+twice  in  each  year  ;  once  in  the  spring,  and  once  in  the 
+fall,  and  oftener  on  their  own  adjournments,  if  they  shall 
+judge  it  expedient.  A  majority  of  the  board  shall  be  a 
+quorum  ;  provided  always,  that  of  this  majority  six,  at 
+least,  be  ministers  of  the  Gospel. 
+
+Sect.  2.  The  board  shall  choose,  out  of  their  own  num¬ 
+ber,  a  president  and  secretary.  In  the  absence  of  the 
+president,  the  senior  member  present  shall  preside. 
+
+Sect.  3.  The  president  of  the  board,  or  in  the  event  of 
+his  death,  absence,  or  inability  to  act,  the  senior  member 
+for  the  time  being  shall,  at  the  request  of  any  three  mem¬ 
+bers  expressed  to  him  in  writing,  call  a  special  meeting 
+of  the  board  of  directors  by  a  circular  letter  addressed  to 
+each  ;  in  which  letter  notice  shall  be  given,  not  only  of  the 
+place  and  time  of  meeting,  but  of  the  business  intended 
+to  be  transacted  at  the  meeting  notified ;  and  this  letter 
+shall  be  sent  at  least  twenty  days  before  the  time  of  said 
+meeting. 
+
+Sect.  4.  The  secretary  of  the  board  shall  keep  accurate 
+records  of  all  the  proceedings  of  the  directors  ;  and  it 
+shall  be  his  duty  to  lay  these  records,  or  a  faithful  trans¬ 
+cript  of  the  same,  before  the  General  Assembly,  annually, 
+for  the  unrestrained  inspection  of  all  the  members. 
+
+Sect.  5.  Every  meeting  of  the  board  of  directors  shall 
+be  opened  and  closed  with  prayer. 
+
+Sect.  6.  The  board  of  directors  may  make  rules  and 
+regulations  for  the  performance  of  the  duties  assigned 
+them,  or  for  the  preservation  of  order,  not  inconsistent 
+with  the  prescriptions  of  this  plan,  or  the  orders  of  the 
+General  Assembly. 
+
+Sect.  7.  At  the  commencement  of  each  stated  spring 
+meeting,  the  whole  plan  of  the  Seminary  shall  be  dis¬ 
+tinctly  read  before  the  board  of  directors. 
+
+Sect.  8.  The  board  shall  direct  the  professors  of  the 
+Seminary,  in  regard  to  the  subjects  and  topics  on  which 
+they  are  severally  to  give  instructions  to  the  pupils,  so 
+
+
+■9 
+
+
+far  as  the  same  shall  not  be  prescribed  by  this  plan,  or  by 
+the  orders  of  the  General  Assembly. 
+
+Sect.  9.  It  shall  be  the  duty  of  the  board  of  directors 
+to  inaugurate  the  professors  of  the  Seminary,  and  to  di¬ 
+rect  what  forms  shall  be  used,  and  what  services  perform¬ 
+ed,  on  such  occasions. 
+
+Sect.  10.  Every  director,  previously  to  his  taking  his 
+seat  as  a  member  of  the  board,  shall  solemnly  subscribe 
+the  following  formula,  viz. — “  Approving  the  plan  of 
+the  Theological  Seminary  of  the  Presbyterian  Church  in 
+the  United  States  of  America,  I  solemnly  declare  and 
+promise,  in  the  presence  of  God,  and  of  this  board,  that 
+I  will  faithfully  endeavour  to  carry  into  effect  all  the  arti¬ 
+cles  and  provisions  of  said  plan,  and  to  promote  the  great 
+design  of  the  Seminary.” 
+
+Sect.  11.  The  board  of  directors  shall  inspect  the  fidel¬ 
+ity  of  the  professors,  especially  in  regard  to  the  doctrines 
+actually  taught ;  and  if,  after  due  inquiry  and  examina¬ 
+tion,  they  shall  judge  that  any  professor  is  either  unsound 
+in  the  faith,  opposed  to  the  fundamental  principles  of 
+Presbyterian  Church  Government,  immoral  in  his  con¬ 
+duct,  unfaithful  to  his  trust,  or  incompetent  to  the  dis¬ 
+charge  of  his  duties,  they  shall  faithfully  report  him  as 
+such  to  the  General  Assembly.  Or  if  the  longer  contin¬ 
+uance  of  a  professor  be  judged  highly  dangerous,  the  di¬ 
+rectors  may  immediately  suspend  him,  and  appoint  ano¬ 
+ther  in  his  place,  till  the  whole  business  can  be  reported, 
+and  submitted  to  the  Assembly. 
+
+Sect.  12.  It  shall  be  the  duty  of  the  board  of  direct¬ 
+ors  to  watch  over  the  conduct  of  the  students  ;  to  redress 
+grievances  ;  to  examine  into  the  whole  course  of  instruc¬ 
+tion  and  study  in  the  Seminary ;  and  generally  to  super¬ 
+intend  and  endeavour  to  promote  all  its  interests. 
+
+Sect.  13.  The  board  of  directors  shall  make,  in  writing, 
+a  detailed  and  faithful  report  of  the  state  of  the  Semina- 
+nary,  to  every  General  Assembly  ;  and  they  may,  at  the 
+same  time,  recommend  such  measures  for  the  advantage 
+of  the  Seminary,  as  to  them  may  appear  proper. 
+
+Sect.  14.  At  every  stated  meeting  of  the  board  of  di¬ 
+rectors,  unless  particular  circumstances  render  it  inexpe¬ 
+dient,  there  shall  be  at  least  one  sermon  delivered  in  the 
+presence  of  the  board,  the  professors,  and  students,  by  a 
+director  or  directors  previously  appointed  for  the  purpose, 
+
+B 
+
+
+10 
+
+
+ARTICLE  IIL 
+
+Of  the  Professors. 
+
+Section  1.  The  number  of  the  professors  in  the  Semi¬ 
+nary  shall  be  increased  or  diminished,  as  the  Assembly 
+may,  from  time  to  time,  direct.  But  when  the  Seminary 
+shall  be  completely  organized,  there  shall  not  be  less  than 
+three  professors  :  one  of  Didactic  and  Polemic  Divinity; 
+one  of  Oriental  and  Biblical  Literature  ;  and  one  of  Ec¬ 
+clesiastical  History  and  Church  Government. 
+
+Sect.  2.  No  person  shall  be  inducted  into  the  office  of 
+professor  of  divinity,  but  an  ordained  minister  of  the 
+Gospel. 
+
+Sect.  3.  Every  person  elected  to  a  professorship,  in 
+this  Seminary,  shall,  on  being  inaugurated,  solemnly  sub¬ 
+scribe  the  Confession  of  Faith,  Catechisms,  and  Form  of 
+Government  of  the  Presbyterian  Church,  agreeably  to 
+the  following  formula,  viz.— “  In  the  presence  of  God 
+and  of  the  directors  of  this  Seminary,  I  do  solemnly,  and 
+ex  ammo  adopt,  receive,  and  subscribe  the  Confession  of 
+Faith  and  Catechisms  of  the  Presbyterian  Church  in  the 
+United  States  of  America,  as  the  confession  oi  my  faith  ; 
+or,  as  a  summary  and  just  exhibition  of  that  system  of 
+doctrine  and  religious  belief  which  is  contained  in  holy 
+Scripture,  and  therein  revealed  by  God  to  man  for  his 
+salvation:  and  I  do  solemnly  ex  animo  profess  to  receive 
+the  Form  of  Government  of  said  Church,  as  agreeable  to 
+the  inspired  oracles.  And  I  do  solemnly  promise  and  en¬ 
+gage,  not  to  inculcate,  teach,  or  insinuate  any  thing  which 
+shall  appear  to  me  to  contradict  or  contravene,  either  di¬ 
+rectly  or  impliedly,  any  thing  taught  in  the  said  Confes¬ 
+sion  of  Faith  or  Catechisms;  nor  to  oppose  any  of  the 
+fundamental  principles  of  Presbyterian  church  govern¬ 
+ment,  while  I  shall  continue  a  professor  in  this  Semi¬ 
+nary.” 
+
+Sect.  4.  The  salaries  of  the  professors  shall  be  re¬ 
+commended  by  the  directors;  but  they  shall  be  fixed 
+only  by  a  vote  of  the  General  Assembly. 
+
+
+11 
+
+
+Sect.  5.  The  professors  may  accompany  their  lectures 
+and  recitations  with  prayer,  as  frequently  as  they  may 
+judge  proper,  in  addition  to  those  daily  seasons  of  pray¬ 
+er  in  which  all  the  students  will  unite. 
+
+Sect.  6.  Each  professor  shall  lay  before  the  board  of 
+directors,  as  soon  as  practicable  after  his  appointment,  a 
+detailed  exhibition  of  the  system  and  method  which  he 
+proposes  to  pursue,  and  the  subjects  which  he  proposes 
+to  discuss,  in  conducting  the  studies  of  the  youth  that 
+shall  come  under  his  care  :  and  in  this  system  he  shall 
+make  such  alterations  or  additions  as  the  board  shall  di¬ 
+rect  ;  so  that,  eventually,  the  whole  course  through 
+which  the  pupils  shall  be  carried,  shall  be  no  other  than 
+that  which  the  board  of  directors  shall  have  approved 
+and  sanctioned,  conformably  to  Sect.  8.  Art.  II.  And  as 
+often  as  any  professor  shall  think  that  variations  and  ad¬ 
+ditions  of  importance  may  be  advantageously  introduced 
+into  his  course  of  teaching,  he  shall  submit  the  same  to 
+the  board  of  directors,  for  their  approbation  or  rejection. 
+
+Sect.  7.  Every  professor  shall,  if  practicable,  have  at 
+least  one  lecture  or  recitation  every  day,  on  which  the 
+pupils,  in  his  branch  of  instruction  shall  be  bound  to  at¬ 
+tend  ;  and  on  which  the  other  pupils  of  the  Seminary 
+shall  attend  as  often,  and  in  such  manner,  as  may  be  di¬ 
+rected  by  the  majority  of  the  board  of  directors. 
+
+Sect.  8.  Any  professor  intending  to  resign  his  office, 
+shall  give  six  months  notice  of  such  intention  to  the 
+board  of  directors. 
+
+Sect.  9.  The  professors  of  the  Institution  shall  be  con¬ 
+sidered  as  a  faculty.  They  shall  meet  at  such  seasons  as 
+they  may  judge  proper.  In  every  meeting  the  professor 
+of  didactic  and  polemic  divinity  shall  preside,  if  he  be 
+present.  If  he  be  absent,  a  president  shall  be  chosen  pro 
+tempore.  The  faculty  shall  choose  a  clerk,  and  keep  ac¬ 
+curate  records  of  all  their  proceedings;  which  records 
+shall  be  laid  before  the  directors  at  every  meeting  of  the 
+board.  The  president  of  the  faculty  shall  call  a  meeting 
+whenever  he  shall  judge  it  expedient,  and  whenever  he 
+shall  be  requested  to  do  so  by  any  other  member.  Bv 
+the  faculty,  regularly  convened,  shall  be  determined  the 
+hours  and  seasons  at  which  the  classes  shall  attend  the 
+professors  severally,  so  as  to  prevent  interference  and 
+confusion,  and  to  afford  to  the  pupils  the  best  opportu¬ 
+nities  of  improvement.  The  faculty  shall  attend  to, 
+
+
+12 
+
+
+and  decide  on  all  cases  of  discipline,  and  all  questions 
+ol  order,  as  they  shall  arise.  They  shall  agree  on  the 
+rules  of  order,  decorum,  and  duty,  (not  inconsistent  with 
+any  provision  in  the  plan  of  the  Seminary,  nor  with  any 
+order  of  the  board  of  directors,)  to  which  the  students 
+shall  be  subjected  ;  and  these  thev  shall  reduce  to  writing, 
+and  cause  to  be  publicly  and  frequently  read.  They 
+shall  determine  the  hours  at  which  the  whole  of  the  pu¬ 
+pils  shall,  morning  and  evening,  attend  for  social  wor¬ 
+ship,  and  the  manner  in  which,  and  the  person  or  per¬ 
+sons,  of  their  own  number,  by  whom,  the  exercises  of 
+devotion  shall  be  conducted. 
+
+Sect.  10.  The  faculty  shall  be  empowered  to  dismiss 
+from  the  Seminary  any  student  who  shall  prove  unsound 
+in  his  religious  sentiments ;  immoral  or  disorderly  in  his 
+conduct ;  or  who  may  be,  in  their  opinion,  on  any  ac¬ 
+count  whatsoever,  a  dangerous,  or  unprofitable  member 
+of  the  Institution. 
+
+Sect.  11.  Each  member  of  the  faculty  shall  have  an 
+equal  vote. 
+
+Sect.  12.  It  shall  be  the  duty  of  the  professors,  under 
+the  direction  of  the  board  of  directors,  to  supply  the  pu¬ 
+pils  of  the  Institution  with  the  preaching  of  the  Gospel, 
+and  the  administration  of  the  Sacraments  of  the  Chris¬ 
+tian  Church  ;  if  this  supply  shall  not,  in  the  judgment  of 
+the  directors,  be  satisfactorily  furnished  by  a  Church  or 
+Churches  in  the  place  where  the  Institution  shall  be  esta¬ 
+blished. 
+
+
+ARTICLE  IV. 
+
+Of  Study  and  Attainments . 
+
+As  the  particular  course  of  study  pursued  in  any  In¬ 
+stitution  will,  and  perhaps  ought  to  be  modified  in  a  con¬ 
+siderable  degree,  by  the  views  and  habits  of  the  teachers  ; 
+and  ought,  moreover,  to  be  varied,  altered,  or  extended, 
+as  experience  may  suggest  improvements  ;  it  is  judged 
+proper  to  specify,  not  so  precisely  the  course  of  study, 
+as  the  attainments  which  must  be  made.  Therefore, 
+
+
+13 
+
+
+Sect.  1.  Every  student,  at  the  close  of  his  course,  must 
+have  made  the  following  attainments,  viz.  He  must  be 
+well  skilled  in  the  original  languages  of  the  Holy  Scrip¬ 
+tures.  He  must  be  able  to  explain  the  principal  difficulties 
+which  arise  in  the  perusal  of  the  Scriptures,  either  from 
+erroneous  translations,  apparent  inconsistencies,  real  ob¬ 
+scurities,  or  objections  arising  from  history,  reason,  or 
+argument.  He  must  be  versed  in  Jewish  and  Christian 
+antiquities,  which  serve  to  explain  and  illustrate  Scripture. 
+He  must  have  an  acquaintance  with  ancient  geography, 
+and  with  oriental  customs,  which  throw  light  on  the 
+sacred  records. — Thus  he  will  have  laid  the  foundation 
+for  becoming  a  sound  biblical  critic. 
+
+He  must  have  read  and  digested  the  principal  argu¬ 
+ments  and  writings  relative  to  what  has  been  called  the 
+deistical  controversy — Thus  will  he  be  qualified  to  be¬ 
+come  a  defender  of  the  Christian  faith. 
+
+He  must  be  able  to  support  the  doctrines  of  the  Con¬ 
+fession  ot  Faith  and  Catechisms,  by  a  ready,  pertinent, 
+and  abundant  quotation  of  Scripture  texts  for  that 
+purpose.  He  must  have  studied,  carefully  and  correct¬ 
+ly,  Natural,  Didactic,  Polemic,  and  Casuistic  Theo¬ 
+logy.  He  must  have  a  considerable  acquaintance  with 
+General  History  and  Chronology,  and  a  particular  ac¬ 
+quaintance  with  the  history  of  the  Christian  Church _ 
+
+Thus  he  will  be  preparing  to  become  an  able  and  sound 
+divine  and  casuist. 
+
+He  must  have  read  a  considerable  number  of  the  best 
+practical  writers  on  the  subject  of  religion.  He  must  have 
+Learned  to  compose  with  correctness  and  readiness  in  his 
+own  language,  and  to  deliver  what  he  has  composed  to 
+others  in  a  natural  and  acceptable  manner.  He  must  be 
+well  acquainted  with  the  several  parts,  and  the  proper 
+structure  oi  popular  lectures  and  sermons.  He  must  have 
+composed  at  least  two  lectures  and  four  popular  sermons, 
+that  shall  have  been  approved  by  the  professors.  He  must 
+
+have  carefully  studied  the  duties  of  the  pastoral  care _ - 
+
+Thus  he  will  be  prepared  to  become  a  useful  preacher, 
+and  a  faithful  pastor. 
+
+He  must  have  studied  attentively  the  form  of  Church 
+Government  authorized  by  the  Scriptures,  and  the  ad¬ 
+ministration  oi  it  as  it  has  taken  place  in  Protestant 
+Churches.  Thus  he  will  be  qualified  to  exercise  disci¬ 
+pline,  and  to  take  part  in  the  government  of  the  Church 
+in  all  its  judicatories. 
+
+
+14 
+
+
+Sect.  2.  The  period  of  continuance  in  the  Theological 
+Seminary  shall,  in  no  case,  be  less  than  three  years,  pre¬ 
+viously  to  an  examination  for  a  certificate  of  approbation. 
+But  students  may  enter  the  seminary,  and  enjoy  the  course 
+of  instruction  for  a  shorter  time  than  three  years,  provi¬ 
+ded  thev  in  all  other  respects  submit  to  the  laws  of  the 
+Seminary,  of  which  facts  they  may  receive  a  written  de¬ 
+claration  from  the  professors. 
+
+Sect.  3.  Those  pupils  who  have  regularly  and  dili¬ 
+gently  studied  for  three  years,  shall  be  admitted  to  an 
+examination  on  the  subjects  specified  in  this  article.  The 
+examination  shall  be  conducted  by  the  professors,  in  the 
+presence  of  the  board  of  directors,  or  a  committee  of 
+them  ;  and  if  it  be  passed  to  the  satisfaction  of  the  direc¬ 
+tors,  they  who  so  pass  it,  shall  receive  a  certificate  of  the 
+same,  signed  by  the  professors,  with  which  they  shall  be 
+remitted  to  their  several  presbyteries,  to  be  disposed  of 
+as  such  presbyteries  shall  direct.  Those  who  do  not  pass 
+a  satisfactory  examination  shall  remain  a  longer  space  in 
+the  Seminary. 
+
+Sect.  4.  It  shall  be  the  object  of  the  professors  to 
+make  such  arrangements  in  the  instruction  of  their  pupils, 
+as  shall  be  best  adapted  to  enable  them,  in  the  space  of 
+three  years,  to  be  examined  with  advantage  on  the  sub¬ 
+jects  specified  in  this  article. 
+
+
+ARTICLE  Y. 
+
+Of  Devotion ,  and  Improvement  in  Practical  Piety. 
+
+It  ought  to  be  considered  as  an  object  of  primary  im¬ 
+portance  by  every  student  in  the  Seminary,  to  be  careful 
+and  vigilant  not  to  lose  that  inward  sense  of  the  power  of 
+godliness  which  he  may  have  attained ;  but,  on  the  con¬ 
+trary,  to  grow  continually  in  a  spirit  of  enlightened  de¬ 
+votion  and  fervent  piety  ;  deeply  impressed  with  the  re¬ 
+collection  that  without  "this,  all  his  other  acquisitions  will 
+be  comparatively  of  little  worth,  either  to  himself,  or  to 
+the  Church  of  which  he  is  to  be  a  minister. 
+
+
+15 
+
+
+He  must  remember,  too,  that  this  is  a  species  of  im¬ 
+provement  which  must  of  necessity  be  left,  in  a  great 
+measure,  with  himself,  as  a  concern  between  God  and  his 
+own  soul. 
+
+It  is  proper,  however,  to  delineate  the  path  of  duty, 
+to  express  the  wishes  and  expectations  of  the  founders  of 
+the  Seminary,  and  to  make  such  requirements  as  the  na¬ 
+ture  of  the  subject  will  permit. 
+
+Sect.  1.  It  is  expected  that  every  student  in  the  The¬ 
+ological  Seminary  will  spend  a  portion  of  time  every  mor¬ 
+ning  and  evening  in  devout  meditation,  and  self-recol- 
+lection  and  examination  ;  in  reading  the  holy  Scriptures, 
+solely  with  a  view  to  a  personal  and  practical  application 
+of  the  passage  read,  to  his  own  heart,  character,  and  cir¬ 
+cumstances  ;  and  in  humble  fervent  prayer  and  praise  to 
+God  in  secret. 
+
+The  whole  of  every  Lord’s  day  is  to  be  devoted  to  de¬ 
+votional  exercises,  either  of  a  social  or  secret  kind.  In¬ 
+tellectual  pursuits,  not  immediately  connected  with  de¬ 
+votion  or  the  religion  of  the  heart,  are  on  that  day  to  be 
+forborne.  The  books  to  be  read  are  to  be  of  a  practical 
+nature.  The  conversations  had  with  each  other  are  to  be 
+chiefly  on  religious  subjects.  Associations  for  prayer  and 
+praise,  and  for  religious  conference,  calculated  to  promote 
+a  growth  in  grace,  are  also  proper  for  this  day  ;  subject  to 
+such  regulations  as  the  professors  and  directors  may  see 
+proper  to  prescribe.  It  is  wished  and  recommended,  that 
+each  student  should  ordinarily  set  apart  one  day  in  a 
+month  for  special  prayer  and  self-examination  in  secret, 
+and  also  that  he  should,  on  suitable  occasions,  attend  to 
+the  duty  of  fasting. 
+
+Sect.  2.  If  any  student  shall  exhibit,  in  his  general  de¬ 
+portment,  a  levity  or  indifference  in  regard  to  practical 
+religion,  though  it  do  not  amount  to  any  overt  act  of  ir- 
+religion  or  immorality,  it  shall  be  the  duty  of  the  pro¬ 
+fessor  who  may  observe  it,  to  admonish  him  tenderly  and 
+faithlully  in  private,  and  endeavour  to  engage  him  to  a 
+more  holy  temper,  and  a  more  exemplary  deportment. 
+
+Sect.  3.  If  a  student,  after  due  admonition,  persist  in 
+a  system  of  conduct  not  exemplary  in  regard  to  religion, 
+he  shall  be  dismissed  from  the  Seminary. 
+
+Sect.  4.  The  professors  are  particularly  charged,  by 
+all  the  proper  means  in  their  power,  to  encourage,  cherish, 
+and  promote  devotion  and  personal  piety  among  their  pu- 
+
+
+16 
+
+
+pils,  by  warning  and  guarding  them,  on  the  one  hand, 
+against  formality  and  indifference,  and  on  the  other, 
+against  ostentation  and  enthusiasm  ;  by  inculcating  prac¬ 
+tical  religion  in  their  lectures  and  recitations  ;  by  taking 
+suitable  occasions  to  converse  with  their  pupils  privately 
+on  this  interesting  subject;  and  by  all  other  means,  in¬ 
+capable  of  being  minutely  specified,  by  which  they  may 
+foster  true  experimental  religion,  and  unreserved  devo¬ 
+tedness  to  God. 
+
+
+ARTICLE  VI. 
+
+
+Of  the  Students . 
+
+Section  1.  Every  student,  applying  for  admission  to 
+the  Theological  Seminary,  shall  produce  satisfactory  tes¬ 
+timonials  that  he  possesses  good  natural  talents,  and  is 
+of  a  prudent  and  discreet  deportment ;  that  he  is  in  full 
+communion  with  some  regular  Church  :  that  he  has  pass¬ 
+ed  through  a  regular  course  of  academical  study  ;  or, 
+wanting  this,  he  shall  submit  himself  to  an  examination 
+in  regard  to  the  branches  of  literature  taught  in  such  a 
+course. 
+
+Sect.  2.  The  first  six  months  of  every  student  in  the 
+Seminary  shall  be  considered  as  probationary  ;  and  if,  at 
+the  end  of  this  period,  any  student  shall  appear  to  the 
+professors  not  qualified  to  proceed  in  his  studies,  they 
+shall  so  report  him  to  the  board  of  directors,  who,  if  they 
+are  of  the  same  opinion  with  the  professors,  shall  dismiss 
+him  from  the  Seminary. 
+
+Sect.  3.  The  hours  of  study  and  of  recreation  for  the 
+students  shall  be  fixed  by  the  professors,  with  the  con¬ 
+currence  of  the  directors  ;  and  every  student  shall  pay 
+a  strict  regard  to  the  rules  established  relative  to  this 
+subject. 
+
+Sect.  4.  Every  student  shall  be  obliged  to  write  on 
+such  theological  and  other  subjects,  as  may  be  prescribed 
+to  him  by  the  professors.  In  the  first  year,  every  student 
+shall  be  obliged  to  produce  a  written  composition  on 
+
+
+17 
+
+such  subjects,  at  least  once  in  every  month  ;  in  the  second 
+year,  once  in  three  weeks;  in  the  th;rd  year,  once  in  two 
+weeks.  Once  a  month  each  student  shall  also  commit  to 
+memory  a  piece  of  his  own  composition,  and  pronounce 
+it  in  public,  before  the  professors  and  students. 
+
+Sect.  5.  Every  student  shall  not  only  preserve  an  ex¬ 
+emplary  moral  character,  but  shall  be  expected  to  treat 
+his  teachers  with  the  greatest  deference  and  respect,  and 
+all  other  persons  with  civility. 
+
+Sect .  6.  Every  student  shall  yield  a  prompt  and  ready 
+obedience  to  all  the  lawful  requisitions  of  the  professors 
+and  directors. 
+
+Sect.  7.  Diligence  and  industry  in  study  shall  be  con¬ 
+sidered  as  indispensable  in  every  student,  unless  the  want 
+of  health  shall  prevent,  of  which  the  professors  shall  take 
+cognizance,  and  make  the  suitable  allowance. 
+
+Sect.  8.  Strict  temperance  in  meat  and  drink  is  expect¬ 
+ed  of  every  student,  with  cleanliness  and  neatness  in  his 
+dress  and  habits  ;  while  all  excessive  expense  in  clothing 
+is  strictly  prohibited. 
+
+Sect.  9.  Every  student,  before  he  takes  his  standing  in 
+the  Seminary,  shall  subscribe  the  following  declaration, 
+
+viz - “  Deeply  impressed  with  a  sense  of  the  importance 
+
+of  improving  in  knowledge,  prudence,  and  piety,  in  my 
+preparation  for  the  Gospel  Ministry,  I  solemnly  promise, 
+in  a  reliance  on  divine  grace,  that  I  will  faithfully  and  di¬ 
+ligently  attend  on  all  the  instructions  of  this  Seminarv, 
+and  that  I  will  conscientiously  and  vigilantly  observe  all 
+the  rules  and  regulations  specified  in  the  plan  for  its  in¬ 
+struction  and  government,  so  far  as  the  same  relate  to 
+the  students  ;  and  that  I  will  obey  all  the  lawful  requi¬ 
+sitions,  and  readily  yield  to  all  the  wholesome  admoni¬ 
+tions  of  the  professors  and  directors  of  the  Seminary, 
+while  I  shall  continue  a  member  of  it.” 
+
+Sect.  10.  There  shall  be  two  vacations  in  the  Semina- 
+ry,  of  six  weeks  continuance  each,  in  every  year.  The 
+spring  vacation  shall  commence  on  the  Monday  immedi¬ 
+ately  preceding  the  third  Thursday  of  May.  The  vaca¬ 
+tion  in  the  autumn  shall  commence  on  the  first  Wednes¬ 
+day  of  October. 
+
+
+C 
+
+
+18 
+
+
+ARTICLE  VII.* 
+
+
+Of  the  Library. 
+
+Section  1.  To  obtain,  ultimately,  a  complete  theologi¬ 
+cal  Library,  shall  be  considered  as  a  leading  object  of  the 
+Institution. 
+
+Sect.  2.  It  shall  be  the  duty  of  the  directors  to  pre¬ 
+sent  to  the  General  Assembly,  a  catalogue  of  the  most 
+necessary  books  for  the  commencement  of  a  library,  and 
+recommend  the  purchase  of  such  a  number  as  the  state  of 
+the  iunds  will  permit. 
+
+Sect.  3.  It  shall  be  the  duty  of  the  professors  to  procure 
+and  keep  a  large  folio,  to  be  denominated,  The  Prospec¬ 
+tus  of  a  Catalogue  of  a  Theological  Library.  In  this  folio, 
+divided  into  proper  heads,  each  professor  shall,  at  his 
+pleasure,  enter,  in  its  proper  place,  the  title  of  such  books 
+as  he  shall  deliberately  judge  to  be  proper  for  the  libra¬ 
+ry.  The  board  of  directors,  or  the  members  of  it  indi¬ 
+vidually,  may  do  the  same.  From  this  folio  it  shall  be 
+the  duty  of  the  directors  to  select  such  books  as  they 
+think  most  necessary,  and  as  the  sum  appropriated  for 
+the  current  year  will  purchase,  and  recommend  their  pur¬ 
+chase  to  the  Assembly.  The  Assembly  shall,  annually, 
+decide  by  vote,  what  sum  of  money,  for  the  current 
+year,  shall  be  laid  out  in  the  purchase  of  books. 
+
+Sect.  4.  A  suitable  room  or  apartment  shall  be  assign¬ 
+ed  tor  the  library.  The  shelves  ror  the  books  shall  be 
+divided  into  compartments  or  alcoves;  and  if  any  one  of 
+them  be  filled,  or  nearly  so,  by  a  donor,  his  name  shall 
+be  conspicuously  placed  over  it. 
+
+Sect.  5.  A  librarian  shall  be  appointed  by  the  Assem¬ 
+bly. 
+
+Sect.  6.  No  book  shall  be  permitted,  on  any  occasion, 
+to  be  carried  from  the  Seminary. 
+
+*  This  article  is  laid  over  for  the  consideration  of  the  next  Assem¬ 
+bly. 
+
+
+19 
+
+
+Sect.  7.  A  book  of  donations  shall  be  carefully  kept 
+by  the  librarian,  in  which  shall  be  entered,  by  him,  the 
+books  given  to  the  library,  the  time  when,  and  the  name 
+of  the  donor. 
+
+Sect.  8.  Regulations  for  the  use  of  the  library,  not  in¬ 
+consistent  with  the  provisions  of  this  Article,  shall  be  de¬ 
+tailed  in  a  system  of  by-laws,  for  that  purpose  ;  to  be 
+draughted  by  the  first  librarian,  and  occasionally  modifi¬ 
+ed  and  added  to,  as  circumstances  shall  require,  by  his 
+successors  ;  which  regulations,  after  being  ratified  by  the 
+board  of  directors,  shall  be  authoritative. 
+
+
+ARTICLE  YIII. 
+
+
+Of  the  Funds . 
+
+Section  1.  The  funds  of  the  Institution  shall  be  kept, 
+at  all  times,  entirely  distinct  and  separate  from  all  other 
+monies  or  funds  whatsoever  ;  and  they  shall  be  deposited 
+in  the  hands  of  such  corporation,  or  disposed  of  for  safe 
+keeping  and  improvement,  in  such  other  manner,  as  the 
+General  Assembly  shall  direct. 
+
+Sect.  2.  The  board  of  directors  shall,  from  time  to 
+time,  as  they  may  see  proper,  lay  before  the  Assembly 
+plans  for  the  improvement  of  the  funds,  and  propositions 
+for  the  appropriation  of  such  sums  as  they  may  think  ne¬ 
+cessary  for  particular  purposes. 
+
+Sect.  3.  No  money  shall,  at  any  time,  be  drawn  from 
+the  funds,  but  by  an  appropriation  and  order  of  the 
+Assembly  for  the  purpose. 
+
+Sect.  4.  A  fair  statement  shall  annually  be  laid  be¬ 
+fore  the  Assembly,  by  the  proper  officer,  of  the  amount 
+of  the  funds  belonging  to  the  Seminary,  of  the  items 
+which  constitute  that  amount,  and  of  the  expenditures  in 
+detail  for  the  preceding  year. 
+
+Sect.  5.  The  intention  and  directions  of  testators  or 
+donors,  in  regard  to  monies  or  other  property  left  or 
+given  to  the  Seminary,  shall,  at  all  times,  be  sacredly  re¬ 
+garded.  And  if  any  individual,  or  any  number  of  indi- 
+
+
+20 
+
+
+viduals,  not  greater  than  three,  shall,  by  will,  or  during 
+his  or  their  lives,  found  or  endow  a  professorship  or  pro¬ 
+fessorships,  a  scholarship  or  scholarships,  or  a  rund  or 
+funds,  destined  to  special  purposes,  said  professorships, 
+scholarships,  or  funds,  shall  for  ever  afterwards  be  called 
+and  known  by  the  name  or  names  of  those  who  founded 
+or  endowed  them. 
+
+Sect.  6.  After  supporting  the  professors,  and  defray¬ 
+ing  the  other  necessary  charges  of  the  Seminary,  the 
+funds  shall  be  applied,  as  lar  as  circumstances  will  ad¬ 
+mit,  to  defray  or  diminish  the  expenses  of  those  stu¬ 
+dents  who  may  need  pecuniary  aid,  as  well  as  to  lessen,, 
+generally,  the  expense  of  a  residence  at  the  Seminary. 
+
+
+ARTICLE  IX.* 
+
+Of  the  Theological  Academy . 
+
+Section  1.  There  shall  be  established,  at  the  place  of 
+the  Theological  Seminary,  and  in  connexion  with  it,  an 
+Institution,  to  be  denominated,  A  Theological  Academy . 
+The  board  of  directors  shall  have  the  same  superintend¬ 
+ance  of  this,  as  of  the  Theological  Seminary,  and  the 
+professors  shall  be  chosen  by  the  General  Assembly. 
+
+Sect.  2.  In  this  Academy  there  shall  be  two  profes¬ 
+sors  ;  one  of  languages,  and  the  other  of  mathematics 
+and  natural  philosophy.  It  is  not  indispensable  that  these 
+professors  should  be  ministers  of  the  Gospel ;  but  they 
+must  be  members  of  the  Presbyterian  Church,  of  exem¬ 
+plary  piety,  and  they  shall  make  the  same  subscription 
+at  the  time  of  their  inauguration,  as  the  professors  of  the 
+Seminary.  The  professors  of  the  Academy  shall  be  mem¬ 
+bers  of  the  faculty. 
+
+Sect.  3.  The  studies  and  exercises  of  the  Academy 
+shall  be  calculated  to  prepare  youth  for  the  Theological 
+Seminary,  from  the  beginning  to  the  end  of  their  Aca¬ 
+demical  course  ;  and  the  whole  system  of  instruction 
+shall  be  so  devised  and  pursued,  as  shall  appear  most 
+conducive  and  effectual  to  prepare  and  qualify  the  youth 
+to  enter  on  theological  studies  with  the  greatest  advan- 
+
+*  This  article  is  likewise  referred  to  the  consideration  of  the  next 
+Assembly. 
+
+
+21 
+
+
+tage.  The  board  of  directors,  (taking  to  their  aid  the 
+professors  of  the  Academy,)  shall  delineate  and  detail 
+such  a  system,  which  shall  be  reduced  to  writing,  and 
+shall  be  strictly  adhered  to  by  the  teachers  of  the  Aca- 
+
+^Srcf.  4.  The  professors  of  the  Academy  shall  be  al¬ 
+lowed  tutors  or  assistants,  to  aid  them  in  their  labours, 
+when  it  shall  be  judged  necessary  by  the  board  of  di¬ 
+rectors. 
+
+Sect.  5.  The  tutors  or  assistants  shall  be  appointed  by 
+the  General  Assembly,  and  shall  be  clothed  with  the 
+same  power  in  teaching  and  governing  as  the  professors, 
+but  shall  not  be  members  of  the  faculty.  They  must  be 
+members  in  full  communion  with  the  Presbyterian 
+Church,  and  must  subscribe  the  same  formula  as  the 
+professors,  changing  only  the  term  professor  for  tutor. 
+
+Sect.  6.  The  Hebrew  language  shall  always  form  a 
+part  of  the  studies  of  the  youth  in  the  Academy,  and  this 
+shall  be  taught  by  the  professor  of  Oriental  Literature 
+and  Biblical  Criticism  in  the  Seminary.  In  like  manner, 
+the  professor  of  Divinity  shall  teach  the  subjects  of  logic, 
+metaphysics,  and  moral  philosophy  in  the  Academy. 
+And  the  professor  of  ecclesiastical  history  shall  teach 
+rhetoric,  and  belles  lettres  in  the  Academy. 
+
+Sect.  7.  Two  thirds  of  the  pupils  of  this  Academy 
+must  consist  of  those  who  have  made  a  public  and  credi¬ 
+ble  profession  of  religion,  by  joining  in  communion  with 
+the  Church,  and  maintaining  a  good  standing  with  the 
+same ;  and  who  shall  explicitly  avow  it  to  be  their  ob¬ 
+ject  to  devote  themselves  to  the  work  of  the  gospel  mi¬ 
+nistry.  The  six  first  months  in  the  Academy,  as  in  the 
+Seminary,  shall  be  considered  as  probationary. 
+
+Sect.  8.  Though  the  Academy  is  intended  for  the 
+education  of  youth  for  the  Gospel  ministry,  and  all  its 
+instructions  must  undeviatingly  be  directed  to  that  ob¬ 
+ject;  yet  there  may  be  admitted  into  it,  to  the  amount  of 
+"one  third  of  its  numbers,  youth  of  irreproachable  moral 
+character  and  good  deportment,  who  do  not  publicly 
+profess  religion,  nor  avow  it  as  their  intention  to  study 
+theology,  but  who  only  seek  improvement  in  languages, 
+arts,  and  sciences. 
+
+Sect.  9.  All  who  are  admitted  into  the  Academy,  must 
+attend  the  morning  and  evening  prayers  of  the  Seminary, 
+public  worship  on  the  sabbath,  and  such  other  religious 
+
+
+22 
+
+
+instruction  and  exercises  as  the  professors  and  directors 
+shall  think  conducive  to  their  benefit. 
+
+Sect .  10.  The  professors  of  the  Academy  shall  detail 
+a  system  of  rules  and  regulations  for  its  benefit,  relative 
+to  study,  morals,  and  order,  not  inconsistent  with  this 
+plan  ;  which  they  shall  present  to  the  board  of  directors 
+as  soon  as  practicable,  and  which,  being  sanctioned  by 
+the  board,  shall  be  obligatory  on  all  the  pupils. 
+
+Sect.  11.  All  who  are  admitted  into  the  Academy, 
+must  subscribe  the  following  formula,  viz.  “  I  do  so¬ 
+lemnly  promise  and  engage,  that  while  I  remain  a  mem¬ 
+ber  of  this  Academy,  I  will  diligently  and  conscientious¬ 
+ly  pursue  the  studies  here  prescribed,  and  promptly  and 
+cheerfully  obey  the  laws  and  officers  of  the  Institution, 
+and  will  avoid  all  irreligious  and  immoral  practices, 
+books,  and  companions.” 
+
+
+The  committee  appointed  to  confer  with  the  commit¬ 
+tee  of  the  Trustees  of  New  Jersey  College,  reported, 
+among  other  things,  That  they  deem  it  expedient,  on 
+the  part  of  this  Assembly,  to  appoint  a  committee,  with 
+ample  powers,  to  meet  a  committee  on  the  part  of  the 
+Trustees  of  the  College  of  New  Jersey,  invested  with 
+similar  powers  ;  to  frame  the  plan  of  a  constitution  for 
+the  Theological  Seminary,  containing  the  fundamental 
+principles  of  a  union  with  the  Trustees  of  that  College, 
+and  the  Seminary  already  established  by  them,  which 
+shall  never  be  changed  or  altered  without  the  mutual 
+consent  of  both  parties  ;  provided,  that  it  should  be 
+deemed  proper  to  locate  the  Assembly’s  Seminary  at  the 
+same  place  with  that  ol  the  College. 
+
+Resolved,  that  a  committee  for  these  purposes  be 
+appointed  accordingly ;  and  that  said  committee  be  fur¬ 
+ther  instructed,  and  invested  with  powers  to  receive  any 
+propositions  which  may  be  made  to  them  for  locating 
+the  said  Seminary  in  any  other  situation,  if  it  be  lound 
+expedient :  all  which  shall  be  fairly  and  fully  reported 
+to  the  next  Assembly.  This  report  was  adopted,  and  a 
+resolution  passed  to  elect  said  committee  in  the  after¬ 
+noon. 
+
+The  subject  of  locating  the  Theological  Seminary  be¬ 
+ing  discussed,  it  was  determined  by  a  vote  of  the  As¬ 
+sembly,  that  the  rivers  Raritan  and  Potowmac  be  the 
+limits  within  which  the  Seminary  shall  be  located. 
+
+
+\ 
+
+
+Agreeably  to  the  resolution  of  the  forenoon,  an  elec¬ 
+tion  was  held  for  a  Committee  to  meet  with  a  Com¬ 
+mittee  of  the  Trustees  of  New  Jersey  College  ;  and,  the 
+ballot  being  taken,  Drs.  Alexander,  Wilson  and  Mille- 
+doler,  the  Rev.  Messrs.  John  McDowell  and  Janeway, 
+and  Messrs.  Robert  Ralston,  and  Divie  Bethune  were 
+declared  duly  elected  to  compose  said  Committee  of  the 
+Assembly. 
+
+Resolved,  that  Dr.  Alexander  be  the  Chairman  of  this 
+Committee,  that  he  have  power  to  appoint  the  time  and 
+place  of  the  first  meeting  of  the  Committee,  and  that  he 
+give  notice  accordingly  to  the  members. 
+
+Resolved,  that  the  Committee  appointed  to  confer 
+with  a  Committee  of  the  Trustees  of  the  College  of 
+New  Jersey,  be,  and  they  hereby  are,  instructed  to  con¬ 
+sider  the  several  articles  of  the  plan  of  a  Theological 
+Seminary,  so  far  as  the  same  are  adopted  by  this  As¬ 
+sembly,  as  their  guide  in  the  proposed  conference,  which 
+they  shall  in  no  case  be  permitted  to  contravene. 
+
+The  Committee  appointed  to  consider  the  propriety  of 
+appointing  agents,  and  to  take  measures  to  make  the 
+monies  collected  for  the  Theological  Seminary  produc¬ 
+tive,  brought  in  the  following  resolutions,  which  were 
+adopted,  viz. 
+
+1.  That  measures  for  obtaining  contributions  for  the 
+funds  of  the  Theological  Seminary,  be  vigorously  prose¬ 
+cuted  during  the  ensuing  year,  through  the  whole  bounds 
+of  the  General  Assembly. 
+
+2.  That  the  agents  for  soliciting  contributions,  who 
+wrere  appointed  by  the  last  Assembly,  and  who  have  not 
+declined  their  agency,  be  reappointed,  and  that  others 
+be  added,  who,  in  the  opinion  of  the  Assembly,  will  pro¬ 
+bably  be  active  in  the  business. 
+
+3.  That  it  be  earnestly  recommended  to  all  the  Pres¬ 
+byteries  under  the  care  of  the  Assembly,  to  take  the 
+most  effectual  order  to  obtain  subscriptions  from  all  their 
+congregations,  both  settled  and  vacant,  lor  aiding  the 
+funds  in  contemplation  ;  and  for  this  purpose,  that  they 
+make  it  the  duty  of  every  minister  to  take  up  subscrip¬ 
+tions  in  his  own  charge,  and  appoint  proper  persons  to 
+do  the  same  in  the  vacancies  ;  and  also,  that  the  several 
+members  aid,  so  far  as  may  be  necessary  and  practica¬ 
+ble,  the  agents  whom  the  General  Assembly  have  ap¬ 
+pointed  to  solicit  at  large. 
+
+
+24 
+
+
+4.  That  the  sums  of  money  already  collected,  or  which, 
+may  hereafter  be  collected  for  the  funds  of  the  Theolo¬ 
+gical  Seminary,  be  forwarded,  as  soon  as  may  be  prac¬ 
+ticable,  to  the  treasurer  of  the  Trustees  of  the  Assem¬ 
+bly  ;  and  that  the  said  Trustees  be  directed  to  invest 
+such  money  in  some  productive  public  stock. 
+
+The  following  is  a  list  of  the  agents  for  the  ensuing 
+year,  appointed  by  the  Assembly  to  solicit  donations  for 
+the  establishment  of  the  Theological  Seminary,  includ¬ 
+ing  the  agents  reappointed,  and  also  the  new  appoint¬ 
+ments  made  in  addition,  viz. 
+
+Of  the  Synod  of  Albany. 
+
+Rev.  Jedidiah  Chapman,  Rev.  Jonas  Coe, 
+
+William  Morrison,  William  Neill, 
+
+James  Carnahan,  John  Chester, 
+
+Mr.  Isaac  Hutton  and  Col.  John  Linklaen. 
+
+Of  the  Synod  of  New  York  and  New  Jersey. 
+
+Rev.  Samuel  Miller,  D.  D.  Rev.  John  McNeice, 
+Philip  Milledoler,  D.  D.  I  saac  Vandoren, 
+
+John  B.  Romeyn,  D.  D.  Gardener  Spring, 
+
+James  Richards,  Mr.  John  Mills  and 
+
+David  Comfort,  Divie  Bethune. 
+
+
+Of  the  Synod  of  Philadelphia . 
+
+Rev.  Ashbel  Green,  D.  D.  Rev.  John  B.  Patterson, 
+Nathanael  Irwin,  James  Inglis, 
+
+James  Muir,  D.  D.  Mr.  Robert  Ralston, 
+
+John  Glendy,  Thomas  Leiper, 
+
+Archibald  Alexander  D.  D.  John  McMullin, 
+
+John  E.  Latta,  Christopher  Johnson  & 
+
+John  B.  Slemons,  William  McDonald. 
+
+
+Of  the  Synod  of  Virginia. 
+
+
+Rev.  Drury  Lacy, 
+
+John  D.  Blair, 
+William  Williamson 
+Samuel  Houston, 
+Conrad  Speece, 
+
+
+Rev.  John  H.  Rice, 
+
+Samuel  B.  Wilson, 
+
+Mr.  — - Hume,  and 
+
+William  Calhoun, 
+
+
+25 
+
+
+Of  the  Synod  of  Pittsburgh. 
+
+Rev.  Samuel  Ralston,  Rev.  William  Spear,  and 
+
+James  Guthrie,  James  Hughes. 
+
+Of  the  Synod  of  Kentucky. 
+
+Rev.  Robert  G.  Wilson,  Rev.  Archibald  Cameron,  & 
+James  Blythe,  Joshua  L.  Wilson. 
+
+
+Of  the  Synod  of  the  Carolinas . 
+
+
+Rev.  James  Hall,  D.  D.  Rev. 
+Daniel  Brown, 
+
+Henry  Kollock,  D.  D.  Hon 
+Malcolm  McNair,  Maj. 
+John  Couser,  Dr. 
+
+James  W.  Thompson, 
+Moses  Waddell,  d.  d.  Mr. 
+William  L.  Turner, 
+William  McPheeters, 
+John  Brown, 
+
+Andrew  Flinn, 
+
+
+John  Fdliot  of  Medway, 
+Dr.  Buchan, 
+
+.  William  B  Chavis, 
+Samuel  Robertson, 
+John  Cumming,  of  Sa¬ 
+vanna. 
+
+John  Bolton,  of  Savanna. 
+Thomas  Cumming, 
+Charles  Banks. 
+
+John  Brownlte  of 
+Charleston. 
+
+
+Besides  their  appointment  to  solicit  in  general  with¬ 
+in  their  respective  districts,  the  Rev.  Dr.  Milledoler 
+was  appointed  to  solicit  particularly  on  Long  Island,  and 
+the  Rev.  John  E.  Latta  in  Baltimore  ;  on  the  east  side 
+of  the  Hudson,  the  Rev.  Jonas  Coe;  on  the  west  side 
+of  the  Hudson,  the  Rev.  Mr.  Neill  in  Albany,  Sche- 
+nactedy  and  the  towns  adjacent. 
+
+Ordered,  that  the  foregoing  resolutions,  and  appoint¬ 
+ments  of  agents,  be  printed  with  the  revised  plan  of  the 
+Theological  Seminary,  and  that  a  competent  number  of 
+copies  be  transmitted,  by  the  stated  clerk,  to  the  Pres¬ 
+byteries  under  the  care  of  the  Assembly. 
+
+It  was  also  recommended  by  the  Assembly,  that  the 
+Presbyteries  take  order  to  supply  the  pulpits  of  the 
+ministers,  who  are  appointed  agents,  during  the  time 
+of  their  absence  from  their  charges  in  prosecuting  the 
+business  of  their  agency. 
+
+The  Committee  appointed  to  lay  before  the  Assem¬ 
+bly,  the  amount  of  the  subscriptions  and  donations,  ob¬ 
+tained  by  the  agents  appointed  by  the  last  Assembly  to 
+solicit  donations  for  the  Theological  Seminary,  reported, 
+
+
+26 
+
+
+that  it  appeared,  from  the  reports  of  said  agents  made 
+to  this  Assembly,  that  donations  to  the  amount  of 
+g>  14,000,  or  $15,000,  had  been  obtained  for  the  afore¬ 
+said  purpose.  Of  this  sum  $3,000  are  subscribed  in  the 
+city  of  New  York  ;  $1500  are  on  papers  in  the  hands 
+of  the  Rev.  John  E.  Latta  of  the  state  of  Delaware  ; 
+$1,100  on  papers  in  the  hands  of  the  Rev.  Dr.  James 
+Hall  of  North  Carolina  ;  $1000,  on  papers  in  the  hands 
+of  the  Rev.  Malcolm  McNair  of  the  same  state.  To  the 
+support  of  this  Institution,  Deacon  William  Falconer, 
+late  of  the  city  of  Philadelphia,  has  devoted  the  whole  of 
+his  estate,  supposed  to  be  worth  eight  or  nine  thousand 
+dollars  ;  and  Mr.  William  Minnes  of  Upper  Octorara 
+has  bequeathed  the  sum  of  $200,  if  the  said  Institution 
+be  established  by  the  Assembly,  to  be  paid  one  year  af¬ 
+ter  his  decease. 
+
+From  the  Statement  of  the  Agents,  it  moreover  ap¬ 
+peared,  that,  on  account  of  peculiar  circumstances,  they 
+have  not  in  many  places  made  any  applications  for  do¬ 
+nations  for  this  object ;  nevertheless,  sufficient  grounds 
+are  afforded  to  believe,  that,  by  suitable  exertions,  ample 
+funds  will  be  obtained  for  the  establishment  and  support 
+of  a  Theological  School  under  the  direction  of  the  Ge¬ 
+neral  Assembly. 
+
+By  order  of  the  General  Assembly . 
+
+Attest , 
+
+JACOB  J.  JANEWAY,  Stated  Clerk. 
+
+
+Philadelphia,  June  18,  1811. 
+
+
+A 
+
+
+* 
+
+
+\ 
+
+
+THE  PLAN  /  OF  A  /  THEOLOGICAL 
+
+SEMINARY  /  ADOPTED  BY  /  THE  GENERAL 
+
+z' 
+
+ASSEMBLY  /  OF  /  THE  PRESBYTERIAN  CHURCH  / 
+IN  THE  /  UNITED  STATES  OF  AMERICA  ,  /  IN 
+THEIR  SESSIONS  OF  MAY  LAST,  /  A.D.  1811; 
+/  TOGETHER  WITH  THE  MEASURES  TAKEN  BY 
+THEM/TO  CARRY  THE  PLAN  INTO  EFFECT.  / 
+
+-  /  PHILADELPHIA:  /  PRINTED  BY 
+
+JANE  AIT KEN ,  NO.  71,  NORTH  THIRD  STREET. 
+
+/ - /  1811. 
+
+26  p .  ,  200®. 
+
+Extracted  from  bound  volume;  marks 
+of  sewing  and  piece  of  binding  show. 
+
+All  pages  watermarked  on  upper  left- 
+hand  corner.  Last  four  leaves  (p.21- 
+26)  worm-eaten  on  lower  right-hand 
+corner. 
+
+Presented  to  the  Library  of  the 
+Princeton  Theological  Seminary  by 
+John  H.  Schelde,  on  December  12,  1969. 
+
+

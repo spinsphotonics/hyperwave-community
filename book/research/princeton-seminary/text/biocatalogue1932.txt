@@ -1,3 +1,14 @@
+DOCUMENT_ID: biocatalogue1932
+TITLE (as printed): Biographical Catalogue of Princeton Theological Seminary, 1815-1932
+DATE: Compiled 1932; published 1933
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://archive.org/details/biographicalcata00prin_2
+EDITION: Compiled by Rev. Edward Howell Roberts, Registrar and Secretary of the Faculty; Princeton, New Jersey: Published by the Trustees of the Theological Seminary of the Presbyterian Church, 1933.
+TRANSCRIPTION METHOD: copied (Internet Archive OCR, djvu.txt; English)
+TOTAL PAGES: not counted in full this session (large volume; only front-matter chronology, faculty roster, and early (1815-1819) alumni entries were read and quoted)
+WORD COUNT: not counted (large volume; file is 2.8MB / ~68,400 lines)
+NOTE: This is an official institutional register published by the Seminary's own Trustees and compiled by the Registrar from Seminary records, not a narrative secondary history; used here (a) for the front-matter chronology of founding dates, which the Extractor treats as PS (PRIMARY-OR-SECONDARY) evidence alongside the Plan and inauguration volume, and (b) for named-alumni entries in the Fruit section.
+
 A r rr-yjf,  «r  4 
 
 
