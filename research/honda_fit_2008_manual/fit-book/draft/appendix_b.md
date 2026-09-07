@@ -32,6 +32,8 @@ Coolant, also called antifreeze, is the liquid that flows through your engine an
 | Capacity, fluid change | 1.6 US qt (1.5 L) | F-WP09-027 |
 | Capacity, total (including the differential, after overhaul) | 1.7 US qt (1.6 L) | F-WP09-028 |
 
+The differential is the set of gears inside the transmission housing that lets your two front wheels spin at different speeds when you turn. It shares the same fluid as the manual transmission on your Fit.
+
 ## Automatic transmission fluid (ATF)
 
 | What | Value | Fact ID |
