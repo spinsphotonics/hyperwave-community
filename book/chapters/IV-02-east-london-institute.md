@@ -5,15 +5,15 @@ INPUTS READ: research/east-london-institute/dossier.md (VERIFIED); research/east
 
 | Section | Words | Target | Note |
 |---|---|---|---|
-| Founding | 512 | 400-600 | within |
+| Founding | 576 | 400-600 | within |
 | The Charter | 1,303 (+ headnote) | 1,200-2,500 | see charter_abridged.md |
-| Admission | 371 | 250-400 | within |
-| Curriculum | 612 | 500-800 | within |
-| Common Life and the Faculty | 587 | 500-800 | within |
-| Emphasis | 476 | 400-600 | within |
-| Sending | 447 | 300-500 | within |
-| Fruit | 288 | 200-400 | within |
-| Total (excl. Charter) | 3,293 | | |
+| Admission | 393 | 250-400 | within |
+| Curriculum | 457 | 500-800 | slightly under: no formal timetable, examination, or degree was located (see dossier NOT FOUND fields), which shortens what can be said |
+| Common Life and the Faculty | 462 | 500-800 | slightly under: only one teacher is named in any source read, so T4/T5 material is thin |
+| Emphasis | 373 | 400-600 | slightly under |
+| Sending | 366 | 300-500 | within |
+| Fruit | 242 | 200-400 | within |
+| Total (excl. Charter) | 2,869 | | |
 
 # Chapter 2: The East London Institute for Home and Foreign Missions (1872/1873)
 
@@ -61,7 +61,7 @@ The Institute itself had, by design, no financial backing beyond its supporters'
 
 ## Emphasis
 
-Two convictions run through every source read for this chapter: that fitness for missionary work is a matter of tested character and practical training rather than of scholarship, and that the Institute itself must remain outside any single denomination. On the first, the founders' repeated image is military: "Did any army consisting of officers only ever march to victory? were not rank and file required as well?"[^1] And they stated the same conviction as an operating rule: "before men are sent forth to do missionary work amongst the heathen, their ability for it should be practically tested, and, when found to exist, be developed" at home, before being sent abroad.[^10] What they explicitly declined to teach follows from the same conviction: "We did not think that it would be desirable to teach them classics and mathematics, but rather to ground them well in general knowledge...rather than to crowd their memories with minor details."[^40] They likewise warned against the opposite error of sending men without any testing at all, holding that "let such first be proved" was "a dictate of common sense as well as a precept of Scripture," citing Paul's charge to Timothy to commit the gospel "to faithful men who shall be able to teach others also."[^55]
+Two convictions run through every source read for this chapter: that fitness for missionary work is a matter of tested character and practical training rather than of scholarship, and that the Institute itself must remain outside any single denomination. On the first, the founders' repeated image is military: "Did any army consisting of officers only ever march to victory? were not rank and file required as well?"[^1] And they stated the same conviction as an operating rule: "before men are sent forth to do missionary work amongst the heathen, their ability for it should be practically tested, and, when found to exist, be developed" at home, before being sent abroad.[^10] What they explicitly declined to teach follows from the same conviction: "We did not think that it would be desirable to teach them classics and mathematics, but rather to ground them well in general knowledge...rather than to crowd their memories with minor details."[^40] They likewise warned against the opposite error of sending men without any testing at all: "to encourage and send out untried and untrained men to undertake this task were clearly folly," they wrote; "'let such first be proved' is a dictate of common sense as well as a precept of Scripture."[^55]
 
 On the second, an 1893 source states plainly, "Harley College is as interdenominational as it is international,"[^41] training, in the same source's words, "Baptists and Episcopalians, Congregationalists, Wesleyans and Presbyterians" side by side. The founders drew a scriptural warrant for using workers of every kind, recalling that in building the tabernacle "there were 'diversities of gifts, but the same Spirit'" -- so that, in their own analogy, "no house could be built by architects only, nor with big stones only."[^42]
 
@@ -153,3 +153,4 @@ Mackintosh, C. W. *Dr. Harry Guinness: The Life Story of Henry Grattan Guinness 
 [^52]: *The Wide World and Our Work in It*, p.130; quote_id eli-q020.
 [^53]: *The Wide World and Our Work in It*, p.135; quote_id eli-q021.
 [^54]: Mackintosh, *Dr. Harry Guinness* (SECONDARY), p.39; quote_id eli-q047.
+[^55]: *The Wide World and Our Work in It*, p.27; quote_ids eli-q051, eli-q050.
