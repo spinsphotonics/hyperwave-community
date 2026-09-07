@@ -1,5 +1,5 @@
 wp_id,title,phase,owner,status,facts_count,unverified_count,verified_by,notes
-WP-00,Build the source library,1,agent,todo,,,,
+WP-00,Build the source library,1,agent,done,,,,20 Source Cards written (target 15+); 2 paywalled (S-002 Helm, S-003 Haynes) logged to queue/blocked.md; WebFetch blocked all session so cards verified via WebSearch snippets not direct page loads (see queue/blocked.md)
 WP-01,Identify the car exactly,1,agent,todo,,,,
 WP-02,Recalls TSBs and known defects,1,agent,todo,,,,
 WP-03,Getting in and getting comfortable,2,agent,todo,,,,
