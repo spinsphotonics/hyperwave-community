@@ -33,14 +33,15 @@ quotation, are so marked and are not set off as quoted charter text.
 
 | # | Content | Source (quote_id) | KEEP/CUT |
 |---|---|---|---|
-| 1 | Title and date of the Prospectus (15 July 1818) | serampore-college-q001 | KEEP (a) |
-| 2 | Stated purpose: "the handmaid of evangelisation" | serampore-college-q002 | KEEP (a) |
-| 3 | Doctrinal argument: native must answer native | serampore-college-q003 | KEEP (b) |
-| 4 | On language: vernacular first, English for advanced students | serampore-college-q004, serampore-college-q005 | KEEP (d) |
-| 5 | Admission: open to all castes and creeds; unsectarian instruction | serampore-college-q007, serampore-college-q008 | KEEP (c) |
-| 6 | The three objects of the College (non-resident heathen; resident Christian; native missionary) | serampore-college-q020 | KEEP (a) |
-| 7 | The theological division: Divinity Professor, piety required, four-year course | serampore-college-q014, serampore-college-q016, serampore-college-q017, serampore-college-q019 | KEEP (c, d, g) |
-| — | The Danish Royal Charter's degree-granting clause (1827) | serampore-college-q012 (quoted from a different source, `smith-carey-1885`; treated in the chapter's Founding section, not here) | see note above |
+| 1 | Founders' decision to build the College | serampore-college-q010 | KEEP (a) |
+| 2 | Title and date of the Prospectus (15 July 1818) | serampore-college-q001 | KEEP (a) |
+| 3 | Its character: "the handmaid of evangelisation" | serampore-college-q002 | KEEP (a) |
+| 4 | Doctrinal argument: native must answer native | serampore-college-q003 | KEEP (b) |
+| 5 | On language: vernacular first, English for advanced students | serampore-college-q004, serampore-college-q005 | KEEP (d) |
+| 6 | Admission: open without distinction of caste or creed | serampore-college-q006 | KEEP (c) |
+| 7 | Admission: Christian youths of every denomination, unsectarian instruction | serampore-college-q007 | KEEP (c) |
+| 8 | Lord Hastings's caution about the Prospectus's evangelistic language | serampore-college-q008 | KEEP (b) |
+| — | The Danish Royal Charter's degree-granting clause (1827) | serampore-college-q011, serampore-college-q012 (quoted from a different source, `smith-carey-1885`; treated in the chapter's Founding section, not here) | see note above |
 | — | The Prospectus's own full text (administrative/financial articles: budget table, trustee/property clauses) | not located this session | CUT — NOT FOUND, see discrepancies.md |
 
 ## Headnote
