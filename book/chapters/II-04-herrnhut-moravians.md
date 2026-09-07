@@ -147,19 +147,19 @@ God[.] was evident: to them," and, on the other hand, "never to refufe any call 
 in which they could perceive the finger of the Lord, though they fhould fee beforehand that fuch a
 call might endanger their lives."[^24]
 
-Spangenberg's account also sets out, in the missionaries' own numbered "invariable principles,"
-what the sending congregation did and did not consider its purpose. Positively, and in the same
-1788 translation's spelling: the Brethren resolved "particularly [to] endeavour, that they become
-converted to Christ Jesus with all their heart."[^25] Negatively, and just as deliberately, they
-disclaimed any wider ambition: it was, in the translation's words, "not our call to aim any where
-at national conversions, or to introduce the christian religion among whole nations" — a rejection
-of mass, state-sponsored Christianization in favor of the conversion of individuals.[^26] The same
-principles, read alongside Nitschmann's promise at Copenhagen that the missionaries would "work...
-as slaves among the slaves," also show the mission accepting, not challenging, plantation slavery
-as a fixed social order — a matter this book's Editor should weigh directly rather than pass over,
-since the sources state it plainly rather than leaving it ambiguous.[^27] Non-competition among
-the Brethren themselves in trade was treated as a rule of the same order as these mission
-principles, not a merely practical arrangement.[^28]
+Spangenberg's account also sets out, in the missionaries' own four numbered "invariable
+principles," what the sending congregation did and did not consider its purpose. The first
+principle states their positive aim: that those they preached to should be converted "with all
+their heart," not merely instructed in doctrine. The same principle immediately disclaims any
+wider ambition: converting whole nations, or aiming at what the translation calls "national
+conversions," was, in the Brethren's own words, explicitly said not to be their call.[^25] This
+was a rejection of mass, state-sponsored Christianization in favor of the conversion of
+individuals. Read alongside Nitschmann's promise at Copenhagen that the missionaries would "work...
+as slaves among the slaves," the same principles also show the mission accepting, not challenging,
+plantation slavery as a fixed social order — a matter this book's Editor should weigh directly
+rather than pass over, since the sources state it plainly rather than leaving it ambiguous.[^26]
+Non-competition among the Brethren themselves in trade was treated as a rule of the same order as
+these mission principles, not a merely practical arrangement.[^27]
 
 ## Sending
 
