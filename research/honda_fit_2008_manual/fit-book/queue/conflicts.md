@@ -257,3 +257,73 @@ read of the primary source.
   low confidence, rather than upgraded using the GK source; S-WP10-K is kept on file as context
   only, not cited as a Fact Card source.
 - Related fact card: F-WP10-007
+
+## WP-19 Safety gear and weight (2026-09-07)
+
+### C-017: Two different "current" SCCA National Solo rulebook editions found in the same repo on the same day
+- This WP (via a WebSearch-surfaced `cdn.connectsites.net` link) downloaded and directly read
+  `2026%20Solo%20Rulebook%20Feb.pdf` — 429 pages, PDF metadata implying a February 2026 edition
+  — and cited it as S-013 for Sections 3.3, 4.3, 13, 17-18, and Appendix C.
+- A concurrent WP-20 pass (per its own update note now appended to sources/S-013.md) instead
+  found, via `r.jina.ai` on the live `scca.com/downloads` page, that the actual current listed
+  document as of the same 2026-09-07 access date is `2025 Solo Rule Book March Fastrack` — 421
+  pages, PDF metadata dated 2025-03-14 — fetched from a different, scca.com-hosted download URL.
+- Not resolved this pass. Both are plausibly genuine SCCA-hosted documents (the `cdn.connectsites.net`
+  host also serves other real, current SCCA PDFs, e.g. the 2026 National Tour Supplemental
+  Regulations found in the same WebSearch pass), so this is not necessarily a fake-vs-real
+  conflict — it may mean a newer edition exists on SCCA's CDN ahead of, or instead of, what the
+  public downloads page links to, or that SCCA's downloads page had not yet been updated to point
+  at the newer file at the time of the WP-20 access. The core safety-equipment rules text this WP
+  cites (driver restraints, helmet standards, roll bar mandatory-class list, Street category's
+  "standard equipment only" aero restriction, Appendix C roll bar standards) is the kind of
+  rules-book content that rarely changes edition-to-edition, so the substance of facts/WP-19.md's
+  SCCA cards is not expected to be wrong, but exact section/page numbers and the "2025" vs "2026"
+  edition label should be re-verified in a future pass against whichever edition SCCA's downloads
+  page links to at that time.
+- Related fact cards: F-WP19-001 through F-WP19-006, F-WP19-023 through F-WP19-026 (all SCCA-sourced
+  cards in facts/WP-19.md); also affects any WP-20 fact drawn from the 2025 edition.
+
+### C-018: Internal inconsistency within the same single fitfreak.net "GD Parts/Weight List" thread on spare-tire-system weights
+- One WebSearch pass over this thread reported: spare tire 21.55 lb, jack+wrench 4.55 lb.
+- A second, more targeted WebSearch pass over what is very likely the same thread (different
+  page/post) reported: spare tire 21 lb, spare tire cover 7.76 lb, jack plate+bolts 2.81 lb, and
+  (a third pass) jack+wrench+tow hook+mount bracket 4.91 lb.
+- These are close but not identical (21.55 vs 21 lb; 4.55 vs 4.91 lb), and it is not clear whether
+  "jack plate+bolts" (2.81 lb) is a subset already counted inside "jack+wrench+tow hook+mount
+  bracket" (4.91 lb) or a separate line item — the thread itself could not be directly read this
+  session (fitfreak.net returns Cloudflare error 1005 to both curl and r.jina.ai, a known dead end
+  repeated across many prior WPs). Not resolved this pass; both readings are recorded on the
+  relevant fact cards rather than silently picking one, and no arithmetic sum in facts/WP-19.md
+  double-counts the ambiguous jack-plate figure.
+- Related fact cards: F-WP19-014, F-WP19-015, F-WP19-016, F-WP19-017
+
+## WP-18 Power adders and swaps (2026-09-07)
+
+### C-017: KraftWerks Fit supercharger kit — two different power figures reported
+- MotorWorldHype (Sept. 2008, at the kit's pre-order announcement): "the base kit was able to
+  push the Fit to make 121hp at the wheels."
+- MotoIQ (reporting on what it explicitly calls the "High-Boost" version of the kit): 164 whp
+  and 132 lb-ft of torque at 10 psi, described as a "75-percent HP increase" over stock.
+- Not fully resolved this pass. The most likely explanation — that these are two different
+  product tiers (a lower-boost "base" kit vs. a separately-marketed "High-Boost" kit) rather
+  than a true contradiction about one single product — is internally consistent (stock L15A1
+  crank output is ~109 hp per facts/WP-01.md; 121 whp at low boost and 164 whp at 10 psi both
+  check out against a plausible ~15-20% drivetrain loss either way), but no source was found
+  that states outright "these are two separate SKUs" in so many words. Recorded per Rule 6
+  rather than silently picking one number.
+- Related fact card: F-WP18-003
+
+### C-018: Claimed power ceiling for GD3 L15A1 turbo builds — eBay marketing claim vs. community consensus
+- A generic, unbranded eBay marketplace listing (seller/brand not identified) advertises a
+  "SS Turbocharger Kit" for the "2007-2008 Honda Fit Jazz GD3 L15" rated at "485HP."
+- A FitFreak.net thread specifically in the 1st-generation (GD 01-08) sub-forum, discussing
+  real owner turbo builds, instead describes a realistic range of 160-200 whp on stock
+  internals, holding roughly 8 lbs of boost, with one named built/bored (1.6L) motor reaching
+  only about 220-260 whp before requiring a rebuild.
+- Not resolved as a "true" two-good-sources conflict: the eBay listing is an anonymous
+  marketplace claim with zero independent build documentation behind it anywhere found this
+  pass, versus a real (if WebSearch-snippet-only, fitfreak.net being Cloudflare-blocked)
+  community consensus from people who have actually built and blown up these engines. The
+  485hp figure is NOT used as a fact anywhere in facts/WP-18.md; recorded here only so a future
+  pass does not need to re-investigate the same eBay listing from scratch.
+- Related fact cards: F-WP18-008, F-WP18-009
