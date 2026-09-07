@@ -1,3 +1,14 @@
+DOCUMENT_ID: leiden-foundation-documents
+TITLE (as printed): Foundation documents
+DATE: accessed 2026-09-07
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://www.universiteitleiden.nl/en/dossiers/history-of-leiden-university/foundation-documents
+EDITION: Leiden University official history dossier page
+TRANSCRIPTION METHOD: copied (HTML page fetched via curl, boilerplate/nav stripped programmatically, body text preserved verbatim)
+TOTAL PAGES: 1 (single web page)
+WORD COUNT: 488
+
+[[img. 1]]
 Foundation documents - Leiden University
 Skip to main content
 Leiden University

@@ -1,0 +1,474 @@
+DOCUMENT_ID: larhra-boisson-saumur
+TITLE (as printed): Le collège et l'académie de Saumur, un même établissement ?
+DATE: 2018 (in Protestantisme et éducation dans la France moderne, LARHRA)
+LANGUAGE: fr
+SOURCE URL/SHELFMARK: https://books.openedition.org/larhra/3652
+EDITION: Didier Boisson, OpenEdition Books, open access
+TRANSCRIPTION METHOD: copied (HTML page fetched via curl, boilerplate/nav stripped programmatically, body text and footnotes preserved verbatim)
+TOTAL PAGES: 1 (single web page)
+WORD COUNT: 6016
+
+[[img. 1]]
+Full text
+1
+E
+ntre les lettres patentes de mars 1593 par lesquelles Henri IV accorde à Philippe Duplessis-Mornay l’autorisation de « faire construire, ériger et bâtir un collège » à Saumur et, en 1613, la tenue d’un registre « des affaires de l’académie », vingt années s’écoulent au cours desquelles le gouverneur de Saumur se bat pour l’ouverture d’un collège de plein exercice et, à partir de 1606, d’une académie pour la formation théologique des pasteurs. C’est donc un établissement composé de deux corps distincts, celui du collège et de ses régents avec un principal à sa tête, celui de l’académie et de ses professeurs dirigés par un recteur, qui fonctionne du début du
+xvii
+e
+siècle jusqu’à l’arrêt du conseil du 8 janvier 1685 « portant extinction et suppression du collège et Académie »
+1
+.
+2
+À Saumur, on peut distinguer quatre principales institutions réformées qui interviennent dans le domaine éducatif : le collège de plein exercice ; l’académie en tant que telle, donnant une formation théologique ; le consistoire ; mais aussi jusqu’au début des années 1620 le gouverneur qui est omniprésent dans le fonctionnement de l’institution scolaire. Mais synodes nationaux et synodes provinciaux jouent également un rôle dans le système scolaire
+2
+.
+3
+Malgré cette distinction entre collège d’une part et académie d’autre part, les deux corps sont étroitement liés, autant sur un plan institutionnel que dans la vie quotidienne. Ce sont ces relations étroites que nous proposons d’étudier en s’appuyant principalement sur trois sources essentielles : les registres de l’académie, qui couvrent les années 1613-1673 puis les années 1683-1684
+3
+, le livre des recettes de l’académie pour les années 1631-1685
+4
+, les actes des synodes provinciaux d’Anjou-Touraine-Maine qui ont été retrouvés, soit de 1594 pour les plus anciens à 1683, année du dernier synode tenu par la province
+5
+. Quelle valeur peut-on attribuer à cette distinction collège-académie ? Peut-on considérer que l’institution traite différemment les deux corps ? Au sein des deux corps, cette distinction est-elle ressentie et faite ? Ces différentes questions peuvent être abordées à partir du cadre institutionnel existant, puis de la question d’un seul ou de deux corps, pour enfin voir quels sont les autres éléments d’opposition entre collège et académie.
+Un cadre institutionnel défini par les synodes
+4
+Le cadre institutionnel fixé par les synodes nationaux détermine dans un premier temps les liens entre collège et académie. En effet, l’édit de Nantes ne comporte aucun article envisageant la création d’établissements scolaires, seul l’article XXII garantit aux réformés « qu’il ne sera fait différence ni distinction, par le fait de ladite religion, à recevoir les écoliers pour être instruits ès universités, collèges et écoles »
+6
+. Mais aux articles « dits particuliers », « ne pourront ceux de ladite religion tenir écoles publiques sinon ès villes et lieux où l’exercice public d’icelle leur est permis, et les provisions qui leur ont été ci-devant accordées pour l’érection et entretenement des collèges seront vérifiées [au cas] où besoin sera et sortiront leur plein et entier effet »
+7
+. C’est donc essentiellement entre le synode national de Gap de 1603, qui prend la décision d’établir des règlements généraux, et celui d’Alès de 1620 que les principaux articles concernant collèges et académies ont été pris, mettant en évidence une volonté réelle des synodes de développer des institutions scolaires. Quelques articles peuvent être rappelés.
+Lors du synode de Privas de 1612 : « Toutes les provinces auront des collèges, excepté celles qui ont des académies entretenues. Néanmoins lesdites provinces, outre leurs académies, pourront établir des collèges à leurs propres frais » (article 12 du chapitre sur les académies)
+8
+. L’article 19 précise que le « nombre des académies qui doivent être entretenues » est de quatre, soit Montauban, Nîmes, Montpellier et Saumur
+9
+. L’article 22 demande aux établissements que « quant aux règlements des exercices académiques et de la conduite des académies, la compagnie enjoint aux conseils académiques d’en dresser un modèle, chacun selon qu’il le jugera plus expédient »
+10
+. L’article 20 précise que dans les académies de Saumur et de Montauban, il doit y avoir deux professeurs de théologie « qui fassent toutes les leçons nécessaires » et « il leur sera permis de servir au ministère, selon qu’ils en auront le temps »
+11
+.
+Lors du synode de Tonneins de 1614, l’article 9 du chapitre des académies décide que l’assemblée octroie à l’académie de Saumur une subvention pour son fonctionnement, dans le prolongement de ce qui lui a été attribué lors des synodes précédents, mais ajoute que « pour rendre son collège plus accompli et le fournir de tous les régents et professeurs nécessaires », le synode national accorde une nouvelle somme de 600 livres par an
+12
+.
+Le synode de Vitré de 1617 rappelle la nécessité « d’une manière très expresse aux conseils académiques de faire que les statuts et les règlements académiques soient strictement observés ». Les provinces dans lesquelles il y
+a une académie doivent députer deux pasteurs tous les ans pour examiner les élèves et voir « si les professeurs font leurs devoirs »
+13
+.
+Enfin le synode national d’Alès de 1620, dans le chapitre « concernant les académies et les collèges », décide en particulier de ne pas toucher à la carte des académies. Toutefois, « sur la proposition qui a été faite de régler le nombre des académies, pour les rendre fournies de tous les professeurs, soit pour la théologie, soit pour les autres sciences, il n’a pas été trouvé bon de faire maintenant aucun décret pour cela, attendu qu’un changement sur cette matière pourroit altérer la bonne union qui doit être conservée parmi nous »
+14
+. Ce synode précise également les statuts pour ces établissements
+15
+.
+5
+Les synodes provinciaux interviennent également sur le fonctionnement et l’existence même d’une académie. Par exemple, après la difficile décennie des années 1620, guerres et peste ont fortement perturbé le fonctionnement de l’académie de Saumur et la présence d’un tel établissement est contestée par l’Église de Loudun qui n’obtient cependant pas le transfert de l’académie :
+L’eglise de Loudun ayant esté ouye en sa proposition du transport de l’academie de Saumur à Loudun, et l’eglise et l’academie de Saumur en ses defenses, les raisons alleguées de part et d’au[tr]e ont esté meurement considerées pour la troisieme fois ; et a esté unanimement jugé que les raisons de ladite eglise et academie de Saumur prevalans en toutes sortes, nostre province fera tous ses efforts pour confirmer ladite academie au lieu où elle a subsisté jusques à present. Et l’eglise de Loudun a esté exhortée de ne faire plus en ceste dite compagnie pareilles propositions
+16
+.
+Une même institution ?
+6
+Si l’on se situe au niveau local, on peut s’interroger sur l’utilisation du terme académie à Saumur. Cela peut être tout d’abord l’établissement qui forme les pasteurs, mais d’une façon plus générale, et c’est l’usage le plus courant qui en est fait, l’académie c’est l’ensemble de l’institution scolaire, collège compris. En 1617, le recrutement d’un enseignant est ainsi inscrit dans le registre du conseil académique : « Monsieur Scevez Ecossois ha esté en iceluy receu régent de la première classe du collège de ceste académie »
+17
+. Ainsi, le conseil académique avec son recteur à la tête ne règle pas seulement les problèmes des théologiens, mais aussi ceux du collège. S’il existe officiellement des couples académie-recteur d’un côté, collège-principal de l’autre, dans les faits ce ne sont pas deux corps séparés. De la même façon, l’usage du terme d’écolier est souvent générique pour désigner à la fois ceux qui sont au collège ou en théologie. Des termes plus précis peuvent être utilisés pour désigner une classe ou une catégorie particulière : les théologiens, les philosophes, les physiciens…
+7
+Le registre du conseil académique est également très explicite sur des règles communes à l’ensemble des étudiants. Il en existe tout d’abord pour fixer un fonctionnement commun de l’établissement, que ce soit pour les dates des congés scolaires ou celles du logement. Ainsi, le 24 juillet 1614, il est noté : « Le conseil a ordonné que nul escolier ne soit immatriculé au catalogue des escholiers par monsieur le recteur ou examiné pour estre reczeu aux classes jusques à ce qu’il soit logé par l’advis et consentement de monsieur le recteur, principal ou quelqu’un des pasteurs et ne pourront changer de logis qu’avec le consentement susdict ce qui sera intimé et fait savoir aux parens »
+18
+.
+8
+C’est dans les fonctions du principal et du recteur que l’on voit la prééminence du second sur le premier. L’article I des statuts généraux pour les Académies des Églises réformées de France, définis lors du synode d’Alès de 1620, précise qu’il doit y avoir pour chaque académie deux conseils, « l’un ordinaire, qui ne sera composé que des pasteurs de l’Église du lieu où ladite académie sera établie, et des professeurs publics, avec le premier régent du collège, et ce conseil aura pour chef le recteur de l’académie. L’autre extraordinaire […] »
+19
+. Les charges du principal sont définies précisément à Saumur dès 1615 et inscrites dans le registre du conseil académique
+20
+. Son autorité ne s’exerce clairement que sur le collège :
+les régents sont « tenus de luy jurer et prester obeissance, en ce qui concerne tant la manière d’enseigner que la discipline et le chastiment des escholiers » (article II). « Que les professeurs en philosophie soient tenus de suivre son conseil et advis en ce qui concerne leur charge », mais aussi « il aura inspection et intendance sur les professeurs de philosophie et sur les exercices en leur charge » (article III).
+« que tous les étudiants en philosophie soient tenus de luy jurer et rendre obéissance et pour cest effect venir vers luy pour estre immatriculez » (article V).
+lors de tout acte solennel, le principal « marchera devant les professeurs en philosophie, régentz, estudiantz en philosophie et escoliers classiques, comme chef de ce corps » (article X).
+9
+Le principal n’a donc des fonctions qu’auprès des étudiants et des enseignants du collège, ce qui n’est pas le cas du recteur. Ce dernier intervient dans de nombreux aspects de la vie de l’ensemble de l’établissement. Quand il y a un différend entre les philosophes et le conseil sur la façon de se rendre au prêche, ce n’est pas le principal qui intervient mais le recteur ; c’est le recteur qui préside au recrutement des régents par le conseil académique. Cependant, cette autorité du recteur n’est pas toujours respectée comme le montrent les nombreux conflits inscrits dans les registres. En juin 1646, le recteur Josué de La Place intervient dans le temple pour demander aux philosophes de s’asseoir sur les bancs qui leur sont réservés et non au milieu de la population. Un étudiant refuse d’obéir à plusieurs reprises « sur quoy ledit recteur l’ayant frappé en la joue, ledit Houiller l’auroit outragé de paroles injurieuses, et de là se seroit pendant le presche transporté au logis dudit recteur, où il auroit à coups de pierres brisé et fracassé entièrement toutes les vitres du logis avec paroles outrageuses et menaces contre ledit recteur dites par lui à la chambrière d’icelui qui le vouloit retenir de son excès et insolence »
+21
+. Lors des violences qu’ils peuvent commettre, à l’image du comportement de Houiller qui s’en prend au logis du recteur, les étudiants cherchent à s’attaquer à ce qui pourra entraîner les plus fortes réactions de la part des autorités académiques. Ainsi, en 1653, « plainte ayant esté faite du désordre commis dans l’auditoire de théologie et de physique en la rupture des bancs, renversement de la chaire et autres excès », ce sont des étudiants en philosophie qui sont soupçonnés
+22
+. Par ces deux exemples, il existe donc une volonté très claire de rébellion contre l’institution et l’ordre social qu’elle représente, comme c’est également le cas en 1673 quand trois proposants et un étudiant en philosophie, masqués, parcourent les rues de nuit pour faire peur aux habitants « battant aux portes avec insolence et prononçant des paroles deshonnestes ». Deux d’entre eux, « que leur profession oblige à apporter plus de précaution en leur conduite », sont jugés « dignes des dernières censures »
+23
+.
+10
+L’académie et le collège ne constituent pas un établissement isolé dans la ville de Saumur. De par la composition de la population de cette place de sûreté
+24
+, les liens avec les autres institutions réformées saumuroises sont évidents : des anciens siègent au conseil académique extraordinaire ainsi que Duplessis-Mornay, le gouverneur jusqu’au début des années 1620. Ainsi, il n’est pas étonnant que le conseil académique se réunisse au collège, mais également au consistoire ou au château. Duplessis-Mornay est présent régulièrement comme lors du conseil du 19 avril 1615 quand sont auditionnés deux candidats pour un poste de régent. Un des deux se plaint de la présence du gouverneur dont la « présence l’avoit troublé et qu’il esperoit de parler plus hardiment hors de sa présence »
+25
+. En 1620, il règle un conflit entre étudiants qui se sont bagarrés : les deux coupables doivent ainsi verser à la victime les frais du médecin, du chirurgien et de l’apothicaire, la nourriture jusqu’à sa guérison ; ils doivent se donner la main comme signe de réconciliation et que désormais ils « vivroient amis à l’advenir »
+26
+.
+Deux corps séparés
+11
+Collège et académie forment cependant aussi deux corps séparés. Par exemple, le corps des philosophes doit défiler après le corps des théologiens, et ce dernier est dit de qualité plus « honorable ». Lorsque celui-ci n’est pas respecté, il y a outrage à la préséance de corps. Un régent d’une classe du collège doit se situer derrière les professeurs de philosophie et ceux-ci derrière les professeurs de théologie. Quand cet ordre n’est pas respecté, il y outrage à la préséance de rang. Dans un cas comme dans l’autre, les conflits inscrits dans le registre de l’académie sont à cet égard nombreux. Mais il ne semble pas que ce soit tant l’opposition entre collège et académie que la recherche d’une dignité dans l’ensemble de l’établissement qui en soit la principale cause. On s’en rend compte en étudiant quelques conflits entre enseignants
+27
+. Ainsi, en 1627, après le rétablissement du poste de professeur de grec à l’académie, un conflit oppose l’ancien titulaire, Benoit, et Duncan. Le premier aurait ravi à quatre reprises la préséance à Duncan
+28
+. D’autre part, entre 1640 et 1655, Hugues, professeur de philosophie, s’en prend à un professeur d’éloquence, Pibles, et prend sa place, alors que Pibles est plus ancien dans l’établissement. La querelle ne s’interrompt qu’à la mort d’Hugues. Ainsi, le 15 septembre 1640, le registre note : « Monsieur Pibles ayant représenté au recteur que M. Hugues prenoit la place devant luy aux solennités de l’École, nonobstant les promesses qu’il avoit faites du contraire à sa réception et qu’il avoit toujours pratiqué depuis six ans »
+29
+. Un mois plus tard, c’est Hugues qui se plaint « de ce qu’à la dernière solennité de l’Eschole, M. Pibles avoit essayé de le bouter du rang qu’il prétend devoir tenir à raison de sa charge de professeur de philosophie »
+30
+. Le jugement de cette affaire Pibles-Hugues précise qu’il est regrettable qu’Hugues « désire changer cette règle » établie « depuis plus de vingt ans ».
+12
+La hiérarchie académique – qui tient compte à la fois du corps auquel appartient chaque enseignant et de son ancienneté – est connue de tous. Nier cette hiérarchie revient à nier la dignité de la personne et à ternir son honneur
+31
+. C’est ce qui explique les réactions parfois violentes quand de tels incidents ont lieu. Ainsi, en avril 1615, « sur la plainte faite par M. Kraig, à présent recteur au conseil extraordinaire, à l’encontre de M. Petit, troisiesme régent, pour les propos fascheux et messeants qu’il luy avoit tenus quand il l’avoit averti et repris de ce qu’il avoit pris et receu argent de quelques escholiers contre la défense expresse du synode provincial, conseil de l’académie »
+32
+. Là encore, les « propos fascheux et messeants » sont là pour laver ce que le régent considère comme une injure. Selon le jugement rendu par le conseil, Petit « reconnoistra avoir grandement failly en son devoir et qu’il demandera pardon audit sieur recteur et le priera d’oublier ce qui s’est passé et promettra à l’advenir d’estre plus obéissant, ce qui a esté présentement fait ». Cela lui a été pardonné, puisque quelques jours plus tard, il obtient la seconde classe, mais il est vrai que son rival est jugé lors des leçons « si timide, troublé et avec si peu d’authorité qu’on appréhende luy commettre la jeunesse de peur d’estre par eux mesprisé »
+33
+.
+13
+Quand le recteur est la cible de certains étudiants, c’est autant l’institution que l’ordre social qui sont remis en cause. Ainsi on peut lire pour la date du 16 mai 1633 : « Bonneau, estudiant en physique, pour ses insolences et excez contre messieurs le recteur et principal et pour plusieurs pensées outrageuses et injurieuses et actions indignes contre ledit sieur recteur et contre monsieur Forent son professeur, comme aussy pour ses juremens et blasphèmes ordinaires » est censuré
+34
+.
+Une violence omniprésente
+14
+En étudiant les registres du conseil académique, on peut être frappé par la mention de nombreux cas de violence, que ce soit des violences physiques, des violences verbales, ou la remise en cause de l’ordre social. Etudiants et enseignants sont au cœur de ces violences et peuvent opposer les deux corps. Une affaire apparaît particulièrement significative de ces violences. Ainsi il est mentionné lors de la séance du 18 mai 1667
+35
+:
+La compagnie ayant pris cognoissance d’un différent entre plusieurs étudiants en théologie et quelques escoliers en philosophie de ceste académie et ayant appris que ce démeslé avoit fait grand esclat et causé beaucoup de scandale, qu’il y avoit port d’armes contre les règlemens et qu’on avoit tiré les espées de part et d’autre en lieux publics et que l’origine de ce démeslé venoit de ce que quelques uns des estudiants en philosophie avoient fait insulte aux estudiants en théologie, jusqu’à les siffler publiquement, et aux promenades, et prenant pour prétexte d’occasion de ceste action et procédure injurieuse.
+15
+Quelle est, semble-t-il, la raison immédiate de ces violences : « La rencontre de quelques uns desdits estudiants en théologie qui s’accostoient des dames en promenade et lieux publics ». Quelles sont alors les mesures prises par le conseil académique : « ladite compagnie après avoir appliqué les censures convenables à ceux qu’elle a jugé estre particulièrement coulpables de ce dernier désordre a ordonné que l’on réitérera en auditoires tant de théologie que de philosophie les anciens règlemens et défenses à tous tant de s’accoster des filles et femmes en promenades et lieux publics et avoir une particulière fréquentation entre elles capables de préjudicier à leurs estudes, et tirer d’autres mauvaises conséquences : que de porter les armes, faires insultes, querelles et batteries ».
+16
+Plusieurs commentaires peuvent être faits sur cette affaire. Tout d’abord, ce n’est pas la première fois que de tels reproches sont adressés aux théologiens, montrant ainsi leur statut quelque peu particulier dans l’établissement. Déjà en 1665, lors du synode provincial de Saumur, il est noté :
+Diverses plaintes ayant esté faites de la conduite des estudiants en théologie, et sur ce qui a esté rapporté qu’ils sont trop superbement vestus, qu’ils s’abandonnent à plusieurs desbauches, qu’ils négligent leurs estudes pour fréquenter les filles qu’ils ne craignent pas de promener par les rues et qu’ils conversent plus qu’ils ne devroient avec elles. La compagnie les ayant fait venir en sa presence, leur a fait sur tous ces articles des graves et serieuses remonstrances, leur defendant expressement le luxe, les debauches, les partialités et toutes les dissolutions auxquelles ils se sont cy devant abandonnés
+36
+.
+17
+En 1646, le registre du conseil académique mentionne des « remonstrances et censures aux estudiants en théologie et proposans de leur trop grande superfluité et braverie en habitzs et choses qui s’y rapportent, et dans leur licence et fréquence à hanter compagnie de filles et de femmes comme choses mal convenables et esloignées de la simplicité, modestie et retenue de leur profession »
+37
+. On peut également noter un caractère ritualisé de la violence entre les deux groupes en raison du caractère public de l’injure
+38
+.
+18
+Cette opposition entre collégiens et théologiens apparaît de façon dramatique en 1648 par la mort d’un logicien nommé Dupas
+39
+, à l’issue d’une « batterie qui se fit hier soir entre quelques escholiers et académistes », révélant probablement plus que les conflits entre philosophes et théologiens l’importance du port d’armes chez les élèves et étudiants et les tentatives régulières du conseil académique contre cette pratique. Ainsi en 1650, « à cause de la licence et fréquence des batteries et duels entre les escholiers, a esté arresté que tous les escholiers classiques quels qu’ils soient, qui seront convaincus de porter armes et d’avoir appelé aucun en duel, ou de s’y estre porté, ou accepté l’appel, soit comme second ou principal, partie ou agresseur, seront sans rémission chastiez du fouet, et que pour les autres soit philosophes soit théologiens, on exercera envers eux toute la rigueur de la discipline possible »
+40
+.
+19
+Cette affaire permet de se rendre compte que plus que l’opposition entre les deux corps, d’autres facteurs entrent en jeu. Tout d’abord l’existence d’une jeunesse bagarreuse, agitée et violente, répondant à des codes sociaux. À lire les registres de l’académie, il est frappant de constater que les élèves impliqués sont avant tout les philosophes et les théologiens, c’est-à-dire les plus âgés. Ainsi, le théologien La Fite, un Béarnais, subit une attaque par deux collégiens allemands en 1620 : ces derniers le blessent à la tête d’un « coup d’espée » donné, selon le registre, par « accident ». Ceci est difficile à croire dans la mesure où les deux agresseurs s’introduisent de nuit et armés d’épées dans la maison où loge la victime. Il semble toutefois que La Fite avait déshonoré ses agresseurs qui ont cherché à se venger
+41
+. En 1663, le théologien Bonneau reçoit le soufflet d’un certain La Haye qui ensuite le menace de son épée : il s’agit là encore d’une vengeance d’un déshonneur antérieur
+42
+. Toutefois les incidents entre théologiens eux-mêmes ou entre philosophes semblent aussi courants. Les philosophes se sentent manifestement plus proches des théologiens que des plus jeunes collégiens, comme le montre par exemple leur refus en 1614 de se ranger avec les collégiens pour aller au temple
+43
+.
+20
+Le caractère collectif ou de groupe de certains comportements opposés aux règles établies par l’académie ne doivent pas faire oublier les comportements beaucoup plus individuels de certaines réactions des étudiants. La question des bancs du temple est intéressante à ce sujet. Par exemple, en 1633, « monsieur Touchet, fils de monsieur le baron de la Forest Montgomery, estudiant icy en logique » est convoqué par le conseil académique « pour y estre exhorté de se submettre à l’ordre de ses compagnons estudians en philosophie, pour se seoir et prendre place ordinairement avec eux au temple dans les bancs qui leur sont assignés, et de faire la cène avec eux en son rang ». Il se place dans le temple sur les bancs des étrangers. L’affaire dure plus de six mois, sans que l’on en connaisse exactement l’issue
+44
+.
+21
+Autre élément d’opposition qui va au-delà de l’opposition entre deux corps, ce sont les conflits internes à la communauté réformée de Saumur. Dans quelle mesure la présence de Gomar à Saumur, celle de Cameron, les écrits d’Amyraut, de de La Place, de Pajon, de d’Huisseau, ou le long conflit dans les années 1650 entre Amyraut et d’Huisseau n’ont-ils pas eu des répercussions au sein de l’établissement ? Les registres de l’académie le font apparaître. Ainsi, est-ce un hasard si peu de temps après l’arrivée de Gomar à Saumur en mai 1615 et à l’issue d’une leçon donnée par lui aux théologiens, cinq étudiants s’affrontent, sans que nous en connaissions le motif exact, « en présence des pasteurs et professeurs » : ils échangent des « paroles aigres », des « coups ». Deux des étudiants se voient rayés de « l’immatricule des estudiants », un doit « confesser sa faute et demander pardon publiquement vendredy prochain à l’issue de la leçon de M. de Gomarus »
+45
+.
+22
+Le régent Crespin, soutien d’Isaac d’Huisseau en particulier lors de la parution en 1670 de la
+Réunion du Christianisme
+, porte plainte en 1653 auprès du conseil académique pour des « injures atroces » écrites sur les murs « en divers lieux de la ville »
+46
+. En 1666, le même Crespin réitère sa démarche à l’encontre celle fois-ci de Du Beaulieu pour « diverses paroles très injurieuses tenues de luy en diverses compagnie et spécialement en présence de M. Cappel et mesmes de menaces qu’il avoit faites contre ledit sieur Crespin d’attenter à sa personne »
+47
+. En 1670, le troisième régent, Billé, « aiant sans aucun sujet outragé de parole monsieur Crespin en la présence de monsieur Du Soul, principal, des autres régents ses collègues, nonobstant toutes les prières et remontrances que ces messieurs présents adressoient audit Billé »
+48
+.
+23
+La présence également de nombreux Écossais est l’occasion de la publication de libelles à Saumur. En 1618, l’arrivée de Cameron s’est faite dans des conditions quelque peu contestables, en particulier pour celui qui avait été pressenti avant que Cameron ne soit désigné
+49
+. En tout cas, en février 1619, Cameron, Duncan, Gedé et Schevez, quatre professeurs écossais de Saumur, portent plainte devant le conseil extraordinaire de l’académie et le recteur qui est alors Louis Cappel, « touchant un certain libelle diffamatoire en vers françois de naguère imprimé, affiché et publié en cette ville contre l’honneur de leur nation en général et en particulier de leurs personnes, qualités et professions ». Sont accusés d’être à l’origine de cette publication, un étudiant en théologie, originaire de Metz, qui est l’auteur du libelle, un compagnon relieur et un apprenti imprimeur travaillant tous les deux chez l’imprimeur Thomas Portau
+50
+. Cette affaire semble surtout une réponse à une publication anonyme
+Satyre démocritique
+dont « maistre Locart, escossois, estudiant et proposant en théologie est soupçonné estre l’autheur »
+51
+. Outre l’exclusion des trois complices, le conseil académique convoque l’étudiant écossais et il est désormais interdit à « tous les escholiers de quelque qualité ou condition qu’ils soient de composer, imprimer, faire imprimer ou publier aucune chose sans sa permission [du recteur] ».
+24
+Le fonctionnement et la vie quotidienne du collège et de l’académie de Saumur font clairement apparaître que l’ensemble ne forme qu’un seul établissement, tant les liens institutionnels et humains sont étroits. Les registres de l’académie sont à cet égard une source irremplaçable. Il faut peut-être également en souligner le caractère déformant dans la mesure où ces registres insistent surtout sur les conflits qui émaillent l’établissement, mais cela en fait une source très vivante. Cependant si, officiellement, il existe deux corps, dans la réalité, la rupture se fait davantage entre philosophes et théologiens d’un côté, les « classiques » de l’autre.
+Footnotes
+1
+Pour l’histoire du collège et de l’académie, voir l’introduction, rédigée par Jean-Paul Pittion, du fonds numérisé de l’académie conservé aux archives municipales de Saumur (http://archives.ville-saumur.fr/am_saumur/app/03_archives_en_ligne/01_academie_protestante/index.php); François L
+ebrun
+(dir.),
+Saumur, capitale européenne du protestantisme au
+xvii
+e
+siècle
+, Fontevraud, Centre culturel de l’Ouest, 1992 ; Hubert L
+andais
+(dir.),
+Histoire de Saumur
+, Toulouse, Privat, 1997.
+2
+Jean A
+ymon
+,
+Tous les synodes nationaux des Églises réformées de France
+…, La Haye, 1710, 2 volumes ; Didier B
+oisson
+,
+Actes des synodes provinciaux des Églises réformées d’Anjou-Touraine-Maine (1594-168
+3
+)
+, Genève, Droz, 2012.
+3
+Voir le registre en ligne sur le site des Archives municipales de Saumur.
+4
+Ibid
+.
+5
+D. B
+oisson
+,
+Actes des synodes provinciaux.., op. cit.
+6
+L’Édit de Nantes
+, présenté et annoté par Janine G
+arrisson
+, Biarritz, Atlantica, 1997, p. 37.
+7
+Ibid.
+, article XXXVII, p. 82-83. Pour une présentation générale des académies voir Jean-Paul P
+ittion
+, « Les académies réformées de l’Édit de Nantes à la Révocation », dans Roger Z
+uber
+et Laurent T
+heis
+(dir.),
+La Révocation de l’Édit de Nantes et le protestantisme français en 1685
+, Paris, Société de l’Histoire du Protestantisme Français, 1985, p. 187-206.
+8
+J. A
+ymon
+,
+Tous les synodes nationaux… op. cit
+., tome I, p. 435.
+9
+Ibid
+., p. 437.
+10
+Ibid
+., p. 437.
+11
+Ibid
+., p. 437.
+12
+Ibid
+., tome II, p. 35. Concernant les finances des académies, le brevet royal du 3 avril 1598 accorde aux réformés une subvention de 45 000 écus. Les fonds nécessaires à l’entretien des chaires publiques sont prélevés sur ce montant. Mais à partir de 1620, les Églises réformées ne reçoivent plus rien de l’État : le synode national de Charenton décide que dans chaque province un consistoire doit se charger de lever des fonds dans chaque Église à partir du quint denier des aumônes collectées. Voir J.-P. P
+ittion
+, « les académies réformées… »,
+op. cit.
+, p. 190-191.
+13
+Ibid
+., tome II, chapitre « Des académies et collèges », article 13, p. 124 : « Il est pareillement enjoint, d’une manière très expresse, aux conseils académiques de faire que les statuts et règlemens académiques, dressés par les synodes nationaux précédens, soient exactement observés afin que les défauts qui ont été remarqués ci-devant, ne se trouvent plus, mais que les écoliers se comportent avec toute la modestie qui est convenable à leur profession, & soient diligens & assidus aux leçons de la langue hébraïque et de la grecque, comme aussi aux disputes de la théologie. Et afin que lesdits règlemens soient mieux observés, les synodes des provinces où il y a des académies, sont chargés de députer tous les ans deux pasteurs qui seront pris hors des Églises du ressort desdites académies, lesquels s’en iront en certain tems dans ces académies là pour y examiner tous les écoliers & pour voir s’ils profitent et si les professeurs font leur devoir […] ».
+14
+Ibid
+., tome II, article 5, p. 204. Cinq académies existent à cette date : Sedan, Die, Nîmes, Montauban et Saumur.
+15
+Ibid
+., tome II, p. 209-212.
+16
+D. B
+oisson
+,
+Actes des synodes provinciaux…, op. cit
+, p. 299. Si le synode national de Castres de 1627 ne trouve pas « à propos de diminuer le nombre des universités » (article 2, chapitre 22), il demande « à toutes les provinces d’examiner dans leurs synodes si on ne pouvoit pas changer nos universités d’une place à une autre » (article 5, chapitre 22). Le registre du conseil académique mentionne à la date du 26 novembre 1626 : « il estoit nécessaire de remettre sus le conseil extraordinaire lequel, par mort, maladie, impuissance ou absence continuelle de ceux qui cy devant le constituoient » ; mais aussi le 11 décembre : « Le conseil extraordinaire indict ce jour là ne s’estant point tenu pour l’absence, maladie et excuse presque de tous ceux qui le constituent ».
+17
+Arch. mun. de Saumur, registre du conseil académique, fol. 23v.
+18
+Ibid.
+, fol. 8v.
+19
+J. A
+ymon
+,
+Tous les synodes nationaux… op. cit
+., tome II, p. 209.
+20
+Arch. mun. de Saumur, registre du conseil académique, fol. 18v-20.
+21
+Ibid
+., fol. 141. Outre la réparation des dégâts occasionnés, le conseil extraordinaire décide qu’« il sera escrit aux parens dudit Houiller pour leur donner adviz du tort, afin d’amener et porter ledit escholier à son devoir en réparation d’honneur vers ledit recteur et la compagnie qui se tient offensée en la personne dudit recteur ainsi excédé ».
+22
+Ibid
+., fol. 154-154v. Les étudiants soupçonnés refusent même de comparaître devant le conseil académique. Il est décidé qu’ils sont condamnés « à faire restituer toutes choses en leur estat ancien à leurs despens […]. Ils comparoistront demain à dix heures dans le lieu où a esté fait le désordre pour y recevoir les censures verbales qui leur seront faites par monsieur le principal en présence de monsieur le recteur, de messieurs les professeurs en philosophie et autres de messieurs du conseil académique à qui il plaira de s’y trouver » (30 juillet 1653).
+23
+Ibid
+., fol. 228v-229v.
+24
+Didier Poton distingue une population réformée stable, n’excédant pas 1 500 à 1 600 personnes dans le premier tiers du
+xvii
+e
+siècle, puis 1 100 à 1 300 individus dans les décennies suivantes, avant une constante diminution à partir des années 1660, et une population réformée flottante (soldats, collégiens accompagnés de leurs domestiques) de quelque 200 à 300 personnes (Didier P
+oton
+, « Les protestants de Saumur au
+xvii
+e
+siècle. Étude démographique »,
+Saumur, capitale européenne du protestantisme au
+xvii
+e
+siècle
+, François L
+ebrun
+(dir.), Fontevraud, Centre culturel de l’Ouest, 1992, p. 11-25). Voir également Hubert L
+andais
+(dir.),
+Histoire de Saumur
+, Toulouse, Privat, 1997.
+25
+Arch. mun. de Saumur, registre du conseil académique, fol. 14v. Le lendemain, trois candidats sont auditionnés, mais le pauvre Merula « fort capable mais à cause de sa timidité si grande à parler en public qui soit estre jointe avec authorité sur des escholiers pour les conduire comme il faut » est écarté au profit de M. Granjon.
+26
+Ibid.
+, fol. 48v. « Que ledit La Prie, qui estoit celuy lequel avoit donné le coup déclarant audit La Rue qu’il estoit marri de cest accident là, le prioit de l’en excuser et l’oublier de tant plus qu’il n’avoit eu aucune mauvaise volonté contre luy qu’il ne cognoissoit point auparavant ; et que cela s’estoit faict par malheur de rencontre ; finalement qu’ils se donneroient la main l’un à l’autre et aussi ledit Bouquet et qu’estant réconciliés ensemble, ils vivroient amis à l’advenir, à quoy ils avoient tous acquiescé enfin, combien ledit La Rue eust par quelque murmure donné tesmoignage de mescontentement ».
+27
+Gaëtan V
+audron
+,
+La violence à Saumur au
+xvii
+e
+siècle, d’après les registres de l’académie protestante
+, mémoire de master 2, Université d’Angers, 2011.
+28
+Arch. mun. de Saumur, registre du conseil académique, fol. 93-100. « Monsieur Duncan a demandé reparation des paroles injurieuses qu’il pretend luy avoir esté dites par monsieur Benoist dans ceeste compagnie lors de la proposition par luy faite ledit jour 28
+e
+juillet […], luy disant que ceste proposition tendoit à sa ruine, qu’elle ne pouvoit partyr d’une ame crestienne et autres paroles fascheuses. […] Non seulement il auroit usurpé par trois fois consécutivement la préséance, mais encores ledit sieur Duncan l’aiant voulu prendre à la quatrième fois ledit sieur Benoist l’auroit repoussé et emporté la préséance par violence dont seroit arrivé grand scandale dans le temple ». Voir Gaëtan V
+audron
+,
+La violence à Saumur au
+xvii
+e
+siècle…
+, p. 68-69.
+29
+Arch. mun. de Saumur, registre du conseil académique, fol. 128v.
+30
+Idem
+.
+31
+Gaëtan V
+audron
+,
+La violence à Saumur au
+xvii
+e
+siècle…
+, p. 69. Michel N
+assiet
+,
+La violence, une histoire sociale. France,
+xvi-xviii
+siècles
+, Seyssel, Champ Vallon, 2011.
+32
+Arch. mun. de Saumur, registre du conseil académique, fol. 13v.
+33
+Ibid
+., fol. 14.
+34
+Ibid
+., fol. 108v.
+35
+Ibid
+., fol. 211.
+36
+D. B
+oisson
+,
+Actes des synodes provinciaux…, op. cit
+, p. 416.
+37
+Arch. mun. de Saumur, registre du conseil académique, fol. 141v.
+38
+Gaëtan V
+audron
+,
+La violence à Saumur au
+xvii
+e
+siècle…
+,
+op. cit
+, p. 53.
+39
+Arch. mun. de Saumur, registre du conseil académique, fol. 146.
+40
+Ibid
+., fol. 147. Gaëtan V
+audron
+,
+La violence à Saumur au
+xvii
+e
+siècle…
+,
+op. cit
+, p. 95-97.
+41
+Idem
+.
+42
+Ibid.
+, fol. 186v.
+43
+Ibid
+., fol. 10. “Le conseil ayant apris et veu que les estudiants en philosophie ne se vouloient soubmettre à aller au presche en rang avec les classiques selon l’arresté du sinode, et qu’ils se resoudroient plustost de quitter tout, offrans en toutes autres choses se soubmettres aux ordonnances de ceste academie en ce qui les concerne mesmes que ceux qui ne s’y rangeroient fussent punis et chassés estant veu qu’aucun de ceux qui feroient leur debvoir n’y fut compris […] (29 août 1617).
+44
+Ibid
+., fol. 107, 107v, 109, 109v, 110. Toutefois, le registre mentionne à la date du 18 juillet 1633 : « le baron de Touchet n’ayant point tenu la promesse qu’il avoit faicte à messieurs de La Place et Druet en exécution de l’article cy dessus, la compagnie ha ordonné que monsieur le recteur accompagné de monsieur Druet son professeur lui déclarera que nous le tenons plus pour escholier, et qu’à faulte qu’il fera de comparoir pour lui déclarer cela monsieur de l’Espine son précepteur sera mandé et lui sera commandé de faire audit sieur Touchet ladite déclaration, et de faire rapport de sa response, autrement on s’en prendra à lui en son nom propre et privé nom ».
+45
+Ibid
+., fol. 16. Sur ces différentes questions, voir Françoise C
+hevalier
+, « La contestation de l’autorité du pasteur par l’assemblée des chefs de famille : Saumur, 1655-1660 »,
+L’anticléricalisme intra-protestant en Europe continentale (
+xvii
+e
+-
+xviii
+e
+siècles)
+, textes réunis par Yves Krumenacker, Lyon, Institut d’Histoire du Christianisme, Université de Lyon 3, 2003, p. 11-26 ; François L
+aplanche
+,
+Orthodoxie et prédication. L’œuvre d’Amyraut et la querelle de la grâce universelle
+, Paris, PUF, 1965 ; François L
+aplanche
+, « Le protestantisme en Anjou au temps de l’édit de Nantes »,
+Archives d’Anjou
+, n° 2, 1998, p. 77-92 ; Jean-Paul P
+ittion
+,
+Intellectual life in the Academie of Saumur, 1633-1685, a study of the Bouhéreau collection
+, Ph. D. Thesis, Trinity College, Dublin, 1969 ; Richard S
+tauffer
+,
+L’affaire D’Huisseau. Une controverse au sujet de la réunion des chrétiens (1670-1671)
+, Paris, PUF, 1969 ; Olivier F
+atio
+, « Claude Pajon et les mutations de la théologie réformée à l’époque de la Révocation »,
+La Révocation de l’Édit de Nantes et le protestantisme français en 1685
+, Paris, S.H.P.F., 1986, p. 209-225 ; Albert G
+ootjes
+,
+Claude Pajon (1626-1685) et the Academy of Saumur. The first controversy over Grace
+, Brill, 2013.
+46
+Arch. mun. de Saumur, registre du conseil académique, fol. 152, 153.
+47
+Ibid
+., fol. 206-207.
+48
+Ibid
+., fol. 221.
+49
+Voir D. B
+oisson
+,
+Actes des synodes provinciaux
+…, p. 241-254.
+50
+Arch. mun. de Saumur, registre du conseil académique, fol. 37.
+51
+Ibid
+. fol. 37v.

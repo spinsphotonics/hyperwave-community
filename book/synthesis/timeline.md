@@ -1,0 +1,326 @@
+STATUS: DONE
+TICKET: X3 (Synthesis — Timeline)
+ROLE: Synthesis
+INPUTS READ: research/<slug>/dossier.md fields F2 (founding dates) and S1-S6 (sending dates) for
+all 36 Tier A institutions
+
+# Timeline
+
+Every dated event found in the 36 dossiers' F-fields (founding) and S-fields (sending), sorted
+chronologically. Format: `YYYY[-MM-DD]: Event (institution, citation)`. Where a dossier logged a
+discrepancy between two sources over a date, both values are shown with a note — neither is
+silently chosen. Dates given only as "NOT FOUND," "UNVERIFIED," or with an illegible day/month in
+a dossier's own source stay that way here; nothing is filled in to make the list look tidier than
+the research actually is.
+
+---
+
+- **1502**: University of Wittenberg founded by Frederick the Wise, Elector of Saxony (Wittenberg) `[SECONDARY: stump1897-lifeofmelanchthon, wittenberg-q021]`
+- **1517**: About 200 students enrolled at Wittenberg, before Melanchthon's arrival (Wittenberg) `[SECONDARY: stump1897-lifeofmelanchthon, wittenberg-q015]`
+- **1518-08-25**: Melanchthon arrives at Wittenberg to take up the chair of Greek (Wittenberg) `[SECONDARY: stump1897-lifeofmelanchthon, wittenberg-q014]`
+- **1518 (c. 08-29)**: Melanchthon's inaugural lecture, "four days after" his arrival, per Stump's narrative — **discrepancy**: the roster and standard scholarship elsewhere give 28 or 29 August 1518 for the oration itself (Wittenberg) `[SECONDARY: stump1897-lifeofmelanchthon, wittenberg-q014]`
+- **1521**: Melanchthon's *Loci Communes* published; becomes a set text at Wittenberg (Wittenberg) `[SECONDARY: kreitzer2021-backwoods-school]`
+- **1523–1524**: Melanchthon serves as Wittenberg's rector; introduces Greek and Hebrew as independent subjects (Wittenberg) `[SECONDARY: kreitzer2021-backwoods-school]`
+- **1525-04-14**: Zwingli chosen rector of the Carolinum, Zurich (Zurich Prophezei) `[SECONDARY: zurich-prophezei-q016]`
+- **1525-06-19**: The Prophezei opens at Zurich, per the University of Zurich's own 2025 feature and a blog quoting Bruce Gordon (2021) — **discrepancy**: Christoffel's 1858 English translation instead gives 19 July 1525 (Zurich Prophezei) `[zurich-prophezei-q001, q015, q019; conflicting: Christoffel 1858, an independent third source]`
+- **1525-04 to 1525-12-20**: Ceporin serves as the Prophezei's first Hebrew master; dies in office 20 December 1525 (Zurich Prophezei) `[zurich-prophezei-q004]`
+- **1525-06-30**: Zwingli publishes his tract on the preaching office (Zurich Prophezei) `[zurich-prophezei-q011, q019]`
+- **1526–1556**: Pellican serves as Hebrew master at the Prophezei, succeeding Ceporin (Zurich Prophezei) `[zurich-prophezei-q004]`
+- **1527**: Wittenberg's university temporarily removed to Jena on account of plague (Wittenberg) `[SECONDARY: stump1897-lifeofmelanchthon]`
+- **1530**: The Augsburg Confession becomes a required text at Wittenberg (Wittenberg) `[SECONDARY: kreitzer2021-backwoods-school]`
+- **1537**: Sturm returns to Strasbourg (Strasbourg Academy) `[strasbourg-academy-q015]`
+- **1538-03**: A Strasbourg town councillor asks Sturm to reorganize education (Strasbourg Academy) `[strasbourg-academy-q012, q013]`
+- **1538**: Strasbourg Gymnasium founded; Sturm appointed headmaster (Strasbourg Academy) `[strasbourg-academy-q008, q012, q013]`
+- **1541**: Calvin's *Ecclesiastical Ordinances* name the office of "doctors," later institutionalized by the Geneva Academy (Geneva Academy) `[known-facts sheet]`
+- **1547–1548**: Wittenberg's university suppressed, then restored, during the Smalcald War (Wittenberg) `[SECONDARY: stump1897-lifeofmelanchthon]`
+- **1558-03-25 and 03-28**: Geneva's Small Council takes up the college project (Geneva Academy) `[geneva-academy-q010]`
+- **1558-10-24**: Calvin brings his detailed proposal for the seven classes to the Geneva Council (Geneva Academy) `[geneva-academy-q003]`
+- **1559-06-05**: Geneva Academy inaugurated at St Pierre; Beza elected first rector (Geneva Academy) `[geneva-academy-q010, q003]`
+- **1560-04-29**: The Great Council of Scotland issues the charge that produces the First Book of Discipline (Scotland: First Book of Discipline) `[scotland-fbd-q002]`
+- **1560**: First Book of Discipline subscribed at Edinburgh (exact day illegible in this session's source) (Scotland: First Book of Discipline) `[scotland-fbd-q002]`
+- **1561-01-17 or 1561-01-27** (Old Style "1560"): Privy Council Act approving the First Book of Discipline — **discrepancy**: the 1848 Laing edition gives "27 Januarii," but a footnote in the same volume records the 1621 printed edition instead gives "the 17th" (Scotland: First Book of Discipline) `[scotland-fbd-q026, q027]`
+- **1562**: Geneva Academy's college building, in the Bolomier garden, completed (Geneva Academy) `[geneva-academy, F4]`
+- **1565**: Sturm's *Classicae Epistolae* published, restating his educational thinking (Strasbourg Academy) `[strasbourg-academy-q016]`
+- **1566**: Strasbourg's Gymnasium becomes the Académie de Strasbourg, "the first academy to award university degrees" (Strasbourg Academy) `[strasbourg-academy-q011]`
+- **1581**: Sturm's rectorship at Strasbourg ends (Strasbourg Academy) `[strasbourg-academy-q014]`
+- **1584 (charter dated 1583/84-01-11)**: Royal charter empowers Sir Walter Mildmay to found Emmanuel College, Cambridge (Emmanuel College Cambridge) `[emmanuel-cambridge-q004]`
+- **1584-05-25**: Mildmay's own deed of foundation, Emmanuel College (Emmanuel College Cambridge) `[emmanuel-cambridge-q004, q005]`
+- **1584-11-01**: First admissions recorded at Emmanuel College (Emmanuel College Cambridge) `[emmanuel-cambridge-q004, q005, q031]`
+- **1584–1622**: Chaderton's 38-year mastership of Emmanuel College; 44 disciplinary admonitions recorded across the whole period (Emmanuel College Cambridge) `[emmanuel-cambridge-q010, q011]`
+- **1585-10-01**: Mildmay's Statutes given for Emmanuel College, "the twenty-seventh year" of Elizabeth I (Emmanuel College Cambridge) `[emmanuel-cambridge-q031]`
+- **1585**: First recorded Emmanuel stipend list — a Master, 7 named Fellows, 18 named scholars (Emmanuel College Cambridge) `[emmanuel-cambridge-q015]`
+- **1586**: Earliest recorded Emmanuel discipline case, "bending a stone bowe and charging it with a pellet" (Emmanuel College Cambridge) `[emmanuel-cambridge-q010]`
+- **1586–1611**: Emmanuel's annual admissions run 27–44, per Emmanuel's own dossier reading; "between 30 and 40," per the Victoria County History's own figure — the two are not fully reconciled (Emmanuel College Cambridge) `[emmanuel-cambridge-q014, q036, q037]`
+- **1587**: Emmanuel's *De Mora Sociorum* supplementary statute — its own date is flagged as a discrepancy within the dossier (Emmanuel College Cambridge) `[emmanuel-cambridge-q020]`
+- **1598–1600**: A later Emmanuel College order requires every scholar under the degree of B.A. to attend the Greek Lecturer (Emmanuel College Cambridge) `[emmanuel-cambridge-q007]`
+- **1604**: Hampton Court Conference; Chaderton questioned about Emmanuel's own worship practice (Emmanuel College Cambridge) `[emmanuel-cambridge-q013]`
+- **1611**: Emmanuel's admissions rise to 58 (Emmanuel College Cambridge) `[emmanuel-cambridge-q014, q036]`
+- **1615**: King James I visits Cambridge; his exchange with Chaderton over Emmanuel's chapel orientation is recorded (Emmanuel College Cambridge) `[emmanuel-cambridge-q022]`
+- **1622**: Emmanuel's admissions peak at 79, Chaderton's final year as Master (Emmanuel College Cambridge) `[emmanuel-cambridge-q014, q036]`
+- **1624–1625**: Emmanuel's 74 matriculations are "the highest of any college in the University" that year (Emmanuel College Cambridge) `[emmanuel-cambridge-q037]`
+- **1627**: Emmanuel's Fellows petition the King to abolish the *De Mora Sociorum* statute (Emmanuel College Cambridge) `[emmanuel-cambridge-q019]`
+- **1636-09-08**: Massachusetts General Court votes £400 toward "a Schoole or Colledge" (Harvard College) `[harvard-college-q031]`
+- **1637**: John Harvard emigrates to Massachusetts (Emmanuel College Cambridge / Harvard College) `[emmanuel-cambridge-q017; harvard-college-q036]`
+- **1638**: John Harvard's bequest — half his estate and his library (Harvard College) `[harvard-college-q002, q029]`
+- **1638-09-14**: John Harvard dies of consumption, aged about 31 (Emmanuel College Cambridge / Harvard College) `[emmanuel-cambridge-q017, q018]`
+- **1639-09**: Nathaniel Eaton removed from his trust at Harvard, "convicted of sundry abuses" (Harvard College) `[harvard-college-q040]`
+- **1640 (autumn)**: Henry Dunster arrives, appointed President of Harvard College (Harvard College) `[harvard-college-q002]`
+- **1642**: First Harvard graduating class of nine members (Harvard College) `[SECONDARY: harvard-college-q020]`
+- **1650-05-31**: Massachusetts General Court's Charter of Harvard College, under Governor Thomas Dudley's seal (Harvard College) `[harvard-college-q029, q033]`
+- **1679-06-03**: Edward Terrill executes his deed of gift, founding the Bristol studentship (Bristol Baptist Academy) `[bba-q003, q004, q007]`
+- **1694 (c. beginning of year)**: Francke's catechetical work with poor children begins at Glaucha, near Halle (Francke Foundations) `[halle-francke-q002]`
+- **1695**: Francke sets up an alms-box for poor householders (Francke Foundations) `[halle-francke-q004]`
+- **1695 (about a quarter-year later)**: Francke's charity-school founded (Francke Foundations) `[halle-francke-q005]`
+- **1698**: Francke Foundations at Halle established (Francke Foundations) `[roster known-facts sheet]`
+- **1705-10**: Ziegenbalg and Plutschau travel to Copenhagen, ordained by the Bishop of Zealand (Francke Foundations/Danish-Halle Mission) `[halle-francke-q031]`
+- **1705-11-17**: Royal Declaration and Instruction to Ziegenbalg and Plutschau dated, Copenhagen (Francke Foundations/Danish-Halle Mission) `[halle-francke-q027]`
+- **1705-11**: Ziegenbalg and Plutschau leave Copenhagen for India (exact day illegible in the fetched source) (Francke Foundations/Danish-Halle Mission) `[halle-francke-q019]`
+- **1706-07**: Ziegenbalg and Plutschau arrive at Tranquebar (exact day illegible) (Francke Foundations/Danish-Halle Mission) `[halle-francke-q019]`
+- **1707-08-04**: First Tranquebar church, "New Jerusalem," consecrated (Francke Foundations/Danish-Halle Mission) `[halle-francke-q023]`
+- **1708 (end of year)**: Tranquebar congregation grown to 35 (Francke Foundations/Danish-Halle Mission) `[halle-francke-q024]`
+- **1708-11-19**: Ziegenbalg imprisoned by the Danish colonial authorities, four months (Francke Foundations/Danish-Halle Mission) `[halle-francke-q025]`
+- **1708 (end of year)**: Ziegenbalg begins his Tamil New Testament translation (Francke Foundations/Danish-Halle Mission) `[halle-francke-q025]`
+- **1719-02-23**: Ziegenbalg dies in office, aged 36 (Francke Foundations/Danish-Halle Mission) `[halle-francke-q025, q026]`
+- **1720**: Bernard Foskett appointed at Bristol; Terrill's bequest comes into effective use (Bristol Baptist Academy) `[bba-q003]`
+- **1720-11-05**: Thomas Rogers admitted as the first student under Foskett (Bristol Baptist Academy) `[bba-q004, q007]`
+- **1720–1758**: Foskett's tutorship; 64 students trained in total (Bristol Baptist Academy) `[bba-q012, q013]`
+- **1722-06-08**: Moravian refugees first settle on Zinzendorf's estate (Herrnhut/Moravian Missions) `[herrnhut-moravians-q001]`
+- **1722-06-17**: First tree felled for a house at Herrnhut (Herrnhut/Moravian Missions) `[herrnhut-moravians-q001]`
+- **1726**: William Tennent Sr. receives his call to Neshaminy, Bucks County — the Log College's origin (Log College) `[log-college-q020]`
+- **1726–1727**: Gilbert Tennent assists his father as usher/tutor at the Log College (Log College) `[log-college-q016]`
+- **1726**: Gilbert Tennent licensed to preach, without any college diploma (Log College) `[log-college-q022]`
+- **1727-05-12**: Zinzendorf reads the "Manorial Injunctions and Prohibitions" to the Herrnhut settlers (Herrnhut/Moravian Missions) `[herrnhut-moravians-q005, q036]`
+- **1727-07**: Zinzendorf discovers Comenius's *Ratio Disciplinae* at Zittau, finds it resembles his own new rules (wording UNVERIFIED as a direct quotation) (Herrnhut/Moravian Missions) `[SECONDARY: hutton-church-1909]`
+- **1727-07-04**: Zinzendorf signs the "Brotherly Union and Compact" (Herrnhut/Moravian Missions) `[herrnhut-moravians-q006, q008]`
+- **1727-08-13**: The whole Herrnhut community takes Holy Communion at Berthelsdorf, "the true spiritual birthday of the Renewed Church of the Brethren" (Herrnhut/Moravian Missions) `[herrnhut-moravians-q009, q010]`
+- **1727-08-27**: Herrnhut's round-the-clock "Hourly Intercession" begins (Herrnhut/Moravian Missions) `[herrnhut-moravians, L1]`
+- **1732-08-21 (3 a.m.)**: Leonard Dober and David Nitschmann leave Herrnhut for St Thomas, the first Moravian missionaries sent (Herrnhut/Moravian Missions) `[herrnhut-moravians-q023]`
+- **1734**: 18 Brethren sent to St Croix; 10 die (Herrnhut/Moravian Missions) `[herrnhut-moravians-q027]`
+- **1735**: 11 more Brethren arrive at St Croix; 7 more die (Herrnhut/Moravian Missions) `[herrnhut-moravians-q027]`
+- **1738**: The Synod adopts a rule requiring a literary-course examination, before a Synod committee, before any Presbytery may license a Log College graduate (Log College) `[log-college-q024]`
+- **1739-11-22/23**: Whitefield visits the Log College (Log College) `[log-college-q001, q005, q012]`
+- **1746-10-22**: First charter of the College of New Jersey passes the seal, granted by John Hamilton (College of New Jersey) `[cnj-q003]`
+- **1747-05 (4th week)**: College of New Jersey opens for instruction at Elizabethtown (College of New Jersey) `[cnj-q017, q018]`
+- **1747-10-07**: President Jonathan Dickinson dies, five months after the College's opening (College of New Jersey) `[cnj-q019]`
+- **1748-09-14**: Second charter of the College of New Jersey, granted by Governor Jonathan Belcher (College of New Jersey) `[cnj-q008]`
+- **1748-11-09**: First Commencement of the College of New Jersey, held at Newark (College of New Jersey) `[cnj-q046]`
+- **1750**: Joseph Shippen's letters describe the College of New Jersey's daily routine (College of New Jersey) `[cnj-q045]`
+- **1750**: Frederick Martin's death "closes the pioneer period" of the Moravian West Indies mission (wording UNVERIFIED as a direct quotation) (Herrnhut/Moravian Missions) `[herrnhut-moravians, R3]`
+- **1753**: Synod of New York's appeal to the Church of Scotland names the College of New Jersey the sole "remedy" for the Presbyterian ministerial shortage (College of New Jersey) `[cnj-q021, q022]`
+- **1756**: Nassau Hall completed at Princeton; houses 147 students, three to a chamber (College of New Jersey) `[cnj-q020, q038]`
+- **1758-05-01/05**: Southern Baptist Theological Seminary's organizing convention meets at Greenville, S.C. (Southern Baptist Seminary) `[sbts-q017]`
+- **1758**: Southern Baptist Seminary's *Abstract of Principles* adopted, per the founding convention (Southern Baptist Seminary) `[sbts-q009, q010, q011]`
+- **1758**: Hugh Evans succeeds Foskett at Bristol Baptist Academy (Bristol Baptist Academy) `[bba-q010, q014]`
+- **1761–1766**: Samuel Finley's presidency at the College of New Jersey; 130 graduates, 59 become ministers (College of New Jersey) `[cnj-q039]`
+- **1764**: "*An Account of the College of New Jersey*" published; 120 students recorded (College of New Jersey) `[cnj-q036]`
+- **1765**: Samuel Kirkland graduates from the College of New Jersey, becomes a missionary to the Seneca (College of New Jersey) `[cnj-q040]`
+- **1765**: C. W. Gericke goes to India as a missionary, trained at Halle (Francke Foundations) `[halle-francke-q032]`
+- **1766**: Oliver Ellsworth graduates from the College of New Jersey (College of New Jersey) `[cnj-q047]`
+- **1767**: Caleb Evans becomes Hugh Evans's colleague at Bristol Baptist Academy (Bristol Baptist Academy) `[bba-q014]`
+- **1770**: Bristol Education Society founded (Bristol Baptist Academy) `[bba-q003, q010]`
+- **1779**: Caleb Evans becomes President at Bristol Baptist Academy (Bristol Baptist Academy) `[bba, T1]`
+- **1780**: *Deutsche Christentumsgesellschaft* founded at Basel — the Basel Mission's Pietist antecedent (Basel Mission) `[basel-mission-q002]`
+- **1791**: The 1791 Clipstone ministers' meeting first proposes the missionary question that leads to the Baptist Missionary Society (Baptist Missionary Society) `[bms-q005]`
+- **1791**: Caleb Evans dies at Bristol Baptist Academy (Bristol Baptist Academy) `[bba, T1]`
+- **1792-05-31**: Nottingham resolution and sermon lead directly to the Baptist Missionary Society (Baptist Missionary Society) `[bms-q006]`
+- **1792-10-02**: The Particular Baptist Society for Propagating the Gospel among the Heathen (Baptist Missionary Society) constituted at Kettering `[bms-q007, q009, q010, q011]`
+- **1792**: Four Bristol Baptist Academy alumni are among the thirteen founders of the Baptist Missionary Society (Bristol Baptist Academy) `[bba-q017]`
+- **1793**: Carey sails for India (Baptist Missionary Society) `[roster known-facts sheet]`
+- **1795-09-21**: Preparatory meeting at which the London Missionary Society "was actually founded" (London Missionary Society) `[lms-q001]`
+- **1795-09-22**: LMS's Plan of the Society read and approved; Haweis's inaugural sermon at Spa Fields Chapel (London Missionary Society) `[lms-q007, q008, q009]`
+- **1795-09-24**: LMS chooses the South Seas as its first field; seven volunteers registered (London Missionary Society) `[lms-q010]`
+- **1796-05-09**: LMS's Fundamental Principle adopted at the Castle and Falcon (London Missionary Society) `[lms-q004]`
+- **1799-02-18 / 1799-03-18**: The Eclectic Society debates the missions question, leading to the Church Missionary Society (Church Missionary Society) `[cms-q001]`
+- **1799-04-01**: Meeting to prepare the CMS's Rules (Church Missionary Society) `[cms-q001]`
+- **1799-04-12**: Church Missionary Society founded, at the Castle and Falcon, Aldersgate Street `[cms-q001, q002, q003, q005, q006]`
+- **1800**: Serampore mission begins (Baptist Missionary Society/Serampore College) `[roster known-facts sheet]`
+- **1805-10-07**: Serampore *Form of Agreement* agreed (Baptist Missionary Society) `[bms-q011]`
+- **1806-08**: Haystack meeting (background to the ABCFM; not independently dated by any dossier fetched this session) (ABCFM) `[roster known-facts sheet]`
+- **1807-08-31**: Andover's original Founders commit its Constitution to the Trustees of Phillips Academy (Andover Theological Seminary) `[andover-seminary-q016]`
+- **1808**: Society of the Brethren moves from Williams College to Andover (Andover Theological Seminary/ABCFM) `[abcfm-q014]`
+- **1808**: Adoniram Judson enters Andover Theological Seminary (Andover Theological Seminary) `[andover-seminary, R1]`
+- **1808-03-21**: Andover's Associate Founders execute the Associate Statutes (Andover Theological Seminary) `[andover-seminary-q017]`
+- **1808-05-03**: Andover's Additional Statutes join the Associate Creed to the Constitution (Andover Theological Seminary) `[andover-seminary-q017]`
+- **1810-06-29**: ABCFM founded at Bradford, Massachusetts `[abcfm-q011, q013]`
+- **1810**: Act of the General Assembly establishing Princeton Theological Seminary, per the Seminary's own later register (Princeton Theological Seminary) `[princeton-seminary-q031]`
+- **1811-05**: The Plan of Princeton Theological Seminary adopted by the General Assembly (Princeton Theological Seminary) `[princeton-seminary-q022, q029, q030]`
+- **1811**: Andover's Laws of the Theological Institution published (amended 1817) (Andover Theological Seminary) `[andover-seminary, F5]`
+- **1812-02-06**: Judson, Nott, Newell, Hall, and Rice ordained at Salem (ABCFM/Judson) `[abcfm-q013; judson-triennial-convention-q001]`
+- **1812-02-07**: ABCFM's Instructions to the departing missionaries dated at Salem (ABCFM) `[abcfm-q001, q008]`
+- **1812-02-19**: Judson sails for the East (ABCFM/Judson) `[roster known-facts sheet]`
+- **1812-08-12**: Princeton Theological Seminary opens; Archibald Alexander inaugurated as its first professor (Princeton Theological Seminary) `[princeton-seminary-q022, q029]`
+- **1812**: Judson changes his views on baptism during the voyage; baptized by immersion at Calcutta (Judson/Baptist Triennial Convention) `[judson-triennial-convention-q004, q005]`
+- **1813**: Rev. Daniel Sharp's letters to Judson, from Boston (Judson/Baptist Triennial Convention) `[judson-triennial-convention-q006, q007]`
+- **1813**: Samuel Miller appointed Princeton's second professor (Princeton Theological Seminary) `[princeton-seminary-q033]`
+- **1814-05-18**: Delegates assemble at the First Baptist Church, Philadelphia, for the Baptist General Missionary Convention (Judson/Baptist Triennial Convention) `[judson-triennial-convention-q009]`
+- **1814-05**: Constitution of the General Missionary Convention ("Triennial Convention") adopted (Judson/Baptist Triennial Convention) `[judson-triennial-convention-q009, q010]`
+- **1815**: Basel Mission created (Basel Mission) `[basel-mission-q022]`
+- **1816**: Basel Mission's seminary opens, per the roster's own known-facts sheet, which distinguishes it from the 1815 Mission itself — the dossier flags 1815/1816 as a possible internal discrepancy in its one secondary source (Basel Mission) `[roster known-facts sheet; basel-mission, discrepancies.md item 1]`
+- **1817**: Andover's Laws amended (Andover Theological Seminary) `[andover-seminary, F5]`
+- **1818-07-15**: Serampore College's founding Prospectus issued (Serampore College) `[serampore-college-q001, q010]`
+- **1818**: Serampore College begins with 37 students, 19 native Christians and the rest Hindus (Serampore College) `[serampore-college-q020]`
+- **1820**: King Frederick VI of Denmark's letter to Carey (Serampore College) `[serampore-college, F2 background]`
+- **1821**: Basel Mission's Committee decides to establish its own mission stations abroad (Basel Mission) `[basel-mission-q004]`
+- **1821**: John Mack, Edinburgh-trained, joins Serampore College (Serampore College) `[serampore-college-q021, q014]`
+- **1826**: Six students admitted to Serampore College's theological class; Carey's own letter to the BMS committee (Serampore College) `[serampore-college-q014, q015, q016, q018]`
+- **1827-02-23**: Danish Royal Charter of Serampore College issued, per the roster's known-facts sheet — not independently confirmed against a fetched primary text this session (Serampore College) `[roster known-facts sheet]`
+- **1828**: Basel Mission's Gold Coast station begins (Basel Mission) `[basel-mission-q004]`
+- **1829**: Second edition of Anthony Norris Groves's *Christian Devotedness* published (1st ed. 1825) — the text used as CMML's own "charter" (CMML/Brethren) `[cmml-brethren, F5]`
+- **1830–1837**: Johann Blumhardt teaches Hebrew, mathematics, physics, chemistry at the Basel Mission seminary (Basel Mission) `[basel-mission-q018]`
+- **1831**: Christian Friedrich Heinze, the Basel Mission's first Gold Coast doctor, dies six weeks after arrival (Basel Mission) `[SECONDARY: ratschiller-chapter2023]`
+- **1836**: Bristol Baptist Academy accepted as an Affiliated College of London University — a nineteenth-century development, well after this dossier's 1679–1791 founding period (Bristol Baptist Academy) `[SECONDARY: robinson-1929-250th]`
+- **1838**: Christian Gottlieb Blumhardt, first Inspector of the Basel Mission, dies in office (Basel Mission) `[basel-mission-q017]`
+- **1845**: Medical lectures added to the Basel Mission's five-year course (Basel Mission) `[basel-mission-q016]`
+- **1853-12-14**: Illinois Institute's first classes — Wheaton College's direct antecedent (Wheaton College) `[wheaton-college-q011]`
+- **1855**: T. W. Medhurst becomes the Pastors' College's first student (Pastors' College) `[roster known-facts sheet]`
+- **1856**: Boyce's "*Three Changes in Theological Institutions*" address (Southern Baptist Seminary) `[sbts-q004]`
+- **1856**: The Pastors' College treats this year as its founding; a single student grows to eight, then twenty, then "nearly a hundred" (Pastors' College) `[pastors-college-q001, q004]`
+- **1856–1857**: George Rogers joins the Pastors' College as tutor (Pastors' College) `[pastors-college-q003]`
+- **1858-05 (01–05)**: SBTS's organizing convention meets at Greenville, S.C. (Southern Baptist Seminary) `[sbts-q017]`
+- **1858**: Southern Baptist Theological Seminary's *Abstract of Principles* adopted (Southern Baptist Seminary) `[sbts-q009, q010, q011]`
+- **1859 (autumn)**: Southern Baptist Theological Seminary opens; its first session (1859–60) numbers 26 students (Southern Baptist Seminary) `[sbts-q033]`
+- **1859-12-05**: Blanchard's letter proposing the name "Wheaton College" to Warren L. Wheaton (Wheaton College) `[wheaton-college-q008]`
+- **1860-01**: Jonathan Blanchard becomes president; Illinois Institute renamed Wheaton College (Wheaton College) `[wheaton-college-q009]`
+- **1860 (end of May)**: Southern Baptist Theological Seminary's first Commencement (Southern Baptist Seminary) `[sbts, L3]`
+- **1860-07-04**: First Wheaton College class of seven men graduates (Wheaton College) `[wheaton-college-q010]`
+- **1861**: Wheaton's charter amended by the Illinois Legislature (Wheaton College) `[wheaton-college-q009]`
+- **1861**: Metropolitan Tabernacle opens; Pastors' College students migrate from Rogers's house to its classrooms (Pastors' College) `[pastors-college, F4]`
+- **1861-05-19**: Spurgeon's dated address records about sixteen students in full training at the Pastors' College (Pastors' College) `[pastors-college, L7]`
+- **1865 [VERIFY]**: The Pastors' College Conference begins, per the roster's known-facts sheet (Pastors' College) `[roster known-facts sheet]`
+- **1865-06-25**: China Inland Mission's founding decision, on the sands at Brighton (China Inland Mission) `[cim-q022, q023]`
+- **1865**: Hudson Taylor's *China's Spiritual Need and Claims* first published (China Inland Mission) `[cim-q014, q015]`
+- **1866-05-26**: CIM's Lammermuir party sails — **discrepancy**: Taylor's own 1895 retrospective gives 21 (17 adults + 4 children); Broomhall's 1915 *Jubilee Story*, with a full name list, gives 22 (China Inland Mission) `[cim-q021, q024]`
+- **1868**: Third edition of *China's Spiritual Need and Claims* (China Inland Mission) `[cim-q012, q013]`
+- **1872 or 1873**: East London Institute founded — **discrepancy, unresolved**: two Institute publications give 1872; two other sources (one a 1932 secondary biography) give 1873 (East London Institute) `[1872: eli-q001, q035; 1873: eli-q049, q024, q044]`
+- **1872**: Third edition of *China's Spiritual Need and Claims* republished, per the same 1868 citation above (China Inland Mission) `[cim-q015]`
+- **1874**: East London Institute moves to Harley House (East London Institute) `[eli dossier narrative, p.9-10 of notuntousarecord00guinuoft]`
+- **1875**: Cliff College (Derbyshire) added to the East London Institute (East London Institute) `[eli dossier narrative]`
+- **1875**: Spurgeon's *Lectures to My Students* (first series) published (Pastors' College) `[roster known-facts sheet]`
+- **1878 (end of year)**: Pastors' College: over 500 students trained in total, 25 had died ("called home"), 450 then serving as pastors/evangelists/missionaries, 3,600 baptisms recorded that year (Pastors' College) `[pastors-college-q017]`
+- **1878**: Livingstone Inland Mission (Congo) founded from the East London Institute (East London Institute) `[eli-q018]`
+- **1879**: Harley College, the purpose-built men's building, erected at the East London Institute (East London Institute) `[eli dossier narrative]`
+- **1880**: Frederick Baller, an East London Institute alumnus, undertakes a long journey for the CIM to Kwei-chau (East London Institute) `[eli-q020]`
+- **1881 (summer)**: A. B. Simpson's Old Orchard, Maine, prayer walks — the origin of what becomes Nyack (Missionary Training Institute, Nyack) `[nyack-mti-q026]`
+- **1882**: First Nyack training class meets on a 23rd Street theater stage (Missionary Training Institute, Nyack) `[nyack-mti-q001]`
+- **1883-10-01**: Formal organization of the Missionary Training College, Nyack (Missionary Training Institute, Nyack) `[nyack-mti-q002]`
+- **1884-05**: Nyack's first Commencement; five graduates sail for the Congo (Missionary Training Institute, Nyack) `[nyack-mti-q007, q018]`
+- **1884–1885**: John Condit (Nyack) dies of fever in the Congo, within months of arrival (Missionary Training Institute, Nyack) `[nyack-mti-q018]`
+- **1884–1885**: East London Institute's Female Branch (Doric Lodge) added (East London Institute) `[eli-q015, q016]`
+- **1885**: Nyack's standard course lengthened to three years, three departments (Missionary Training Institute, Nyack) `[nyack-mti-q008, q009]`
+- **1886-01-22**: Moody's Chicago address on "City Evangelism" (Moody Bible Institute) `[moody-bible-institute-q011]`
+- **1886-07**: Mount Hermon student conference; 100 men sign the missionary declaration — the Student Volunteer Movement's origin (Student Volunteer Movement) `[svm-q002, q004]`
+- **1886**: East London Institute: about 400–500 former students "now scattered," per Mrs. Guinness's own book that year (East London Institute) `[eli-q017]`
+- **1886–1887**: SVM's Wilder and Forman traveling deputation to the colleges (Student Volunteer Movement) `[svm-q002, q019]`
+- **1886-12-31**: Moody's four-month Chicago evangelistic campaign begins (Moody Bible Institute) `[moody-bible-institute, F2]`
+- **1887**: Chicago Evangelization Society chartered (Moody Bible Institute) `[moody-bible-institute-q002]`
+- **1887 (summer)**: Christian Alliance organized at the Old Orchard convention (Missionary Training Institute, Nyack) `[nyack-mti-q028]`
+- **1887 (same convention)**: Evangelical Missionary Alliance formed (Missionary Training Institute, Nyack) `[nyack-mti-q031]`
+- **1887**: *Regions Beyond* magazine begins (East London Institute) `[eli-q048]`
+- **1887**: Seventh edition of *China's Spiritual Need and Claims*, 10,000 copies (China Inland Mission) `[cim-q012, q014, q016]`
+- **1888**: SVM's Executive Committee formed as a permanent organization; the Watchword adopted (Student Volunteer Movement) `[svm-q010, q013]`
+- **1888-12-01**: Boyce's letter records "so much missionary spirit in the Seminary," pledges more men to China, Africa, Mexico, Brazil, and that "there are already one hundred and four students" (Southern Baptist Seminary) `[sbts-q038, q039, q040]`
+- **1889-01**: SVM's regular work begins under the permanent Executive Committee (Student Volunteer Movement) `[svm-q010]`
+- **1889-05**: Conference at the Chicago Avenue Church, nearly 200 attend — results in the Chicago Bible Institute (Moody Bible Institute) `[moody-bible-institute-q010]`
+- **1889-09-26**: Moody Bible Institute's building formally opens; R. A. Torrey named superintendent (Moody Bible Institute) `[moody-bible-institute-q003, q013]`
+- **1889-11**: Nyack's missionary body incorporated as the International Missionary Alliance (Missionary Training Institute, Nyack) `[nyack-mti-q034]`
+- **1889-12-06**: Nyack periodical issue: 40 students, "one of the best classes in the College's history of six years" (Missionary Training Institute, Nyack) `[nyack-mti-q036]`
+- **1890**: William Hannum (SVM) sails for India (Student Volunteer Movement) `[svm-q016]`
+- **1891**: First International Convention of the SVM, Cleveland; 6,200 volunteers on the rolls, scattered through 350 institutions, at least 320 already sailed (Student Volunteer Movement) `[svm-q007]`
+- **1891**: Harry Guinness finds Timothy Richard, a former Harley student, "in charge" of a station at Banza Manteke, Congo (East London Institute) `[SECONDARY: drharryguinnessl0000unse, eli-q047]`
+- **1892-07-14**: SVM's declaration-card wording changed, from "I am willing and desirous..." to "It is my purpose, if God permit..." (Student Volunteer Movement) `[svm-q001]`
+- **1892**: George and Elisabeth Murrain commended to Angola — the earliest CMML-adjacent commendation this session's sources record (CMML/Brethren) `[cmml-brethren-q027]`
+- **1893**: East London Institute's course extends to four years; 1,316 total trained since 1873 (East London Institute) `[eli-q024, q025]`
+- **1893-10 (six years after the 1887 organization)**: Nyack/Alliance: 12 fields, 40 stations, 180 missionaries, "twenty-three missionary comrades had fallen at the battle front" (Missionary Training Institute, Nyack) `[nyack-mti-q021]`
+- **1894**: East London Institute: 800 labourers in the field plus 120 in training; 3,700 applicant "cases" considered, cumulative (East London Institute) `[eli-q039, q040]`
+- **1894**: Thomas Melville, Eliza Logan, and Eliza Lennox (with her daughter Clara) commended to join a missionary team in China — the earliest instance CMML's own history records ("our roots") (CMML/Brethren) `[cmml-brethren-q009, q013, q014]`
+- **1894**: Nyack renamed "the New York Training Institute" (Missionary Training Institute, Nyack) `[nyack-mti-q010]`
+- **1895**: CIM's own 30-year retrospective: staff of about 650 (121 associates, 85 from North America, 417 native helpers) (China Inland Mission) `[cim-q017, q018, q019, q020]`
+- **1897**: The Christian Alliance and the Evangelical Missionary Alliance unite as the Christian and Missionary Alliance; the Institute relocates to South Nyack (Missionary Training Institute, Nyack) `[nyack-mti-q010, q035]`
+- **1897-04-17**: Cornerstone laid at South Nyack (Missionary Training Institute, Nyack) `[nyack-mti-q010]`
+- **1897**: Moody Bible Institute's Extension Department added (Moody Bible Institute) `[moody-bible-institute, C3 context]`
+- **1897-10-24**: Opening exercises at South Nyack (Missionary Training Institute, Nyack) `[nyack-mti-q010]`
+- **1898-11**: Mr. Fleming (CIM) murdered in Kuei-chau — the Mission's first death by violence in 33 years (China Inland Mission) `[cim-q027]`
+- **1899-12**: Moody dies; the Chicago Evangelization Society renamed the Moody Bible Institute in his honor (Moody Bible Institute) `[moody-bible-institute-q002]`
+- **1900**: Boxer crisis; CIM records 52 adults and 16 children killed (of 127 adults and 44 children killed across all Protestant societies) (China Inland Mission) `[cim-q028]`
+- **1900-12 (Davos)**: Hudson Taylor's signed preface to *Martyred Missionaries of the China Inland Mission* (China Inland Mission) `[cim-q026]`
+- **1901**: Moody Bible Institute's Correspondence Department added (Moody Bible Institute) `[moody-bible-institute, C3 context]`
+- **1903**: Moody Bible Institute's Evening Classes added (Moody Bible Institute) `[moody-bible-institute, C3 context]`
+- **1904**: Voices from the Vineyard founded (CMML pre-history) (CMML/Brethren) `[cmml-brethren-q015]`
+- **1904**: Wheaton College's *Bulletin, Special Catalog Number* published — this book's source for pre-Elliot-era Wheaton (Wheaton College) `[wheaton-college dossier, throughout]`
+- **1906-01-01**: SVM: 2,953 volunteers sailed, cumulative (Student Volunteer Movement) `[svm-q014]`
+- **1914 (27 years after 1887)**: Of CIM's 1887 hundred-strong sailing cohort: 7 died in the Boxer crisis, 16 more by natural death, 28 retired, 49 still in the field (China Inland Mission) `[cim-q025]`
+- **1915**: Moody Bible Institute's cumulative total enrollment: 12,970 (Day 7,585; Evening 2,448; Correspondence 2,937) (Moody Bible Institute) `[moody-bible-institute-q016]`
+- **1917**: Townsend begins work under the Central American Mission, Guatemala — Wycliffe/SIL's antecedent (Wycliffe/SIL) `[wycliffe-sil-q035]`
+- **1917**: Richard Hill begins a Training School for Missionaries (CMML pre-history) (CMML/Brethren) `[cmml-brethren-q014]`
+- **1919 (end of)**: Nyack/C&MA: 17,356 baptized, 125 organized churches with nearly 12,000 members, nearly 1,000 in training at 26 more advanced schools, 700 native workers and 320 foreign missionaries holding 500 stations (Missionary Training Institute, Nyack) `[nyack-mti-q022, q023, q024]`
+- **1921**: Christian Missions in Many Lands, Ltd. incorporated (CMML/Brethren) `[cmml-brethren-q009, q013]`
+- **1921–1922 (winter)**: Bible-teaching classes begin in an empty farmhouse near Three Hills, Alberta — Prairie Bible Institute's origin (Prairie Bible Institute) `[prairie-bible-institute-q011, q012]`
+- **1922-10**: L. E. Maxwell arrives at Three Hills, responding to the Kirk family's call (Prairie Bible Institute) `[prairie-bible-institute-q011, q012]`
+- **1922-10-09**: Prairie Bible Institute's first class meets, per the Institute's current website (Prairie Bible Institute) `[prairie-bible-institute-q025]`
+- **1929**: Julia Hasse Memorial Missionary Home founded (CMML pre-history) (CMML/Brethren) `[cmml-brethren-q015]`
+- **1929-06-17**: Conservative Princeton figures first meet at the University Club, New York — Westminster Seminary's origin (Westminster Theological Seminary) `[westminster-seminary-q013]`
+- **1929-07-18**: Westminster Theological Seminary "definitely launched," at the Philadelphia YMCA, 78 men present (Westminster Theological Seminary) `[westminster-seminary-q014, q016]`
+- **1929-09-25**: Westminster Theological Seminary opens for instruction; Machen's opening address; enrollment of 50 (Westminster Theological Seminary) `[westminster-seminary-q018, q012]`
+- **1930**: John Murray joins the Westminster faculty (Westminster Theological Seminary) `[westminster-seminary-q021]`
+- **1933**: Independent Board for Presbyterian Foreign Missions formed by Machen and colleagues (Westminster Theological Seminary) `[westminster-seminary, S1]`
+- **1933**: Townsend and Legters' prayer meeting, per a secondary source quoting Hartch (2006) (Wycliffe/SIL) `[SECONDARY: wycliffe-sil-q017]`
+- **1934-06**: Camp Wycliffe opens, Sulphur Springs, Arkansas; two students graduate the first session (Wycliffe/SIL) `[wycliffe-sil-q001, q005, q033]`
+- **1934**: SIL incorporated, per SIL's own history page — **discrepancy**: the Handbook of Texas instead gives 1942 (Wycliffe/SIL) `[wycliffe-sil, F2]`
+- **1934-11-12**: Henry Coray's presbytery strikes his name after his Independent Board appointment to China (Westminster Theological Seminary) `[westminster-seminary, R5]`
+- **1935**: Camp Wycliffe's second session, five students including Kenneth Pike (Wycliffe/SIL) `[wycliffe-sil-q024, q029, q033]`
+- **1937-01-01**: J. Gresham Machen dies, on a missionary trip to North Dakota (Westminster Theological Seminary) `[westminster-seminary-q028]`
+- **1937**: Allan MacRae resigns from Westminster over doctrinal direction, helps form Faith Theological Seminary (Westminster Theological Seminary) `[westminster-seminary-q020]`
+- **1937-06**: Westminster Seminary's 22-acre campus purchased (Westminster Theological Seminary) `[westminster-seminary-q019, q029]`
+- **1937-09**: Westminster's main building dedicated as J. Gresham Machen Memorial Hall (Westminster Theological Seminary) `[westminster-seminary-q029]`
+- **1938**: Pennsylvania State Council of Education approves Westminster's Th.B. degree (Westminster Theological Seminary) `[westminster-seminary-q030]`
+- **1938**: The Fields founded (CMML pre-history) (CMML/Brethren) `[cmml-brethren-q015]`
+- **1938-09 (or 1939, per one MLJ Trust page — discrepancy)**: Lloyd-Jones begins his ministry at Westminster Chapel, as associate to G. Campbell Morgan (Westminster Chapel & Fellowship) `[wcf-q002, q003]`
+- **1939-05-09**: Westminster Seminary's tenth-anniversary commencement; nearly 100 of 162 graduates receive the new Th.B. degree retroactively (Westminster Theological Seminary) `[westminster-seminary-q031]`
+- **1942 (winter)**: Westminster Fellowship started (Westminster Chapel & Fellowship) `[wcf-q004]`
+- **1942**: SIL formally incorporated, per the Handbook of Texas (forty-two members); Wycliffe Bible Translators founded and incorporated the same year (Wycliffe/SIL) `[wycliffe-sil-q010, q015, q018, q034]`
+- **1943**: G. Campbell Morgan retires; Lloyd-Jones becomes sole minister of Westminster Chapel (Westminster Chapel & Fellowship) `[wcf-q015]`
+- **1945 (the "twenty-third year")**: Prairie Bible Institute: total faculty of 60, including 24 teachers (Prairie Bible Institute) `[prairie-bible-institute-q004]`
+- **1946–1947**: Prairie Bible Institute: 700 in the Bible School, 340 in the High School, 90 in the Grade School (1,130 total); 85 staff, all serving without salary (Prairie Bible Institute) `[prairie-bible-institute-q014, q014b]`
+- **1946**: Prairie Bible Institute's incorporating statute, per Wikipedia — unconfirmed against a fetched document this session (Prairie Bible Institute) `[SECONDARY: wikipedia-prairie-college]`
+- **1947**: Prairie Bible Institute: over 275 sent to foreign fields, cumulative since 1922 — nearly a 25-year figure; over $300,000 given through the school to interdenominational faith missions (Prairie Bible Institute) `[prairie-bible-institute-q015, q016]`
+- **1947**: Kenneth Pike's *Phonemics* germinates from his Camp Wycliffe teaching (Wycliffe/SIL) `[wycliffe-sil, T4]`
+- **1948-01**: Jim Elliot begins his college journal, in his "Junior Year" at Wheaton (Wheaton College) `[wheaton-college-q013, q014]`
+- **1948**: Elisabeth Howard spends the year at Prairie Bible Institute, per the Elisabeth Elliot Foundation's own timeline — not independently confirmed by any Prairie-side record this session (Wheaton College/Prairie Bible Institute) `[wheaton-college-q019; prairie-bible-institute-q030]`
+- **1948 or 1950**: Jim Elliot attends the SIL/Camp Wycliffe summer course — **discrepancy**: Wikipedia gives summer 1950; a devotional excerpt of his own journal instead implies 1948, "following my graduation from Wheaton" (itself inconsistent with his 1949 graduation, elsewhere in the same source) (Wycliffe/SIL) `[wycliffe-sil-q040, q044]`
+- **1949**: Jim Elliot graduates from Wheaton College (a four-year span from 1945) (Wheaton College) `[wheaton-college, C1]`
+- **1950**: The Puritan Conference begins at Westminster Chapel (Westminster Chapel & Fellowship) `[wcf-q008]`
+- **1951-11**: Interim name "The China Inland Mission Overseas Missionary Fellowship" recorded; headquarters moves to Singapore (OMF) `[omf-q012]`
+- **1952-02**: Jim Elliot sails for Ecuador (Wheaton College) `[wheaton-college-q020]`
+- **1952-04**: Elisabeth Howard sails for Ecuador, per the roster's known-facts sheet (Wheaton College) `[roster known-facts sheet]`
+- **1953-10-08**: Jim and Elisabeth Elliot marry, in Quito (Wheaton College) `[roster known-facts sheet]`
+- **1954-10-14**: A passage in one secondary source dates what reads as OMF's Overseas Council reorganization to this date — **discrepancy**: contradicted by three other passages in that very same source, which give October 1964 (OMF) `[omf-q010, q011]`
+- **1954–1969**: J. Oswald Sanders serves as CIM/OMF General Director; a secondary biography credits him with leading the 1964 reorganization (OMF) `[omf-q017, q019, q020]`
+- **1956-01-08**: Jim Elliot, Nate Saint, Ed McCully, Pete Fleming, and Roger Youderian killed by Waorani warriors on the Curaray River, Ecuador (Wheaton College/CMML/Brethren) `[wheaton-college-q022; roster known-facts sheet]`
+- **1958**: Elliott Canonge's *Comanche Texts* published via SIL, Norman, Oklahoma (Wycliffe/SIL) `[wycliffe-sil-q046]`
+- **1958–1961**: Elisabeth Elliot lives among the Waorani, per the roster's known-facts sheet (Wheaton College) `[roster known-facts sheet]`
+- **1962**: Prairie Bible Institute yearbook states the High School's own motto is "Deo Supremo" ("God supreme") (Prairie Bible Institute) `[prairie-bible-institute-q017]`
+- **1962–1979**: Kenneth Pike serves as SIL's president (Wycliffe/SIL) `[wycliffe-sil-q038, q039]`
+- **1964-10**: China Inland Mission renamed the Overseas Missionary Fellowship, at a meeting of the Mission's Overseas Council (OMF) `[omf-q002, q007, q008]`
+- **1965–1967**: OMF forms national Home Councils — Japan, Malaysia, Singapore (1965); Hong Kong, the Philippines (1966); Germany, the Netherlands (1967) (OMF) `[omf-q005]`
+- **1966-10**: Lloyd-Jones's address calling on evangelicals to unite in "a fellowship, or an association, of evangelical churches" (Westminster Chapel & Fellowship) `[wcf-q022]`
+- **1966**: The Puritan and Reformed Studies Conference "loses" J. I. Packer and others, after the controversy following Lloyd-Jones's October address (Westminster Chapel & Fellowship) `[wcf-q016]`
+- **1967-04**: Westminster Chapel leaves the Congregational Union of England and Wales, joins the Fellowship of Independent Evangelical Churches (Westminster Chapel & Fellowship) `[wcf-q017]`
+- **1968**: Lloyd-Jones retires from the Westminster Chapel pastorate (Westminster Chapel & Fellowship) `[wcf-q002]`
+- **1969–1981**: Michael C. Griffiths serves as OMF's General Director (OMF) `[omf-q018]`
+- **1971**: CMML reorganized and merged, with three other bodies, as Christian Missions in Many Lands, Inc. (CMML/Brethren) `[cmml-brethren-q009, q013, q015]`
+- **1972**: CMML's Guest Home, Wall Township, New Jersey, purchased (CMML/Brethren) `[cmml-brethren-q026]`
+- **1977-10-06**: London Theological Seminary inaugurated; Lloyd-Jones's opening address (London Theological Seminary) `[lts-q001, q024]`
+- **1980**: L. E. Maxwell retires as Prairie Bible Institute's principal/president, after 58 years (Prairie Bible Institute) `[cross-referenced, prairie-bible-institute dossier]`
+- **1981–1991**: James Hudson Taylor III serves as OMF's General Director (OMF) `[omf-q018]`
+- **1982**: William Cameron Townsend dies; his tombstone inscription is cited by a secondary source (Wycliffe/SIL) `[wycliffe-sil-q009]`
+- **1992**: CMML and MSC Canada begin an annual Missions Orientation Program (CMML/Brethren) `[cmml-brethren-q025]`
+- **1993**: OMF renamed OMF International (OMF) `[omf-q009]`
+- **2000**: Kenneth Pike dies (Wycliffe/SIL) `[wycliffe-sil-q039]`
+- **2006**: Patrick Fung becomes OMF's General Director, "the first Asian to lead the mission" (OMF) `[omf-q013]`
+- **2014**: An Evangelical Times article describes the Westminster Fellowship, still meeting after more than 70 years at Westminster Chapel (Westminster Chapel & Fellowship) `[wcf-q001]`
+- **2015**: Elisabeth Elliot dies, per the roster's known-facts sheet (Wheaton College) `[roster known-facts sheet]`
+- **2016-09**: London Theological Seminary renamed "London Seminary" (London Theological Seminary) `[lts-q001]`
+- **2017**: London Theological Seminary's 40th anniversary; over 400 men trained since 1977 (London Theological Seminary) `[lts-q026]`
+- **2018-01**: Bill James becomes London Seminary's fourth Principal (London Theological Seminary) `[lts-q025]`
+- **2019**: Jim Elliot's Wheaton-era papers donated to the Wheaton College Archives (Wheaton College) `[wheaton-college-q021]`
+- **2021**: CMML's Statement of Faith approved by its Board of Directors (CMML/Brethren) `[cmml-brethren-q022, q023, q024]`

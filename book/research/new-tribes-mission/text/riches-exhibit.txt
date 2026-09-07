@@ -1,0 +1,55 @@
+DOCUMENT_ID: riches-exhibit
+TITLE (as printed): New Tribes Mission (RICHES digital exhibit index)
+DATE: n.d. (accessed 2026-09-07)
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://richesmi.cah.ucf.edu/omeka/exhibits/show/new_tribes_mission
+EDITION: live website (RICHES of Central Florida digital exhibit, Univ. of Central Florida)
+TRANSCRIPTION METHOD: copied (born-digital HTML; html2text)
+TOTAL PAGES: 1 (single web page)
+WORD COUNT: 193
+
+[[p. 1]]
+Skip to main content
+
+  * [Login](/omeka/guest-user/user/login)
+  * [Register](/omeka/guest-user/user/register)
+
+[RICHES](https://richesmi.cah.ucf.edu/omeka)
+
+  * [The RICHES Project](https://riches.cah.ucf.edu/)
+  * [Omeka Homepage](https://richesmi.cah.ucf.edu/omeka/)
+  * [Collection Tree](/omeka/collection-tree)
+  * [Browse Items](/omeka/items/browse)
+  * [Browse Exhibits](/omeka/exhibits)
+
+# Politics, Tourism, Education, Non-Profits...Oh My!
+
+_Politics, Tourism, Education, Non-Profits...Oh My!_ is a photo exhibit depicting the history of the New Tribes Mission building from a hotel to a charity headquarters. 
+
+## Credits
+
+Photographs and other digital items courtesy of the Sanford Museum, the Orange County Regional History Center, RICHES of Central Florida, and various local newspapers. All content presented in exhibit created by RICHES-MI staff members and volunteers.
+
+  * [A Politician Builds a Hotel](/omeka/exhibits/show/new_tribes_mission/forrest_lake)
+    * [Forrest Lake](/omeka/exhibits/show/new_tribes_mission/forrest_lake/forrest_lake_pg_1)
+    * [Construction of Hotel Forrest Lake](/omeka/exhibits/show/new_tribes_mission/forrest_lake/forrest_lake_pg_2)
+    * [Hotel Forrest Lake](/omeka/exhibits/show/new_tribes_mission/forrest_lake/forrest_lake_pg_3)
+  * [Tourists Make Their Way to Mayfair](/omeka/exhibits/show/new_tribes_mission/mayfair)
+    * [The Mayfair Hotel and Mayfair Inn](/omeka/exhibits/show/new_tribes_mission/mayfair/mayfair_pg_1)
+  * [A Hotel Becomes a School](/omeka/exhibits/show/new_tribes_mission/sanford_naval_academy)
+    * [Sanford Naval Academy](/omeka/exhibits/show/new_tribes_mission/sanford_naval_academy/sanford_naval_academy_pg_1)
+  * [A Non-Profit's Mission](/omeka/exhibits/show/new_tribes_mission/new_tribes_mission)
+    * [New Tribes Mission Finds Headquarters in Sanford](/omeka/exhibits/show/new_tribes_mission/new_tribes_mission/new_tribes_mission_pg_1)
+    * [New Tribes Mission Today](/omeka/exhibits/show/new_tribes_mission/new_tribes_mission/new_tribes_mission_pg_2)
+  * [Writings About a Building's History](/omeka/exhibits/show/new_tribes_mission/history)
+    * [Other Historical Background Information](/omeka/exhibits/show/new_tribes_mission/history/history)
+
+  * [The RICHES Project](https://riches.cah.ucf.edu/)
+  * [Omeka Homepage](https://richesmi.cah.ucf.edu/omeka/)
+  * [Collection Tree](/omeka/collection-tree)
+  * [Browse Items](/omeka/items/browse)
+  * [Browse Exhibits](/omeka/exhibits)
+
+RICHES MI part of UCF Department of History
+
+Proudly powered by [Omeka](http://omeka.org).

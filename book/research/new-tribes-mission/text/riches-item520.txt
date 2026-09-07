@@ -1,0 +1,235 @@
+DOCUMENT_ID: riches-item520
+TITLE (as printed): New Tribes Mission Grows (RICHES digital exhibit item)
+DATE: n.d. (accessed 2026-09-07)
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://richesmi.cah.ucf.edu/omeka/exhibits/show/new_tribes_mission/item/520
+EDITION: live website (RICHES of Central Florida digital exhibit, Univ. of Central Florida)
+TRANSCRIPTION METHOD: copied (born-digital HTML; html2text)
+TOTAL PAGES: 1 (single web page)
+WORD COUNT: 1151
+
+[[p. 1]]
+Skip to main content
+
+  * [Login](/omeka/guest-user/user/login)
+  * [Register](/omeka/guest-user/user/register)
+
+[RICHES](https://richesmi.cah.ucf.edu/omeka)
+
+  * [The RICHES Project](https://riches.cah.ucf.edu/)
+  * [Omeka Homepage](https://richesmi.cah.ucf.edu/omeka/)
+  * [Collection Tree](/omeka/collection-tree)
+  * [Browse Items](/omeka/items/browse)
+  * [Browse Exhibits](/omeka/exhibits)
+
+# New Tribes Mission Grows
+
+## Dublin Core
+
+### Title
+
+New Tribes Mission Grows
+
+### Alternative Title
+
+New Tribes Mission Grows
+
+### Subject
+
+Religious Organizations--United States
+
+Sanford (Fla.)
+
+New Tribes Mission--History
+
+Buildings—Florida
+
+Missions--Florida
+
+### Description
+
+Newspaper article on the development of the New Tribes Mission, located at 1000 East First Street in Sanford, Florida. Originally named after the Sanford Mayor and president of Seminole County Bank, construction of the Forrest Lake Hotel began in 1916. Local architect Elton J. Moughton designed the hotel. In 1925, Hotel Forrest Lake opened and became a popular destination for tourists visiting Sanford. By 1929, the hotel closed after the stock market crash and the downfall of Florida's tourism and real estate boom. William E. Kirchhoff leased the building in 1934 and the hotel reopened in 1935 with the new name Mayfair Hotel. Under Kirchhoff's ownership, the Mayfair Hotel became known as one of the finest hotels in the South. Kirchhoff sold the hotel in 1948 to Horace Stoneham, owner of the New York Giants. Stoneham then sold the building to the Bernard McFadden Foundation in 1963. After the Naval Air Station Sanford acquired $1.3 million to fund the construction of a naval academy in 1963, the Foundation made significant alterations to the building to house students from the Sanford Naval Academy. The Foundation later sold the building to the New Tribes Mission in 1977. The New Tribes Mission's goal is to reach tribes who have no access to the Gospel through translated publications and missionary work.
+
+### Creator
+
+Pounds, Geoffrey
+
+### Source
+
+Original newspaper article by Geoffrey Pounds. "New Tribes Mission Grows." [_The Sanford Herald_](http://www.sanfordherald.com/). October 21, 1979.
+
+### Publisher
+
+[_The Sanford Herald_](http://www.sanfordherald.com/ "Sanford Herald")
+
+### Date Created
+
+1979-10-21
+
+### Has Format
+
+Original newspaper article by Geoffrey Pounds. "New Tribes Mission Grows." [_The Sanford Herald_](http://www.sanfordherald.com/). October 21, 1979: New Tribes Mission Collection, [Sanford Museum](http://www.sanfordfl.gov/index.aspx?page=456), Sanford, Florida.
+
+### Is Format Of
+
+Digital reproduction of original newspaper article by Geoffrey Pounds. "New Tribes Mission Grows." [_The Sanford Herald_](http://www.sanfordherald.com/). October 21, 1979.
+
+### Is Part Of
+
+[_The Sanford Herald_](http://www.sanfordherald.com/), October 21, 1979.
+
+New Tribes Mission Collection, [Sanford Museum](http://www.sanfordfl.gov/index.aspx?page=456), Sanford, Florida.
+
+[Hotel Forrest Lake Collection](https://richesmi.cah.ucf.edu/omeka2/collections/show/12), Sanford Collection, Seminole County Collection, RICHES of Central Florida.
+
+"[Politics, Tourism, Education, Non-Profits...Oh My!](https://richesmi.cah.ucf.edu/omeka2/exhibits/show/new_tribes_mission)" RICHES of Central Florida.
+
+### Format
+
+image/jpeg
+
+### Extent
+
+1,171 KB
+
+### Medium
+
+1 newspaper article
+
+### Language
+
+eng
+
+### Type
+
+Text
+
+### Coverage
+
+Sanford, Florida
+
+### Spatial Coverage
+
+28.811748, -81.257222
+
+### Temporal Coverage
+
+1977-01-01/1979-10-21
+
+### Accrual Method
+
+Donation
+
+### Audience Education Level
+
+SS.K.A.1.2; SS.K.C.2.1; SS.1.A.1.1; SS.1.A.2.2; SS.1.C.2.1; ; SS.1.C.2.2; SS.1.C.2.3; SS.1.C.2.4; SS.2.A.1.1; SS.2.C.2.2; SS.2.C.2.4; SS.2.C.2.5; SS.3.A.1.1; SS.3.C.2.1; SS.3.G.1.1; SS.3.G.2.6; SS.4.A.1.1; SS.4.C.2.2; SS.4.C.2.3; SS.5.A.1.1; SS.5.C.2.5; SS.5.G.1.4; SS.6.W.1.3; SS.7.C.2.2; SS.7.C.2.3; SS.8.A.1.2; SS.8.A.1.5; SS.912.A.1.1; SS.912.A.1.4; SS.912.A.1.6; SS.912.A.6.10; SS.912.A.6.14; SS.912.A.6.15; SS.912.A.7.10; SS.912.A.7.12; SS.912.A.7.17; SS.912.C.2.3; SS.912.C.4.3; SS.912.G.1.2; SS.912.G.1.4; SS.912.W.1.3
+
+### Mediator
+
+History Teacher
+
+Civics/Government Teacher
+
+Geography Teacher
+
+### Provenance
+
+Originally created by Geoffrey Pounds and published by [_The Sanford Herald_](http://www.sanfordherald.com/ "Sanford Herald").
+
+### Rights Holder
+
+Copyright to this resource is held by [_The Sanford Herald_](http://www.sanfordherald.com/ "Sanford Herald") and is provided here by [RICHES of Central Florida](http://riches.cah.ucf.edu/) for educational purposes only.
+
+### Curator
+
+Cepero, Laura
+
+### Digital Collection
+
+[RICHES MI](https://richesmi.cah.ucf.edu/map/)
+
+### Source Repository
+
+[Sanford Museum](http://www.sanfordfl.gov/index.aspx?page=456)
+
+### External Reference
+
+“Our Heritage.” New Tribes Mission. http://usa.ntm.org/our-heritage.
+
+“Sanford Naval Academy.” Sanford Naval Academy. http://www.sanfordnavalacademy.com/cgi-bin/sna?C.
+
+Sanford Historic Preservation Board. "The Sanford Historic Preservation Board Presents the Sanford Historic Downtown Walking Tour." http://sanfordhistory.tripod.com/Links/wtour.pdf.
+
+Sanford Historical Society (Fla.). _Sanford_. Charleston, SC: Arcadia, 2003.
+
+### External Reference Title
+
+"[Our Heritage](http://usa.ntm.org/our-heritage)"
+
+"[Sanford Naval Academy](http://www.sanfordnavalacademy.com/cgi-bin/sna?C)"
+
+"[Hotel Forrest Lake - 1925](http://sanfordhistory.tripod.com/Links/wtour.pdf)"
+
+[_Sanford_](http://www.worldcat.org/oclc/53015288)
+
+### Transcript
+
+New Tribes Mission Grow  
+By GEOFFREY POUNDS Herald Staff Writer  
+Barely two years after moving into its new offices in Sanford, the local staff of the New Tribes Mission has grown to 35 working families.  
+The mission purchased the old Sanford Naval Academy (Mayfair'Hotel) in May of 1977. Since that time, director Kenneth Johnston and his staff have accomplished major renovations on the main building and the nearby gym and apartment complex.   
+The upstairs area of the main building is used for living quarters for staff members and visiting missionaries on furlough from overseas assignment. The mission operates in 18 countries.   
+Downstairs in the main building are IBM computers and offices. The Sanford complex is the central office for the mission's accounting and information departments. Sanford serves as the "nerve center" for the international operation, according to Johnston.   
+Across the street from the main building is the mission's printing facilities. Johnston says this year the mission will add a seven-color printing press capable of producing 55,000 pamphlets in one day. The mission prints a monthly magazine, Brown Gold. In addition, a quarterly publication, Family News, and 11 field papers are printed at the Sanford plant. A prayer and a praise letter is printed monthly. The New Tribes Mission is non-denominational and operates its own language school, flight school and other training institutes at numerous locations throughout the country. Most of the literature used at those training facilities is printed in Sanford. A project now under way here is the printing of New Testaments in tribal languages.  
+Around the world there are 1,450 New Tribes Missionaries in the field. Additional apartment space in the building adjacent to the gym will accomodate missionaries in transit, Johnston said.  
+A major project seen for this year, according to Johnston, is planning and possible construction start on a retirement complex for missionary personnel. He said preliminary plans call for the complex to be built "within 20 miles of the Sanford headquarters.”   
+The New Tribes Mission operates a "boot camp" school in nearby Oviedo. The school offers primary training for those about to assume duties overseas. The Oviedo camp is one of seven.   
+Arrangements with the mission can be made for a representative to speak at a church or Sunday school.  
+Persons interested in becoming missionaries themselves may process their application through the Sanford headquarters. 
+
+## Document Item Type Metadata
+
+### Original Format
+
+1 newspaper article
+
+### Files
+
+[![](https://richesmi.cah.ucf.edu/omeka/files/square_thumbnails/480c15fec9f0c4a81da3475a9d1ef9fc.jpg)](https://richesmi.cah.ucf.edu/omeka/files/original/480c15fec9f0c4a81da3475a9d1ef9fc.jpg)
+
+### Collection
+
+[Hotel Forrest Lake Collection](/omeka/collections/show/12)
+
+### Tags
+
+[1st Street](/omeka/items/browse?tags=1st+Street); [Bernard McFadden Gymnasium](/omeka/items/browse?tags=Bernard+McFadden+Gymnasium); [Brown Gold](/omeka/items/browse?tags=Brown+Gold); [Celery Printing](/omeka/items/browse?tags=Celery+Printing); [Celery Printing Co.](/omeka/items/browse?tags=Celery+Printing+Co.); [Celery Printing Company](/omeka/items/browse?tags=Celery+Printing+Company); [charitable organization](/omeka/items/browse?tags=charitable+organization); [charity](/omeka/items/browse?tags=charity); [church](/omeka/items/browse?tags=church); [Family News](/omeka/items/browse?tags=Family+News); [First St.](/omeka/items/browse?tags=First+St.); [First Street](/omeka/items/browse?tags=First+Street); [gym](/omeka/items/browse?tags=gym); [gymnasium](/omeka/items/browse?tags=gymnasium); [Johnston, Kenneth](/omeka/items/browse?tags=Johnston%2C+Kenneth); [Mayfair](/omeka/items/browse?tags=Mayfair); [Mayfair Hotel](/omeka/items/browse?tags=Mayfair+Hotel); [Mayfair Inn](/omeka/items/browse?tags=Mayfair+Inn); [New Testament](/omeka/items/browse?tags=New+Testament); [New Tribes Mission](/omeka/items/browse?tags=New+Tribes+Mission); [New Tribes Mission HQ](/omeka/items/browse?tags=New+Tribes+Mission++HQ); [New Tribes Mission Headquarters](/omeka/items/browse?tags=New+Tribes+Mission+Headquarters); [New Tribes Missionaries](/omeka/items/browse?tags=New+Tribes+Missionaries); [non-denominational](/omeka/items/browse?tags=non-denominational); [NTM](/omeka/items/browse?tags=NTM); [NTM Headquarters](/omeka/items/browse?tags=NTM+Headquarters); [NTM HQ](/omeka/items/browse?tags=NTM+HQ); [Pounds, Geoffrey](/omeka/items/browse?tags=Pounds%2C+Geoffrey); [renovations](/omeka/items/browse?tags=renovations); [Sanford Herald](/omeka/items/browse?tags=Sanford+Herald); [Sanford Naval Academy](/omeka/items/browse?tags=Sanford+Naval+Academy); [SNA](/omeka/items/browse?tags=SNA); [Sunday school](/omeka/items/browse?tags=Sunday+school)
+
+### Citation
+
+Pounds, Geoffrey, "New Tribes Mission Grows," _RICHES_ , accessed September 7, 2026, https://richesmi.cah.ucf.edu/omeka/items/show/520.
+
+### Output Formats
+
+  * [atom](/omeka/exhibits/show/new_tribes_mission/item/520?output=atom)
+  * [dc-rdf](/omeka/exhibits/show/new_tribes_mission/item/520?output=dc-rdf)
+  * [dcmes-xml](/omeka/exhibits/show/new_tribes_mission/item/520?output=dcmes-xml)
+  * [json](/omeka/exhibits/show/new_tribes_mission/item/520?output=json)
+  * [omeka-xml](/omeka/exhibits/show/new_tribes_mission/item/520?output=omeka-xml)
+
+## Locations
+
+### Categories
+
+  * [<- Previous Item](/omeka/items/show/519)
+  * [Next Item ->](/omeka/items/show/522)
+
+  * [The RICHES Project](https://riches.cah.ucf.edu/)
+  * [Omeka Homepage](https://richesmi.cah.ucf.edu/omeka/)
+  * [Collection Tree](/omeka/collection-tree)
+  * [Browse Items](/omeka/items/browse)
+  * [Browse Exhibits](/omeka/exhibits)
+
+RICHES MI part of UCF Department of History
+
+Proudly powered by [Omeka](http://omeka.org).

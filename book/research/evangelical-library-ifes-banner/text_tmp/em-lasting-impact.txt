@@ -1,0 +1,3 @@
+Host not in allowlist: www.evangelicalmagazine.com. Add this host to your
+network egress settings to allow access.
+

@@ -1,0 +1,400 @@
+DOCUMENT_ID: larhra-pittion-saumur-collegien
+TITLE (as printed): Être collegien à Saumur sous l'Édit de Nantes
+DATE: 2018 (in Protestantisme et éducation dans la France moderne, LARHRA)
+LANGUAGE: fr
+SOURCE URL/SHELFMARK: https://books.openedition.org/larhra/3642
+EDITION: Jean-Paul Pittion, CESR Université François-Rabelais Tours / Trinity College Dublin, OpenEdition Books, open access
+TRANSCRIPTION METHOD: copied (HTML page fetched via curl, boilerplate/nav stripped programmatically, body text and footnotes preserved verbatim)
+TOTAL PAGES: 1 (single web page)
+WORD COUNT: 4957
+
+[[img. 1]]
+Full text
+1
+Q
+u’ils aient été tenus par les jésuites ou par les réformés, les collèges d’humanités partageaient le même objectif : la scolarisation avait pour objectif de renforcer la croyance par la pratique et l’enseignement de la doctrine, de polir les conduites et discipliner les mœurs, et de former l’esprit par l’acquisition de la culture des humanités.
+Humanitas
+,
+civitas
+,
+pietas
+, ces trois valeurs perçues comme inséparables définissaient l’orientation générale de l’enseignement dans les collèges d’humanités. La forme scolaire de la culture des humanités mise en œuvre pour obtenir ce triple objectif était, elle aussi, fondamentalement la même. Le principe sur lequel reposait l’enseignement était celui d’un apprentissage progressif et gradué principalement du latin, langue de la culture lettrée et des savoirs professionnels. L’organisation des classes suivait l’ordre de l’analyse du discours : apprentissage de la syntaxe latine simple et complexe, lecture des textes classiques, pratique de la rhétorique et de l’imitation par la chrie
+1
+. Durant sa scolarité, l’élève progressait année par année dans le curriculum et sa progression était en principe soumise à vérification, l’accès à une classe supérieure n’étant possible qu’après examen
+2
+.
+2
+En réalité, une analyse concrète des programmes et des pratiques fait apparaître des différences sensibles dans les contenus et dans les méthodes adoptés dans les collèges des réformés par comparaison avec les collèges jésuites ou oratoriens. Pour situer, dans son contexte idéologique et institutionnel, la vie des élèves inscrits au collège fondé par Duplessis Mornay à Saumur, rappelons brièvement deux caractéristiques qu’il partageait avec ceux de Montauban et de Die et qui donnaient aux établissements protestants un profil particulier, comparé celui des collèges d’humanités tenus par les jésuites. En premier lieu, dans les collèges des réformés, l’encadrement et l’enseignement des collégiens n’étaient pas confiés à des clercs mais à des laïques. Certes, il revenait à chaque régent de conduire ses « escholiers » au prêche, le mercredi et le samedi et de leur faire répéter, en classe, avant le prêche, le catéchisme
+3
+: « … feront [les régents] le Catéchisme les jours de dimanche et mercredy matin, […] [e]staurié en françoys aux plus basses classes, et en latin aux plus hautes, la première et seconde »
+4
+. Mais là se limitait leur rôle d’instruction religieuse. Notons aussi, dans ce contexte, que la philosophie aristotélicienne, enseignée durant les deux années de maîtrise à tous les collégiens ayant accompli le cursus classique, constituait un véritable « désapprentissage » de la scolastique et avait une orientation délibérément séculière
+5
+. Ce n’est qu’au niveau de l’académie proprement dite qu’était dispensé par des professeurs de théologie « publics » exerçant dans la plupart des cas aussi le ministère, un enseignement destiné à la formation doctrinale des futurs pasteurs. Contrairement à ce qui se passait dans les collèges jésuites et oratoriens, l’enseignement réformé respectait donc une nette ligne de démarcation entre le domaine des humanités et le domaine théologique
+6
+. Les actes du synode d’Alès transcrits dans le
+Registre
+de l’académie de Saumur précisent qu’« un ministre peut estre professeur en théologie et en la langue hébraïque, mais il n’est pas bien séant qu’il exerce la profession en la langue grecque laquelle pour la pluspart du temps est emploiée en l’exposition des autheurs païens et profanes »
+7
+.
+3
+Une seconde caractéristique importante mérite aussi être rappelée : les collèges protestants ne disposaient pas de leur propre pensionnat. L’idée d’acquérir des bâtiments pour loger les collégiens avait été débattue au synode national de Vitré en 1617, mais elle ne fut pas suivie d’effet. Les collégiens prenaient donc pension chez les habitants, tous membres de l’église réformée du lieu, y compris d’ailleurs chez les professeurs de l’académie et chez les régents du collège, ce qui, pour ces derniers, venait en appoint de leurs faibles gages. Pour les élèves, la qualité de l’hébergement chez des particuliers décidait en partie du profit qu’ils allaient tirer de leur scolarité. Dans une lettre de l’année 1664, le jeune professeur en philosophie de Saumur Étienne Gaussen écrivait à ce sujet : « Tous les proposants qui sont icy sont ou trop riches ou trop pouvres pour aller chés Mr Méchin (un des logeurs) ». « Les riches, continue-t-il, méprisent la condition. Les pouvres sont venus dans l’académie avec leur petite provision précipiter leurs études pour gagner bientôt du pain, et ils croyent, comme il y a de l’apparence, que s’ils alloient à St Jean (chez ce logeur), ce serait toujours à recommencer »
+8
+.
+4
+L’académie avait établi dès 1619 un barème des pensions que les logeurs devaient s’engager à respecter et qui comportait trois régimes que les pensionnaires choisissaient selon leurs moyens. En 1619, ces trois « tables » étaient de cent, cent vingt et cent cinquante livres pour une année scolaire de 11 mois
+9
+. Mais le coût de la vie augmenta constamment durant le siècle et la « table » la plus coûteuse, avec pain de froment et viande rôtie, était notamment peu avantageuse pour les hôtes qui exigeaient des suppléments. D’autre part, pour les parents, le prix des pensions représentait une part importante et contraignante des frais d’une année d’études. En 1633, les synodes se plaignirent qu’il n’y avait plus que « les seigneurs et autres de grands moyens » qui pouvaient se permettre de faire étudier leurs enfants à Saumur
+10
+. Mais les tentatives faites par le Conseil pour remédier à la situation n’eurent que des effets temporaires et en trente ans, les pensions passèrent du simple au double
+11
+.
+5
+L’enjeu pour les parents, d’ailleurs, n’était pas uniquement financier, mais aussi la surveillance qu’exerçait un logeur : la liberté de conduite qu’offrait aux collégiens le logement en ville était en partie fonction de ce dont ils disposaient en « argent de poche ». En 1614, le Conseil académique tenta d’interdire aux parents de changer leur fils de logeur sans y avoir été autorisés, « pour ce que la pluspart des escoliers fuient les logis des régens ou d’autres personnes d’authorité qui les contrôlent en leurs actions et tiennent en bride, aymans mieux se mettre en chambre ou logis chez autres personnes moins qualifiées qui leur soufrent tout et fomentent leurs débauches »
+12
+. Tout au long du siècle, le Conseil eut à rappeler des logeurs à l’ordre et exiger qu’ils surveillent mieux les agissements de leurs pensionnaires.
+6
+Nous étudierons successivement les aspects suivants de la vie des collégiens à Saumur : leur entrée au collège, leur scolarité et leurs loisirs en ville.
+Entrer au collège
+7
+Se rendre à Saumur pour faire ses humanités représentait pour un bon nombre de jeunes garçons quitter le milieu familial et le lieu où ils avaient grandi. La disparition du livre de matricule du collège ne permet pas d’établir le pourcentage précis de collégiens étrangers à la ville. Toutefois, en tirant parti des travaux de Didier Poton et de Philippe Chareyre sur la démographie de la société protestante de Saumur, on peut estimer entre 10 % et 15 % par année la proportion des inscrits dont les parents résidaient à Saumur même. L’origine géographique des collégiens, parfois indiquée dans les registres de l’Église, de même que celle jointe aux noms des étudiants en première année de maîtrise figurant sur les livrets imprimés de thèses, montre que, comme pour l’ensemble de la population protestante étrangère à la ville, les principaux groupes de collégiens non natifs de Saumur étaient originaires de l’Anjou et du Poitou. Hors de ces provinces, la zone de recrutement couvrait aussi la Normandie, la Bretagne et Paris
+13
+.
+8
+Pour les plus jeunes de ces collégiens, l’éloignement du milieu familial était probablement ce qu’il y avait de plus difficile à supporter lorsqu’ils entraient au collège. François de Jaucourt, seigneur des Faveras, raconte que pour l’aider à surmonter le dépaysement sa nourrice fut autorisée à loger avec lui pour sa première nuit passée chez son logeur
+14
+. Les plus âgés et les plus fortunés des élèves étaient accompagnés de leur précepteur qui logeait avec eux et leur servait de répétiteur. La présence de ce maître qui allait accompagner leurs études durant toutes leurs années de collège pouvait à la longue devenir pesante, mais soulageait les collégiens qui avaient cette chance, des aspects matériels de leur séjour. Ce qui n’était pas le cas des fils de pasteurs, boursiers de leur Église qui, dans la grande majorité des cas, devaient gérer leur existence au quotidien.
+9
+Quel qu’ait été l’accueil souvent quasiment familial qu’ils recevaient chez leurs logeurs et même lorsque leurs parents résidaient à Saumur, le plus difficile pour les nouveaux venus était ensuite de s’adapter au régime scolaire. À l’époque, la scolarisation ne débutait véritablement qu’avec l’entrée au collège et c’était fréquemment la mère ou une parente qui se chargeait de débuter l’éducation des jeunes enfants. À l’âge de quatre ans, raconte le pasteur de Blain Philippe Le Noir,
+ma grand-mère de la Haye m’éleva […] m’apprenant à prier Dieu et à lire. Elle prenait cette peine avec plaisir et je puis dire […] que dans ma docilité, j’apprenais la lecture fort jeune et fort aisément. Ma mère devenue veuve s’était jointe à elle [et] lui succéda aussitôt au soin de ma tendre éducation
+15
+.
+10
+Dans les familles de la noblesse ou de négociants fortunés, l’apprentissage de la lecture, de l’écriture et du calcul, souvent accompagné de celui des premiers rudiments de latin, était confié à un précepteur. Ce dernier enseignait souvent ensemble à demeure les enfants, frères et sœurs, proches par leur âge
+16
+. Les enfants originaires de familles plus humbles recevaient un début d’instruction dans les « petites écoles » locales entretenues, souvent, par les consistoires. Parfois tenues par des maîtresses, ces classes « élémentaires » regroupaient garçons et filles, de niveau plus ou moins avancé, mais originaires des mêmes localités.
+11
+En entrant au collège, le jeune garçon débutait sa véritable scolarisation par son incorporation à un milieu très différent de celui qu’il avait jusqu’alors connu, milieu uniquement masculin et fortement hiérarchisé. À chaque année d’études correspondait une classe dans laquelle les élèves étaient répartis par section de dix ou « décuries », chacune avec son « surintendant » choisi par le régent, selon l’ordre de leur inscription. Le cérémonial académique d’autre part reflétait la hiérarchie des classes : pour tout événement de la vie collective du collège, notamment lorsqu’ils se rendaient au culte ou lorsqu’ils étaient assemblés en corps pour une adresse solennelle du recteur ou encore à l’occasion de la réception officielle d’un personnage de marque, les collégiens étaient rangés par classes en ordre descendant, des « philosophes » aux petites classes.
+12
+Ce classement et cet ordre hiérarchique visaient à éviter dans la population collégienne le mélange des âges et des capacités et à encourager dans chaque classe une fraternité de groupe. Mais le principe subissait parfois des entorses, notamment en ce qui concerne l’âge et le niveau d’entrée. En 1638, Philippe Le Noir, par exemple, ne rejoignit le collège qu’en classe de troisième, à l’âge de 15 ans, d’ailleurs avec plusieurs autres camarades, et ne commença à suivre les cours qu’à Pâques. Sorti de la classe de première au bout de deux ans seulement passés au collège, ce n’est qu’à l’âge de 20 ans qu’il revint finir ses études et préparer sa maîtrise à Saumur
+17
+.
+13
+Les jeunes garçons qui avaient grandi dans leur campagne où ils couraient les prés et les bois, les jeunes nobles de haut rang habitués à la servilité des valets, vivaient mal l’enrégimentement du collège – le terme n’est pas déplacé, puisque le modèle qui inspirait l’organisation des classes était celui du manipule romain. La frustration qu’ils ressentaient constituait une des principales sources d’insubordination au sein de l’établissement. En 1633, le Baron de Touchet refusa catégoriquement de prendre sa place au temple parmi les philosophes et insista pour rejoindre le banc des nobles étrangers
+18
+. En 1620, le Recteur étant entré en classe pour réprimander un groupe de collégiens qui avaient fait « insolence et noise » devant la maison où logeaient deux proposants, le principal coupable, le jeune duc de Bossugre s’échappa de la salle de cours en sautant par la fenêtre
+19
+!
+14
+Tout compte fait, à lire le
+Registre
+des délibérations du Conseil académique, les manifestations individuelles d’indiscipline furent relativement peu nombreuses au cours du siècle. Rares aussi furent les cas de rébellion collective comme celle que célèbre Jean Vigo dans
+Zéro de Conduite
+, mais en juillet 1653, des collégiens se vengèrent d’une sanction jugée injuste en saccageant l’auditoire de théologie, brisant les bancs et renversant la chaire (
+Registre
+, f
+o
+154 v°). Enfin on note un cas exceptionnel de voies de fait sur un membre du corps enseignant : en juin 1646, « un nommé Houiller étudiant en physique » refusa de se ranger au banc assigné aux philosophes, lors du prêche du matin. « Sur quoy le dit Recteur »- c’était à l’époque le professeur de philosophie Jean Druet - « l’ayant frappé à la joue, ledit Houiller l’auroit outragé de paroles injurieuses et de delà se seroit pendant le presche transporté au logis dudit Recteur, où il auroit à coup de pierres brisé et fracassé entièrement toutes les vitres du logis avec paroles et menaces contre le Recteur… »
+20
+.
+15
+Contrairement à ce que certains historiens ont avancé un peu vite sur la foi d’Érasme, dans des collèges modernes, tenus par les réformés ou les jésuites, les coupables de manquements à la discipline en classe étaient rarement punis de la férule ou des verges. À Saumur en tout cas, dans l’esprit de la « pédagogie de l’exemple » qui selon l’heureuse formule de B. Urien-Causse
+21
+caractérise l’approche des réformés à l’apprentissage de la sociabilité, la sanction imposée aux coupables consistait à faire amende honorable devant le collège assemblé. Il est très rare qu’une expulsion définitive ait été décidée
+22
+.
+Les travaux et les jours
+16
+Les temps et les rythmes de la vie scolaire ont conservé leur régularité durant toute la période d’existence du collège. Certes, à partir de 1670, après le « partage » rendu par la Commission royale chargée de vérifier les titres de l’établissement, débute une lente période de déclin qui affecte à la fois le recrutement des enseignants et des collégiens. Mais en 1683 encore, le programme d’études de l’établissement publié en copies manuscrites reproduit un ordre des études qui n’a guère changé depuis les débuts. Seule l’occupation de la ville par les troupes royales en 1621 ou encore les épidémies et les inondations qui ont frappé Saumur durant la même décennie ont troublé un temps le fonctionnement du collège et causé sa fermeture temporaire.
+17
+L’année scolaire durait onze mois et suivait le rythme des saisons. Les collégiens avaient moins de vacances que les élèves du collège des Oratoriens, puisque les membres de la R.P.R. ne chômaient pas les jours de fêtes catholiques. Hors les grandes vacances d’automne, les collégiens avaient congé deux jours avant la Cène de Pâques et huit jours après celle de Noël. L’année scolaire débutait la dernière semaine d’octobre ou la première semaine de novembre. La date précise de la rentrée des classes était décidée par le Conseil académique en fonction du calendrier des vendanges. La rentrée des petites classes avait lieu en premier, les « grands » arrivant parfois plusieurs jours plus tard, quand les vendanges étaient véritablement terminées. Les grandes vacances commençaient donc à la mi-septembre. Elles étaient précédées d’une semaine consacrée aux examens. Les départs en vacances s’échelonnaient alors selon les dates fixées à ces examens : les « philosophes » en première année de maîtrise étaient libérés en premier, suivis des élèves de première, puis des « classiques », c’est-à-dire les élèves de seconde et de troisième. Les élèves des petites classes, eux, restaient quinze jours de plus au collège pendant que les « classiques » passaient leurs examens et que les élèves de première subissaient les épreuves de thème latin et de chrie.
+18
+Les résultats donnaient lieu à un classement couronné par un prix, un livre relié spécialement pour l’occasion. Jean Rou, le futur secrétaire du Greffier des États de Hollande Henri Fagel, terminait sa première à Saumur dans les années cinquante : il raconte comment sa hâte de rentrer chez lui pour les vendanges lui coûta la première place : « moi qui avoit la main prompte, en même temps que je couchois sur une feuille le françois qui nous étoit prononcé [dicté], j’écrivois sur une autre le latin qui devoit y répondre, tout cela dans la vue d’avoir plus tôt besogne faite et d’aller au plus vite [re]trouver mon homme et mon cheval »
+23
+. En cheminant, il relut son brouillon et découvrit qu’il avait laissé passer un solécisme qui lui coûta la première place.
+19
+On se souviendra peut-être du récit que fit Marcel Pagnol, des siècles plus tard, de sa première matinée de lycée quand retentit la cloche : « Il me sembla, écrit-il, que dans ce lycée, le temps était bien étroitement surveillé »
+24
+. À Saumur déjà, c’était le son de la cloche qui ponctuait le temps consacré l’enseignement et qui appelait les collégiens à entrer en salle de classe ou à en sortir en rang et le mercredi, à se rassembler pour le culte. Les collégiens avaient cinq heures de classe par jour. En juin 1619, le Conseil académique « considérant […] l’incommodité […] tant pour les régents que pour les escholiers de demeurer en classe trois heures continues l’après-disnée, notamment durant les grandes chaleurs de l’été… »
+25
+, décida que les classes seraient chacune d’une durée de deux heures et demie, seraient réparties à égalité entre le matin et l’après-midi et débuteraient respectivement à huit heures et à treize heures. Toutefois la journée des jeunes gens commençait bien plus tôt. Ils se levaient à cinq heures en été et à six heures en hiver. Il semble que la coutume ait été que les précepteurs ou même les hôtes consacrent une heure après le petit-déjeuner et une heure après le repas du soir à la préparation ou à la révision des leçons. Le coucher avait lieu à neuf heures. Une partie importante de la vie des collégiens était donc consacrée à apprendre et à étudier, mais durant l’après-midi ou en début de soirée, hors des murs du collège et en oubliant un temps les contraintes de la cloche, ils disposaient de quelques heures de liberté qu’ils pouvaient passer en ville.
+Les collégiens en ville
+20
+Il n’est pas aisé de découvrir comment les collégiens utilisaient ce temps libre et quels étaient leurs moyens et façons de se détendre. Comme on peut s’y attendre, dans les correspondances de précepteurs qui ont survécu, il est surtout traité d’études et des progrès effectués ou non par les jeunes collégiens dont ils avaient la charge. Quant à divers évènements concernant la conduite des collégiens en ville qui sont consignés dans le
+Registre
+, ils y figurent pour des raisons de discipline et ne donnent donc des conduites des collégiens en ville qu’une image occasionnelle et déformée.
+21
+La manière la plus courante qu’avaient les collégiens d’oublier un temps l’étude était tout simplement de se promener à plusieurs en ville ou sur les bords de Loire. Durant la belle saison, ils se baignaient dans le fleuve ou y faisaient de la barque, non sans risque d’ailleurs, car en dépit du débit modéré de la Loire en été, les basses eaux sont trompeuses et dangereuses. Parmi les décès inscrits dans les registres de l’église protestante on trouve au moins une douzaine de noyades de collégiens
+26
+. Les collégiens jouaient aussi à la paume. La ville possédait un Jeu de Paume, peut-être même deux, car un titre de propriété de l’époque traite d’un terrain de la ville « près le grand jeu de paume » situé à la Billange, faubourg fortifié de la ville
+27
+.
+22
+En fait, en ce qui concerne les mieux nantis des collégiens, diverses activités organisées sous la conduite de leurs précepteurs ne leur laissaient que peu de temps libre. Les jeunes aristocrates, notamment, apprenaient à pratiquer les arts nobles, musique (luth ou guitare), dessin, danse, et, bien entendu, l’escrime et l’équitation. Des maîtres étaient disponibles en ville dans tous ces domaines, attirés par la présence à Saumur, à partir notamment du milieu du siècle, de jeunes aristocrates anglais fortunés qui y séjournaient. Les comptes et la correspondance du gouverneur de deux jeunes nobles écossais, les frères Kerr, qui passèrent près d’un an à Saumur en 1654, sont riches de renseignements sur ce sujet
+28
+.
+23
+Pour le principal du collège et le recteur de l’académie, soucieux de la moralité de ceux dont ils avaient la charge, ces périodes non surveillées de liberté en ville était des périodes à risques notamment pour les plus âgés des collégiens. La ville en effet offrait, à leurs yeux, l’occasion de « paillardises notoires ». Il était impossible d’éviter qu’ils veuillent « fréquenter des tripots ». Aussi les élèves des « deux premières classes et au-dessus », y étaient-ils autorisés, mais à condition d’y être menés par « quelque pédagogue […] hors toutesfois les jours de leçons plus jour de dimanche, de mercredy avant et pendant le presche »
+29
+. Le risque était qu’au cabaret, s’ils étaient laissés sans surveillance, ces jeunes gens jouent aux dés ou aux cartes et s’acoquinent avec des femmes de mauvaise vie. Étienne Gaussen, dans la lettre déjà citée, informe son correspondant de la disparition d’un « philosophe » du collège :
+« trois jours durant, trente cavaliers, le pistolet et l’épée à la main, le cherchèrent dans les caves qui sont autour de Saumur. Les juges en firent grand bruit, la ville en fut en rumeur. Les uns soutenoyent que le Diable l’avoit emporté. Les nostres s’imaginoient qu’on l’avoit attiré dans un coupe-gorge [...]. Enfin il s’est trouvé qu’il avoist esté leurré par une vieille gourgandine… »
+30
+.
+24
+Un jeudi de juin 1641, le Conseil ordinaire de l’académie et du collège « et ceux de l’extraordinaire qui ont pu s’y trouver » se réunirent pour entendre un rapport du Recteur sur « la grande licence que prennent les escholiers »
+31
+. L’acte de 1641 énumère les conduites que le Conseil jugeait condamnables telles que « comédies que quelques-uns entreprennent de jouer en maisons particulières […], mommeries et mascarades par les rues et maisons ès jours gras et de carême prenant […], fréquence ès cabarets, hentise de filles et de femmes… ». On pourrait voir dans ce rappel à l’ordre la manifestation d’un rigorisme moral que l’on a pu parfois attribuer à la mentalité réformée. Mais les admonitions des autorités collégiales, comme d’autres que l’on rencontre dans le
+Registre
+de l’académie semblent bien avoir eu par elles mêmes peu d’effet. On voit mal d’ailleurs comment les collégiens auraient pu rester enfermés chez leurs logeurs durant le carnaval, alors que toute la population, y compris les logeurs eux-mêmes, faisait la fête. En ce qui concerne les représentations théâtrales, les remontrances de 1641 n’eurent pas plus d’effet que les autres, puisqu’en juin de l’année 1646, les « philosophes » donnèrent au logis du sénéchal de Saumur une représentation de la comédie de Saint Sorlain,
+Les Visionnaires
+32
+et qu’en 1661 fut donné en public en ville un ballet
+Le Mariage de l’esprit et de la beauté
+, dont un exemplaire du livret figure dans la bibliothèque d’un étudiant de l’année
+33
+.
+25
+En réalité, ce que craignaient les autorités du collège et de l’académie, c’était une soudaine explosion de violence qui échappe à leur contrôle. Un chahut en ville, une partie de paume qui tournait mal dégénéraient vite en bagarre et la bagarre en rixe. En juin 1648, « une batterie entre escholiers et académiciens » causa la mort d’un étudiant en philosophie
+34
+. Sur des incidents d’apparence légère venaient se greffer des conflits de prestige et de rang : en juillet 1656, un logicien, nommé Mallet, se prit de querelle avec un jeune gentilhomme anglais du nom de Cotton séjournant à Saumur avec son gouverneur. On échangea des coups de poing et de raquette. Sur « les neuf à dix heures du soir », Mallet et trois de ses compagnons agressèrent le jeune Anglais sur « le pont de la Billange ». Le gouverneur de la ville s’en plaignit au recteur qui enjoignit Mallet d’aller demander pardon à Cotton. Trop tard : Mallet et « huit ou dix de ses compagnons armés d’épées » se mirent en embuscade après souper au même endroit. Il fallut l’intervention de « personnes de condition », pour éviter le pire
+35
+.
+26
+En conclusion, on peut dire que, comme pour toutes les jeunes élites de l’époque, entrer au collège constituait dans la vie d’un jeune protestant un tournant qui inaugurait un processus de socialisation par sa scolarisation hors du cadre familial. La sortie du collège, sanctionnée par la maîtrise ès arts, marquait, quant à elle, l’entrée du jeune homme dans la vie publique. Mais pour les jeunes élites réformées qui étudiaient à Saumur, être collégien c’était aussi faire l’apprentissage de leur appartenance à la minorité religieuse. La tutelle morale que tentaient d‘exercer les autorités académiques sur la vie des collégiens hors des murs du collège ne peut se comprendre que dans le contexte politico-religieux d’une ville où les réformés étaient très minoritaires. Les exhortations à une exemplarité de conduite et au respect de la discipline en ville visaient à faire prendre conscience aux jeunes réformés que tout dérèglement ou scandale, qu’il ait été individuel ou collectif, rejaillissait sur la réputation de toute la communauté réformée de la ville, et pouvait aussi servir de prétexte à la suppression de l’Église et de l’établissement.
+Footnotes
+1
+Exercice de rhétorique consistant à développer une pensée par sept ou huit moyens différents.
+2
+Sur ces questions voir Roger C
+hartier
+, Marie-Madeleine C
+ompère
+et Dominique J
+ulia
+,
+L’éducation en France du
+xvi
+e
+au
+xviii
+e
+siècle
+, Paris, SEDES, 1976.
+3
+Il s’agit bien entendu du
+Catéchisme. C’est à dire le formulaire d’instruire les enfans en la Chrestienté, fait en manière de dialogue…
+, dont le texte est inclus dans toutes les éditions du Psautier de Genève à partir de 1562.
+4
+Cf.
+Jean-Paul P
+ittion
+, « Introduction à l’histoire de l’Académie », Partie 1 « Loix et Reiglements de l’Académie et Collège de Saumur », f° 255, dans
+Fonds de l’Académie protestante : Papiers et registre des affaires de l’Académie
+, Arch. mun. : Saumur (www.archives.ville-saumur.fr).
+5
+Cette orientation est clairement énoncée par le professeur de philosophie de Saumur, le médecin Mark D
+uncan
+dans ses
+Theses ex logicis et ethicis selectæ
+, Salmurii, ex typographia Thomæ Portæ, Academiæ Salmuriensis Typographi, 1612. Appliquant à l’Éthique ce qu’Aristote écrit de la Physique dans le
+De Sensu
+(I 436 a b), Duncan pose que «
+ut enim ubi definit Physicus, ibi incipit Medicus ; ita ubi definit Philosophus moralis, ibi incipit Jurisconsultus
+».
+6
+Les
+Constitutiones Societatis Jesu
+(édition princeps, 1558) précisent que les études des scolastiques englobent “
+litteræ humaniores diversarum linguarum, logica itidem, naturalis ac moralis philosophia, metaphysica et theologia
+”.
+Cf. Constitutiones Societatis Jesu, cum earum declarationibus
+, Avenione : ex typographia Francisci Seguin, 1727, vol. I, Quarta pars, cap.v..
+7
+« Loix générales des Académies dressées pour les Églises réformées de France au dit synode d’Alais, l’an 1620 »,
+Papiers et registre des affaires de l’Académie
+,
+op. cit.
+, f° 56 v° (ci-après
+Registre
+)
+8
+Étienne Gaussen, lettre à Élie Bouhéreau, 17 janvier 1664, dans Jean-Paul P
+ittion
+,
+op. cit.
+, Partie IV, « Enseigner à Saumur : Lettres d’Étienne Gaussen (1663-1672) ».
+9
+Registre
+, f° 43 v° - 44 r°.
+10
+Registre
+f
+o
+111 v
+o
+.
+11
+Leur montant atteignit 200, 250 et 300 livres en 1664 (
+Registre
+f
+o
+192v
+o
+).
+12
+Registre
+, 24 juillet 1614, f° 8 v°.
+13
+Didier P
+oton
+, « Les protestants de Saumur au
+xvii
+e
+siècle, étude démographique », et Philippe C
+hareyre
+, « Les protestants de Saumur au
+xvii
+ème
+siècle, religion et société », dans
+Saumur, capitale européenne du Protestantisme, 3
+ème
+cahier de Fontevraud
+(intr. François L
+ebrun
+), Fontevraud, Centre culturel de l’Ouest, 1991, p. 11-26 & p. 27-70.
+14
+« Journal manuscrit de François de Jaucourt » dans
+Mémoires inédits et Opuscules de Jean Rou (1638-1711) publiés pour la Société de l’histoire du protestantisme français, d’après le manuscrit conservé aux archives de l’État à La Haye
+(éd. Francis W
+addington
+), Paris, Société de l’Histoire du Protestantisme Français, 1857, 2 vol., vol. I, p. 22, n. 4.
+15
+« Vie de Philippe Le Noir pasteur à Blain (1623-1691) », éd. F. de B
+aulieu
+,
+Cahiers de Généalogie Protestante
+, n° 9, premier trimestre 1985.
+16
+Dans son livre journal, Jean de S
+t
+J
+ulien de
+L
+olivier
+, d’une famille de vieille noblesse de la région de Montpellier note : « L’an 1617, quelques jours avant la St Hilaire, ay Loys Jourdan de Montagnac pour apprendre nos enfans […] le 8e jour de février 1627 ay laissé Monsieur de Sartoris à Lolivier pour instruire les sciences morales en présence de ma mère », voir [Anon], « Une famille huguenote du
+xvii
+e
+siècle »,
+Bulletin de la Société de l’Histoire du Protestantisme français
+, 21 (1872), p. 553-557.
+17
+« Vie de Philippe Le Noir pasteur à Blain (1623-1691) », loc. cit..
+18
+Registre
+, 1
+er
+juillet 1633, f
+o
+109 r°.
+19
+Registre
+, 12 & 19 février 1620, f
+o
+46 v
+o
+.
+20
+Sur ce sérieux incident et ses suites voir
+Registre
+, f
+o
+141.
+21
+Béatrice U
+rien-
+C
+ausse
+,
+Die, Communauté Réformée
+. Thèse de III
+e
+cycle, Université de Paris I Panthéon Sorbonne, 1979, 2 tomes et 2 tomes d’annexes, tome I, p. 234-285.
+22
+Jean-Paul P
+ittion
+, « Surveiller, édifier, punir : le recteur et la discipline au collège et à l’académie de Saumur (1603-1685) » dans
+L’Intime du droit à la Renaissance, Actes du cinquantenaire de la FISIER
+, Max E
+ngamarre
+, Alexandre V
+anautgaerden
+, Franz B
+ierlaire
+(éd.), Genève, Droz, 2014, p. 185-206.
+23
+Jean
+rou
+,
+Mémoires inédits et Opuscules…
+, vol. 1, p. 24 et suiv.
+24
+Marcel P
+agnol
+,
+Œuvres Complètes
+, Paris, J. de Bonnot, 1979, 12 vol., vol. 11 :
+Souvenirs d’enfance (3) Le Temps des Secrets
+, p. 146.
+25
+Registre
+, f° 38 v°.
+26
+Philippe C
+hareyre
+,
+op. cit.
+, p. 67-70.
+Cf. Registre
+, f° 15 r° : « … à cause du funeste accident arrivé à trois de nos meilleurs escoliers noyés depuis deux jours en se baignant, il est ordonné que cy-après nul escolier des seconde et premiere classe ne se poura aller baigner sans bateau et conduite sur peine de punition et pour les troisiesmes et autres des moindres classes ils ne se pouront aler baigner sans leurs précepteurs ou autres personnes qui les conduisent et en respondent ».
+27
+Arch. mun. : Saumur, DD5.
+28
+Jean-Paul P
+ittion
+, « Saumur et les voyageurs britanniques au dix-septième siècle » dans
+Heurs et malheurs des voyages en France et en Europe aux
+xvi
+e
+-
+xix
+e
+siècle
+. Actes du Colloque de Saumur 2013, Centre de Recherches Historiques de l’Ouest (éd. Didier B
+oisson
+),
+Annales de Bretagne et des Pays de l’Ouest
+, à paraître.
+29
+Loix et Reiglements…
+, f° 256 v°.
+30
+Voir ci-dessus, note 8.
+31
+Registre
+, f
+o
+130 r°-v
+o
+.
+32
+Registre
+, f° 141 r°.
+33
+La Mariage de l’esprit et de la beauté Ballet... dansé à Saumur aux resjouissances du Carnaval, l’an 1661. De la composition de Monsieur Du Rideau
+, A Saumur : Chez Iean Ribotteau, imprimeur & libraire 1661.
+34
+Registre
+, f°46 r°.
+35
+Registre
+, f° 164 v°.
