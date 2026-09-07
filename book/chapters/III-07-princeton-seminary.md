@@ -139,6 +139,15 @@ who failed "shall remain a longer space in the Seminary."[^23] The Plan issues n
 academical degree of its own; licensure and ordination remained, as they had begun,
 the business of the presbyteries.[^23]
 
+The Plan names no set textbooks or authors for this course. Instead, Article VII
+(itself held over for the next Assembly) directs each professor to keep "a large
+folio, to be denominated, The Prospectus of a Catalogue of a Theological Library," in
+which he enters, at his own judgment, the title of every book he thinks proper for the
+library; from that running prospectus the directors were to select purchases as funds
+allowed.[^22b] The course's content was fixed by required attainments (Article IV) and
+by each professor's own discretion in choosing texts, not by a syllabus written into
+the Plan itself.
+
 ## Common Life and the Faculty
 
 The Plan is unusual among this book's early charters in giving personal piety its own
@@ -242,6 +251,16 @@ no summary casualty or martyrdom figure was located and quoted this session; the
 catalogue's alumni entries would permit such a count to be built up in a future,
 dedicated pass, but that tally was not attempted here.[^41]
 
+The Plan is likewise silent, in the passages read this session, on how a sent
+graduate was supported once in the field. Article VIII addresses only support while a
+student remained resident at Princeton, directing that Seminary funds, after
+maintaining the professors, be applied "to defray or diminish the expenses of those
+students who may need pecuniary aid," and, more generally, "to lessen... the expense
+of a residence at the Seminary."[^41b] Whatever principle governed a graduate's
+support on the field -- salary from a settled charge, a missionary society's
+provision, or some other arrangement -- lay outside the Seminary's own charter and so
+outside what this chapter can state from it.
+
 ## Fruit
 
 Archibald Alexander (1772-1851) was inaugurated the Seminary's first professor, of
@@ -251,11 +270,18 @@ sermon at Alexander's own inauguration, was himself appointed the Seminary's sec
 professor, of Ecclesiastical History and Church Government, in 1813, serving until
 1849.[^43] Charles Hodge (1797-1878) appears in the Seminary's own biographical
 catalogue first as a graduate, of the class that completed study in 1819, and then as
-a professor from 1822 until his death in 1878.[^44] The catalogue's own alumni list
-opens with the class that entered in 1812 and completed study in 1815; the sources
-read this session sampled but did not exhaustively tally that list, and no further
-named outcomes beyond Alexander, Miller, and Hodge are given fuller, separately sourced
-treatment here.[^45]
+a professor from 1822 until his death in 1878.[^44] Joseph Addison Alexander
+(1809-1860), a son of the first professor, joined the faculty in 1838 and taught until
+his own death in 1860; William Henry Green (1825-1900), of the catalogue's class of
+1846, returned to teach from 1851 until 1900.[^44b] Between them, the catalogue's own
+faculty roster records an unbroken run of Princeton-trained teaching Princeton,
+generation after generation, from Alexander's single 1812 inauguration to the end of
+the nineteenth century.
+
+The catalogue's own alumni list opens with the class that entered in 1812 and
+completed study in 1815; the sources read this session sampled but did not
+exhaustively tally that list, and no further named outcomes beyond the five professors
+named above are given fuller, separately sourced treatment here.[^45]
 
 ## Sources
 
@@ -303,6 +329,7 @@ Moorhead, James H. [Title not identified this session.]
 [^20]: Plan (1811), p. 13 (Article IV, Sect. 1, read in text/plan1811.txt; not separately quote-recorded beyond q008/q009).
 [^21]: Plan (1811), p. 13; quote_id princeton-seminary-q009.
 [^22]: Plan (1811), p. 16-17 (Article VI, Sect. 4, read in text/plan1811.txt; not separately quote-recorded).
+[^22b]: Plan (1811), p. 18 (Article VII, Sect. 3, read in text/plan1811.txt; not separately quote-recorded).
 [^23]: Plan (1811), p. 14; quote_id princeton-seminary-q010.
 [^24]: Plan (1811), p. 14; quote_id princeton-seminary-q011.
 [^25]: Plan (1811), p. 15; quote_id princeton-seminary-q012.
@@ -322,7 +349,9 @@ Moorhead, James H. [Title not identified this session.]
 [^39]: research/princeton-seminary/dossier.md, field S6 (NOT FOUND); compare chapters/III-05-abcfm.md.
 [^40]: biocatalogue1932, alumni entries under "1815"; research/princeton-seminary/dossier.md, field R4.
 [^41]: research/princeton-seminary/dossier.md, fields S2, S3, S5 (NOT FOUND).
+[^41b]: Plan (1811), p. 20; research/princeton-seminary/dossier.md, field L6 (Article VIII, Sect. 6, read in text/plan1811.txt; not separately quote-recorded).
 [^42]: Inauguration volume (1812), front matter; biocatalogue1932 faculty roster; quote_ids princeton-seminary-q022, princeton-seminary-q032.
 [^43]: Inauguration volume (1812), epigraph; biocatalogue1932 faculty roster; quote_ids princeton-seminary-q023, princeton-seminary-q033.
 [^44]: biocatalogue1932, faculty roster; quote_id princeton-seminary-q034.
-[^45]: research/princeton-seminary/dossier.md, field L7, R4.
+[^44b]: biocatalogue1932, faculty roster; quote_ids princeton-seminary-q035, princeton-seminary-q036.
+[^45]: research/princeton-seminary/dossier.md, fields L7, R4, R5, R6.

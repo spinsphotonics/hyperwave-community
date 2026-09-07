@@ -270,4 +270,5 @@ Peucker, Paul. "The 1727 Statutes of Herrnhut." *Journal of Moravian History* 20
 [^39]: Hutton, *Moravian Missions* (1922), 21-22; quote_ids herrnhut-moravians-q028, herrnhut-moravians-q037.
 [^40]: Hutton, *Moravian Missions* (1922), 22; quote_id herrnhut-moravians-q038. Spangenberg, *Account* (1788), Section Second §27; quote_id herrnhut-moravians-q035.
 [^41]: Spangenberg, *Account* (1788), Section Second §27; quote_id herrnhut-moravians-q035.
-[^42]: Hutton, *Moravian Church*, 206-207, 237; quote_ids herrnhut-moravians-q005, herrnhut-moravians-q006, herrnhut-moravians-q018, herrnhut-moravians-q023.
+[^42]: Hutton, *Moravian Church*, 206-207, 237; quote_ids herrnhut-moravians-q005, herrnhut-moravians-q006, herrnhut-moravians-q039, herrnhut-moravians-q023.
+[^43]: Hutton, *Moravian Church*, 208; quote_id herrnhut-moravians-q044.

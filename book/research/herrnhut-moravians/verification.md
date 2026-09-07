@@ -10,8 +10,8 @@ text/hutton-missions-1922.txt, text/spangenberg-1788.txt, sources.csv, discrepan
 
 `python3 book/plan/templates/check_quotes.py book/research/herrnhut-moravians`
 ```
-[29 WARN lines: before+text+after not contiguous, various quote_ids across all three documents]
-38/38 quote records passed; 0 failures
+[WARN lines: before+text+after not contiguous, various quote_ids across all three documents]
+44/44 quote records passed; 0 failures
 ```
 `python3 book/plan/templates/check_quotes.py book/research/herrnhut-moravians --charter`
 ```
@@ -21,9 +21,25 @@ The WARNs on the plain quote check are non-contiguous before/text/after windows 
 every case a running head (e.g. "History of the Moravian Church. 212") or a footnote marker sits
 between the quoted text and its context in the OCR stream. The `text`, `before`, and `after`
 fields were each independently verified to appear verbatim in the source file (that is what
-"38/38 passed" certifies); this matches the pattern already accepted in the geneva-academy
+"44/44 passed" certifies); this matches the pattern already accepted in the geneva-academy
 precedent (2 WARNs there, same cause). Not treated as failures, per Rule 8 and the geneva-academy
 verification.md precedent.
+
+**Post-draft correction (chapter verification, V2 pass folded into this report).** While drafting
+the chapter, three quotations used in running prose were found to extend beyond what their
+original quote records covered (q009, q010, q011, q013 each needed a longer `text` span to
+back the full phrase actually quoted in the chapter) and two dialogue quotations and one further
+fact (the "Are you willing"/"For myself" exchange; Christian David's appointment as Chief Elder;
+Zinzendorf's "Ordinary" title) were quoted or asserted in the chapter with no quote record at all.
+All were fixed by extending the existing records or adding quote_ids q039-q044, re-verified by
+the script (0 failures throughout), before the chapter was finalized. Separately, an early
+dossier/discrepancies draft wrongly described Leonard Dober's trade as "joiner" — no fetched
+source uses that word of him; the only sourced trade is "potter" (q037-q038). This was caught in
+this same pass and corrected in `dossier.md`, `discrepancies.md`, and the chapter before
+publication. Both classes of error (unbacked quotation, one invented word) are exactly what
+Procedure V exists to catch; recording them here rather than silently fixing them, per Rule 6 of
+the Verifier role's "never edit silently" spirit, adapted here since Writer and Verifier were the
+same session — a human Verifier should still re-check this chapter independently at stage V2.
 
 ## 2. Quote-by-quote
 
