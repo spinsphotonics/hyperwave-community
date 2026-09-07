@@ -12,9 +12,10 @@ WARN moody-bible-institute-q013: before+text+after not contiguous in moodybiblei
 WARN moody-bible-institute-q014: before+text+after not contiguous in moodybibleinstit00camp
 WARN moody-bible-institute-q015: before+text+after not contiguous in moodybibleinstit00camp
 WARN moody-bible-institute-q016: before+text+after not contiguous in moodybibleinstit00camp
-17/17 quote records passed; 0 failures
+WARN moody-bible-institute-q018: before+text+after not contiguous in lifedwight00mood
+18/18 quote records passed; 0 failures
 ```
-The five WARNs are non-contiguous before/text/after windows (the "before" or "after" field was
+The six WARNs are non-contiguous before/text/after windows (the "before" or "after" field was
 trimmed to a shorter span than the literal run of text immediately adjacent, for readability);
 the `text`, `before`, and `after` fields of each record independently verify verbatim against
 the source file. Not treated as failures, consistent with the geneva-academy precedent for the
@@ -28,7 +29,7 @@ All four kept passages in the partial charter-in-substance verify verbatim again
 `text/lifedwight00mood.txt`.
 
 ## 3. Quote-by-quote
-All 17 quote_ids: `text` field verbatim match PASS (per script). Spot-checked 6 of 17
+All 18 quote_ids: `text` field verbatim match PASS (per script). Spot-checked 6 of 18
 (q001, q002, q004, q011, q014, q017) by manual inspection against the named text files at the
 stated line ranges: content and OCR artifacts match what is visible in each source. PASS.
 
