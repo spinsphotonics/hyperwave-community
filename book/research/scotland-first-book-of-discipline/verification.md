@@ -6,13 +6,20 @@ INPUTS READ: dossier.md, quotes.jsonl, text/laing1848-fbd.txt, text/laing1848-ed
 # Verification report — scotland-first-book-of-discipline (V1, dossier)
 
 ## 1. Script output
+
+Initial extraction pass (28 quote records):
+```
+[19 non-fatal WARNs of the kind described below]
+28/28 quote records passed; 0 failures
+```
+
+Final pass, after 2 more quote records (q029, q030) were added while auditing the chapter
+draft's quotations against the source (see addendum below):
 ```
 WARN scotland-fbd-q001: before+text+after not contiguous in laing1848-fbd
 WARN scotland-fbd-q003: before+text+after not contiguous in laing1848-fbd
 WARN scotland-fbd-q004: before+text+after not contiguous in laing1848-fbd
-WARN scotland-fbd-q007: before+text+after not contiguous in laing1848-fbd
 WARN scotland-fbd-q008: before+text+after not contiguous in laing1848-fbd
-WARN scotland-fbd-q010: before+text+after not contiguous in laing1848-fbd
 WARN scotland-fbd-q011: before+text+after not contiguous in laing1848-fbd
 WARN scotland-fbd-q012: before+text+after not contiguous in laing1848-fbd
 WARN scotland-fbd-q013: before+text+after not contiguous in laing1848-fbd
@@ -21,22 +28,42 @@ WARN scotland-fbd-q015: before+text+after not contiguous in laing1848-fbd
 WARN scotland-fbd-q016: before+text+after not contiguous in laing1848-fbd
 WARN scotland-fbd-q018: before+text+after not contiguous in laing1848-fbd
 WARN scotland-fbd-q021: before+text+after not contiguous in laing1848-fbd
-WARN scotland-fbd-q022: before+text+after not contiguous in laing1848-fbd
 WARN scotland-fbd-q023: before+text+after not contiguous in laing1848-fbd
 WARN scotland-fbd-q024: before+text+after not contiguous in laing1848-fbd
-WARN scotland-fbd-q025: before+text+after not contiguous in laing1848-fbd
 WARN scotland-fbd-q026: before+text+after not contiguous in laing1848-fbd
 WARN scotland-fbd-q028: before+text+after not contiguous in laing1848-fbd
-28/28 quote records passed; 0 failures
+WARN scotland-fbd-q030: before+text+after not contiguous in laing1848-fbd
+30/30 quote records passed; 0 failures
 ```
-All 19 WARNs are the script's strict-contiguity check tripping on punctuation that directly
+All WARNs are the script's strict-contiguity check tripping on punctuation that directly
 abuts a word with no intervening space in the printed original (e.g. a comma or closing
 parenthesis immediately following the quoted text, or a `[[p. N]]` page marker falling between
-`before` and `text`), and on the two multi-line-hyphenated words used deliberately in several
+`before` and `text`), and on multi-line-hyphenated words used deliberately in several
 quotes (e.g. "up- bringing", "Rei- dar") which the printer itself broke across a line end. In
 every WARN case the `text`, `before`, and `after` fields each independently verify verbatim
 against `text/laing1848-fbd.txt` — the same pattern noted as non-fatal in the geneva-academy
 precedent. Zero FAILs.
+
+**Addendum (post-dossier, pre-chapter-finalization).** While drafting and auditing
+`chapters/I-05-scotland-first-book-of-discipline.md`, several short phrases used in direct
+quotation in the chapter were checked individually against `text/laing1848-fbd.txt` (using a
+page-aware substring search, to guard against a phrase matching the wrong location in this
+27,500-word document). Two phrases needed new quote records because they were not covered by
+any existing `text`/`before`/`after` field: `scotland-fbd-q029` ("at letteris" / poor-student
+sustenance clause, p. 210) and `scotland-fbd-q030` ("now admitted TO [the] Regiment, by the
+Providence of God," p. 183). Several existing records (`q007`, `q010`, `q020`, `q022`, `q025`)
+had their `text`/`after` fields extended to cover slightly more of the same contiguous passage
+already partly captured, for clarity; these extensions were re-verified and did not change what
+was already confirmed true. One genuine catch from this page-aware audit: a chapter draft had
+quoted "in the name of the Eternall God" as if from the Preface (p. 183-184), but that exact
+five-word string also happens to occur, coincidentally, in unrelated text on p. 194 — a plain
+substring check without page-awareness would have passed it as "verified" against the wrong
+location. The chapter was corrected to quote only the portion of that sentence that is genuinely
+contiguous in the fetched OCR of the Preface ("Eternall God, as we will ansuer in his presence").
+This is recorded here as a methodological note for future Verifier passes on this dossier: a
+plain "does this string appear anywhere in the document" check is not sufficient for a long
+document with repeated stock phrases; page-of-occurrence should be checked against the citing
+footnote's claimed page.
 
 ## 2. Quote-by-quote
 All 28 quote_ids: `text` field verbatim match PASS (per script). Manually spot-checked 6 of 28
@@ -135,5 +162,5 @@ discrepancy identified (27th vs. 17th of January, between the manuscript-based t
 print) is internal to the sources fetched this session and is recorded in discrepancies.md item 1.
 
 ## 6. Verdict
-VERIFIED (zero FAILs on the 28 quote records; zero field-level FAILs; all NOT FOUND/UNVERIFIED
+VERIFIED (zero FAILs on the 30 quote records; zero field-level FAILs; all NOT FOUND/UNVERIFIED
 markers are honestly reasoned and do not overstate the underlying quotes). No RETURNED items.

@@ -9,8 +9,10 @@ Note on sourcing: the full primary text of "The Buke of Discipline" (1560), as p
 Laing's 1848 edition of The Works of John Knox, vol. 2, pp. 183-260, was fetched in full this
 session and read end to end, with particular attention to the head "For the Schollis" (Of
 Schools) and its subsection "The Erectioun of Universiteis" (pp. 208-221), per the task's focus.
-28 quote records were produced, all verified verbatim against text/laing1848-fbd.txt by
-`check_quotes.py` (0 failures). One additional short document, text/laing1848-editorial-note.txt,
+30 quote records were produced (28 during the initial extraction pass, plus 2 more added while
+verifying the chapter draft's quotations against the source), all verified verbatim against
+text/laing1848-fbd.txt or text/laing1848-editorial-note.txt by `check_quotes.py` (0 failures).
+One additional short document, text/laing1848-editorial-note.txt,
 was extracted from the same volume (an 1848 editorial footnote by Laing quoting the 17th-century
 historian Archbishop Spotiswood on the origin of the document); it is treated throughout as
 SECONDARY. Wikipedia was consulted once for background orientation only (the "six Johns"
