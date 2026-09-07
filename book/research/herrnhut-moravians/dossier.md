@@ -278,7 +278,7 @@ PRIMARY-OR-SECONDARY.
   in hutton-church-1909]
 
 ## R — Fruit
-- **R1 Leonard Dober** (PS): A joiner/potter by trade from Württemberg, drew the Lot that sent him
+- **R1 Leonard Dober** (PS): A potter by trade from Württemberg, drew the Lot that sent him
   to St Thomas in 1732; toiled alone there for fifteen months and nearly died of starvation before
   a companion arrived. [herrnhut-moravians-q037, herrnhut-moravians-q028] [PRIMARY-adjacent quoted
   material in hutton-church-1909 and hutton-missions-1922]

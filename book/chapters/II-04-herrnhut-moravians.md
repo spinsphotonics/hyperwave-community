@@ -194,7 +194,7 @@ Thomas for fifteen months before a companion arrived, "nearly died of starvation
 ## Fruit
 
 Leonard Dober (dates and further career beyond this chapter's period not established from sources
-read this session), a joiner and potter from Württemberg, was the first Herrnhut missionary
+read this session), a potter from Württemberg, was the first Herrnhut missionary
 chosen by Lot; he toiled alone in St Thomas for fifteen months, nearly starving, before help
 arrived.[^39] David Nitschmann, a carpenter from Zauchtenthal in Moravia, sailed with Dober in
 1732 and was later consecrated a bishop of the Brethren's church so that he could ordain

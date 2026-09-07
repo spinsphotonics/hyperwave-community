@@ -34,11 +34,13 @@
 3. **"Ordinary lay members" framing not found verbatim.** The roster's "why included" cell
    states Herrnhut was "the first Protestant church to send ordinary members as missionaries."
    No source read this session uses this exact phrase. What the sources do establish: Leonard
-   Dober was, per Hutton, "only a joiner's apprentice" and David Nitschmann "a carpenter"
-   [see herrnhut-moravians-q022, herrnhut-moravians-q009 area; occupations reported in
-   hutton-missions-1922 narrative, not yet given a dedicated quote_id this session] -- i.e., not
-   ordained clergy. The chapter should describe the trades of Dober and Nitschmann as sourced,
-   rather than asserting the roster's summary phrase as if it were a quotation.
+   Dober was, per Hutton, "only a potter" and David Nitschmann "only a carpenter"
+   [herrnhut-moravians-q037, herrnhut-moravians-q038] -- i.e., not ordained clergy. (An earlier
+   pass through this file wrongly wrote "joiner" for Dober's trade; no source fetched this
+   session uses that word of him -- corrected during verification, before publication, once the
+   error was caught against the quote records.) The chapter should describe the trades of Dober
+   and Nitschmann as sourced, rather than asserting the roster's summary phrase as if it were a
+   quotation.
 
 4. **Casualty figures.** Two different casualty statistics for the St Thomas mission appear in
    `hutton-missions-1922`: "one hundred and sixty missionaries died" in St Thomas "during the
