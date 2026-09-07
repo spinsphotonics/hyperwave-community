@@ -17,9 +17,9 @@ Library (collated by the editors against Samuel E. Morison's 1935 line-for-line 
 **Full document word count:** 1,548 (the "college" excerpt of the pamphlet, i.e. pp. 700-704 of
 the anthology / pp. 12-16 of the 1643 original, excluding the modern editors' own 1938
 introductory bracketed note, which is not part of the 1643 primary text). **Abridgement word
-count:** approx. 1,280 (three very short 1938-editorial bracketed insertions -- "[with]",
-"[i.e. Aramaic]", and the single reconstructed letter "[i]" in "Dan[i]el" -- are additionally
-cut; see the Structure table and the Text section below).
+count:** approx. 1,280 (three very short 1938-editorial bracketed insertions -- the word "with,"
+the gloss "i.e. Aramaic," and the single reconstructed letter "i" in "Dan[i]el" -- are cut in
+addition to the two narrative passages listed below; see the Structure table).
 
 ## Structure of the full document
 
@@ -31,7 +31,7 @@ cut; see the Structure table and the Text section below).
 | 3b | "...that we have to our great comfort..." through "...come to happy maturity in a short time." | 148 | CUT | repeat (laudatory narrative restating the same point already made) |
 | 4 | "Over the Colledge are twelve Overseers..." through "...in his proper place." | 58 | KEEP | f (governance/oversight of teachers) |
 | 5 | "2. Rules, and Precepts that are observed in the Colledge" — all 8 numbered rules | 535 | KEEP | c, e (admission; rules of daily life, worship, discipline) |
-| 6 | "3. The times and order of their Studies..." (weekly schedule) plus the two closing Degree paragraphs, less three short 1938-editorial bracketed insertions (see note) | 470 (467 of founders' words + 3 editorial words cut) | KEEP | d, g (course of study; examinations/degrees) |
+| 6 | "3. The times and order of their Studies..." (weekly schedule) plus the two closing Degree paragraphs, less three short 1938-editorial bracketed insertions (see note below) | 467 | KEEP | d, g (course of study; examinations/degrees) |
 
 ## Headnote (one sentence)
 
@@ -39,6 +39,26 @@ cut; see the Structure table and the Text section below).
 Perry Miller and Thomas H. Johnson's 1938 edition, *The Puritans: A Sourcebook of Their
 Writings*, itself a verified transcription of a copy of the 1643 original in the New York Public
 Library.
+
+## Editorial notes on the transcription (read before the Text section)
+
+- The weekly-studies schedule (article 6, below) carries what appear to be OCR misreadings of
+  ordinal abbreviations -- "gth." for what context indicates is "9th.," "roth." for "10th.," and
+  "ead."/"ad." for "2d." in a few instances. These are reproduced exactly as scanned in the Text
+  section below; they are not corrected, per Rule 7 (modernize only u/v, i/j, long s; never
+  correct words).
+- Three very short bracketed insertions belonging to the 1938 anthology's own editors (Miller and
+  Johnson), not to the founders' 1643 words, have been cut (marked with three dots in square
+  brackets, at the matching points in the Text section below): a clarifying word before the names
+  Nonnus and Duport; a gloss after "Chaldee"; and a single reconstructed letter completing
+  "Daniel." These are the anthology editors' own modern apparatus (present in square brackets in
+  text/nef1643.txt), not part of the primary 1643 text, so they are treated like any other
+  non-primary material and cut rather than reproduced. No word of the founders' own 1643 text has
+  been added, removed, or changed.
+- Stray marks carried over from the OCR of the 1938 typeset page -- a numeral after "Marte;" (a
+  footnote marker), question marks in three places, a stray apostrophe, a tilde, a ">" before
+  "New Testament," and a "(c)" mark after "studiis" -- are reproduced exactly as they stand in
+  text/nef1643.txt, per the same no-correction rule.
 
 ## Text
 
@@ -67,25 +87,3 @@ at the gth. houre. To the 3d. Syriack at the roth. houre. Afternoone. | The firs
 [...]
 
 el at the 3d. houre. The 3d. at the 4th. houre in Trostius > New Testament. The 6th. day reads Rhetorick to all at the 8th houre. Declamations at the gth. So ordered that every Scholler may de- claime once a moneth. The rest of the day vacat Rhetoricis studiis.© The 7th. day reads Divinity Catecheticall at the 8th. houre, Common places at the gth. houre. Afternoone. The first houre reads history in the Winter, The nature of plants in the Summer The summe of every Lecture shall be examined, before the new Lecture be read. Every Schollar, that on proofe is found able to read the Originalls of the Old and New Testament into the Latine tongue, and to resolve them Logically; withall being of godly life and conversation; And at any publick Act hath the Approbation of the Overseers and Master ~ of the Colledge, is fit to be dignified with his first Degree. Every Schollar that giveth up in writing a System, or Synopsis, or summe of Logick, Naturall and Morall Phylosophy, Arithmetick, Geometry and Astronomy: and is ready to defend his Theses or positions: withall skilled in the Originalls as abovesaid: and of godly life & conversa- tion: and so approved by the Overseers and Master of the Colledge, at any publique Act, is fit to be dignified with his 2d. Degree.
-
----
-
-**Editorial notes on transcription quirks (not corrections; all reproduced verbatim from
-text/nef1643.txt per abridgement Rule 7 — modernize only u/v, i/j, long s; never correct words):**
-
-- The weekly-studies schedule (article 6, above) carries what appear to be OCR misreadings of
-  ordinal abbreviations — "gth." for what context indicates is "9th.," "roth." for "10th.," and
-  "ead."/"ad." for "2d." in a few instances. Reproduced exactly as scanned; not corrected.
-- Three very short bracketed insertions belonging to the 1938 anthology's own editors (Miller and
-  Johnson), not to the founders' 1643 words, have been cut with `[...]` in the weekly-studies
-  schedule above: a clarifying "with" before the names Nonnus and Duport; a gloss "i.e. Aramaic"
-  after "Chaldee"; and a single reconstructed letter "i" completing "Dan[i]el." These are the
-  anthology editors' own modern apparatus (present in their square brackets in text/nef1643.txt),
-  not part of the primary 1643 text, so they are treated here like any other non-primary material
-  and cut rather than reproduced. No word of the founders' own 1643 text has been added, removed,
-  or changed.
-- Stray marks carried over from the OCR of the 1938 typeset page — a numeral "3" after "Marte;"
-  (a footnote marker), a question mark in "Tully,?" and in "up ?o strong delusions" and "houres
-  appointed?", a stray apostrophe in "Arts,'and," a tilde before "of the Colledge," a ">" before
-  "New Testament," and a "©" after "studiis." — are reproduced exactly as they stand in
-  text/nef1643.txt, per the same no-correction rule.
