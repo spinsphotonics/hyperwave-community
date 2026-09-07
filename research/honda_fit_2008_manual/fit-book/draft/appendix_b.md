@@ -28,7 +28,7 @@ Coolant, also called antifreeze, is the liquid that flows through your engine an
 
 | What | Value | Fact ID |
 |---|---|---|
-| Type | Honda Manual Transmission Fluid (MTF) preferred. If unavailable, an SAE 10W-30 or 10W-40 motor oil with the API Certification Seal ("For Gasoline Engines") may be used as a temporary replacement, but motor oil lacks the proper additives, and continued use can cause stiffer shifting. | F-WP09-026 |
+| Type | Honda Manual Transmission Fluid (MTF) preferred. If unavailable, an SAE 10W-30 or 10W-40 motor oil with the API Certification Seal ("For Gasoline Engines") may be used as a temporary replacement, but motor oil is missing the additives a gearbox needs, and using it for a long time can leave your shifts feeling stiffer. | F-WP09-026 |
 | Capacity, fluid change | 1.6 US qt (1.5 L) | F-WP09-027 |
 | Capacity, total (including the differential, after overhaul) | 1.7 US qt (1.6 L) | F-WP09-028 |
 
