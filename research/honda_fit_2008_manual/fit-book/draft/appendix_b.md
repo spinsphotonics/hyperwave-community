@@ -46,7 +46,7 @@ The differential is the set of gears inside the transmission housing that lets y
 
 | What | Value | Fact ID |
 |---|---|---|
-| Type | Honda Heavy Duty Brake Fluid DOT 3 preferred, or a DOT 3 or DOT 4 brake fluid from a sealed container as a temporary replacement. Brake fluid marked DOT 5 is not compatible with your Fit's braking system and can cause extensive damage. | F-WP09-032 |
+| Type | Honda Heavy Duty Brake Fluid DOT 3 preferred, or a DOT 3 or DOT 4 brake fluid from a sealed container as a temporary replacement. Brake fluid marked DOT 5 does not work with your Fit's braking system, and can cause extensive damage. | F-WP09-032 |
 | Clutch fluid (manual transmission only) | Manual-transmission Fits use a hydraulic clutch that shares the same fluid specification as the brake system above. Fluid level should sit between the MIN and MAX marks on the clutch fluid reservoir, which has a gray cap; a low level can point to a leak in the clutch hydraulic system. | F-WP09-033 |
 | Capacity | This work package's sources do not give a brake or clutch fluid capacity number for the 2008 Fit. | — |
 
