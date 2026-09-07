@@ -122,3 +122,37 @@ read of the primary source.
   The relative ranking (air bags highest, engine/powertrain and brakes prominent) was
   consistent; exact counts were not.
 - Related fact card: F-WP02-011
+
+## WP-09 The maintenance schedule (2026-09-07)
+
+### C-010: Generic (non-Fit-specific) Maintenance Minder code-table content doesn't match the Fit's own manual
+- A KBB "2008 Honda Fit Service Schedules & Maintenance Pricing" page, and other dealer-site
+  explainers of "Honda Maintenance Minder codes," describe a generic Code A/B/1-7 system used
+  across many Honda models, including "Code 4: Replace spark plugs & timing belt; Inspect
+  water pump, and valve clearance" and "Code 6: Replace rear differential fluid (if
+  applicable)."
+- The 2008 Fit's own owner's manual (S-023, read directly) has NO timing belt (the L15A1 uses
+  a timing chain — see F-WP09-044) and, being front-wheel-drive only in the US market, has no
+  rear differential fluid item either. The Fit's own maintenance item table also does not
+  print the traditional dual "Normal Conditions / Severe Conditions" mileage chart that some
+  generic explainers imply exists for every current Honda (see F-WP09-001, F-WP09-015).
+- Resolution: the Fit-specific Tier 1 owner's manual (S-023) was used as the source of record
+  for all WP-09 facts; the generic dealer-explainer content was not used for any Fit-specific
+  numeric claim, only as background on how the Maintenance Minder A/B/number system works in
+  general. Recorded here, not silently discarded, per Rule 6.
+- Related fact cards: F-WP09-001, F-WP09-015, F-WP09-044
+
+### C-011: AutoPadre battery-size table gives a different group size for 2007 vs. 2008, same generation
+- autopadre.com's "Honda Fit Battery Size (2007-2020)" table lists the 2007 Fit as group size
+  51R but the 2008 Fit (same GD3 generation, same engine) as group size 151R.
+- A first-generation Fit should not plausibly have changed OEM battery group size between its
+  first and second (final) US model year with no other spec change noted anywhere else found
+  this session — this looks like a data-entry inconsistency in that one aggregator table
+  rather than a real running change, but it was not resolved with the sources available this
+  pass.
+- The 2008-specific value (151R) is used on the fact card because it is the row that names
+  2008 directly, and because it is independently corroborated by a Tier 4 community source
+  (qlmotorsport.com "Honda Fit Battery Swap – 151R to 51R," describing 151R as the factory
+  size and 51R as a popular higher-CCA upgrade) and by a WebSearch AI synthesis of
+  oreillyauto.com/autozone.com OEM-fitment listings for the 2008 Fit specifically.
+- Related fact card: F-WP09-046
