@@ -389,3 +389,43 @@ by these new numbers.)
   rear stabilizer bushing, and explicitly names the full bar swap as a separate, harder,
   shop-recommended job it does not give steps for.
 - Related procedure: P-WP14-5 (Replace sway bar end links and the rear stabilizer bushing)
+
+## WP-16 Wheels, tires, suspension, brakes (2026-09-07)
+
+### C-022: A Whiteline sway bar link listing's URL says "rear," but the page's own displayed title/body say "front"
+- Springrates.com sells a Whiteline sway bar link product for "2007-2008 Honda Fit Base, Sport
+  (GD)" at a URL whose slug reads `whiteline-rear-sway-bar-link-2007-2008-honda-fit-base-sport`.
+- A direct fetch of that exact page shows its own rendered H1 title (appearing three separate
+  times on the page) and body copy instead read "Whiteline Adjustable **Front** Sway Bar Link
+  for 2007-2008 Honda Fit Base, Sport (GD)" -- the page disagrees with its own URL about which
+  end of the car this part is for.
+- Not resolved this pass. Per RESEARCH_PLAN.md Rule 6 ("when two sources disagree, record
+  both... do not pick a winner"), applied here to a single listing disagreeing with itself:
+  this product is NOT used as an answer to WP-16's "rear sway bar options" question. A future
+  pass could contact Whiteline/Springrates directly, or find a second retailer's listing of the
+  same Whiteline part number to see which label is the error.
+- Related fact card: F-WP16-018
+
+### C-023: A "Jazz/Fit" alignment-spec page's own numbers conflict with the already-verified US owner's manual tire-pressure fact, and its generation/market is unconfirmed
+- hondafitjazz.com's manual mirror (a page under its `/manual/a00/` path) gives factory
+  alignment numbers AND a tire fitment of 175/65R14 82T / 185/55R15 82V with DIFFERENT cold tire
+  pressures front (220 kPa/32psi) vs. rear (210 kPa/30psi).
+- This directly conflicts with facts/WP-10.md's F-WP10-010, sourced from the actual US 2008 Fit
+  owner's manual PDF (Tier 1, techinfo.honda.com), which states the SAME 32 psi (220 kPa) for
+  BOTH front and rear, with load index 81S (base) / 84H (Sport) -- not 82T/82V.
+- The hondafitjazz.com site's own homepage separately advertises distinct manuals for
+  "Jazz/Fit 2002-2007" and "Jazz/Fit GE8 2008 onwards," and does not make clear which manual the
+  specific alignment page belongs to, so this WP could not confirm the page is even for the
+  right generation, let alone the right market (RHD Jazz vs. USDM Fit).
+- Not resolved this pass. Per Rule 2 ("never guess"), WP-16 does NOT assert the
+  hondafitjazz.com camber/caster/toe numbers as the GD3 factory alignment spec (see
+  F-WP16-026); the already-verified Tier 1 tire-pressure fact (F-WP10-010) is treated as
+  correct and unaffected by this conflict. A future pass with working Helm or a confirmed-GD3
+  service-manual source could resolve which manual section this hondafitjazz.com page actually
+  belongs to.
+- Also noted on this same fact card: an earlier WebSearch AI-summary (not this WP's own direct
+  fetch) had separately misreported this same page's caster figure as "3°20'±1°," when the
+  actual fetched page text says "2°05'±1°" -- neither number is used as fact regardless, but
+  the discrepancy is recorded as a caution about trusting AI-summarized snippets over a direct
+  page read (per ADAPT-2).
+- Related fact card: F-WP16-026
