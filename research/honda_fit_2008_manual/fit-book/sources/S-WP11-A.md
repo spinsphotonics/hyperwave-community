@@ -1,0 +1,12 @@
+Source ID: S-WP11-A
+Title: Honda Fit Repair Manual mirror — "Ignition Coil and Spark Plug Removal/Installation," "Coolant Replacement," and "Rear Brake Shoe Replacement" pages
+Author/Publisher: hfitinfo.com (aftermarket repair-manual mirror/aggregator site)
+URL: https://www.hfitinfo.com/hofi-885.html (spark plug torque) ; https://www.hfitinfo.com/hofi-834.html (coolant replacement) ; https://www.hfitinfo.com/hofi-704.html and hofi-706.html (rear drum brake shoe replacement/reassembly)
+Type: service manual
+Tier: 3
+Covers model year 2008 GD3? unclear — CAUTION: this site's own breadcrumb/category label reads "Second generation (2007-2026)" on every page checked, which does not match any real Honda Fit generation boundary (actual 2nd gen is 2009-2013 GE8) and does not itself name "2008" or "GD3" anywhere in the page body. Content style and specific values (spark plug torque, coolant type/procedure) match the same Honda service-manual content independently confirmed elsewhere in this project via S-001/S-023 (the actual 2008 owner's manual, which does say "GD3"/2008), so used only where it corroborates or supplements a Tier 1 source, per D8/Rule 3 — treated as YEAR-UNCONFIRMED on its own.
+Date published: unknown (aggregator; page footer reads "(c) 2026 Copyright www.hfitinfo.com")
+Date accessed: 2026-09-07
+Paywalled? no
+Notes: Reached via direct curl with a browser User-Agent (same working method as S-021/S-022 from this site, used successfully in WP-04). Spark plug torque value (18 N*m / 13 lbf-ft) independently corroborates a WebSearch snippet from justanswer.com specifically about a "2007 Honda Fit" (also independently found and used by the concurrently-running WP-10 as its own S-032/S-033 — same underlying value, cross-confirmed by two separately-run WPs). Coolant capacity figures on this page (4.37-4.96 L depending on M/T vs A/T and change vs overhaul) CONFLICT with the owner's manual's own Specifications table figures (approx. 3.7-5.4 L range, see facts under WP-09/Appendix B) -- logged to queue/conflicts.md, not resolved by this WP. Drum brake reassembly steps (Molykote 44MA grease on parking-brake-lever pivot, self-adjuster pedal pumps) used at medium confidence for WP-11-8 as general repair-manual-style guidance, not independently confirmed as GD3-specific.
+NOTE (2026-09-07): originally filed as S-028; renamed to this WP-scoped ID after discovering WP-10 was running concurrently and had overwritten S-028 with unrelated content. See queue/decisions_needed.md ADAPT-3.

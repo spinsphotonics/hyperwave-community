@@ -1,0 +1,12 @@
+Source ID: S-WP11-B
+Title: Multi-site WebSearch synthesis — "Honda Fit GD3 jack points / pinch weld locations for jack stands"
+Author/Publisher: Aggregated from justanswer.com ("Honda Fit 2007 Jack Points" Q&A), a YouTube video titled "Honda Fit GD3 2007-2008 Floor Jack Points," and a bobistheoilguy.com forum thread ("Lifting front jack point from the side")
+URL: https://www.justanswer.com/car/fm48r-honda-fit-2007-place.html ; https://www.youtube.com/watch?v=apOqoiKrr04 ; https://bobistheoilguy.com/forums/threads/lifting-front-jack-point-from-the-side.395476/
+Type: forum post
+Tier: 4
+Covers model year 2008 GD3? yes (partial) — the YouTube video title explicitly names "GD3 2007-2008"; the justanswer thread is specifically about a "2007 Honda Fit"; the bobistheoilguy thread's exact model year was not visible in the search snippet
+Date published: unknown
+Date accessed: 2026-09-07
+Paywalled? no
+Notes: Direct fetch of all three underlying pages was blocked this session (bobistheoilguy returned a Cloudflare/bot-check page via r.jina.ai; justanswer returned an r.jina.ai anonymous-query rate-limit error). Facts are therefore sourced from WebSearch result snippets/summaries only, not a direct page read, per ADAPT-1's medium-confidence cap. Community consensus across these three independent Tier 4 items: (1) the factory floor-jack point is on the front subframe/crossmember, set well back from the front bumper; (2) additional safe jack-stand contact points exist at the reinforced (multi-layer) pinch-weld seams along each rocker panel, one set forward of the rear wheels and one set behind the front wheels; (3) do not jack or support the car on the floor pan, exhaust, or plastic under-covers. This corroborates, but goes beyond, the owner's manual's own Tier 1 statement (S-001/S-023) that a single molded jacking-point mark exists near each wheel for the factory scissor jack -- the owner's manual does not itself describe separate jack-stand-safe points. Labeled "community-reported" per RESEARCH_PLAN Section 3's Tier 4 rule; only one of the three sources could be independently corroborated as GD3-specific (the YouTube title), so kept at low confidence overall.
+NOTE (2026-09-07): originally filed as S-029; renamed to this WP-scoped ID after a concurrently-running WP (WP-10) overwrote S-029 with unrelated content. See queue/decisions_needed.md ADAPT-3.

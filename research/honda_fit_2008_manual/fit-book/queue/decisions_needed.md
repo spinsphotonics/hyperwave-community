@@ -60,3 +60,32 @@ through the Bash tool:
    plan should now be read as: re-fetch the source URL via this method and re-check the claimed
    value and location against the real page text — this is much closer to the plan's original
    "open the URL and confirm" design than pure WebSearch cross-referencing was.
+
+## ADAPT-3: concurrent WP agents collided on sources/S-###.md numbering (2026-09-07)
+
+**Finding:** WP-11 (this task) and WP-10 (torque specs/fitment) ran in the same session/repo at the
+same time and both picked the "next" unused S-### number by looking at the directory listing at
+roughly the same moment. WP-11 created S-028 through S-034 first; WP-10 then created its own S-028
+through S-035 (different content, different URLs) and silently overwrote every one of WP-11's new
+cards, because both agents wrote plain files with no lock and no coordination. This was only caught
+because the artifact/file-watch surfaced "changed on disk since you last read it" notices — a
+plain background WP run with no such notice would have lost the first agent's source cards with no
+error at all.
+
+**Adaptation (applies to every future WP that creates new Source Cards):**
+1. Before creating a new sources/S-###.md file, re-list the sources/ directory immediately before
+   writing (not just once at task start) to reduce (not eliminate) the collision window.
+2. Prefer a WP-scoped filename prefix instead of the shared sequential S-### counter when adding a
+   *secondary* source discovered mid-task (i.e., not one of the canonical WP-00 seed sources):
+   `sources/S-<WPID>-<letter>.md`, e.g. `sources/S-WP11-A.md`. This guarantees no other WP's
+   sequential counter can ever collide with it. Cards using this scheme still follow the normal
+   Source Card template fields (Source ID, Title, ... Tier, Confidence-relevant notes) — only the
+   filename/ID prefix differs. This WP (WP-11) renamed its own S-028 through S-034 to S-WP11-A
+   through S-WP11-G after discovering the collision; their content is unchanged from what was
+   already drafted, only the ID/filename moved.
+3. If two WPs truly need a shared canonical numbered slot (e.g. both want to cite the same
+   newly-found Tier 1 source), the second WP to notice a collision should rename ITS OWN card out of
+   the shared counter rather than re-overwriting the other WP's card a second time — do not "fix" a
+   collision by taking the number back.
+4. This does not change any fact or procedure content already written; it only changes how new
+   Source Card files are numbered going forward, to stop silent data loss between concurrent WPs.
