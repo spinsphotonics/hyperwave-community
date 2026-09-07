@@ -184,6 +184,8 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Moderate overlap front test**: A crash test where only part of the front of the car strikes a barrier, similar to many real-world head-on crashes that aren't perfectly centered.
 
+**Modified category (SCCA)**: A group of SCCA autocross classes (labeled A through F Modified) built for cars taken far past a factory street car, closer to a dedicated race car; a roll bar or cage is mandatory in these classes.
+
 **Motor mount**: A rubber-and-metal part that holds the engine and transmission in place and absorbs vibration; a worn one can cause a clunk when shifting gears.
 
 **MPG (miles per gallon)**: A measurement of how far a car can travel using one gallon of fuel.
@@ -213,6 +215,8 @@ This glossary defines every technical term used in this book, in one sentence ea
 **Piggyback (tuning device)**: A small aftermarket box that changes the signals going to the factory ECU without replacing it, often used to adjust the fuel mixture.
 
 **Powertrain**: The engine, transmission, and connected parts that work together to move the car.
+
+**Prepared category (SCCA)**: An SCCA autocross category for cars modified well past Street Prepared; an open car (no factory roof) in this category must have a roll bar.
 
 **Readiness codes**: Internal checks the emissions computer runs to confirm all its own monitoring systems have finished testing; some states check these during an emissions test.
 
@@ -259,6 +263,8 @@ This glossary defines every technical term used in this book, in one sentence ea
 **Stainless brake lines**: Brake hoses wrapped in a woven stainless-steel sleeve instead of plain rubber, which resist expanding under hard, repeated braking.
 
 **Standalone engine management**: A complete aftermarket computer that fully replaces the factory ECU, instead of working alongside it.
+
+**Street Modified**: An SCCA autocross class, one step past Street Prepared, that allows major aerodynamic parts and other extensive changes on cars still built from a factory street car.
 
 **Street Prepared**: An SCCA autocross class that allows bigger changes than Street Touring, such as race-only tires, engine tuning, and body modifications, and is no longer necessarily street-legal.
 
@@ -326,4 +332,4 @@ This glossary defines every technical term used in this book, in one sentence ea
 
 **Zone A/B/C recall**: A way NHTSA and automakers roll out some large recalls in stages by region (zone) instead of notifying every owner nationwide at once, often based on local climate or humidity risk.
 
-<!-- Formatted from facts/WP-22-glossary.md, no new content added. 162 terms, alphabetized. No definitions were changed in meaning; only light copy-editing for consistent formatting. -->
+<!-- Formatted from facts/WP-22-glossary.md, no new content added except during R1 review. 165 terms, alphabetized. No definitions were changed in meaning; only light copy-editing for consistent formatting. Review pass added 3 terms (Street Modified, Modified category (SCCA), Prepared category (SCCA)) that were used undefined in Chapters 56-57; definitions paraphrase F-WP19-004's own summary of these SCCA classes, already cited in those chapters. -->
