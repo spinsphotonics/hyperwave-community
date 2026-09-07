@@ -1,24 +1,16 @@
-×
+DOCUMENT_ID: adfontes-prophezei
+TITLE (as printed): "Scholarship at Prayer": Zwingli's Prophezei and the Pastoral Task
+AUTHOR: Ad Fontes (Davenant Institute journal); author Rhys Laverty, quoting at length from Bruce Gordon, Zwingli: God's Armed Prophet (Yale University Press, 2021), pp. 142-143
+DATE: n.d. (contemporary web post; accessed 2026-09-07)
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://adfontesjournal.com/pulpit-and-pew/scholarship-at-prayer-zwinglis-prophezei-and-the-pastoral-task/
+EDITION: web article
+TRANSCRIPTION METHOD: HTML fetched via curl, converted to plain text with html2text (body_width=0, so blockquotes are not broken across lines with '>' markers); copied verbatim (born-digital text, no OCR)
+TOTAL PAGES: n/a (single web page)
+WORD COUNT (this excerpt): ~2104
+NOTE: This is a SECONDARY source (a contemporary devotional/theological blog post). It reproduces long block quotations, with page numbers (p.142, p.143), from a named scholarly secondary work, Bruce Gordon's 2021 biography of Zwingli. Those block quotations are themselves SECONDARY (Gordon's narrative, not a primary 16th-century document); they are cited here as [SECONDARY: adfontes-prophezei, quoting Gordon p.142] etc. Gordon's book itself was not independently obtained and read this session; the quotation is only as reliable as this blog's transcription of it, which is flagged. Markdown emphasis markers (underscores around italicized words, e.g. "_Prophezei_") are left exactly as html2text rendered them, including where they split oddly across "_The_ Prophezei _began..." due to nested italics in the source HTML.
 
-More Results
-
-×
-
-  * Current Issue
-  * Commentary
-  * Archive
-  * Podcast
-
-
-  * Authors
-  * Subscribe
-  * About
-  * Donate
-  * Submissions
-
-The Davenant Institute
-
-Columns
+[[p. 1]]
 
 # "Scholarship at Prayer": Zwingli's Prophezei and the Pastoral Task
 

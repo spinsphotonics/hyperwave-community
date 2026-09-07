@@ -1,0 +1,174 @@
+DOCUMENT_ID: uzh-news-prophezey
+TITLE (as printed): "500 Years of the Prophezey" [UZH News feature]
+AUTHOR: University of Zurich (UZH News editorial staff; quotes Judith Engeler, postdoctoral researcher, UZH Faculty of Theology)
+DATE: 2025 (accessed 2026-09-07)
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://www.news.uzh.ch/en/articles/news/2025/500-years-prophezey.html
+EDITION: web article, University of Zurich official news site
+TRANSCRIPTION METHOD: HTML fetched via curl, converted to plain text with html2text; copied verbatim (no OCR involved; this is born-digital text)
+TOTAL PAGES: n/a (single web page); excerpt is the article's main narrative section
+WORD COUNT (this excerpt): ~1694
+NOTE: This is a SECONDARY source (a 2025 university news article), not a primary 16th-century document. It is used only for facts and quotations attributed to it as [SECONDARY: uzh-news-prophezey], never treated as primary. No page markers are used ([[p. 1]] covers the whole excerpt); [[para]] markers are not inserted, consistent with a single continuous web article.
+
+[[p. 1]]
+
+Autor: Andres Eberhard, Translation: Jane Catterall
+
+## Categories
+
+  * Theology and Study of Religions
+  * Campus
+  * Events
+  * Magazin
+
+Interpreting the Old Testament: reformers Huldrych Zwingli and Konrad Pellikan
+amid the learned members of the Prophezey. (undated engraving)
+
+Monday, 19 June 1525, 8:00 am. A group of priests, canons and students gathers
+in the Grossmunster church in Zurich. The men sit down on the wooden benches
+at the very back of the choir section of the church and pray for God's
+guidance that they may understand the Holy Scripture correctly. Then they open
+the Bible, read and translate, into Latin, Hebrew and Greek. They start with
+the very first words of the book of Genesis: "In the beginning God created
+heaven and earth." From there they work forward, verse by verse, day by day,
+apart from Friday, which was market day, and Sunday.
+
+These represented the first lectures ever held in Zurich, although "seminars"
+would perhaps be the better description, as discussion was expressly
+encouraged. These Bible study classes, known to us as the Prophezey, were the
+forerunner of higher education in Zurich. The first natural scientist to join
+the chapter of the Grossmunster was Conrad Gessner, just a few years later.
+Artisan trades, geography and French were subsequently taught there. Yet it
+all took a long time to develop. The University of Zurich was not officially
+founded until 1833, three centuries after the Prophezey.
+
+The gentlemen meeting for the first time in 1525 knew nothing of this, of
+course. They found themselves right in the middle of the Reformation, and the
+Council of Zurich had just given Huldrych Zwingli, "Leutpriester" (people's
+priest) at the Grossmunster, the green light for his Prophezey classes. Their
+mission was to teach Hebrew, Greek and Latin, the three languages "necessary
+to the proper understanding of the Holy Scriptures". According to Zwingli's
+remit, the lessons were to be given by "learned, artistic and moral men", in
+other words men like Zwingli himself, who had studied the seven liberal arts
+(grammar, rhetoric, logic, arithmetic, geometry, music and astronomy) in
+Vienna and theology in Basel. Years later, the product of these daily seminars
+was the Zurich translation of the Bible, in Swiss German.
+
+## “Re-educating” orthodox priests
+
+Five centuries after the forefathers of the university, Judith Engeler stands
+in front of the choir of the Grossmunster and explains why it would be wrong
+to describe Zwingli as the founding father of research as we understand it
+today. "He wanted first and foremost to 're-educate' the orthodox priests,"
+she says. That is how the city's clergy came to regard the Prophezey as an
+unmissable event.
+
+Engeler is a postdoctoral student currently doing her habilitation at UZH. As
+part of her doctoral thesis, she explored the Reformation and specifically the
+processes surrounding the First Helvetic Confession of 1536, aimed at
+reconciling Reformed and Lutheran doctrine. As part of celebrations marking
+500 years of the Prophezey, she is working with students to produce a short
+guide to the events of the time (see box). Engeler suggests that the Prophezey
+is evidence that the Reformation in no way happened from the bottom up. "That
+great idea of the Reformation, that everyone should be able to read and
+understand the Bible themselves, was just not feasible back then." For one
+thing, not everyone could read. Far from it, in fact. Another was that a Bible
+was far too expensive for most. "It would cost a craftsman half a month's
+wages," Engeler states.
+
+Zwingli's own example showed that it was much more a Reformation from the top
+down. After Bible passages had been read out in multiple languages and
+compared with each other, he personally approved the overall meaning of the
+text. "Following all the translations and discussions, it was Zwingli who more
+or less determined what was correct," Engeler adds. Historical sources
+indicate that a service for ordinary people was always held at 9:00 pm, after
+the seminars had finished for the day. A priest would translate what had been
+learned in various languages in the seminars into layman's (Swiss) German.
+
+## Understanding who we are
+
+There is nothing unusual in theologians being at the origins of the University
+of Zurich. Most other higher education institutions in Europe are based on
+institutes that originally trained priests. Schooling in the Middle Ages and
+the early modern period was, after all, the role of the church. There were no
+state schools back then. Anyone who could afford it attended a private Latin
+school, like Zwingli, and went on to study at one of the few universities on
+mainland Europe, such as Basel, Heidelberg, Vienna, Paris, Milan, Bologna or
+Pisa. In many cases, the very aim of higher learning was to educate the people
+in religion. Occupying a space somewhere between a Latin school and a
+university, the Prophezey was no exception.
+
+As a priest and a theologian at the University of Zurich, Judith Engeler
+follows in the footsteps of the learned fellows of the Prophezey. More than
+that, however, she represents the new generation of female theologians, who
+have practically nothing in common with Zwingli's men of the 1500s. They are
+younger, more diverse and more modern. As far as their studies are concerned,
+they are academically free rather than bound to a confession of faith.
+
+At the heart of the Reformation in Zurich: theologians Judith Engeler and
+Konrad Schmid on one the towers of the Grossmünster in Zurich. (Image: Ursula
+Meisser)
+
+Yet today's generation of theologians face other problems that their 16th
+century counterparts never had to contend with. For decades now, membership of
+the Protestant and Roman Catholic churches alike has been dropping
+dramatically. The importance of the church and of theology has been declining
+accordingly. What are we losing in all of this? Where does theology still have
+a part to play? To answer these questions, Engeler invites us to her office in
+the Department of Theology, just a few steps away. It is located in what used
+to house the chapter of canons.
+
+Zwingli's academics moved their Bible study here after a while as the
+Prophezey increasingly separated off from the service that followed. Another
+factor was the biting cold of the Grossmunster choir in the winter, giving the
+canons a real appreciation of the chapter house as the only heatable room
+anywhere nearby. The building still has a cloister, but little of its
+construction is original. The Grossmunster chapter was demolished in the
+mid-1800s and replaced by a newly built school for girls.
+
+It is in this very cloister that Engeler pauses for a moment in front of a
+print on the wall that shows Zurich in 1576. She points out how small the city
+was then, indicating where the University of Zurich's main building now
+stands, outside the city walls. What is now the main railway station is
+located at the outermost edge of the map.
+
+> Christianity has had a defining influence on our society, and the need to
+> find meaning is just as present now as it was in the past.
+>
+> Judith Engeler
+>
+> Theologian
+
+As she finally takes a seat, Engeler contests that the importance of religion
+is not, in fact, in decline. She thinks for a moment, before mentioning
+developments in the USA and elsewhere in the world, where fundamentalists call
+the shots more than ever. Then she refines her statement: "Perhaps you could
+say that the importance of reflective religion is in decline." She sees many
+areas in which theologians could add to the conversation. "We will always
+believe in something," she says. In her capacity as an ecclesiastical
+historian, she might contribute to an understanding of why we are who we are,
+she continues. "Christianity has had a defining influence on our society, and
+the need to find meaning is just as present now as it was in the past."
+
+Engeler believes that ideological criticism is one important role that
+theology can play in our society. "We have to be aware that we can always be
+wrong about things. Even if we are so certain today that, say, rearmament is
+the right path. Plenty of what we do now, what we truly and honestly believe
+to be for the best, will be judged very differently in 100 years' time."
+
+## Gods as moral entities
+
+Konrad Schmid also has a few things to say on what theology can tell today's
+society. He is not only a professor at UZH but also Head of the Department of
+Theology and one of the most respected theologians in Switzerland. Schmid's
+work examines issues such as how faith in a higher power became a key factor
+in social order. He also initiated an EU-funded research project entitled "How
+God became a lawgiver." Schmid explains its objective: "We are asking how it
+could be possible that people believed in both gods who sent lightning from
+the heavens or made the Earth shake, and gods as moral and legislative
+entities."
+
+The Old Testament, for example, contains numerous juristic passages that are
+presented as God's law. The second book, Exodus, also called the Law of Moses,
+mentions the death penalty: "Anyone who strikes a person with a fatal blow is
+to be put to death." However, it also describes very day-to-day misdemeanors
