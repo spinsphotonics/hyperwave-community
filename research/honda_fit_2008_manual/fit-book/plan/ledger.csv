@@ -1,7 +1,7 @@
 wp_id,title,phase,owner,status,facts_count,unverified_count,verified_by,notes
 WP-00,Build the source library,1,agent,done,,,,20 Source Cards written (target 15+); 2 paywalled (S-002 Helm, S-003 Haynes) logged to queue/blocked.md; WebFetch blocked all session so cards verified via WebSearch snippets not direct page loads (see queue/blocked.md)
 WP-01,Identify the car exactly,1,agent,todo,,,,
-WP-02,Recalls TSBs and known defects,1,agent,todo,,,,
+WP-02,Recalls TSBs and known defects,1,agent,done,26,0,,"5 confirmed 2007-2008 NHTSA recalls; 2 confirmed to NOT apply (18V268) or unclear (19V182); 1 solid TSB (14-058) + 1 conflicting TSB (13-021) + unverified TSB count leads; top complaint categories; all 4 named investigation items answered; 11 community issues w/ 2 sources each. WebFetch blocked whole session (see queue/blocked.md) so every fact is search-snippet-sourced with real URLs, not a direct page read -- flagged for verifier re-check before status=verified."
 WP-03,Getting in and getting comfortable,2,agent,todo,,,,
 WP-04,Starting stopping dashboard,2,agent,todo,,,,
 WP-05,Everyday controls,2,agent,todo,,,,

@@ -26,3 +26,21 @@ sources/ were therefore verified via live WebSearch queries and their returned r
 quoted text, page numbers, or table values from these sources should retry WebFetch first in case
 the restriction is lifted; if still blocked, flag any fact that cannot be confirmed beyond a search
 snippet as UNVERIFIED per RESEARCH_PLAN.md Rule 2.
+
+## WP-02 Recalls, TSBs, and known defects (2026-09-07)
+
+### Tool limitation: WebFetch still blocked for all domains this session
+Confirmed the same session-wide WebFetch restriction persists (tested nhtsa.gov, static.nhtsa.gov,
+carcomplaints.com, fitfreak.net, reddit.com, en.wikipedia.org — all EGRESS_BLOCKED or "unable to
+fetch"). All 26 fact cards in facts/WP-02.md were built from WebSearch result snippets and AI-search
+summaries only, with real source URLs attached. Before facts/WP-02.md is marked `verified` in the
+ledger, the verifier task (RESEARCH_PLAN.md Section 6) MUST attempt a direct read of every Source URL
+in that file — several facts (recall exact dates, TSB model-year coverage) had conflicting snippet
+summaries that only a direct primary-source read can resolve. See queue/conflicts.md for the specific
+conflicts already identified during WP-02.
+
+### Facts logged as leads only, not verified (WP-02)
+F-WP02-010 lists four TSB numbers (A20-015, A18-053, A18-050, A02-053) surfaced by search snippets on
+2008-Fit TSB aggregator pages, but with no independently confirmed detail. Do not use these in draft
+chapters until a future pass with working WebFetch confirms each bulletin's content and model-year
+applicability.
