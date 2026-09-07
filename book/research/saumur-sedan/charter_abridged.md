@@ -63,13 +63,13 @@ college et l'academie de Saumur, un meme etablissement?"
 ## Text
 
 [Founding acts, 1593-1685.] [E]ntre les lettres patentes de mars 1593 par lesquelles Henri IV
-accorde à Philippe Duplessis-Mornay l'autorisation de « faire construire, ériger et bâtir un
-collège » à Saumur et, en 1613, la tenue d'un registre « des affaires de l'académie », vingt
-années s'écoulent au cours desquelles le gouverneur de Saumur se bat pour l'ouverture d'un
-collège de plein exercice et, à partir de 1606, d'une académie pour la formation théologique des
-pasteurs. C'est donc un établissement composé de deux corps distincts, celui du collège et de ses
-régents avec un principal à sa tête, celui de l'académie et de ses professeurs dirigés par un
-recteur, qui fonctionne du début du xvii e siècle jusqu'à l'arrêt du conseil du 8 janvier 1685 «
+accorde à Philippe Duplessis-Mornay l’autorisation de « faire construire, ériger et bâtir un
+collège » à Saumur et, en 1613, la tenue d’un registre « des affaires de l’académie », vingt
+années s’écoulent au cours desquelles le gouverneur de Saumur se bat pour l’ouverture d’un
+collège de plein exercice et, à partir de 1606, d’une académie pour la formation théologique des
+pasteurs. C’est donc un établissement composé de deux corps distincts, celui du collège et de ses
+régents avec un principal à sa tête, celui de l’académie et de ses professeurs dirigés par un
+recteur, qui fonctionne du début du xvii e siècle jusqu’à l’arrêt du conseil du 8 janvier 1685 «
 portant extinction et suppression du collège et Académie »
 [New translation, draft: Between the letters patent of March 1593 by which Henri IV granted
 Philippe Duplessis-Mornay permission to "build, erect and construct a college" at Saumur, and, in
@@ -78,15 +78,15 @@ the governor of Saumur fights for the opening of a full college and, from 1606, 
 the theological formation of pastors. This is thus an establishment composed of two distinct
 bodies, that of the college with its regents under a principal, and that of the academy with its
 professors led by a rector, which functions from the start of the seventeenth century until the
-council's ruling of 8 January 1685 "decreeing the extinction and suppression of the college and
+council’s ruling of 8 January 1685 "decreeing the extinction and suppression of the college and
 Academy."]
 
 [...]
 
 [On the legal basis: the Edict of Nantes, 1598.] Le cadre institutionnel fixé par les synodes
-nationaux détermine dans un premier temps les liens entre collège et académie. En effet, l'édit
-de Nantes ne comporte aucun article envisageant la création d'établissements scolaires, seul
-l'article XXII garantit aux réformés « qu'il ne sera fait différence ni distinction, par le fait
+nationaux détermine dans un premier temps les liens entre collège et académie. En effet, l’édit
+de Nantes ne comporte aucun article envisageant la création d’établissements scolaires, seul
+l’article XXII garantit aux réformés « qu’il ne sera fait différence ni distinction, par le fait
 de ladite religion, à recevoir les écoliers pour être instruits ès universités, collèges et
 écoles »
 [New translation, draft: The institutional framework fixed by the national synods determines, in
@@ -96,13 +96,13 @@ Reformed "that no difference or distinction shall be made, on account of the sai
 receiving pupils to be instructed in universities, colleges, and schools."]
 
 [...] Mais aux articles « dits particuliers », « ne pourront ceux de ladite religion tenir écoles
-publiques sinon ès villes et lieux où l'exercice public d'icelle leur est permis, et les
-provisions qui leur ont été ci-devant accordées pour l'érection et entretenement des collèges
+publiques sinon ès villes et lieux où l’exercice public d’icelle leur est permis, et les
+provisions qui leur ont été ci-devant accordées pour l’érection et entretenement des collèges
 seront vérifiées [...] où besoin sera et sortiront leur plein et entier effet »
 [New translation, draft: But in the articles "called particular," "those of the said religion
 may not keep public schools except in the towns and places where its public exercise is
 permitted to them, and the provisions heretofore granted to them for the erection and upkeep of
-colleges shall be verified [...] where needed and shall take their full and entire effect."]
+colleges shall be verified (a phrase omitted here) where needed and shall take their full and entire effect."]
 
 [...]
 
@@ -115,29 +115,29 @@ except those which have maintained academies. Nevertheless the said provinces ma
 their academies, establish colleges at their own expense" (article 12 of the chapter on
 academies).]
 
-[...] L'article 19 précise que le « nombre des académies qui doivent être entretenues » est de
+[...] L’article 19 précise que le « nombre des académies qui doivent être entretenues » est de
 quatre, soit Montauban, Nîmes, Montpellier et Saumur
 [New translation, draft: Article 19 specifies that the "number of academies to be maintained" is
 four, namely Montauban, Nimes, Montpellier, and Saumur.]
 
-[...] L'article 22 demande aux établissements que « quant aux règlements des exercices
-académiques et de la conduite des académies, la compagnie enjoint aux conseils académiques d'en
-dresser un modèle, chacun selon qu'il le jugera plus expédient »
+[...] L’article 22 demande aux établissements que « quant aux règlements des exercices
+académiques et de la conduite des académies, la compagnie enjoint aux conseils académiques d’en
+dresser un modèle, chacun selon qu’il le jugera plus expédient »
 [New translation, draft: Article 22 requires of the establishments that "as for the regulation of
 academic exercises and the conduct of the academies, the company enjoins the academic councils to
 draw up a model of it, each according to what it judges most expedient."]
 
-[...] L'article 20 précise que dans les académies de Saumur et de Montauban, il doit y avoir deux
+[...] L’article 20 précise que dans les académies de Saumur et de Montauban, il doit y avoir deux
 professeurs de théologie « qui fassent toutes les leçons nécessaires » et « il leur sera permis de
-servir au ministère, selon qu'ils en auront le temps »
+servir au ministère, selon qu’ils en auront le temps »
 [New translation, draft: Article 20 specifies that in the academies of Saumur and Montauban there
 must be two professors of theology "who shall give all the necessary lessons," and "they shall be
 permitted to serve in the ministry, as they shall have time for it."]
 
 [...]
 
-[On funding: National Synod of Tonneins, 1614.] Lors du synode de Tonneins de 1614, l'article 9
-du chapitre des académies décide que l'assemblée octroie à l'académie de Saumur une subvention
+[On funding: National Synod of Tonneins, 1614.] Lors du synode de Tonneins de 1614, l’article 9
+du chapitre des académies décide que l’assemblée octroie à l’académie de Saumur une subvention
 pour son fonctionnement, dans le prolongement de ce qui lui a été attribué lors des synodes
 précédents, mais ajoute que « pour rendre son collège plus accompli et le fournir de tous les
 régents et professeurs nécessaires », le synode national accorde une nouvelle somme de 600 livres
@@ -151,7 +151,7 @@ sum of 600 livres per year.]
 [...]
 
 [On oversight and examinations: National Synod of Vitre, 1617.] Le synode de Vitré de 1617
-rappelle la nécessité « d'une manière très expresse aux conseils académiques de faire que les
+rappelle la nécessité « d’une manière très expresse aux conseils académiques de faire que les
 statuts et les règlements académiques soient strictement observés ». Les provinces dans
 lesquelles il y a une académie doivent députer deux pasteurs tous les ans pour examiner les élèves
 et voir « si les professeurs font leurs devoirs »
@@ -162,12 +162,12 @@ to examine the students and see "whether the professors are doing their duty."]
 
 [...]
 
-[On the network's stability: National Synod of Ales, 1620.] Enfin le synode national d'Alès de
+[On the network’s stability: National Synod of Ales, 1620.] Enfin le synode national d’Alès de
 1620, dans le chapitre « concernant les académies et les collèges », décide en particulier de ne
 pas toucher à la carte des académies. Toutefois, « sur la proposition qui a été faite de régler le
 nombre des académies, pour les rendre fournies de tous les professeurs, soit pour la théologie,
-soit pour les autres sciences, il n'a pas été trouvé bon de faire maintenant aucun décret pour
-cela, attendu qu'un changement sur cette matière pourroit altérer la bonne union qui doit être
+soit pour les autres sciences, il n’a pas été trouvé bon de faire maintenant aucun décret pour
+cela, attendu qu’un changement sur cette matière pourroit altérer la bonne union qui doit être
 conservée parmi nous »
 [New translation, draft: Finally the national Synod of Ales in 1620, in the chapter "concerning
 the academies and the colleges," decides in particular not to alter the map of the academies.
@@ -183,8 +183,8 @@ must be preserved among us."]
 [On residence and admission: register of the academic council of Saumur, 24 July 1614.] Ainsi, le
 24 juillet 1614, il est noté : « Le conseil a ordonné que nul escolier ne soit immatriculé au
 catalogue des escholiers par monsieur le recteur ou examiné pour estre reczeu aux classes jusques
-à ce qu'il soit logé par l'advis et consentement de monsieur le recteur, principal ou quelqu'un
-des pasteurs et ne pourront changer de logis qu'avec le consentement susdict ce qui sera intimé et
+à ce qu’il soit logé par l’advis et consentement de monsieur le recteur, principal ou quelqu’un
+des pasteurs et ne pourront changer de logis qu’avec le consentement susdict ce qui sera intimé et
 fait savoir aux parens »
 [New translation, draft: Thus, on 24 July 1614, it is noted: "The council has ordered that no
 student be enrolled on the register of students by the rector, or examined for admission to the
@@ -195,24 +195,24 @@ known to the parents."]
 [...]
 
 [On governance: Article I of the General Statutes for the Academies of the Reformed Churches of
-France, National Synod of Ales, 1620.] L'article I des statuts généraux pour les Académies des
-Églises réformées de France, définis lors du synode d'Alès de 1620, précise qu'il doit y avoir
-pour chaque académie deux conseils, « l'un ordinaire, qui ne sera composé que des pasteurs de
-l'Église du lieu où ladite académie sera établie, et des professeurs publics, avec le premier
-régent du collège, et ce conseil aura pour chef le recteur de l'académie. L'autre extraordinaire
+France, National Synod of Ales, 1620.] L’article I des statuts généraux pour les Académies des
+Églises réformées de France, définis lors du synode d’Alès de 1620, précise qu’il doit y avoir
+pour chaque académie deux conseils, « l’un ordinaire, qui ne sera composé que des pasteurs de
+l’Église du lieu où ladite académie sera établie, et des professeurs publics, avec le premier
+régent du collège, et ce conseil aura pour chef le recteur de l’académie. L’autre extraordinaire
 [...] »
 [New translation, draft: Article I of the General Statutes for the Academies of the Reformed
 Churches of France, set down at the Synod of Ales in 1620, specifies that there must be, for each
 academy, two councils, "one ordinary, which shall be composed only of the pastors of the church
 of the place where the said academy shall be established, and of the public professors, together
-with the college's first regent, and this council shall have as its head the rector of the
+with the college’s first regent, and this council shall have as its head the rector of the
 academy. The other, extraordinary [...]"]
 
 [...]
 
 [On the duties of the principal toward the college (Articles II, III, V, X of the same General
 Statutes).] les régents sont « tenus de luy jurer et prester obeissance, en ce qui concerne tant
-la manière d'enseigner que la discipline et le chastiment des escholiers » (article II). « Que les
+la manière d’enseigner que la discipline et le chastiment des escholiers » (article II). « Que les
 professeurs en philosophie soient tenus de suivre son conseil et advis en ce qui concerne leur
 charge », mais aussi « il aura inspection et intendance sur les professeurs de philosophie et sur
 les exercices en leur charge » (article III).
