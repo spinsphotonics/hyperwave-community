@@ -73,11 +73,15 @@ founding document.
 
 [Ethnos360's current Purpose, Heritage, and Methodology — substitute text, see coverage note]
 
-ETHNOS360
+# ETHNOS360
+
+[...]
 
 ##  Our Purpose 
 
 "Motivated by the love of Christ and empowered by the Holy Spirit, Ethnos360 exists to assist the ministry of the local church through the mobilizing, equipping and coordinating of believers to evangelize unreached people groups, translate the Scriptures and see indigenous churches established that glorify God."
+
+[...]
 
 ##  Our Heritage 
 

@@ -28,15 +28,15 @@ rules (`06_rights_and_permissions.md`); no `[RIGHTS: ...]` flags or
 
 | Section | Words |
 |---|---|
-| Founding | ~560 |
-| The Charter | ~230 |
-| Admission | ~60 |
-| Curriculum | ~60 |
-| Common Life and the Faculty | ~430 |
-| Emphasis | ~430 |
-| Sending | ~260 |
-| Fruit | ~320 |
-| Total (excl. Charter) | ~2,120 |
+| Founding | ~515 |
+| The Charter | ~183 |
+| Admission | ~80 |
+| Curriculum | ~55 |
+| Common Life and the Faculty | ~370 |
+| Emphasis | ~345 |
+| Sending | ~135 |
+| Fruit | ~140 |
+| Total (excl. Charter) | ~1,825 |
 
 # Chapter 2: The Evangelical Library, the International Fellowship of Evangelical Students, and the Banner of Truth Trust (1938–1957)
 
