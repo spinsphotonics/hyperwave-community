@@ -5,15 +5,15 @@ INPUTS READ: research/princeton-seminary/dossier.md (VERIFIED); research/princet
 
 | Section | Words |
 |---|---|
-| Founding | ~530 |
+| Founding | ~460 |
 | The Charter | (see charter_abridged.md, ~2,478 words) |
-| Admission | ~300 |
-| Curriculum | ~650 |
-| Common Life and the Faculty | ~640 |
-| Emphasis | ~480 |
-| Sending | ~380 |
-| Fruit | ~260 |
-| Total (excl. Charter) | ~3,240 |
+| Admission | ~290 |
+| Curriculum | ~500 |
+| Common Life and the Faculty | ~490 |
+| Emphasis | ~360 |
+| Sending | ~370 |
+| Fruit | ~210 |
+| Total (excl. Charter) | ~2,680 |
 
 # Chapter 7: Princeton Theological Seminary (1812)
 
