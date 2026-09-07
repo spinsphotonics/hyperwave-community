@@ -56,59 +56,54 @@ and Writings of Philip Doddridge*.
 MY LORD — An affair has occurred which obliges me to refer to your lordship for advice and
 protection, not only as a favor to myself and my friends in this county, but as one to the
 whole body of the king's Protestant, dissenting subjects; it being a case in which their civil
-rank, welfare, and liberties are apparently concerned.
-
-"On Tuesday last there was a diocesan visitation' at Northampton, when Chancellor Reynolds was
-pleased to address a pretty long and warm harangue to the church-wardens of the parish in
-which I live. The substance of it was, to use his own words, that 'he was informed that there
-was a fellow in their par ish who taught a grammar-school/ which he had the assurance to call
-my academy, 'as he supposed without any license from the bishop;' and ordered them, there
-fore, to examine whether I had such a license, and if I had not, to present me, so that I
-might be prosecuted according to law.
+rank, welfare, and liberties are apparently concerned. " On Tuesday last there was a diocesan
+visitation' at Northampton, when Chancellor Reynolds was pleased to address a pretty long and
+warm harangue to the church-wardens of the parish in which I live. The substance of it was, to
+use his own words, that ' he was informed that there was a fellow in their par ish who taught a
+grammar-school/ which he had the assurance to call my academy, 'as he supposed without any
+license from the bishop ;' and ordered them, there fore, to examine whether I had such a
+license, and if I had not, to present me, so that I might be prosecuted according to law.
 
 [...]
 
-"Your lordship knows that 'this fellow/ who has the honor of being Lord Halifax's most humble
+Your lordship knows that ' this fellow/ who has the honor of being Lord Halifax's most humble
 ser vant as faithfully as this chancellor or any of his courtiers, has been and is trusted by
-many of the most considerable persons among the Dissenters, under a public character; and has
+many of the most considerable persons among the Dissenters, under a public character ; and has
 in his hands the education of several gentlemen intended for the learned pro fessions, who
-have finished their studies at grammar- schools; and perhaps you may have heard that a so
+have finished their studies at grammar- schools ; and perhaps you may have heard that a so
 ciety of the principal dissenting ministers and other gentlemen in London, has favored me with
-a pecul iar token of respect, never before extended to any tutor in the country, by making me
-a grant towards the expense of an apparatus for lectures on experi mental philosophy, out of
-the public monies deposited in their hands. I hope, therefore, I may without van ity say, that
-I can reasonably expect the countenance and support of a considerable number of persons, if I
-am prosecuted as a dissenting tutor.
+a pecul iar token of respect, never before extended to any tutor in the country, by making me a
+grant towards the expense of an apparatus for lectures on experi mental philosophy, out of the
+public monies deposited in their hands. I hope, therefore, I may without van ity say, that I
+can reasonably expect the countenance and support of a considerable number of persons, if I am
+prosecuted as a dissenting tutor.
 
 Nor can I think that I am called upon to act as I might do in any private case, in a matter
-where my public charac- 273 ter and our common liberties are concerned, and that so nearly. I
-am determined therefore to make no unnecessary submission, nor to pay any compliment to these
+where my public charac- * They do not well agree, nor are found sitting in the same chair. HIS
+ACADEMICAL CHARGE. 273 ter and our common liberties are concerned, and that so nearly. I am
+determined therefore to make no unnecessary submission, nor to pay any compliment to these
 reverend gentlemen from which I may be le gally excused, lest they should consider it as an en
 couragement to pursue further attacks upon my breth ren. What the law of England requires I
 will sub mit to as far as I can with a safe conscience; but if there be any thing which it is
-matter of duty to con test, it seems very proper, my lord, that it should be determined. We
-may then know on what ground we stand; for I am sure that if we are to depend upon the
-sovereign pleasure of a bishop to license school masters, or even tutors, we shall owe our
-best priv ileges, as British subjects, to convenience and caprice, rather than to the law of
-the realm; and, what I never imagined, shall be more obliged to the lenity of our
-ecclesiastical, than to the equity of our civil govern ors.
+matter of duty to con test, it seems very proper, my lord, that it should be determined. We may
+then know on what ground we stand ; for I am sure that if we are to depend upon the sovereign
+pleasure of a bishop to license school masters, or even tutors, we shall owe our best priv
+ileges, as British subjects, to convenience and caprice, rather than to the law of the realm ;
+and, what I never imagined, shall be more obliged to the lenity of our ecclesiastical, than to
+the equity of our civil govern
 
 [...]
 
-"When I write thus, my lord, it is not to screen myself from any thing the law requires, but
+When I write thus, my lord, it is not to screen myself from any thing the law requires, but
 only to make way for my first petition to your lordship, which is, that you would please to
 inform me, as soon as you conveniently can, whether, as things at present stand, it be
-necessary for me to ask a license; and if so, on what terms I may demand it. I bless God I
-have noth ing to fear as to my ministerial character; and I hope I shall endeavor to preserve
-it by a steadiness and decency of conduct in this affair.
-
-"I would give the kind and generous Lord Halifax no trouble I could properly avoid: when I
-considered how zealously he had always asserted our liberties, I thought he had an undoubted
-right to know what is now passing; and I flatter myself so far as to believe, that as the
-natural greatness of your lordship's soul inclines you to protect the meanest of your country
-men from injury and oppression, so the friendship with which you are pleased to honor me, will
-give you a peculiar pleasure in assisting,
-
-"My lord, your lordship's most faithful and obliged humble servant,
-
-"PHILIP DODDRIDGE."
+necessary for me to ask a license ; and if so, on what terms I may demand it. I bless God I
+have noth ing to fear as to my ministerial character ; and I hope I shall endeavor to preserve
+it by a steadiness and decency of conduct in this affair. "I would give the kind and generous
+Lord Halifax no trouble I could properly avoid : when I considered how zealously he had always
+asserted our liberties, I thought he had an undoubted right to know what is now passing ; and I
+flatter myself so far as to believe, that as the natural greatness of your lordship's soul
+inclines you to protect the meanest of your country men from injury and oppression, so the
+friendship with which you are pleased to honor me, will give you a peculiar pleasure in
+assisting, " My lord, your lordship's most faithful and obliged humble servant, "PHILIP
+DODDRIDGE."

@@ -322,4 +322,4 @@ fetched or quoted this session — see research/evangelical-library-ifes-banner/
 [^30]: Murray, "The Banner of Truth Trust – Part 2"; quote_ids elib-q035, elib-q039.
 [^31]: Murray, "The Banner of Truth Trust – Part 2"; quote_id elib-q033.
 [^32]: "International Fellowship of Evangelical Students," Wikipedia; quote_id elib-q022.
-[^33]: IFES, "Elizabeth Catherwood, 1927–2026"; narrative summary of the tribute page as a whole; the "never simply an institution" phrase is the tribute's own framing sentence, not separately logged as a quote_id — see research/evangelical-library-ifes-banner/text/ifes-elizabeth-catherwood.txt.
+[^33]: IFES, "Elizabeth Catherwood, 1927–2026"; quote_id elib-q051.

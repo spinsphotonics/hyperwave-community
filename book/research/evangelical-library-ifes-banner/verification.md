@@ -9,12 +9,12 @@ INPUTS READ: research/evangelical-library-ifes-banner/dossier.md; quotes.jsonl; 
 
 ```
 $ python3 plan/templates/check_quotes.py research/evangelical-library-ifes-banner
-WARN elib-q002 ... (33 WARN lines; each is the script's stricter "before+text+after
+WARN elib-q002 ... (34 WARN lines; each is the script's stricter "before+text+after
 contiguous" check, which is documented in the script as non-fatal — the header
 metadata block preceding the [[p. 1]] marker in each text/ file, and citation
 brackets like "[1]" immediately abutting words, break strict contiguity even
 though each of text/before/after individually is found verbatim)
-50/50 quote records passed; 0 failures
+51/51 quote records passed; 0 failures
 
 $ python3 plan/templates/check_quotes.py research/evangelical-library-ifes-banner --charter
 1/1 passages verbatim; 0 failures

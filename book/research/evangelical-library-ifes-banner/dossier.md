@@ -252,7 +252,8 @@ text/ files listed above), except as follows.
 - **R4 Elizabeth Catherwood** (1927-2026), Lloyd-Jones's daughter: recalled
   IFES's founding at first hand through her father and remained involved
   with IFES for the rest of her life, latterly as Honorary IFES
-  Vice-President [elib-q027, elib-q028]. [SECONDARY: ifes-elizabeth-catherwood]
+  Vice-President [elib-q027, elib-q028, elib-q051]. [SECONDARY:
+  ifes-elizabeth-catherwood]
 
 ## X — For the chapter
 
