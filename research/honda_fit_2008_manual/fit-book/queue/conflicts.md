@@ -260,7 +260,16 @@ read of the primary source.
 
 ## WP-19 Safety gear and weight (2026-09-07)
 
-### C-017: Two different "current" SCCA National Solo rulebook editions found in the same repo on the same day
+NOTE (ADAPT-3-style numbering collision, caught by this WP): this section originally used C-017
+and C-018, which collided with WP-18's own pre-existing C-017/C-018 entries below (both WPs
+picked the "next" number off a stale read of this file at roughly the same time). Per
+`queue/decisions_needed.md` ADAPT-3's guidance that "the second WP to notice a collision should
+rename ITS OWN [entries] out of the shared counter rather than re-overwriting the other WP's
+[entries] a second time," this WP's two entries are renumbered C-020 and C-021 below. No content
+was lost; only the ID prefix changed. (Cross-referenced in facts/WP-19.md's own Summary section
+by these new numbers.)
+
+### C-020: Two different "current" SCCA National Solo rulebook editions found in the same repo on the same day
 - This WP (via a WebSearch-surfaced `cdn.connectsites.net` link) downloaded and directly read
   `2026%20Solo%20Rulebook%20Feb.pdf` — 429 pages, PDF metadata implying a February 2026 edition
   — and cited it as S-013 for Sections 3.3, 4.3, 13, 17-18, and Appendix C.
@@ -283,7 +292,7 @@ read of the primary source.
 - Related fact cards: F-WP19-001 through F-WP19-006, F-WP19-023 through F-WP19-026 (all SCCA-sourced
   cards in facts/WP-19.md); also affects any WP-20 fact drawn from the 2025 edition.
 
-### C-018: Internal inconsistency within the same single fitfreak.net "GD Parts/Weight List" thread on spare-tire-system weights
+### C-021: Internal inconsistency within the same single fitfreak.net "GD Parts/Weight List" thread on spare-tire-system weights
 - One WebSearch pass over this thread reported: spare tire 21.55 lb, jack+wrench 4.55 lb.
 - A second, more targeted WebSearch pass over what is very likely the same thread (different
   page/post) reported: spare tire 21 lb, spare tire cover 7.76 lb, jack plate+bolts 2.81 lb, and
@@ -327,3 +336,56 @@ read of the primary source.
   485hp figure is NOT used as a fact anywhere in facts/WP-18.md; recorded here only so a future
   pass does not need to re-investigate the same eBay listing from scratch.
 - Related fact cards: F-WP18-008, F-WP18-009
+
+## WP-17 Engine: bolt-ons and tuning (2026-09-07)
+
+### C-019: "+9 hp" Weapon R header dyno claim traces to the GE8 (2009-2014), not the GD3 — REJECTED per D8
+- A WebSearch for GD3 header dyno numbers surfaced a fitfreak.net community mention that "some
+  users questioned the dyno gains posted on Weapon R's website," citing a claimed "+9 hp" for a
+  "Weapon R street header."
+- Tracing the underlying product shows the Weapon*R listing itself is titled explicitly for
+  "2009-2012 Honda Fit" (the second-generation GE8, per D2), and the fitfreak.net thread most
+  directly tied to this claim ("Weapon R header review") lives in fitfreak's own
+  "2nd-generation-ge-08-13" sub-forum, not the "1st-generation-gd-01-08" sub-forum this
+  project's other WPs draw GD3 facts from.
+- Not treated as a genuine two-source disagreement about the same car's header gain (it is not
+  weighed against, and does not corroborate, F-WP17-005's separate GD3-specific "5+HP" header
+  claim from the "A Spec Honda Fit Headers w/ DYNO" thread) — this is a caught year-confusion
+  trap, recorded per D8/Rule 6 rather than silently discarded or silently used.
+- Related fact card: F-WP17-016 (the rejection itself is documented as its own fact card, per
+  the WP-17 task's instruction to state plainly when a claim "exists for the newer Fit, not
+  yours")
+
+## WP-14 Home repairs (2026-09-07)
+
+### C-020: Window regulator replacement's only detailed step source is explicitly the wrong generation (GE, not GD3) — flagged, not rejected
+- The only step-by-step, bolt-count-level window regulator writeup found (youcanic.com,
+  S-WP14-E) is titled "2011 Honda Fit" / "2007-2013... 2nd Gen" in its own page navigation —
+  that is the GE8 chassis (2009-2013), a different car from this book's 2007-2008 GD3 per D2/D8.
+- Unlike C-019 (WP-17), this is NOT rejected outright, because a second, genuinely
+  first-generation (GD 01-08) FitFreak.net thread (S-WP14-D, thread 104277, titled around a
+  "2007 Honda Fit Sport") independently confirms owners of an actual GD3 car DO replace a
+  snapped window regulator themselves — corroborating that the JOB is real and DIY-able for
+  this exact car, even though it does not independently confirm the GE-generation source's
+  specific bolt count (two 10mm bolts top, three 10mm bolts bottom).
+- Resolution used in procedures/WP-14-15.md: the procedure card states plainly, in its own
+  RESEARCH FINDING note, that the bolt-by-bolt detail is YEAR-UNCONFIRMED/from the wrong
+  generation, while the fact that the job itself is DIY-able for GD3 is treated as confirmed
+  by the separate GD3-specific source. Not resolved to a single fully-confirmed source; a
+  future pass with working fitfreak.net access could look for a GD-01-08-specific bolt count
+  to close this gap.
+- Related procedure: P-WP14-15 (Replace a window regulator)
+
+### C-021: Front stabilizer BAR replacement vs. sway bar END LINK replacement are different-sized jobs that share a name in the chapter outline
+- RESEARCH_PLAN.md Chapter 41 lists "sway bar links" as one of the suspension items to cover.
+- A real service-manual-style source (S-WP14-B, hfitinfo.com "Front Stabilizer Bar
+  Replacement") shows that replacing the stabilizer BAR itself requires dropping the front
+  subframe and the steering gearbox — a major, shop-recommended job — while the END LINKS
+  (the small parts connecting the bar to the strut, which is what most owners mean by "sway
+  bar links" and what actually wears out and rattles) are a simple, level-2, no-subframe-drop
+  swap per community writeups (S-WP14-D).
+- Not a source-disagreement conflict, but recorded here so a future pass does not conflate the
+  two jobs: procedures/WP-14-5.md gives full DIY steps for the end links and the (also simple)
+  rear stabilizer bushing, and explicitly names the full bar swap as a separate, harder,
+  shop-recommended job it does not give steps for.
+- Related procedure: P-WP14-5 (Replace sway bar end links and the rear stabilizer bushing)
