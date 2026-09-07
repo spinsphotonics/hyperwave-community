@@ -6,7 +6,7 @@ SOURCE URL/SHELFMARK: https://archive.org/download/in.ernet.dli.2015.75685/2015.
 EDITION: Works of Martin Luther, with Introductions and Notes, vol. IV (Philadelphia: A. J. Holman Company and The Castle Press, 1931), pp. 101-133 (translation begins p. 103). Public domain in the US (pre-1932 Philadelphia edition).
 TRANSCRIPTION METHOD: copied (Internet Archive djvu OCR text, item in.ernet.dli.2015.75685); page markers [[p. N]] inserted by this session from the running heads and page-end numerals visible in the OCR; no spelling/OCR corrections made.
 TOTAL PAGES: 101-133 (translator's introduction pp. 101-102 by Steinhaeuser not included below except where noted; translation proper begins p. 103)
-WORD COUNT: approx. 10,900 (this excerpt, translation text only, source file raw/councilmen_marked.txt)
+WORD COUNT: approx. 11,000 (this excerpt, translation text only, source file raw/councilmen_marked.txt; corrected during this session to include the letter's closing paragraph, which a mechanical page-split had misplaced at the head of the sermon extraction -- see luther1530-sermon.txt note)
 TO THE COUNCILMEN OF ALL CITIES IN 
 GERMANY THAT THEY ESTABLISH AND 
 MAINTAIN CHRISTIAN SCHOOLS 
@@ -1355,3 +1355,16 @@ very Turk and a heathen, and my plan were nevertheless seen
 to benefit not myself but the Christians, they ought not in 
 fairness to spurn my offer. It has happened before that a 
 fool gave better counsel than a whole council of wise men. 
+Ex.i8;i7ff. Moses was obliged to receive instruction from Jethro. 
+
+Herewith I commend you all to the grace of God, May 
+He soften and kindle your hearts, that they may be deeply 
+concerned for the poor, miserable and neglected youths and 
+with the help of God assist and help them, to the end that 
+there may be a blessed and Christian government in German 
+lands as to body and soul, with all plenty and abundance, to 
+the praise and glory of God the Father, through Jesus Christ 
+our Saviour. Amen, 
+
+
+

@@ -9,6 +9,10 @@ INPUTS READ: dossier.md, quotes.jsonl, sources.csv, text/autobio-v2.txt, text/au
 ```
 26/26 quote records passed; 0 failures
 ```
+`check_quotes.py --charter` was also run against `charter_abridged.md` and returned:
+```
+4/4 passages verbatim; 0 failures
+```
 No WARNs and no FAILs. Every quote record's `text`, `before`, and `after` fields verify verbatim
 against the named `text/` file, and in every record `before + text + after` is contiguous in the
 source (unlike the Geneva chapter's two WARNs), because each quote was extracted programmatically

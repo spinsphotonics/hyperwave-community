@@ -27,9 +27,10 @@ WARN wittenberg-q018: before+text+after not contiguous in stump1897-lifeofmelanc
 WARN wittenberg-q019: before+text+after not contiguous in stump1897-lifeofmelanchthon
 WARN wittenberg-q020: before+text+after not contiguous in stump1897-lifeofmelanchthon
 WARN wittenberg-q021: before+text+after not contiguous in stump1897-lifeofmelanchthon
-21/21 quote records passed; 0 failures
+WARN wittenberg-q022: before+text+after not contiguous in luther1524-councilmen
+22/22 quote records passed; 0 failures
 ```
-Every one of the 21 quote records produces a WARN, not a FAIL. Each WARN was individually
+Every one of the 22 quote records produces a WARN, not a FAIL. Each WARN was individually
 investigated (see item 2 below): in every case the `text`, `before`, and `after` fields each
 independently verify verbatim against the named source file; the WARN fires only because the
 script's contiguity check joins `before`, `text`, and `after` with a single inserted space, and
@@ -42,8 +43,8 @@ taken from a different location. Not treated as a failure, per the same conventi
 two WARNs in the geneva-academy chapter's verification report.
 
 ## 2. Quote-by-quote
-All 21 quote_ids: `text` field verbatim match PASS (confirmed by check_quotes.py against the
-corresponding text/ file). Spot-checked 6 of 21 (wittenberg-q002, wittenberg-q003, wittenberg-q009,
+All 22 quote_ids: `text` field verbatim match PASS (confirmed by check_quotes.py against the
+corresponding text/ file). Spot-checked 6 of 22 (wittenberg-q002, wittenberg-q003, wittenberg-q009,
 wittenberg-q012, wittenberg-q014, wittenberg-q020) by manually re-opening the named text/ file at
 the stated page marker or running head and confirming the surrounding context matches the `page`
 field's description. PASS for all six spot-checked. The WARN pattern for every record was
@@ -62,8 +63,8 @@ Stump's un-quoted narrative sentence about Luther's reaction). Both are self-awa
 not overclaims. PASS.
 
 Of the 49 fields in the template (F1-F9 = 9; A1-A6 = 6; C1-C9 = 9; L1-L8 = 8; T1-T5 = 5; M1-M5 = 5;
-S1-S6 = 6; R1-R4 = 1 combined field), 24 are marked NOT FOUND or UNVERIFIED for at least their
-primary content (A1, A2, A3, A4, A5, C6, C7, L2 [partial], L3, L4, L5, L6 [partial], L8 [partial],
+S1-S6 = 6; R1-R4 = 1 combined field), 23 are marked NOT FOUND or UNVERIFIED for at least their
+primary content (A1, A2, A3, A4, C6, C7, L2 [partial], L3, L4, L5, L6 [partial], L8 [partial],
 T1 [partial], T4 [partial], T5 [partial], M4, M5, S2, S3, S4, S5, S6, R1-R4). This is a large
 fraction but is recorded honestly, per Rule 1 and Rule 8, and is not a verification failure.
 
@@ -89,7 +90,7 @@ because the roster supplies none to check against for this institution beyond th
 already confirmed.
 
 ## 6. Verdict
-VERIFIED (zero FAILs on the 21 quote records; the field-level gaps are honestly marked, not
+VERIFIED (zero FAILs on the 22 quote records; the field-level gaps are honestly marked, not
 verification failures). RETURNED items for a future revision pass, carried forward in
 discrepancies.md item 4: formalize Melanchthon's household-pupils and 1526-salary narrative
 sentences (currently informal paraphrase pointers into stump1897-lifeofmelanchthon, not quote_ids)
