@@ -1,0 +1,2344 @@
+DOCUMENT_ID: luther1530-sermon
+TITLE (as printed): A Sermon on Keeping Children in School
+DATE: 1530 (original German, composed at Coburg during the Diet of Augsburg; first edition printed 1 August 1530); this translation copyright 1931
+LANGUAGE: en (translated from German by Charles M. Jacobs, from the text of Clemen IV, 144 ff.)
+SOURCE URL/SHELFMARK: https://archive.org/download/in.ernet.dli.2015.75685/2015.75685.Works-Of-Martin-Luther-Volume-Iv_djvu.txt
+EDITION: Works of Martin Luther, with Introductions and Notes, vol. IV (Philadelphia: A. J. Holman Company and The Castle Press, 1931), pp. 133-181 (translator's introduction pp. 133-134; dedicatory letter and sermon text follow). Public domain in the US (pre-1932 Philadelphia edition).
+TRANSCRIPTION METHOD: copied (Internet Archive djvu OCR text, item in.ernet.dli.2015.75685); page markers [[p. N]] inserted by this session from the running heads visible in the OCR; no spelling/OCR corrections made.
+TOTAL PAGES: 133-181
+WORD COUNT: approx. 18,300 (this excerpt, source file raw/sermon_marked.txt)
+
+Ex.i8;i7ff. Moses was obliged to receive instruction from Jethro. 
+
+Herewith I commend you all to the grace of God, May 
+He soften and kindle your hearts, that they may be deeply 
+concerned for the poor, miserable and neglected youths and 
+with the help of God assist and help them, to the end that 
+there may be a blessed and Christian government in German 
+lands as to body and soul, with all plenty and abundance, to 
+the praise and glory of God the Father, through Jesus Christ 
+our Saviour. Amen, 
+
+
+
+A SERMON 
+ON 
+
+KEEPING CHILDREN IN SCHOOL 
+1530 
+
+
+
+
+INTRODUCTION 
+
+
+In the Spring of 1529, Luther wrote a preface for a book, published 
+by his friend, Justus Menius, under the title, Oeconomia 
+Christiana/ The book dealt with the duties of married folk 
+and the Christian training of children. Luther’s preface emphasized 
+the duty of Christians to provide their children with an education, and 
+concluded as follows: 
+
+“Thus, even in temporal government, you can serve your lord or your city 
+better by training children than by building him castles and cities and gathering 
+the treasures of the whole world; for what good does all that do, if there are 
+no learned, wise, godly people? I shall say nothing of the temporal benefit 
+and eternal reward that accrue to you before God and the world, if you have 
+thus raised your child better than was in your shameful, hoggish counsel and 
+intention. I shall give an exhortation on this subject another time in a separate 
+book, God willing I and write against the shameful, dangerous, damned parents, 
+who are not parents but shameful hogs and poisonous beasts, who devour their 
+own children.” 
+
+Luther carried out this intention in the Summer of 153(). The diet 
+was in session at Augsburg, and he spent the time at the castle of 
+Coburg, where he had greater leisure than in Wittenberg. It was 
+there that he wrote the Sermon. We do not know the date when 
+the work was begun, but it was completed July 15th and the first 
+edition came from the press August 1st, 1530- 
+
+The work is described in the title as “a sermon,” and was intended 
+to furnish preachers with arguments that could be used to persuade 
+people to provide their sons with an education, but it grew into a 
+book, of which he says, in the dedication, that he has had to restrain 
+himself by force, to keep it from getting too big. In letter to 
+Melanchthon, dated July 5th, he had referred to this and remarked, 
+'T was never so verbose as I seem now to have become ; perhaps it is 
+the garrulity of old age.”^ 
+
+This Sermon should be read alongside the letter To the 
+Councilmen of all the Cities of Germany.® The 
+two works are complementary. The earlier argues for the estab- 
+lishment and maintenance of schools; the later for the use of the 
+schools thus established. The two together enable the reader to 
+form a clear conception of Luther’s ideas on education. 
+
+The text of the Sermon is found in Weimar Ed. XXX®, 
+
+
+* The preface is printed in Erlangen Ed. LXIII, pp. 277 ff. 
+^Enders VIII, 80. 
+
+•Above, pp. 103 ff. 
+
+
+[[p. 133]]
+
+
+
+
+[[p. 134]]
+
+
+517 ff.; Erlangen Ed‘, XX, 1 ff.; Erlangen Ed.*. XVII, 
+
+378 ff., St. Louis Ed. There is an English translation in F. V. N. 
+Painter, Luther on Education (1889). The following trans- 
+lation is from the text of Clemen, IV, 144 ff. 
+
+For literature, see the Introduction in Weimar Ed. and 
+the introduction to the letter To the Councilmen, above, pp, 
+101 f. 
+
+CHARLES M. JACOBS, 
+
+Mount Airy, 
+
+Philadelphia. 
+
+
+
+A SERMON 
+ON 
+
+KEEPING CHILDREN IN SCHOOL 
+
+1530 
+
+
+DEDICATORY LETTER 
+To the 
+
+Honorable and Wise 
+Lazarus Spengler, 
+
+S3Uidic of the City of Nuremberg, 
+my especially dear sir and friend 
+
+Grace and peace in Christ, our dear Lord and true 
+Saviour. Amen. 
+
+Honorable and wise dear sir and friend. 
+
+I have composed a sermon to the preachers here and there, 
+to the effect that they shall exhort their people to keep their 
+children in school. The thing has grown under my hands 
+and become almost a book, though I have had to restrain 
+myself by force in order that it might not become altogether 
+too big, so full and rich is this subject. I hope that it may do 
+much good, and I have published it under your name^ with 
+the sole thought that it may thereby secure greater respect, 
+and be read, if it be worthy, by the burghers of your city, for 
+I well perceive that your preachers will be diligent enough in 
+this matter and (because they are people whom God has 
+endowed with great gifts) that they understand the case and 
+push it forward. Thus, praise God! they need neither my 
+admonition nor my instruction. And yet it does no harm 
+to have many people agreeing with one another and resisting 
+the devil the more strongly. 
+
+For it can scarcely be possible that, in so great a city, with 
+such a large crowd of citizens, the devil will not try his arts 
+and tempt some to despise the Word of God and the schools. 
+
+
+^ i.e., dedicated it to Spengler. 
+
+[[p. 135]]
+
+
+
+[[p. 136]]
+
+
+This is the case particularly because there are many things 
+there (especially commercial business^) to turn the children 
+from the schools to the service of Mammon, and without 
+doubt the devil has these things in mind. If he could cause 
+the Word and the schools to be despised in Nuremberg, his 
+attack would have had no small measure of success, for he 
+would have set an example that would have mighty im- 
+portance throughout Germany, and he would, in truth, deal 
+all the schools in other cities a hard blow. For Nuremberg 
+truly shines throughout all Germany like a sun among moon 
+and stars, and what is practiced there has a powerful in- 
+fluence on other cities. 
+
+But praise and thanks be to God, Who has long hindered 
+the devil’s purposes, and put it into the heart of an honorable 
+and wise Council to found and equip such a fine and glorious 
+school, at great cost and expense.’* It elects and appoints to 
+it the very finest people, so that (not to boast too much!) 
+it used to be the case that no university, not even Paris, was 
+so well provided with teachers. I say this on the testimony 
+of those who were trained with me in universities, for I 
+know their wisdom, and have learned it too, and, sad to say ! 
+I still know it all too well. This is indeed a fine achievement,® 
+and a virtue of such a famous city, and an honor to its well 
+known Council. For in this they have given rich Christian 
+thought to their subjects, and have contributed to their 
+eternal salvation, as well as to their temporal profit and 
+honor. Such a work God will assuredly strengthen with ever 
+increasing blessing and grace, though the devil must strive 
+against it for a while, since he cannot be happy when such a 
+fine tabernacle is built to the Lord in this sun. He must 
+assemble clouds and mist and dust, and try in every way 
+to keep such glory from shining too far, or to turn it into 
+darkness ; what else could he do ? 
+
+Therefore I hope that the citizens will acknowledge the 
+fidelity and the love of their lords by keeping their children 
+
+^Luther saw peculiar snares of Satan in commercial pursuits. See his work 
+On Trade and Usury, above, pp. 12 ff. 
+
+*In 1526 the city of Nuremberg had founded a new gymnasium. 
+Among its teachers were such distinguished scholars as Joachim Camcrarius and 
+Eobanus Hess. 
+
+•C ato r r homa. 
+
+
+
+[[p. 137]]
+
+
+in school and honestly helping to support this work, because 
+they see that, without cost to themselves^ their children are 
+so richly and diligently cared for and that everything is 
+provided for them. This will be the case, especially if the 
+preachers are really active; for if they are not active, the 
+common man will be attacked and overcome by thoughts 
+that come from Satan and give this up and turn to other 
+affairs. Indeed he cannot think this matter through, as a 
+preacher can, and see how important it is, or how great the 
+chances are for profit or for loss; therefore we must have 
+patience with them, if only they are not obdurate or wicked. 
+I know Nuremberg well enough to know that it has, thank 
+God ! many fine Christian citizens, who do gladly and from 
+the heart that which they ought to do, if only they know or 
+are told their duty. They have this reputation not only with 
+me, but far and wide, and there is no reason to fear that 
+they will fail in this. There may, indeed, be an idolater or 
+servant of the idol (I mean of Mammon) who takes his son 
+out of school and says, ‘T£ my son can do sums and read, he 
+can do enough ; we now have German books, etc.*' Thus he 
+sets other citizens who are pious, a bad example, which they 
+follow without reckoning the harm it does, and with the best 
+intentions, thinking it the right thing and the only thing to 
+do. This mistake the preachers can easily provide against, 
+for every community, and especially so great a city, must 
+have more people in it than merchants, and other people who 
+can do more than keep accounts and read German books. 
+German books are made especially for the common man to 
+read at home. But for preaching and governing and sitting 
+in judgment, all the knowledge and all the languages in the 
+world are too little, to say nothing of Germany only. This 
+is particularly true in these days of ours, when one has to 
+talk with other peoples more than with Neighbor Hans. 
+These idolaters think nothing about governing, and do not 
+realize that without the preachers and the rulers they could 
+not serve their idol a single hour. 
+
+Of course, I believe that among so many people there may 
+be an idolater, or a few of them, who would not care whether 
+honor or shame came to the noble city of Nuremberg, so 
+
+
+
+[[p. 138]]
+
+long as they got their pfennig. On the other hand, 
+people ought not to care about these mischievous idolaters, 
+and should let them and their bad example go, and think, 
+‘‘The greater the reputation that comes to our city when 
+an honorable Council deals so faithfully and honestly with 
+the schools, the greater were the shame if the citizens were 
+to despise this fidelity and kindness, and become partakers of 
+the bad example and offence given to other cities which then 
+could say, ‘Yes, that is what they do at Nuremberg; there are 
+people there too ; why should we do any better ?’ 
+
+You idolater, if you will not consider what God and honor 
+require, and will think of nothing but your idol,"^ God will 
+yet find people who will consider it. Thank God! I have 
+known several cities where the Council cared nothing for 
+the Word or the schools, but where there were many pious 
+citizens, who by daily persistence compelled the Council to 
+found schools and churches. Therefore, if God will, the 
+shameful report will not go out from Nuremberg, on your 
+account, that the citizens followed your example and despised 
+the schools which an honorable Council founds and maintains 
+with so great fidelity, at such great cost, when in much 
+smaller cities the citizens have got their schools, even though 
+their Councils thought nothing of them. 
+
+But where am I getting to with my talk, dear friend? I 
+suppose it lies in the nature of these things that there has 
+to be much talk about them. In this case the talking has 
+been done under your name and that of all the burghers of 
+your city. I beg that you will take it kindly, and help to 
+further and to push this matter, as, indeed, you have done 
+and are doing. God knows, I mean it well. 
+
+May Christ our Lord strengthen and preserve you until 
+that day when, if God will, we shall see each other with joy 
+and in another shape. He who has given you so much to do 
+for His work and His Word will also go on and complete it 
+all. To Him be praise and thanks forever. Amen. 
+
+Your obedient, 
+
+MART. LUTHER. 
+
+
+i.e., Money. 
+
+
+
+TO ALL MY DEAR FRIENDS, 
+PASTORS AND PREACHERS, 
+
+
+WHO TRULY LOVE CHRIST, 
+
+MARTIN LUTHER. 
+
+Grace and peace in Christ Jesus, our Lord. 
+
+My dear friends, you see with your own eyes how that 
+wretch of a Satan is now attacking us in all sorts of ways, 
+with force and guile, and is afflicting us with all kinds of 
+plagues, in order to destroy the holy Gospel and the kingdom 
+of God, or if he cannot destroy them, to hinder them at 
+every turn and prevent them from making progress and 
+gaining the upper hand. Among his wiles, one of the very 
+greatest, if not the greatest of all, is this — ^he deludes and 
+deceives the common people so that they are not willing to 
+keep their children in school or bring them up as scholars. 
+He puts the mischievous idea into their minds that because 
+there is no hope for monkery, nunnery, or priestcraft, as 
+they have existed heretofore, there is no more need for 
+scholars or for much studying, but that we must consider 
+how to make a living and get rich. 
+
+This seems to me to be a real masterpiece of the devil’s 
+art. He sees that in our time he cannot do what he would 
+like to do; therefore he thinks to have his own way with 
+our descendants, whom he is getting ready in our very sight, 
+so that they may learn nothing and know nothing, and when 
+we are dead, he will have before him a naked, bare, defence- 
+less people, with whom he can do as he pleases. For if the 
+Scriptures and learning disappear, what -will remain in Ger- 
+many but a disorderly and wild crowd of Tartars or Turks, 
+
+[[p. 139]]
+
+
+Keepinr 
+Children 
+Out af 
+Schoul % 
+Wile of 
+Satan 
+
+
+
+[[p. 140]]
+
+
+or perhaps, a pig-sty and a mob of wild beasts ? But he does 
+not let them see this now. He blinds them in masterly fashion, 
+so that, when it has gone to the point where he wants it and 
+their own experience compels them to see it, he can laugh in 
+his sleeve at all the complaining and the howling. However 
+much they may wish, they will then be able to do nothing 
+that will help, and will have to say that things have gone on 
+too long. They will then be willing to give a hundred 
+gulden for half a scholar, though now they will not 
+give ten for two whole scholars. 
+
+And it will serve them right. Because they are not now 
+willing to support and keep pious, honorable, virtuous school- 
+masters and teachers, offered them by God, to raise their 
+children in the fear of God, and in virtue, knowledge, learn- 
+ing, and honor, with great labor, diligence, and care, and at 
+small cost and expense; therefore they will get in their places 
+Locaten and Bacchanten,^ gross asses and louts, 
+such as they have had before, who at great cost and ex- 
+pense, will teach the children nothing else than how to be 
+utter asses, and in return will dishonor their wives and 
+daughters and maid-servants, and become lords over their 
+houses and goods, as has happened heretofore. This will be 
+the reward of the great and shameful ingratitude into which 
+the devil is so craftily leading them. 
+
+Pastaw Now because, as pastors, it is a part of the duty of our 
+office to be on our guard against these and other wicked 
+Guard wiles, we must not go to sleep on this matter, which is of 
+Affainst importance ; but we must incite, exhort, torment, 
+
+and nag, with all our power and diligence and care, so that 
+the common people may not let themselves be so deceived and 
+deluded by the devil. Therefore let each of us look to 
+himself and remember his office, so that he does not go to 
+sleep and allow the devil to become god and lord. For if we 
+are silent about this and go to sleep on it, and the young 
+people are neglected and our descendants become Tartars or 
+
+
+^ Names applied in contempt to teachers whose education was defective and 
+who could not hold the higher placea in the schools. 
+
+
+
+[[p. 141]]
+
+wild beasts, it will be the fault of our silence and our snoring, 
+and we shall have a heavy account to render for it. 
+
+To be sure, I know very well that many of you, without 
+my exhortation, are doing this work better than I can advise 
+you; also I have previously published a book to the Coun- 
+cillors of the cities/ Nevertheless, because some may have 
+forgotten this, or would be more persistent on account of 
+my example, I have sent you this sermon of mine, which I 
+have preached more than once to our people. From it you 
+can observe that I am working faithfully with you in this 
+matter, and that we are doing our best everywhere and are 
+guiltless before God in the conduct of our ofl&ce. The case 
+is truly in our hands, because we see that even those who are 
+called clergy take the attitude of men who would let all the 
+schools, and their discipline and teaching, go to destruction, 
+or even help to overthrow them, because they cannot have 
+their own way with them, as they once did. This, too, is the 
+devil’s doing, through them. God help us. Amen. 
+
+
+* Above pp. 103 
+
+
+
+A SERMON ON 
+
+
+KEEPING CHILDREN IN SCHOOL 
+
+Dear friends : I see that the common people are indifferent 
+to the maintenance of the schools, and are taking their chil- 
+dren entirely away from learning, and are turning them only 
+to the making of a living and to care for their bellies. Be- 
+Proflt sides, they either will not or cannot think what a horrible 
+^^^^®®and unchristian undertaking this is, and what great and mur- 
+catwn derous harm they are doing throughout the world, in the 
+service of the devil. Therefore I have undertaken to give 
+you this exhortation, on the chance that there may still be 
+some who believe a little that there is a God in heaven and a 
+hell prepared for unbelievers, and that they may be converted 
+by this exhortation ; though almost all the world is acting as 
+though there were neither a God in heaven nor a devil in hell. 
+Therefore, I shall count up the profit and loss in this thing. 
+First we shall take up the spiritual, or eternal, profit and 
+loss, and then the temporal, or worldly. 
+
+I hope, indeed, that believers, and those who want to be 
+The called Christians, know very well that the spiritual estate^ 
+Spiritual has been established and instituted by God, not with gold or 
+silver, but with the precious blood and the bitter death of 
+His only Son, our Lord Jesus Christ. From His wounds 
+flow the Sacraments’" (they used to depict this on the broad- 
+sides®), and He earned it dearly that in the whole world 
+tutedbjr men should have this office of preaching, baptizing, loosing, 
+binding, giving the Sacrament, comforting, warning, exhort- 
+ing with God^s Word, and whatever else belongs to the 
+pastoral office. This office not only helps to further and 
+maintain this temporal life and all the worldly classes, but it 
+
+
+^]>er geistliche Stand, ^ i.e., the clergy, or the ministry. 
+^The blood and water from the side of Christ. 
+
+* One-page tracts, frequently illustrated with wood-cuts. 
+
+[[p. 142]]
+
+
+
+[[p. 143]]
+
+
+also delivers from sin and death, which is its proper and 
+chief work. Indeed, the world stands and abides only be- 
+cause of the spiritual estate ; if it were not for this estate, it 
+would long since have gone to destruction. 
+
+I am not thinking, however, of the present spiritual estate 
+in the monastic houses and the foundations, with its celibacy, 
+for it has long since fallen from its first glorious foundation 
+and is now nothing more than an estate founded by worldly 
+wisdom for the getting of money and income. There is 
+nothing spiritual about it except that the clergy are not 
+married, and they do not need marriage, for they have some- 
+thing else in its place; except for this, ever3d:hing about it 
+is merely external, temporal, perishable pomp. They give no 
+heed to the Word or the office of preaching ; and where the 
+Word is not in use, the clergy must be bad. But the estate 
+of which I am thinking is that which has the office of preach- 
+ing and the service of Word and Sacraments, which gives 
+the Spirit and all blessedness such as one cannot attain by 
+any chanting or pomp. It includes the work of pastors, 
+teachers, preachers, lectors, priests (whom men call chap- 
+lains), sacristans, school-teachers, and whatever other work 
+belongs to these offices and persons. This estate the Scrip- 
+tures highly exalt and praise. St. Paul calls them God’s 
+stewards and servants; bishops, doctors, prophets; God’s 
+ambassadors to reconcile the world to God. Joel calls them 
+“saviors,” David “kings and priests,” Haggai “angels”; and 
+Malachi says, “The lips of the priest keep the law, for he is 
+an angel of the Lord of Sabaoth.” Christ Himself gives 
+them the same name, not only in Matthew xi, where He calls 
+John the Baptist an angel,^ but also through the whole book 
+of John's Revelation. 
+
+For this reason the ancients greatly avoided this estate 
+and dreaded to take the office upon them because of its great 
+dignity and honor, and had to be forced and driven into it. 
+To be sure, there have been many since then who have 
+praised this estate highly, though more because of the saying 
+of mass than because of preaching. This praise and glorifica- 
+
+*Of course Luther is pla 3 ring upon the mcauing o£ angel, i.e., “messenger.'* 
+
+Vol. IV.— 10 
+
+
+Not the 
+Monastic 
+Clergy 
+
+
+But the 
+Ministry 
+of the 
+Word 
+
+
+2 Cor. 
+5:20 
+
+Hag. 
+
+1:13 
+
+
+Matt. 
+
+11:10 
+
+
+
+[[p. 144]]
+
+
+tion grew to the point where the office and estate of the 
+priesthood (i. e. of the sacrificing of the mass) was placed 
+above Mary and the angels, because the angels and Mary 
+could not say mass, and a priest could. A new priest and 
+his first mass were glorious, and blessed was the woman who 
+had borne a priest; though the office of preaching is the 
+highest and chief of all, and it was not regarded so highly. 
+In a word, a priest was a man who could say mass, even 
+though he did not know a word to preach and was an 
+unlearned ass. That is in fact the spiritual estate even to 
+the present day. 
+
+Now if it is sure and true that God Himself has established 
+and instituted the spiritual estate with His own blood and 
+death, it is easy to conclude that He will have it highly 
+honored and not suffer it to be destroyed or to cease, but 
+will have it maintained until the Last Day. For the Gospel 
+and the Church'" must abide until the Last Day, as Christ 
+Matt says in the last chapter of Matthew. But by whom shall it 
+28:20 be maintained? Oxen and horses and dogs and swine will 
+not do it, neither will wood and stone. We men shall have 
+to do it, for this office is not committed to oxen and horses, 
+but to us men. But where shall we get men for it except 
+from those who have children? If you will not raise your 
+Giving child for this office, and the next man will not, and so on, 
+^ ^ and no father or mother will give a child to God for this 
+Ministry work, what will become of the spiritual office and estate? 
+The old men, who are now in the office, will not live forever, 
+but are dying off every day, and there are no others to take 
+their place. What will God say to this at last ? Think you 
+that He will be pleased because we so shamefully despise 
+His office, divinely instituted for His praise and our salva- 
+tion, and won so dearly, and because we so ungratefully let 
+it drop and pass away? 
+
+He has not given you children and the means to support 
+them, only that you may do with them as you please, or 
+train them for worldly glory. You have been earnestly com- 
+manded to raise them for God’s service, or be completely 
+
+
+^Christenheit. 
+
+
+
+
+[[p. 145]]
+
+
+rooted out, with your children and everything else; then 
+everything that you have spent on them will be lost. The 
+First Commandment says, “I visit the iniquities of the fathers 
+upon the children unto the third and fourth generation of 
+them that hate me."' But how will you raise them for God’s 
+service if the office of preaching and the spiritual estate have 
+gone down? And it is your fault; you could have done 
+something for it and helped to maintain it, if you had 
+allowed your child to study. If you can do it, and your child 
+has the ability or the desire, and you do it not, but stand in 
+the way, listen to this, — ^You are guilty of the harm that is 
+done if the spiritual estate goes down, and neither God nor 
+God’s Word remains in the world. In so far as you are able, 
+you are letting it go down ; you will not give one child to it, 
+and you would do the same thing about all your children, if 
+you had a world full of them; thus, so far as you are con- 
+cerned, the service of God simply goes to destruction. 
+
+It does not help your case to say, ‘‘My neighbor keeps his 
+son in school and so I need not” ; for your neighbor can say 
+the same thing and so can all the neighbors; meanwhile, 
+where is God getting people for His spiritual office? You 
+have the people and will not give them ; your neighbor also 
+will not give them ; thus the office goes to destruction, so far 
+as your part in it is concerned. Because, then, you allow the 
+office, instituted and established by your God and so dearly 
+won, go to ruin and be destroyed, with such horrible ingrati- 
+tude, you will be accursed and have nothing but shame 
+and misery for yourself and your children, or be so tor- 
+mented otherwise that both you and they will be damned, 
+not only here on earth, but eternally in hell. This will not 
+fail; and you will learn that your children are not so wholly 
+yours that you need give nothing of them to God. It is His 
+will that He shall also have a right in them; and they are 
+more His than yours. 
+
+In order that you may not think that I am too severe with 
+you in this, I shall lay before you a partial statement of the 
+profit and the loss (for who can tell it all?) that you experi- 
+ence, so that you yourself may be compelled to say that you 
+
+
+Respoiir 
+
+Edbillty 
+
+far fhe 
+MiniatxT 
+
+
+
+[[p. 146]]
+
+
+belong to the devil and ought rightly to be damned eternally 
+in heU, if you find yourself guilty in this matter and do not 
+reform; or else that you may rejoice and be glad from the 
+heart, if you find that you are chosen by God, with your 
+wealth and your labor, to raise a son who will be a pious 
+Christian pastor, preacher, or school-teacher, and thereby 
+have raised for God a special servant, nay (as has been said) 
+an angel of God, a true bishop before God, a savior of many 
+people, a king and prince in the kingdom of Christ, and a 
+teacher of God’s people, a light of the world. Who can tell 
+all the glory and the virtue that a real and faithful pastor has 
+in the eyes of God? There is no dearer treasure, nor any 
+more precious thing on earth or in this life than a real and 
+faithful pastor or preacher. 
+
+^ Reckon for yourself the profit which the preaching-office 
+of souls produce ; your son is assuredly produc- 
+Ministry ing this profit, if he is conducting this office faithfully. For 
+example, — So many souls are daily taught by him, converted, 
+baptized and brought to Christ and saved, redeemed from 
+sins, death, hell, and the devil, and through him come to ever- 
+lasting righteousness, to everlasting life and heaven. As 
+^^’,3 Daniel says, ‘They that teach others shall shine as the 
+heavens, and they that turn many to righteousness shall be 
+as the stars in eternity.” Because God’s Word and office 
+when they are rightly administered, must without ceasing do 
+great things, and work actual miracles, so your son must 
+without ceasing do great miracles before God, such as raising 
+the dead, driving out devils, making the blind to see, the deaf 
+to hear, the lepers clean, the dumb to speak. Though these 
+things may not happen in a bodily way, yet they do happen 
+spiritually in the soul, where the miracles are even greater. 
+Christ says, in John xiv, “He that believeth on Me shall do 
+° u-12 works that I do, and do still greater works.” If a believer 
+can do this to single individuals, how much more will a public 
+preacher do it to a great crowd? Not that he does this as a 
+man ! It is his office, ordained by God for this purpose, that 
+does it, that and the Word of God which he teaches ; he is 
+the instrument for this. 
+
+
+
+[[p. 147]]
+
+Now if he does such great works and miracles spiritually, 
+it follows that he does them also in a bodily way, or at 
+least begins and causes them* For how does it happen that Miracie« 
+Christians will rise from the dead at the Last Day, and that ^ 
+all the deaf, blind, lame, and those that suffer other bodily 
+ills, must lay these ills off, and their bodies become not only 
+fine and beautiful and sound, but even shine as bright and 
+fair as suns, as Christ says? Is it not because here on Miatt. 
+earth, through God's Word, they have been converted, become 
+believers, been baptized, and been incorporated into Christ? 
+
+Thus Paul says, in Romans viii, that God will raise up our Rom. 
+mortal bodies because of the Spirit Who dwelleth in us. 
+
+Now who helps men to this faith and to this beginning of 
+the resurrection of the body without the office of preaching 
+and of the Word of God, which your son has ? Is that not 
+an immeasurably greater and more glorious work and miracle 
+than if he were in a bodily or temporal way to raise the dead 
+again to this life, or help the blind, deaf, dumb, and leprous 
+in the world and in this transitory life? 
+
+If you were sure that your son would do this work for 
+one single man, viz., that he would make one blind man see 
+or one dead man rise, take one soul from the devil, rescue 
+one person from hell; whichever one of these things he 
+would do, ought you not rightly, with all joy, pledge all of The Be^ 
+your property to train him for this office and work, and leap 
+for joy because with your money you had accomplished so » son 
+great a thing for God? What are all the foundations and 
+monastic houses, as they now exist, with all their works, ^ 
+compared with one such pastor, preacher, or school-teacher? 
+
+In former times, and at the beginning, they were founded, 
+indeed, by pious kings and lords for the precious work of 
+training such preachers and pastors ; but now, sad to say ! 
+they have fallen, through the devil’s activity, into such a 
+wretched state that they have become caves of death and 
+outer courts of hell, for the conuption and injury of the 
+Churdi* 
+
+See, now ! Your son does these works, not only for one 
+person, but for many, nay, for all men together; and he 
+
+
+
+[[p. 148]]
+
+
+does them every day. Best of all, he does them in the sight 
+of God, Who looks upon them and holds them so high and 
+dear, as has been said,^ even though men may not recognize 
+them or pay any heed to them. Nay, if all the world calls 
+him a heretic, a deceiver, a liar, a rebel, it is so much the 
+better, and is a good sign that he is an upright man and like 
+his Lord Christ, For Christ, too, had to be a rebel, a 
+murderer, and a deceiver, and be judged and crucified with 
+the murderers. What would it matter, if I were a preacher, 
+that the world called me a devil, if I knew that God called 
+me His angel ? Let the world call me a deceiver as long as 
+it will ; God calls me His true servant and steward, the angels 
+call me their comrade, the saints call me their brother, be- 
+lievers call me their father, wretched souls call me their 
+savior, the ignorant call me their light; and God says ‘Wes, 
+it is so,” and the angels and all creatures join in. Ah! 
+How prettily has the world, together with the devil, deceived 
+me, with its slanders and scoffings! What has it won at 
+my expense ? What harm has it done me ? The dear thing 1 
+I have spoken of the works and wonders which your son 
+does for souls, to help them against sin and death and the 
+Wo^ devil. But for the world, too, he does great and mighty 
+for th© works. He informs and instructs all classes how they are to 
+World (>onduct themselves outwardly in their offices and ranks, so 
+that they may do what is right before God; he can comfort 
+wTin- advise those who are troubled, compose difficulties, 
+teiuuice relieve troubled consciences, help to maintain peace and to 
+of Peace settle and remove differences, doing innumerable works of 
+this kind every day. For a preacher confirms and strengthens 
+and helps to maintain government, and temporal peace of all 
+kinds. He checks the rebellious ; teaches obedience, morals, 
+discipline, and honor; instructs fathers and mothers and 
+children and servants in their duties; in a word, he is the 
+teacher of all secular offices and ranks. These are, indeed, 
+the smallest good works of a pastor, and yet they are so 
+high and noble that no wise men among all the heathen have 
+
+
+^Scc ab(3(vc, p. 143, 
+
+
+
+
+[[p. 149]]
+
+
+either known them or understood them, still less been able to 
+do them. Nay more, even today no jurist, no university, 
+foundation, or monastery knows these works, and they are 
+not taught either in canon law or secular law. For in these 
+spheres there is no one who calls these offices God’s great 
+gifts, or His gracious ordinances; it is only the Word of 
+God and the preachers that praise and honor them so highly. 
+
+Therefore, to tell the truth, peace, which is the greatest 
+of earthly goods, and in which all other temporal goods are 
+comprised, is really a fruit of true preaching, for where true 
+preaching is, there war and discord and bloodshed do not 
+come; but where the preaching is not right, it is no wonder 
+that there is war or constant unrest and the desire and the 
+will for fighting and the shedding of blood. We can see 
+right now that the sophists can do nothing but cry ^^Blood’^ 
+and spit fire. They are shedding the blood of innocent 
+priests because they have married, although the pope and 
+their own canon law, while they punish this kind of marriage 
+severely, only depose the priest from his office, but leave their 
+persons and their property untouched and allow them to 
+retain their Christian honor ; still less do they condemn such 
+priests to hell or regard them as heretics. To this the jurists 
+and all the world bear witness, and it was made a law at the 
+diet of Nuremberg. But these blind blood-hounds have 
+given up preaching and betaken themselves to lies, and there- 
+fore they cannot desist from murder. The devil, their god, 
+does this also. He was from the beginning, and still re- 
+mains, "'a liar and a murderer.” 
+
+A true pastor, then, serves men in body and soul, in 
+property and honor. See now how he serves God and what 
+a glorious sacrifice, or service,^ he renders ; for by his work 
+and his word the kingdom of God is maintained in the 
+world; so, too, are kept the Name and the honor and the 
+glory of God, the true knowledge of God, the right faith 
+and understanding of Christ, the fruits of the suffering and 
+blood and death of Christ, the gifts and works and power of 
+
+
+John 
+
+8:44 
+
+
+The 
+Service 
+ot God 
+
+
+^Gottesdienst ^'senrice of God” or “worship.” 
+
+
+
+[[p. 150]]
+
+
+the Holy Spirit, the true and saving use of baptism and the 
+Sacrament, the right and pure doctrine of the Gospel, the 
+right way of disciplining and crucifying the body. Who 
+could ever give high enough praise to any one of these 
+things? What more can be said about them? The more 
+one does with these things, the more he carries on the battle 
+against the devil, the world's wisdom, and the imaginations 
+of the flesh; the more victories he wins; the more he puts 
+down error and prevents heresy. For he must strive and 
+fight against the gates of hell and overcome the devil. He 
+does it, too; and yet not he, but his work and his word.' 
+These are the innumerable and unspeakable works and 
+miracles of the preaching-office. In a word, if one would 
+praise God to the uttermost, one must praise His Word and 
+the preaching of it; for it is God's Word, and the preaching 
+of it is His. 
+
+Now even though you were a king, you ought not think 
+yourself worthy to give your son and train him to this office 
+and work, even at the cost of all that you had. Is not the 
+money and the labor that you expend on such a son too 
+highly honored, too gloriously blessed, too profitably in- 
+vested? Is it not counted in God's sight better than any 
+kingdom or empire? A man ought to go on his knees to the 
+ends of the earth, carrying his penny, if he were sure that 
+there it could be so gloriously and profitably invested; and 
+yet, only see ! You have in your house and on your lap that 
+in which you can invest it so gloriously. Shame, and shame, 
+and shame again upon our blind and shameful ingratitude! 
+We do not see what a fine and beautiful service we could 
+render to God; nay, what great lords we could be in His 
+sight, with just a little effort, and that with our own money 
+and property. 
+
+The sophists accuse us Lutherans of not teaching good 
+works. Fine fellows they are! They have not so bad an 
+understanding of good works ! Are not the things that have 
+been mentioned good works? What are all the works of 
+the foundations and the monasteries compared with these 
+
+^Scin ampt, i.c., the work of his office. 
+
+
+
+
+[[p. 151]]
+
+
+glorious wonders? They are the cawings of daws and 
+ravens, and not as good as the cawing of the daws; for 
+the daws caw from love, because they take pleasure in it, 
+but they howl their croakings without pleasure, like hoopees 
+or owls. Now if it was formerly the custom to think 
+highly of new priests and their first masses,^ and if fathers 
+and mothers and all their friends were glad that they had 
+raised a son to be an idle, lazy, useless mass-priest, or 
+glutton,’ who puts God to shame with his blasphemous sacri- 
+fice of the mass and his wasted prayers, and scandalizes and 
+defrauds the world with his unchaste life; how much more 
+should you rejoice if you have raised a son for this office* 
+and are sure that he serves God so gloriously, helps men so 
+richly, and smites the devil in such knightly fashion? You 
+have made your son a genuine and fine sacrifice to God, and 
+the very angels must look upon it as a splendid miracle. 
+
+You ought also to know the harm that you are doing, if 
+you take the opposite course. If God has given you a child 
+who has the ability and the talent for this office, and you do 
+not train him for it, but look only to the belly and to temporal 
+livelihood, then take the list of things mentioned above and 
+run over the good works and wonders noted there, and see 
+what a pious prig and small potato* you are. For, so far as 
+in you lies, you are depriving God of an angel, a servant, a 
+king and prince in His kingdom, a savior and comforter of 
+men in matters that pertain to body and soul, property and 
+honor, a captain and a knight to fight against the devil. 
+Thus you are making place for the devil and advancing his 
+kingdom, so that he keeps souls in sin and death and hell, 
+and daily brings more into them, and wins victories every- 
+where; the world remains in heresy, errors, contention, war, 
+and strife and gets worse every day; the kingdom of God 
+goes down, together with Christian faith, the fruits of the 
+sufferings and the blood of Christ, the work of the Holy 
+Spirit, the Gospel, and all worship of God; and all devil- 
+worship and misbelief get the upper hand. All of this need 
+
+^ Sec aboye p. 144 . ^Messpfaffen oder fresspfaffen. 
+
+• le., The office of preaching. 
+
+* The exact equivalent of Luther’s kreutlciu. 
+
+
+The 
+Wrong 
+of Keep- 
+ing a Son 
+from the 
+Ministry 
+
+
+
+[[p. 152]]
+
+
+not have happened and could have been hindered, or even 
+improved, if your son had been trained for this work and 
+entered it. 
+
+Suppose that God were to address you on your death-bed, 
+or at the Last Judgment, and say, — “I was hungry, thirsty, a 
+stranger, naked, sick, imprisoned, and you rendered me no 
+g ' service? For in that you have not done it to people on 
+earth, or to my kingdom or Gospel, but have helped put them 
+down and allowed men's souls to be ruined, you have done 
+this to me; for you could have helped. I had given you a 
+child and money for this purpose, but you wantonly allowed 
+me and my kingdom and all men's souls to suffer want and 
+pine away, and thereby served the devil and his kingdom 
+against me and my kingdom; now let him be your reward. 
+Go with him into the abyss of hell. My kingdom in heaven 
+and earth you have not helped to build, but to destroy and 
+weaken ; but you have helped the devil to build and increase 
+his hell; live, therefore in the house that you have built.” 
+How shall you stand then? 
+
+What think you? Will you not be overwhelmed, not by 
+little drops of sin, but by whole cloudbursts of it — ^you, who 
+now give no heed and go along securely, as though you were 
+doing well not to train your child in doctrine ? But then you 
+will have to say that you are justly condemned to the abyss 
+of hell as one of the worst and most harmful of men who 
+have lived on earth, and indeed, if you were to consider these 
+things, even now, while you are living, you would be truly 
+horrified at yourself, for no conscience can endure it to be 
+found guilty of the things that have been mentioned; how 
+much less can it endure it, if things like this, more than can 
+be numbered, fall on it all at once, and suddenly? Your 
+heart will then have to cry out that your sins are more than 
+Prayer the leaves and the grass, and greater than heaven and earth; 
+
+you will say, with Manassah, king of Judah, “My sins 
+are more than the sands of the sea, and my iniquity is great.” 
+Even the law of nature tells you that. He who can prevent 
+injury, and does not, is guilty of the injury, because he 
+certainly desired and willed the injury, and would inflict it 
+
+
+
+[[p. 153]]
+
+
+himself, if he had occasion or opportunity. These people, 
+therefore, are certainly as good as the devil himself, because 
+they are so hostile to both God and the world that they help 
+to ruin both heaven and earth, and serve the devil so faith- 
+fully. In a word, if we can call the devil hard enough names, 
+then we can give hard enough names to these people, who 
+hinder the work of God ; for they are the servants of the 
+devil. 
+
+By what I have said I do not want to insist that every man 
+must train his child for this office, for not all the boys must 
+become pastors, preachers and school-masters. It is well to 
+know that the children of lords and great men are not to be 
+used for this work, for the world needs heirs and people, 
+otherwise the government will go to pieces.'^ I am speaking 
+of the common people, who used to have their children 
+educated for the sake of the livings and benefices, and now 
+keep them away, only for the sake of support. They do 
+not need heirs, and yet they keep their children out of 
+school, regardless of the fact that the children are clever 
+and apt for these offices, and could serve God in them, with- 
+out privation or hindrance. Such boys of ability ought to 
+be kept at study, especially if they are poor men's sons, for 
+all the foundations and monasteries and livings endowments 
+were established for this purpose. Beside them, indeed, 
+other boys ought also to study, even though they are not so 
+clever, and ought to learn to understand, write, and read 
+Latin; for it is not only highly learned Doctors and Masters 
+of Holy Scripture, that we need. We must also have ordi- 
+nary pastors, who will teach the Gospel and the Catechism* 
+to the young and the ignorant, and baptize, and administer 
+the Sacrament. They are of no use in a conflict with heretics, 
+but that does not matter; in a good building we must have 
+not only hewn facings, but also backing-stone; so we must 
+have sacristans and other persons, who serve and help the 
+preachers and the Word of God. 
+
+* The hereditary feudal lordship was the only form of government that Luther 
+knew. 
+
+“the catechism” Luther means her^ as generally, the Commandments, 
+the Creed, and the Lord’s Prayer, 
+
+
+Ldaca- 
+tioiL Not 
+for tile 
+Ministry 
+Only 
+
+
+
+[[p. 154]]
+
+Even though a boy who has studied Latin afterwards 
+learns a handicraft, and becomes a burgher, we have him in 
+reserve, in case he should have to be used as a pastor, or in 
+some other service of the Word. His knowledge does not 
+hurt him in the earning of a living ; on the contrary, he can 
+rule his house all the better because of it, and besides, he is 
+prepared for the work of preacher or pastor, if he is needed. 
+It is especially easy in our day to train persons who can teach 
+the Gospel and the Catechism, because not only Holy Scrip- 
+tures, but knowledge of all kinds is so abundant, what with 
+so many books, and so much reading, and (thank God!) so 
+much preaching, that one can learn more in three years than 
+used to be possible in twenty. Even women and children 
+can now learn from German books and sermons more about 
+God and Christ (I am telling only the truth!) than all the 
+imiversities, foundations, monasteries, the whole papacy and 
+all the world used to know. But the ordinary pastors must 
+be able to use Latin; they cannot do without it any more 
+than the scholars can do without Greek and Hebrew; so 
+St. Augustine says, and so even the canon law prescribes. 
+
+But you say, ^^Suppose things were to turn out badly, and 
+my son were to become a heretic, or a knave of some other 
+kind; it is said that the learned are the crooked, etc.^’ O 
+well! You have to take that chance. Your diligence and 
+labor will not be lost. God will have regard to your faithful 
+service and count it as though it had turned out well. You 
+have to take the chance of how he will turn out in any other 
+occupation for which you train him. How was it with the 
+good Abraham? His son Ishmael did not turn out well; 
+neither did Isaac's son Esau, or Adam's son Cain. Should 
+Abraham have given up training his son Isaac, or Isaac his 
+son Jacob, or Adam his son Cain for the service of God? 
+How many bad kings and people there were among the holy 
+and chosen nation of Israel, who were the cause of heresies 
+and idolatries and all kinds of misfortune, and who killed all 
+the prophets ! Ought Levi the priest to have let the whole 
+nation go on that account, and no longer trained anyone for 
+the service of God? How many bad priests and I-evitea 
+
+
+
+[[p. 155]]
+
+were there in the tribe of Levi, which God Himself had 
+chosen for the priesthood? How many people has God on 
+the earth who misuse all His kindness and all His creatures? 
+
+Ought He on that account desist from His kindness and let 
+no man live? Ought He cease to do good? 
+
+Then, too, in order that you may not worry too much 
+about where your son^s living will come from, if he gives Tiie sap. 
+himself to learning, and to God’s work and service, He has 5 
+not left you or forgotten you, and you ought not to worry 
+or complain. He has promised by St, Paul in I Corinthians ^ 
+ix, that serves the Gospel shall be supported by the 9 :i 4 
+Gospel”; and Christ Himself says in Matthew x, “A laborer 
+is worthy of his hire ; eat and drink what they have.” Under 
+the Old Testament, in order that His office of preaching 
+might not perish, He chose and took the whole family 
+of Levi, one-twelfth of the whole nation of Israel, and 
+gave them the tithe from the whole nation, ,beside the 
+first-fruits of all kinds of sacrifices, their own cities 
+and villages, fields, pasture-lands, cattle, and all that goes 
+with them. Under the New Testament, see how, in former 
+times, emperors, kings, princes, and lords gave to this 
+office rich possessions, which the foundations and monas- 
+teries now hold, and use them to surpass kings and princes. 
+
+He will not and cannot leave those who serve Him faith- 
+fully ; the promises that He has made are too great, when get, 
+
+He has said, in Hebrews xiii, “I will not leave thee nor i3;5 
+neglect thee.” 
+
+Count for yourself, too, how many parishes, preaching 
+places, schools, and sacristanships there are. Most of them 
+are sufficiently provided for,* and vacancies are occurring 
+every day. What does that mean except that God has pro- 
+vided kitchen and cellar for your son, so that his living is 
+ready for him before he needs it, and he does not have to 
+seek it? When I was a young student, I heard it said that 
+in Saxony there were (if I remember rightly) about eighteen 
+hundred parishes. If that were true, and every parish re- 
+quired at least two persons, a pastor and a sacristan (except 
+
+
+^ Le., By cndowmests. 
+
+
+
+[[p. 156]]
+
+that in the cities there are preachers, chaplains, assistants, 
+schoolteachers, and helpers), then in this one principality, 
+there are needed about four thousand educated persons, of 
+whom about one-third die off every ten years. I would wager 
+that in half of Germany there are not four thousand pupils in 
+the schools. I estimate that there are scarcely eight hundred 
+parishes in Saxony; how many will that make for the whole 
+of Germany? I would like to know where we are going to 
+get pastors, schoolteachers, and sacristans three years from 
+now. If we do nothing about this, and if the princes espe- 
+cially do not try to see that the boys’ schools and the 
+universities are properly provided for, there will be such a 
+scarcity of men that we shall have to give three or four 
+towns to one pastor and ten villages to one chaplain, if we 
+can get even that many men. 
+
+The universities at Erfurt, Leipzig, and elsewhere are 
+ruined, and so are the boys’ schools here and there, so that it 
+is distressing to see them, and little Wittenberg now has to 
+do better than any of them.'' The foundations and the mon- 
+asteries (bad luck to them!) will also feel the scarcity, I 
+think. They will not sing the song through on the high pitch 
+that they have struck, however refractory they become, and 
+even though they have to put up with, or even reverence, 
+in their chapters people whom they would once have been 
+unwilling to look at. Let your boy go on with his studying 
+then, and do not worry; perhaps if the world stands for a 
+while longer and God gives the princes and the cities grace to 
+act, the property of the foundations and the monasteries will 
+come back to the use for which it was appointed. And 
+where is the use of worrying much about the belly? There 
+stands Christ, and says, ''Do not worry about what ye shall 
+6:31-33 eat and drink; your heavenly Father well knows that you 
+need this ; seek first the kingdom of God and His righteous- 
+ness, and all this will come to you.” If anyone does not 
+believe, let him keep on worrying and die of hunger. 
+
+To be sure, it is true that a few years ago many pastors 
+
+^The average number of students at Wittenberg between 1526 and 1530 wat 
+250; at Leipzig 145; at) Erfurt 44. See W eimar Ed. XXX,* 550, n. 2. 
+
+
+
+[[p. 157]]
+
+
+did suffer great want, and they still do. That must be blamed 
+on the evil that is in the world, making the people so wicked 
+and ungrateful and avaricious, and making them persecute 
+the Gospel. By this God is trying us to see whether we are 
+upright and sincere. We must think of this time as like the 
+time of the martyrs, for then, too, godly teachers suffered 
+great want and poverty, as Paul himself boasted, and Christ 
+also prophesied in Matthew ix, 'When the bridegroom is 
+taken from them, then shall they fast/' That is the true 
+fasting of the Gospel. Seldom, too, has God's Word come, 
+that hard times have not come with it. In the days of 
+Abraham, Isaac, Jacob, Joseph, Elijah, and Elisha, there 
+was cruel want, alongside of the great light of the truth; 
+and in the beginning of the Gospel there was a great famine 
+throughout the world. This has to be the fault of the dear 
+Gospel and the Word of God, and not of the world’s previous 
+iniquity and present obstinate ingratitude! Thus the Jews 
+blamed all their misery on the teaching of Jeremiah, and the 
+Romans, when they were overthrown by the Goths, knew 
+nothing to blame it on except the fact that they had become 
+Christians; against this St. Augustine wrote a great book, 
+De civitate dei.^ 
+
+No matter what people say,* the world is the world. As 
+those men became liars and were destroyed, so these shall 
+become liars and pass away, that Christ and His Word may 
+abide. He is seated firm and high, as it is written, “The 
+Lord said to my Lord, Sit thou at my right hand." There 
+He sits; if anyone likes, and is wicked, let him pull Him 
+down I But as long as He remains seated there, we too shall 
+remain; what is the use? To put it in a word, your son can 
+easily get as good a living in the preaching office as in a 
+trade ; unless it be that you are thinking of great wealth and 
+of making your son a great lord in the eyes of the world, 
+such as the bishops and canons are. If that is in your mind, 
+then what I am saying does not concern you. I am speaking 
+
+
+Privar 
+tions of 
+Ministen 
+
+
+2 Cor. 
+11:27 
+
+Matt. 
+
+9:15 
+
+
+Acts 
+
+11:28 
+
+
+Jer. 44: 
+16 ff. 
+
+
+Fs. 
+
+110:1 
+
+
+^The City of God, written shortly after 410 A.D., wHen Rome was 
+captured by the Visigoths, under Alaric. 
+
+*La8 wasschen wer da wesscht 
+
+
+
+[[p. 158]]
+
+
+now to believers, who honor the preaching office and hold 
+it high above all riches, as the office that is nearest to God 
+Himself and the highest treasure that is given to men, so 
+that they may know how great is the service they can render 
+to God in this, as men who would rather have a part in this 
+work, even with small possessions, than have this world’s 
+goods and be without this work. These men will recognize 
+that the soul is more than the belly, and that the belly may 
+easily have enough and be obliged to leave behind that which 
+is more than enough. But they that seek riches will take all 
+their goods with them; how can that fail? 
+
+Let this be the first part of this sermon, a hasty and brief 
+account of the spiritual profit and loss which one has from 
+the support or the neglect of the schools. 
+
+The second part will deal with the temporal, or 
+'Ww* worldly, profit and loss. And in the first place, it is true 
+
+por^ that the office of worldly government is in no way to be 
+
+Profit compared with the spiritual office of preaching, as St. Paul 
+calls it; for it is not purchased at so dear a price as the 
+preaching office, with the blood and the death of the Son of 
+God ; therefore it cannot do such great wonders and works 
+as the preaching office. For all the works of this estate 
+belong to this temporal, transient life, — ^the maintaining of 
+body, wife, child, house, property, and honor, and what be- 
+longs to the needs of this life. As far as eternal life sur- 
+passes this temporal life, so far and so high above the 
+temporal office does the preaching office go. For worldly 
+lordship is a picture, shadow, and figure of the lordship of 
+Christ. The office of preaching (where it exists as God 
+ordained it) brings and bestows eternal righteousness, eternal 
+2 Cor eternal life. This is the praise that St. Paul gives 
+
+4;i ff, Second Corinthians iv. But worldly government main- 
+tains temporal and transient peace and life. 
+
+Govern^ Nevertheless it is a glorious ordinance of God and splendid 
+ment gift of God, Who has established and instituted it, and will 
+have it maintained, as something that men cannot do without 
+If there were no worldly government, no man could live be- 
+cause of other men; one would devour the other, as the brute 
+
+
+
+[[p. 159]]
+
+
+beasts do. Therefore as it is the function and the honor of the 
+office of preaching to make sinners saints, and dead men live, 
+and damned men saved, and the devirs children God’s chil- 
+dren ; so it is the function and the honor of worldly govern- 
+ment to make men out of wild beasts and to prevent men 
+from becoming wild beasts. It keeps a man^s body, so that 
+not everyone may slay it; it keeps a man’s wife, so that not 
+everyone may seize and defile her ; it keeps a man’s child, his 
+daughter or son, so that not everyone may carry them away 
+and steal them ; it keeps a man’s house, so that not everyone 
+may break in and commit outrage there; it keeps a man’s 
+fields and cattle and all his goods, so that not everyone may 
+attack and steal and rob and damage them. There is nothing 
+of this among the beasts, and if it were not for worldly 
+government, there would be nothing of it among men, but 
+they would cease to be men and become mere beasts. Do 
+you not think that, if the birds and beasts could speak, and 
+were to see worldly government among men, they would say, 
+ye men ! You are not men but gods, compared with us ! 
+How safe you live and hold your property, while among us 
+no one is sure for an hour of life, or property, or means of 
+livelihood, because of the others ! Out upon your thankless- 
+ness, who do not see what a glorious life the God of all of 
+us has given you compared with us beasts !” 
+
+It is certain, then, that government is a creation and ati 
+ordinance of God, and that for us men in this life it is a 
+necessary office and rank, which we can no more do without 
+than we can do without life itself, since without government 
+this life cannot continue. Therefore it is easy to understand 
+that God has not commanded it and instituted it in order that 
+it may be destroyed, but that He will have it maintained, as 
+is clearly stated in Romans xiii by Paul, and in First Peter 
+iii, where it is said that they are to protect the good and 
+punish the bad. Now who will maintain it except us men, 
+to whom God has committed it and who verily need it for 
+ourselves? The wild beasts will not maintain it, nor will 
+wood and stone. But who are the men that can maintain it? 
+Assuredly not only those men who want to rule with the fist, 
+Vol. IV.— 11 
+
+
+Xom. 
+
+13:4 
+1 Pet. 
+2:13f. 
+
+
+Wisdom 
+
+Needed 
+
+
+
+[[p. 160]]
+
+
+Prov. 
+
+8:14 
+
+
+Ecd. 
+
+9:18 
+
+9:16 
+
+
+Educa^ 
+tion for 
+Ruler- 
+idiip 
+
+
+as many now think to do. For if the fist alone is to rule, 
+things will surely come to such a condition as exists among 
+the beasts, and whoever gets the better of another will stick 
+him in the bag. We have before our eyes enough examples 
+of how much good the fist does without wisdom or reason. 
+
+Therefore Solomon says, in Proverbs viii, that wisdom 
+must rule, not force, and speaks of wisdom thus, ''Mine is 
+both counsel and help; mine is both understanding and 
+might; by me must kings be kings, and counsellors sit justly” ; 
+and in Ecclesiastes x, "Wisdom is better than armor or 
+weapons” ; and again, "Wisdom is better than strength.” All 
+experience proves this and in all the histories we find that 
+force, without reason or wisdom, has never once accom- 
+plished anything. Therefore the murderers and tyrants, if 
+they do not proceed cautiously and get some justice and 
+counsel and laws among them (even though they are them- 
+selves wicked), and direct and use their fist and their power 
+accordingly, will not be able to continue, but will fall out 
+with one another and go to destruction of themselves. Briefly, 
+then, it is not the law of the fist, but the law of the head 
+that must rule; not force, but wisdom or reason, among the 
+wicked as among the good. 
+
+Accordingly, since our government in Germany must be 
+guided by the Roman imperial law, and this is our govern- 
+ment's wisdom and reason, given it by God, it follows that 
+this government cannot be maintained, but must go to de- 
+struction, unless this law is maintained. Now who will main- 
+tain it ? Fist and armor do not ; heads and books must do 
+it. Men must learn and know the law and the wisdom of 
+our worldly government. It is a fine thing, to be sure, if an 
+emperor, prince, or lord is by nature so wise and able that 
+he can get at the law without studying it,^ as could Duke 
+Frederick of Saxony^ and Sir Fabian von Feilitsch,® both 
+of whom I knew. I will not mention any men who are 
+
+^Das er das recht atiswen.dig trefen kan. 
+
+^The Elector Frederick, d. 1525. 
+
+•Fabian von Feilitscb, d. 1520, one of the councillors of Frederick of Saxony. 
+Luther dedicated to him the Assertio omnium articulorum, of 
+1521, though he died before the work was published. Cf. Weimar Ed. Vll, 
+91 ff.; Enders, III, 3. 
+
+
+
+[[p. 161]]
+
+
+now living. But because such birds are rare and their ex- 
+amples are dangerous on account of the others who have not 
+this power by nature, it is better, in ruling, to keep the 
+common law that is written in the books, so that the govern- 
+ment may have greater reputation and honor and need no 
+miracles or special gifts. 
+
+Thus the jurists and scholars in this worldly government 
+are the persons who preserve this law, and maintain the 
+worldly government; and just as a pious theologian and 
+sincere preacher is called, in the realm of Christ, an angel 
+of God, a savior, prophet, priest, servant, and teacher (as 
+has been said above) so a pious jurist and true scholar can 
+be called, in the worldly realm of the emperor, a prophet, 
+priest, angel, and savior. Moreover, as a heretic or false 
+preacher is, in the realm of Christ, a devil, thief, murderer, 
+and blasphemer, so a false and faithless jurist, in the em- 
+peror^s house or realm, is a thief and a knave and a traitor, 
+a scoundrel and a devil for the whole Empire. When I 
+speak of the jurists, I do not mean only the Doctors of Laws, 
+but the whole profession,* including chancellors, secretaries,* 
+judges, advocates, notaries, and all who have to do with the 
+legal side of government ; also the big-bugs known as coun- 
+sellors, for they, too, work with law, and belong among the 
+jurists; and just as the word ‘"counsellors’" (Rethe) 
+is not far from the word “traitors” (Verrether),* 
+so the deeds of the two are not far apart; they “counsel” 
+their lords, at times, so faithfully that no traitor could betray 
+them so well. 
+
+You see, then, the profit that a pious legal scholar, or 
+jurist, can produce; nay, who can tell it all? For whatever 
+belongs to the work and ordinance of God produces con- 
+stantly so many and so great fruits that they cannot be 
+counted or comprehended. For one thing, he maintains and 
+helps to further with his law book, (by God’s ordinance), 
+
+
+1 See above, p. 143, 145 fF. 
+
+®Das gantze handwerck. 
+
+*The ‘‘secretaries” were tbe law officers of the mcorporrated towns. 
+
+* The play on words cannot he rendered into English. Luther writes, W i e 
+
+das wort Rethe nicht weit rom wort Verrethcr ist. 
+
+
+
+
+[[p. 162]]
+
+
+the whole worldly goviernment, — emperor, princes, lords, 
+cities, land, and people, as been said above for all of 
+these must be preserved by wisdom and law. But who will 
+praise this work highly enough? From it you have guardian- 
+ship and protection for your body and life, against neighbors, 
+enemies, murderers. Then, too, you have protection and 
+peace for your wife, daughter, son, house, and home, ser- 
+vants, money, property, lands, and everything that you have. 
+For all of tliis is bound around, walled in, and hedged about 
+with law. The greatness of all this can never be completely 
+written in any books ; for who will speak fully of the un- 
+speakable blessing of peace, and say how much it both gives 
+and saves in one single year? 
+
+All these great works your son can do, and he can become 
+so useful a man, if you will hold him to it, and have him 
+study; and you can become a partaker of all this, and invest 
+your money thus profitably. Ought it not to flatter you, and 
+be a great honor for you, to see your son an angel in the 
+empire and an apostle of the empire, and a cornerstone and 
+bulwark of temporal peace on earth, and all this with the 
+certainty that God so regards it, and that it is really true? 
+For although this work does not make men righteous before 
+God, or save them, nevertheless, it is a joyful comfort to 
+know that these works please God so well, and please Him 
+even more when such a man is a believer and in the kingdom 
+of Christ ; for in this way he thanks God for His benefits 
+and presents the finest thank-offering, the highest worship. 
+
+You must be a gross, ungrateful clod, worthy that men 
+should drive you out among the beasts, if you saw that your 
+Sons for son could become a man to help the emperor preserve his 
+tiw Law empire, sword, and crown; to help the prince rule his land; 
+to coimsel and help cities and territories; to help protect so 
+many men’s bodies, wives, children, property, and honor; 
+and would not risk enough on it to permit your son to study 
+and come to this position. Tell me, what do all the founda- 
+tions, monasteries, and the like do? I would take the work 
+of a faithful, pious jurist and secretary in preference to the 
+
+
+^P. 1S9, 161. 
+
+
+[[p. 163]]
+
+
+holiness of all priests, monks, and nuns, even when they are 
+doing their very best. If these great and good works do 
+not move you, then you ought at least be moved by the 
+honor and the good pleasure of God, when you know that 
+by this means you thank God so gloriously and render Him 
+such great service, as has been said. It is a shameful despis- 
+ing of God that we do not grant this glorious and divine work 
+to our children, and only stick them into the service of the 
+belly and of avarice, and do not let them study except to 
+seek a living, like hogs, wallowing forever with noses in the 
+filth, and do not train them to so worthy a rank and duty. 
+Certainly we must either be crazy, or without love for our 
+children. 
+
+But listen still further. Suppose that it is God’s will, and 
+that He demands your son for this office! You surely owe 
+it to your God to help maintain this institution, if you can. 
+
+Now it cannot be maintained unless we keep our children at 
+their studies and in school; there is no doubt about that. 
+
+And there is need in this office of abler people than are 
+needed in the office of preaching, so that it is necessary to 
+keep the best boy for this work ; for in the preaching office 
+Christ does the whole thing, by His Spirit, but in worldly 
+government one must use reason, — from which the laws have 
+come, — for God has subjected temporal rule and bodily Gen. 
+things to reason (Genesis ii), and has not sent the Holy 
+Spirit from heaven for this purpose. Therefore governing 
+is harder, because it cannot be ruling over things that are 
+certain, and must act, so to speak, in the dark. 
+
+Now if you have a son who is gifted for learning, and you 
+can keep him at it, and do not do so, but go your way without 
+asking what is to become of worldly government and law 
+and peace; then you are doing everything you can against 
+worlffiy authority, like the Turks, nay, like the devil himself. 
+
+For you are taking from empire, princedom, land, city, a 
+savior, comforter, cornerstone, helper, and deliverer, and so 
+far as you are concerned, the emperor might lose sword and 
+crown, the land lose protection and peace ; and you are the 
+man through yrhose fault (so far as your power goes) no 
+
+
+
+[[p. 164]]
+
+one may have securely his body, wife, child, house, home, or 
+goods ; but you offer all these freely on the butcher's bench, 
+and become the reason why men are to become mere beasts, 
+and devour one another in the end. All this you assuredly 
+are doing, especially if you are knowingly keeping your son 
+out of this wholesome office for the belly's sake. Now are 
+you not a fine, useful man in the world ? Every day you use 
+the empire and its peace, and by way of thanks you rob it 
+of your son and stick him into the service of avarice, and 
+thus you strive with all diligence that there may be no one 
+to help maintain the empire and law and peace, but that 
+ever3rthing may go to destruction, provided only that by this 
+empire you may have and keep your own body and life, 
+property and honor. 
+
+What do you think you have deserved by this ? Are you 
+worthy that men should let you live among them? But 
+what will God say to it, Who has given you your child and 
+your property so that you may serve God with them and 
+keep your son in His service? Or is it not serving God 
+when we help maintain His ordinance, and worldly govern- 
+ment? Now you neglect that service as though it were no 
+concern of yours, or as though you were more free than 
+other men, and were not bound to serve God, but might do 
+as you pleased with your son and your property, even though 
+God, with both His worldly and His spiritual empire, were 
+to fall into the abyss. And yet you want to make daily use 
+of the empire's protection, peace, and law, and to have the 
+preaching office and the Word of God ready for you and at 
+your service, so that God may serve you free of charge both 
+with preaching and with worldly government, in order that, 
+without any worry, you may take your son away from Him 
+and teach him to serve only Mammon Do you not think 
+that God will some day say such a Benedicite 
+over your avarice and belly-care as will ruin you, both here 
+and hereafter, with your son and all that you have? Dear 
+fellow, is not your heart terrified at this abominable abomina- 
+tion, — ^your idolatry, despising of God, ingratitude, your 
+destruction of both of God's institutions and ordinances. 
+
+
+
+[[p. 165]]
+
+
+nay, the injury and ruin that you inflict on all men? Ah, 
+well! I have told you and warned you; do you see to it! 
+You hear both the profit you can gain and the loss that you 
+can suffer, do as you please; God will recompense you. 
+
+I shall say nothing here about the fine pleasure that a man 
+gets from having studied, even though he never has an 
+office of any kind; how at home by himself he can read all 
+kinds of things, how he can talk and associate with the 
+learned; travel and do business in foreign lands; for perhaps 
+there are very few people who are moved by this pleasure. 
+But since you are so bent on the pursuit of Mammon and of 
+a living, see how much and how great is the wealth that 
+God has put at the disposal of the schools and scholars, so 
+that you have no need to despise learning and knowledge 
+because of your poverty. Then see that emperors and kings 
+must have chancellors and secretaries, counsellors, jurists, 
+and scholars ; there is no prince who does not need to have 
+chancellors, jurists, counsellors, scholars, and secretaries; 
+all the counts, lords, cities, and castles must have syndics, 
+secretaries, and other scholars; there is not a noble but 
+must have a secretary; and to speak of men of ordinary 
+education, there are also the miners and the merchants and 
+the traders. Only count the number of kings, princes, counts, 
+lords, cities, etc. Three years from now, where shall we be 
+getting the educated men, when the scarcity is now beginning 
+here and there? I really believe that kings will have to 
+become lawyers, princes chancellors, counts and lords secre- 
+taries, and burgomasters sacristans. 
+
+Unless something is done about this quickly, we must 
+become Tartars or Turks, or an uneducated schoolmaster* 
+will become a doctor and counsellor at court. Therefore I 
+hold that there was never a better time to study than now; 
+not only because knowledge is so abundant and so cheap, but 
+also because of the great wealth and honor that must follow 
+knowledge. Those who study in these times will become ex- 
+pensive folk, for two princes and three cities will yet compete 
+for one scholar. For whether you look above you or about 
+
+
+The Re- 
+wards 
+of Eda- 
+catioin 
+
+
+Scarcity 
+of Edit* 
+cated 
+
+
+*Locat Oder bacchant, see above, p. 140. 
+
+
+
+[[p. 166]]
+
+
+you, you find that countless offices are waiting in these next 
+ten years for scholars, and yet there are very few who are be- 
+ing trained for them. And not only has God appointed such 
+great wealth for schools and scholars, but it is honorable and 
+divine wealth, earned in a divine and honorable position, by 
+many glorious, good, and useful works, which please God 
+and are a service of God. The avaricious man, on the con- 
+trary, earns his wealth with despite (even though his works 
+are not Godless and sinful) and with hateful works, about 
+which he cannot have a glad conscience, and cannot say that 
+he is serving God with them. For my part, I would rather 
+earn ten gulden by a work that is a service of God, 
+than a thousand gulden by a work that is not a 
+service of God, but only of my own profit and of Mammon. 
+
+But with this honorable wealth honor also goes. Chan- 
+cellors, secretaries, and the people who hold the offices sit 
+also in high places and help to counsel and to rule, as has 
+been said,^ and they are in actual fact lords upon earth, even 
+though they are not lords personally and by birth and rank. 
+
+^^7 king's work, and it is true. 
+
+A chancellor must attend to the work or business of em- 
+peror, king, or prince; a town secretary must do the work 
+of the Council or the town; and this with God and with 
+honor, for God gives it blessing and good fortune and suc- 
+cess. And when an emperor, king, prince is not at war, but 
+rules by law, what is he except a secretary and a jurist, if it 
+is the work he does that we are speaking of ? For they deal 
+with the law, and that is the work of a secretary or a jurist. 
+Who rules the prince's land and people when there is peace, 
+and not war? Is it the fighting-men, or the captains? I 
+think it is the pen that does it. And what is greedy-belly 
+doing, meantime, with his Mammon ? He comes to no such 
+honor, and dirties himself the while with his rust-eaten 
+money. 
+
+The Emperor Justinian* himself declares; 0 portet 
+
+^ See above, p. 162. 
+
+^Justinian (Roman Empercw:, 527-565) caused the preparation of the great 
+code of Roman Law which was the basis of the German legal system of Luther's 
+day. Luther is quoting the Constitutio imperitoriaxn majes- 
+tatem, which forms the preface to his Institutions. 
+
+
+
+[[p. 167]]
+
+
+majestatem imepritoriam non solum armis 
+decoratum, sed etiam legibus armatam 
+esse. ‘Imperial majesty/’ he says, “must not only be 
+adorned with arms, but also armed with laws.” See how 
+daringly this emperor turns his words about. He calls the 
+laws his armor and weapons, and arms his decoration and 
+adornment; he would make his secretaries his knights and 
+fighting-men. It is finely said indeed. For the laws are 
+indeed the true armor and weapons which maintain and 
+protect land and people, nay, the very empire itself, and the 
+worldly government, as has been sufficiently told above. Thus 
+wisdom is better than might, and pious jurists are the true 
+knights, who defend the emperor and the princes. Many 
+sayings of this kind couM be brought out of the poets and 
+the histories, but it would take too long. Solomon himself 
+says, in Ecclesiastes ix, that a poor man saved a city, by his 
+wisdom, from a mighty king. 
+
+I do not wish to be understood as breaking off, by what I Hanor- 
+have said, with soldiers, fighting-men, and those whose busi- 
+ness is war, or as despising or casting them off. They too, 
+when they are obedient, help with their fist, to protect peace 
+and ever3^hing. Everything has its own honor before God, 
+as His ordinance and work. But I must also praise my 
+own trade" for once because my neighbors have fallen out 
+with it and there is danger that it may come into contempt. 
+
+This is the way that St. Paul praises his own office so con- 
+stantly that some think he goes too far and is guilty of pride. 
+
+If there is anyone who wants to have force and soldiers 
+praised and honored, he will find enough about the things 
+for which they are to be praised, I hope, in another little 
+book, in which I have praised them honestly and fully. 
+
+For the jurists and petty secretaries do not please me at all 
+when they so praise themselves as to despise or mock at 
+other classes, as though they were the whole thing and there 
+was nobody else in the world who amounted to anything 
+except themselves. This is what the shavelings* and the 
+
+Schoilarsliip. 
+
+*Schucrlingc, the tonsured clergy. 
+
+
+
+16y A Sermon on Keeping UUUdren in scnooi 
+
+
+whole papacy have done heretofore. All classes and all the 
+works of God are to be praised as highly as ever they can 
+be, and none of them is to be despised in favor of another, 
+for it is written, Confessio et magnificentia 
+opus e j u s , “What God does is fair and fine’' f and again 
+Ps. ’ in Psalm civ, “God is well pleased with His works." Espe- 
+104:31 dally ought preachers to impress these ideas upon the people 
+from their youth up, schoolteachers impress them on the 
+boys, and parents on their children, so that they may well 
+learn what classes and offices are God's and ordained of 
+God. If they know this, so that they despise and mock at 
+and speak evil of none of them, but hold them all in honor, 
+that pleases God and serves the cause of peace and unity; 
+for God is a great lord, and has many kinds of servants. 
+Scholars We find, too, some swaggerers who permit themselves to 
+think that the name “secretary" is scarcely worthy to be 
+Com- mentioned or listened to. 0 well! Do not let that worry 
+pared you! Remember that these good fellows must sometimes 
+have a little pastime and fun, and let this be their fun ! You 
+are still a secretary before God and the world. They may 
+swagger, but notice that they pay the highest honor to the 
+quill. They put it" on the top of their hats and their helmets, 
+as though to confess, by this act, that the quill is the highest 
+thing in the world, without which they would be armed for 
+battle and could not walk about in times of peace, still less 
+swagger so boldly. For they, too, must make use of the 
+peace which the emperor's preachers and teachers, i. e. the 
+jurists, teach and maintain. You see, therefore, that they 
+put the tool of our trade, the good quill, on top, and rightly; 
+but the tool of their trade, the sword, they gird about their 
+loins, where it hangs well and is ready for their work. On 
+their heads it would not be becoming; there the quill must 
+wave. So if they have sinned against you, this is their 
+penance, and you should forgive them. 
+
+But that brings me to this fact. There are many great 
+to whom the trade of a writer is a hateful thing, because 
+
+
+^ “His work is honor and majesty” (Eng. R. V.) 
+
+* Luther’s f e d d e r means both "pen” and “plume.’ 
+
+
+
+[[p. 169]]
+
+they do not know, or do not consider, that it is a divine 
+ofEce and work, and do not see how necessary and useful 
+it is to the world; and if they were to see (which may 
+God forbid!), their knowledge would come too late. There- 
+fore, this is what you ought to do. Pay no attention to 
+them, and look around at fine, pious noblemen, such as 
+Count George von Wertheim,^ Hans von Schwarzenberg/ 
+
+George von Frundsberg,® and their like, who are dead, for I 
+will say nothing about the living. Refresh yourself and 
+comfort yourself with them, and remember that for the sake 
+of one man, Lot, God honored the whole land of Zoar; for 1^:21 
+the sake of a single Naaman, the whole land of Syria; for 2 Kings 
+the sake of one Joseph, the whole kingdom of Egypt. Why 
+should not you also honor all the nobility for the sake of 4 i ;47 
+the many honest noblemen whom you, without doubt, have 
+before your eyes ? And when you look at them, you must 
+think that there is not a bad one left. How could it be that 
+untimely fruit should not fall from the fair tree of nobility, 
+and that some of the fruit should not be wormy and warty? 
+
+That does not make it a bad tree, to be condemned. Thus 
+it is with the children of God. For God Himself spares 
+the whole human race for the sake of one man, whose name 
+is Jesus Christ ; if He were to look only at men, He would 
+have nothing but wrath. The preachers, to be sure, and the 
+worldly authorities, cannot do this, and neither look at nor 
+consider anything bad, for they must punish the bad, one 
+with the word, the other with the sword. But I am speaking 
+to individuals, as Christians, and say that they ought to 
+learn to distinguish between God’s work and men’s wicked- 
+ness. In all of God’s offices and ranks there are many 
+wicked men; but the rank is and remains good, no matter 
+how much men misuse it. You find many bad women, many 
+false servants, many unfaithful maids, many wrong-doing 
+
+
+^ George von Wertheim (d.lS30) introd'uccd tte Refonnatioii into his terri- 
+tories in 1522. Cf. Enders, IV, 3 r. n. 11. 
+
+^Johann von Schwarzenbcrg (1463-1528) a patron of learning, as well as or 
+the Reformation. Biographies hy Wagner (Berlin, 1893) and W. Scheee (Ber- 
+lin. 1905). 
+
+•George von Fmndsherg (d. 1527), one of tlje moat famous German soldiers 
+of his day. See Allgem. Deutsche Biographic, VIII, 154 ff. 
+
+
+
+[[p. 170]]
+
+officials and counsellors; nevertheless, the classes — ^wlves, 
+servants, maids — and all the offices are Gk)d's institution, 
+work, and ordinance. The sun remains good, even though 
+the whole world misuse it, one to rob and another to kill, one 
+to do this kind of evil and another that. Who could do 
+anything evil, unless he had the sun to light him to it, and 
+the earth to hold him up, and the air to keep him alive, and 
+thus had God Himself to guard him? The saying continues 
+true, Omnis creatura subjecta est vanitate, 
+sed non volens^ (Romans viii). 
+
+Some think that the office of writer is a light and little 
+office, while it is a real work to ride in armor and endure 
+heat, frost, dust, thirst, and other discomforts. Of course ! 
+That is the old story! No one sees where the other’s shoe 
+pinches, and stands agape at the other man’s good luck. 
+True it is that it would be hard for me to ride in armor; 
+but, on the other hand, I would like to see the horseman 
+who could sit still the whole day and look into a book, even 
+though he had nothing to care about, to dream, to think, or 
+to read. Ask a writer, preacher, or speaker whether writing 
+and speaking is work; ask a schoolmaster whether teaching 
+and training boys is work? The pen is light; that is true. 
+Also there is no tool of any of the trades that is easier to 
+get than the writer’s tool, for all that is needed is goose 
+feathers, and there are enough of them everywhere. But 
+the best part of the body (which is the head) must lay hold 
+here and do most of the work, and the noblest of the mem- 
+bers (which is the tongue), and the high faculty (which is 
+speech) . In other occupations, it is only the fist or the foot 
+or the back or some other such member that has to work ; 
+and while they are at it, they can sing and jest, which the 
+writer cannot do. “Three fingers do it,” they say of writers ; 
+but a man’s whole body and soul work at it. 
+
+I have heard it said of the praiseworthy and dear Emperor 
+Maximilian,* that when the big men complained because he 
+used writers so much for embassies and work of the kind, 
+
+4 “Every creature was subjected to vanity, but not willingly.” 
+
+^Died 1519. 
+
+
+
+[[p. 171]]
+
+
+he said, '‘What shall I do ? They cannot be used, so I have 
+to take writers’"; and again, ‘T can make knights, but I 
+cannot make doctors.” So, too, I have heard of a fine noble- 
+man, who said, “I will have my son study. It is no great 
+art to hang two legs over a horse and become a knight ; he 
+has already learned that from me.” That was well said. 
+Once more, I do not want this to be understood as though I 
+were speaking against the knightly class, or any other class, 
+but only against the worthless swaggerers, who despise all 
+learning and wisdom, and can boast of nothing except wear- 
+ing armor and hanging two legs over a horse, though they 
+seldom have to do it, and in return have enough of comfort, 
+pleasure, joy, honor, and wealth the whole year round. It is 
+true that, as they say, knowledge is light to carry and armor 
+heavy; but wearing armor is soon learned, and wisdom is 
+not soon learned, and is not easily practiced or used. 
+
+To bring this talk to an end ! We ought to know that God 
+is a wonderful lord. His trade is to take beggars and make 
+them lords, just as He makes all things out of nothing. 
+This trade of His no one will interfere with or hinder. He 
+has the whole world sing of Him, in Psalm cxii, “Who is 
+like the Lord, Who sitteth so high and beholdeth so deep? 
+Who lifteth the small out of the dust and raiseth the poor 
+out of the filth, that He may make them sit among the 
+princes, even among the princes of His people."" Look 
+about you, at the courts of all the kings and princes, at the 
+cities and the parishes; see whether this Psalm does not 
+rule with many strong examples. There you will find jurists, 
+doctors, counsellors, writers, preachers, who were usually 
+poor and have certainly been boys at school, and have 
+mounted and flown up by their pens,^ until they are lords, as 
+the Psalm says, and like princes, help to rule lands and 
+peoples. It is not God’s will that bom kings, princes, lords, 
+and nobles should rule and be lords alone ; He wills to have 
+His beggars with them, so that they may not think that noble 
+birth alone, and not God alone, makes lords and rulers. It 
+is said, and it is true, that the pope too was a school boy. 
+
+
+SchalaiB 
+Not to 
+l>eI)o- 
+spiMd 
+
+
+Ps. 113: 
+5-8 
+
+
+»Or “their feathers.* 
+
+
+
+[[p. 172]]
+
+
+Therefore do not despise the fellows who come to your 
+door and say, Panem propter deum^ and sing for 
+bread; you are listening, as this Psalm says, to the singing 
+of great princes and lords. I too was such a P a r - 
+tekenhengst/ and got bread at the house-doors, espe- 
+cially at Eisenach, my dear town, although afterwards my 
+dear father lovingly and faithfully kept me at the university 
+at Erfurt, and by his sweat and labor helped me to what I 
+have become. Nevertheless, I was a Parteken- 
+h e n g s t and I have come so far by means of the writer^s 
+pen, as this Psalm says, that I would not change with the 
+emperor of the Turks, and have his wealth and do without 
+my knowledge; nay, I would not take for it all the wealth 
+in the world heaped up many times. And without any 
+doubt, I should not have come to this, if I had not got into 
+school and into the trade of writing. 
+
+Therefore, have your son study, and do not hesitate about 
+it, and even if he has to go after his bread meanwhile, you 
+are giving our Lord God a fine bit of wood out of which He 
+can carve you a lord. It must continue to be a fact that your 
+son and my son,^ — ^that is, the sons of common folk, — ^must 
+rule the world, both in the spiritual and the worldly ranks, 
+as this Psalm testifies. For the rich misers cannot and will 
+not do it ; they are the Carthusians® and monks of Mammon, 
+and they must serve him day and night. The born princes 
+and lords cannot do it alone, and especially they cannot under- 
+stand anything at all about the spiritual office. Thus both 
+kinds of government on earth must remain with the middle 
+class common people, and with their children. 
+
+And do not be disturbed because the common miser de- 
+spises knowledge so deeply and says, 'Ha, if my son can 
+read and write German and do sums, he can do enough, I 
+am going to make a business man of him.” They will soon 
+be so tame that they will dig ten ells deep into the earth with 
+
+
+^ “Bread for God’s sake.” 
+
+“Possibly “crumb-horse,” a school boy who sang, with others, in the streets 
+for bread (particula panis). On Luther’s singing at Eisenach, see 
+especially, Scheel, Martin Luther, I (1916), pp. 104 ff. 
+
+• i.e., The strictest devotees. 
+
+
+
+[[p. 173]]
+
+
+their fingers to get a scholar. For the business man will not 
+be a business man long, if preaching and law shall fail; this 
+I know for sure. We theologians and jurists must continue, 
+or all the rest will go to ruin with us; this will not fail. 
+When the theologians disappear, God’s Word also disappears, 
+and there remain nothing but heathen, nay, notliing but 
+devils ; when the jurists disappear, then the law disappears, 
+and peace with it, and there remains nothing but robbery, 
+murder, crime, and violence, nay, nothing but wild beasts. 
+But what earnings and profits the business man will have 
+when peace is gone, I shall let his ledger tell him; and what 
+good all his property will do him when preaching goes down, 
+I shall let his conscience show him. 
+
+It is particularly vexing that such rude and unchristian 
+words are spoken by those who want to be so altogether 
+evangelical. They know how to get the better of everyone 
+and cry down everyone with Scripture, and yet they will 
+not grant either God or their own children so much honor or 
+wealth as to train them in the schools, so that they may come 
+to glorious and divine positions, in which they can serve God 
+and the world, even though it is plain and certain that these 
+positions are established and ready, and well provided with 
+wealth and honor. On the contrary, they turn their sons 
+away from them and shove them into the service of Mammon, 
+of which nothing is plain and certain, which must be full of 
+danger to body and wealth and soul, and which cannot be, 
+besides, a service of God. 
+
+At this point I should also tell how many scholars are 
+needed in medicine and other liberal arts, concerning which 
+a great book could be written and about which one could 
+preach for a half year. Where would the preachers and 
+lawyers and physicians come from, if we had not grammar 
+and the other sciences of speech? They must all flow from 
+this spring. But the task would be too long and too great. 
+I would be brief and say that a diligent and pious school- 
+teacher, or master, or whoever it is that faithfully trains and 
+teaches boys, can never be sufficiently rewarded, or repaid 
+with any money, as even the heathen Aristotle says. Never- 
+
+
+Other 
+Kinds of 
+Scholars 
+
+
+
+[[p. 174]]
+
+
+Wisdom 
+
+38 : 1-8 
+
+
+theless, this work is as shamefully despised among us as 
+though it was nothing at all. I myself, if I could leave the 
+preaching ofSce and other things, or had to do so, would not 
+be so glad to have any other work as that of schoolmaster, 
+or teacher of boys, for I know that this is the most useful, 
+the greatest, and the best, next to the work of preaching. 
+Indeed, I scarcely know which of the two is the better ; for 
+it is hard to make old dogs obedient and old rascals pious ; 
+and that is the work at which the preacher must labor, often 
+in vain. But young trees can be better bent and trained, 
+though some of them break in the process. Let it be one of 
+the greatest virtues on earth faithfully to train other people's 
+children ; very few people, almost none, in fact, do this for 
+their own. 
+
+That the physicians are lords, we can see with our own 
+eyes, and that we cannot do without them, our own experi- 
+ence teaches. But that they are a class that is useful to the 
+world, a comforting and wholesome class, and that their 
+work is a service acceptable to God and made and founded 
+by Him, — all of this not only is proved by the nature of the 
+work itself, but it is testified by the Scriptures,^ in Ecclesias- 
+ticus xxxviii where almost a whole chapter is given up to 
+praise of the physicians, It says, — “Thou shalt honor the 
+physician, for one cannot do without him, and God has 
+appointed him, for all healing is of God. The skill of the 
+physician bringeth him to honor, and in the sight of great 
+men he shall be held worthy. God hath created medicines 
+out of the earth, and he is no reasonable man who despiseth 
+them. For as in the time of Moses the bitter water was 
+sweetened with wood, it was His will to make known to men 
+thereby what medicine can do; and He hath also given to 
+men this skill, that His wonders may be praised. For here- 
+with can the physician soothe all kinds of pain, and make 
+many sweet and good confections, and prepare salves whereby 
+the sick become well ; and of these works of his there is no 
+end, etc.” But I have said too much about this ; the preachers 
+
+'Luther here quotes the Apocrypha as “Scripture.** He renders the whole 
+passage very freely. 
+
+
+
+[[p. 175]]
+
+can draw all these things out more fully, and impress upon 
+the people the profit and the loss that they can here produce, 
+for the whole world, and for our descendants, better than I 
+can write it. 
+
+I will let everything rest here, for it has been my purpose 
+faithfully to exhort and urge everyone who can help in this The 
+cause. Only think for yourself how many good things God 
+has given you gratis, and is daily giving, namely, body and 
+soul, house and home, wife and child, the services and the 
+use of all His creatures in heaven and earth; beside all this, 
+the Gospel and the office of preaching, baptism, the Sacra- 
+ment, and the whole treasure of His Son and His Spirit, not 
+only without your merit, but also without cost or trouble 
+to you, for you do not now have to support either schools 
+or parishes,"^ as you would be bound to do according to the 
+Gospel. And you are such an accursed, ungrateful wretch 
+that you will not give a son to be trained to preserve these 
+gifts of God. You have everything, gratis; and you show 
+not a particle of gratitude, but you let God’s kingdom and 
+men’s souls’ salvation go to ruin and help cast it down to 
+the ground. 
+
+Ought not God to be angry over this ? Ought not famine 
+come? Ought not pestilence, the sweating-sickness, and the 
+French disease find us? Ought not blind folk, wild, raving 
+tyrants, rule ? Ought not war and contention arise ? Ought 
+not government in Germany become bad? Ought not Turk 
+and Tartar plunder us? Nay, it would be no wonder if 
+God opened the doors and windows of hell and snowed and 
+hailed devils among us, or let brimstone and hell-fire rain 
+from heaven and sink us, all together, into the abyss of hell, 
+like Sodom and Gomorrah. For if Sodom and Gomorrah 
+had had or seen or heard as much as we, they would be 
+standing today. They were not one tenth as wicked as 
+Germany is, for they had not God’s Word and the preaching 
+office, while we have both gratis, and act like men who want 
+God and His Word, and all moral control and honor to go 
+to ruin ; indeed, the fanatics have actually begun to suppress 
+
+^ i. c. Because they are supported by endowments- 
+
+Vol. IV.-12 
+
+
+
+[[p. 176]]
+
+
+the Word of God. The nobles and the rich men, too, have 
+attacked it to overthrow good morals and honor, so that we 
+may become the kind of people that we have deserved to be. 
+
+For what else are the Gospel and the preaching office that 
+we have than the blood and sweat of our Lord? He won 
+them by His anguished, bloody sweat, earned them by His 
+blood and Cross, and gave them to us. We have them with- 
+out any cost to ourselves, and have done nothing for them, 
+nor given anything. Ah, God! How bitter it was for Him, 
+and yet how kindly and gladly He did it 1 How greatly the 
+dear Apostles and all the saints suffered in order that these 
+things might come to us ! How many have been put to 
+death for them in our own time! To speak of myself, too, 
+how many times I have had to suffer death for them, so that 
+I might serve my Germans with them! But all this is 
+nothing, compared with what Christ, God's Son and our dear 
+heart, has spent on them. And yet, by all this suffering, He 
+will have earned from us only this, — some persecute this 
+office, and condemn, and slander it, and wish it to the devil ; 
+while others keep hands off, support neither pastors nor 
+preachers, and give nothing toward their maintenance. Be- 
+sides this, they turn the children away from this office, so 
+that it will soon go to destruction, and Christ’s blood and 
+agony be in vain; and yet, they go their ways undisturbed, 
+have no qualms of conscience, no repentance, and no sorrow 
+for this hellish and more than hellish ingratitude, this un- 
+speakable sin and blasphemy. They show neither fear nor 
+awe of God's wrath, neither desire nor love for the dear 
+Saviour in return for His bitter and hard pains. Neverthe- 
+less, with these terrible abominations they want to be Evan- 
+gelicals and Christians ! 
+
+If this is the way that things are to go in Germany, I am 
+sorry that I was born a German, or ever wrote or spoke 
+German; and if I could do it with a good conscience, I 
+would give my aid and counsel to have the pope come back 
+over us, and oppress and shame and ruin us worse than ever 
+he did before. Formerly, when people served the devil and 
+put the blood of Christ to shame, all the purses were wide 
+
+
+
+[[p. 177]]
+
+
+open, and there was no limit to men’s giving to churches, 
+schools, and all sorts of abominations. Children could be 
+driven, pushed, and forced into monasteries, churches, foun- 
+dations, and schools, at unspeakable cost, and all of it was 
+lost. But now, when they are to found real schools and real 
+churches, — nay, not found them, but keep them in repair, 
+for God has founded them and given enough even for their 
+maintenance, and we know what God’s Word is and that to 
+honor Christ’s blood is to found a real church, now, I say, 
+all the purses are closed with iron chains, and nobody can 
+give anything. And besides, they tear their children away, 
+and do not allow them to be supported by the churches (to 
+which we give nothing) and to enter these wholesome offices, 
+in which, without their effort they are cared for even in tem- 
+poral things, in order to serve God and honor and preserve 
+Christ’s blood and pains; but they push them, rather, into 
+the jaws of Mammon, meanwhile treading Christ’s blood 
+under foot; and yet they are good Christians! 
+
+I pray that God -will graciously let me die^ and take me 
+hence, that I may not see the misery that must come over 
+Germany. For I believe that if ten Moseses stood and 
+prayed for us, they would accomplish nothing. I feel, too, 
+when I would pray for my dear Germany, that my prayer 
+rebounds, and does not press up to heaven, as it does when 
+I pray for other things. For it shall be that God will save 
+Lot and sink Sodom. God grant that I am compelled to lie, 
+and be, in this matter, a false prophet! That would happen, 
+if we reformed, and honored our Lord’s Word and His 
+precious blood and death otherwise than we have done here- 
+tofore, and helped and trained our young people for God’s 
+offices, as has been said. 
+
+But I hold that it is the duty of the government to compel 
+its subjects to keep their children in school, especially those ComwU 
+children who were mentioned above. For it is truly its duty 
+to maintain the offices and classes that have been mentioned, tioo 
+so that preachers, jurists, pastors, writers, physicians, school- 
+masters, and the like may continue, for we cannot do without 
+
+*Ich bitte Gott umb ein gnedigs stundlin. 
+
+
+
+[[p. 178]]
+
+
+them. If it can compel its subjects who are fitted for the 
+work to carry pike and musket, man the walls, and do other 
+kinds of work, when war is necessary ; how much more can 
+it and ought it compel its subjects to keep their children in 
+school, because here there is a worse war on, a war with the 
+very devil, who goes about to suck out secretly the strength 
+of cities and princedoms, and empty them of able persons, 
+until he has bored out the pith, and left an empty shell of 
+useless folk, with whom he can play and juggle as he will. 
+That is, indeed, starving out a city or a land; it destroys 
+itself without battle, before one is aware of it. The Turk 
+acts differently. He takes every third child in his whole 
+empire and trains it for what he will. How much more 
+ought our lords take some boys for schooling, since that 
+does not take the child away from its parents, but is for 
+their own good too ; and it trains him for usefulness to the 
+community, and for an office in which enough is given him. 
+
+Therefore let everyone be on his guard who can. Let the 
+government, when it sees a promising boy, have him kept in 
+school; if the father is poor, let it help him with church 
+property. Let the rich make their wills with this work in 
+view, as some have done who have endowed stipends ; that is 
+the right way to bequeath your money to the Church. This 
+way you do not, to be sure, release departed souls from 
+purgatory, but by maintaining God's offices, you help the 
+living and those to come who are not yet born, so that they 
+do not get into purgatory, nay, so that they are released from 
+hell and go to heaven ; and you help the living to peace and 
+comfort. That would be a praiseworthy Christian testament, 
+and God would have delight and pleasure in it, and would 
+bless and honor you in return, by giving you pleasure and 
+joy in Him, 
+
+Well, then, dear Germans, I have said enough to you. 
+You have heard your prophet. God grant that we may obey 
+His Word, to praise and thank our dear Lord for His 
+precious blood, so freely offered for us; and may He keep 
+us from the abominable wickedness of ingratitude and forget- 
+fulness of His blessings. Amen. 
+

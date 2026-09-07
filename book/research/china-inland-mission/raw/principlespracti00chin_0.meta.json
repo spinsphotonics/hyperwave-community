@@ -1,0 +1,120 @@
+{"alternate_locations":{"servers":[{"server":"dn760008.eu.archive.org","dir":"/0/items/principlespracti00chin_0"},{"server":"dn790009.ca.archive.org","dir":"/0/items/principlespracti00chin_0"}],"workable":[{"server":"dn760008.eu.archive.org","dir":"/0/items/principlespracti00chin_0"},{"server":"dn790009.ca.archive.org","dir":"/0/items/principlespracti00chin_0"}]},"created":1788754591,"d1":"ia600106.us.archive.org","d2":"ia800106.us.archive.org","dir":"/31/items/principlespracti00chin_0","events":{"checkin_0":["associate-joseph-ondreicka",1518623328,""],"checkin_1":["associate-cheri-destefano",1522066745,""]},"files":[{"name":"__ia_thumb.jpg","source":"original","mtime":"1693000391","size":"11429","md5":"91c87a8099d04d1b20a00ad61d0c8b13","crc32":"fd0c687d","sha1":"94d540cbfee7bcaf7b8dc1212e9bcdec5d9a74bd","format":"Item Tile","rotation":"0"},{"name":"logs\/principlespracti00chin_0_iabdash_2018-02-14092257.log","source":"original","mtime":"1518618208","size":"345","md5":"632b312b4ce0bc961278f6f3a3d8548c","crc32":"04a9dd1f","sha1":"c71e14cabc5c61d5f2ce34449bda2b47583690df","format":"Log"},{"name":"logs\/principlespracti00chin_0_scanning_2018-02-14092252.log","source":"original","mtime":"1518618201","size":"31514","md5":"1debdeee3905c1cece56249273adc90d","crc32":"2d335dc6","sha1":"386ebd83c1ec4d5c4a0283c49fe4f195b0adbeb9","format":"Log"},{"name":"principlespracti00chin_0.pdf","source":"derivative","format":"Text PDF","original":"principlespracti00chin_0_page_numbers.json","mtime":"1702495613","size":"546925","md5":"ff1e6085d9343a1c288d4f0b737bfef4","crc32":"13a93818","sha1":"f21dfa4e242f00c2ee845271f5c612f954490c6b"},{"name":"principlespracti00chin_0_abbyy.gz","source":"derivative","format":"Abbyy GZ","original":"principlespracti00chin_0_jp2.zip","mtime":"1522067511","size":"341906","md5":"6d1759f1b6c6f90d48dc5692bb691a12","crc32":"ffbff6ce","sha1":"2997ffd1d77608f37886f24149176efd17ed0ef5"},{"name":"principlespracti00chin_0_archive.torrent","source":"metadata","btih":"3d12df9fc0473c5fbfa35d44467ed9d27ca47853","mtime":"1719769153","size":"6029","md5":"8127f60d26c0879b2c782ca4d0af7939","crc32":"bada2c94","sha1":"96f04ef8d80b9aca89b2464abbbfe5274d98f677","format":"Archive BitTorrent"},{"name":"principlespracti00chin_0_chocr.html.gz","source":"derivative","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","format":"chOCR","original":"principlespracti00chin_0_abbyy.gz","mtime":"1702495355","size":"296230","md5":"42ca8e8d7d4a2fa300e470acfce24ad0","crc32":"d19c1162","sha1":"966628b55cdd73b2b86e4a2e3490eb3505123a79"},{"name":"principlespracti00chin_0_cloth_detection.log","source":"derivative","cloth_cover_detection_module_version":"2.1","format":"Cloth Cover Detection Log","original":"principlespracti00chin_0_scandata.xml","mtime":"1702496255","size":"1505","md5":"4a967da2397aa88206520e99b8eac544","crc32":"9549b899","sha1":"29054aefbb5c0019bf0addbdffbbd0b2b877e97d"},{"name":"principlespracti00chin_0_dc.xml","source":"original","format":"Dublin Core","mtime":"1649148564","size":"601","md5":"bcd62f8a012990193fffdcffe718aea0","crc32":"6626d999","sha1":"2a0a49c6562fdf9663d549d34cf65b81d8894b54"},{"name":"principlespracti00chin_0_djvu.txt","source":"derivative","format":"DjVuTXT","original":"principlespracti00chin_0_djvu.xml","mtime":"1702495451","size":"27680","md5":"0b08e4d46d960bf0d1854acdc71809a9","crc32":"f824fa80","sha1":"81564db24bf90ac9090fbe54b0542266c648ca7b"},{"name":"principlespracti00chin_0_djvu.xml","source":"derivative","format":"Djvu XML","original":"principlespracti00chin_0_hocr.html","mtime":"1702495388","size":"317857","md5":"b7cb10d12bc80cc31b2da0dec953b17a","crc32":"6a329294","sha1":"a5ffd32b3f6fc82ef94a4ed05c0d703e0398a80b"},{"name":"principlespracti00chin_0_events.json","source":"original","mtime":"1522066747","size":"114","format":"JSON","md5":"e7a2fddea27d077b04f213dfd49e60d8","crc32":"52dc9d2e","sha1":"efca7ff9f101e5620a1d33ff954f70843fb9bf32"},{"name":"principlespracti00chin_0_files.xml","source":"original","format":"Metadata","md5":"2a16f321695f3c4215b902f8d4b7bc1c","summation":"md5"},{"name":"principlespracti00chin_0_hocr.html","source":"derivative","hocr_char_to_word_module_version":"1.2.0","hocr_char_to_word_hocr_version":"1.1.45","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","format":"hOCR","original":"principlespracti00chin_0_chocr.html.gz","mtime":"1702495377","size":"638426","md5":"d66efe93f55b8d6277649b5923f17644","crc32":"b408070a","sha1":"d3e5560375c7c1bcbc8b8e1d9cc83ad85107f8e6"},{"name":"principlespracti00chin_0_hocr_pageindex.json.gz","source":"derivative","hocr_pageindex_module_version":"1.0.0","hocr_pageindex_hocr_version":"1.1.15","format":"OCR Page Index","original":"principlespracti00chin_0_hocr.html","mtime":"1702495399","size":"247","md5":"dc16d60da2cc8298a22fa9fa5f592aff","crc32":"f5bdc76b","sha1":"05dc7e7ca3e7785ea58563df25bb5f549d1ac6e1"},{"name":"principlespracti00chin_0_hocr_searchtext.txt.gz","source":"derivative","hocr_fts_text_module_version":"1.1.0","hocr_fts_text_hocr_version":"1.1.15","word_conf_0_10":"109","word_conf_11_20":"34","word_conf_21_30":"26","word_conf_31_40":"46","word_conf_41_50":"36","word_conf_51_60":"99","word_conf_61_70":"299","word_conf_71_80":"596","word_conf_81_90":"836","word_conf_91_100":"1911","format":"OCR Search Text","original":"principlespracti00chin_0_hocr.html","mtime":"1702495414","size":"9911","md5":"baf71add8dd107d7257ea240e6c3566e","crc32":"3a827837","sha1":"229e4dfb1488c304d31b58920429405bd48c175c"},{"name":"principlespracti00chin_0_jp2.zip","source":"derivative","format":"Single Page Processed JP2 ZIP","original":"principlespracti00chin_0_orig_jp2.tar","mtime":"1522067163","size":"8959927","md5":"3d61dcf482d4d28623f6e645232a0b81","crc32":"8d6be555","sha1":"fd66fa0b3ec04906a73c554f5feda9116bf233ed","filecount":"22"},{"name":"principlespracti00chin_0_marc.xml","source":"original","format":"MARC","mtime":"1515591276","size":"1801","md5":"4fe1475106d9be76491886a2ab1a7e44","crc32":"7179c3ef","sha1":"03ed1952f87a83da65d34b367f101bd06b04da32"},{"name":"principlespracti00chin_0_meta.mrc","source":"original","format":"MARC Binary","mtime":"1515591276","size":"573","md5":"05df0502fd7488727a895371726c9f1b","crc32":"f7cab453","sha1":"8e01ff2ed6ef702ad16887d543ee90fa93d7ba3c"},{"name":"principlespracti00chin_0_meta.sqlite","source":"original","mtime":"1522066780","size":"13312","format":"Metadata","md5":"cee9a95b7e8511887eb005b1b2e56291","crc32":"49b8b424","sha1":"43cd2db038c7e64d21f4210ff852a846fdf86933"},{"name":"principlespracti00chin_0_meta.xml","source":"original","format":"Metadata","mtime":"1719769148","size":"2268","md5":"8c9944c1cd2445925786c2a4d1b1fcc7","crc32":"f1208625","sha1":"1c1b5f631ffcd6f54ccb6cb02cb2bb8105ee38ec"},{"name":"principlespracti00chin_0_metasource.xml","source":"original","format":"MARC Source","mtime":"1515591276","size":"311","md5":"d9d50368fc12e5a136f96b6b6b4e8eb8","crc32":"e5bd3819","sha1":"d7341ad8555babd49de6e5b00d3db105669f5b5e"},{"name":"principlespracti00chin_0_orig_jp2.tar","source":"original","mtime":"1522066779","size":"14540800","format":"Single Page Original JP2 Tar","md5":"a7a6e025f19e1caba96538da62d1c832","crc32":"46c67d03","sha1":"5480e68e0b9c57ced302fe6606e3ea1910efdef9","filecount":"22"},{"name":"principlespracti00chin_0_page_numbers.json","source":"derivative","hocr_pagenumber_module_version":"1.0.3","hocr_pagenumber_hocr_version":"1.1.54","hocr_pagenumber_confidence":"0","format":"Page Numbers JSON","original":"principlespracti00chin_0_hocr.html","mtime":"1702495438","size":"2858","md5":"6e6d951581da6c91eca37d53d2880951","crc32":"0514f2ad","sha1":"b910a171501d28eda4efab8a70953a8d35c1bdbf"},{"name":"principlespracti00chin_0_scandata.xml","source":"original","mtime":"1702496254","size":"22596","format":"Scandata","md5":"d63e79130a1b4d6140b92686be2f2c00","crc32":"0e02eee7","sha1":"5db53cf3e82378adca21420fdfe010065adb5999"},{"name":"principlespracti00chin_0_title_detection.log","source":"derivative","format":"Title Page Detection Log","original":"principlespracti00chin_0_djvu.xml","mtime":"1702496076","size":"674","md5":"7a68ed90859b78b31ce13bf29a67e5af","crc32":"d6fc9ee5","sha1":"b7ec700802e4ae12c7af7d8e7849af829e46f585"}],"files_count":26,"item_last_updated":1719769153,"item_size":25775839,"metadata":{"language":"eng","scanningcenter":"nj","sponsor":"Columbia University Libraries","contributor":"Columbia University Libraries","date":"1900","subject":"China Inland Mission","title":"The principles and practice of the China Inland Mission","creator":"China Inland Mission","collection":["columbiamrlpamphlets","ColumbiaUniversityLibraries","americana"],"shiptracking":"MRL181","call_number":"1372","publisher":"[S.l. : s.n.]","description":"Cover title","mediatype":"texts","repub_state":"19","page-progression":"lr","publicdate":"2018-01-10 12:11:12","updatedate":"2018-01-10 13:34:36","updater":"associate-cheri-destefano@archive.org","identifier":"principlespracti00chin_0","uploader":"associate-cheri-destefano@archive.org","addeddate":"2018-01-10 13:34:38","scanner":"scribe2.nj.archive.org","operator":"associate-mario-dibartolo@archive.org","tts_version":"v1.57-initial-85-gb810232","imagecount":"18","scandate":"20180214151617","ppi":"300","republisher_operator":"associate-joseph-ondreicka@archive.org;associate-cheri-destefano@archive.org","republisher_date":"20180326081903","republisher_time":"109","foldoutcount":"0","identifier-access":"http://archive.org/details/principlespracti00chin_0","identifier-ark":"ark:/13960/t07x2vz0x","bookplateleaf":"0004","scanfee":"200","invoice":"86","sponsordate":"20180228","external-identifier":"urn:oclc:record:1050726105","backup_location":"ia906605_32","oclc-id":"54840440","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","page_number_confidence":"0","page_number_module_version":"1.0.3"},"page_numbers":{
+    "identifier": "principlespracti00chin_0",
+    "format-version": "2",
+    "archive-hocr-tools-version": "1.1.54",
+    "confidence": 0,
+    "pages": [
+        {
+            "leafNum": 3,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 4,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 5,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 6,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 7,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 8,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 9,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 10,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 11,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 12,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 13,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 14,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 15,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 16,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 17,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 18,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        }
+    ]
+},"server":"ia800106.us.archive.org","uniq":73839127,"workable_servers":["ia800106.us.archive.org","ia600106.us.archive.org"]}
