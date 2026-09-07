@@ -85,7 +85,7 @@ read of the primary source.
   validate, either full list above.
 - Related fact card: F-WP01-030
 
-### C-009: Base-trim auxiliary audio jack, tilt steering wheel, intermittent wipers
+### C-009: Base-trim auxiliary audio jack, tilt steering wheel, intermittent wipers — RESOLVED in WP-05 (2026-09-07)
 - Honda's US press release (Tier 1) describes the auxiliary audio jack as part of the Fit
   Sport's premium audio system only, implying the US base Fit's 4-speaker AM/FM/CD system did
   NOT have an aux jack.
@@ -99,6 +99,21 @@ read of the primary source.
   Tier 3 source; a second, US-specific source could not be fetched — Edmunds and Cars.com
   feature pages returned HTTP 403 to automated fetch).
 - Related fact card: F-WP01-027
+- **RESOLUTION (WP-05):** Confirmed as a genuine US-vs-Canada equipment difference, not an
+  error. The official 2007 Honda Fit owner's manual (Tier 1, read in full via r.jina.ai —
+  techinfo.honda.com/rjanisis/pubs/om/AA0707/AA0707OM.pdf) states the auxiliary input jack is
+  fitted to "U.S. Sport and all Canadian models" — meaning ALL Canadian-market Fits (including
+  the Canadian base/DX trim auto123.com described) get the aux jack, while the US base Fit does
+  not. Independently corroborated by Honda's official "2008 Honda Fit - Features" press release
+  (Tier 1, hondanews.com), whose equipment table places "MP3/Auxiliary Input Jack" with a bullet
+  ONLY in the "Fit Sport" column, not the base "Fit" column. So: US base Fit has NO aux jack
+  (auto123's claim does not apply to it); the Canadian DX/base-equivalent trim DOES have one
+  (auto123's claim is correct for its own market). The tilt steering wheel and intermittent
+  wipers are also now confirmed at HIGH confidence (upgraded from medium) via the same two Tier 1
+  sources: "Adjustable Steering Column" and "2-Speed/Intermittent Windshield Wipers" both carry a
+  bullet under the base "Fit" column in Honda's press equipment table, and the owner's manual's
+  own steering-wheel-adjustment steps describe a tilt-only (no telescoping) mechanism available
+  on all US models. See facts/WP-05.md F-WP05-007, F-WP05-024, F-WP05-025, F-WP05-027.
 
 ### C-006: 2008 Fit top NHTSA complaint category counts
 - Two different search summaries of what appears to be the same underlying CarComplaints.com

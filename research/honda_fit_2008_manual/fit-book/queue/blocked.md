@@ -71,7 +71,25 @@ sourcing:
 - Ground clearance (F-WP01-018): left UNVERIFIED. Only one Tier 3 blog source was found, and it
   groups "first and second generation" together (5.9 in) rather than confirming the figure is
   specific to the 2007-2008 GD3 US base trim. No second corroborating source was found.
-- Exact recommended cold tire pressures (PSI) for base vs. Sport, front vs. rear: the official
+### Update (WP-05, 2026-09-07): techinfo.honda.com IS reachable after all, via r.jina.ai
+WP-01 logged `techinfo.honda.com` as a dead end ("TLS handshake failure"). WP-05 retried it and
+found a working route: plain `curl` to
+`https://techinfo.honda.com/rjanisis/pubs/om/AA0707/AA0707OM.pdf` still fails (`SSL certificate
+problem: unable to get local issuer certificate` — a trust-chain issue, not a handshake failure,
+so the earlier diagnosis may have been an intermittent proxy issue), but piping it through the
+reader proxy — `curl -sL --max-time 30 "https://r.jina.ai/https://techinfo.honda.com/rjanisis/pubs/om/AA0707/AA0707OM.pdf"`
+— returned the FULL 258-page 2007 Honda Fit Online Reference Owner's Manual as clean text
+(308 KB), including every section needed for WP-05 (lights, wipers, HVAC, windows, locks, Magic
+Seat, fuel). This is Tier 1 (Honda-hosted) and should be the first source future WPs (WP-06
+Driving, WP-07 Roadside emergencies, WP-09 Maintenance schedule, WP-21 Fuse maps) try before
+falling back to hfitinfo.com or search snippets. The URL pattern for Honda's techinfo PDFs is
+`https://techinfo.honda.com/rjanisis/pubs/om/<CODE>/<CODE>OM.pdf` where `<CODE>` encodes model/
+year (e.g. `AA0707` = 2007 Fit, `AAA080`/`AAA0808OM.pdf` was the 2008 Fit URL surfaced by search
+but NOT yet successfully retrieved this session — worth retrying with the r.jina.ai route in a
+future WP, since the 2007 vs. 2008 manual content for these systems was not expected to differ
+and no difference was found, but a direct 2008 read would remove that residual doubt).
+
+### Exact recommended cold tire pressures (PSI) for base vs. Sport, front vs. rear: the official
   Honda Fit manual mirror (hfitinfo.com) has a "Recommended Tire Pressures" chart on its Tires page,
   but the numeric PSI values are inside an image/table that did not render as text through the fetch
   method used. This is not one of the 38 WP-01 questions (tire pressure numbers belong to WP-10,
