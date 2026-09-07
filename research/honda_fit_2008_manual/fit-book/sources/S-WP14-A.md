@@ -1,0 +1,11 @@
+Source ID: S-WP14-A
+Title: Honda Fit Repair Manual mirror — "Water Outlet Removal and Installation," "Water Pump Inspection," "Radiator Replacement," and "Exhaust Pipe and Muffler Replacement" pages
+Author/Publisher: hfitinfo.com (aftermarket repair-manual mirror/aggregator site)
+URL: https://www.hfitinfo.com/hofi-836.html and hofi-837.html (water outlet/thermostat housing removal and installation) ; https://www.hfitinfo.com/hofi-838.html (water pump inspection) ; https://www.hfitinfo.com/hofi-841.html (radiator replacement) ; https://www.hfitinfo.com/hofi-832.html (exhaust pipe and muffler replacement)
+Type: service manual
+Tier: 3
+Covers model year 2008 GD3? unclear — same caution as S-WP11-A/S-WP10-F: this site's own breadcrumb/category label reads "Second generation (2007-2026)" on every page checked, which does not name "2008" or "GD3" and does not match any real Honda Fit generation boundary. Content style and specific values (Honda liquid-gasket part numbers, real torque figures) match genuine Honda service-manual content, so used at Tier 3/medium confidence, corroborated where possible by a genuinely first-generation (GD 01-08) FitFreak.net thread (see S-WP14-D).
+Date published: unknown (aggregator; page footer reads "(c) 2026 Copyright www.hfitinfo.com")
+Date accessed: 2026-09-07
+Paywalled? no
+Notes: Reached via direct curl with a browser User-Agent (same working method as S-WP11-A, S-021/S-022, used successfully in prior WPs). Water outlet page gives real Honda liquid-gasket part numbers (08717-0004, 08718-0003/0004/0009) and specific wait times (30 min before refill, 3 hr before running the engine) — used in procedures/WP-14-6.md. Water pump page confirms the pump is accessed via the right front wheel well and driven by the external drive belt, NOT the timing chain — used in procedures/WP-14-8.md. Radiator page gives the full removal/installation sequence including A/T-specific ATF cooler hose handling — used in procedures/WP-14-7.md. Exhaust page's real extractable text is very thin (only one reassembly note: "Use new gaskets and self-locking nuts when reassembling") — the rest of procedures/WP-14-13.md is explicitly labeled general technique, not confirmed from this source, because of this gap.
