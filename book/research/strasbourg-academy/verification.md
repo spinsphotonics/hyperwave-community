@@ -7,12 +7,13 @@ INPUTS READ: dossier.md, quotes.jsonl, text/sturm1538-ghi.txt, text/calvin-psalm
 
 ## 1. Script output
 ```
-20/20 quote records passed; 0 failures
+21/21 quote records passed; 0 failures
 ```
-No WARNs. All 20 quote records' `text`, `before`, and `after` fields match verbatim in their
-named `text/` file, and the before+text+after windows are contiguous in the source (no OCR
-running-head artifact split any of these quotes, unlike two quotes in the geneva-academy
-dossier).
+One WARN (strasbourg-academy-q021: before+text+after not contiguous — an OCR page-marker line
+falls inside the context window) is treated as acceptable, exactly as for two quotes in the
+geneva-academy dossier: the `text`, `before`, and `after` fields each independently verify
+verbatim against the source file. All 21 quote records' `text` fields match verbatim in their
+named `text/` file.
 
 ## 2. Quote-by-quote
 | quote_id | text matches | context matches | page correct | result |
@@ -37,8 +38,9 @@ dossier).
 | strasbourg-academy-q018 | PASS | PASS | PASS (p. xlii) | PASS |
 | strasbourg-academy-q019 | PASS | PASS | PASS (p. xliii) | PASS |
 | strasbourg-academy-q020 | PASS | PASS | PASS (p. 74) | PASS |
+| strasbourg-academy-q021 | PASS | WARN (contiguity only; independently verified) | PASS (p. xliv) | PASS |
 
-Quotes q017-q019 (Calvin's Preface) contain original page-line hyphenation exactly as OCR
+Quotes q017-q019, q021 (Calvin's Preface) contain original page-line hyphenation exactly as OCR
 delivered it (e.g. "Stras-\nburg", "anewstation" for "a new station"); this is the source's own
 OCR artifact, reproduced per Procedure F ("do not correct"), not an error in the quote record.
 Any use of these three quotes in the chapter's running prose silently rejoins the line-end
@@ -83,7 +85,7 @@ T4, T5, S2, S3, S5, R1-R4), consistent with the template's PO/PS labeling rule.
 | Motto | UNVERIFIED (M4) | not in known-facts sheet (roster does not state a motto for this institution) | no conflict; roster is silent, this dossier is honestly silent too |
 
 ## 6. Verdict
-VERIFIED (zero FAILs on the 20 quote records; field-level gaps are honestly marked, not
+VERIFIED (zero FAILs on the 21 quote records; field-level gaps are honestly marked, not
 verification failures). One item for a future revision pass, not a FAIL: confirm or drop the
 "1538-41" Calvin date range and Bucer's co-founder role with a source that was not read this
 session (Schmidt 1855 is the leading candidate for both, per sources.csv).
