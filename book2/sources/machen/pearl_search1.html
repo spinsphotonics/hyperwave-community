@@ -1,0 +1,62 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Verifying Connection</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer referrerpolicy="no-referrer"></script>
+    <style>
+        body {
+          background-color: #f2f2f2;  
+          font-family: Arial, sans-serif;  
+          color: #333;
+          text-align: center;
+          padding: 50px;
+        }
+    
+        h1 {
+          font-size: 2.5em;
+          margin-bottom: 0.5em;
+        }
+    
+        h2 {
+          font-size: 1.5em;
+          color: #555;
+          margin-bottom: 1em;
+        }
+    
+        p {
+          font-size: 1em;
+          color: #666;
+          max-width: 650px;
+          margin: 0 auto;
+        }
+      </style>
+  </head>
+  <body>
+    <h1>Pearl Digital Collections - Presbyterian Historical Society</h1>
+    <h2>Verifying that you're human...</h2>
+    <p>This page is testing whether or not you are a human visitor to prevent unwanted bot traffic. 
+It will refresh momentarily with the content you requested.
+    </p>
+    <form action="/challenge" method="post" id="captcha-form" accept-charset="UTF-8">
+        <div
+            data-callback="captchaCallback"
+            class="cf-turnstile"
+            data-sitekey="0x4AAAAAABm7CiBJjdnvURfe"
+            data-theme="auto"
+            data-size="normal"
+            data-language="auto"
+            data-retry="auto"
+            interval="8000"
+            data-appearance="always">
+        </div>
+        <input type="hidden" name="destination" value="/islandora/search/%22The%20Presbyterian%22%201929?type=dismax">
+    </form>
+    <script type="text/javascript">
+        function captchaCallback(token) {
+            setTimeout(function() {
+                document.getElementById("captcha-form").submit();
+            }, 1000);
+        }
+    </script>
+  </body>
+</html>

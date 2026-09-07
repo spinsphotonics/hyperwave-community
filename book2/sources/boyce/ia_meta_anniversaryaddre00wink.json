@@ -1,0 +1,218 @@
+{"alternate_locations":{"servers":[{"server":"dn760007.eu.archive.org","dir":"/0/items/anniversaryaddre00wink"},{"server":"dn790003.ca.archive.org","dir":"/0/items/anniversaryaddre00wink"}],"workable":[{"server":"dn760007.eu.archive.org","dir":"/0/items/anniversaryaddre00wink"},{"server":"dn790003.ca.archive.org","dir":"/0/items/anniversaryaddre00wink"}]},"created":1788792017,"d1":"ia601902.us.archive.org","d2":"ia801902.us.archive.org","dir":"/27/items/anniversaryaddre00wink","files":[{"name":"__ia_thumb.jpg","source":"original","mtime":"1692994536","size":"17130","md5":"942cd7a076c767a5a13f8a4307e3e0b5","crc32":"065d4319","sha1":"a1ecfc212b0a618b3c3c54a8691903ac41b37a89","format":"Item Tile","rotation":"0"},{"name":"anniversaryaddre00wink.djvu","source":"derivative","format":"DjVu","original":"anniversaryaddre00wink_djvu.xml","md5":"91941ba959971286e3dca78f311ac0db","mtime":"1285254396","size":"805643","crc32":"4dcd514c","sha1":"2a0013b928da462e157f494353e19712359a52b4"},{"name":"anniversaryaddre00wink.gif","source":"derivative","format":"Animated GIF","original":"anniversaryaddre00wink_jp2.zip","md5":"b01ce100efc5deb090bbb2ef7438f77e","mtime":"1285253511","size":"280115","crc32":"a778c1e6","sha1":"fb51886a7f731265a2479b59b1a0bc2ec859b949"},{"name":"anniversaryaddre00wink.pdf","source":"derivative","format":"Text PDF","original":"anniversaryaddre00wink_page_numbers.json","mtime":"1698867833","size":"1220443","md5":"59145985b020f36eca232002195a5cb2","crc32":"2a219be5","sha1":"9f75d669d618ac59d567c15b72f94e9c1c704d0b"},{"name":"anniversaryaddre00wink_abbyy.gz","source":"derivative","format":"Abbyy GZ","original":"anniversaryaddre00wink_jp2.zip","md5":"bb7705bec641d4ab3b2ddebafcf8b469","mtime":"1285254267","size":"589762","crc32":"f87b3ec1","sha1":"e1eed6e6a58a444d69df196ae0aa9bd742f74c3b"},{"name":"anniversaryaddre00wink_archive.torrent","source":"metadata","btih":"8fd4cc3a614ff469c1a56fe2800cea14bb842b92","mtime":"1714676119","size":"5444","md5":"db90555cbaa75b0f3c0a016a9c2557dd","crc32":"c08e5c21","sha1":"9b6ff3f2f5b86dd9cbc7fb7993aabf226f586617","format":"Archive BitTorrent"},{"name":"anniversaryaddre00wink_chocr.html.gz","source":"derivative","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","format":"chOCR","original":"anniversaryaddre00wink_abbyy.gz","mtime":"1698867136","size":"468774","md5":"4ba8bfa0636ad1eab5feb871e503d2e1","crc32":"34c88c5c","sha1":"c8b38c77a4d4149848560b8d50255b0269cfaff7"},{"name":"anniversaryaddre00wink_cloth_detection.log","source":"derivative","cloth_cover_detection_module_version":"1.2","format":"Cloth Cover Detection Log","original":"anniversaryaddre00wink_scandata.xml","mtime":"1698868114","size":"778","md5":"25fc06d50c178de7a50a2d205d2fb293","crc32":"457933bb","sha1":"482f051428f5c0a40ff15095650e0b9ce7eb6651"},{"name":"anniversaryaddre00wink_dc.xml","source":"original","format":"Dublin Core","mtime":"1649130186","size":"728","md5":"6ce5a30a432601ae8d005df85008c3aa","crc32":"234b1aab","sha1":"afb2921b7b0ba2616c93af79f9bcfca864ce593c"},{"name":"anniversaryaddre00wink_djvu.txt","source":"derivative","format":"DjVuTXT","original":"anniversaryaddre00wink_djvu.xml","mtime":"1698867797","size":"41504","md5":"d3bdac240b59782a1dce0f0e8a4b0b7c","crc32":"6fd62377","sha1":"1f60f6600f4036af65aa4bb689d0a9a557e083c4"},{"name":"anniversaryaddre00wink_djvu.xml","source":"derivative","format":"Djvu XML","original":"anniversaryaddre00wink_hocr.html","mtime":"1698867326","size":"481897","md5":"990eabaea20c6f31ca38742d1c3b1d57","crc32":"beaa7cc8","sha1":"f046052e4842708cde7b5f8b4b11fd461b7f2fb4"},{"name":"anniversaryaddre00wink_files.xml","source":"original","format":"Metadata","md5":"ef18f21c67342312ce8a8007c9c5afcf","summation":"md5"},{"name":"anniversaryaddre00wink_hocr.html","source":"derivative","hocr_char_to_word_module_version":"1.2.0","hocr_char_to_word_hocr_version":"1.1.45","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","format":"hOCR","original":"anniversaryaddre00wink_chocr.html.gz","mtime":"1698867305","size":"888622","md5":"c237b3b76af01707a765f685f7c96e73","crc32":"e9214d49","sha1":"d8215983c4b3b3dd8f7de5335fcd8441be8ee801"},{"name":"anniversaryaddre00wink_hocr_pageindex.json.gz","source":"derivative","hocr_pageindex_module_version":"1.0.0","hocr_pageindex_hocr_version":"1.1.15","format":"OCR Page Index","original":"anniversaryaddre00wink_hocr.html","mtime":"1698867461","size":"351","md5":"ad28df3e5847c70725a6dd4807dcb9d8","crc32":"35ea1c14","sha1":"5114b9bc5e32ad4b8802f01079ca5bd1f1f85b4a"},{"name":"anniversaryaddre00wink_hocr_searchtext.txt.gz","source":"derivative","hocr_fts_text_module_version":"1.1.0","hocr_fts_text_hocr_version":"1.1.15","word_conf_0_10":"1704","word_conf_11_20":"1519","word_conf_21_30":"1282","word_conf_31_40":"789","word_conf_41_50":"489","word_conf_51_60":"188","word_conf_61_70":"58","word_conf_71_80":"22","word_conf_81_90":"10","word_conf_91_100":"25","format":"OCR Search Text","original":"anniversaryaddre00wink_hocr.html","mtime":"1698867624","size":"16186","md5":"7cf07f64ba66852b42d53d558a771905","crc32":"ecba0807","sha1":"337a93957f6037b9377ed56bca0997150365dd53"},{"name":"anniversaryaddre00wink_jp2.zip","source":"derivative","format":"Single Page Processed JP2 ZIP","original":"anniversaryaddre00wink_orig_jp2.tar","md5":"f31ca495446917b439c26ad7713583fe","mtime":"1285253488","size":"8896725","crc32":"e18ee629","sha1":"ed73556480f070ff5f033a7fbce5106a8cf4e628","filecount":"36"},{"name":"anniversaryaddre00wink_marc.xml","source":"original","format":"MARC","mtime":"1365552328","size":"2544","md5":"99941b075f556e617dd8e3979346aca8","crc32":"f64a2c63","sha1":"4b80c919dd9527bc3e44a5c1d1e483b30eb719cf"},{"name":"anniversaryaddre00wink_meta.mrc","source":"original","format":"MARC Binary","mtime":"1365552328","size":"836","md5":"70efbb9cfdc62686720912d8e9f77067","crc32":"2f13313d","sha1":"ea66d03a9ab74ddc9ccbd4460618a26f6e8af619"},{"name":"anniversaryaddre00wink_meta.xml","source":"original","format":"Metadata","mtime":"1714676115","size":"2314","md5":"0213e1854f1bda9cbdf21ec29bcc11fd","crc32":"a1916a09","sha1":"d4c571ee5de80cfeed821bf8e67fc890562468da"},{"name":"anniversaryaddre00wink_metasource.xml","source":"original","format":"MARC Source","md5":"a83d55354d15c0e2af2c0ff5b01e420c","mtime":"1285252350","size":"429","crc32":"b3dc38c0","sha1":"68e668239f52e2e31105fe9595d46c4dbe1f28ae"},{"name":"anniversaryaddre00wink_orig_jp2.tar","source":"original","format":"Single Page Original JP2 Tar","md5":"f93bd75d994156fc7eb5556ca715a900","mtime":"1285253010","size":"14970880","crc32":"a7922149","sha1":"5ac2392a8d08db0fe1ba37758445f29471398e27","filecount":"36"},{"name":"anniversaryaddre00wink_page_numbers.json","source":"derivative","hocr_pagenumber_module_version":"1.0.3","hocr_pagenumber_hocr_version":"1.1.54","hocr_pagenumber_confidence":"0","format":"Page Numbers JSON","original":"anniversaryaddre00wink_hocr.html","mtime":"1698867780","size":"5220","md5":"c47679abd478d3e4888151cc8054f0df","crc32":"527bfe41","sha1":"a82e8fb6edb845de1f0486f0f3358e7d60c60f9e"},{"name":"anniversaryaddre00wink_scandata.xml","source":"original","format":"Scandata","md5":"bde140e912f165f853fabae214c5480e","mtime":"1698868114","size":"19008","crc32":"829836b8","sha1":"39ec36f5d0f9122480a1355cfa9429a54c820be8"}],"files_count":23,"item_last_updated":1714676119,"item_size":28715333,"metadata":{"title":"Anniversary address delivered on the second commencement of the Southern Baptist Theological Seminary, at Greenville, S. C., Monday, May 27th, 1861","creator":"Winkler, E. T. (Edwin Theodore), 1823-1883","description":["Cover title","16 p. 22 cm"],"publisher":"Charleston, Presses of Evans & Cogswell","date":"1861","language":"eng","page-progression":"lr","sponsor":"Duke University Libraries","contributor":"Duke University Libraries","scanningcenter":"Durham","mediatype":"texts","shiptracking":"duke_20100827_truck 5","call_number":"Conf #273","repub_state":"4","updatedate":"2010-09-23 14:32:30","updater":"AbigailHall","identifier":"anniversaryaddre00wink","uploader":"abigail@archive.org","addeddate":"2010-09-23 14:32:32","publicdate":"2010-09-23 14:32:38","ppi":"400","camera":"Canon 5D","operator":"abigail@archive.org","scanner":"scribe1.durham.archive.org","scandate":"20100923144204","imagecount":"34","foldoutcount":"0","identifier-access":"http://www.archive.org/details/anniversaryaddre00wink","identifier-ark":"ark:/13960/t6b28n201","curation":"[curator]judec@archive.org[/curator][date]20101005034626[/date][state]approved[/state]","sponsordate":"20100930","collection":["dulci","duke_libraries","americana"],"lccn":"41041806","backup_location":"ia903606_18","openlibrary_edition":"OL6428793M","openlibrary_work":"OL7660602W","external-identifier":"urn:oclc:record:1039531981","subject":"United States -- History -- Civil War, 1861-1865","oclc-id":"7124270","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","page_number_confidence":"0","page_number_module_version":"1.0.3"},"page_numbers":{
+    "identifier": "anniversaryaddre00wink",
+    "format-version": "2",
+    "archive-hocr-tools-version": "1.1.54",
+    "confidence": 0,
+    "pages": [
+        {
+            "leafNum": 1,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 2,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 3,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 4,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 5,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 6,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 7,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 8,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 9,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 10,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 11,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 12,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 13,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 14,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 15,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 16,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 17,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 18,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 19,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 20,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 21,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 22,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 23,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 24,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 25,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 26,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 27,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 28,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 29,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 30,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        }
+    ]
+},"server":"ia801902.us.archive.org","uniq":452889359,"workable_servers":["ia801902.us.archive.org","ia601902.us.archive.org"]}

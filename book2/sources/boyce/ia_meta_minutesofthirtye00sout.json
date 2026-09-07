@@ -1,0 +1,316 @@
+{"alternate_locations":{"servers":[{"server":"dn721909.ca.archive.org","dir":"/0/items/minutesofthirtye00sout"},{"server":"dn760107.eu.archive.org","dir":"/0/items/minutesofthirtye00sout"}],"workable":[{"server":"dn721909.ca.archive.org","dir":"/0/items/minutesofthirtye00sout"},{"server":"dn760107.eu.archive.org","dir":"/0/items/minutesofthirtye00sout"}]},"created":1788792011,"d1":"ia600808.us.archive.org","d2":"ia800808.us.archive.org","dir":"/35/items/minutesofthirtye00sout","files":[{"name":"__ia_thumb.jpg","source":"original","mtime":"1701102398","size":"16790","md5":"112c68982dc92fb65e89429cf1ec9eff","crc32":"85eb96a5","sha1":"ee2e635d34ac9816a32393ab192b04b99f039374","format":"Item Tile","rotation":"0"},{"name":"minutesofthirtye00sout.djvu","source":"derivative","format":"DjVu","original":"minutesofthirtye00sout_djvu.xml","mtime":"1391824771","size":"1485286","md5":"706516fff20e2ca17ee61f46317e67bc","crc32":"425cf3cb","sha1":"83a383bd184ccd962eb5c996bbcaef662bd7a9d5"},{"name":"minutesofthirtye00sout.gif","source":"derivative","format":"Animated GIF","original":"minutesofthirtye00sout_jp2.zip","mtime":"1391824081","size":"345140","md5":"1c94f65112e8661a0c8b34e2c61b61eb","crc32":"305434af","sha1":"82716eef9dd223588e312d4e86f3a1c2bdec40fa"},{"name":"minutesofthirtye00sout.pdf","source":"derivative","format":"Text PDF","original":"minutesofthirtye00sout_page_numbers.json","mtime":"1701102557","size":"2842603","md5":"79239415417334c2a3b9f561562bb4c9","crc32":"8d863932","sha1":"03c9cca2a5540136f4362eea742746b49b613d31"},{"name":"minutesofthirtye00sout_abbyy.gz","source":"derivative","format":"Abbyy GZ","original":"minutesofthirtye00sout_jp2.zip","mtime":"1391824613","size":"1078886","md5":"8810bd604249724a975e13b02c255de8","crc32":"544e646f","sha1":"cd72b9e55aecc79d8170a20b0e219411c633eb02"},{"name":"minutesofthirtye00sout_archive.torrent","source":"metadata","btih":"31c4e664c30fe12d9c020be6edf1ff4ca959a750","mtime":"1746661310","size":"5990","md5":"5e25537233606d85f4d21f61af5a4423","crc32":"574c198c","sha1":"854db3aed2597a5209484b09d25875d90e99cec5","format":"Archive BitTorrent"},{"name":"minutesofthirtye00sout_chocr.html.gz","source":"derivative","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","format":"chOCR","original":"minutesofthirtye00sout_abbyy.gz","mtime":"1701102346","size":"968618","md5":"c7a48c95a2d3eb25ac157435ca083cbe","crc32":"c7527195","sha1":"0768460369eb7a05abc618f58fe463cdc3128013"},{"name":"minutesofthirtye00sout_cloth_detection.log","source":"derivative","cloth_cover_detection_module_version":"2.0","format":"Cloth Cover Detection Log","original":"minutesofthirtye00sout_scandata.xml","mtime":"1701103739","size":"1496","md5":"a419354891598c1d7234c6ce1579c87f","crc32":"6b28ce33","sha1":"e4bd8307208bf1374f2e96ecfa4dce8af3496dd7"},{"name":"minutesofthirtye00sout_djvu.txt","source":"derivative","format":"DjVuTXT","original":"minutesofthirtye00sout_djvu.xml","mtime":"1701102395","size":"84827","md5":"d4836d843fe410c98fb93c63e6e65861","crc32":"a7fed4b6","sha1":"5382c4ebb204b9db9452a2a2c676d37d7a06cae9"},{"name":"minutesofthirtye00sout_djvu.xml","source":"derivative","format":"Djvu XML","original":"minutesofthirtye00sout_hocr.html","mtime":"1701102363","size":"1047240","md5":"0fd6c6fa94c52479a6ce5c16b1a55240","crc32":"4ce8af6d","sha1":"8fc7b3dd8e49fa58a5e25f1c93b14b4fcd692a60"},{"name":"minutesofthirtye00sout_files.xml","source":"original","format":"Metadata","md5":"adebf5dceb2eb2c988effa08eed3bfd1","summation":"md5"},{"name":"minutesofthirtye00sout_hocr.html","source":"derivative","hocr_char_to_word_module_version":"1.2.0","hocr_char_to_word_hocr_version":"1.1.45","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","format":"hOCR","original":"minutesofthirtye00sout_chocr.html.gz","mtime":"1701102356","size":"1978863","md5":"63da9cc6b0d1e21632e098bc211f9109","crc32":"94623be9","sha1":"216cdee398fdbe3d86dfd0b909aba257be01c9e5"},{"name":"minutesofthirtye00sout_hocr_pageindex.json.gz","source":"derivative","hocr_pageindex_module_version":"1.0.0","hocr_pageindex_hocr_version":"1.1.15","format":"OCR Page Index","original":"minutesofthirtye00sout_hocr.html","mtime":"1701102366","size":"561","md5":"15477f20e9f457e911fad476ffc89520","crc32":"819e6958","sha1":"dbd1459dece199f718b10ac0de962e783e9cc6e6"},{"name":"minutesofthirtye00sout_hocr_searchtext.txt.gz","source":"derivative","hocr_fts_text_module_version":"1.1.0","hocr_fts_text_hocr_version":"1.1.15","word_conf_0_10":"1221","word_conf_11_20":"1365","word_conf_21_30":"2023","word_conf_31_40":"2340","word_conf_41_50":"1896","word_conf_51_60":"1504","word_conf_61_70":"954","word_conf_71_80":"480","word_conf_81_90":"211","word_conf_91_100":"654","format":"OCR Search Text","original":"minutesofthirtye00sout_hocr.html","mtime":"1701102374","size":"26799","md5":"a205c0e97586bef2ac4e9f7f0adfb76a","crc32":"efcabfe0","sha1":"dddaea26e1fcb88e4f4fc5a1ceba09c02b8e8a70"},{"name":"minutesofthirtye00sout_jp2.zip","source":"derivative","format":"Single Page Processed JP2 ZIP","original":"minutesofthirtye00sout_orig_jp2.tar","mtime":"1391824061","size":"27618022","md5":"548e61f140383928408748ac017b2fd7","crc32":"d11f71de","sha1":"966079823438f937903cb9ea91f16f914acd48cf","filecount":"50"},{"name":"minutesofthirtye00sout_meta.sqlite","source":"original","mtime":"1465862277","size":"6144","format":"Metadata","md5":"b1832a8969a595464b3a92cf13cac3bd","crc32":"b1347bc0","sha1":"08754475638906e32f1839405a7b00b62a3b26cc"},{"name":"minutesofthirtye00sout_meta.xml","source":"original","format":"Metadata","mtime":"1746661308","size":"2717","md5":"c17f88678438bf17924727f354106c81","crc32":"94b3593e","sha1":"3abb4872f642dd1d47732e927343ba2251603d48"},{"name":"minutesofthirtye00sout_metasource.xml","source":"original","format":"MARC Source","mtime":"1391700421","size":"237","md5":"bbb59fa4fb09319aae5e61d85c03ba09","crc32":"95416e8e","sha1":"532acb032e12f251baa70843d24a2cd1049b4208"},{"name":"minutesofthirtye00sout_orig_jp2.tar","source":"original","format":"Single Page Original JP2 Tar","mtime":"1391823070","size":"44052480","md5":"83b4938eb9d48bdaf8d899a134ccd0d7","crc32":"eba2b99f","sha1":"e75e5771e464503494264ea611b7b5212338b0dd","filecount":"50"},{"name":"minutesofthirtye00sout_page_numbers.json","source":"derivative","hocr_pagenumber_module_version":"1.0.3","hocr_pagenumber_hocr_version":"1.1.54","hocr_pagenumber_confidence":"81","format":"Page Numbers JSON","original":"minutesofthirtye00sout_hocr.html","mtime":"1701102385","size":"7487","md5":"eab0fdaf0f81b7f05e506bae22c9512c","crc32":"a353654a","sha1":"ba1162591c7642e2c0d3f511c0c9603b606bcb32"},{"name":"minutesofthirtye00sout_scandata.xml","source":"original","format":"Scandata","mtime":"1701103739","size":"65699","md5":"c3ef2d24c27469dedb862d01f167f3cc","crc32":"2cef8884","sha1":"db50b20a097f48bd836854df5dc751f5c22a7626"}],"files_count":21,"item_last_updated":1746661310,"item_size":81635885,"metadata":{"language":"eng","scanningcenter":"clemson","sponsor":"LYRASIS Members and Sloan Foundation","contributor":"University of South Carolina","date":"1858","subject":["South Carolina Baptist Convention","Baptists--South Carolina"],"title":"Minutes of the thirty-eighth anniversary of the State Convention of the Baptist denomination in South Carolina, held at Greenville, July 24-27, 1858","creator":"South Carolina Baptist Convention","shiptracking":"ST000974","publisher":"Charleston, S.C. :  James and Williams, printers","description":"Together with an abstract of the proceedings of the Board of Trustees of Furman University, held at the same time and place","copyright_message":"This item is in the public domain","call_number":"286.1757 B22m","page-progression":"lr","repub_state":"4","publicdate":"2014-02-06 14:16:13","mediatype":"texts","updatedate":"2014-02-06 15:27:01","updater":"associate-melissa-poole@archive.org","identifier":"minutesofthirtye00sout","uploader":"associate-melissa-poole@archive.org","addeddate":"2014-02-06 15:27:03.673621","collection":["universityofsouthcarolina","americana"],"scanner":"scribe1.clemson.archive.org","notes":"No copyright page found. No table-of-contents pages found.","repub_seconds":"103","ppi":"500","camera":"Canon EOS 5D Mark II","operator":"associate-arielle-salley@archive.org","scandate":"20140207210258","republisher":"associate-arielle-salley@archive.org","imagecount":"46","foldoutcount":"0","identifier-access":"http://archive.org/details/minutesofthirtye00sout","identifier-ark":"ark:/13960/t0ks96n88","bookplateleaf":"0006","scanfee":"100","invoice":"13","sponsordate":"20140228","backup_location":"ia905803_32","republisher_operator":"associate-arielle-salley@archive.org","republisher_date":"20140208012929","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","page_number_confidence":"81","page_number_module_version":"1.0.3","openlibrary_edition":"OL58948131M","openlibrary_work":"OL43279014W"},"page_numbers":{
+    "identifier": "minutesofthirtye00sout",
+    "format-version": "2",
+    "archive-hocr-tools-version": "1.1.54",
+    "confidence": 81,
+    "pages": [
+        {
+            "leafNum": 1,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 2,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 3,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 6,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 7,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 8,
+            "confidence": 77,
+            "pageNumber": "4",
+            "pageProb": 67,
+            "wordConf": 5
+        },
+        {
+            "leafNum": 9,
+            "confidence": 86,
+            "pageNumber": "5",
+            "pageProb": 76,
+            "wordConf": 29
+        },
+        {
+            "leafNum": 10,
+            "confidence": 82,
+            "pageNumber": "6",
+            "pageProb": 72,
+            "wordConf": 31
+        },
+        {
+            "leafNum": 11,
+            "confidence": 87,
+            "pageNumber": "7",
+            "pageProb": 77,
+            "wordConf": 0
+        },
+        {
+            "leafNum": 12,
+            "confidence": 83,
+            "pageNumber": "8",
+            "pageProb": 73,
+            "wordConf": 31
+        },
+        {
+            "leafNum": 13,
+            "confidence": 90,
+            "pageNumber": "9",
+            "pageProb": 80,
+            "wordConf": 37
+        },
+        {
+            "leafNum": 14,
+            "confidence": null,
+            "pageNumber": "10",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 15,
+            "confidence": 86,
+            "pageNumber": "11",
+            "pageProb": 76,
+            "wordConf": 19
+        },
+        {
+            "leafNum": 16,
+            "confidence": null,
+            "pageNumber": "12",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 17,
+            "confidence": 84,
+            "pageNumber": "13",
+            "pageProb": 74,
+            "wordConf": 6
+        },
+        {
+            "leafNum": 18,
+            "confidence": 74,
+            "pageNumber": "14",
+            "pageProb": 64,
+            "wordConf": 8
+        },
+        {
+            "leafNum": 19,
+            "confidence": 84,
+            "pageNumber": "15",
+            "pageProb": 74,
+            "wordConf": 0
+        },
+        {
+            "leafNum": 20,
+            "confidence": null,
+            "pageNumber": "16",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 21,
+            "confidence": 79,
+            "pageNumber": "17",
+            "pageProb": 69,
+            "wordConf": 1
+        },
+        {
+            "leafNum": 22,
+            "confidence": 75,
+            "pageNumber": "18",
+            "pageProb": 65,
+            "wordConf": 22
+        },
+        {
+            "leafNum": 23,
+            "confidence": 86,
+            "pageNumber": "19",
+            "pageProb": 76,
+            "wordConf": 18
+        },
+        {
+            "leafNum": 24,
+            "confidence": 65,
+            "pageNumber": "20",
+            "pageProb": 55,
+            "wordConf": 2
+        },
+        {
+            "leafNum": 25,
+            "confidence": 86,
+            "pageNumber": "21",
+            "pageProb": 76,
+            "wordConf": 1
+        },
+        {
+            "leafNum": 26,
+            "confidence": null,
+            "pageNumber": "22",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 27,
+            "confidence": null,
+            "pageNumber": "23",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 28,
+            "confidence": 81,
+            "pageNumber": "24",
+            "pageProb": 71,
+            "wordConf": 100
+        },
+        {
+            "leafNum": 29,
+            "confidence": 81,
+            "pageNumber": "25",
+            "pageProb": 71,
+            "wordConf": 100
+        },
+        {
+            "leafNum": 30,
+            "confidence": null,
+            "pageNumber": "26",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 31,
+            "confidence": null,
+            "pageNumber": "27",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 32,
+            "confidence": 65,
+            "pageNumber": "28",
+            "pageProb": 55,
+            "wordConf": 1
+        },
+        {
+            "leafNum": 33,
+            "confidence": 86,
+            "pageNumber": "29",
+            "pageProb": 76,
+            "wordConf": 4
+        },
+        {
+            "leafNum": 34,
+            "confidence": null,
+            "pageNumber": "30",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 35,
+            "confidence": 86,
+            "pageNumber": "31",
+            "pageProb": 76,
+            "wordConf": 3
+        },
+        {
+            "leafNum": 36,
+            "confidence": 72,
+            "pageNumber": "32",
+            "pageProb": 62,
+            "wordConf": 38
+        },
+        {
+            "leafNum": 37,
+            "confidence": 86,
+            "pageNumber": "33",
+            "pageProb": 76,
+            "wordConf": 3
+        },
+        {
+            "leafNum": 38,
+            "confidence": null,
+            "pageNumber": "34",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 39,
+            "confidence": 88,
+            "pageNumber": "35",
+            "pageProb": 78,
+            "wordConf": 10
+        },
+        {
+            "leafNum": 40,
+            "confidence": 81,
+            "pageNumber": "36",
+            "pageProb": 71,
+            "wordConf": 4
+        },
+        {
+            "leafNum": 41,
+            "confidence": null,
+            "pageNumber": "37",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 44,
+            "confidence": 81,
+            "pageNumber": "38",
+            "pageProb": 71,
+            "wordConf": 22
+        },
+        {
+            "leafNum": 45,
+            "confidence": 83,
+            "pageNumber": "39",
+            "pageProb": 73,
+            "wordConf": 4
+        },
+        {
+            "leafNum": 46,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 47,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 48,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        }
+    ]
+},"server":"ia800808.us.archive.org","uniq":1247386973,"workable_servers":["ia800808.us.archive.org","ia600808.us.archive.org"]}

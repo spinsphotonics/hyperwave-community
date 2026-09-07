@@ -1,0 +1,148 @@
+{"alternate_locations":{"servers":[{"server":"dn760102.eu.archive.org","dir":"/0/items/catalogue00sout_0"},{"server":"dn790001.ca.archive.org","dir":"/0/items/catalogue00sout_0"}],"workable":[{"server":"dn760102.eu.archive.org","dir":"/0/items/catalogue00sout_0"},{"server":"dn790001.ca.archive.org","dir":"/0/items/catalogue00sout_0"}]},"created":1788792003,"d1":"ia600907.us.archive.org","d2":"ia800907.us.archive.org","dir":"/28/items/catalogue00sout_0","events":{"checkin_0":["associate-nicole-mccune",1524690434,""]},"files":[{"name":"__ia_thumb.jpg","source":"original","mtime":"1772015500","size":"12816","format":"JPEG Thumb","rotation":"0","md5":"d79da4df2970f33c260cd7d9ace25669","crc32":"c560a0f7","sha1":"9a5351433571c08598d13933fc639e0a15d570e9"},{"name":"catalogue00sout_0.pdf","source":"derivative","format":"Text PDF","original":"catalogue00sout_0_page_numbers.json","mtime":"1699167424","size":"1670557","md5":"72c798e79442f997e2af4466d8d1d88e","crc32":"9261d8a0","sha1":"88dd9b9d8ce8976186295b549f08ab212328d2c8"},{"name":"catalogue00sout_0_abbyy.gz","source":"derivative","format":"Abbyy GZ","original":"catalogue00sout_0_jp2.zip","mtime":"1524690851","size":"584055","md5":"1e1d27498a59c45da190bb6d9d0e635b","crc32":"1f6cf58f","sha1":"de0c412a7070aa97faadbfd09bfdd5cefc486075"},{"name":"catalogue00sout_0_archive.torrent","source":"metadata","btih":"bcea8aed5eb615a7d4115cabc8ec110172d09da5","mtime":"1772015501","size":"5406","md5":"882f411222d5c3a47de622a34eb0d7c3","crc32":"251561f6","sha1":"c6b62fa3d82a9e1043e57d2e4bd030f3efdf01c8","format":"Archive BitTorrent"},{"name":"catalogue00sout_0_chocr.html.gz","source":"derivative","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","format":"chOCR","original":"catalogue00sout_0_abbyy.gz","mtime":"1699167043","size":"468825","md5":"b79a02cf8809297589b36e0b374994cf","crc32":"ada155d1","sha1":"bf022df0f7fe0d588c51a7b1e2cdb2732f70064c"},{"name":"catalogue00sout_0_cloth_detection.log","source":"derivative","cloth_cover_detection_module_version":"1.2","format":"Cloth Cover Detection Log","original":"catalogue00sout_0_scandata.xml","mtime":"1699167875","size":"758","md5":"1285a3cb18a9090ce790fb0f5e2e1ebe","crc32":"9c439e8a","sha1":"78933e97b26682831ab1976bc336c49f74156a71"},{"name":"catalogue00sout_0_djvu.txt","source":"derivative","format":"DjVuTXT","original":"catalogue00sout_0_djvu.xml","mtime":"1699167380","size":"40160","md5":"f94c4ddbd05b26f09f4cda26ca1fe0a5","crc32":"3c746291","sha1":"390feda12a0d62a1f3d196e97ad53f4250cbd556"},{"name":"catalogue00sout_0_djvu.xml","source":"derivative","format":"Djvu XML","original":"catalogue00sout_0_hocr.html","mtime":"1699167103","size":"482493","md5":"e139170685d6a58a2f5fabbb8643ec07","crc32":"04427f69","sha1":"082c0f53c1b8973cd9cbba68c020d35930390034"},{"name":"catalogue00sout_0_events.json","source":"original","mtime":"1524690441","size":"55","md5":"e2700321d6341dcf24fb7d9b16768967","crc32":"e3b84ea7","sha1":"f5b713e93b19f8e24f04059d09663e05c8d548a4","format":"JSON"},{"name":"catalogue00sout_0_files.xml","source":"original","format":"Metadata","md5":"8efee1e5084c3c115712a53619fd5ac9","summation":"md5"},{"name":"catalogue00sout_0_hocr.html","source":"derivative","hocr_char_to_word_module_version":"1.2.0","hocr_char_to_word_hocr_version":"1.1.45","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","format":"hOCR","original":"catalogue00sout_0_chocr.html.gz","mtime":"1699167084","size":"1013344","md5":"f5d56ae0617598635dc0e4007f70d8cc","crc32":"819d270b","sha1":"14714dd2d9a36f19045cd98f144050397c840645"},{"name":"catalogue00sout_0_hocr_pageindex.json.gz","source":"derivative","hocr_pageindex_module_version":"1.0.0","hocr_pageindex_hocr_version":"1.1.15","format":"OCR Page Index","original":"catalogue00sout_0_hocr.html","mtime":"1699167152","size":"259","md5":"3d660edd798c7c31a8848da06408ddbe","crc32":"04dba8fc","sha1":"ad797e26de435feff4b723cbf5406469e3dacad3"},{"name":"catalogue00sout_0_hocr_searchtext.txt.gz","source":"derivative","hocr_fts_text_module_version":"1.1.0","hocr_fts_text_hocr_version":"1.1.15","word_conf_0_10":"288","word_conf_11_20":"102","word_conf_21_30":"249","word_conf_31_40":"382","word_conf_41_50":"579","word_conf_51_60":"867","word_conf_61_70":"1197","word_conf_71_80":"1087","word_conf_81_90":"596","word_conf_91_100":"588","format":"OCR Search Text","original":"catalogue00sout_0_hocr.html","mtime":"1699167234","size":"13553","md5":"5dbf7e88b5e58eeb23c283bcb3e0d616","crc32":"9636007e","sha1":"de2f888fa3223705b3ae7b4910fa2a7a01bfa476"},{"name":"catalogue00sout_0_jp2.zip","source":"derivative","format":"Single Page Processed JP2 ZIP","original":"catalogue00sout_0_orig_jp2.tar","mtime":"1524690716","size":"14823716","md5":"62ded33e2d524397696942ca9057100b","crc32":"79e9b3b2","sha1":"53ec760b57a22854c7a83978afbc6af8351d0ee0","filecount":"22"},{"name":"catalogue00sout_0_meta.sqlite","source":"original","mtime":"1524690463","size":"13312","format":"Metadata","md5":"8203f115a2d124ff734fcd5cbc58ce42","crc32":"e2a0ad53","sha1":"824bb1afaea2921a76cf5b2ba6b3fcbd7ee54035"},{"name":"catalogue00sout_0_meta.xml","source":"original","mtime":"1772015499","size":"2194","format":"Metadata","md5":"3bc1096edea4e82bebac9de4331996ee","crc32":"a61b2d11","sha1":"ff9e9a228410c1f1bfe076014b33c9ca2ce48649"},{"name":"catalogue00sout_0_metasource.xml","source":"original","mtime":"1524581024","size":"232","md5":"acccaee7c400b1c1ef9fb3c79c088fca","crc32":"2d0d3ff3","sha1":"761e94fe13a08321090595f0451f9c90681e2271","format":"MARC Source"},{"name":"catalogue00sout_0_orig_jp2.tar","source":"original","mtime":"1524690462","size":"22333440","format":"Single Page Original JP2 Tar","md5":"4b033e9d87e24298d8da0b0481ec2ed7","crc32":"0d252ff6","sha1":"8bb6d5c777723f6106e9097164169ba181dcf624","filecount":"22"},{"name":"catalogue00sout_0_page_numbers.json","source":"derivative","hocr_pagenumber_module_version":"1.0.3","hocr_pagenumber_hocr_version":"1.1.54","hocr_pagenumber_confidence":"94","format":"Page Numbers JSON","original":"catalogue00sout_0_hocr.html","mtime":"1699167349","size":"3477","md5":"fd74b10f16abe0b48ae749c799f5d7f8","crc32":"de1e852a","sha1":"9a4455af6e12d63c2acd0a4e8f4df1c168ed4a04"},{"name":"catalogue00sout_0_scandata.xml","source":"original","mtime":"1699167875","size":"22746","format":"Scandata","md5":"4f6fe3d9f975932aa1a3156c935e3ba0","crc32":"2cfe4ad5","sha1":"875b167ed7faf2053a1cb15838c2e78973159a37"},{"name":"logs\/catalogue00sout_0_iabdash_2018-04-25161531.log","source":"original","mtime":"1524687364","size":"352","md5":"fa445e2113231c47a68f9e650bc23bb4","crc32":"08d8ff7f","sha1":"ff4f1c2551f1e9d07e343b7968f6052e337a07ee","format":"Log"},{"name":"logs\/catalogue00sout_0_scanning_2018-04-25161526.log","source":"original","mtime":"1524687359","size":"53436","md5":"6e065bd01595bc404d557de74bf099d4","crc32":"9a04d255","sha1":"ba6d0e0bf279a1e2d734a7bd4b2d3f389a42c0fc","format":"Log"}],"files_count":22,"item_last_updated":1772015501,"item_size":41545186,"metadata":{"language":"eng","scanningcenter":"harrisburg","sponsor":"This project is made possible by a grant from the Institute of Museum and Library Services as administered by the Pennsylvania Department of Education through the Office of Commonwealth Libraries","contributor":"State Library of Pennsylvania","title":"Catalogue","creator":"Southern Baptist Theological Seminary","collection":["statelibrarypennsylvania","americana"],"shiptracking":"ST009025","call_number":"PV 462 no.4","ocm_id":"12996518","publisher":"s.n.","pub_date":"1875","repub_state":"19","page-progression":"lr","publicdate":"2018-04-24 13:36:44","mediatype":"texts","updatedate":"2018-04-24 14:43:44","updater":"associate-nicole-mccune@archive.org","identifier":"catalogue00sout_0","uploader":"associate-nicole-mccune@archive.org","addeddate":"2018-04-24 14:43:46","scanner":"scribe1.harrisburg.archive.org","operator":"associate-nicole-mccune@archive.org","tts_version":"v1.58-final-25-g44facaa","imagecount":"22","scandate":"20180425205656","notes":"No copyright or title page.","ppi":"300","republisher_operator":"associate-nicole-mccune@archive.org","republisher_date":"20180425170643","republisher_time":"88","foldoutcount":"0","identifier-access":"http://archive.org/details/catalogue00sout_0","identifier-ark":"ark:/13960/t7mq1s642","scanfee":"300;10;200","invoice":"1007","sponsordate":"20180430","backup_location":"ia906703_32","ocr_module_version":"0.0.21","ocr_converted":"abbyy-to-hocr 1.1.37","page_number_confidence":"94","page_number_module_version":"1.0.3","date":"1875"},"page_numbers":{
+    "identifier": "catalogue00sout_0",
+    "format-version": "2",
+    "archive-hocr-tools-version": "1.1.54",
+    "confidence": 94,
+    "pages": [
+        {
+            "leafNum": 1,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 2,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 3,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 4,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 5,
+            "confidence": 100,
+            "pageNumber": "5",
+            "pageProb": 99,
+            "wordConf": 43
+        },
+        {
+            "leafNum": 6,
+            "confidence": 100,
+            "pageNumber": "6",
+            "pageProb": 92,
+            "wordConf": 65
+        },
+        {
+            "leafNum": 7,
+            "confidence": 100,
+            "pageNumber": "7",
+            "pageProb": 91,
+            "wordConf": 4
+        },
+        {
+            "leafNum": 8,
+            "confidence": 100,
+            "pageNumber": "8",
+            "pageProb": 92,
+            "wordConf": 100
+        },
+        {
+            "leafNum": 9,
+            "confidence": 100,
+            "pageNumber": "9",
+            "pageProb": 92,
+            "wordConf": 19
+        },
+        {
+            "leafNum": 10,
+            "confidence": 100,
+            "pageNumber": "10",
+            "pageProb": 92,
+            "wordConf": 14
+        },
+        {
+            "leafNum": 11,
+            "confidence": 65,
+            "pageNumber": "11",
+            "pageProb": 55,
+            "wordConf": 44
+        },
+        {
+            "leafNum": 12,
+            "confidence": 100,
+            "pageNumber": "12",
+            "pageProb": 92,
+            "wordConf": 53
+        },
+        {
+            "leafNum": 13,
+            "confidence": null,
+            "pageNumber": "13",
+            "pageProb": null,
+            "wordConf": null
+        },
+        {
+            "leafNum": 14,
+            "confidence": 90,
+            "pageNumber": "14",
+            "pageProb": 80,
+            "wordConf": 28
+        },
+        {
+            "leafNum": 15,
+            "confidence": 100,
+            "pageNumber": "15",
+            "pageProb": 97,
+            "wordConf": 24
+        },
+        {
+            "leafNum": 16,
+            "confidence": 100,
+            "pageNumber": "16",
+            "pageProb": 92,
+            "wordConf": 9
+        },
+        {
+            "leafNum": 17,
+            "confidence": 100,
+            "pageNumber": "17",
+            "pageProb": 91,
+            "wordConf": 46
+        },
+        {
+            "leafNum": 18,
+            "confidence": 100,
+            "pageNumber": "18",
+            "pageProb": 92,
+            "wordConf": 51
+        },
+        {
+            "leafNum": 19,
+            "confidence": 95,
+            "pageNumber": "19",
+            "pageProb": 85,
+            "wordConf": 12
+        },
+        {
+            "leafNum": 20,
+            "confidence": null,
+            "pageNumber": "",
+            "pageProb": null,
+            "wordConf": null
+        }
+    ]
+},"server":"ia600907.us.archive.org","uniq":150608152,"workable_servers":["ia600907.us.archive.org","ia800907.us.archive.org"]}

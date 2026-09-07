@@ -1,0 +1,117 @@
+% The Reformed School — LuaLaTeX, memoir class, 6 x 9 in.
+\documentclass[11pt,twoside,openright]{memoir}
+
+% ---------- page geometry: 6 x 9 trim ----------
+\setstocksize{9in}{6in}
+\settrimmedsize{9in}{6in}{*}
+\settrimsize{*}{*}{*}
+\settypeblocksize{6.95in}{4.15in}{*}
+\setlrmargins{0.95in}{*}{*}     % inner (spine) margin; outer computed
+\setulmargins{0.85in}{*}{*}     % upper margin; lower computed
+\setheadfoot{\onelineskip}{2\onelineskip}
+\setheaderspaces{*}{1.5\onelineskip}{*}
+\checkandfixthelayout
+
+% ---------- fonts ----------
+\usepackage{fontspec}
+\setmainfont{EB Garamond}[
+  Numbers={OldStyle,Proportional},
+  Ligatures={TeX,Common},
+  ItalicFont={EB Garamond Italic},
+]
+\usepackage{microtype}
+\usepackage{ragged2e}
+\setlength{\parindent}{1.1em}
+\setlength{\parskip}{0pt}
+\linespread{1.06}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\hypersetup{hidelinks,pdftitle={The Reformed School},pdfauthor={},bookmarksnumbered=false}
+
+% ---------- running heads ----------
+\makepagestyle{rs}
+\makeevenhead{rs}{\small\thepage}{\small\scshape\MakeLowercase{The Reformed School}}{}
+\makeoddhead{rs}{}{\small\itshape\rightmark}{\small\thepage}
+\makeevenfoot{rs}{}{}{}
+\makeoddfoot{rs}{}{}{}
+\makeatletter
+\makepsmarks{rs}{%
+  \createmark{chapter}{right}{nonumber}{}{}%
+}
+\makeatother
+\pagestyle{rs}
+\copypagestyle{chapter}{plain}
+\makeevenfoot{plain}{}{\small\thepage}{}
+\makeoddfoot{plain}{}{\small\thepage}{}
+
+% ---------- chapter (text) openings ----------
+\makechapterstyle{rs}{%
+  \setlength{\beforechapskip}{2.2\onelineskip}
+  \setlength{\midchapskip}{0.6\onelineskip}
+  \setlength{\afterchapskip}{2\onelineskip}
+  \renewcommand*{\chapnamefont}{\normalfont\small\scshape}
+  \renewcommand*{\chapnumfont}{\normalfont\small\scshape}
+  \renewcommand*{\printchaptername}{\chapnamefont\MakeLowercase{text}}
+  \renewcommand*{\chapternamenum}{\space}
+  \renewcommand*{\printchapternum}{\chapnumfont\thechapter}
+  \renewcommand*{\chaptitlefont}{\normalfont\Large\itshape}
+  \renewcommand*{\printchaptertitle}[1]{\chaptitlefont ##1}
+  \renewcommand*{\afterchapternum}{\par\nobreak\vskip\midchapskip}
+}
+\chapterstyle{rs}
+\setsecheadstyle{\normalfont\small\scshape\MakeLowercase}
+\setsubsecheadstyle{\normalfont\itshape}
+\setbeforesecskip{-1.4\onelineskip}
+\setaftersecskip{0.5\onelineskip}
+\setsecnumdepth{chapter}
+\maxtocdepth{chapter}
+
+% ---------- apparatus environments ----------
+% headnote: the editor's introduction to a text, set smaller and ragged
+\newenvironment{headnote}{%
+  \small\setlength{\parindent}{0pt}\setlength{\parskip}{0.45\onelineskip}%
+  \RaggedRight}{%
+  \par\vspace{0.6\onelineskip}%
+  \noindent\hfill{\normalsize\normalfont$\ast\quad\ast\quad\ast$}\hfill\null\par
+  \vspace{0.9\onelineskip}\normalsize}
+% source line: edition statement printed under the text's title
+\newcommand{\sourceline}[1]{\noindent{\small\itshape #1}\par\vspace{1.1\onelineskip}}
+% cut: an omission in an abridged text
+\newcommand{\cut}{\par\vspace{0.35\onelineskip}\noindent\hfill$\cdot\quad\cdot\quad\cdot$\hfill\null\par\vspace{0.35\onelineskip}}
+% editorial insertion in a text
+\newcommand{\ed}[1]{[#1]}
+% glossary of words in a headnote
+\newenvironment{gloss}{\begin{description}\setlength{\itemsep}{0pt}}{\end{description}}
+% a note appended to a text (translator's or editor's notes)
+\newenvironment{textnotes}{\par\vspace{\onelineskip}\small\noindent\textsc{notes}\par\nobreak\vspace{0.3\onelineskip}\setlength{\parindent}{0pt}\setlength{\parskip}{0.3\onelineskip}}{\normalsize}
+% pandoc compatibility
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\title{The Reformed School}
+\begin{document}
+
+% ================= FRONT MATTER =================
+\frontmatter
+\pagestyle{empty}
+\input{front/halftitle}
+\cleardoublepage
+\input{front/titlepage}
+\clearpage
+\input{front/copyright}
+\cleardoublepage
+\pagestyle{rs}
+\tableofcontents*
+\cleardoublepage
+\input{front/introduction}
+
+% ================= THE TEXTS =================
+\mainmatter
+\input{texts.tex}
+
+% ================= BACK MATTER =================
+\backmatter
+\input{back/afterword}
+\input{back/sources}
+
+\end{document}
