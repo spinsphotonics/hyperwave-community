@@ -1,0 +1,116 @@
+# WP-22 — Appendix H: Resources
+
+Work package: WP-22 (Glossary and resources), Section 6 (Appendices) of RESEARCH_PLAN.md.
+Every resource below is drawn from a Source Card already on file in `sources/*.md` (see
+`sources/INDEX.md`). This appendix lists resources a reader would actually go visit —
+official manuals, government safety tools, community forums, parts/fitment lookups, and
+track/autocross rulebooks — not the internal research citations used to build the fact
+cards elsewhere in this project. Each entry names the Source Card it comes from so a
+verifier can trace it back.
+
+---
+
+## Official Honda
+
+**Honda Owners site** — https://owners.honda.com/vehicle-information/information/2008/Fit/manuals
+Official Honda site to download your 2008 Fit's owner's manual and look up other
+vehicle-specific documents. (Source: S-001)
+
+**Helm Inc. — factory service manual** — https://www.helminc.com/helm/product2.asp?class_2=AHM&Sku=61SAA01&itemtype=N
+The official Honda factory service manual distributor; buy the real 2007-2008 Fit (KA)
+shop manual here if you want the same repair procedures Honda dealers use (paid). (Source: S-002)
+
+**Honda News — 2008 Fit specifications** — https://hondanews.com/en-US/releases/release-2911fc22bc993ed9e80deb004c34be5b-2008-honda-fit-specifications
+Honda's own archived press release with the full factory spec sheet (engine, dimensions,
+weights, gear ratios) for the 2008 Fit and Fit Sport. (Source: S-015)
+
+**hfitinfo.com** — https://www.hfitinfo.com/
+A free, page-by-page mirror of the full Honda Fit 2001-2008 (first-generation) owner's
+manual — useful if you don't want to deal with Honda's own PDF download flow. (Source: S-021)
+
+**ManualsLib — 2008 Fit Owner's Manual** — https://www.manualslib.com/manual/524850/Honda-2008-Fit.html
+A free page-image/OCR viewer of the actual Honda-published 2008 Fit owner's manual, handy
+for searching a specific page or section. (Source: S-022)
+
+## Government / Safety
+
+**NHTSA vehicle lookup (recalls)** — https://www.nhtsa.gov/vehicle/2008/HONDA/FIT
+Look up every official safety recall ever issued for your exact car by VIN or by
+year/make/model — always check this before assuming your car has had all its recall
+repairs done. (Source: S-004)
+
+**NHTSA vehicle lookup (complaints and investigations)** — https://www.nhtsa.gov/vehicle/2008/HONDA/FIT
+The same NHTSA tool also shows owner-submitted complaints and any formal government
+investigations for the 2008 Fit, which can reveal problems before they become a recall. (Source: S-005)
+
+**IIHS ratings — 2008 Honda Fit** — https://www.iihs.org/ratings/vehicle/honda/fit-4-door-wagon/2008
+Independent, insurance-industry-funded crash test ratings and results for the 2008 Fit
+4-door wagon. (Source: S-006)
+
+**fueleconomy.gov — 2008 Honda Fit** — https://www.fueleconomy.gov/feg/Find.do?action=sbs&id=24920
+The official US government fuel-economy page for the 2008 Fit, with EPA city/highway/
+combined MPG for both transmissions. (Source: S-007)
+
+## Community Forums
+
+**FitFreak.net — 1st Generation (GD 01-08) forum** — https://www.fitfreak.net/forums/1st-generation-gd-01-08/
+The largest dedicated first-generation Fit owner community; go here for real-world
+troubleshooting threads, "does anyone else have this problem" discussions, and DIY
+write-ups specific to the GD3 chassis. Community-reported information only — always
+double-check anything safety-related against your own owner's manual. (Source: S-010)
+
+**Honda-Tech.com — Honda Fit forum** — https://honda-tech.com/forums/honda-fit-73/
+A second large Honda-focused forum with its own active Fit section, useful as a
+second opinion when a FitFreak thread doesn't have enough replies to be confident in. (Source: S-018)
+
+## Parts and Fitment
+
+**HondaPartsNow.com** — https://www.hondapartsnow.com/2008-honda-fit--5dr_base-ka_5at-parts.html
+An authorized Honda dealer parts site where you can look up genuine part numbers and
+diagrams for your exact 2008 Fit trim and transmission. (Source: S-008, S-027)
+
+**Wheel-Size.com — Honda Fit GD [2001-2008]** — https://www.wheel-size.com/size/honda/fit/gd-2001-2008/
+A quick-reference page for factory and compatible wheel/tire sizes, bolt pattern, and
+offset for the first-generation Fit — useful before buying replacement wheels or tires. (Source: S-009)
+
+**Haynes Repair Manual 42030 (Honda Fit 07-13)** — https://us.haynes.com/products/honda-fit-07-13-haynes-repair-manual
+A widely available, affordable aftermarket repair manual covering the 2007-2013 Fit; it
+spans both the GD3 (2007-2008) and GE8 (2009-2013) generations, so check any given page
+applies to your model year before following it (paid). (Source: S-003)
+
+**workshop-manuals.com — Fit L4-1.5L fluid/spark plug/valve specs** — (see Source Card S-024 for the exact reachable URL)
+A free reference page listing fluid capacities, spark plug part numbers, and valve
+clearance specs for the Fit's 1.5L engine — handy for a quick maintenance lookup without
+buying a full service manual. (Source: S-024)
+
+**Boslla — 2007-2018 Honda Fit bulb size guide** — https://www.boslla.com/2007-2018-honda-fit-base-dx-ex-lx-sport-bulb-size-guide/
+A free lookup table for every exterior and interior bulb size on the Fit, broken out by
+trim and model year. (Source: S-025)
+
+**AutoPadre — Honda Fit battery and wiper blade sizes** — https://www.autopadre.com/battery-size/honda-fit and https://www.autopadre.com/wiper-size/honda-fit
+Quick-reference pages for the correct replacement battery group size and wiper blade
+lengths for the Fit across its model years. (Source: S-026)
+
+## Track / Autocross Organizations
+
+**SCCA — National Solo Rules** — https://www.scca.com/downloads
+The Sports Car Club of America's official rulebook for autocross ("Solo") competition,
+including the class structure a stock 2008 Fit would compete in. (Source: S-013)
+
+**NASA — Club Codes and Regulations (CCR)** — https://nasa-assets.s3.amazonaws.com/document/document/282/2026.3.pdf
+The National Auto Sport Association's official rulebook for HPDE (track day) and
+time-trial events, including safety-gear and tech-inspection requirements. (Source: S-014)
+
+---
+
+## Summary
+
+- Total resources listed: 19
+- Categories: Official Honda (5), Government/Safety (4), Community Forums (2), Parts and
+  Fitment (6), Track/Autocross Organizations (2)
+- All 19 trace back to a Source Card already on file in `sources/*.md`; none were newly
+  invented for this appendix.
+- Not included: internal research-only citations (e.g., search-snippet-only sources not
+  meant for a reader to visit directly) and sources still pending from WPs not yet run
+  (WP-08 through WP-21), which may surface more Tier 4 or parts/fitment resources once
+  those work packages are complete.

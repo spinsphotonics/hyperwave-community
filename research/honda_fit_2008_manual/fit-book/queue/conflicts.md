@@ -156,3 +156,26 @@ read of the primary source.
   size and 51R as a popular higher-CCA upgrade) and by a WebSearch AI synthesis of
   oreillyauto.com/autozone.com OEM-fitment listings for the 2008 Fit specifically.
 - Related fact card: F-WP09-046
+
+## WP-08 Paperwork and buying used (2026-09-07)
+
+### C-012: Typical used 2008 Fit price/value figures differ sharply across KBB, Edmunds, and CarGurus
+- KBB (direct page read, S-029): dealer retail range $4,575 (Sport)-$5,850 (base Hatchback
+  4D); KBB's own trade-in estimate $2,550-$2,825; KBB's own private-party estimate
+  $3,925-$5,125.
+- Edmunds (search-snippet-sourced, S-030): appraisal value range $763-$2,189; example
+  "Clean"-condition trade-in ~$1,022, private-party ~$1,446 — noticeably lower than KBB's
+  trade-in/private-party figures for what should be the same general metric.
+- CarGurus (search-snippet-sourced, S-030): average asking price ~$6,521 across current
+  listings, with metro-level ranges as wide as $2,600-$15,200+ — noticeably higher than either
+  appraisal tool, because these are real asking prices, not an appraisal estimate.
+- **Not resolved to a single number.** The three sources are not all measuring the same thing
+  (trade-in estimate vs. private-party estimate vs. dealer retail estimate vs. real current
+  asking prices), so the disagreement is partly explainable by definition differences rather
+  than a straightforward factual contradiction — but KBB's and Edmunds' *trade-in* figures
+  specifically ($2,550-$2,825 vs. ~$1,022) do disagree on what should be the same metric, and
+  that gap was not resolved this pass (Edmunds could not be directly fetched to check whether
+  its lower number reflects a specific default mileage/condition assumption).
+- Recorded in facts/WP-08.md as F-WP08-016 (KBB), F-WP08-017 (Edmunds/CarGurus), and F-WP08-018
+  (reconciliation/reader guidance, not a forced single number).
+- Related fact cards: F-WP08-016, F-WP08-017, F-WP08-018.
