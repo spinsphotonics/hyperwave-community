@@ -6,11 +6,14 @@ read of the primary source.
 
 ## WP-02 Recalls, TSBs, and known defects (2026-09-07)
 
-### C-001: NHTSA campaign 10V624 (headlight low-beam wiring) exact start date
+### C-001: NHTSA campaign 10V624 (headlight low-beam wiring) exact start date — RESOLVED (verify pass, 2026-09-07)
 - Source A says the recall was "expected to begin on or before January 21, 2011."
 - Source B says the recall "began January 24, 2011."
 - Both agree on the campaign number (10V624000), the 143,083-unit count, and the defect
   description. Only the exact start date conflicts, by 3 days.
+- **Resolution:** Checked directly against NHTSA's own campaign record
+  (`api.nhtsa.gov/recalls/campaignNumber?campaignNumber=10V624000`). The record's own remedy
+  text states "THE SAFETY RECALL BEGAN ON JANUARY 24, 2011." Source B is correct.
 - Related fact card: F-WP02-003
 
 ### C-002: NHTSA campaign 10V033 (power window switch, first campaign) — alternate ID
@@ -20,25 +23,43 @@ read of the primary source.
   (3 independent sources agree on 10V033 vs. 1 outlier on 12V-073).
 - Related fact card: F-WP02-001
 
-### C-003: Honda Service Bulletin 13-021 (rocker arm oil pressure switch) — applicable models
+### C-003: Honda Service Bulletin 13-021 (rocker arm oil pressure switch) — applicable models — RESOLVED (verify pass, 2026-09-07)
 - Source A: covers "2007-2011 Honda Fit" (among other models).
 - Source B: covers "2012-13 Civic models (except Si and Hybrid)" and does not mention Fit.
 - These cannot both be accurate as stated for the same bulletin number. Do not treat this
   TSB as confirmed-applicable to the 2008 Fit until resolved.
+- **Resolution:** Downloaded and read the actual bulletin PDF directly
+  (`static.nhtsa.gov/odi/tsbs/2015/SB-10098946-5233.pdf`, Honda Service Bulletin 13-021,
+  version 3, Sept 16 2015). Its AFFECTED VEHICLES table lists eight rows including
+  "2007–11 Fit — ALL — ALL" AND "2012-13 Civic — ALL except Si and Hybrid — ALL" as two
+  *separate* rows of the same multi-model bulletin. Source A was reading the Fit row; Source B
+  was reading the Civic row and incorrectly reported it as the bulletin's only scope. **The
+  bulletin does cover the 2008 Fit** (within the confirmed 2007-11 range) — the fact card's own
+  "unclear, do not use" conclusion should be upgraded to "confirmed applicable."
 - Related fact card: F-WP02-009
 
-### C-004: 2008 Fit total TSB count
+### C-004: 2008 Fit total TSB count — STILL UNRESOLVED (verify pass, 2026-09-07)
 - Source A: "19 technical service bulletins issued for the 2008 Honda Fit."
 - Source B: "42 TSBs" for the 2008 Honda Fit.
 - Likely different counting methodology (e.g., Fit-specific bulletins vs. all bulletins that
   happen to list the Fit among covered models), but unresolved.
+- **Verification attempt:** Both source domains (obd-codes.com, carcomplaints.com) return
+  Cloudflare 403 blocks to this session's network egress, both via direct curl and via the
+  r.jina.ai reader proxy. NHTSA has no public TSB-count-by-vehicle API endpoint (only
+  individual TSB PDFs, which can be read directly once you have the exact filename). Genuinely
+  needs a session with different network access — logged to queue/blocked.md.
 - Related fact card: F-WP02-010
 
-### C-005: NHTSA campaign 20V770 (driveshaft corrosion) — model year range covered
+### C-005: NHTSA campaign 20V770 (driveshaft corrosion) — model year range covered — RESOLVED (verify pass, 2026-09-07)
 - Source A: "2007-2013" Fit.
 - Source B: "2007-2014" Fit.
 - Both agree the range starts at 2007 (so 2008 is covered either way) and that the recall is
   manual-transmission-only, but the end year conflicts.
+- **Resolution:** NHTSA's own campaign summary (`api.nhtsa.gov/recalls/campaignNumber?campaignNumber=20V770000`)
+  states the recall covers "2007-2008 Honda Fit vehicles with a manual transmission" (all
+  states) plus "2009-2013 Honda Fit vehicles" (limited to specific salt-belt states/registration
+  history). The correct end year is **2013**, matching Source A. Source B's "2007-2014" is not
+  supported by the primary record.
 - Related fact card: F-WP02-005
 
 ## WP-01 Identify the car exactly (2026-09-07)
