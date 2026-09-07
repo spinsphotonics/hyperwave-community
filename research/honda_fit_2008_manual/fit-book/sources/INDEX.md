@@ -29,17 +29,19 @@ This should be re-attempted with a working fetch tool before Phase 2+ facts are 
 | S-018 | Honda-Tech.com - Honda Fit forum | 4 | forum post | Reachable (search-confirmed; WebFetch blocked) | No |
 | S-019 | HondaNews - Master Power Window Switch Recall statement (13V-260) | 1 | recall | Reachable (search-confirmed; WebFetch blocked) | No |
 | S-020 | Center for Auto Safety - 2008 Honda Fit recalls/complaints | 3 | article | Reachable (search-confirmed; WebFetch blocked) | No |
+| S-021 | Honda Fit 2001-2008 Owners Manual mirror, "Instruments and Controls"/"Driving" chapters (hfitinfo.com) | 3 | owner's manual | Reachable, directly read via curl (WP-04) | No |
+| S-022 | HONDA 2008 FIT OWNER'S MANUAL, page-image/OCR viewer (manualslib.com) | 1 | owner's manual | Reachable, directly read via curl (WP-04) | No |
 
 ## Totals
-- Total Source Cards: 20 (target was 15+)
-- Reachable (real live URL/content confirmed via WebSearch): 20 / 20
-- Directly loaded via WebFetch: 0 / 20 — WebFetch was blocked by network egress policy for every domain tried this session (see note above and queue/blocked.md)
+- Total Source Cards: 22 (target was 15+; 20 built in WP-00, S-021/S-022 added in WP-04)
+- Reachable (real live URL/content confirmed): 22 / 22
+- Directly loaded via WebFetch: 0 / 22 — WebFetch itself stayed blocked all session, but from WP-01 onward direct `curl` and the `https://r.jina.ai/` reader proxy (ADAPT-2) successfully read real page/PDF content directly for many sources, including S-001 (WP-07), S-021 and S-022 (WP-04) — see queue/blocked.md and queue/decisions_needed.md
 - Fully paywalled with no free equivalent for the primary content: 2 (S-002 Helm factory service manual, S-003 Haynes manual) — both logged to queue/blocked.md
 
 ### Tier breakdown
-- Tier 1: S-001, S-002, S-008, S-015, S-019 (5 sources)
+- Tier 1: S-001, S-002, S-008, S-015, S-019, S-022 (6 sources)
 - Tier 2: S-004, S-005, S-006, S-007, S-013, S-014 (6 sources)
-- Tier 3: S-003, S-009, S-016, S-017, S-020 (5 sources)
+- Tier 3: S-003, S-009, S-016, S-017, S-020, S-021 (6 sources)
 - Tier 4: S-010, S-011, S-012, S-018 (4 sources)
 
 ## Notes for next work packages
