@@ -81,6 +81,12 @@ fixes its own recurring cycle -- "a triennial Convention shall, hereafter, be he
 every three years to conduct the denomination's foreign-mission business through an elected
 Board of Commissioners between sessions.[^10]
 
+## Common Life and the Faculty
+
+Not applicable. The Convention was not a residential institution and had no faculty or students;
+its "common life" was the periodic gathering of delegates every three years, already described
+under Founding and Curriculum above.
+
 ## Emphasis
 
 What the record makes unmistakable is that a single point of biblical exegesis, worked out by
