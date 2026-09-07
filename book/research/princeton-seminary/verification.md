@@ -9,12 +9,19 @@ INPUTS READ: dossier.md; quotes.jsonl; charter_abridged.md; discrepancies.md; so
 
 ```
 $ python3 plan/templates/check_quotes.py research/princeton-seminary
-34/34 quote records passed; 0 failures
-(24 WARN lines: "before+text+after not contiguous")
+37/37 quote records passed; 0 failures
+(WARN lines: "before+text+after not contiguous" -- see explanation below)
 
 $ python3 plan/templates/check_quotes.py research/princeton-seminary --charter
 8/8 passages verbatim; 0 failures
 ```
+
+(Quote records q001-q034 were generated during the initial Extractor pass; q035-q037
+were added during the Writer pass, when the chapter draft needed two further named
+Fruit entries -- Joseph Addison Alexander, William Henry Green -- and a formal quote
+record for a founding-crisis sentence that had been placed in quotation marks in the
+draft without one. All three were verified the same way as q001-q034 before the
+chapter was finalized.)
 
 Note on the WARN lines: `check_quotes.py` reconstructs a contiguity-check string as `f"{before} {text} {after}"`, always inserting a literal space between the three fields. Whenever a quotation's `text` field starts or ends immediately at a punctuation mark that is *not* preceded/followed by a space in the original 1811/1812 printing (e.g. "...United States of America." running straight into "And to the intent..." with no space before the period), that hard-coded space makes the reconstructed string diverge from the source even though `before`, `text`, and `after` are each independently exact, contiguous substrings of the source file (verified by direct substring search for every WARN'd quote_id, see section 2). This is a property of the checker's fixed-format reconstruction, not an error in the quote records. It does not affect the checker's pass/fail verdict (WARN is not counted in `failures`).
 

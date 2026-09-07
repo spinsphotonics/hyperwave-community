@@ -270,13 +270,11 @@ sermon at Alexander's own inauguration, was himself appointed the Seminary's sec
 professor, of Ecclesiastical History and Church Government, in 1813, serving until
 1849.[^43] Charles Hodge (1797-1878) appears in the Seminary's own biographical
 catalogue first as a graduate, of the class that completed study in 1819, and then as
-a professor from 1822 until his death in 1878.[^44] Joseph Addison Alexander
-(1809-1860), a son of the first professor, joined the faculty in 1838 and taught until
-his own death in 1860; William Henry Green (1825-1900), of the catalogue's class of
-1846, returned to teach from 1851 until 1900.[^44b] Between them, the catalogue's own
-faculty roster records an unbroken run of Princeton-trained teaching Princeton,
-generation after generation, from Alexander's single 1812 inauguration to the end of
-the nineteenth century.
+a professor from 1822 until his death in 1878.[^44] Joseph Addison Alexander (1809-1860) joined the faculty in 1838 and taught until his
+own death in 1860; William Henry Green (1825-1900), of the catalogue's class of 1846,
+returned to teach from 1851 until 1900.[^44b] Between them, Hodge, Alexander, and
+Green extend the catalogue's own record of Princeton-trained men returning to teach at
+Princeton from the 1820s to the end of the nineteenth century.
 
 The catalogue's own alumni list opens with the class that entered in 1812 and
 completed study in 1815; the sources read this session sampled but did not
@@ -309,7 +307,7 @@ Moorhead, James H. [Title not identified this session.]
 
 [^1]: Plan (1811), p. 6; quote_id princeton-seminary-q005.
 [^2]: Plan (1811), Article I, Sect. 1 (read in text/plan1811.txt; not separately quote-recorded beyond the summary here).
-[^3]: Plan (1811), p. 4; quote_id princeton-seminary-q021 covers the adjoining closing minutes; the crisis sentence itself was read in the Introduction of text/plan1811.txt and is summarized per dossier field F7.
+[^3]: Plan (1811), p. 4; quote_id princeton-seminary-q037.
 [^4]: Plan (1811), p. 4; quote_id princeton-seminary-q001.
 [^5]: research/princeton-seminary/dossier.md, field F2; discrepancies.md #1; quote_ids princeton-seminary-q029, princeton-seminary-q030.
 [^6]: Plan (1811), p. 18 n., p. 20 n. (articles held over, read in text/plan1811.txt).
