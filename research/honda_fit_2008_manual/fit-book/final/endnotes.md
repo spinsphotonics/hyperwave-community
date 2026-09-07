@@ -286,7 +286,7 @@ for looking up one specific ID.
 - **F-WP08-008** — [Check for Recalls (NHTSA VIN and license-plate recall lookup tool)](https://www.nhtsa.gov/recalls)
 - **F-WP08-009** — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals)
 - **F-WP08-011** — [Vehicle Detail Search - 2008 HONDA FIT (Recalls)](https://www.nhtsa.gov/vehicle/2008/HONDA/FIT)
-- **F-WP08-012** — [Vehicle Detail Search - 2008 HONDA FIT (Recalls)](https://www.nhtsa.gov/vehicle/2008/HONDA/FIT)
+- **F-WP08-012** — [Vehicle Detail Search - 2008 HONDA FIT (Recalls)](https://www.nhtsa.gov/vehicle/2008/HONDA/FIT); [honda.oemdtc.com bulletin mirror and obd-codes.com 2008 Honda Fit TSB listing](https://honda.oemdtc.com/265/warranty-extension-electric-power-steering-with-dtc-32-09-or-61-04-2006-2009-honda-civic-2007-2008-fit); [honda.oemdtc.com bulletin mirror and obd-codes.com 2008 Honda Fit TSB listing](https://www.obd-codes.com/tsb/2008/honda/fit/)
 
 ### Chapter 19
 
@@ -297,7 +297,7 @@ for looking up one specific ID.
 
 - **F-WP08-010** — [Used Car Inspection Checklist (general pre-purchase inspection guidance)](https://www.progressive.com/answers/used-car-inspection-checklist/)
 - **F-WP08-011** — [Vehicle Detail Search - 2008 HONDA FIT (Recalls)](https://www.nhtsa.gov/vehicle/2008/HONDA/FIT)
-- **F-WP08-012** — [Vehicle Detail Search - 2008 HONDA FIT (Recalls)](https://www.nhtsa.gov/vehicle/2008/HONDA/FIT)
+- **F-WP08-012** — [Vehicle Detail Search - 2008 HONDA FIT (Recalls)](https://www.nhtsa.gov/vehicle/2008/HONDA/FIT); [honda.oemdtc.com bulletin mirror and obd-codes.com 2008 Honda Fit TSB listing](https://honda.oemdtc.com/265/warranty-extension-electric-power-steering-with-dtc-32-09-or-61-04-2006-2009-honda-civic-2007-2008-fit); [honda.oemdtc.com bulletin mirror and obd-codes.com 2008 Honda Fit TSB listing](https://www.obd-codes.com/tsb/2008/honda/fit/)
 - **F-WP08-013** — [1st Generation (GD 01-08) subforum](https://www.fitfreak.net/forums/1st-generation-gd-01-08/); [Things to know before buying a FIT](https://www.fitfreak.net/forums/fit-freak-newbie-faqs/78461-things-know-before-buying-fit.html); [Honda Fit forum](https://honda-tech.com/forums/honda-fit-73/)
 - **F-WP08-014** — [1st Generation (GD 01-08) subforum](https://www.fitfreak.net/forums/1st-generation-gd-01-08/)
 - **F-WP08-015** — [1st Generation (GD 01-08) subforum](https://www.fitfreak.net/forums/1st-generation-gd-01-08/); [Things to know before buying a FIT](https://www.fitfreak.net/forums/fit-freak-newbie-faqs/78461-things-know-before-buying-fit.html); [Honda Fit forum](https://honda-tech.com/forums/honda-fit-73/)
@@ -392,7 +392,7 @@ for looking up one specific ID.
 - **F-WP09-033** — [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf)
 - **F-WP10-001** — [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf)
 - **F-WP10-005** — ["Brake Caliper Mounting Bracket Bolt Torque Spec?" — FitFreak.net thread 99647](https://www.fitfreak.net/forums/fit-diy-repair-maintenance/99647-brake-caliper-mounting-bracket-bolt-torque-spec.html); ["Need the front brake caliper torque spec - 2007 Honda Fit Sport Hatchback" (Fixya Q&A, t14355462) and "SOLVED: What is the front brake and caliper torque spec - Honda" (Fixya Q&A, t25853359)](https://www.fixya.com/cars/t14355462-need_front_brake_caliper_torque_spec)
-- **F-WP10-006** — *[no source found]*
+- **F-WP10-006** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **P-WP11-6** — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf)
 - **P-WP11-7** — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf); [FitFreak.net forum thread — "2007 fit brake caliper bolt sizes?"](https://www.fitfreak.net/forums/fit-diy-repair-maintenance/63421-2007-fit-brake-caliper-bolt-sizes.html)
 - **P-WP11-8** — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf); [Honda Fit Repair Manual mirror — "Ignition Coil and Spark Plug Removal/Installation," "Coolant Replacement," and "Rear Brake Shoe Replacement" pages](https://www.hfitinfo.com/hofi-885.html); ["Honda Fit Rear Drum Brake Replacement (Full DIY Guide)" (YouTube) and FitFreak.net "07 Drum Brake DIY" thread](https://www.youtube.com/watch?v=-E4TrJZPPII)
@@ -478,7 +478,6 @@ for looking up one specific ID.
 
 - **F-WP02-008** — [honda.oemdtc.com bulletin mirror and obd-codes.com 2008 Honda Fit TSB listing](https://honda.oemdtc.com/265/warranty-extension-electric-power-steering-with-dtc-32-09-or-61-04-2006-2009-honda-civic-2007-2008-fit); [honda.oemdtc.com bulletin mirror and obd-codes.com 2008 Honda Fit TSB listing](https://www.obd-codes.com/tsb/2008/honda/fit/)
 - **F-WP02-016** — [FitFreak.net forum threads (two independent threads)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/105745-2007-honda-fit-engine-mount-passenger.html); [FitFreak.net forum threads (two independent threads)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/103364-motor-mounts-no-joke.html)
-- **F-WP12-0** — *[no source found]*
 - **F-WP12-010** — [Honda Technical Service Bulletin 13-021](https://static.nhtsa.gov/odi/tsbs/2015/SB-10098946-5233.pdf); [autocodes.com generic code definition](https://www.autocodes.com/p2646_honda.html)
 - **F-WP12-011** — [Honda Technical Service Bulletin 13-021](https://static.nhtsa.gov/odi/tsbs/2015/SB-10098946-5233.pdf); [artsautomotive.com generic technical explainer](https://artsautomotive.com/art-icles/articles-for-the-curious/p2647/)
 
@@ -513,7 +512,6 @@ for looking up one specific ID.
 - **F-WP04-029** — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals)
 - **F-WP07-012** — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals)
 - **F-WP07-014** — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals)
-- **F-WP12-0** — *[no source found]*
 
 ### Chapter 37
 
@@ -525,7 +523,6 @@ for looking up one specific ID.
 - **F-WP02-019** — [FitFreak.net forum threads (two independent threads, both in the 1st Generation GD 01-08 sub-forum)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/74464-transmission-shudders-highway-speeds.html); [FitFreak.net forum threads (two independent threads, both in the 1st Generation GD 01-08 sub-forum)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/80537-60-mph-shudder-hesitation-07-auto-trans-192k.html)
 - **F-WP02-021** — [FitFreak.net forum threads (two independent threads, both in the 1st Generation GD 01-08 sub-forum)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/96921-suspension-clunk-strut-mount.html); [FitFreak.net forum threads (two independent threads, both in the 1st Generation GD 01-08 sub-forum)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/38727-getting-clunk-noise-front-end.html)
 - **F-WP02-022** — [FitFreak.net thread (confirmed)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/86446-annoying-dashboard-squeaks-rattles.html)
-- **F-WP12-0** — *[no source found]*
 - **F-WP12-002** — [FitFreak.net forum threads, 1st Generation (GD 01-08) sub-forum (two independent threads)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/87988-p0300-other-cylinder-misfires-only-under-load.html); [autocodes.com generic code definition](https://www.fitfreak.net/forums/1st-generation-gd-01-08/96891-p0301-0300-0302-0303-a.html); [FitFreak.net forum threads, 1st Generation (GD 01-08) sub-forum (two independent threads)](https://www.autocodes.com/p0300_honda.html)
 - **F-WP12-003** — [FitFreak.net forum threads, 1st Generation (GD 01-08) sub-forum (two independent threads)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/103706-07-honda-fit-sport-po301-trouble-code-misfire-cylinder-1-need-help.html); [engine-codes.com generic code definition](https://www.fitfreak.net/forums/1st-generation-gd-01-08/98146-2007-misfire-o2-sensor.html); [FitFreak.net forum threads, 1st Generation (GD 01-08) sub-forum (two independent threads)](https://www.engine-codes.com/p0301_honda.html)
 - **F-WP12-004** — [FitFreak.net forum threads, 1st Generation (GD 01-08) sub-forum (two independent threads)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/96891-p0301-0300-0302-0303-a.html); [engine-codes.com generic code definition](https://www.fitfreak.net/forums/1st-generation-gd-01-08/98054-car-misfire-under-load.html); [FitFreak.net forum threads, 1st Generation (GD 01-08) sub-forum (two independent threads)](https://www.engine-codes.com/p0302_honda.html)
@@ -572,12 +569,12 @@ for looking up one specific ID.
 - **P-WP11-7** — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf); [FitFreak.net forum thread — "2007 fit brake caliper bolt sizes?"](https://www.fitfreak.net/forums/fit-diy-repair-maintenance/63421-2007-fit-brake-caliper-bolt-sizes.html)
 - **P-WP11-8** — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf); [Honda Fit Repair Manual mirror — "Ignition Coil and Spark Plug Removal/Installation," "Coolant Replacement," and "Rear Brake Shoe Replacement" pages](https://www.hfitinfo.com/hofi-885.html); ["Honda Fit Rear Drum Brake Replacement (Full DIY Guide)" (YouTube) and FitFreak.net "07 Drum Brake DIY" thread](https://www.youtube.com/watch?v=-E4TrJZPPII)
 - **P-WP11-22** — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf); [Multi-site WebSearch synthesis — "Honda Fit GD3 jack points / pinch weld locations for jack stands"](https://www.justanswer.com/car/fm48r-honda-fit-2007-place.html)
-- **P-WP14-1** — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf); [FitFreak.net forum thread — "2007 fit brake caliper bolt sizes?"](https://www.fitfreak.net/forums/fit-diy-repair-maintenance/63421-2007-fit-brake-caliper-bolt-sizes.html)
+- **P-WP14-1** — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf); [FitFreak.net forum thread — "2007 fit brake caliper bolt sizes?"](https://www.fitfreak.net/forums/fit-diy-repair-maintenance/63421-2007-fit-brake-caliper-bolt-sizes.html); ["Brake Caliper Mounting Bracket Bolt Torque Spec?" — FitFreak.net thread 99647](https://www.fitfreak.net/forums/fit-diy-repair-maintenance/99647-brake-caliper-mounting-bracket-bolt-torque-spec.html); ["Need the front brake caliper torque spec - 2007 Honda Fit Sport Hatchback" (Fixya Q&A, t14355462) and "SOLVED: What is the front brake and caliper torque spec - Honda" (Fixya Q&A, t25853359)](https://www.fixya.com/cars/t14355462-need_front_brake_caliper_torque_spec)
 - **P-WP14-2** — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf); [Honda Fit Repair Manual mirror — "Ignition Coil and Spark Plug Removal/Installation," "Coolant Replacement," and "Rear Brake Shoe Replacement" pages](https://www.hfitinfo.com/hofi-885.html); ["Honda Fit Rear Drum Brake Replacement (Full DIY Guide)" (YouTube) and FitFreak.net "07 Drum Brake DIY" thread](https://www.youtube.com/watch?v=-E4TrJZPPII)
 
 ### Chapter 41
 
-- **P-WP14-3** — [Honda Fit Repair Manual mirror — "Front Damper/Spring Disassembly, Inspection, and Reassembly," "Rear Damper Replacement," "Front Stabilizer Bar Replacement," and "Rear Stabilizer Bushing Replacement" pages](https://www.hfitinfo.com/hofi-745.html)
+- **P-WP14-3** — [Honda Fit Repair Manual mirror — "Front Damper/Spring Disassembly, Inspection, and Reassembly," "Rear Damper Replacement," "Front Stabilizer Bar Replacement," and "Rear Stabilizer Bushing Replacement" pages](https://www.hfitinfo.com/hofi-745.html); *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **P-WP14-4** — [Honda Fit Repair Manual mirror — "Front Damper/Spring Disassembly, Inspection, and Reassembly," "Rear Damper Replacement," "Front Stabilizer Bar Replacement," and "Rear Stabilizer Bushing Replacement" pages](https://www.hfitinfo.com/hofi-745.html)
 - **P-WP14-5** — [Honda Fit Repair Manual mirror — "Front Damper/Spring Disassembly, Inspection, and Reassembly," "Rear Damper Replacement," "Front Stabilizer Bar Replacement," and "Rear Stabilizer Bushing Replacement" pages](https://www.hfitinfo.com/hofi-745.html); [FitFreak.net "1st Generation (GD 01-08)" forum threads — thermostat, window regulator, sway bar end link, and starter DIY writeups](https://www.fitfreak.net/forums/1st-generation-gd-01-08/99725-thermostat-change-instructions-read-intro-first.html)
 
@@ -591,7 +588,7 @@ for looking up one specific ID.
 
 - **P-WP14-9** — [FitFreak.net "1st Generation (GD 01-08)" forum threads — thermostat, window regulator, sway bar end link, and starter DIY writeups](https://www.fitfreak.net/forums/1st-generation-gd-01-08/99725-thermostat-change-instructions-read-intro-first.html); [go-parts.com starter and ignition-switch guides; youcanic.com window regulator guide; locksmithledger.com Honda lock article](https://www.go-parts.com/garage/starter-motor-honda-fit-2007-2008)
 - **P-WP14-10** — [Honda Fit Repair Manual mirror — "Alternator Removal and Installation," "Starting System" (overhaul), and "Handles and Remote Openers" (rear door outer handle) pages](https://www.hfitinfo.com/hofi-789.html)
-- **P-WP14-11** — [go-parts.com starter and ignition-switch guides; youcanic.com window regulator guide; locksmithledger.com Honda lock article](https://www.go-parts.com/garage/starter-motor-honda-fit-2007-2008)
+- **P-WP14-11** — [go-parts.com starter and ignition-switch guides; youcanic.com window regulator guide; locksmithledger.com Honda lock article](https://www.go-parts.com/garage/starter-motor-honda-fit-2007-2008); [NHTSA recalls API, direct read (`recallsByVehicle` for MY2008 Fit](https://api.nhtsa.gov/recalls/recallsByVehicle?make=honda&model=fit&modelYear=2008); [government primary source, not a search snippet), corroborating Honda's Takata Airbag Inflator Recall Fact Sheet](https://hondanews.com/en-US/honda-corporate/releases/takata-airbag-inflator-recall-fact-sheet)
 
 ### Chapter 44
 
@@ -602,7 +599,7 @@ for looking up one specific ID.
 
 - **P-WP14-14** — [Honda Fit Repair Manual mirror — "Alternator Removal and Installation," "Starting System" (overhaul), and "Handles and Remote Openers" (rear door outer handle) pages](https://www.hfitinfo.com/hofi-789.html)
 - **P-WP14-15** — [FitFreak.net "1st Generation (GD 01-08)" forum threads — thermostat, window regulator, sway bar end link, and starter DIY writeups](https://www.fitfreak.net/forums/1st-generation-gd-01-08/99725-thermostat-change-instructions-read-intro-first.html); [go-parts.com starter and ignition-switch guides; youcanic.com window regulator guide; locksmithledger.com Honda lock article](https://www.go-parts.com/garage/starter-motor-honda-fit-2007-2008)
-- **P-WP14-16** — *[no source found]*
+- **P-WP14-16** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 
 ### Chapter 46
 
@@ -611,8 +608,8 @@ for looking up one specific ID.
 - **F-WP01-033** — [(S-HFITINFO-TIRES)](https://www.hfitinfo.com/hofi-497.html)
 - **F-WP02-024** — [FitFreak.net forum threads (two independent threads, both in the 1st Generation GD 01-08 sub-forum, one titled specifically for this issue)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/99354-honda-rust-spot.html); [FitFreak.net forum threads (two independent threads, both in the 1st Generation GD 01-08 sub-forum, one titled specifically for this issue)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/107948-gd3-rust-guide.html)
 - **F-WP13-009** — [autobodyshopnear.com "Auto Rust Repair Cost: Surface to Frame Damage (2026)"](https://autobodyshopnear.com/blog/auto-rust-repair-cost); [Subaru Outback Forums thread "Cost to repair or replace rust on rear quarter panels" (comparable small-car body-shop quotes, cited for co...](https://www.subaruoutback.org/threads/cost-to-repair-or-replace-rust-on-rear-quarter-panels.124706/)
-- **P-WP14-17** — *[no source found]*
-- **P-WP14-18** — *[no source found]*
+- **P-WP14-17** — [FitFreak.net forum threads (two independent threads, both in the 1st Generation GD 01-08 sub-forum, one titled specifically for this issue)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/99354-honda-rust-spot.html); [FitFreak.net forum threads (two independent threads, both in the 1st Generation GD 01-08 sub-forum, one titled specifically for this issue)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/107948-gd3-rust-guide.html); [autobodyshopnear.com "Auto Rust Repair Cost: Surface to Frame Damage (2026)"](https://autobodyshopnear.com/blog/auto-rust-repair-cost); [Subaru Outback Forums thread "Cost to repair or replace rust on rear quarter panels" (comparable small-car body-shop quotes, cited for co...](https://www.subaruoutback.org/threads/cost-to-repair-or-replace-rust-on-rear-quarter-panels.124706/)
+- **P-WP14-18** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 
 ### Chapter 47
 
@@ -636,7 +633,7 @@ for looking up one specific ID.
 - **F-WP15-015** — [FACT SHEET — Clean Air Act Vehicle Aftermarket Defeat Devices and Tampering (March 2020)](https://www.epa.gov/system/files/documents/2021-11/epafactsheetreaftermarketddsandtampering.pdf)
 - **F-WP15-016** — [FACT SHEET — Clean Air Act Vehicle Aftermarket Defeat Devices and Tampering (March 2020)](https://www.epa.gov/system/files/documents/2021-11/epafactsheetreaftermarketddsandtampering.pdf)
 - **F-WP15-017** — [FACT SHEET — Clean Air Act Vehicle Aftermarket Defeat Devices and Tampering (March 2020)](https://www.epa.gov/system/files/documents/2021-11/epafactsheetreaftermarketddsandtampering.pdf)
-- **F-WP15-018** — *[no source found]*
+- **F-WP15-018** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 
 ### Chapter 49
 
@@ -645,7 +642,7 @@ for looking up one specific ID.
 - **F-WP16-003** — [Autocrossing GD3 in STF](https://www.fitfreak.net/forums/racing/76154-autocrossing-gd3-stf.html)
 - **F-WP16-004** — [2017 SCCA National Solo Rules, Appendix A - Automobile Classes](https://dk1xgl0d43mu1.cloudfront.net/user_files/scca/downloads/000/020/866/2017-04-04-appendix-A-automobile-classes.pdf)
 - **F-WP16-005** — [2017 SCCA National Solo Rules, Appendix A - Automobile Classes](https://dk1xgl0d43mu1.cloudfront.net/user_files/scca/downloads/000/020/866/2017-04-04-appendix-A-automobile-classes.pdf); [Autocrossing GD3 in STF](https://www.fitfreak.net/forums/racing/76154-autocrossing-gd3-stf.html)
-- **F-WP16-006** — [Autocrossing GD3 in STF](https://www.fitfreak.net/forums/racing/76154-autocrossing-gd3-stf.html); [{GD3} 15x7 +45 Tires 205/50/15 Rub?](https://www.fitfreak.net/forums/fit-wheels-tires/59714-gd3-15x7-45-tires-205-50-15-rub.html); [205/50/15 on stock GD3](https://www.fitfreak.net/forums/fit-wheels-tires/50158-205-50-15-stock-gd3.html)
+- **F-WP16-006** — [Autocrossing GD3 in STF](https://www.fitfreak.net/forums/racing/76154-autocrossing-gd3-stf.html); [{GD3} 15x7 +45 Tires 205/50/15 Rub?](https://www.fitfreak.net/forums/fit-wheels-tires/59714-gd3-15x7-45-tires-205-50-15-rub.html); [205/50/15 on stock GD3](https://www.fitfreak.net/forums/fit-wheels-tires/50158-205-50-15-stock-gd3.html); ["GD3 stock height, best offset and tire size for flushness?" — FitFreak.net thread 95124](https://www.fitfreak.net/forums/fit-wheels-tires/95124-gd3-stock-height-best-offset-tire-size-flushness.html); ["16x7 offset +35 205/45 16" — Honda-Tech.com, Honda Fit subforum, thread 1686138](https://honda-tech.com/forums/honda-fit-73/16x7-offset-35-205-45-16-a-1686138/)
 
 ### Chapter 50
 
@@ -682,7 +679,7 @@ for looking up one specific ID.
 - **F-WP16-027** — [HPS Street Brake Pads - HB418F.646 (vehicle fitment list)](https://www.hawkperformance.com/pads/hb418f-646)
 - **F-WP16-028** — [HP+ Street/Race Brake Pads - HB418N.646 (vehicle fitment list)](https://www.hawkperformance.com/pads/hb418n-646)
 - **F-WP16-029** — [MOTUL RBF 600 FACTORY LINE -- Technical Data Sheet](https://azupim01.motul.com/media/motulData/DO/base/rbf_600_factory_line_en_fr_motul.pdf); [MOTUL DOT 5.1 -- Technical Data Sheet](https://azupim01.motul.com/media/motulData/DO/base/DOT_5.1_en_FR_motul_27400_20221020.pdf)
-- **F-WP16-030** — *[no source found]*
+- **F-WP16-030** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP16-031** — [StopTech Stainless Steel Brake Line Kit Front Honda Fit 2007-2008 950.40017](https://www.vividracing.com/stoptech-stainless-steel-brake-line-kit-honda-fit-front-20072008-p-152145945.html)
 - **F-WP16-032** — [Fastline Performance Coated Braided Stainless Brake Lines, 2007-08 Honda Fit, FLP-BLKIT-GD3](https://www.heeltoeauto.com/hydraulic-components/fastline-performance-coated-braided-stainless-brake-lines-2007-08-honda-fit-flp.brakeline.gd3.html)
 - **F-WP16-033** — [Techna-Fit Stainless Steel Braided Brake Lines, HN-2600, for 2007-2008 Honda Fit](https://kfebrakes.com/products/brake-lines/stainless-steel-braided-brake-line/techna-fit-hn-2600-for-2007-2008-honda-fit/)
@@ -697,7 +694,7 @@ for looking up one specific ID.
 - **F-WP17-005** — [A Spec Honda Fit Headers w/ DYNO (5+HP)](https://www.fitfreak.net/forums/spec-products-com/29779-spec-honda-fit-headers-w-dyno-5-hp.html)
 - **F-WP17-006** — [T1R 2025 Version Response Header - Honda Fit 07-08 GD3](https://aj-racing.com/en-us/products/t1r-response-header-honda-fit-07-08-gd3-pre-order)
 - **F-WP17-007** — [Let's talk numbers...test pipe](https://www.fitfreak.net/forums/fit-engine-modifications-motor-swaps-ecu-tuning/28206-let-s-talk-numbers-test-pipe.html)
-- **F-WP17-008** — *[no source found]*
+- **F-WP17-008** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP17-009** — [N1 Evolution (Axleback) — 2007-2008 Honda FIT [GD]](https://www.apexi-usa.com/products/n1-evo-axleback-exhaust-2007-2008-honda-fit-gd)
 - **F-WP17-010** — [HKS 2007-2008 Honda Fit Hi Power Exhaust (32003-BH005)](https://www.kamispeed.com/products/hks-07-08-honda-fit-hi-power-exhaust)
 - **F-WP17-011** — [HONDA FIT 2008 1.5CC 110 hp increase power N/A](https://www.fitfreak.net/forums/fit-engine-modifications-motor-swaps-ecu-tuning/87900-honda-fit-2008-1-5cc-110-hp-increase-power-n.html)
@@ -711,9 +708,9 @@ for looking up one specific ID.
 - **F-WP17-016** — [Stainless Steel Race Header (Weapon*R, product page for "2009-2012 Honda Fit")](https://weapon-r.com/products/2009-2012-honda-fit)
 - **F-WP17-017** — [Hondata FlashPro product category page, filtered to Vehicle = "Fit"](https://hondata.com/products/flashpro?route=product/category&language=en-gb&filter=10&limit=100)
 - **F-WP17-018** — [Hondata "Products" overview page](https://hondata.com/products?route=product/category&language=en-gb)
-- **F-WP17-019** — *[no source found]*
+- **F-WP17-019** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP17-020** — [Vafc in a GD3](https://www.fitfreak.net/forums/fit-engine-modifications-motor-swaps-ecu-tuning/33108-vafc-gd3.html)
-- **F-WP17-021** — *[no source found]*
+- **F-WP17-021** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP17-022** — [Hondata FlashPro Fit (product page)](https://hondata.com/flashpro-fit); [Hondata FlashPro Fit (CARB) (product page)](https://hondata.com/flashpro-fit-carb); [Hondata FlashPro product category page, filtered to Vehicle = "Fit"](https://hondata.com/products/flashpro?route=product/category&language=en-gb&filter=10&limit=100); [Hondata "Products" overview page](https://hondata.com/products?route=product/category&language=en-gb); [Hondata FlashPro for 2007-2008 Honda Fit (retailer listing)](https://www.revlinekc.com/products/hondata-flashpro-for-2007-2008-honda-fit); [Vafc in a GD3](https://www.fitfreak.net/forums/fit-engine-modifications-motor-swaps-ecu-tuning/33108-vafc-gd3.html); [Still nothing for the L15A7?](https://www.hondata.com/forum/viewtopic.php?t=13445)
 
 ### Chapter 54
@@ -725,13 +722,13 @@ for looking up one specific ID.
 - **F-WP18-005** — [Executive Order D-186-27, HKS USA, Inc.](https://arb.parts/Executive-Order/D-186-27); [HKS Honda Fit Turbo Kit](https://www.motorworldhype.com/2008/08/hks-honda-fit-turbo-kit/)
 - **F-WP18-006** — [HKS Honda Fit Turbo Kit](https://www.motorworldhype.com/2008/08/hks-honda-fit-turbo-kit/)
 - **F-WP18-007** — [Honda Fit GD3 (07-08) Turbo Kit (product listing)](https://www.unequalfabrication.com/product-page/honda-fit-gd3-07-08-turbo-kit)
-- **F-WP18-008** — *[no source found]*
-- **F-WP18-009** — *[no source found]*
-- **F-WP18-010** — *[no source found]*
+- **F-WP18-008** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
+- **F-WP18-009** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
+- **F-WP18-010** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP18-019** — [Exedy Sport Clutch Set 08807 (Stage 1 Organic) - Honda Fit 07-08 (GD3) (product listing)](https://aj-racing.com/en-us/products/exedy-sport-clutch-set-stage-1-organic-honda-fit-07-08-gd3); [(S-WP18-O)](https://www.fitfreak.net/forums/fit-engine-modifications-motor-swaps-ecu-tuning/33005-exedy-stage-1-2-clutch-kits-available-now.html)
-- **F-WP18-020** — *[no source found]*
-- **F-WP18-021** — *[no source found]*
-- **F-WP18-022** — *[no source found]*
+- **F-WP18-020** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
+- **F-WP18-021** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
+- **F-WP18-022** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 
 ### Chapter 55
 
@@ -740,9 +737,9 @@ for looking up one specific ID.
 - **F-WP18-013** — [K20 / K24 Honda Fit Swap Info (GD3)](https://pbomers.com/k-fit/)
 - **F-WP18-014** — [K20 / K24 Honda Fit Swap Info (GD3)](https://pbomers.com/k-fit/); [Any 2007-2008 Honda Fit (GD3) K Swapped owners here ? (forum thread)](https://www.k20a.org/threads/any-2007-2008-honda-fit-gd3-k-swapped-owners-here.228429/)
 - **F-WP18-015** — [Hasport GDK K Swap Engine Mount Kit for 07-08 Honda Fit (product listing)](https://www.hybrid-racing.com/products/hasport-performance-06-08-honda-fit-k-swap-mounts)
-- **F-WP18-016** — *[no source found]*
-- **F-WP18-017** — *[no source found]*
-- **F-WP18-018** — *[no source found]*
+- **F-WP18-016** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
+- **F-WP18-017** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
+- **F-WP18-018** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 
 ### Chapter 56
 
@@ -870,10 +867,10 @@ for looking up one specific ID.
 - **F-WP10-003** — [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf)
 - **F-WP10-004** — ["Ignition Coil and Spark Plug Removal/Installation" — hfitinfo.com repair-manual mirror](https://www.hfitinfo.com/hofi-885.html); ["Q&A: Honda Fit Spark Plug Torque & Coil Pack" (JustAnswer Q&A, 47y8r)](https://www.justanswer.com/honda/47y8r-hi-wife-2007-honda-fit-40-000miles-decided-little-pre-w.html)
 - **F-WP10-005** — ["Brake Caliper Mounting Bracket Bolt Torque Spec?" — FitFreak.net thread 99647](https://www.fitfreak.net/forums/fit-diy-repair-maintenance/99647-brake-caliper-mounting-bracket-bolt-torque-spec.html); ["Need the front brake caliper torque spec - 2007 Honda Fit Sport Hatchback" (Fixya Q&A, t14355462) and "SOLVED: What is the front brake and caliper torque spec - Honda" (Fixya Q&A, t25853359)](https://www.fixya.com/cars/t14355462-need_front_brake_caliper_torque_spec)
-- **F-WP10-006** — *[no source found]*
+- **F-WP10-006** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP10-007** — ["Brake Caliper Mounting Bracket Bolt Torque Spec?" — FitFreak.net thread 99647](https://www.fitfreak.net/forums/fit-diy-repair-maintenance/99647-brake-caliper-mounting-bracket-bolt-torque-spec.html); ["2015 Honda Fit Torque Specs: Ball Joint, Strut, Axle Guide" (JustAnswer Q&A, lvhvf) / "2015 Honda Fit Brake Caliper & Mount Torque Specs FAQ" (JustAnswer Q&A, m27l9)](https://www.justanswer.com/honda/lvhvf-2015-honda-fit-lower-balljoint-strut-axle-torque-specs.html)
-- **F-WP10-008** — ["Torque Settings For Struts" — FitFreak.net thread 29701](https://www.fitfreak.net/forums/fit-suspension-brake-modifications/29701-torque-settings-struts.html)
-- **F-WP10-009** — *[no source found]*
+- **F-WP10-008** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
+- **F-WP10-009-torque** — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 
 ### Appendix D
 
@@ -931,11 +928,6 @@ for looking up one specific ID.
 ### Appendix G
 
 - **F-WP19-004** — [National Solo Rules (2025 edition)](https://www.scca.com/downloads)
-- **P-22-glossary** — *[no source found]*
-
-### Appendix H
-
-- **P-22-resources** — *[no source found]*
 
 ### Appendix I
 
@@ -1173,7 +1165,7 @@ for looking up one specific ID.
 - **F-WP08-009** (Chapter 18) — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals)
 - **F-WP08-010** (Chapter 20) — [Used Car Inspection Checklist (general pre-purchase inspection guidance)](https://www.progressive.com/answers/used-car-inspection-checklist/)
 - **F-WP08-011** (Chapter 18, Chapter 20) — [Vehicle Detail Search - 2008 HONDA FIT (Recalls)](https://www.nhtsa.gov/vehicle/2008/HONDA/FIT)
-- **F-WP08-012** (Chapter 18, Chapter 20) — [Vehicle Detail Search - 2008 HONDA FIT (Recalls)](https://www.nhtsa.gov/vehicle/2008/HONDA/FIT)
+- **F-WP08-012** (Chapter 18, Chapter 20) — [Vehicle Detail Search - 2008 HONDA FIT (Recalls)](https://www.nhtsa.gov/vehicle/2008/HONDA/FIT); [honda.oemdtc.com bulletin mirror and obd-codes.com 2008 Honda Fit TSB listing](https://honda.oemdtc.com/265/warranty-extension-electric-power-steering-with-dtc-32-09-or-61-04-2006-2009-honda-civic-2007-2008-fit); [honda.oemdtc.com bulletin mirror and obd-codes.com 2008 Honda Fit TSB listing](https://www.obd-codes.com/tsb/2008/honda/fit/)
 - **F-WP08-013** (Chapter 20) — [1st Generation (GD 01-08) subforum](https://www.fitfreak.net/forums/1st-generation-gd-01-08/); [Things to know before buying a FIT](https://www.fitfreak.net/forums/fit-freak-newbie-faqs/78461-things-know-before-buying-fit.html); [Honda Fit forum](https://honda-tech.com/forums/honda-fit-73/)
 - **F-WP08-014** (Chapter 20) — [1st Generation (GD 01-08) subforum](https://www.fitfreak.net/forums/1st-generation-gd-01-08/)
 - **F-WP08-015** (Chapter 20) — [1st Generation (GD 01-08) subforum](https://www.fitfreak.net/forums/1st-generation-gd-01-08/); [Things to know before buying a FIT](https://www.fitfreak.net/forums/fit-freak-newbie-faqs/78461-things-know-before-buying-fit.html); [Honda Fit forum](https://honda-tech.com/forums/honda-fit-73/)
@@ -1246,10 +1238,9 @@ for looking up one specific ID.
 - **F-WP10-003** (Appendix C) — [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf)
 - **F-WP10-004** (Appendix C) — ["Ignition Coil and Spark Plug Removal/Installation" — hfitinfo.com repair-manual mirror](https://www.hfitinfo.com/hofi-885.html); ["Q&A: Honda Fit Spark Plug Torque & Coil Pack" (JustAnswer Q&A, 47y8r)](https://www.justanswer.com/honda/47y8r-hi-wife-2007-honda-fit-40-000miles-decided-little-pre-w.html)
 - **F-WP10-005** (Chapter 27, Appendix C) — ["Brake Caliper Mounting Bracket Bolt Torque Spec?" — FitFreak.net thread 99647](https://www.fitfreak.net/forums/fit-diy-repair-maintenance/99647-brake-caliper-mounting-bracket-bolt-torque-spec.html); ["Need the front brake caliper torque spec - 2007 Honda Fit Sport Hatchback" (Fixya Q&A, t14355462) and "SOLVED: What is the front brake and caliper torque spec - Honda" (Fixya Q&A, t25853359)](https://www.fixya.com/cars/t14355462-need_front_brake_caliper_torque_spec)
-- **F-WP10-006** (Chapter 27, Appendix C) — *[no source found]*
+- **F-WP10-006** (Chapter 27, Appendix C) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP10-007** (Appendix C) — ["Brake Caliper Mounting Bracket Bolt Torque Spec?" — FitFreak.net thread 99647](https://www.fitfreak.net/forums/fit-diy-repair-maintenance/99647-brake-caliper-mounting-bracket-bolt-torque-spec.html); ["2015 Honda Fit Torque Specs: Ball Joint, Strut, Axle Guide" (JustAnswer Q&A, lvhvf) / "2015 Honda Fit Brake Caliper & Mount Torque Specs FAQ" (JustAnswer Q&A, m27l9)](https://www.justanswer.com/honda/lvhvf-2015-honda-fit-lower-balljoint-strut-axle-torque-specs.html)
-- **F-WP10-008** (Appendix C) — ["Torque Settings For Struts" — FitFreak.net thread 29701](https://www.fitfreak.net/forums/fit-suspension-brake-modifications/29701-torque-settings-struts.html)
-- **F-WP10-009** (Appendix C) — *[no source found]*
+- **F-WP10-008** (Appendix C) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP10-010** (Chapter 26, Appendix E) — [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf)
 - **F-WP10-011** (Chapter 26, Appendix E) — [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf)
 - **F-WP10-012** (Chapter 26, Appendix E) — [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf)
@@ -1257,7 +1248,6 @@ for looking up one specific ID.
 - **F-WP10-014** (Chapter 26, Appendix E) — [2008 Honda Fit - Wheel & Tire Sizes, PCD, Offset and Rims specs](https://www.wheel-size.com/size/honda/fit/2008/)
 - **F-WP10-015** (Chapter 26, Appendix E) — [2008 Honda Fit - Wheel & Tire Sizes, PCD, Offset and Rims specs](https://www.wheel-size.com/size/honda/fit/2008/)
 - **F-WP10-016** (Appendix E) — ["GD3 stock height, best offset and tire size for flushness?" — FitFreak.net thread 95124](https://www.fitfreak.net/forums/fit-wheels-tires/95124-gd3-stock-height-best-offset-tire-size-flushness.html); ["16x7 offset +35 205/45 16" — Honda-Tech.com, Honda Fit subforum, thread 1686138](https://honda-tech.com/forums/honda-fit-73/16x7-offset-35-205-45-16-a-1686138/)
-- **F-WP12-0** (Chapter 34, Chapter 36, Chapter 37) — *[no source found]*
 - **F-WP12-001** (Chapter 35) — [carcodefinder.com "Where Is My OBD-II Port?" guide](https://carcodefinder.com/guides/obd2-port-location-by-car/); [fitfreak.net forum thread "Where is the OBD port?"](https://www.fitfreak.net/forums/fit-diy-repair-maintenance/21270-where-obd-port.html)
 - **F-WP12-002** (Chapter 35, Chapter 37) — [FitFreak.net forum threads, 1st Generation (GD 01-08) sub-forum (two independent threads)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/87988-p0300-other-cylinder-misfires-only-under-load.html); [autocodes.com generic code definition](https://www.fitfreak.net/forums/1st-generation-gd-01-08/96891-p0301-0300-0302-0303-a.html); [FitFreak.net forum threads, 1st Generation (GD 01-08) sub-forum (two independent threads)](https://www.autocodes.com/p0300_honda.html)
 - **F-WP12-003** (Chapter 35, Chapter 37) — [FitFreak.net forum threads, 1st Generation (GD 01-08) sub-forum (two independent threads)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/103706-07-honda-fit-sport-po301-trouble-code-misfire-cylinder-1-need-help.html); [engine-codes.com generic code definition](https://www.fitfreak.net/forums/1st-generation-gd-01-08/98146-2007-misfire-o2-sensor.html); [FitFreak.net forum threads, 1st Generation (GD 01-08) sub-forum (two independent threads)](https://www.engine-codes.com/p0301_honda.html)
@@ -1309,13 +1299,13 @@ for looking up one specific ID.
 - **F-WP15-015** (Chapter 48) — [FACT SHEET — Clean Air Act Vehicle Aftermarket Defeat Devices and Tampering (March 2020)](https://www.epa.gov/system/files/documents/2021-11/epafactsheetreaftermarketddsandtampering.pdf)
 - **F-WP15-016** (Chapter 48) — [FACT SHEET — Clean Air Act Vehicle Aftermarket Defeat Devices and Tampering (March 2020)](https://www.epa.gov/system/files/documents/2021-11/epafactsheetreaftermarketddsandtampering.pdf)
 - **F-WP15-017** (Chapter 48) — [FACT SHEET — Clean Air Act Vehicle Aftermarket Defeat Devices and Tampering (March 2020)](https://www.epa.gov/system/files/documents/2021-11/epafactsheetreaftermarketddsandtampering.pdf)
-- **F-WP15-018** (Chapter 48) — *[no source found]*
+- **F-WP15-018** (Chapter 48) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP16-001** (Chapter 49) — ["GD3 stock height, best offset and tire size for flushness?" — FitFreak.net thread 95124](https://www.fitfreak.net/forums/fit-wheels-tires/95124-gd3-stock-height-best-offset-tire-size-flushness.html); ["16x7 offset +35 205/45 16" — Honda-Tech.com, Honda Fit subforum, thread 1686138](https://honda-tech.com/forums/honda-fit-73/16x7-offset-35-205-45-16-a-1686138/)
 - **F-WP16-002** (Chapter 49) — [{GD3} 15x7 +45 Tires 205/50/15 Rub?](https://www.fitfreak.net/forums/fit-wheels-tires/59714-gd3-15x7-45-tires-205-50-15-rub.html); [205/50/15 on stock GD3](https://www.fitfreak.net/forums/fit-wheels-tires/50158-205-50-15-stock-gd3.html)
 - **F-WP16-003** (Chapter 49) — [Autocrossing GD3 in STF](https://www.fitfreak.net/forums/racing/76154-autocrossing-gd3-stf.html)
 - **F-WP16-004** (Chapter 49) — [2017 SCCA National Solo Rules, Appendix A - Automobile Classes](https://dk1xgl0d43mu1.cloudfront.net/user_files/scca/downloads/000/020/866/2017-04-04-appendix-A-automobile-classes.pdf)
 - **F-WP16-005** (Chapter 49) — [2017 SCCA National Solo Rules, Appendix A - Automobile Classes](https://dk1xgl0d43mu1.cloudfront.net/user_files/scca/downloads/000/020/866/2017-04-04-appendix-A-automobile-classes.pdf); [Autocrossing GD3 in STF](https://www.fitfreak.net/forums/racing/76154-autocrossing-gd3-stf.html)
-- **F-WP16-006** (Chapter 49) — [Autocrossing GD3 in STF](https://www.fitfreak.net/forums/racing/76154-autocrossing-gd3-stf.html); [{GD3} 15x7 +45 Tires 205/50/15 Rub?](https://www.fitfreak.net/forums/fit-wheels-tires/59714-gd3-15x7-45-tires-205-50-15-rub.html); [205/50/15 on stock GD3](https://www.fitfreak.net/forums/fit-wheels-tires/50158-205-50-15-stock-gd3.html)
+- **F-WP16-006** (Chapter 49) — [Autocrossing GD3 in STF](https://www.fitfreak.net/forums/racing/76154-autocrossing-gd3-stf.html); [{GD3} 15x7 +45 Tires 205/50/15 Rub?](https://www.fitfreak.net/forums/fit-wheels-tires/59714-gd3-15x7-45-tires-205-50-15-rub.html); [205/50/15 on stock GD3](https://www.fitfreak.net/forums/fit-wheels-tires/50158-205-50-15-stock-gd3.html); ["GD3 stock height, best offset and tire size for flushness?" — FitFreak.net thread 95124](https://www.fitfreak.net/forums/fit-wheels-tires/95124-gd3-stock-height-best-offset-tire-size-flushness.html); ["16x7 offset +35 205/45 16" — Honda-Tech.com, Honda Fit subforum, thread 1686138](https://honda-tech.com/forums/honda-fit-73/16x7-offset-35-205-45-16-a-1686138/)
 - **F-WP16-007** (Chapter 50) — [BC Racing BR Series Coilovers for 2007-2008 Honda Fit FWD (GD3)](https://www.springrates.com/products/bc-racing-br-series-coilovers-2007-2008-honda-fit)
 - **F-WP16-008** (Chapter 50) — [TEIN Suspension BASIC Coilover-Damper Kit, 07+ GD3 Honda Fit FF DSB36-LUAS2](https://www.heeltoeauto.com/tein-suspension-basic-coilover-damper-kit-07-gd3-honda-fit-ff-dsb36-luas2.html)
 - **F-WP16-009** (Chapter 50) — [06-08 Honda FIT Skunk2 Pro-C Coilovers](http://www.s2carbonworks.com/06hofitskprc.html)
@@ -1339,7 +1329,7 @@ for looking up one specific ID.
 - **F-WP16-027** (Chapter 51) — [HPS Street Brake Pads - HB418F.646 (vehicle fitment list)](https://www.hawkperformance.com/pads/hb418f-646)
 - **F-WP16-028** (Chapter 51) — [HP+ Street/Race Brake Pads - HB418N.646 (vehicle fitment list)](https://www.hawkperformance.com/pads/hb418n-646)
 - **F-WP16-029** (Chapter 51) — [MOTUL RBF 600 FACTORY LINE -- Technical Data Sheet](https://azupim01.motul.com/media/motulData/DO/base/rbf_600_factory_line_en_fr_motul.pdf); [MOTUL DOT 5.1 -- Technical Data Sheet](https://azupim01.motul.com/media/motulData/DO/base/DOT_5.1_en_FR_motul_27400_20221020.pdf)
-- **F-WP16-030** (Chapter 51) — *[no source found]*
+- **F-WP16-030** (Chapter 51) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP16-031** (Chapter 51) — [StopTech Stainless Steel Brake Line Kit Front Honda Fit 2007-2008 950.40017](https://www.vividracing.com/stoptech-stainless-steel-brake-line-kit-honda-fit-front-20072008-p-152145945.html)
 - **F-WP16-032** (Chapter 51) — [Fastline Performance Coated Braided Stainless Brake Lines, 2007-08 Honda Fit, FLP-BLKIT-GD3](https://www.heeltoeauto.com/hydraulic-components/fastline-performance-coated-braided-stainless-brake-lines-2007-08-honda-fit-flp.brakeline.gd3.html)
 - **F-WP16-033** (Chapter 51) — [Techna-Fit Stainless Steel Braided Brake Lines, HN-2600, for 2007-2008 Honda Fit](https://kfebrakes.com/products/brake-lines/stainless-steel-braided-brake-line/techna-fit-hn-2600-for-2007-2008-honda-fit/)
@@ -1350,7 +1340,7 @@ for looking up one specific ID.
 - **F-WP17-005** (Chapter 52) — [A Spec Honda Fit Headers w/ DYNO (5+HP)](https://www.fitfreak.net/forums/spec-products-com/29779-spec-honda-fit-headers-w-dyno-5-hp.html)
 - **F-WP17-006** (Chapter 52) — [T1R 2025 Version Response Header - Honda Fit 07-08 GD3](https://aj-racing.com/en-us/products/t1r-response-header-honda-fit-07-08-gd3-pre-order)
 - **F-WP17-007** (Chapter 52) — [Let's talk numbers...test pipe](https://www.fitfreak.net/forums/fit-engine-modifications-motor-swaps-ecu-tuning/28206-let-s-talk-numbers-test-pipe.html)
-- **F-WP17-008** (Chapter 52) — *[no source found]*
+- **F-WP17-008** (Chapter 52) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP17-009** (Chapter 52) — [N1 Evolution (Axleback) — 2007-2008 Honda FIT [GD]](https://www.apexi-usa.com/products/n1-evo-axleback-exhaust-2007-2008-honda-fit-gd)
 - **F-WP17-010** (Chapter 52) — [HKS 2007-2008 Honda Fit Hi Power Exhaust (32003-BH005)](https://www.kamispeed.com/products/hks-07-08-honda-fit-hi-power-exhaust)
 - **F-WP17-011** (Chapter 52) — [HONDA FIT 2008 1.5CC 110 hp increase power N/A](https://www.fitfreak.net/forums/fit-engine-modifications-motor-swaps-ecu-tuning/87900-honda-fit-2008-1-5cc-110-hp-increase-power-n.html)
@@ -1361,9 +1351,9 @@ for looking up one specific ID.
 - **F-WP17-016** (Chapter 53) — [Stainless Steel Race Header (Weapon*R, product page for "2009-2012 Honda Fit")](https://weapon-r.com/products/2009-2012-honda-fit)
 - **F-WP17-017** (Chapter 53) — [Hondata FlashPro product category page, filtered to Vehicle = "Fit"](https://hondata.com/products/flashpro?route=product/category&language=en-gb&filter=10&limit=100)
 - **F-WP17-018** (Chapter 53) — [Hondata "Products" overview page](https://hondata.com/products?route=product/category&language=en-gb)
-- **F-WP17-019** (Chapter 53) — *[no source found]*
+- **F-WP17-019** (Chapter 53) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP17-020** (Chapter 53) — [Vafc in a GD3](https://www.fitfreak.net/forums/fit-engine-modifications-motor-swaps-ecu-tuning/33108-vafc-gd3.html)
-- **F-WP17-021** (Chapter 53) — *[no source found]*
+- **F-WP17-021** (Chapter 53) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP17-022** (Chapter 53) — [Hondata FlashPro Fit (product page)](https://hondata.com/flashpro-fit); [Hondata FlashPro Fit (CARB) (product page)](https://hondata.com/flashpro-fit-carb); [Hondata FlashPro product category page, filtered to Vehicle = "Fit"](https://hondata.com/products/flashpro?route=product/category&language=en-gb&filter=10&limit=100); [Hondata "Products" overview page](https://hondata.com/products?route=product/category&language=en-gb); [Hondata FlashPro for 2007-2008 Honda Fit (retailer listing)](https://www.revlinekc.com/products/hondata-flashpro-for-2007-2008-honda-fit); [Vafc in a GD3](https://www.fitfreak.net/forums/fit-engine-modifications-motor-swaps-ecu-tuning/33108-vafc-gd3.html); [Still nothing for the L15A7?](https://www.hondata.com/forum/viewtopic.php?t=13445)
 - **F-WP18-001** (Chapter 54) — [KraftWerks Announces Honda Fit High-Boost Supercharger Kit](https://motoiq.com/kraftwerks-announces-honda-fit-high-boost-supercharger-kit/)
 - **F-WP18-002** (Chapter 54) — [Jackson Racing - Supercharger Kits for Honda Fit (product category page, empty) / KraftWerks USA and Jackson Racing current shop catalogs](https://www.counterspacegarage.com/products/engine/supercharger-kits/honda_fit-jackson_racing)
@@ -1372,21 +1362,21 @@ for looking up one specific ID.
 - **F-WP18-005** (Chapter 54) — [Executive Order D-186-27, HKS USA, Inc.](https://arb.parts/Executive-Order/D-186-27); [HKS Honda Fit Turbo Kit](https://www.motorworldhype.com/2008/08/hks-honda-fit-turbo-kit/)
 - **F-WP18-006** (Chapter 54) — [HKS Honda Fit Turbo Kit](https://www.motorworldhype.com/2008/08/hks-honda-fit-turbo-kit/)
 - **F-WP18-007** (Chapter 54) — [Honda Fit GD3 (07-08) Turbo Kit (product listing)](https://www.unequalfabrication.com/product-page/honda-fit-gd3-07-08-turbo-kit)
-- **F-WP18-008** (Chapter 54) — *[no source found]*
-- **F-WP18-009** (Chapter 54) — *[no source found]*
-- **F-WP18-010** (Chapter 54) — *[no source found]*
+- **F-WP18-008** (Chapter 54) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
+- **F-WP18-009** (Chapter 54) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
+- **F-WP18-010** (Chapter 54) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP18-011** (Chapter 55) — [K20 / K24 Honda Fit Swap Info (GD3)](https://pbomers.com/k-fit/); [k20z3 swap into 07 GD Fit (forum thread)](https://www.k20a.org/threads/k20z3-swap-into-07-gd-fit.164377/)
 - **F-WP18-012** (Chapter 55) — [K20 / K24 Honda Fit Swap Info (GD3)](https://pbomers.com/k-fit/); [k20z3 swap into 07 GD Fit (forum thread)](https://www.k20a.org/threads/k20z3-swap-into-07-gd-fit.164377/)
 - **F-WP18-013** (Chapter 55) — [K20 / K24 Honda Fit Swap Info (GD3)](https://pbomers.com/k-fit/)
 - **F-WP18-014** (Chapter 55) — [K20 / K24 Honda Fit Swap Info (GD3)](https://pbomers.com/k-fit/); [Any 2007-2008 Honda Fit (GD3) K Swapped owners here ? (forum thread)](https://www.k20a.org/threads/any-2007-2008-honda-fit-gd3-k-swapped-owners-here.228429/)
 - **F-WP18-015** (Chapter 55) — [Hasport GDK K Swap Engine Mount Kit for 07-08 Honda Fit (product listing)](https://www.hybrid-racing.com/products/hasport-performance-06-08-honda-fit-k-swap-mounts)
-- **F-WP18-016** (Chapter 55) — *[no source found]*
-- **F-WP18-017** (Chapter 55) — *[no source found]*
-- **F-WP18-018** (Chapter 55) — *[no source found]*
+- **F-WP18-016** (Chapter 55) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
+- **F-WP18-017** (Chapter 55) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
+- **F-WP18-018** (Chapter 55) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP18-019** (Chapter 54) — [Exedy Sport Clutch Set 08807 (Stage 1 Organic) - Honda Fit 07-08 (GD3) (product listing)](https://aj-racing.com/en-us/products/exedy-sport-clutch-set-stage-1-organic-honda-fit-07-08-gd3); [(S-WP18-O)](https://www.fitfreak.net/forums/fit-engine-modifications-motor-swaps-ecu-tuning/33005-exedy-stage-1-2-clutch-kits-available-now.html)
-- **F-WP18-020** (Chapter 54) — *[no source found]*
-- **F-WP18-021** (Chapter 54) — *[no source found]*
-- **F-WP18-022** (Chapter 54) — *[no source found]*
+- **F-WP18-020** (Chapter 54) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
+- **F-WP18-021** (Chapter 54) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
+- **F-WP18-022** (Chapter 54) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **F-WP19-001** (Chapter 57) — [National Solo Rules (2025 edition)](https://www.scca.com/downloads)
 - **F-WP19-002** (Chapter 57) — [National Solo Rules (2025 edition)](https://www.scca.com/downloads)
 - **F-WP19-003** (Chapter 57) — [National Solo Rules (2025 edition)](https://www.scca.com/downloads)
@@ -1443,6 +1433,7 @@ for looking up one specific ID.
 - **F-WP21-013** (Appendix D) — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals)
 - **F-WP21-014** (Appendix D) — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals)
 - **F-WP21-015** (Appendix D) — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals)
+- **F-WP10-009-torque** (Appendix C) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **P-WP03-1** (Chapter 4) — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals)
 - **P-WP03-2** (Chapter 5) — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals)
 - **P-WP06-1** (Chapter 12) — [Honda Fit 2001-2008 Owners Manual (first generation mirror), "Instruments and Controls" and "Driving" chapters](https://www.hfitinfo.com/hofi-411.html)
@@ -1473,9 +1464,9 @@ for looking up one specific ID.
 - **P-WP11-21** (Chapter 32) — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf)
 - **P-WP11-22** (Chapter 22, Chapter 23, Chapter 40) — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf); [Multi-site WebSearch synthesis — "Honda Fit GD3 jack points / pinch weld locations for jack stands"](https://www.justanswer.com/car/fm48r-honda-fit-2007-place.html)
 - **P-WP11-23** (Chapter 33) — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf)
-- **P-WP14-1** (Chapter 40) — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf); [FitFreak.net forum thread — "2007 fit brake caliper bolt sizes?"](https://www.fitfreak.net/forums/fit-diy-repair-maintenance/63421-2007-fit-brake-caliper-bolt-sizes.html)
+- **P-WP14-1** (Chapter 40) — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf); [FitFreak.net forum thread — "2007 fit brake caliper bolt sizes?"](https://www.fitfreak.net/forums/fit-diy-repair-maintenance/63421-2007-fit-brake-caliper-bolt-sizes.html); ["Brake Caliper Mounting Bracket Bolt Torque Spec?" — FitFreak.net thread 99647](https://www.fitfreak.net/forums/fit-diy-repair-maintenance/99647-brake-caliper-mounting-bracket-bolt-torque-spec.html); ["Need the front brake caliper torque spec - 2007 Honda Fit Sport Hatchback" (Fixya Q&A, t14355462) and "SOLVED: What is the front brake and caliper torque spec - Honda" (Fixya Q&A, t25853359)](https://www.fixya.com/cars/t14355462-need_front_brake_caliper_torque_spec)
 - **P-WP14-2** (Chapter 40) — [Owners Manual for 2008 Honda Fit](https://owners.honda.com/vehicle-information/information/2008/Fit/manuals); [2008 Fit Owner's Manual (Unlinked) — AAA0808OM.pdf, "Maintenance" and "Technical Information" chapters](https://techinfo.honda.com/rjanisis/pubs/om/AAA080/AAA0808OM.pdf); [Honda Fit Repair Manual mirror — "Ignition Coil and Spark Plug Removal/Installation," "Coolant Replacement," and "Rear Brake Shoe Replacement" pages](https://www.hfitinfo.com/hofi-885.html); ["Honda Fit Rear Drum Brake Replacement (Full DIY Guide)" (YouTube) and FitFreak.net "07 Drum Brake DIY" thread](https://www.youtube.com/watch?v=-E4TrJZPPII)
-- **P-WP14-3** (Chapter 41) — [Honda Fit Repair Manual mirror — "Front Damper/Spring Disassembly, Inspection, and Reassembly," "Rear Damper Replacement," "Front Stabilizer Bar Replacement," and "Rear Stabilizer Bushing Replacement" pages](https://www.hfitinfo.com/hofi-745.html)
+- **P-WP14-3** (Chapter 41) — [Honda Fit Repair Manual mirror — "Front Damper/Spring Disassembly, Inspection, and Reassembly," "Rear Damper Replacement," "Front Stabilizer Bar Replacement," and "Rear Stabilizer Bushing Replacement" pages](https://www.hfitinfo.com/hofi-745.html); *no citable source — recorded in the book as UNVERIFIED / a known gap*
 - **P-WP14-4** (Chapter 41) — [Honda Fit Repair Manual mirror — "Front Damper/Spring Disassembly, Inspection, and Reassembly," "Rear Damper Replacement," "Front Stabilizer Bar Replacement," and "Rear Stabilizer Bushing Replacement" pages](https://www.hfitinfo.com/hofi-745.html)
 - **P-WP14-5** (Chapter 41) — [Honda Fit Repair Manual mirror — "Front Damper/Spring Disassembly, Inspection, and Reassembly," "Rear Damper Replacement," "Front Stabilizer Bar Replacement," and "Rear Stabilizer Bushing Replacement" pages](https://www.hfitinfo.com/hofi-745.html); [FitFreak.net "1st Generation (GD 01-08)" forum threads — thermostat, window regulator, sway bar end link, and starter DIY writeups](https://www.fitfreak.net/forums/1st-generation-gd-01-08/99725-thermostat-change-instructions-read-intro-first.html)
 - **P-WP14-6** (Chapter 42) — [Honda Fit Repair Manual mirror — "Water Outlet Removal and Installation," "Water Pump Inspection," "Radiator Replacement," and "Exhaust Pipe and Muffler Replacement" pages](https://www.hfitinfo.com/hofi-836.html); [FitFreak.net "1st Generation (GD 01-08)" forum threads — thermostat, window regulator, sway bar end link, and starter DIY writeups](https://www.fitfreak.net/forums/1st-generation-gd-01-08/99725-thermostat-change-instructions-read-intro-first.html)
@@ -1483,13 +1474,11 @@ for looking up one specific ID.
 - **P-WP14-8** (Chapter 42) — [Honda Fit Repair Manual mirror — "Water Outlet Removal and Installation," "Water Pump Inspection," "Radiator Replacement," and "Exhaust Pipe and Muffler Replacement" pages](https://www.hfitinfo.com/hofi-836.html)
 - **P-WP14-9** (Chapter 43) — [FitFreak.net "1st Generation (GD 01-08)" forum threads — thermostat, window regulator, sway bar end link, and starter DIY writeups](https://www.fitfreak.net/forums/1st-generation-gd-01-08/99725-thermostat-change-instructions-read-intro-first.html); [go-parts.com starter and ignition-switch guides; youcanic.com window regulator guide; locksmithledger.com Honda lock article](https://www.go-parts.com/garage/starter-motor-honda-fit-2007-2008)
 - **P-WP14-10** (Chapter 43) — [Honda Fit Repair Manual mirror — "Alternator Removal and Installation," "Starting System" (overhaul), and "Handles and Remote Openers" (rear door outer handle) pages](https://www.hfitinfo.com/hofi-789.html)
-- **P-WP14-11** (Chapter 43) — [go-parts.com starter and ignition-switch guides; youcanic.com window regulator guide; locksmithledger.com Honda lock article](https://www.go-parts.com/garage/starter-motor-honda-fit-2007-2008)
+- **P-WP14-11** (Chapter 43) — [go-parts.com starter and ignition-switch guides; youcanic.com window regulator guide; locksmithledger.com Honda lock article](https://www.go-parts.com/garage/starter-motor-honda-fit-2007-2008); [NHTSA recalls API, direct read (`recallsByVehicle` for MY2008 Fit](https://api.nhtsa.gov/recalls/recallsByVehicle?make=honda&model=fit&modelYear=2008); [government primary source, not a search snippet), corroborating Honda's Takata Airbag Inflator Recall Fact Sheet](https://hondanews.com/en-US/honda-corporate/releases/takata-airbag-inflator-recall-fact-sheet)
 - **P-WP14-12** (Chapter 44) — [WebSearch cross-reference — 2007-2008 Honda Fit oxygen sensor count and location (Honda-Tech, FitFreak, AutoZone/PartsGeek fitment listings)](https://honda-tech.com/forums/honda-fit-73/where-bank-1-o2-sensor-2780646/)
 - **P-WP14-13** (Chapter 44) — [Honda Fit Repair Manual mirror — "Water Outlet Removal and Installation," "Water Pump Inspection," "Radiator Replacement," and "Exhaust Pipe and Muffler Replacement" pages](https://www.hfitinfo.com/hofi-836.html)
 - **P-WP14-14** (Chapter 45) — [Honda Fit Repair Manual mirror — "Alternator Removal and Installation," "Starting System" (overhaul), and "Handles and Remote Openers" (rear door outer handle) pages](https://www.hfitinfo.com/hofi-789.html)
 - **P-WP14-15** (Chapter 45) — [FitFreak.net "1st Generation (GD 01-08)" forum threads — thermostat, window regulator, sway bar end link, and starter DIY writeups](https://www.fitfreak.net/forums/1st-generation-gd-01-08/99725-thermostat-change-instructions-read-intro-first.html); [go-parts.com starter and ignition-switch guides; youcanic.com window regulator guide; locksmithledger.com Honda lock article](https://www.go-parts.com/garage/starter-motor-honda-fit-2007-2008)
-- **P-WP14-16** (Chapter 45) — *[no source found]*
-- **P-WP14-17** (Chapter 46) — *[no source found]*
-- **P-WP14-18** (Chapter 46) — *[no source found]*
-- **P-22-glossary** (Appendix G) — *[no source found]*
-- **P-22-resources** (Appendix H) — *[no source found]*
+- **P-WP14-16** (Chapter 45) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
+- **P-WP14-17** (Chapter 46) — [FitFreak.net forum threads (two independent threads, both in the 1st Generation GD 01-08 sub-forum, one titled specifically for this issue)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/99354-honda-rust-spot.html); [FitFreak.net forum threads (two independent threads, both in the 1st Generation GD 01-08 sub-forum, one titled specifically for this issue)](https://www.fitfreak.net/forums/1st-generation-gd-01-08/107948-gd3-rust-guide.html); [autobodyshopnear.com "Auto Rust Repair Cost: Surface to Frame Damage (2026)"](https://autobodyshopnear.com/blog/auto-rust-repair-cost); [Subaru Outback Forums thread "Cost to repair or replace rust on rear quarter panels" (comparable small-car body-shop quotes, cited for co...](https://www.subaruoutback.org/threads/cost-to-repair-or-replace-rust-on-rear-quarter-panels.124706/)
+- **P-WP14-18** (Chapter 46) — *no citable source — recorded in the book as UNVERIFIED / a known gap*
