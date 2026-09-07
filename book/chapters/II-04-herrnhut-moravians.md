@@ -198,12 +198,13 @@ read this session), a potter from Württemberg, was the first Herrnhut missionar
 chosen by Lot; he toiled alone in St Thomas for fifteen months, nearly starving, before help
 arrived.[^39] David Nitschmann, a carpenter from Zauchtenthal in Moravia, sailed with Dober in
 1732 and was later consecrated a bishop of the Brethren's church so that he could ordain
-missionaries in the field.[^40] Frederick (Friedrich) Martin received a written ordination from
+missionaries in the field.[^40] Frederic Martin received a written ordination from
 Bishop Nitschmann to minister among the converts in St Thomas.[^41] Count Nikolaus Ludwig von
-
 Zinzendorf, lord of the manor at Herrnhut, issued the community's 1727 governing documents,
 personally examined Dober's readiness before the Lot was cast, and drove the first two
-missionaries part of the way to Copenhagen himself.[^42] No source fetched this session records a
+missionaries part of the way to Copenhagen himself.[^42] Christian David, the exile who led the
+first arrivals in 1722, was appointed the community's Chief Elder after 1727.[^43] No source
+fetched this session records a
 woman among the named founders of the mission in this period; this gap, like the others noted
 above, is left open rather than filled by inference.
 
