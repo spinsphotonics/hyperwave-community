@@ -113,6 +113,8 @@ In the classes for Greek and Hebrew the men have made some fair progress. They h
 
 The general discipline and training of the men, the house-work and the practice
 
+[...]
+
 of useful arts, has proved highly beneficial in many ways. There is, first of all,
 the acquisition of many habits that will be of great advantage to them in foreign
 fields, where to know how to do a piece of work is of essential importance.
@@ -125,6 +127,8 @@ This morning they breakfasted, as usual, at 7.30. At 8 o'clock they gathered wit
 was laid before God in earnest supplication, those of our number now crossing the
 Atlantic, those just starting for Brazil, those leaving next week for South Africa,
 all our missionary brethren being specially remembered.
+
+[...]
 
 At 9 o'clock the gong sounded for studies, and since then I have scarcely heard a sound except the voices of the birds
 
