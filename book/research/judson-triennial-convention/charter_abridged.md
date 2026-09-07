@@ -35,6 +35,9 @@ Constitution of "The General Missionary Convention of the Baptist Denomination i
 
 ## Text
 
+CONSTITUTION. 
+
+
 T  T  E  the  delegates  from  Missienary  Societies,  and  otheir 
 religious  Bodies  of  the  Baptist  denomination,  in  various  parts 
 of  the  United  States,  met  in  Convention,  in  the  City  of  Phila- 
