@@ -53,63 +53,61 @@ Frederick VI, 1827, English/Danish; both quoted here at second hand from John Cl
 *The Life and Times of Carey, Marshman and Ward* (London, 1859) and George Smith, *The Life of
 William Carey* (London, 1885).
 
+Every passage below is copied exactly from `text/marshman1859-v2.txt` (including that source's
+own occasional OCR/typesetting artifacts, left uncorrected per abridgement rule 6). Bracketed
+sentences are the Abridger's editorial headings, not part of the source text.
+
 ## Text
 
-[Title and occasion.] On 15 July 1818, the missionaries "issued the prospectus of a" College
-for the instruction of Asiatic, Christian, and other youth [in Eastern literature and European
-science]. It was drawn up by Dr. Marshman, in his peculiar and argumentative style, and
-announced in unequivocal terms that the institution was intended to be the handmaid of
-evangelisation.
+[On the founders' decision to build the College.]
+
+They now determined to concentrate their exertions on the formation of a college which should supply these wantSi and consolidate their plans for the spiritual and intellectual improvement of the country.
 
 [...]
 
-[On the College's necessity and purpose, in the founders' own words as quoted by Marshman:]
+[On the Prospectus itself, issued 15 July 1818.]
 
-> "If ever...the Gospel stands in India, it must be by native opposed to native in demonstrating
-> its excellence above [all other systems]."
-
-[...]
-
-[On languages of instruction:]
-
-> "Though it would be vain to attempt to enlighten a country through the medium of any language
-> besides its own, it does not follow that English cannot be studied as a learned language, to
-> great advantage, by youths of superior talent" — so that a select number of advanced students
-> might be enabled "to dive into the deepest recesses of European science, and enrich their own
-> language with its choicest treasures."
+On the 15th of July, therefore, they issued the prospectus of a " College for the instruction of Asiatic, Christian, and other youth,
 
 [...]
 
-[On admission.] The institution was to be open to native youths from all parts of India,
-without distinction of caste or creed. Christian youths of Asiatic parentage, of every
-denomination, were to be admitted into it, with the understanding that the instruction should
-be divested of everything of a sectarian character.
+It was drawn up by Dr. Marshman, in his peculiar and argu- mentative style, and announced in unequivocal terms that the institution was intended to be the handmaid of evan- gelisation.
 
 [...]
 
-[On the College's three objects, from Carey's own 1826 letter to the Baptist Missionary Society
-committee describing the institution he, Marshman and Ward had founded:]
+[On the Prospectus's central doctrinal argument.]
 
-> "Of the three objects connected with the College, the education of non-resident heathen
-> students, the education of resident Christian students, and the preparation of missionaries
-> from those born in the country, the first is not strictly a missionary object, the two latter
-> are intimately connected with the progress of the good cause."
+the Gospel stands in India, it must be by native opposed to native in demonstrating its excellence above
 
 [...]
 
-[On the theological division, again in Carey's words:]
+[On the choice of languages.]
 
-> "To secure an increase of missionaries in European habits we have formed a class of
-> theological students in the college, under the Divinity Professor. It contains at present six
-> promising youths, of whose piety we have in some cases undoubted evidence, in others
-> considerable ground for hope. The class will shortly be increased to twelve, but none will be
-> continued in it who do not manifest undeniable piety and devotedness to the cause of missions.
-> As we propose to allow each student to remain on an average four years, we may calculate upon
-> the acquisition of two, and perhaps three, additional labourers annually."
+Though it would be vain to attempt to enlighten a country through the medium of any language besides its own, it does not follow that English cannot be studied as a learned language, to great advantage, by youths of superior talent
+
+[...]
+
+to enable them to dive into the deepest recesses of European science, and enrich their own language with its choicest treasures.
+
+[...]
+
+[On admission.]
+
+The institu- tion was to be open to native youths from all parts of India, without distinction of caste or creed.
+
+[...]
+
+Christian youths of Asiatic parentage, of every denomina- tion, were to be admitted into it, with the understanding that the instruction should be divested of everything of a sectarian character.
+
+[...]
+
+[On Lord Hastings's cautionary response to the Prospectus's language, recorded by Marshman as a check on the founders' first draft.]
+
+such broad and unequivocal pro- fessions of an intention to aim at converting the native students, as would, he thought, give great alarm to any of the Hindoos who might have the document translated to them.
 
 [...]
 
 [The Prospectus text recovered this session ends here. The Danish Royal Charter's own
 degree-granting clause, granted nine years later in 1827, is quoted in full in dossier.md field
 C8 and discussed in the chapter's Founding section, from a different secondary source
-(`smith-carey-1885`) than the one used above.]
+(smith-carey-1885) than the one used above.]

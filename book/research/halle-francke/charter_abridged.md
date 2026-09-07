@@ -5,7 +5,7 @@ INPUTS READ: text/fenger1863-tranquebar.txt (Appendix I); dossier.md field F5; 0
 
 # Abridged charter — August Hermann Francke's Foundations at Halle, and the Danish-Halle Mission (`halle-francke`)
 
-**Source document:** Royal Declaration and Instruction given by Frederick IV to the first Missionaries (Bartholomew Ziegenbalg and Henry Plutschau), Copenhagen, 17 November 1705. English translation printed as Appendix I in J. Ferd. Fenger, *History of the Tranquebar Mission* (Tranquebar, 1863), translated in turn "from an old Manuscript in Mr. Eibye's possession." Document_id `fenger1863-tranquebar`.
+**Source document:** Royal Declaration and Instruction given by Frederick IV to the first Missionaries (Bartholomew Ziegenbalg and Henry Plutschau), Copenhagen, 17 November 1705. English translation printed as Appendix I in J. Ferd. Fenger, *History of the Tranquebar Mission* (Tranquebar, 1863), translated in turn "from an old Manuscript in Mr. Eibye's possession." document_id `fenger1863-tranquebar`.
 **Translation:** Published translation named in sources.csv (Fenger 1863); no new translation made.
 **Full document word count:** 866. **Abridgement word count:** 866 (printed whole; below the 1,200-word floor in `01_book_design.md` section 6.8, so no cuts were made).
 
@@ -43,46 +43,36 @@ Royal Declaration and Instruction given by Frederick IV, King of Denmark and Nor
 
 ## Text
 
-Royal Declaration and Instruction given by Frederick IV to the first Missionaries.
+[Editorial note, not part of the source: copied verbatim below, including the source's own hyphenation and printer's marks. Two places where the printed page's running head or a footnote dagger interrupted the sentence mid-flow have been cut and marked with an ellipsis in brackets, per section 6.4; no article of the Instruction itself was cut -- see the KEEP/CUT table above. Nothing else has been corrected or modernized, per Rule 2 and 01_book_design.md section 6.7.]
 
-(Translated from an old Manuscript in Mr. Eibye's possession.)
+APPENDIX I. Royal Declaration and Instruction given by Frederick IV. to the first Missionaries. (translated from an old Manuscript in Mr. Eibye's possession.) We, Frederick IV etc., do hereby make known to all con- cerned, that We in Our Royal favour have engaged and ap- pointed, and do herewith engage and appoint Mr. Bartholomew Ziegenbalg, to go as a Missionary from here to Eastern India, and there to apply himself with all diligence to instruct the hea- thens who dwell within Our territory and on the borders there- of, in the holy doctrine, as set forth in God's Word and pro- fessed in the Symbolic Books of this realm agreeing to the Augsburg Confession, and to bring them to the knowledge of salvation, according to the further terms of the Instruction, which We in Our Royal favour shall for that purpose communi- cate to him. Our greeting etc. Copenhagen, 17. Nov. 1705. A Royal letter, worded like this, was written for Mr. Henry PiUtschau on the same day.
 
-We, Frederick IV etc., do hereby make known to all concerned, that We in Our Royal favour have engaged and appointed, and do herewith engage and appoint Mr. Bartholomew Ziegenbalg, to go as a Missionary from here to Eastern India, and there to apply himself with all diligence to instruct the heathens who dwell within Our territory and on the borders thereof, in the holy doctrine, as set forth in God's Word and professed in the Symbolic Books of this realm agreeing to the Augsburg Confession, and to bring them to the knowledge of salvation, according to the further terms of the Instruction, which We in Our Royal favour shall for that purpose communicate to him. Our greeting etc.
+Instruction according to which We, Frederick IV, King of Denmark and Norway etc., do in Our Royal favour desire, that Mr. Henry Pliitschau, born in Mecklenburg, whom we have resolved to send to Eastern
 
-Copenhagen, 17 Nov. 1705.
+[...]
 
-*[A Royal letter, worded like this, was written for Mr. Henry Plutschau on the same day.]*
+India as a Missionary, should with all submission conduct him- self on his voyage out to and there in India, until Our further Royal orders.
 
-Instruction according to which We, Frederick IV, King of Denmark and Norway etc., do in Our Royal favour desire, that Mr. Henry Plutschau, born in Mecklenburg, whom we have resolved to send to Eastern India as a Missionary, should with all submission conduct himself on his voyage out to and there in India, until Our further Royal orders.
+1, He shall, on the whole voyage out, betake himself with all diligence to those on board ship, who have been in Eastern India ere this, and who are somewhat acquainted with the na- tive language in order that he may learn from them something of that language.
 
-1. He shall, on the whole voyage out, betake himself with all diligence to those on board ship, who have been in Eastern India ere this, and who are somewhat acquainted with the native language in order that he may learn from them something of that language.
+2, Having by the grace of God safely arrived in the coun- try, he shall, in the name of Jesus, heartily calling upon the same, at once begin the work for which he is sent out, and shall labour among the pagans, as existing circumstances shall make it practicable.
 
-2. Having by the grace of God safely arrived in the country, he shall, in the name of Jesus, heartily calling upon the same, at once begin the work for which he is sent out, and shall labour among the pagans, as existing circumstances shall make it practicable.
+3, Although it is of some help, to improve the little rest of the knowledge of God, which men still have by nature, and thus to lead them to the knowledge of God which he has re- vealed in his Word, — and it is left to the Missionary himself to judge when and in what manner this may be done with advan- tage, — ■ yet he shall always specially betake himself to God's Word, not doubting that God will make the power laid there- in prove effectual among the heathens.
 
-3. Although it is of some help, to improve the little rest of the knowledge of God, which men still have by nature, and thus to lead them to the knowledge of God which he has revealed in his Word, — and it is left to the Missionary himself to judge when and in what manner this may be done with advantage, — yet he shall always specially betake himself to God's Word, not doubting that God will make the power laid therein prove effectual among the heathens.
+4, He must hold and handle there in Eastern India no- thing besides the holy doctrine as it is written in God's Word andrepeatedin the Symbolic Books of this realm after the Augs- burg Confession, and teach nothing besides it. And as Christ himself began his prophetic office by preaching repentance, and commanded his disciples to preach repentance and remis- sion of sins, so also he must follow the same course.
 
-4. He must hold and handle there in Eastern India nothing besides the holy doctrine as it is written in God's Word and repeated in the Symbolic Books of this realm after the Augsburg Confession, and teach nothing besides it. And as Christ himself began his prophetic office by preaching repentance, and commanded his disciples to preach repentance and remission of sins, so also he must follow the same course.
+5, He has to instruct the ignorant in the first principles of the Christian doctrine with all possible simplicity, so . that the needful foundation may be laid the earlier. G, In order that the poor blind heathens may understand that the Missionary himself has in his heart what he teaches, he must always show himself a pattern of good works, so that also bv this his conduct thev may be won over.
 
-5. He has to instruct the ignorant in the first principles of the Christian doctrine with all possible simplicity, so that the needful foundation may be laid the earlier.
+[...]
 
-6. In order that the poor blind heathens may understand that the Missionary himself has in his heart what he teaches, he must always show himself a pattern of good works, so that also by this his conduct they may be won over.
+f 7, He shall not forget daily to pray for the cooperating grace of God and for every tiling required that he may per- form his office faithfully and carefully, and to call upon God in the name of Jesus, that he would bless our christian undertak- ing with abundant and happy successes to the salvation of many souls, and that he would grant to Our whole Royal house the reward of this pious work with every needful blessing for this life and the life to come. f 8, He shall keep good friendship also with the Evangelical Pastors of the place, and shall gather from them, as from men acquainted with the country, all kinds of useful information. f 9, fie shall be content with what We in Our Royal favour have granted him for his annual pay and support, and not take any money from the people for the performance of his official duties.
 
-7. He shall not forget daily to pray for the cooperating grace of God and for every thing required that he may perform his office faithfully and carefully, and to call upon God in the name of Jesus, that he would bless our christian undertaking with abundant and happy successes to the salvation of many souls, and that he would grant to Our whole Royal house the reward of this pious work with every needful blessing for this life and the life to come.
+10, Whenever a ship leaves India for this country he shall send letters therewith, reporting to Us according to his Chris- tian conscience with all submission concerning his office, its successes and its hinderances. In the same way he may add his proposals suggesting how this new undertaking, which can- not be perfect at once, might, perhaps, be better arranged in future.
 
-8. He shall keep good friendship also with the Evangelical Pastors of the place, and shall gather from them, as from men acquainted with the country, all kinds of useful information.
+11, And finally he shall bind himself by a truthful pro- mise as in the presence of God, to obey this Instruction, and with that intent he shall subscribe to a copy of it in his own hand-writing.
 
-9. He shall be content with what We in Our Royal favour have granted him for his annual pay and support, and not take any money from the people for the performance of his official duties.
+Given etc. Copenhagen, 17. Nov. 1705. Frederick R.
 
-10. Whenever a ship leaves India for this country he shall send letters therewith, reporting to Us according to his Christian conscience with all submission concerning his office, its successes and its hinderances. In the same way he may add his proposals suggesting how this new undertaking, which cannot be perfect at once, might, perhaps, be better arranged in future.
+At the same day Mr. Bartholomew Ziegenbalg, born in Lusatia (Lausitz), re- ceived the same Instruction. fThe order of these paras seems to have been different in the original. We follow rhe order of the German translation.
 
-11. And finally he shall bind himself by a truthful promise as in the presence of God, to obey this Instruction, and with that intent he shall subscribe to a copy of it in his own hand-writing.
-
-Given etc.
-
-Copenhagen, 17 Nov. 1705.
-
-Frederick R.
-
-*[At the same day Mr. Bartholomew Ziegenbalg, born in Lusatia (Lausitz), received the same Instruction.]*
-
-[Translator's note in the original: "The order of these paras seems to have been different in the original. We follow the order of the German translation."]
+*(For the reader: "fie" in article 9 is the source's OCR/printer rendering of "He"; "andrepeatedin" in article 4 should read "and repeated in"; "G," opening article 6 should read "6,"; "bv"/"thev" near the end of article 6 should read "by"/"they"; "coun- try", "con- cerned", "ap- pointed", "hea- thens", "there- of", "pro- fessed", "communi- cate", "na- tive", "advan- tage", "there- in", "no- thing", "Augs- burg", "remis- sion", "him- self", "Chris- tian", "hinder- ances" [printed "hinderances"], "can- not", and "pro- mise" are end-of-line hyphenations from the printed page, kept as printed rather than silently rejoined, per the no-modernization rule.)*
