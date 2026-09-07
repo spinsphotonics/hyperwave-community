@@ -31,17 +31,22 @@ This should be re-attempted with a working fetch tool before Phase 2+ facts are 
 | S-020 | Center for Auto Safety - 2008 Honda Fit recalls/complaints | 3 | article | Reachable (search-confirmed; WebFetch blocked) | No |
 | S-021 | Honda Fit 2001-2008 Owners Manual mirror, "Instruments and Controls"/"Driving" chapters (hfitinfo.com) | 3 | owner's manual | Reachable, directly read via curl (WP-04) | No |
 | S-022 | HONDA 2008 FIT OWNER'S MANUAL, page-image/OCR viewer (manualslib.com) | 1 | owner's manual | Reachable, directly read via curl (WP-04) | No |
+| S-023 | 2008 Fit Owner's Manual (AAA0808OM.pdf) — Maintenance/Technical Information chapters (techinfo.honda.com) | 1 | owner's manual | Reachable via r.jina.ai reader proxy (WP-09) | No |
+| S-024 | workshop-manuals.com - Fit L4-1.5L (2008) fluids/spark plug/valve clearance specs | 3 | service manual | Reachable via r.jina.ai reader proxy (WP-09) | No |
+| S-025 | Boslla - 2007-2018 Honda Fit bulb size guide, 2007-2008 table | 3 | article | Reachable via r.jina.ai reader proxy (WP-09) | No |
+| S-026 | AutoPadre - Honda Fit battery size and wiper blade size (2007-2020) | 3 | article | Reachable via r.jina.ai reader proxy (WP-09) | No |
+| S-027 | HondaPartsNow - genuine air filter (17220-PWA-505) and cabin filter (80291-SAA-J01) pages | 1 | article | Reachable via r.jina.ai reader proxy (WP-09) | No |
 
 ## Totals
-- Total Source Cards: 22 (target was 15+; 20 built in WP-00, S-021/S-022 added in WP-04)
-- Reachable (real live URL/content confirmed): 22 / 22
-- Directly loaded via WebFetch: 0 / 22 — WebFetch itself stayed blocked all session, but from WP-01 onward direct `curl` and the `https://r.jina.ai/` reader proxy (ADAPT-2) successfully read real page/PDF content directly for many sources, including S-001 (WP-07), S-021 and S-022 (WP-04) — see queue/blocked.md and queue/decisions_needed.md
+- Total Source Cards: 27 (target was 15+; 20 built in WP-00, S-021/S-022 added in WP-04, S-023 through S-027 added in WP-09)
+- Reachable (real live URL/content confirmed): 27 / 27
+- Directly loaded via WebFetch: 0 / 27 — WebFetch itself stayed blocked all session, but from WP-01 onward direct `curl` and the `https://r.jina.ai/` reader proxy (ADAPT-2) successfully read real page/PDF content directly for many sources, including S-001 (WP-07), S-021/S-022 (WP-04), and S-015/S-023 through S-027 (WP-09) — see queue/blocked.md and queue/decisions_needed.md
 - Fully paywalled with no free equivalent for the primary content: 2 (S-002 Helm factory service manual, S-003 Haynes manual) — both logged to queue/blocked.md
 
 ### Tier breakdown
-- Tier 1: S-001, S-002, S-008, S-015, S-019, S-022 (6 sources)
+- Tier 1: S-001, S-002, S-008, S-015, S-019, S-022, S-023, S-027 (8 sources)
 - Tier 2: S-004, S-005, S-006, S-007, S-013, S-014 (6 sources)
-- Tier 3: S-003, S-009, S-016, S-017, S-020, S-021 (6 sources)
+- Tier 3: S-003, S-009, S-016, S-017, S-020, S-021, S-024, S-025, S-026 (9 sources)
 - Tier 4: S-010, S-011, S-012, S-018 (4 sources)
 
 ## Notes for next work packages
