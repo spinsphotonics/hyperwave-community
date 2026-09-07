@@ -1,0 +1,11 @@
+DOCUMENT_ID: machen-wscal
+TITLE (as printed): "Preparing Specialists in the Bible" [quoting J. Gresham Machen, "Westminster Theological Seminary: Its Purpose and Plan"]
+DATE: page dated 18 May 2020; reproduced address delivered 25 September 1929
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://www.wscal.edu/resources/article/preparing-specialists-in-the-bible/
+EDITION: Westminster Seminary California institutional website article. Quotes a block from Machen's opening address; the quoted block itself contains an internal ellipsis ("pulling teeth out….") indicating WSC's own author omitted material at that point. This session located no digitized copy of the original periodical; used here as a verbatim secondary reproduction of primary text, itself already lightly abridged by the secondary author at the marked ellipsis.
+TRANSCRIPTION METHOD: copied (HTML fetched via curl, tags stripped, HTML entities decoded; no OCR)
+TOTAL PAGES: not paginated on this page
+WORD COUNT: 105
+[[excerpt A]]
+Let it never be forgotten that a theological seminary is a school for specialists. We are living in an age of specialization. There are specialists on eyes and specialists on noses, and throats, and stomachs, and feet, and skin; there are specialists on teeth—one set of specialists on putting teeth in, and another set of specialists on pulling teeth out…. Amid all these specialties, we at Westminster Seminary have a specialty which we think, in comparison with these others, is not so very small. Our specialty is found in the Word of God. Specialists in the Bible—that is what Westminster Seminary will endeavor to produce.

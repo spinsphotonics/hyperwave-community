@@ -1,0 +1,12 @@
+DOCUMENT_ID: machen-opctoday
+TITLE (as printed): "September 25 Today in OPC History: Westminster Theological Seminary" [reproducing J. Gresham Machen, "Westminster Theological Seminary: Its Purpose and Plan"]
+DATE: page content dated 2022 (OPC "Today in History" feature); reproduced address delivered 25 September 1929, published in The Presbyterian 99 (October 10, 1929)
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://opc.org/today.html?history_id=39
+EDITION: Orthodox Presbyterian Church denominational website, "Today in OPC History" feature. Reproduces a block quotation from Machen's opening address, introduced by editorial bracketed capitalization "[T]hough" indicating the quotation begins mid-sentence in the original. This session located no digitized copy of the original periodical or its later book reprints; used here as a verbatim secondary reproduction of primary text.
+TRANSCRIPTION METHOD: copied (HTML fetched via curl, tags stripped, HTML entities decoded; no OCR)
+TOTAL PAGES: not paginated on this page
+WORD COUNT: 229
+[[excerpt A]]
+On September 25, 1929, Westminster Theological Seminary opened in the Witherspoon building in Philadelphia, with an enrollment of fifty students. In his opening address, Westminster Theological Seminary: Its Purpose and Plan , J. Gresham Machen set forth the school as the successor to Princeton Seminary, which had been recently reorganized to include modernists on its Board:
+[T]hough Princeton is dead, the noble tradition of Princeton is alive. Westminster Seminary will endeavor by God's grace to continue that tradition unimpaired; it will endeavor, not on a foundation of equivocation and compromise, but on an honest foundation of devotion to God's Word, to maintain the same principles that the old Princeton maintained. We believe, first, that the Christian religion, as set forth in the Confession of Faith of the Presbyterian Church, is true; we believe, second, that the Christian religion welcomes and is capable of scholarly defense; and we believe, third, that the Christian religion should be proclaimed without fear or favor, and in clear opposition to whatever opposes it, whether from within or without the church, as the only way of salvation for lost mankind. On that platform, brethren, we stand. Pray that we may be enabled by God's grace to stand firm. Pray that the students who go forth from Westminster Seminary may know Christ as their own Savior and may proclaim to others the gospel of his love.

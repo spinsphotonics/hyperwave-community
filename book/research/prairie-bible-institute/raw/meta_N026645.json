@@ -1,0 +1,249 @@
+{"alternate_locations":{"servers":[{"server":"dn760009.eu.archive.org","dir":"/0/items/N026645"},{"server":"dn790002.ca.archive.org","dir":"/0/items/N026645"}],"workable":[{"server":"dn760009.eu.archive.org","dir":"/0/items/N026645"},{"server":"dn790002.ca.archive.org","dir":"/0/items/N026645"}]},"created":1788759039,"d1":"ia902907.us.archive.org","d2":"ia802907.us.archive.org","dir":"/18/items/N026645","files":[{"name":"N026645-ALTO00001.xml","source":"original","mtime":"1588385924","size":"1706","md5":"f08474ec87e444028f999595e5574b38","crc32":"5af26ed3","sha1":"166b8041509e8de32e11c87c56cc4fe48faf18e2","format":"Metadata"},{"name":"N026645-ALTO00002.xml","source":"original","mtime":"1588385921","size":"1607","md5":"26dd2aa004c470f35fdeaaa92ed4f410","crc32":"64a868f8","sha1":"d02b028706d176ab3c8b77eb253daca9ff10cafe","format":"Metadata"},{"name":"N026645-ALTO00003.xml","source":"original","mtime":"1588385808","size":"23883","md5":"d5606b30ac9a75c101afe5cba16ae8ea","crc32":"d7ae5ecd","sha1":"fd882d418daa8c587336c1c4bd017a93c7de7881","format":"Metadata"},{"name":"N026645-ALTO00004.xml","source":"original","mtime":"1588385753","size":"9422","md5":"aee378570e29b45bfb859d1e548c4c02","crc32":"ff9c5a74","sha1":"25476a5268ab9d66fb57a2ab71313757245da84c","format":"Metadata"},{"name":"N026645-ALTO00005.xml","source":"original","mtime":"1588385803","size":"6433","md5":"5d1fe3e3a892fc5a97d9a8a4bece573d","crc32":"66458c46","sha1":"7263dadf1026f416862f1d3027b94ae0d2beeae5","format":"Metadata"},{"name":"N026645-ALTO00006.xml","source":"original","mtime":"1588385737","size":"33727","md5":"7aaf7702b000c27d61a5fa7d5f7e0013","crc32":"e30c1278","sha1":"ff36117fa80582bccdc1c6797928a0ca50e81a60","format":"Metadata"},{"name":"N026645-ALTO00007.xml","source":"original","mtime":"1588385896","size":"33193","md5":"d8463a9622975857dcee8b2e1d09d371","crc32":"a92a5daf","sha1":"d2b0c8fa02884355ad25c5d003d2f6b5e37004d7","format":"Metadata"},{"name":"N026645-ALTO00008.xml","source":"original","mtime":"1588385901","size":"30764","md5":"0278a39b21345e2d478948678bb7b012","crc32":"00c6f164","sha1":"091e5d044771922b50abc8a72b1502e97a39da0d","format":"Metadata"},{"name":"N026645-ALTO00009.xml","source":"original","mtime":"1588385793","size":"28799","md5":"5664978b8917e83ac7d84d0dcedca5b5","crc32":"27b65dd8","sha1":"222b94564c363c615a463fd045c8f4bb1b9818fb","format":"Metadata"},{"name":"N026645-ALTO00010.xml","source":"original","mtime":"1588385798","size":"31313","md5":"2973baaf1eac0a9b577851c614fecdb6","crc32":"3109f912","sha1":"adcab058ee846a080c6e4140a849d6688c00212e","format":"Metadata"},{"name":"N026645-ALTO00011.xml","source":"original","mtime":"1588385886","size":"33058","md5":"2915304113eddaca3337c35540188355","crc32":"58009a04","sha1":"70748c8aeb453d557466dbb91d6bd73630d0daac","format":"Metadata"},{"name":"N026645-ALTO00012.xml","source":"original","mtime":"1588385880","size":"23462","md5":"981d7d9af2554c8649dd17609321c453","crc32":"6c45b0e5","sha1":"1c26a5f694c31d59d8296f8ca39d69467e1b2ac2","format":"Metadata"},{"name":"N026645-ALTO00013.xml","source":"original","mtime":"1588385770","size":"5994","md5":"6ba2b0d5007fc4267992284c91ac4ea1","crc32":"b00faa28","sha1":"1dc4590221c6c181a6c1fd2ec3e689cf746c87be","format":"Metadata"},{"name":"N026645-ALTO00014.xml","source":"original","mtime":"1588385905","size":"22069","md5":"de196d087f77e807516743b03395711c","crc32":"47c1881b","sha1":"a13fc456fea4c56ef44fce6301b313b38d773d97","format":"Metadata"},{"name":"N026645-ALTO00015.xml","source":"original","mtime":"1588385938","size":"16673","md5":"e2176e6d61c37f71a57e0528397db7bf","crc32":"97b23849","sha1":"7a997802d9817e2a31ea3ecc71bbd1a0d52a7f19","format":"Metadata"},{"name":"N026645-ALTO00016.xml","source":"original","mtime":"1588385832","size":"48045","md5":"5b2c8c5def531ad1d9a04a5a650b4720","crc32":"7057631d","sha1":"69202b07b52e896275a8f892a79a93aaf590f068","format":"Metadata"},{"name":"N026645-ALTO00017.xml","source":"original","mtime":"1588385745","size":"20544","md5":"de94d0adb0453f30b37960b8ceebf060","crc32":"04e7e48f","sha1":"b09b2516465abf73f489e95eb427bc8218b4fe79","format":"Metadata"},{"name":"N026645-ALTO00018.xml","source":"original","mtime":"1588385917","size":"6486","md5":"aec513873f912319141e7ec2ee72428b","crc32":"19199f02","sha1":"4bf1b5250c8ea59119cbe454ee2da33909cac7ec","format":"Metadata"},{"name":"N026645-ALTO00019.xml","source":"original","mtime":"1588385863","size":"1614","md5":"de3ba7dcf41db14f2f9fd3f9d0c83378","crc32":"88726cc7","sha1":"51f7541b8bfcdd7e7f4a959826a3899cb6f73fd5","format":"Metadata"},{"name":"N026645-ALTO00020.xml","source":"original","mtime":"1588385664","size":"2026","md5":"c2f36e5d05b9c0a6781317228235884d","crc32":"e1b3e57c","sha1":"4176e0cde889aa89c941e20282505ace465b24fb","format":"Metadata"},{"name":"N026645-ALTO00021.xml","source":"original","mtime":"1588385829","size":"3034","md5":"4be2927a92e42b5b84b4affd8611f47e","crc32":"4f7aeb5e","sha1":"13838b23da8a073418b05ca5e5bede7f60c774af","format":"Metadata"},{"name":"N026645-ALTO00022.xml","source":"original","mtime":"1588385788","size":"3155","md5":"29e007b978e21f093b37f817bb825f66","crc32":"d49e4d33","sha1":"f011a23ed9fac3930adbba816d5023e9889a783c","format":"Metadata"},{"name":"N026645-ALTO00023.xml","source":"original","mtime":"1588385853","size":"2008","md5":"26738c5f1a59aad4b09d2f2ec095b029","crc32":"553a6b9d","sha1":"6ad0aa06f731de5ddadc90092b54b4be5f059c09","format":"Metadata"},{"name":"N026645-ALTO00024.xml","source":"original","mtime":"1588385928","size":"1614","md5":"eb46b6db7b669634d4a558453dc3c41a","crc32":"68b612bd","sha1":"402d86e04c18f38eca0edbe7660c0a6249c2a0cf","format":"Metadata"},{"name":"N026645-ALTO00025.xml","source":"original","mtime":"1588385933","size":"1614","md5":"dad90a4a79262ddd6b8053a3089aa559","crc32":"2ea1131c","sha1":"616e59b163f80b56239164e55dae72ff8dacca99","format":"Metadata"},{"name":"N026645-ALTO00026.xml","source":"original","mtime":"1588385858","size":"1614","md5":"90d92abaa5ef004bff763b7432d9f22d","crc32":"6f37ce14","sha1":"4b05ad2bdcf8f28391b355f347aff047ae197ef7","format":"Metadata"},{"name":"N026645-ALTO00027.xml","source":"original","mtime":"1588385777","size":"5699","md5":"2cf1839f09f24fb6675381428fca25be","crc32":"ae8cdbf7","sha1":"aa8f9003d542ced6d9eecbce6bfc3ed13f8efa83","format":"Metadata"},{"name":"N026645-ALTO00028.xml","source":"original","mtime":"1588385842","size":"19870","md5":"b939220d2dcadcc0df4562bf75627dc6","crc32":"4e81b55c","sha1":"54bdbe095eb88598b8f60e32c3006266b0c6f143","format":"Metadata"},{"name":"N026645-ALTO00029.xml","source":"original","mtime":"1588385728","size":"21045","md5":"7465b9b20d4479c8c5200331f227a775","crc32":"a0f22ab5","sha1":"5a094c18a3015aa651185f19eb3a76fb08b6fc2a","format":"Metadata"},{"name":"N026645-ALTO00030.xml","source":"original","mtime":"1588385868","size":"21665","md5":"8ca29bffc19eec0f561a6f96890faf34","crc32":"db703f83","sha1":"fc9af03de097632c44fc6b9b2f7e8a465732e682","format":"Metadata"},{"name":"N026645-ALTO00031.xml","source":"original","mtime":"1588385782","size":"19209","md5":"1226ee255eb66038dc4ad3d091939fab","crc32":"7a0e95d6","sha1":"4b4c59a851e166733eeba44c50047f3f5dda5e53","format":"Metadata"},{"name":"N026645-ALTO00032.xml","source":"original","mtime":"1588385761","size":"16934","md5":"7af21361fc1229d8ef3e36894794c3cd","crc32":"76494fc2","sha1":"12ddc7aadfc3112c5d539576917557c2f920c3f9","format":"Metadata"},{"name":"N026645-ALTO00033.xml","source":"original","mtime":"1588385813","size":"19072","md5":"1a61bceb4f707133f697478c09c3bece","crc32":"54e3b162","sha1":"d72b8e02882c83d2a1088bed5d4d35d925f1cdb0","format":"Metadata"},{"name":"N026645-ALTO00034.xml","source":"original","mtime":"1588385874","size":"26433","md5":"65ca2ec8d55919e6f4926c0587088fff","crc32":"56b28562","sha1":"3f1e583206f85212204343b613be85f39a6cc521","format":"Metadata"},{"name":"N026645-ALTO00035.xml","source":"original","mtime":"1588385823","size":"1614","md5":"4786f465133d1f3f31a24476e798fac4","crc32":"e0c4220c","sha1":"e182f74965a0be1a62b7a7d96ffe83927721fad1","format":"Metadata"},{"name":"N026645-ALTO00036.xml","source":"original","mtime":"1588385819","size":"1614","md5":"762a2ae379556b5a54758ab585e4c596","crc32":"b7f6c564","sha1":"46a7a33b2ac9624ea97ea9bb4599e48de0ef8755","format":"Metadata"},{"name":"N026645-METS.xml","source":"original","mtime":"1588385944","size":"313109","md5":"7eeca6f851a83449293a28ebacc1daaa","crc32":"4d7c0da2","sha1":"ad5ee77ffe66d5db2d98deae799967cee63e1e44","format":"Metadata"},{"name":"N026645.pdf","source":"original","mtime":"1588385977","size":"23509217","md5":"af8bdadc3d27908d5f0a0eb7c04f5a26","crc32":"46e745a1","sha1":"298e6f177a92538b2563068d54f35be223ee4626","format":"Text PDF"},{"name":"N026645_abbyy.gz","source":"derivative","format":"Abbyy GZ","original":"N026645_jp2.zip","mtime":"1588386484","size":"224758","md5":"4b5b0d70d6b453d0b7e9ff474656397e","crc32":"844882fd","sha1":"ed5b6407d2763088c62fa2b15a411fa47461ffed"},{"name":"N026645_archive.torrent","source":"metadata","btih":"494c8003594e6b7229f571e3a6c098d08024290b","mtime":"1654810055","size":"12886","md5":"edd7ca85c33dfe9c32f63bde3315c7be","crc32":"3a5052f0","sha1":"33f593482c887c6bee0d3d61e8c0b5cea6679495","format":"Archive BitTorrent"},{"name":"N026645_djvu.txt","source":"derivative","format":"DjVuTXT","original":"N026645_djvu.xml","mtime":"1588386497","size":"13239","md5":"2136fcdeaef9c1827869df4d43b7849e","crc32":"cd887cab","sha1":"2d74df5e22ac3477a081c892a3f693807d7a044a"},{"name":"N026645_djvu.xml","source":"derivative","format":"Djvu XML","original":"N026645_abbyy.gz","mtime":"1588386492","size":"226197","md5":"cf63b7d63023e1a7f58cc16f773da6a9","crc32":"014e4106","sha1":"df6d237322d35432a206936529a904e68aab36bf"},{"name":"N026645_files.xml","source":"original","format":"Metadata","md5":"ede2c2ea5842f288ccc107ab916c9a6f","summation":"md5"},{"name":"N026645_images.zip","source":"original","mtime":"1588385960","size":"33317808","md5":"084362e8b542cc0f2809e520d8e4551f","crc32":"6d7fc7c2","sha1":"fc0c7d09180620043ec379dd22c69c8a2d11218f","format":"Generic Raw Book Zip"},{"name":"N026645_jp2.zip","source":"derivative","format":"Single Page Processed JP2 ZIP","original":"N026645_images.zip","mtime":"1588386124","size":"33316707","md5":"39e6bc6b8bf98a2eaf28a6df059b2c43","crc32":"8c09bdbd","sha1":"9db9dead771a5a0fbbfeda98a0e095df88674692"},{"name":"N026645_meta.sqlite","source":"original","mtime":"1588386033","size":"94208","format":"Metadata","md5":"38eb577775a7ca6b5a70d899bf3f01be","crc32":"8589f8c7","sha1":"432ce11d3f852dc5100a4006107f8d6abba429cd"},{"name":"N026645_meta.xml","source":"original","mtime":"1654810052","size":"1375","format":"Metadata","md5":"0950492ad4d5a5e97c7a7cd453b6d56d","crc32":"e43eec6d","sha1":"b4ac2b3ccfaa9c0568d2383ee4fab06349735ebc"},{"name":"N026645_page_numbers.json","source":"derivative","format":"Page Numbers JSON","original":"N026645_djvu.xml","mtime":"1588386525","size":"5521","md5":"c87e386e18ece26e9a5c2b697d288a4f","crc32":"aa497a36","sha1":"8f27ebc3ce4b0bf9717f8ee76d2c8723a695f782"},{"name":"N026645_scandata.xml","source":"derivative","format":"Scandata","original":"N026645_djvu.xml","mtime":"1588386525","size":"12772","md5":"8976a88dafb6efb0072d3f3940e0c6d0","crc32":"19bfcc58","sha1":"1068cc7fb2c25e8187763dc980da5a692774a373"},{"name":"__ia_thumb.jpg","source":"original","mtime":"1654210964","size":"15792","md5":"f4c104756b500fa100f01eca888a1977","crc32":"cea1be85","sha1":"67b34273d9b7e2abc190de1f61b0b773b60ad00d","format":"Item Tile","rotation":"0"}],"files_count":50,"item_last_updated":1654810055,"item_size":91610601,"metadata":{"identifier":"N026645","collection":["peel_print","peel","university_of_alberta_libraries","toronto"],"creator":"Prairie Bible Institute (Three Hills, Alta.)","extent":"v. : ill., ports. ; 29 cm.","genre":"Item","language":"English","mediatype":"texts","notes":"[public]: Annual. Description based on the issue for 1954. Yearbook of an Alberta Bible college. Title appears to vary. Yearbook for 1956 issued under the title Memories . From [1958?] onward, issued under the title Prairian .","publisher":"Senior Class, Prairie Bible Institute","scanner":"Internet Archive Python library 1.9.3","subject":"Servants unto all","title":"Servants unto all, 1954 - Prairie Bible Institute (Three Hills, Alta.) - 1953/54","uploader":"digitization.IAscript@ualberta.ca","publicdate":"2020-05-02 02:16:08","addeddate":"2020-05-02 02:16:08","identifier-access":"http://archive.org/details/N026645","identifier-ark":"ark:/13960/t1fk16540","imagecount":"37","ocr":"ABBYY FineReader 11.0 (Extended OCR)","year":"1953/54","description":"-"},"page_numbers":{
+    "pages": [
+        {
+            "leafNum": 1,
+            "confidence": 0,
+            "pageNumber": "",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 2,
+            "confidence": 0,
+            "pageNumber": "",
+            "ocr_value": [
+                "1954",
+                "I"
+            ]
+        },
+        {
+            "leafNum": 3,
+            "confidence": 0,
+            "pageNumber": "",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 4,
+            "confidence": 0,
+            "pageNumber": "",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 5,
+            "confidence": 0,
+            "pageNumber": "",
+            "ocr_value": [
+                "I"
+            ]
+        },
+        {
+            "leafNum": 6,
+            "confidence": 0,
+            "pageNumber": "21",
+            "ocr_value": [
+                "21"
+            ]
+        },
+        {
+            "leafNum": 7,
+            "confidence": 0,
+            "pageNumber": "22",
+            "ocr_value": [
+                "I",
+                "1"
+            ]
+        },
+        {
+            "leafNum": 8,
+            "confidence": 0,
+            "pageNumber": "23",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 9,
+            "confidence": 0,
+            "pageNumber": "24",
+            "ocr_value": [
+                "24"
+            ]
+        },
+        {
+            "leafNum": 10,
+            "confidence": 0,
+            "pageNumber": "25",
+            "ocr_value": [
+                "14"
+            ]
+        },
+        {
+            "leafNum": 11,
+            "confidence": 0,
+            "pageNumber": "26",
+            "ocr_value": [
+                "26"
+            ]
+        },
+        {
+            "leafNum": 12,
+            "confidence": 0,
+            "pageNumber": "27",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 13,
+            "confidence": 0,
+            "pageNumber": "28",
+            "ocr_value": [
+                "1953"
+            ]
+        },
+        {
+            "leafNum": 14,
+            "confidence": 0,
+            "pageNumber": "29",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 15,
+            "confidence": 0,
+            "pageNumber": "1953",
+            "ocr_value": [
+                "1953",
+                "I"
+            ]
+        },
+        {
+            "leafNum": 16,
+            "confidence": 0,
+            "pageNumber": "1954",
+            "ocr_value": [
+                "i",
+                "X",
+                "1954"
+            ]
+        },
+        {
+            "leafNum": 17,
+            "confidence": 0,
+            "pageNumber": "1955",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 18,
+            "confidence": 0,
+            "pageNumber": "1956",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 19,
+            "confidence": 0,
+            "pageNumber": "1957",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 20,
+            "confidence": 0,
+            "pageNumber": "1958",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 21,
+            "confidence": 0,
+            "pageNumber": "1959",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 22,
+            "confidence": 0,
+            "pageNumber": "1960",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 23,
+            "confidence": 0,
+            "pageNumber": "1961",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 24,
+            "confidence": 0,
+            "pageNumber": "1962",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 25,
+            "confidence": 0,
+            "pageNumber": "1963",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 26,
+            "confidence": 0,
+            "pageNumber": "1964",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 27,
+            "confidence": 0,
+            "pageNumber": "1965",
+            "ocr_value": [
+                "1"
+            ]
+        },
+        {
+            "leafNum": 28,
+            "confidence": 0,
+            "pageNumber": "1966",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 29,
+            "confidence": 0,
+            "pageNumber": "1967",
+            "ocr_value": [
+                "ml",
+                "1939"
+            ]
+        },
+        {
+            "leafNum": 30,
+            "confidence": 0,
+            "pageNumber": "1968",
+            "ocr_value": [
+                "L",
+                "1"
+            ]
+        },
+        {
+            "leafNum": 31,
+            "confidence": 0,
+            "pageNumber": "1969",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 32,
+            "confidence": 0,
+            "pageNumber": "1970",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 33,
+            "confidence": 0,
+            "pageNumber": "1971",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 34,
+            "confidence": 0,
+            "pageNumber": "1972",
+            "ocr_value": []
+        },
+        {
+            "leafNum": 35,
+            "confidence": 0,
+            "pageNumber": "1973",
+            "ocr_value": []
+        }
+    ],
+    "confidence": 0,
+    "identifier": "/var/tmp/autoclean/derive/n026645/n026645"
+},"server":"ia802907.us.archive.org","uniq":1157434165,"workable_servers":["ia802907.us.archive.org","ia902907.us.archive.org"]}

@@ -1,0 +1,493 @@
+DOCUMENT_ID: wiki-sil
+TITLE (as printed): SIL Global
+DATE: Version accessed 2026-09-07
+LANGUAGE: English
+SOURCE URL/SHELFMARK: https://en.wikipedia.org/wiki/SIL_Global
+EDITION: Wikipedia, live version
+TRANSCRIPTION METHOD: copied (HTML fetched via curl, converted to text with html2text; no OCR)
+TOTAL PAGES: 1 (web page; no internal pagination, marked [[p. 1]])
+WORD COUNT: 6482
+
+[[p. 1]]
+Jump to content
+
+From Wikipedia, the free encyclopedia
+
+Non-profit organization to study, develop and document languages
+
+"Summer Institute of Linguistics" redirects here. For the Linguistic Society of America's Summer Linguistics Institute, see Linguistic Society of America.
+
+| **This article has multiple issues.** Please help **improve it** or discuss these issues on the **talk page**. _(Learn how and when to remove these messages)_ | | This article **has an unclearcitation style**. The references used may be made clearer with a different or consistent style of citation and footnoting. _( February 2026)__(Learn how and when to remove this message)_  
+---|---  
+| This article includes a list of general references **but lacks sufficient correspondinginline citations**. Please help improve this article by introducing more precise citations. _( February 2026)__(Learn how and when to remove this message)_  
+---|---  
+  
+_(Learn how and when to remove this message)_  
+  
+SIL Global  
+---  
+Formation| 1934; 92 years ago (1934)  
+Type| Scientific institute  
+Headquarters| Dallas, Texas, United States  
+Founder| William Cameron Townsend  
+Executive director| Johnstone Ndunde[1]  
+Board chair| Hans Combrink[1]  
+Affiliations| Evangelical Christianity  
+Website| www.sil.org  
+Formerly called| Summer Institute of Linguistics  
+  
+**SIL Global** (formerly known as the **Summer Institute of Linguistics International**) is an evangelical Christian nonprofit organization whose main purpose is to study, develop and document languages, especially those that are lesser-known, to expand linguistic knowledge, promote literacy, translate the Christian Bible into local languages, and aid minority language development.
+
+Based on its language documentation work, SIL publishes a database, _Ethnologue_ , of its research into the world's languages, and develops and publishes software programs for language documentation, such as FieldWorks Language Explorer (FLEx)[2] and Lexique Pro.[3]
+
+Its main offices in the United States are located at the International Linguistics Center in Dallas, Texas.
+
+## History
+
+[edit]
+
+### Early history
+
+[edit]
+
+William Cameron Townsend, a Presbyterian minister, founded the organization in 1934, after undertaking a Christian mission with the Disciples of Christ among the Kaqchikel Maya people in Guatemala in the early 1930s.[4][5] In 1933, he turned to Mexico to translate the Bible into indigenous languages there, as he had done for Kaqchikel. Townsend established a working relationship with the Mexican Secretariat of Public Education under the government of President Lázaro Cárdenas (in office 1934–1940) and founded SIL to educate linguist-missionaries to work in Mexico. Because the Mexican government did not allow missionary work through its educational system, Townsend founded Wycliffe Bible Translators in 1942 as a separate organization from SIL. Wycliffe Bible Translators focused on Bible translation and missionary activities, whereas SIL focused on linguistic documentation and literacy education.[6]
+
+Having initiated collaboration with the Mexican education authorities, Townsend started the institute as a small summer training session in Sulphur Springs, Arkansas, in 1934 to train missionaries in basic linguistic, anthropological, and translation principles. Through the following decades, the SIL linguists worked at providing literacy education to indigenous people of Mexico, while simultaneously working with the Wycliffe Bible Translators on Bible translation. One of the students at the first summer institute in its second year, 1935, Kenneth Lee Pike (1912–2000), would become the foremost figure in the history of SIL.[4] He served as SIL's president from 1942 to 1979, then as president emeritus until he died in 2000.
+
+### Instituto Lingüístico de Verano
+
+[edit]
+
+The Mexican branch, _Instituto Lingüístico de Verano_ , was established in 1948.
+
+### Kidnapping and murder of Chester A. Bitterman in Colombia
+
+[edit]
+
+Main article: Chet Bitterman
+
+On January 19, 1981, SIL field worker Chester "Chet" A. Bitterman was taken hostage by far-left guerilla group M-19 in Colombia who believed SIL was a cover operation for the Central Intelligence Agency (CIA). SIL denied involvement with any government intelligence agency stating that it was against their policy.[7][8]
+
+M-19 demanded SIL withdraw all 209 of its people from Colombia, or else they would kill Bitterman. After 48 days of SIL refusing to yield to the demands, Bitterman was found murdered.[9]
+
+### 2000–present
+
+[edit]
+
+In 2016, Michel Kenmogne from Cameroon became executive director. In 2025, Johnstone Ndunde became executive director.[10]
+
+In 2023[update], SIL said it had 1,350 language projects in 98 countries and 4,200 staff from 84 countries.[11] By 2023, this had risen to 1,530 language projects in 107 countries, with a corresponding increase in staff to 4,373 people from 86 countries.[11] The organization reports that these languages are spoken by 950 million people.[12]
+
+## Vision and mission
+
+[edit]
+
+The vision of SIL Global is: "We long to see people flourishing in community using the languages they value most." Their mission states: "Inspired by God's love, we advocate, build capacity, and work with local communities to apply language expertise that advances meaningful development, education, and engagement with Scripture."[11]
+
+## Contributions
+
+[edit]
+
+SIL's principal contribution to linguistics has been the data that have been gathered and analyzed from over 1,000 minority and endangered languages,[13] many of which had not been previously studied academically. SIL endeavors to share both its data and the results of its analysis to contribute to the overall knowledge of language. This has resulted in publications on languages such as Hixkaryana and Pirahã, which have challenged the universality of some linguistic theories. SIL's work has resulted in over 20,000 technical publications, all of which are listed in the SIL Bibliography.[14] Most of these are a reflection of linguistic fieldwork.[15]
+
+SIL's focus has not been on the development of new linguistic theories, but tagmemics, though no longer promoted by SIL, was developed by Kenneth Pike, who also coined the words emic and etic, more widely used today in anthropology.[16]
+
+Another focus of SIL is literacy work, particularly in indigenous languages. SIL assists local, regional, and national agencies that are developing formal and informal education in vernacular languages. These cooperative efforts enable new advances in the complex field of educational development in multilingual and multicultural societies.[17]
+
+SIL provides instructors and instructional materials for linguistics programs at several major institutions of higher learning around the world. In the United States, these include Dallas International University, Biola University, Moody Bible Institute, and Dallas Theological Seminary. Other universities with SIL programs include Trinity Western University in Canada, Charles Darwin University in Australia, and Universidad Ricardo Palma in Lima, Peru.
+
+The organization has recently established a new Language and Culture Documentation Services Unit that aims to preserve and revitalize languages threatened by extinction. The creation of this department reflects a growing interest in documenting endangered languages and incorporates a multidisciplinary approach to anthropology and linguistics.[18]
+
+## Affiliations
+
+[edit]
+
+SIL has Consultative Status with UNESCO as an NGO and has Special Consultative Status with the United Nations Economic and Social Council (ECOSOC) as an advocate for ethnolinguistic communities.[19]
+
+The organization is a member of the Forum of Bible Agencies International and Micah Network, and is a founding member of Maaya, the World Network for Linguistic Diversity.[20]
+
+## Methodological contributions
+
+[edit]
+
+### Ethnologue and ISO 639-3 codes
+
+[edit]
+
+Main article: Ethnologue
+
+_Ethnologue: A Guide to the World's Languages_ has been published by SIL since 1951.[21][22]
+
+From the 13th edition (1997) onwards, the entire contents of the published book were also shared online. From the 17th edition onwards (2013) the publication shifted to a web-centric paradigm, meaning that the website is now the primary means by which the database is accessed. Among other advantages, this greatly facilitates user contributions. A new edition is now published every February. The 29th edition was released in February 2026 and lists 7,170 languages.
+
+Starting with the 16th edition (2009), _Ethnologue_ uses the ISO 639-3 standard, which assigns 3-letter codes to languages; these were derived in part from the 3-letter codes that were used in the _Ethnologue_ 's 15th edition. SIL is the registration authority for the ISO 639-3 standard.
+
+With the publication of the 17th edition (2016), Ethnologue launched a subscription service, claiming that the paywall would only affect 5% of users.[23] Users who contribute over 100 accepted changes are rewarded with lifetime free access.
+
+A comprehensive review of the 16th, 17th and 18th editions acknowledged that "[Ethnologue] is at present still better than any other non-derivative work of the same scope" except that "[it] fails to disclose the sources for the information presented.[24]
+
+### Software
+
+[edit]
+
+SIL has developed widely used software for linguistic research.[25]
+
+  * Adapt It is a tool for translating text from one language into a related language after performing limited linguistic analysis.[26]
+  * In the field of lexicon collection, ShoeBox, the newer ToolBox (Field Linguist's Toolbox),[27] and Lexique Pro[3][28] have largely been replaced by FieldWorks Language Explorer (FLEx Windows and Linux)[2][29][30][31] for linguists and WeSay (also Windows and Linux)[32][33][34] for non-professionals. SIL also provides a "Webonary" website for publishing dictionaries.[35]
+  * Graphite is a smart-font technology and rendering system.[36][37][38]
+  * Keyman is a keyboard software solution for typing over 2000 of the world's languages and can be used to make custom keyboards.[39][40][41]
+
+
+
+### Fonts
+
+[edit]
+
+SIL has developed several widely used font sets that it makes available as free software under the SIL Open Font License (OFL).[42] The names of SIL fonts reflect the Biblical mission of the organization _charis_ (Greek for "grace"), _doulos_ (Greek for "servant") and _gentium_ (Latin for "of the nations"). These fonts have become standard resources for linguists working on the documentation of the world's languages.[43] Most of them are designed only for specific writing systems, such as Ethiopic, Devanagari, New Tai Lue, Hebrew, Arabic, Khmer, Yi, Myanmar, Coptic, and Tai Viet, or some more technical notation, such as cipher musical notation or IPA. Fonts that support Latin include:
+
+  * Gentium: "a typeface family designed to enable the diverse ethnic groups around the world who use the Latin, Cyrillic and Greek scripts to produce readable, high-quality publications. It supports a wide range of Latin- and Cyrillic-based alphabets."[44]
+  * Doulos SIL: "a Unicode serif font similar in design to Times/Times New Roman. It contains a comprehensive inventory of glyphs needed for almost any Roman- or Cyrillic-based writing system, whether used for phonetic or orthographic needs. In addition, there is provision for other characters and symbols useful to linguists. It contains near-complete coverage of all the characters defined in Unicode 7.0 for Latin and Cyrillic."[45][46][47]
+  * Charis SIL: "a Unicode-based font family that supports the wide range of languages that use the Latin and Cyrillic scripts. It is specially designed to make long texts pleasant and easy to read, even in less than ideal reproduction and display environments."[48][49][50]
+  * Andika: "a sans serif Unicode font designed especially for literacy use and the needs of beginning readers. The focus is on clear letterforms that will not be easily confused with one another. It supports near-complete coverage for Latin and Cyrillic."[51]
+
+
+
+## Recognitions
+
+[edit]
+
+The 1947 Summer Meeting of the Linguistic Society of America passed a resolution that the work of SIL "should be strongly commended by our Society and welcomed as one of the most promising developments in applied linguistics in this country."[52]
+
+SIL holds formal consultative status with UNESCO and the United Nations and has been publicly recognized by UNESCO for their work in many parts of Asia.[53] SIL also holds non-governmental organization status in many countries.[_citation needed_]
+
+SIL's work has received appreciation and recognition in several international settings. In 1973, SIL was awarded the Ramon Magsaysay Award for International Understanding. This foundation honors outstanding individuals and organizations working in Asia who manifest greatness of spirit in service to the peoples of Asia.[54] UNESCO Literacy Prizes have been awarded to SIL's work in a number of countries: Australia (1969), Cameroon (1986), Papua New Guinea (1979), Philippines (1991).[55]
+
+## Criticism
+
+[edit]
+
+In 1979, SIL's agreement was officially terminated by the Mexican government after critiques from anthropologists regarding the combination of education and missionary activities in indigenous communities, though SIL continued to be active in that country.[56] At a conference of the Inter-American Indian Institute in Mérida, Yucatán, in November 1980, delegates denounced the Summer Institute of Linguistics, charging that it was using a scientific name to conceal its Protestant agenda and an alleged capitalist view that was alien to indigenous traditions.[57]
+
+SIL was also expelled from Ecuador, Brazil, Mexico, and Panama, and restricted in Colombia and Peru.[58] It currently operates in Brazil, Mexico, and Peru.
+
+Some linguists and anthropologists have criticized SIL's focus on language description, language development, Bible translation, and missionary activities as an effort to change indigenous cultures, which exacerbates the problems that cause language endangerment and language death.[59][60][61] Linguists have argued that the missionary focus of SIL makes relations with academic linguists and their reliance on SIL software and knowledge infrastructure problematic in that respective goals, while often overlapping, also sometimes diverge considerably.[62][43]
+
+SIL does not consider efforts to change cultural patterns a form of cultural destruction and points out that all their work is based on the voluntary participation of indigenous peoples. In the SIL view, ethnocide is not a valid concept and it would lead to pessimism to characterize culture change resulting from the inevitable progress of civilization as ethnocide.[63][62] SIL sees itself as actively protecting endangered languages by promoting them within the speech community and providing mother-tongue literacy training.[64][62] Additionally, their expanded interest in preserving threatened languages has resulted in the creation of a Language and Culture Documentation Services Unit.[18]
+
+### Accusations of ethnocide against the Waorani
+
+[edit]
+
+SIL has been accused of ethnocide against the Waorani people in Ecuador and of colluding with oil companies to dispossess the Waorani people of their territory for oil exploration and exploitation. "The violent process of forced displacement, acculturation, ethnocide, and the spread of diseases, imposed by SIL under the shadow of oil interests, is possibly one of the most profound and dramatic changes that the Waorani people have experienced in their history."[65]
+
+SIL missionaries first arrived in Ecuador in 1952 with the objective of evangelizing the Waorani indigenous people of the Ecuadorian Amazon, who had remained in voluntary isolation until then.[66] In 1955, they launched Operation Auca to force contact with the Waorani, with the support of oil companies willing to expand exploration,[67] most notably Royal Dutch Shell and Texaco. On January 6, 1956, a group of Waorani killed five US missionaries of Operation Auca in Playa Palma within Waorani territory, where they had landed and established a temporary base. In 1957, Rachel Saint, whose brother (Nate Saint) was killed in the January 1956 attack, embarked on a tour of the United States together with Dayuma, one of the first contacted Waorani persons, appearing with Billy Graham at Madison Square Garden and on Ralph Edwards' television show _This Is Your Life_ , thus turning the conversion of the Waoranis into a cause célèbre in the United States, increasing donations and support for evangelism efforts in Ecuador.[68]
+
+Subsequently, presence and activity of SIL grew in Ecuador and, in 1968, SIL signed a formal agreement with the Ecuadorian Government to "pacify the savages" and establishing a 1,600 km2 (620 sq mi) "protectorate" in Limoncocha and Tiweno, covering the western part of Waorani territory.[69] It aimed at concentrating and evangelizing the Waorani population, which "triggered profound changes: forced displacement, loss of territory, and a significant decline in their population due to disease."[69] By 1972, most Waorani had been concentrated in Tiweno to be converted, with the groups from the lower Cononaco river, who lived near the Yasuní and Nashiño rivers (nampaweiris, waneiris, baiwairis, kempereiris) remaining.[70]
+
+The Waorani population before the 1950s contact was estimated at at least 600 persons, but contact with the SIL missionaries, oil workers, loggers and other indigenous peoples introduced diseases like influenza, tuberculosis, malaria, and polio, which were deadly for the until then isolated Waorani.[70] Waorani accounts indicate that those remaining in their territory believed it was the SIL missionaries who "poisoned the chicha" and that "God is bad because he let [them] die".[70] In 1969, "a deadly polio epidemic hit the missionary compound [...] immediately following the arrival of the third Waorani group, killing 16 and permanently handicapping many more; several authors argue that SIL was directly responsible for this outbreak due to inadequate vaccinations and sanitation while at the same time concentrating a large population in such a small area."[71] Records indicate that approximately 525 Waoranis were concentrated in the SIL "protectorate", over 80% of their pre-contact population, "confined to a small area, living sedentary, missionary dependent lives."[71][72]
+
+Resistance to evangelism by SIL missionaries before 1968 and then to concentration in the "protectorate" was constant, with violent conflict erupting between different groups of the Waorani, attacks against oil workers and against persons of other indigenous peoples living in the area.[73] In 1968, the Waorani leader Tagae and other families separated refused to be displaced to the missionary settlement, and have since lived in voluntary isolation. Today, they are referred to as the Tagaeri, an indigenous group living in voluntary isolation. In 1972 "Waorani leaders like Wiñame and Dabo rebelled and founded new settlements in places like Dayuno."[69]
+
+Facing a decrease in population in the "protectorate" due to death of flight, in 1976, the SIL missionaries called the missionary anthropologist James Yost to "explain the reasons for the failed reduction. Yost recommended dispersing the groups (some clans had already become enemies and left the reserve). He also suggested SIL's withdrawal from Tiweno 'so that the Waorani can decide their own destiny'",[70] admitting in 1978 that "if the Waorani were to solve their own problems and remain independent of SIL, they would need to face their problems alone."[74] SIL would then progressively reduce its presence in the "protectorate".
+
+However, the Ecuadorian Government had declared the Waorani territory as vacant and started leasing it to oil companies,[75] in particular Texaco, and handed property right to "colonizers"[72] under the 1977 Law on Colonization of the Amazon Region, causing further conflicts. Faced with dispossession, many Waorani men turned to working for the oil companies or leaving their territory entirely. "By the end of 1979, James Yost counted more than seventy men [in the "protectorate"] (sixty percent of the total) who had worked for oil companies at least once, compared with thirty-three a year earlier and fewer than ten before 1977. Thirteen single girls were working as domestic servants in cities."[76]
+
+By the 1980s, SIL activities in Ecuador, not only in the Amazon, were a matter of national concern, with indigenous leaders calling for their expulsion from the country. In May 1981, Blanca Chancoso, leader of the Confederación de Pueblos de la Nacionalidad Kichwa del Ecuador (Ecuarunari) stated that "for a long time we have been denouncing these facts and the damage [SIL] have caused to our indigenous communities throughout the country",[77] and demanded they be expelled from Ecuador. The left-wing president of Ecuador of the time Jaime Roldós Aguilera expelled SIL by Decree 1159 of May 22, 1981,[78] among mounting allegations of espionage in favour of oil companies[70] and of SIL's collaboration with the CIA in Latin America.[79][80] Reacting to the expulsion, in November 1981, local activists stated to the International Work Group for Indigenous Affairs (IWGIA) that "from its inception in 1952, the Institute's activities have been linked to those of oil companies, which used SIL's policies to confine the indigenous peoples of the Amazon to a tenth of their original territory. Its educational work has had a profound impact on the way of life of the contacted groups, resulting in the disintegration of the indigenous worldview and a process of forced assimilation into mainstream society, which has led to the impoverishment of a large number of indigenous people. Recently, SIL has attempted to expand its reach to other groups living on the coast and in the highlands."[78]
+
+In 1986, SIL unsuccessfully tried to renegotiate its entry into the country. Nevertheless, some SIL missionaries returned to Ecuador and their influence continued, specially that of Rachel Saint, who is said to have controlled access to Tiweno, allegedly barring anybody who was not a member of SIL, up until her death in 1994.[70]
+
+SIL has also been accused of biopiracy of Waorani blood in collusion with the Ecuadorian Government and the oil company Maxus.[81] "In 2012, the Waorani nationality, known as Nacionalidad Waorani del Ecuador (NAWE), brought to the attention the use of genetic samples to the government, to which the natives state that the samples were taken from the community without their consent."[82] Reportedly, the collection of the samples took place mostly between 1990 and 1991. In 2014, René Ramírez, the head of the Ecuadorian Ministry of Higher Education, Science and Technology stated that "it was demonstrated that the Coriell Institute has in its stores samples (from the Waorani) and that it sells genetic material from the Waorani people."[83] He further explained that "Harvard University was among the purchasers. Specifically, [a 2012 report] found that since 1994, seven cell cultures and 36 blood samples were distributed to eight different countries. However, scientific publications based on the samples have stated that the samples used for their own studies date back to the 1970s,[84] when SIL was in charge of the "protectorate" and was conducting the vaccination campaigns. Allegedly, it was "during vaccinations initiated by the SIL in 1979 by Jonathan E. Kaplan, James W. Larrick, and James Yost, that the first blood samples were taken from Waorani people".[81][85] The presence of SIL translators during the collection of Waorani blood has been ratified by the alleged Waorani victims themselves.[82]
+
+## Regional offices
+
+[edit]
+
+Besides the headquarters in Dallas, SIL has offices and locally incorporated affiliated organizations in the following countries:[86]
+
+### Africa
+
+[edit]
+
+  * Cameroon: Yaoundé (central office), Bamenda (regional office), Maroua (regional bureau for the north of the country)
+  * Chad: N'Djaména
+  * Ethiopia: Addis Ababa
+  * Senegal: Dakar (central office), Ziguinchor (regional office), Thies (regional office)
+  * Togo: Lomé
+  * Kenya: Nairobi (Africa regional office)
+  * Nigeria: Jos
+
+
+
+### Americas
+
+[edit]
+
+  * Brazil: Cuiabá
+  * Colombia (1962–2002)
+  * Mexico: Instituto Lingüístico de Verano (Mexico), based in the Tlalpan borough of Mexico City
+  * Peru: Instituto Lingüístico de Verano (Peru), based in Lima
+  * Suriname (1968–2001)[87]
+
+
+
+### Asia
+
+[edit]
+
+  * Philippines: Quezon City
+
+
+
+### Oceania
+
+[edit]
+
+  * Australia: Kangaroo Ground (Melbourne suburbs)
+  * Papua New Guinea: Ukarumpa
+
+
+
+## See also
+
+[edit]
+
+  * ISO 639-3
+  * JAARS
+
+
+
+## References
+
+[edit]
+
+### Citations
+
+[edit]
+
+  1. 1 2 "Our Leaders". _SIL Global_. Retrieved September 5, 2026.
+  2. 1 2 "FieldWorks Language Explorer". _SIL Software_. December 9, 2014. Retrieved July 30, 2024.
+  3. 1 2 "Lexique Pro". _SIL Software_. October 2, 2014. Retrieved July 30, 2024.
+  4. 1 2 Kurian, George Thomas; Lamport, Mark A. (2016). _Encyclopedia of Christianity in the United States, Volume 5_. US: Rowman & Littlefield. p. 255.
+  5. ↑ Howard, Michael C. (2014). _Transnationalism and Society: An Introduction_. US: McFarland. p. 196\. ISBN 978-0-7864-8625-0.
+  6. ↑ Hartch, Todd (2006). _Missionaries of the State: The Summer Institute of Linguistics, State Formation, and Indigenous Mexico, 1935–1985_. Tuscaloosa, AL: University of Alabama Press. ISBN 978-0-8173-1515-3.
+  7. ↑ "THE NEW MISSIONARIES/Part 2" (PDF). _Philadelphia Bulletin_. May 4, 1981.
+  8. ↑ Bachrach, Judy (June 3, 1981). "Troubled Translators" (PDF). _The Washington Star_.
+  9. ↑ Chandler, Russell (July 25, 1981). "Bible Translators: The Word for the World". _The Washington Post_. ISSN 0190-8286. Archived from the original on August 27, 2017. Retrieved May 31, 2025.`{{cite news}}`: CS1 maint: bot: original URL status unknown (link)
+  10. ↑ "A new season for SIL Global". News. _SIL Global (sil.org)_ (Press release). Retrieved May 14, 2025.
+  11. 1 2 3 "About". _SIL Global (sil.org)_. Retrieved October 28, 2025.`{{cite web}}`: CS1 maint: deprecated archival service (link)
+  12. ↑ "Our Work – SIL Global". _global.sil.org_. Retrieved August 25, 2026.
+  13. ↑ _Endangered Language Groups_, SIL.
+  14. ↑ "Bibliography", _Language and Culture Archives_ , SIL.
+  15. ↑ "Fieldwork", _Linguistics_ , SIL.
+  16. ↑ Headland et al. 1990.
+  17. ↑ _About_, SIL International, archived from the original on November 24, 2005.
+  18. 1 2 _Language and Culture Documentation_, SIL, July 30, 2012.
+  19. ↑ SIL, International Relations, sil.org, USA, retrieved August 24, 2021
+  20. ↑ SIL, Partnerships, sil.org, USA, retrieved August 24, 2021
+  21. ↑ Keith Brown, Sarah Ogilvie, _Concise Encyclopedia of Languages of the World_ , Elsevier, Netherlands, 2010, p. 385
+  22. ↑ Stepp, John Richard, Hector Castaneda, and Sarah Cervone. "Mountains and biocultural diversity." Mountain Research and Development 25, no. 3 (2005): 223-227. "For the distribution of languages we used the Ethnologue database produced by the Summer Institute of Linguistics (SIL). Ethnologue is widely regarded as the most comprehensive data source of current languages spoken worldwide."
+  23. ↑ "Ethnologue launches subscription service". _All Things Linguistic_. Retrieved July 30, 2024.
+  24. ↑ Hammarström, Harald (2015). "Ethnologue 16/17/18th editions: A comprehensive review". _Language_. **91** (3): 723–737\. doi:10.1353/lan.2015.0038. hdl:11858/00-001M-0000-0014-C719-6. S2CID 119977100.
+  25. ↑ "Software". _SIL International_. April 22, 2016.
+  26. ↑ "Adapt It". SIL International.
+  27. ↑ "Field Linguist's Toolbox". _SIL Language Technology_. SIL International. May 10, 2017. Retrieved April 9, 2019.
+  28. ↑ Guérin, Valérie, and Sébastien Lacrampe. "Lexique Pro." Technology Review 1, no. 2 (2007): 2.
+  29. ↑ Baines, David. "FieldWorks Language Explorer (FLEx)." eLEX2009: 27.
+  30. ↑ Butler, L., & HEATHER, V. V. (2007). Fieldworks Language Explorer (FLEx). Language documentation & conservation, 1(1).
+  31. ↑ Ulinski, M., Balakrishnan, A., Bauer, D., Coyne, B., Hirschberg, J., & Rambow, O. (June 2014). Documenting endangered languages with the wordseye linguistics tool. In Proceedings of the 2014 Workshop on the Use of Computational Methods in the Study of Endangered Languages (pp. 6-14). "One of the most widely-used toolkits in the latter category is SIL FieldWorks (SIL FieldWorks, 2014), or specifically, FieldWorks Language Explorer (FLEx). FLEx includes tools for eliciting and recording lexical information, dictionary development, interlinearization of texts, analysis of discourse features, and morphological analysis. An important part of FLEx is its "linguistfriendly" morphological parser (Black and Simons, 2006), which uses an underlying model of morphology familiar to linguists, is fully integrated into lexicon development and interlinear text analysis, and produces a human-readable grammar sketch as well as a machine-interpretable parser. The morphological parser is constructed "stealthily" in the background, and can help a linguist by predicting glosses for interlinear texts."
+  32. ↑ "WeSay". _SIL Software_. October 2, 2014. Retrieved July 30, 2024.
+  33. ↑ tarmstrong (November 16, 2012). "WeSay on Linux". _WeSay.Palaso.org_. SIL International. Archived from the original on July 2, 2013.
+  34. ↑ "WeSay". SIL International. October 2, 2014.
+  35. ↑ "Webonary". _SIL International_. June 10, 2013.
+  36. ↑ "Graphite". SIL. June 2, 2015.
+  37. ↑ Black, H. Andrew, and Gary F. Simons. "The SIL Field-Works Language Explorer approach to morphological parsing." Computational Linguistics for Lessstudied Languages: Texas Linguistics Society 10 (2006).
+  38. ↑ Bird, S., & Simons, G. (2003). Seven dimensions of portability for language documentation and description. Language, 557-582.
+  39. ↑ "Home". _keyman.com_.
+  40. ↑ "Keyman Developer | Build custom keyboard layouts for desktop, web, phone and tablets".
+  41. ↑ "Keyman 14 Promo". April 16, 2021.
+  42. ↑ Cahill, Michael, and Elke Karan. "Factors in designing effective orthographies for unwritten languages." SIL International (2008).
+  43. 1 2 Dobrin & Good 2009.
+  44. ↑ "Gentium". _SIL: Software & Fonts_. SIL International. October 2, 2014. Retrieved August 20, 2016.
+  45. ↑ "Doulos SIL". _SIL: Software & Fonts_. SIL International. October 2, 2014. Retrieved August 20, 2016.
+  46. ↑ Cahill, M. (January 2011). Non-linguistic factors in orthographies. In Symposium on Developing Orthographies for Unwritten Languages‐Annual Meeting, Linguistic Society of America.
+  47. ↑ Priest, L. A. (September 2004). Transitioning a Vastly Multilingual Corporation to Unicode. In 26th Internationalization and Unicode Conference, San Jose, CA.
+  48. ↑ "Charis SIL". _SIL: Software & Fonts_. SIL International. October 2, 2014. Retrieved August 20, 2016.
+  49. ↑ Wells, John (June 4, 2012). "IPA transcription in Unicode". University College London. Retrieved July 12, 2015.
+  50. ↑ Wells, John. "An update on phonetic symbols in Unicode." In International Congress of Phonetic Sciences, Saarbrüken. Retrieved January, vol. 1, p. 2011. 2007.
+  51. ↑ "Andika". _SIL: Software & Fonts_. SIL International. October 2, 2014. Retrieved October 29, 2016.
+  52. ↑ "Proceedings", _Language_ , **24** (3), The Linguistic Society of America: 4, 1947, JSTOR 522186.
+  53. ↑ _Appeal: SIL (Summer Institute of Linguistics) International_, Unesco BKK.
+  54. ↑ "Summer Institute of Linguistics", _Ramon Magsaysay Awardee for International Understanding_ , 1973, archived from the original on May 10, 2011, retrieved February 10, 2006.
+  55. ↑ _Literacy Prize winners 1967–2001_ (PDF), UNESCO, April 11, 2013.
+  56. ↑ Clarke 2001, p. 182.
+  57. ↑ Bonner 1999, p. 20.
+  58. ↑ Cleary & Steigenga 2004, p. 36.
+  59. ↑ Epps, Patience L. (2005). "Language endangerment in Amazonia: the role of missionaries". In Wohlgemuth, Jan; Dirksmeyer, Tyko (eds.). _Bedrohte Vielfalt: Aspekte des Sprach(en)tods_ [_Threatened Diversity: Aspects of Language Death_] (PDF) (The book is primarily a German-language anthology, however, the referenced article is in English.). Berlin: Weißensee. pp. 326–7\. ISBN 3-89998-041-7. Archived from the original (PDF) on June 1, 2024. "Also, the literacy efforts of most SIL missionaries are directed toward the reading and translation of the Bible, and it is doubtful whether literacy materials based on culturally unfamiliar Biblical texts are as effective as those grounded in culturally familiar narratives and the immediate needs of the people. Moreover, language preservation is only an incidental goal – at most – of the missionary endeavor; even the World Council of Churches, at their 1971 meeting in Barbados, agreed that the translation and study of indigenous languages carried out by SIL was not being done to give the Indians a tool to communicate to protect their way of life, but rather "to destroy the culture's core belief system…and replace it with an American version of Fundamentalist Protestantism" (cf. HEMMING 2003: 267)."
+  60. ↑ Hvalkof & Aaby 1981.
+  61. ↑ Errington 2008, pp. 153–162.
+  62. 1 2 3 Dobrin 2009.
+  63. ↑ Olson 2009.
+  64. ↑ Cahill, Michael (2004), _From endangered to less endangered: Case studies from Brazil and Papua New Guinea_, Electronic Working Papers, SIL, 2004-004, retrieved August 5, 2013.
+  65. ↑ "TIGRE, AGUILA Y WAORANI, UNA SOLA SELVA, UNA SOLA LUCHA DEUDA ECOLÓGICA DE LAS TRANSNACIONALES PETROLERAS CON EL PUEBLO WAORANI Y EL PARQUE NACIONAL YASUNÍ Alexandra Almeida José Proaño Acción Ecológica, 2008" (PDF).
+  66. ↑ Long, Kathryn T. (2019). _God in the Rainforest: Missionaries and the Waorani in Amazonian Ecuador_. New York: Oxford University Press (published February 21, 2019). doi:10.1093/oso/9780190608989.001.0001. ISBN 978-0-19-060901-6.
+  67. ↑ "David Stoll | ¿Pescadores de hombres o fundadores de Imperio?". _www.nodulo.org_. Retrieved February 17, 2026.
+  68. ↑ "Operación Auca", _Wikipedia, la enciclopedia libre_ (in Spanish), January 6, 2026, retrieved February 17, 2026
+  69. 1 2 3 "Nacionalidad Waorani – Reserva Biósfera Yasuní". Retrieved February 17, 2026.
+  70. 1 2 3 4 5 6 Andrade, Susana M. (December 15, 2025). "Evangelización waorani y violencia cultural en el Ecuador: 1956-2024". _Anthropologica_ (in Spanish). **43** (55): 106–130\. doi:10.18800/anthropologica.202502.004. hdl:20.500.14657/205220. ISSN 2224-6428.
+  71. 1 2 "Waorani People". _www.shiripunoresearch.org_. Retrieved February 17, 2026.
+  72. 1 2 "CORTE INTERAMERICANA DE DERECHOS HUMANOS CASO PUEBLOS INDÍGENAS TAGAERI Y TAROMENANE VS. ECUADOR SENTENCIA DE 4 DE SEPTIEMBRE DE 2024 (Excepción Preliminar, Fondo, Reparaciones y Costas)" (PDF).
+  73. ↑ _Cabodevilla M. Á., . (1995). Los Huaorani en la historia de los pueblos del Oriente. Navarra, España: IDAZLUMA_.
+  74. ↑ Yost, Jaime A. (April 1978). _El desarrollo comunitario y la supervivencia etnica: el caso de los huaorani, amazonia ecuatoriana_ (PDF). El desarollo comunitario para grupos de idomas minoritarios. Archived from the original (PDF) on November 16, 2024. Retrieved February 17, 2026 – via SIL.
+  75. ↑ "La presión petrolera intensifica la amenaza a la vida de los waoranis ecuatorianos". _openDemocracy_. Archived from the original on June 10, 2024. Retrieved February 17, 2026.
+  76. ↑ "David Stoll | Aucas auténticos y malogrados". _www.nodulo.org_. Retrieved February 17, 2026.
+  77. ↑ "LA EXPULSIÓN DEL INSTITUTO LINGÜÍSTICO DE VERANO. ENTREVISTA A BLANCA CHANCOSO" (PDF).
+  78. 1 2 "BOLETIN Del Grupo Internacional de Trabajo Sobre Asuntos Indígenas (IWGIA), Volumen 1, No. 3-4 Noviembre 1981".
+  79. ↑ ""Another Cross to Bear: CIA Involvement", Paula Herbut, The Philadelphia Bulletin (Part 2 of "The New Missionaries")".
+  80. ↑ Hvalkof, Soren; Stipe, Claude E. (1984). "On the Summer Institute of Linguistics and Its Critics". _Current Anthropology_. **25** (1): 124–126\. doi:10.1086/203096. ISSN 0011-3204. JSTOR 2742955.
+  81. 1 2 "God, oil, and theft: a tale of biopiracy in Ecuador". _www.twn.my_. Retrieved February 17, 2026.
+  82. 1 2 Ortiz-Prado, Esteban; Simbaña-Rivera, Katherine; Gómez-Barreno, Lenin; Tamariz, Leonardo; Lister, Alex; Baca, Juan Carlos; Norris, Alegria; Adana-Diaz, Lila (October 17, 2020). "Potential research ethics violations against an indigenous tribe in Ecuador: a mixed methods approach". _BMC Medical Ethics_. **21** (1): 100. doi:10.1186/s12910-020-00542-x. ISSN 1472-6939. PMC 7568418. PMID 33069227.
+  83. ↑ Ocean, Max (April 10, 2025) [June 19, 2014]. "US Scientists, Oil Giant Stole Indigenous Blood". _Intercontinental Cry_.
+  84. ↑ Cardoso, S.; Alfonso-Sánchez, M. A.; Valverde, L.; Sánchez, D.; Zarrabeitia, M. T.; Odriozola, A.; Martínez-Jarreta, B.; De Pancorbo, M. M. (January 2012). "Genetic uniqueness of the Waorani tribe from the Ecuadorian Amazon". _Heredity_. **108** (6): 609–615\. doi:10.1038/hdy.2011.131. PMC 3356810. PMID 22234246.
+  85. ↑ Larrick, James W.; Yost, James; Gourley, C.; Buckley, C. E.; Plato, C. C.; Pandey, J. P.; Burck, K. B.; Kaplan, Jon (April 1985). "Markers of genetic variation among the Waorani Indians of the Ecuadorian Amazon headwaters". _American Journal of Physical Anthropology_. **66** (4): 445–453\. doi:10.1002/ajpa.1330660412. ISSN 0002-9483.
+  86. ↑ _Worldwide_, SIL International.
+  87. ↑ "Suriname", _Americas_, SIL.
+
+
+
+### Sources
+
+[edit]
+
+  * Bonner, Arthur (1999), _We Will Not Be Stopped: Evangelical Persecution, Catholicism, and Zapatismo in Chiapas, Mexico_, Universal Publishers, ISBN 1-58112-864-9.
+  * Brend, Ruth Margaret; Pike, Kenneth Lee, eds. (1977), _The Summer Institute of Linguistics: Its Works and Contributions_, Walter de Gruyter, ISBN 90-279-3355-3.
+  * Clarke, Colin (2001), _Class, Ethnicity, and Community in Southern Mexico: Oaxaca's Peasantries_ (PDF), Oxford University Press, ISBN 0-19-823387-6, archived from the original (PDF) on October 12, 2006.
+  * Cleary, Edward L; Steigenga, Timothy J (2004), _Resurgent Voice in Latin America: Indigenous Peoples, Political Mobilization, and Religious Change_, Rutgers University Press, ISBN 0-8135-3461-5.
+  * Cobbs, Elizabeth A. (November 1, 1995), "Thy Will Be Done: The Conquest of the Amazon: Nelson Rockefeller and Evangelism in the Age of Oil – book reviews", _The Christian Century_.
+  * Colby, Gerard; Dennett, Charlotte (1995), _Thy Will Be Done: The Conquest of the Amazon: Nelson Rockefeller and Evangelism in the Age of Oil_ , Harper Collins, ISBN 0-06-016764-5. This book contains allegations of Rockefeller's use of American missionaries, and in particular, the Summer Institute of Linguistics, who cooperated in conducting surveys, transporting CIA agents and indirectly assisting in the genocide of tribes in the Amazon basin.
+  * Dobrin, Lise M. (2009), "SIL International and the disciplinary culture of linguistics: Introduction", _Language_ , **85** (3): 618–619, doi:10.1353/lan.0.0132, S2CID 144965158.
+  * Dobrin, L. M.; Good, J. (2009). "Practical language development: Whose mission?". _Language_. **85** (3): 619–629\. doi:10.1353/lan.0.0152. S2CID 144749106..
+  * Erard, Michael (July 19, 2005), "How Linguists and Missionaries Share a Bible of 6,912 Languages", _TheNew York Times_.
+  * Errington, Joseph (2008), _Linguistics in a Colonial World: A Story of Language, Meaning, and Power_ , Wiley-Blackwell, ISBN 978-1-4051-0569-9
+  * Gow, Peter (2001), _An Amazonian Myth and Its History_, Oxford University Press, ISBN 978-0-19-924196-5.
+  * Hartch, Todd (2006). _Missionaries of the State: The Summer Institute of Linguistics, State Formation, and Indigenous Mexico, 1935–1985_. Tuscaloosa, AL: University of Alabama Press. ISBN 978-0-8173-1515-3.
+  * Hart, Laurie K. (1973), "The Story of the Wycliffe Translators: Pacifying the Last Frontiers", _NACLA's Latin America & Empire Report_, vol. VII. This article describes SIL's collaboration with US oil corporations and military governments in South America in the 1950s and 1960s.
+  * Headland, Thomas; Pike, Kenneth; Harris, Marvin, eds. (1990), _Emics and etics: The insider/outsider debate_ , Thousand Oaks, CA: Sage Publications.
+  * Hvalkof, Søren; Aaby, Peter, eds. (1981), _Is God an American? An Anthropological Perspective on the Missionary Work of the Summer Institute of Linguistics_ , Copenhagen/London: A Survival International Document, International Workgroup for Indigenous Affairs, ISBN 87-980717-2-6.
+  * Lewis, Norman (2013), _The Missionaries: God Against the Indians_ , Open Road Media, ISBN 978-1-4804-3333-5.
+  * Castro Mantilla, Maria Dolores (1996), _El Trabajo del ILV en Bolivia, 1954–1980, Informe Final_ [_The Work of SIL in Bolivia, 1954–1980, Final Report_], LaPaz: Undersecretary of Ethnic Affairs, National Secretary of Gender and Generational Ethnic Affairs, Ministry of Human Development. This report in Spanish contains a detailed chart of SIL activities in Latin American countries.
+  * Olson, Kenneth S. (2009), "SIL International: An emic view", _Language_ , **85** (3): 646–658, doi:10.1353/lan.0.0156, S2CID 144082312.
+  * Orlandi, Eni Pucinelli (December 1999), "Sprache, Glaube, Macht: "Ethik und Sprachenpolitik" [Language, Faith, Power: Ethics and Language Policy], _Lili - Zeitschrift für Literaturwissenschaft und Linguistik_ (in German), **116** (4), J.B. Metzler Verlag: 116–141, doi:10.1007/BF03379140, S2CID 140368171. The author presents a discourse analysis of the practices of SIL.
+  * Perkins, John (2006), _Confessions of an Economic Hit Man_, Plume Publishers, ISBN 0-452-28708-1. Contains references to alleged SIL missionary activities and displacement of indigenous peoples in South America.
+  * Pettifer, Richard; Bradley, Julian (1991), _Missionaries_ , BBC Publications, ISBN 0-563-20702-7.
+  * Stoll, David (1982), _Fishers of Men or Founders of Empire? The Wycliffe Bible Translators in Latin America. A US Evangelical Mission in the Third World_ , London: Zed Press, ISBN 0-86232-111-5. Criticism of alleged SIL missionary activities.
+  * Willibrand, W. A. (1953), _Oklahoma Indians and the Summer Institute of Linguistics_.
+  * Yashar, Deborah J (2005), _Contesting Citizenship In Latin America. The Rise of Indigenous Movements and the Postliberal Challenge_ , Cambridge University Press, ISBN 0-521-82746-9.
+
+
+
+## Further reading
+
+[edit]
+
+  * Hefley, James C.; Hefley, Marti (1974). _Uncle Cam: The Story of William Cameron Townsend, Founder of the Wycliffe Bible Translators and the Summer Institute of Linguistics_. Word Books.
+  * Wallis, Ethel Emily; Bennett, Mary Angela (1964). _Two Thousand Tongues to Go: The Story of the Wycliffe Bible Translators_. Harper & Row.
+
+
+
+## External links
+
+[edit]
+
+  * Official website
+
+
+
+Authority control databases  
+---  
+International| 
+
+  * ISNI
+    * 2
+    * 3
+  * VIAF
+  * GND
+
+  
+National| 
+
+  * United States
+  * France
+  * BnF data
+  * Japan
+  * Czech Republic
+    * 2
+  * Norway
+  * Israel
+
+  
+Academics| 
+
+  * CiNii
+
+  
+People| 
+
+  * Trove
+
+  
+Other| 
+
+  * Yale LUX
+
+  
+  
+Retrieved from "https://en.wikipedia.org/w/index.php?title=SIL_Global&oldid=1373349297"
+
+Categories: 
+
+  * Christian missions
+  * Evangelical parachurch organizations
+  * Christian organizations established in 1934
+  * Christianity-related controversies
+  * Christian organizations based in the United States
+  * Linguistic research institutes
+  * Missionary linguists
+  * Organizations based in Dallas
+  * Standards organizations in the United States
+
+
+
+Hidden categories: 
+
+  * Articles with short description
+  * Short description is different from Wikidata
+  * Wikipedia references cleanup from February 2026
+  * All articles needing references cleanup
+  * Articles covered by WikiProject Wikify from February 2026
+  * All articles covered by WikiProject Wikify
+  * Articles lacking in-text citations from February 2026
+  * All articles lacking in-text citations
+  * Articles with multiple maintenance issues
+  * Use mdy dates from February 2026
+  * Pages using infobox organization with deprecated parameters
+  * Articles containing Spanish-language text
+  * CS1 maint: bot: original URL status unknown
+  * Articles containing potentially dated statements from 2023
+  * All articles containing potentially dated statements
+  * CS1 maint: deprecated archival service
+  * Articles containing Latin-language text
+  * All articles with unsourced statements
+  * Articles with unsourced statements from December 2015
+  * CS1 Spanish-language sources (es)
+  * CS1 German-language sources (de)
+  * Official website different in Wikidata and Wikipedia
+
+
+
+Search
+
+Search
+
+SIL Global
+
+44 languages Add topic

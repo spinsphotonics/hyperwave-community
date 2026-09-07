@@ -1,0 +1,19 @@
+DOCUMENT_ID: wikipedia-wts
+TITLE (as printed): "Westminster Theological Seminary" (Wikipedia article)
+DATE: article accessed 7 September 2026 (undated authorship; Wikipedia articles are continuously edited)
+LANGUAGE: en
+SOURCE URL/SHELFMARK: https://en.wikipedia.org/wiki/Westminster_Theological_Seminary
+EDITION: Wikipedia, the free encyclopedia. Secondary/tertiary source; used only for background facts and to cross-check dates, and for one quotation of Machen's address that it reproduces (matching the version in machen-opctoday).
+TRANSCRIPTION METHOD: copied (HTML fetched via curl, tags stripped, HTML entities decoded; no OCR)
+TOTAL PAGES: not paginated
+WORD COUNT: 465
+[[p. body]]
+Westminster Theological Seminary ( WTS ) is a Protestant theological seminary in the Reformed theological tradition in Glenside, Pennsylvania . It was founded by members of the faculty of Princeton Theological Seminary in 1929 after Princeton chose to take a liberal direction during the Fundamentalist–Modernist controversy .
+History [ edit ]
+J. Gresham Machen Memorial Hall
+Westminster Theological Seminary was formed in 1929, largely under the leadership and funding of J. Gresham Machen . [ 3 ] Though independent, it has a close relationship with the Orthodox Presbyterian Church , which Machen helped found in 1936. The seminary was founded by members of the faculty of Princeton Theological Seminary , following a controversy over the liberal direction that Princeton was beginning to take. [ 4 ] Westminster Theological Seminary considers itself to be the faithful continuation of Princeton's historic theological tradition. Many of the founders of Westminster, including Machen, John Murray , Oswald Allis , Robert Dick Wilson , and Cornelius Van Til , had been professors at Princeton prior to the controversy. [ 4 ] The first president of the seminary was Edmund Clowney , who served from 1966 until 1984. He was followed by George C. Fuller and Samuel T. Logan . The current president is Peter Lillback , who also serves as a professor of historical theology. [ 5 ]
+Campus in 2013
+In 1982, the California branch of Westminster became an independent institution, the Westminster Seminary California , and in 2009 the Dallas branch was established as Redeemer Theological Seminary and since 2017 has been Reformed Theological Seminary 's Dallas campus.
+In 2011, Westminster signed a Memorandum of Understanding with International Reformed Evangelical Seminary in Jakarta, Indonesia . The two schools have been publishing the journals: International Journal of Reformed Theology and Life and Unio Cum Christo . [ 6 ] Westminster also created an endowment for the Stephen Tong Chair of Reformed Theology the same year. [ 7 ]
+Theological position [ edit ]
+In Philadelphia on September 25, 1929, J. Gresham Machen declared the following in his inaugural address: "We believe, first, that the Christian religion, as set forth in the Confession of Faith of the Presbyterian Church, is true; we believe, second, that the Christian religion welcomes and is capable of scholarly defense; and we believe, third, that the Christian religion should be proclaimed without fear or favor, and in clear opposition to whatever opposes it, whether from within or without the church, as the only way of salvation for lost mankind. On that platform, brethren, we stand. Pray that we may be enabled by God’s grace to stand firm. Pray that the students who go forth from Westminster Theological Seminary may know Christ as their own Savior and may proclaim to others the gospel of his love."

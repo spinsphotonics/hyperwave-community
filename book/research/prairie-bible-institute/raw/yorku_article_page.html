@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Browser Verification</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <style>
+        #please-wait {
+            display: none;
+            font-family: sans-serif;
+            font-size: 1.2em;
+            color: #333;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="challenge-form" action="/challenge/validate.php" method="post">
+        <input type="hidden" name="redirect" value="/index.php/historicalpapers/article/view/39296">
+        <input type="hidden" name="qs" value="">
+
+        <!-- Invisible Turnstile -->
+        <div
+            class="cf-turnstile"
+            data-sitekey="0x4AAAAAAB1MaevFSDGga3l0"
+            data-callback="onCaptchaSuccess"
+            data-size="normal">
+        </div>
+    </form>
+
+    <div id="please-wait">
+      <p>Please wait ...</p>
+    </div>
+
+    <script>
+        function onCaptchaSuccess() {
+            document.getElementById('please-wait').textContent = "Verification successful, redirecting...";
+            document.getElementById('challenge-form').submit();
+        }
+
+        window.onload = function () {
+            const widget = document.querySelector('.cf-turnstile');
+            const message = document.getElementById('please-wait');
+
+            if (typeof turnstile !== 'undefined') {
+                message.style.display = 'block';
+                turnstile.execute(widget);
+            } else {
+                message.textContent = "Turnstile failed to load. Please refresh the page.";
+                message.style.display = 'block';
+            }
+        };
+    </script>
+
+</body>
+</html>
